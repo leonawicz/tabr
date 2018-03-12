@@ -9,8 +9,39 @@ authors:
   Matthew Leonawicz:
     href: http://leonawicz.github.io/
 
+reference:
+- title: Package
+  contents:
+  - tabr
+- title: Create tablature
+  contents:
+  - tab
+  - lilypond
+- title: Organizing music
+  contents:
+  - phrase
+  - p
+  - track
+  - trackbind
+  - score
+- title: Phrase helpers
+  contents:
+  - glue
+  - dup
+  - rest
+  - tie
+  - notate
+  - hp
+  - tuplet
+- title: Repeats
+  contents:
+  - volta
+  - pct
+- title: Chords
+  contents:
+  - chord_set
+
 navbar:
-  type: inverse
   right:
     - icon: fa-github fa-lg
       href: https://github.com/leonawicz/tabr
