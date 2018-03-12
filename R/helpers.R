@@ -17,16 +17,16 @@ tie <- function(x){
 
 #' Create rests
 #'
-#' Create multiple rests efficiently.
+#' Create multiple rests efficiently with a simple wrapper around \code{rep} using the \code{times} argument.
 #'
-#' @param x character, LilyPond rest syntax.
+#' @param x integer, duration.
 #' @param n integer, number of repetitions.
 #'
 #' @return a character string.
 #' @export
 #'
 #' @examples
-#' rest("r1 r8", c(1, 4))
+#' rest(c(1, 8), c(1, 4))
 rest <- function(x, n = 1){
   paste0(rep(paste0("r", x), times = n), collapse = " ")
 }
@@ -83,7 +83,6 @@ notate <- function(x, text, position = "top"){
 #' class(glue(x, "r1"))
 #' class(dup("r1", 2))
 #' class(glue("r1", "r4"))
-#' mash(6:1)
 NULL
 
 #' @export

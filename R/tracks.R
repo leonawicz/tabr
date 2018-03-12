@@ -17,14 +17,14 @@
 #' @examples
 #' chord_names <- c("e:m", "c", "d", "e:m", "d", "r", "s")
 #' chord_positions <- c("xx997x", "x5553x", "x7775x", "ooo22o", "232oxx", NA, NA)
-#' chords <- chord_set(chord_positions, chord_names)
+#' chord_set(chord_positions, chord_names)
 chord_set <- function(x, id){
   x <- x[!is.na(x)]
   id <- id[!id %in% c("r", "s")]
   f <- function(x) strsplit(gsub("\\(", " \\(", gsub("\\)", " ", x)), " ")[[1]] %>%
     purrr::map(~({
       if(substr(.x, 1, 1) == "(") substring(.x, 2) else strsplit(.x, "")[[1]]
-    })) %>% unlist() %>% paste0(";", collapse = "")
+    })) %>% unlist() %>% paste0(collapse = ";")
   x <- purrr::map_chr(x, f)
   names(x) <- id
   x

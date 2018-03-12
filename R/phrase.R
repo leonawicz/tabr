@@ -3,7 +3,7 @@
 #' Create a musical phrase from character strings that define notes, note metadata, and optionally explicit strings fretted. The latter can be used to ensure proper tablature layout.
 #' Notes separated in time are separated in the \code{notes} string by spaces. Sharps and flats are indicated by appending \code{#} and \code{_}, respectively, e.g. \code{f#} or \code{g_}.
 #'
-#' Specifying notes that are one or multiple octaves below or above the middle can be done by appending one or multiple \code{,} or \code{'} marks, respectively, e.g. \code{c,} or \code{c''}.
+#' Specifying notes that are one or multiple octaves below or above the middle can be done by appending one or multiple commas or single quote tick marks, respectively, e.g. \code{c,} or \code{c''}.
 #' But this is not necessary. Instead, you can use octave numbering. This may easier to read, generally more familiar, potentially requires less typing, can still be omitted completely
 #' for the middle octave (no need to type c3, d3, ...), and is automatically converted for you by \code{phrase} to the tick mark format interpreted by LilyPond.
 #' That said, using the raised and lowered tick mark approach can be suprisingly easier to read for chords, which have no spaces between notes, especially six-string chords,
@@ -11,7 +11,7 @@
 #'
 #' The function \code{p} is a convenient shorthand wrapper for \code{phrase}.
 #'
-#' Tied notes indicated by \code{~} are part of the \code{note} notation and not part of the \code{info} notation, e.g. \code{c'~}.
+#' Tied notes indicated by \code{~} are part of the \code{note} notation and not part of the \code{info} notation, e.g. \code{c''~}.
 #'
 #' Notes be comprise chords. These are bound tightly rather than space-delimited, as they are not separated in time.
 #' For example, a C chord could be given as \code{ceg} and in the case of tied notes would be \code{c~e~g~}.
@@ -30,6 +30,7 @@
 #' @param info character, metadata pertaining to the \code{notes }. See details.
 #' @param string character, optional string that specifies which guitar strings to play for each specific note.
 #' @param bar logical, insert a bar check at the end of the phrase.
+#' @param ... arguments passed to \code{phrase}.
 #'
 #' @return a phrase.
 #' @name phrase
@@ -104,7 +105,8 @@ print.phrase <- function(x) cat(x)
 #' e1 <- phrase("a", 1, 5)
 #' e2 <- phrase("b", 1, 5)
 #' volta(x) # one repeat or 2 plays
-#' volta(x, list(e1, e2)) # one repeat with alternate ending
+#' pct(x) # as above, simple percent repeat notation
+#' volta(x, 1, list(e1, e2)) # one repeat with alternate ending
 #' volta(x, 4, list(e1, e2)) # multiple repeats but with only one alternate ending
 volta <- function(phrase, n = 1, endings = NULL, silent = FALSE){
   if(n > 1 & is.null(endings) & !silent){
