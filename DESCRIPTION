@@ -6,9 +6,7 @@ Description: Creates guitar tablature from R code by providing functions for des
     software and generates files following the Lilypond markup syntax to be subsequently processed by Lilypond into sheet music pdf files.
     A standalone Lilypond file can be created or the package can make a system call to Lilypond directly to render the guitar tablature output.
     While Lilypond caters to sheet music in general, 'tabr' is focused on leveraging it specifically for creating quality guitar tablature.
-Authors@R: c(person("Matthew", "Leonawicz", email = "mfleonawicz@alaska.edu", role = c("aut", "cre")),
-    person("Scenarios Network for Alaska and Arctic Planning", role = c("cph", "fnd"))
-    )
+Authors@R: person("Matthew", "Leonawicz", email = "mfleonawicz@alaska.edu", role = c("aut", "cre"))
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
