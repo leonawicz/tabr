@@ -43,5 +43,4 @@ class(dup(y, 2))
 class(glue(x, "r1"))
 class(dup("r1", 2))
 class(glue("r1", "r4"))
-mash(6:1)
 }

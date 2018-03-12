@@ -7,7 +7,7 @@
 rest(x, n = 1)
 }
 \arguments{
-\item{x}{character, LilyPond rest syntax.}
+\item{x}{integer, duration.}
 
 \item{n}{integer, number of repetitions.}
 }
@@ -15,8 +15,8 @@ rest(x, n = 1)
 a character string.
 }
 \description{
-Create multiple rests efficiently.
+Create multiple rests efficiently with a simple wrapper around \code{rep} using the \code{times} argument.
 }
 \examples{
-rest("r1 r8", c(1, 4))
+rest(c(1, 8), c(1, 4))
 }

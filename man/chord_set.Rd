@@ -27,5 +27,5 @@ The chord set list output by \code{chord_set} is only used for top center placem
 \examples{
 chord_names <- c("e:m", "c", "d", "e:m", "d", "r", "s")
 chord_positions <- c("xx997x", "x5553x", "x7775x", "ooo22o", "232oxx", NA, NA)
-chords <- chord_set(chord_positions, chord_names)
+chord_set(chord_positions, chord_names)
 }

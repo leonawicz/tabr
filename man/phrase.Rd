@@ -18,6 +18,8 @@ p(...)
 \item{string}{character, optional string that specifies which guitar strings to play for each specific note.}
 
 \item{bar}{logical, insert a bar check at the end of the phrase.}
+
+\item{...}{arguments passed to \code{phrase}.}
 }
 \value{
 a phrase.
@@ -27,7 +29,7 @@ Create a musical phrase from character strings that define notes, note metadata,
 Notes separated in time are separated in the \code{notes} string by spaces. Sharps and flats are indicated by appending \code{#} and \code{_}, respectively, e.g. \code{f#} or \code{g_}.
 }
 \details{
-Specifying notes that are one or multiple octaves below or above the middle can be done by appending one or multiple \code{,} or \code{'} marks, respectively, e.g. \code{c,} or \code{c''}.
+Specifying notes that are one or multiple octaves below or above the middle can be done by appending one or multiple commas or single quote tick marks, respectively, e.g. \code{c,} or \code{c''}.
 But this is not necessary. Instead, you can use octave numbering. This may easier to read, generally more familiar, potentially requires less typing, can still be omitted completely
 for the middle octave (no need to type c3, d3, ...), and is automatically converted for you by \code{phrase} to the tick mark format interpreted by LilyPond.
 That said, using the raised and lowered tick mark approach can be suprisingly easier to read for chords, which have no spaces between notes, especially six-string chords,
@@ -35,7 +37,7 @@ given that the tick marks help break up the notes in the chord visually much mor
 
 The function \code{p} is a convenient shorthand wrapper for \code{phrase}.
 
-Tied notes indicated by \code{~} are part of the \code{note} notation and not part of the \code{info} notation, e.g. \code{c'~}.
+Tied notes indicated by \code{~} are part of the \code{note} notation and not part of the \code{info} notation, e.g. \code{c''~}.
 
 Notes be comprise chords. These are bound tightly rather than space-delimited, as they are not separated in time.
 For example, a C chord could be given as \code{ceg} and in the case of tied notes would be \code{c~e~g~}.
