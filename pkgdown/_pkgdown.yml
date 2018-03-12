@@ -1,0 +1,16 @@
+url: http://leonawicz.github.io/
+
+template:
+  params:
+    bootswatch: cosmo
+    ganalytics: UA-46129458-3
+
+authors:
+  Matthew Leonawicz:
+    href: http://leonawicz.github.io/
+
+navbar:
+  type: inverse
+  right:
+    - icon: fa-github fa-lg
+      href: https://github.com/leonawicz/tabr
