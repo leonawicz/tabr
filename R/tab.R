@@ -10,8 +10,8 @@
 #' @param score a score object.
 #' @param file LilyPond output file, should end in \code{.ly}.
 #' @param key character, key signature, e.g., \code{c}, \code{b_}, \code{f#m}, etc.
-#' @param time character, defaults to \code{"2 = 60"}.
-#' @param tempo character, defaults to "4/4".
+#' @param time character, defaults to \code{"4/4"}.
+#' @param tempo character, defaults to \code{"2 = 60"}.
 #' @param header a named list of arguments passed to the header of the LilyPond file. See details.
 #' @param paper a named list of arguments for the LilyPond file page layout. See details.
 #' @param endbar character, the end bar.
@@ -61,6 +61,8 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   write(file = file.path(out_dir, file), output)
 }
 
+# nolint start
+
 #' Create tablature
 #'
 #' Create sheet music/guitar tablature from a music score.
@@ -71,8 +73,8 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 #' @param score a score object.
 #' @param file character, output file, should end in .pdf or .png.
 #' @param key character, key signature, e.g., \code{c}, \code{b_}, \code{f#m}, etc.
-#' @param time character, defaults to \code{"2 = 60"}.
-#' @param tempo character, defaults to "4/4".
+#' @param time character, defaults to \code{"4/4"}.
+#' @param tempo character, defaults to \code{"2 = 60"}.
 #' @param header a named list of arguments passed to the header of the LilyPond file. See details.
 #' @param paper a named list of arguments for the LilyPond file page layout. See details.
 #' @param endbar character, the end bar.
@@ -87,14 +89,14 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 #' # not run
 tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
                 header = NULL, paper = NULL, endbar = TRUE, midi = TRUE, out_dir = ".",
-                keep_ly = FALSE, details = FALSE){
+                keep_ly = FALSE){
   ext <- utils::tail(strsplit(file, "\\.")[[1]], 1)
   lily <- gsub(ext, "ly", file)
-  cat("Engraving score to ", file, "...\n", sep = "")
+  cat("#### Engraving score to", file, "####\n")
   lilypond(score, lily, key, time, tempo, header, paper, endbar, midi, out_dir)
-  system(paste0("\"", tabr_options()$lilypond, "\" --", ext, " -dstrip-output-dir=#f \"", file.path(out_dir, lily), "\""))
+  system(paste0("\"", tabr_options()$lilypond, "\" --", ext,
+                " -dstrip-output-dir=#f \"", file.path(out_dir, lily), "\""))
   if(!keep_ly) unlink(file.path(out_dir, lily))
-  cat("Completed.\n")
   invisible()
 }
 
@@ -116,12 +118,17 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
     "  tagline = \"", tagline, "\"\n}\n")
 }
 
-.paper_defaults <- list(textheight = 220, linewidth = 150, indent = 0, fontsize = 14, page_numbers = TRUE, first_page_number = 1)
+# nolint end
+
+.paper_defaults <- list(textheight = 220, linewidth = 150, indent = 0, fontsize = 14,
+                        page_numbers = TRUE, first_page_number = 1)
 
 .keys <- list(
   major = c("fis", "h", "e", "a", "d", "g", "c", "f", "b", "es", "as", "des", "ges"),
   minor = c("cis", "gis", "dis", "fis", "h", "e", "a", "d", "g", "c", "f", "b", "es")
 )
+
+# nolint start
 
 .set_melody <- function(x, d, id){
   multivoice <- length(unique(d$voice)) > 1
@@ -130,7 +137,8 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
     x <- split(x, d$voice)
     v <- c("first", "second", "third", "fourth")
     new_staff <- "\\new Staff <<\n"
-    x <- purrr::map2(x, seq_along(x), ~paste0("  \\new Voice = \"", v[.y], "\"\n  { \\voice", v[.y], " ", paste(.x, collapse = " "), " }\n"))
+    x <- purrr::map2(x, seq_along(x), ~paste0("  \\new Voice = \"", v[.y], "\"\n  { \\voice", v[.y], " ",
+                                              paste(.x, collapse = " "), " }\n"))
     x <- paste(unlist(x), collapse = "")
     x <- paste0(new_staff, x, ">>\n}\n")
   } else {
@@ -138,6 +146,8 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   }
   paste0(x0, "\\override StringNumber #'transparent = ##t\n  ", gsub("\\|", "\\|\n", x), "}\n\n")
 }
+
+# nolint end
 
 .lp_paper_args <- function(x){
   if(is.null(x)) return(.paper_defaults)
@@ -160,19 +170,27 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 }
 
 .lp_global <- function(time, key, mode, tempo, endbar){
-  paste0("global = {\n  \\time ", time, "\n  \\key ", key, " ", mode, "\n  \\tempo ", tempo, if(endbar) "\n  \\bar \"|.\"", "\n}\n\n")
+  paste0("global = {\n  \\time ", time, "\n  \\key ", key, " ", mode, "\n  \\tempo ", tempo,
+         if(endbar) "\n  \\bar \"|.\"", "\n}\n\n")
 }
 
+# nolint start
+
 .lp_top <- function(fontsize, header){
-  paste0(paste("#(set-global-staff-size", fontsize, ")\n"), do.call(.lp_header, header), "\\include \"predefined-guitar-fretboards.ly\"\n\n")
+  if(is.null(header)) header <- list()
+  paste0(paste("#(set-global-staff-size", fontsize, ")\n"), do.call(.lp_header, header),
+         "\\include \"predefined-guitar-fretboards.ly\"\n\n")
 }
 
 .chord_diagram <- function(chords, chord_seq){
   diagram <- paste0("mychorddiagrams = \\chordmode {\n",
-                    paste0("  \\set predefinedDiagramTable = #fb", seq_along(chords), " ", names(chords), "\n", collapse = ""), "}\n\n")
+                    paste0("  \\set predefinedDiagramTable = #fb", seq_along(chords), " ",
+                           names(chords), "\n", collapse = ""), "}\n\n")
   modifiers <- purrr::map_chr(strsplit(names(chord_seq), ":"), ~({if(length(.x) == 1) NA else .x[2]}))
-  chords <- paste0(sapply(strsplit(names(chord_seq), ":"), "[", 1), chord_seq, ifelse(is.na(modifiers), "", paste0(":", modifiers)))
-  name <- paste0("chordNames = \\chordmode {\n  \\override ChordName.font-size = #2\n  \\global\n  ", paste(chords, collapse = " "), "\n}\n\n")
+  chords <- paste0(sapply(strsplit(names(chord_seq), ":"), "[", 1), chord_seq,
+                   ifelse(is.na(modifiers), "", paste0(":", modifiers)))
+  name <- paste0("chordNames = \\chordmode {\n  \\override ChordName.font-size = #2\n  \\global\n  ",
+                 paste(chords, collapse = " "), "\n}\n\n")
   topcenter <- paste0(
     "\\markup\\vspace #3\n",
     "\\markup \\fill-line {\n  \\score {\n    <<\n      \\context ChordNames { \\mychorddiagrams }\n",
@@ -183,23 +201,23 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 
 .set_score <- function(d, id, midi, tempo, has_chords){
   clef <- purrr::map_chr(d, ~unique(.x$staff))
-  if(any(!is.na(clef))){
-    add_staff <- TRUE
-    clef_id <- id[!is.na(clef)]
-    clef <- clef[!is.na(clef)]
-  } else {
-    add_staff <- FALSE
-  }
+  if(any(!is.na(clef))) clef <- clef[!is.na(clef)]
   x <- paste0(
     purrr::map_chr(seq_along(clef), ~({
-      paste0(if(!is.na(clef[.x])) paste0("\\new Staff { \\clef \"", clef[.x], "\" << \\", id[.x], " >> }\n  ", collapse = ""),
-             paste0("\\new TabStaff \\with { stringTunings = #guitar-tuning } {\n    ",
-                    "\\override Stem #'transparent = ##t\n    \\override Beam #'transparent = ##t\n    ",
-                    "\\", id[.x], "\n  }\n  ", collapse = ""))
+      paste0(
+        if(!is.na(clef[.x]))
+          paste0("\\new Staff { \\clef \"", clef[.x], "\" << \\", id[.x], " >> }\n  ", collapse = ""),
+        paste0("\\new TabStaff \\with { stringTunings = #guitar-tuning } {\n    ",
+               "\\override Stem #'transparent = ##t\n    \\override Beam #'transparent = ##t\n    ",
+               "\\", id[.x], "\n  }\n  ", collapse = "")
+      )
     })), collapse = "")
   paste0("\\score {  <<\n  ", if(has_chords) "\\new ChordNames \\chordNames\n  ", x, ">>\n",
-         "  \\layout{ }\n", if(midi) paste0("  \\midi{\n    \\tempo ", tempo, "\n  }\n", collapse = ""), "}\n\n")
+         "  \\layout{ }\n", if(midi) paste0("  \\midi{\n    \\tempo ", tempo, "\n  }\n", collapse = ""),
+         "}\n\n")
 }
+
+# nolint end
 
 .octavesub <- function(x){
   x <- gsub("0", ",,,", x)
@@ -211,6 +229,16 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   x <- gsub("6", "'''", x)
   x
 }
+
+.notesub <- function(x, sharp = "#", flat = "_"){
+  x <- gsub(sharp[1], "is", x)
+  x <- gsub(flat[1], "es", x)
+  x <- gsub("ees", "es", x)
+  x <- gsub("aes", "as", x)
+  x
+}
+
+# nolint start
 
 .tabsub <- function(x){
   x <- strsplit(x, ";")[[1]]
@@ -226,14 +254,6 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   x
 }
 
-.notesub <- function(x, sharp = "#", flat = "_"){
-  x <- gsub(sharp[1], "is", x)
-  x <- gsub(flat[1], "es", x)
-  x <- gsub("ees", "es", x)
-  x <- gsub("aes", "as", x)
-  x
-}
-
 .strsub <- function(x){
   x <- gsub("a", "654321", x)
   x <- gsub("6s", "654321", x)
@@ -246,6 +266,8 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
     })) %>% unlist() %>% paste0(collapse = "_")
   purrr::map_chr(strsplit(x, " ")[[1]], f)
 }
+
+# nolint end
 
 .split_chord <- function(x, strings = FALSE){
   if(nchar(x) == 1) return(x)
@@ -267,8 +289,7 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
     if(length(idx0)) x <- as.character(as.numeric(x) + xdif)
     return(x)
   }
-  x <- as.character(mapply(substr, x, idx, idx + c(diff(idx), nchar(x) - tail(idx, 1) + 1) - 1))
+  x <- as.character(mapply(substr, x, idx, idx + c(diff(idx), nchar(x) - utils::tail(idx, 1) + 1) - 1))
   if(strings && length(idx0)) x[idx0] <- as.character(as.numeric(x[idx0]) + xdif)
   x
 }
-
