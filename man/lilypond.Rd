@@ -15,9 +15,9 @@ lilypond(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 
 \item{key}{character, key signature, e.g., \code{c}, \code{b_}, \code{f#m}, etc.}
 
-\item{time}{character, defaults to \code{"2 = 60"}.}
+\item{time}{character, defaults to \code{"4/4"}.}
 
-\item{tempo}{character, defaults to "4/4".}
+\item{tempo}{character, defaults to \code{"2 = 60"}.}
 
 \item{header}{a named list of arguments passed to the header of the LilyPond file. See details.}
 

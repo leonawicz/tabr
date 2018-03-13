@@ -6,7 +6,7 @@
 \usage{
 tab(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   header = NULL, paper = NULL, endbar = TRUE, midi = TRUE,
-  out_dir = ".", keep_ly = FALSE, details = FALSE)
+  out_dir = ".", keep_ly = FALSE)
 }
 \arguments{
 \item{score}{a score object.}
@@ -15,9 +15,9 @@ tab(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 
 \item{key}{character, key signature, e.g., \code{c}, \code{b_}, \code{f#m}, etc.}
 
-\item{time}{character, defaults to \code{"2 = 60"}.}
+\item{time}{character, defaults to \code{"4/4"}.}
 
-\item{tempo}{character, defaults to "4/4".}
+\item{tempo}{character, defaults to \code{"2 = 60"}.}
 
 \item{header}{a named list of arguments passed to the header of the LilyPond file. See details.}
 

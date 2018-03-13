@@ -17,7 +17,7 @@ Bind together track tables by row.
 }
 \details{
 This function appends multiple track tables into a single track table for preparation of generating a multi-track score.
-Regardless of whether a \code{tabstaff} ID column is present in the input tracks, one is added/overidden ensuring a unique integer ID for each track.
+Regardless of whether a \code{tabstaff} ID column is present in the input tracks, one is added or the existing one is overridden ensuring a unique integer ID for each track.
 This is used to separate music staves in the sheet music/tablature output.
 The actual ID values assigned to each track do not matter; only the order in which tracks are bound, first to last.
 }

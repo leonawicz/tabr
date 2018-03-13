@@ -32,7 +32,7 @@ Notes separated in time are separated in the \code{notes} string by spaces. Shar
 Specifying notes that are one or multiple octaves below or above the middle can be done by appending one or multiple commas or single quote tick marks, respectively, e.g. \code{c,} or \code{c''}.
 But this is not necessary. Instead, you can use octave numbering. This may easier to read, generally more familiar, potentially requires less typing, can still be omitted completely
 for the middle octave (no need to type c3, d3, ...), and is automatically converted for you by \code{phrase} to the tick mark format interpreted by LilyPond.
-That said, using the raised and lowered tick mark approach can be suprisingly easier to read for chords, which have no spaces between notes, especially six-string chords,
+That said, using the raised and lowered tick mark approach can be surprisingly easier to read for chords, which have no spaces between notes, especially six-string chords,
 given that the tick marks help break up the notes in the chord visually much more so than integers do. See examples.
 
 The function \code{p} is a convenient shorthand wrapper for \code{phrase}.
