@@ -12,7 +12,7 @@
 #' @examples
 #' tabr_options()
 #' tabr_options(lilypond = "C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe")
-tabr_options = function(...){
+tabr_options <- function(...){
   x <- list(...)
   opts <- .tabr_env$opts
   if(length(x)){
@@ -26,4 +26,4 @@ tabr_options = function(...){
   }
 }
 
-.tabr_env = new.env()
+.tabr_env <- new.env()
