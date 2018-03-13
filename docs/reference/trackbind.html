@@ -123,7 +123,7 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function appends multiple track tables into a single track table for preparation of generating a multi-track score.
-Regardless of whether a <code>tabstaff</code> ID column is present in the input tracks, one is added/overidden ensuring a unique integer ID for each track.
+Regardless of whether a <code>tabstaff</code> ID column is present in the input tracks, one is added or the existing one is overridden ensuring a unique integer ID for each track.
 This is used to separate music staves in the sheet music/tablature output.
 The actual ID values assigned to each track do not matter; only the order in which tracks are bound, first to last.</p>
     
@@ -131,10 +131,10 @@ The actual ID values assigned to each track do not matter; only the order in whi
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>phrase</span>(<span class='st'>"c ec'g' ec'g'"</span>, <span class='st'>"4 4 2"</span>, <span class='st'>"5 432 432"</span>)
 <span class='fu'>trackbind</span>(<span class='fu'><a href='track.html'>track</a></span>(<span class='no'>x</span>), <span class='fu'><a href='track.html'>track</a></span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; # A tibble: 2 x 4
-#&gt;   phrase       staff voice tabstaff
-#&gt;   &lt;list&gt;       &lt;chr&gt; &lt;int&gt;    &lt;int&gt;
-#&gt; 1 &lt;S3: phrase&gt; &lt;NA&gt;      1        1
-#&gt; 2 &lt;S3: phrase&gt; &lt;NA&gt;      1        2</div></pre>
+#&gt;   phrase       staff    voice tabstaff
+#&gt;   &lt;list&gt;       &lt;chr&gt;    &lt;int&gt;    &lt;int&gt;
+#&gt; 1 &lt;S3: phrase&gt; treble_8     1        1
+#&gt; 2 &lt;S3: phrase&gt; treble_8     1        2</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

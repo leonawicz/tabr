@@ -81,15 +81,40 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#tabr" class="anchor"></a>tabr</h1></div>
 
-<p>Create guitar tablature (“tabs”) from R code with <code>tabr</code>. The <code>tabr</code> package provides programmatic music notation and wraps around the open source music engraving program, Lilypond, for creating quality guitar tablature.<img src="tabr_logo_small.png" style="float:right;margin:5px;width:400px;"></p>
-<p><code>tabr</code> offers functions for describing and organizing musical structures and a wrapper around the Lilypond backend. Lilypond is open source music engraving software for generating high quality sheet music based on markup language. <code>tabr</code> generates files following the Lilypond markup syntax to be subsequently processed by Lilypond into sheet music pdf files.</p>
-<p>A standalone Lilypond (.ly) file can be created or the package can make a system call to Lilypond directly to render the guitar tablature output (.pdf). While Lilypond caters to sheet music in general, <code>tabr</code> is focused on leveraging it specifically for creating quality guitar tablature.</p>
+<p>Create guitar tablature (“tabs”) from R code with <code>tabr</code>. The <code>tabr</code> package provides programmatic music notation and a wrapper around <a href="http://lilypond.org/">LilyPond</a> for creating quality guitar tablature.<img src="tabr_logo_small.png" style="float:right;margin:5px;width:400px;"></p>
+<p><code>tabr</code> offers functions for describing and organizing musical structures and a wraps around the LilyPond backend. LilyPond is an open source music engraving program for generating high quality sheet music based on markup syntax. <code>tabr</code> generates files following the LilyPond markup syntax to be subsequently processed by LilyPond into sheet music.</p>
+<p>A standalone LilyPond (.ly) file can be created or the package can make a system call to LilyPond directly to render the guitar tablature output (pdf or png). While LilyPond caters to sheet music in general, <code>tabr</code> is focused on leveraging it specifically for creating quality guitar tablature.</p>
+<p><em>Note: <code>tabr</code> has been tested only on Windows so far. It has not been generalized to Linux and Mac operating systems yet.</em></p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install tabr from GitHub with:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages('devtools')</span>
 devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"leonawicz/tabr"</span>)</code></pre></div>
+</div>
+<div id="example" class="section level2">
+<h2 class="hasAnchor">
+<a href="#example" class="anchor"></a>Example</h2>
+<p>As a brief example, recreate the tablature shown in the logo. Here are the steps.</p>
+<ul>
+<li>Define a musical phrase with <code>phrase</code> or the shorthand alias <code>p</code>.</li>
+<li>Add the phrase to a <code>track</code>.</li>
+<li>Add the track to a <code>score</code>.</li>
+<li>Render the score to pdf with <code>tab</code>.</li>
+</ul>
+<p>The first argument to <code>phrase</code> is a string describing notes of a specific pitch (or rests: “r”), separated in time by spaces. For chords, just remove spaces to indicate simultaneous notes. Integers are appended to indicate the octave number so that the pitch is unique.</p>
+<p>The second argument is a similar string giving note metadata. In this example there is nothing to add but the time durations. Whole notes taking up an entire measure of music are given by 1, half notes by 2, quarter notes 4, eighth notes 8, and so on. This simple example does not require additional metadata such as dotted notes, staccato, ties/slurs, slides, bends, hammer ons and pull offs, etc.. These specifications are currently available in <code>tabr</code> to varying degrees of development and are covered in the vignette tutorials.</p>
+<p>The third argument is optional but generally important for guitar tablature. In similar format, it specifies the strings of the guitar on which notes are played. Providing this information fixes the fret-string combinations so that LilyPond does not have to guess what position on the neck of the guitar to play a specific note. An inability to specify this in various tablature notation software (or laziness by the user), is a common cause of inaccurate tabs scouring the internet, where even when the notes are correct they are written in the tab suggesting they be played in positions no one would sensibly use. The <code>x</code> shown is just a placeholder indicating no need to specify a string for the rest.</p>
+<p>Finally, we specify some song metadata to reproduce the original: the key of D minor, common time, and the tempo. If LilyPond is installed on your system and added to your system PATH variable, <code>tab</code> should call it successfully. Alternatively, it can be added explicitly by calling <code>tabr_options</code>. An example of this is commented out below.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tabr)
+<span class="co"># tabr_options(lilypond = 'C:/Program Files</span>
+<span class="co"># (x86)/LilyPond/usr/bin/lilypond.exe')</span>
+p1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/phrase.html">p</a></span>(<span class="st">"r a2 c3 f3 d3 a3 f3"</span>, <span class="st">"4 8 8 8 8 8 8"</span>, <span class="st">"x 5 5 4 4 3 4"</span>)
+track1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/track.html">track</a></span>(p1)
+song &lt;-<span class="st"> </span><span class="kw"><a href="reference/score.html">score</a></span>(track1)
+<span class="kw"><a href="reference/tab.html">tab</a></span>(song, <span class="st">"phrase.pdf"</span>, <span class="dt">key =</span> <span class="st">"dm"</span>, <span class="dt">time =</span> <span class="st">"4/4"</span>, <span class="dt">tempo =</span> <span class="st">"4 = 120"</span>)
+<span class="co">#&gt; #### Engraving score to phrase.pdf ####</span></code></pre></div>
+<embed src="phrase.pdf?#zoom=175" width="100%" height="300"></embed>
 </div>
 </div>
 </div>
