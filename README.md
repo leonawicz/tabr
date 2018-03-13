@@ -80,9 +80,11 @@ Context and caveats
 
 The `tabr` package is in early development. Many capabilities are missing. Others are incompletely implemented. Others in the R developer community who are probably much better musicians than myself are welcome to contribute. This is the type of package that will only develop in response to specific needs of its contributor(s).
 
-I am not an expert in music theory, or in music notation and transcription, or in LilyPond. In fact, my skill in music notation is ironically low enough that I do not find it any more challenging or an impediment to describe a song in R code. The main intent with `tabr`, however, is simply to be able to generate markup files that LilyPond accepts and understands, without having to write that markup by hand.
+I am not an expert in music theory, or in music notation and transcription, or in LilyPond. In fact, my skill in music notation is ironically low enough that I do not find it any more challenging or an impediment to describe a song in R code rather than to just tab it out by hand. The main intent with `tabr`, however, is simply to be able to generate markup files that LilyPond accepts and understands, without having to write that markup directly.
 
 A major part of the motivation for `tabr` is the desire for high quality guitar tablature, as produced by LilyPond. Using LilyPond for high quality sheet music and tablature creates an entry point to programmatic music notation as opposed to reliance on various GUI-based programs. While I have not personally used every GUI-based music notation software available, I have found that they tend to have a lot of limitations. Some of them also produce sheet music that looks unprofessional when compared to LilyPond-engraved sheet music. LilyPond, generally speaking, offers the ability to engrave exactly what you want, as long as you know how to provide the markup syntax. Like R, it is also open source.
+
+Finally, there are nonetheless limitations to LilyPond itself. It has been developed for sheet music in general and guitar tablature features were added as a relative afterthought. There are plenty of features I have not yet developed R wrappers around. Then there are other features like string bending that are technically available, but not fully developed yet on the LilyPond side either. Case in point, LilyPond's bend engraver is still under development; specifying something as common as a bend-release-pull-off is, to put it mildly, challenging.
 
 Reference
 ---------
