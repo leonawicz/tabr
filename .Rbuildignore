@@ -13,3 +13,4 @@
 ^appveyor\.yml$
 ^\.travis\.yml$
 ^codecov\.yml$
+^testing$
