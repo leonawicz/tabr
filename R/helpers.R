@@ -148,6 +148,7 @@ tuplet <- function(notes, n){
   paste("\\tuplet 3/2", n, "{", notes, "}")
 }
 
+# nolint start
 barcheck <- function(phrase, bpm = 8){
   x <- unlist(purrr::map(strsplit(phrase, ">")[[1]], ~strsplit(.x, "[ |^]")), recursive = FALSE)
   y <- purrr::map_dbl(2:length(x), ~({
@@ -160,3 +161,4 @@ barcheck <- function(phrase, bpm = 8){
   bars <- which(cumsum(y) %% 1 == 0)
   x[1] <- strsplit(x[1], "\\\\")[[1]][2]
 }
+#nolint end
