@@ -6,7 +6,7 @@
 #' Specifying notes that are one or multiple octaves below or above the middle can be done by appending one or multiple commas or single quote tick marks, respectively, e.g. \code{c,} or \code{c''}.
 #' But this is not necessary. Instead, you can use octave numbering. This may easier to read, generally more familiar, potentially requires less typing, can still be omitted completely
 #' for the middle octave (no need to type c3, d3, ...), and is automatically converted for you by \code{phrase} to the tick mark format interpreted by LilyPond.
-#' That said, using the raised and lowered tick mark approach can be suprisingly easier to read for chords, which have no spaces between notes, especially six-string chords,
+#' That said, using the raised and lowered tick mark approach can be surprisingly easier to read for chords, which have no spaces between notes, especially six-string chords,
 #' given that the tick marks help break up the notes in the chord visually much more so than integers do. See examples.
 #'
 #' The function \code{p} is a convenient shorthand wrapper for \code{phrase}.
@@ -44,6 +44,8 @@
 #' phrase("c ec'g' ec'g'", "1 1 1", "5 432 432")
 NULL
 
+# nolint start
+
 #' @export
 #' @rdname phrase
 phrase <- function(notes, info, string = NULL, bar = FALSE){
@@ -60,9 +62,11 @@ phrase <- function(notes, info, string = NULL, bar = FALSE){
   .bend <- "\\bendAfter #+6"
   s <- !is.null(string)
   if(s) string <- .strsub(string)
-  notes <- purrr::map_chr(seq_along(notes),
-                          ~paste0("<", paste0(.split_chord(notes[.x]),
-                                              if(s && notes[.x] != "r") paste0("\\", .split_chord(string[.x], TRUE)), collapse = " "), ">"))
+  notes <- purrr::map_chr(
+    seq_along(notes),
+    ~paste0("<", paste0(.split_chord(notes[.x]),
+                        if(s && notes[.x] != "r")
+                          paste0("\\", .split_chord(string[.x], TRUE)), collapse = " "), ">"))
   notes <- gsub("<r>", "r", notes)
   x <- paste0(notes, info)
   if(length(bend)) x[bend] <- paste0(x[bend], .bend)
@@ -75,12 +79,14 @@ phrase <- function(notes, info, string = NULL, bar = FALSE){
   x
 }
 
+# nolint end
+
 #' @export
 #' @rdname phrase
 p <- function(...) phrase(...)
 
 #' @export
-print.phrase <- function(x) cat(x)
+print.phrase <- function(x, ...) cat(x)
 
 #' Create a volta/repeat phrase
 #'
