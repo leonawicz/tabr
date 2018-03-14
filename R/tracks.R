@@ -52,9 +52,11 @@ chord_set <- function(x, id){
 #' x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
 #' track(x)
 track <- function(phrase, add_staff = "treble_8", voice = 1L){
-  phrase <- tibble::data_frame(phrase, staff = as.character(add_staff), voice = as.integer(voice))
-  class(phrase) <- unique(c("track", class(phrase)))
-  phrase
+  if(!"phrase" %in% class(phrase)) stop("`phrase` is not a phrase object.")
+  x <- tibble::data_frame(phrase, staff = as.character(add_staff), voice = as.integer(voice))
+  x$phrase <- purrr::map(x$phrase, ~as.phrase(.x))
+  class(x) <- unique(c("track", class(x)))
+  x
 }
 
 #' Bind track tables
