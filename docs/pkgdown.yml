@@ -2,6 +2,6 @@ urls:
   reference: http://leonawicz.github.io//reference
   article: http://leonawicz.github.io//articles
 articles:
-  01-example: 01-example.html
-  02-phrases: 02-phrases.html
+  tabr-01-example: tabr-01-example.html
+  tabr-02-phrases: tabr-02-phrases.html
 

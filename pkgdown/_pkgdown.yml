@@ -59,9 +59,9 @@ navbar:
       icon: fa-info-circle
       menu:
         - text: "Basic example"
-          href: "articles/01-example.html"
+          href: "articles/tabr-01-example.html"
         - text: "Musical phrases"
-          href: "articles/02-phrases.html"
+          href: "articles/tabr-02-phrases.html"
     - text: "Reference"
       icon: fa-book
       href: "reference/index.html"
