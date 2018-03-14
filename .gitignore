@@ -5,4 +5,7 @@
 inst/doc
 testing
 phrase.*
-docs/phrase.mid
+docs/*.mid
+docs/*.pdf
+phrase.mid
+phrase.pdf
