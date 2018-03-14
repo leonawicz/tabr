@@ -6,5 +6,12 @@
 #' @name tabr
 NULL
 
+#' Pipe
+#'
+#' The tabr package exports the the pipe operator, \code{\%>\%}, from magrittr just like dplyr.
+#'
 #' @importFrom magrittr %>%
+#' @name %>%
+#' @rdname pipe
+#' @export
 NULL
