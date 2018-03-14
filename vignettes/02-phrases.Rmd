@@ -1,0 +1,48 @@
+---
+title: "Musical phrases"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Musical phrases}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, tidy = TRUE, out.width = "100%"
+)
+library(tabr)
+```
+
+This section goes into deeper detail on building musical phrases out of individual notes using the various component parts available for phrase construction. It also describes how to add information, note metadata, to the notes in a phrase so that the phrase is defined unambiguously.
+
+As mentioned in the last section, phrases in `tabr` do not require a strict definition. It is recommended to keep phrases short enough that they do not cause you difficulty dissecting them again visually. They should also represent meaningful or at least convenient segments of music, for example whole measures, a particular rhythm section, or an identifiable section of a longer solo. 
+
+Writing out music in R code is not intended to be any more readable than writing out LilyPond markup. The driving motivation here is a preference for avoiding writing LilyPond markup directly, aimed at people who specifically want to do this from R. Care must still be taken to not write phrases that are so long and complex that even you can not adequately parse their information by eye afterward.
+
+The opening section showed a basic example using a single, and very simple, phrase. This section will cover phrases that include notes and rests of different duration, slides, hammer ons and pull offs, simple string bends, and various other elements. Phrases will become longer and more visually complex. There is no way around this fact. But with proper care they can be kept manageable and interpretable, depending on your comfort level with music theory, notation and R programming.
+
+## Notes
+
+The first argument to `phrase` is `notes`. Notes are represented simply by the lowercase letters `c, d, e, f, g, a, b`. 
+
+### Sharps and flats
+
+Sharps are represented by appending `#` and flats with `_`, for example `b_` or `a#`. In phrases and the various `tabr` functions that operate on them, these two-character notes are tightly bound and treated as specific notes just like single letters.
+
+### Space-delimited time
+
+A string of notes is separated in time by spaces. Simultaneous notes are not. For example, `"a b c"` represents a sequence of notes in time whereas `"ceg"` represents simultaneously played notes of a C major triad chord. For now this focus will remain on individual notes. Chords will be discussed in more detail in later sections.
+
+### Unambiguous pitch
+
+While it is allowable to specify note sequences such as `"a b c"`, this assumes octave number 3 (This is where you find the lowest octave C note, C3, on a standard tuned guitar). This is almost surely not what you want. In the example here, what is likely intended might be `"a2 b2 c3"`. 
+
+This is the recommended way to specify notes and requires this level of familiarity with describing musical pitch. LilyPond markup uses single or multiple consecutive commas for lower octaves and single quote marks for higher octaves. This notation is permitted by `tabr` as well. In fact, if you specify integer suffixes for octave numbering, `phrase` will reinterpret these for you. The following are equivalent.
+
+```{r p1}
+phrase("c1 c2 c3 c4 c5", "1 1 1 1 1")
+phrase("c,, c, c c' c''", "1 1 1 1 1")
+```
+
+For more extreme octaves, the latter style requires more typing and is more difficult to read. However, some may find it easier to read for chords like an open E minor `"e,b,egbe'"` compared to `"e2b2e3g3b3e4"`.

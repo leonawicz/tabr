@@ -14,10 +14,12 @@ reference:
   contents:
   - tabr
 - title: Create tablature
+  desc: "Functions for writing and executing LilyPond files."
   contents:
   - tab
   - lilypond
 - title: Organizing music
+  desc: "Functions for hierarchical music notation organization."
   contents:
   - phrase
   - p
@@ -25,6 +27,7 @@ reference:
   - trackbind
   - score
 - title: Phrase helpers
+  desc: "Functions for describing, assembling and connecting musical phrases."
   contents:
   - glue
   - dup
@@ -34,14 +37,31 @@ reference:
   - hp
   - tuplet
 - title: Repeats
+  desc: "Functions to assist with repeated sections of music."
   contents:
   - volta
   - pct
 - title: Chords
+  desc: "Functions for chord description."
   contents:
   - chord_set
 
 navbar:
+  title: "tabr"
+  left:
+    - text: "Home"
+      icon: fa-home
+      href: index.html
+    - text: "Tutorials"
+      icon: fa-info-circle
+      menu:
+        - text: "Basic example"
+          href: "articles/01-example.html"
+        - text: "Musical phrases"
+          href: "articles/02-phrases.html"
+    - text: "Reference"
+      icon: fa-book
+      href: "reference/index.html"
   right:
     - icon: fa-github fa-lg
       href: https://github.com/leonawicz/tabr
