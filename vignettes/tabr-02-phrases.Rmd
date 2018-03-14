@@ -62,7 +62,9 @@ The format is technically specifying the denominator. You might be inclined towa
 phrase("c3 d3 e3 f3 g3 a3 b3 c4 b3 c4", "16 16 8 8 4 4 8 2 2 1") %>% track %>% score %>% tab("ex01.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex1.png?raw=true" width="100%"></p>
+<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex01.png?raw=true" width="100%"></p>
+
+*This and subsequent tutorial sections will be continued/added soon...*
 
 ```{r cleanup, echo=FALSE}
 unlink("*.mid")
