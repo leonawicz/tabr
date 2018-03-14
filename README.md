@@ -5,7 +5,12 @@ tabr
 
 [![Travis-CI Build Status](https://travis-ci.org/leonawicz/tabr.svg?branch=master)](https://travis-ci.org/leonawicz/tabr) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/leonawicz/tabr?branch=master&svg=true)](https://ci.appveyor.com/project/leonawicz/tabr) [![Coverage Status](https://img.shields.io/codecov/c/github/leonawicz/tabr/master.svg)](https://codecov.io/github/leonawicz/tabr?branch=master)
 
-Create guitar tablature ("tabs") from R code with `tabr`. The `tabr` package provides programmatic music notation and a wrapper around [LilyPond](http://lilypond.org/) for creating quality guitar tablature.<img src="tabr_logo_small.png" style="float:right;margin:5px;width:400px;">
+<p style="text-align:center;">
+<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/tabr_logo.png?raw=true" width="100%">
+</p>
+<br/>
+
+Create guitar tablature ("tabs") from R code with `tabr`. The `tabr` package provides programmatic music notation and a wrapper around [LilyPond](http://lilypond.org/) for creating quality guitar tablature.
 
 `tabr` offers functions for describing and organizing musical structures and a wraps around the LilyPond backend. LilyPond is an open source music engraving program for generating high quality sheet music based on markup syntax. `tabr` generates files following the LilyPond markup syntax to be subsequently processed by LilyPond into sheet music.
 
@@ -76,8 +81,8 @@ tab(song, "phrase.pdf", key = "dm", time = "4/4", tempo = "4 = 120")
     #> Converting to `./phrase.pdf'...
     #> Success: compilation successfully completed
 
-<embed src="phrase.pdf?#zoom=175" width="100%" height="300">
-</embed>
+See the pdf result embedded at the [tabr website](https://leonawicz.github.io/tabr/).
+
 Context and caveats
 -------------------
 

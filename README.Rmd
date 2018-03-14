@@ -17,7 +17,17 @@ knitr::opts_chunk$set(
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/leonawicz/tabr?branch=master&svg=true)](https://ci.appveyor.com/project/leonawicz/tabr)
 [![Coverage Status](https://img.shields.io/codecov/c/github/leonawicz/tabr/master.svg)](https://codecov.io/github/leonawicz/tabr?branch=master)
 
-Create guitar tablature ("tabs") from R code with `tabr`. The `tabr` package provides programmatic music notation and a wrapper around [LilyPond](http://lilypond.org/) for creating quality guitar tablature.<img src="tabr_logo_small.png" style="float:right;margin:5px;width:400px;">
+```{r is_md, echo=FALSE}
+is_md <- knitr::opts_knit$get("rmarkdown.pandoc.to") == "markdown_github-ascii_identifiers"
+```
+
+```{r md_doc1, echo=FALSE, results="asis", eval=is_md}
+cat('<p style="text-align:center;"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/tabr_logo.png?raw=true" width="100%"></p><br/>\n\nCreate guitar tablature ("tabs") from R code with `tabr`. The `tabr` package provides programmatic music notation and a wrapper around [LilyPond](http://lilypond.org/) for creating quality guitar tablature.')
+```
+
+```{r html_doc1, echo=FALSE, results="asis", eval=!is_md}
+cat('Create guitar tablature ("tabs") from R code with `tabr`. The `tabr` package provides programmatic music notation and a wrapper around [LilyPond](http://lilypond.org/) for creating quality guitar tablature.<img src="tabr_logo_small.png" style="float:right;margin:5px;width:400px;">')
+```
 
 `tabr` offers functions for describing and organizing musical structures and a wraps around the LilyPond backend. LilyPond is an open source music engraving program for generating high quality sheet music based on markup syntax. `tabr` generates files following the LilyPond markup syntax to be subsequently processed by LilyPond into sheet music.
 
@@ -92,7 +102,13 @@ cat(
 )
 ```
 
-<embed src="phrase.pdf?#zoom=175" width="100%" height="300"></embed>
+```{r md_doc2, echo=FALSE, results="asis", eval=is_md}
+cat('See the pdf result embedded at the [tabr website](https://leonawicz.github.io/tabr/).')
+```
+
+```{r html_doc2, echo=FALSE, results="asis", eval=!is_md}
+cat('<embed src="phrase.pdf?#zoom=175" width="100%" height="300"></embed><br/>')
+```
 
 ## Context and caveats
 
@@ -103,10 +119,6 @@ I am not an expert in music theory, or in music notation and transcription, or i
 A major part of the motivation for `tabr` is the desire for high quality guitar tablature, as produced by LilyPond. Using LilyPond for high quality sheet music and tablature creates an entry point to programmatic music notation as opposed to reliance on various GUI-based programs. While I have not personally used every GUI-based music notation software available, I have found that they tend to have a lot of limitations. Some of them also produce sheet music that looks unprofessional when compared to LilyPond-engraved sheet music. LilyPond, generally speaking, offers the ability to engrave exactly what you want, as long as you know how to provide the markup syntax. Like R, it is also open source.
 
 Finally, there are nonetheless limitations to LilyPond itself. It has been developed for sheet music in general and guitar tablature features were added as a relative afterthought. There are plenty of features I have not yet developed R wrappers around. Then there are other features like string bending that are technically available, but not fully developed yet on the LilyPond side either. Case in point, LilyPond's bend engraver is still under development; specifying something as common as a bend-release-pull-off is, to put it mildly, challenging.
-
-```{r is_md, echo = FALSE}
-is_md <- knitr::opts_knit$get("rmarkdown.pandoc.to") == "markdown_github-ascii_identifiers"
-```
 
 ```{r md_pkg_ref, echo = FALSE, results = "asis", eval = is_md}
 cat('## Reference\n\n[Complete package reference and function documentation](https://leonawicz.github.io/tabr/)')
