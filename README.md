@@ -26,14 +26,15 @@ devtools::install_github("leonawicz/tabr")
 Basic example
 -------------
 
-As a brief example, recreate the tablature shown in the logo. Here are the steps.
+As a brief example, recreate the tablature shown in the `tabr` logo. Here are the steps.
 
 -   Define a musical phrase with `phrase` or the shorthand alias `p`.
 -   Add the phrase to a `track`.
 -   Add the track to a `score`.
 -   Render the score to pdf with `tab`.
 
-### Constructing a musical phrase
+Constructing a musical phrase
+-----------------------------
 
 A phrase here does not require a strict definition. Think of it as the smallest piece of musical structure you intend to string together. The first argument to `phrase` is a string describing notes of a specific pitch (or rests: "r"), separated in time by spaces. For chords, just remove spaces to indicate simultaneous notes. Integers are appended to indicate the octave number so that the pitch is unique.
 
@@ -41,11 +42,13 @@ The second argument is a similar string giving note metadata. In this example th
 
 The third argument is optional but generally important for guitar tablature. In similar format, it specifies the strings of the guitar on which notes are played. Providing this information fixes the fret-string combinations so that LilyPond does not have to guess what position on the neck of the guitar to play a specific note. An inability to specify this in various tablature notation software (or laziness by the user), is a common cause of inaccurate tabs scouring the internet, where even when the notes are correct they are written in the tab suggesting they be played in positions no one would sensibly use. The `x` shown is just a placeholder indicating no need to specify a string for the rest.
 
-### Score metadata and accessing LilyPond
+Score metadata and accessing LilyPond
+-------------------------------------
 
-Finally, we specify some song metadata to reproduce the original: the key of D minor, common time, and the tempo. If LilyPond is installed on your system and added to your system PATH variable, `tab` should call it successfully. Alternatively, it can be added explicitly by calling `tabr_options`. An example of this is commented out below.
+Finally, specify some song metadata to reproduce the original staff: the key of D minor, common time, and the tempo. If LilyPond is installed on your system and added to your system PATH variable, `tab` should call it successfully. Alternatively, it can be added explicitly by calling `tabr_options`. An example of this is commented out below.
 
-### R code
+R code
+------
 
 ``` r
 library(tabr)
