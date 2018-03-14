@@ -1,3 +1,5 @@
+# nolint start
+
 .onLoad <- function(lib, pkg){
   .tabr_env$opts <- list(dev = "pdf", midi = TRUE)
   lp_path <- Sys.which("lilypond")
@@ -12,3 +14,5 @@
   }
   tabr_options(lilypond = lp_path)
 }
+
+# nolint end
