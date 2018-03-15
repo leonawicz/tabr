@@ -106,7 +106,7 @@
 <div id="sharps-and-flats" class="section level3">
 <h3 class="hasAnchor">
 <a href="#sharps-and-flats" class="anchor"></a>Sharps and flats</h3>
-<p>Sharps are represented by appending <code>#</code> and flats with <code>_</code>, for example <code>b_</code> or <code>a#</code>. In phrases and the various <code>tabr</code> functions that operate on them, these two-character notes are tightly bound and treated as specific notes just like single letters.</p>
+<p>Sharps are represented by appending <code>#</code> and flats with <code>_</code>, for example <code>a#</code> or <code>b_</code>. In phrases and the various <code>tabr</code> functions that operate on them, these two-character notes are tightly bound and treated as specific notes just like single letters.</p>
 </div>
 <div id="space-delimited-time" class="section level3">
 <h3 class="hasAnchor">
@@ -173,7 +173,55 @@ strings &lt;-<span class="st"> "6 6 5 5 5 4 4 4 4 4"</span>
 <div id="note-metadata-continued" class="section level2">
 <h2 class="hasAnchor">
 <a href="#note-metadata-continued" class="anchor"></a>Note metadata continued</h2>
+<p>This section returns to the <code>info</code> argument to <code>phrase</code> with more examples of various pieces of note information that can be bound to <code>notes</code>.</p>
+<div id="dotted-notes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#dotted-notes" class="anchor"></a>Dotted notes</h3>
+<p>Note duration was introduced earlier, but incompletely. Dotted notes can be used to add 50% more time to a note. For example, a dotted quarter note, given by <code>"4."</code>, is equal in length to a quarter note plus an eighth note, covering three eighths of a measure. Double dotted may also be supplied. <code>"2.."</code> represents one half note plus one quarter note plus another eight note duration, for a total of 4 + 2 + 1 = 7 eighths of a measure.</p>
+<p>A couple measures with no rests that contains dotted and double dotted notes might look like this.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">phrase</span>(<span class="st">"c3 d3 e3 e3 e3 d3 c3"</span>, <span class="st">"4. 4. 8 8 2.. 8 1"</span>) <span class="op">%&gt;%</span><span class="st"> </span>track <span class="op">%&gt;%</span><span class="st"> </span>score <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex05.pdf"</span>)</code></pre></div>
+<p>Dots are tightly bound in dotted notes. <code>tabr</code> treats these multi-character time durations as singular elements, just as it does for, say, sixteenth notes given by a <code>"16"</code>.</p>
+<p align="center">
+<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex05.png?raw=true" width="40%"></p>
+</div>
+<div id="staccato" class="section level3">
+<h3 class="hasAnchor">
+<a href="#staccato" class="anchor"></a>Staccato</h3>
+<p>Notes played staccato are specified by appending a closing square bracket directly on the note duration, e.g., altering <code>"16"</code> to <code>"16]"</code>. This will place a dot in the output below notes that are played staccato.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">phrase</span>(<span class="st">"c3 e3 g3 e3 c3"</span>, <span class="st">"8] 8] 8] 8] 2"</span>) <span class="op">%&gt;%</span><span class="st"> </span>track <span class="op">%&gt;%</span><span class="st"> </span>score <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex06.pdf"</span>)</code></pre></div>
+<p align="center">
+<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex06.png?raw=true" width="75%"></p>
+</div>
+<div id="muted-or-dead-notes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#muted-or-dead-notes" class="anchor"></a>Muted or dead notes</h3>
+<p>Muted or dead notes are indicated by appending an <code>"x"</code> to a note duration, e.g., <code>"8x"</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">phrase</span>(<span class="st">"c3 e3 g3 e3 c3"</span>, <span class="st">"8x] 8x] 8x] 8x] 2x"</span>) <span class="op">%&gt;%</span><span class="st"> </span>track <span class="op">%&gt;%</span><span class="st"> </span>score <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex07.pdf"</span>)</code></pre></div>
+<p align="center">
+<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex07.png?raw=true" width="45%"></p>
+<p>Multiple pieces of information can be strung together for a single note. For example, combining a muted note with staccato can be given as <code>"8x]"</code>. In this early version of <code>tabr</code>, do this with caution, as not all orderings of note information have been thoroughly tested yet. Duration always comes first though. Some pieces of information are not meant to go together either, such as a staccato note that must essentially be held rather than released, for the purpose of sliding to another note. Use human judgement. If you don’t ever see something in sheet music, it may not work in <code>tabr</code> either.</p>
+<p>In this case, the example will work with <code>"8x]"</code> or <code>"8]x"</code>. In fact, even accidentally leaving an extra staccato indicator in as <code>"8]x]"</code>, which does undesirably alter the output of <code>phrase</code>, will still be parsed by LilyPond correctly. Nevertheless, stick closely to patterns shown in these examples if possible.</p>
+</div>
+<div id="slides" class="section level3">
+<h3 class="hasAnchor">
+<a href="#slides" class="anchor"></a>Slides</h3>
+<p>Slides are partially implemented. They work well in <code>tabr</code> when sliding from one note to another. Slides that do not begin from a note are not implemented. This is usually done with a bit of a hack in LilyPond by bending from a grace not and then hiding the grace note. This hack or some another approach has not been ported to <code>tabr</code>.</p>
+<p>Insert example:</p>
+</div>
+<div id="hammer-ons-and-pull-offs" class="section level3">
+<h3 class="hasAnchor">
+<a href="#hammer-ons-and-pull-offs" class="anchor"></a>Hammer ons and pull offs</h3>
+<p>Hammer ons and pull offs use the same notation and are essentially equivalent to slurs</p>
+<p>Insert example:</p>
+</div>
+<div id="string-bending" class="section level3">
+<h3 class="hasAnchor">
+<a href="#string-bending" class="anchor"></a>String bending</h3>
+<p>String bends are available but currently have a limited implementation in <code>tabr</code> and bend engraving in LilyPond itself is not fully developed. Specifying all kinds of bending, and doing so elegantly and yielding an aesthetically pleasing and accurate result, is immensely difficult.</p>
+<p>Insert example:</p>
 <p><em>This and subsequent tutorial sections will be continued/added soon…</em></p>
+</div>
 </div>
 </div>
   </div>

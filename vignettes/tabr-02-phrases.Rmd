@@ -29,7 +29,7 @@ The first argument to `phrase` is `notes`. Notes are represented simply by the l
 
 ### Sharps and flats
 
-Sharps are represented by appending `#` and flats with `_`, for example `b_` or `a#`. In phrases and the various `tabr` functions that operate on them, these two-character notes are tightly bound and treated as specific notes just like single letters.
+Sharps are represented by appending `#` and flats with `_`, for example `a#` or `b_`. In phrases and the various `tabr` functions that operate on them, these two-character notes are tightly bound and treated as specific notes just like single letters.
 
 ### Space-delimited time
 
@@ -109,6 +109,64 @@ phrase(notes, info, strings) %>% track %>% score %>% tab("ex04.pdf")
 Some programs like LilyPond allow for specifying a minimum string threshold, such as every note being played on the fourth string or above (four through one). This would work better for some songs than others of course. It is still not as powerful or ideal as being explicit about every note's position. This threshold option is not currently supported by `tabr`. It is recommended to always be explicit anyway, as it leads to more accurate guitar tablature. There is a preponderance of highly inaccurate guitar tabs in the online world. Please do not add to the heap.
 
 ## Note metadata continued
+
+This section returns to the `info` argument to `phrase` with more examples of various pieces of note information that can be bound to `notes`.
+
+### Dotted notes
+
+Note duration was introduced earlier, but incompletely. Dotted notes can be used to add 50% more time to a note. For example, a dotted quarter note, given by `"4."`, is equal in length to a quarter note plus an eighth note, covering three eighths of a measure. Double dotted may also be supplied. `"2.."` represents one half note plus one quarter note plus another eight note duration, for a total of 4 + 2 + 1 = 7 eighths of a measure.
+
+A couple measures with no rests that contains dotted and double dotted notes might look like this.
+
+```{r p6, results="hide", eval=FALSE}
+phrase("c3 d3 e3 e3 e3 d3 c3", "4. 4. 8 8 2.. 8 1") %>% track %>% score %>% tab("ex05.pdf")
+```
+
+Dots are tightly bound in dotted notes. `tabr` treats these multi-character time durations as singular elements, just as it does for, say, sixteenth notes given by a `"16"`.
+
+<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex05.png?raw=true" width="40%"></p>
+
+### Staccato
+
+Notes played staccato are specified by appending a closing square bracket directly on the note duration, e.g., altering `"16"` to `"16]"`. This will place a dot in the output below notes that are played staccato.
+
+```{r p7, results="hide", eval=FALSE}
+phrase("c3 e3 g3 e3 c3", "8] 8] 8] 8] 2") %>% track %>% score %>% tab("ex06.pdf")
+```
+
+<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex06.png?raw=true" width="75%"></p>
+
+### Muted or dead notes
+
+Muted or dead notes are indicated by appending an `"x"` to a note duration, e.g., `"8x"`.
+
+```{r p8, results="hide", eval=FALSE}
+phrase("c3 e3 g3 e3 c3", "8x] 8x] 8x] 8x] 2x") %>% track %>% score %>% tab("ex07.pdf")
+```
+
+<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex07.png?raw=true" width="45%"></p>
+
+Multiple pieces of information can be strung together for a single note. For example, combining a muted note with staccato can be given as `"8x]"`. In this early version of `tabr`, do this with caution, as not all orderings of note information have been thoroughly tested yet. Duration always comes first though. Some pieces of information are not meant to go together either, such as a staccato note that must essentially be held rather than released, for the purpose of sliding to another note. Use human judgement. If you don't ever see something in sheet music, it may not work in `tabr` either.
+
+In this case, the example will work with `"8x]"` or `"8]x"`. In fact, even accidentally leaving an extra staccato indicator in as `"8]x]"`, which does undesirably alter the output of `phrase`, will still be parsed by LilyPond correctly. Nevertheless, stick closely to patterns shown in these examples if possible.
+
+### Slides
+
+Slides are partially implemented. They work well in `tabr` when sliding from one note to another. Slides that do not begin from a note are not implemented. This is usually done with a bit of a hack in LilyPond by bending from a grace not and then hiding the grace note. This hack or some another approach has not been ported to `tabr`.
+
+Insert example:
+
+### Hammer ons and pull offs
+
+Hammer ons and pull offs use the same notation and are essentially equivalent to slurs
+
+Insert example:
+
+### String bending
+
+String bends are available but currently have a limited implementation in `tabr` and bend engraving in LilyPond itself is not fully developed. Specifying all kinds of bending, and doing so elegantly and yielding an aesthetically pleasing and accurate result, is immensely difficult.
+
+Insert example:
 
 *This and subsequent tutorial sections will be continued/added soon...*
 
