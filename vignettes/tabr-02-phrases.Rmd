@@ -68,7 +68,7 @@ phrase("c3 d3 e3 f3 g3 a3 b3 c4 b3 c4", "16 16 8 8 4 4 8 2 2 1") %>% track %>% s
 
 Rests are denoted by `"r"`. In general, string specification is irrelevant for rests because nothing is played, so you can use a placeholder like `x` instead of a string number. But this example is not even specifying the optional argument,`string`, so it does not matter here. Replacing some notes in the previous phrase with rests looks like the following.
 
-```{r p2, results="hide", eval=FALSE}
+```{r p3, results="hide", eval=FALSE}
 phrase("r d3 e3 r g3 r b3 r b3 r", "16 16 8 8 4 4 8 2 2 1") %>% track %>% score %>% tab("ex02.pdf")
 ```
 
