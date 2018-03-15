@@ -48,13 +48,14 @@ phrase("c,, c, c c' c''", "1 1 1 1 1")
 
 For more extreme octaves, the latter style requires more typing and is more difficult to read. However, some may find it easier to read for chords like an open E minor `"e,b,egbe'"` compared to either `"e2b2e3g3b3e4"` or `"e2b2egbe4"`.
 
-## Note metadata
+## Time: the essential note metadata
 
-Additional information about a note is passed to the second `phrase` argument, `info`. This enables removing ambiguities other than the pitch itself. 
+Additional information about a note is passed to the second `phrase` argument, `info`. This enables removing ambiguities other than the pitch itself. For the moment, only time duration is introduced.
+A brief diversion from the `info` argument follows in order to cover rests, tied notes, and string specification; three important elements that can be described with `phrase`, but which are not actually passed via the `info` argument. Afterward, focus returns to `info` with more detailed coverage of the various note metadata that is supplied to `phrase` via `info`.
 
 ### Duration
 
-The most basic, and always required at a bare minimum, is the time duration of each note. The previous example showed a string of ones, `info = "1 1 1 1 1"`, of equal length (in terms of space-delimited entries in the character string) to the first argument giving a sequence of five C notes from different octaves. These ones represent whole notes, lasting for an entire measure of music. Other possible integer values are 2, 4, 8, 16, 32 and 64, though most users probably won't have reason to go beyond 16. These represent half notes, quarter notes, eighth notes and sixteenth notes, etc.
+The most basic, and always required at a bare minimum, is the time duration of each note. Notes always have duration. The previous example showed a string of ones, `info = "1 1 1 1 1"`, of equal length (in terms of space-delimited entries in the character string) to the first argument giving a sequence of five C notes from different octaves. These ones represent whole notes, lasting for an entire measure of music. Other possible integer values are 2, 4, 8, 16, 32 and 64, though most users probably won't have reason to go beyond 16. The possible integers represent whole notes, half notes, quarter notes, eighth notes, sixteenth notes, etc.
 
 The format is technically specifying the denominator. You might be inclined toward 1, 1/2, 1/4, etc., since the durations represent fractions of a single measure, not a total number of measures. This denominator shorthand where the implicit numerator is always one saves typing, but is also consistently with LilyPond itself. Below is an example using different durations. Entire songs are much longer and more complex and do not meaningfully benefit from piping, but for this and other short examples that follow, it is convenient so it will be used. Other arguments in `tab` are not relevant yet so for now just accept the defaults.
 
@@ -64,15 +65,50 @@ phrase("c3 d3 e3 f3 g3 a3 b3 c4 b3 c4", "16 16 8 8 4 4 8 2 2 1") %>% track %>% s
 
 <p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex01.png?raw=true" width="100%"></p>
 
-### Rests
+## Rests and ties
 
-Rests are denoted by `"r"`. In general, string specification is irrelevant for rests because nothing is played, so you can use a placeholder like `x` instead of a string number. But this example is not even specifying the optional argument,`string`, so it does not matter here. Replacing some notes in the previous phrase with rests looks like the following.
+Rests and tied notes are actually part of the `note` argument. Both have duration, which is what belongs on the `info`.
+
+Rests are denoted by `"r"`. In general, string specification is irrelevant for rests because nothing is played, so you can use a placeholder like `x` instead of a string number. This is shown further below, but for the moment this example is not specifying the optional argument, `string`. Replacing some notes in the previous phrase with rests looks like the following.
 
 ```{r p3, results="hide", eval=FALSE}
 phrase("r d3 e3 r g3 r b3 r b3 r", "16 16 8 8 4 4 8 2 2 1") %>% track %>% score %>% tab("ex02.pdf")
 ```
 
 <p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex02.png?raw=true" width="100%"></p>
+
+At first glance, tied notes might seem like something that ought to be described via `info`, but even though the note is only played once initially and not played second time where the tie ends, a tied note is still distinct from the note to which it is tied *as far as notation is concerned*.
+
+For example, when tying a note over to a new measure, it must be included twice in `notes`. The tie is annotated on the original note with a `~` as follows.
+
+```{r p4, results="hide", eval=FALSE}
+phrase("r a2 b2 c3~ c3", "2 8 8 4 1") %>% track %>% score %>% tab("ex03.pdf")
+```
+
+<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex03.png?raw=true" width="60%"></p>
+
+The note is played once and last for one and a quarter measures, but is still annotated as one quarter note tied to one whole note.
+
+## Explicit string-fret combinations
+
+Specifying the exact pitch is still ambiguous for guitar tablature because the same note can be played in different positions along the neck of a guitar. Tabs show which string is fretted and where. For example, in standard tuning, the same C3 note can be played on the fifth string, third fret, or on the sixth string, eighth fret. If left unspecified, most guitar tablature software will attempt to guess where to play notes on the guitar. This is not done by some kind of impressive, reliable artificial intelligence. It usually just means arbitrarily reducing notes to the lowest possible frets even if a combination of notes would not make sense or be physically practical for someone to play them that way.
+
+There is one degree of freedom when the note is locked in but its position is not. It is not necessary to specify both the string number and the fret number. Providing one implicitly locks in the other. If you know the pitch and the string number, the fret is known. LilyPond accepts string numbers readily. To isolate these numbers from the `info` argument notation in `phrase`, they are provided in the third argument, `string`, which is also helpful because `string` is always optional.
+
+Returning to the earlier phrase, without the rests, the equivalent phrase with explicit string numbers would have had `string = "5 4 4 4 3 3 2 2 2 2"`. The second version with rests could have been provided as `string = "x 4 4 x 3 x 2 x 2 x"`. Instead, play further up the neck beginning with C3 on the sixth string, eighth fret.
+
+```{r p5, results="hide", eval=FALSE}
+notes <- "c3 d3 e3 f3 g3 a3 b3 c4 b3 c4"
+info <- "16 16 8 8 4 4 8 2 2 1"
+strings <- "6 6 5 5 5 4 4 4 4 4"
+phrase(notes, info, strings) %>% track %>% score %>% tab("ex04.pdf")
+```
+
+<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex04.png?raw=true" width="100%"></p>
+
+Some programs like LilyPond allow for specifying a minimum string threshold, such as every note being played on the fourth string or above (four through one). This would work better for some songs than others of course. It is still not as powerful or ideal as being explicit about every note's position. This threshold option is not currently supported by `tabr`. It is recommended to always be explicit anyway, as it leads to more accurate guitar tablature. There is a preponderance of highly inaccurate guitar tabs in the online world. Please do not add to the heap.
+
+## Note metadata continued
 
 *This and subsequent tutorial sections will be continued/added soon...*
 
