@@ -49,11 +49,13 @@ NULL
 #' @export
 #' @rdname phrase
 phrase <- function(notes, info, string = NULL, bar = FALSE){
-  notes <- strsplit(notes, " ")[[1]]
+  notes <- (strsplit(notes, " ")[[1]] %>% purrr::map_chr(.star_expand) %>%
+    paste0(collapse = " ") %>% strsplit(" "))[[1]]
   notes <- .octavesub(notes)
-  info <- strsplit(as.character(info), " ")[[1]]
-  notes <- purrr::map_chr(notes, ~.tabsub(.x))
-  info <- purrr::map_chr(info, ~.tabsub(.x))
+  info <- (strsplit(as.character(info), " ")[[1]] %>% purrr::map_chr(.star_expand) %>%
+             paste0(collapse = " ") %>% strsplit(" "))[[1]]
+  notes <- purrr::map_chr(notes, .tabsub)
+  info <- purrr::map_chr(info, .tabsub)
   bend <- which(purrr::map_int(info, ~length(grep("\\^", strsplit(.x, ";")[[1]][1]))) == 1)
   dead <- which(purrr::map_int(info, ~length(grep("xDEADNOTEx", strsplit(.x, ";")[[1]][1]))) == 1)
   if(length(bend)) info[bend] <- gsub(";\\^", ";", info[bend])
