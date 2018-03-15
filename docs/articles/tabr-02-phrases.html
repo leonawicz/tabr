@@ -153,7 +153,7 @@
 <p>For example, when tying a note over to a new measure, it must be included twice in <code>notes</code>. The tie is annotated on the original note with a <code>~</code> as follows.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">phrase</span>(<span class="st">"r a2 b2 c3~ c3"</span>, <span class="st">"2 8 8 4 1"</span>) <span class="op">%&gt;%</span><span class="st"> </span>track <span class="op">%&gt;%</span><span class="st"> </span>score <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex03.pdf"</span>)</code></pre></div>
 <p align="center">
-<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex03.png?raw=true" width="60%"></p>
+<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex03.png?raw=true" width="55%"></p>
 <p>The note is played once and last for one and a quarter measures, but is still annotated as one quarter note tied to one whole note.</p>
 </div>
 <div id="explicit-string-fret-combinations" class="section level2">
@@ -183,7 +183,7 @@ strings &lt;-<span class="st"> "6 6 5 5 5 4 4 4 4 4"</span>
 <span class="st">    </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex05.pdf"</span>)</code></pre></div>
 <p>Dots are tightly bound in dotted notes. <code>tabr</code> treats these multi-character time durations as singular elements, just as it does for, say, sixteenth notes given by a <code>"16"</code>.</p>
 <p align="center">
-<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex05.png?raw=true" width="40%"></p>
+<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex05.png?raw=true" width="72%"></p>
 </div>
 <div id="staccato" class="section level3">
 <h3 class="hasAnchor">
@@ -191,7 +191,7 @@ strings &lt;-<span class="st"> "6 6 5 5 5 4 4 4 4 4"</span>
 <p>Notes played staccato are specified by appending a closing square bracket directly on the note duration, e.g., altering <code>"16"</code> to <code>"16]"</code>. This will place a dot in the output below notes that are played staccato.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">phrase</span>(<span class="st">"c3 e3 g3 e3 c3"</span>, <span class="st">"8] 8] 8] 8] 2"</span>) <span class="op">%&gt;%</span><span class="st"> </span>track <span class="op">%&gt;%</span><span class="st"> </span>score <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex06.pdf"</span>)</code></pre></div>
 <p align="center">
-<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex06.png?raw=true" width="75%"></p>
+<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex06.png?raw=true" width="42%"></p>
 </div>
 <div id="muted-or-dead-notes" class="section level3">
 <h3 class="hasAnchor">
@@ -199,7 +199,7 @@ strings &lt;-<span class="st"> "6 6 5 5 5 4 4 4 4 4"</span>
 <p>Muted or dead notes are indicated by appending an <code>"x"</code> to a note duration, e.g., <code>"8x"</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">phrase</span>(<span class="st">"c3 e3 g3 e3 c3"</span>, <span class="st">"8x] 8x] 8x] 8x] 2x"</span>) <span class="op">%&gt;%</span><span class="st"> </span>track <span class="op">%&gt;%</span><span class="st"> </span>score <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex07.pdf"</span>)</code></pre></div>
 <p align="center">
-<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex07.png?raw=true" width="45%"></p>
+<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex07.png?raw=true" width="42%"></p>
 <p>Multiple pieces of information can be strung together for a single note. For example, combining a muted note with staccato can be given as <code>"8x]"</code>. In this early version of <code>tabr</code>, do this with caution, as not all orderings of note information have been thoroughly tested yet. Duration always comes first though. Some pieces of information are not meant to go together either, such as a staccato note that must essentially be held rather than released, for the purpose of sliding to another note. Use human judgement. If you don’t ever see something in sheet music, it may not work in <code>tabr</code> either.</p>
 <p>In this case, the example will work with <code>"8x]"</code> or <code>"8]x"</code>. In fact, even accidentally leaving an extra staccato indicator in as <code>"8]x]"</code>, which does undesirably alter the output of <code>phrase</code>, will still be parsed by LilyPond correctly. Nevertheless, stick closely to patterns shown in these examples if possible.</p>
 </div>

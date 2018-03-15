@@ -85,7 +85,7 @@ For example, when tying a note over to a new measure, it must be included twice 
 phrase("r a2 b2 c3~ c3", "2 8 8 4 1") %>% track %>% score %>% tab("ex03.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex03.png?raw=true" width="60%"></p>
+<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex03.png?raw=true" width="55%"></p>
 
 The note is played once and last for one and a quarter measures, but is still annotated as one quarter note tied to one whole note.
 
@@ -124,7 +124,7 @@ phrase("c3 d3 e3 e3 e3 d3 c3", "4. 4. 8 8 2.. 8 1") %>% track %>% score %>% tab(
 
 Dots are tightly bound in dotted notes. `tabr` treats these multi-character time durations as singular elements, just as it does for, say, sixteenth notes given by a `"16"`.
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex05.png?raw=true" width="40%"></p>
+<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex05.png?raw=true" width="72%"></p>
 
 ### Staccato
 
@@ -134,7 +134,7 @@ Notes played staccato are specified by appending a closing square bracket direct
 phrase("c3 e3 g3 e3 c3", "8] 8] 8] 8] 2") %>% track %>% score %>% tab("ex06.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex06.png?raw=true" width="75%"></p>
+<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex06.png?raw=true" width="42%"></p>
 
 ### Muted or dead notes
 
@@ -144,7 +144,7 @@ Muted or dead notes are indicated by appending an `"x"` to a note duration, e.g.
 phrase("c3 e3 g3 e3 c3", "8x] 8x] 8x] 8x] 2x") %>% track %>% score %>% tab("ex07.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex07.png?raw=true" width="45%"></p>
+<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex07.png?raw=true" width="42%"></p>
 
 Multiple pieces of information can be strung together for a single note. For example, combining a muted note with staccato can be given as `"8x]"`. In this early version of `tabr`, do this with caution, as not all orderings of note information have been thoroughly tested yet. Duration always comes first though. Some pieces of information are not meant to go together either, such as a staccato note that must essentially be held rather than released, for the purpose of sliding to another note. Use human judgement. If you don't ever see something in sheet music, it may not work in `tabr` either.
 
