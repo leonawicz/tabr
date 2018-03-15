@@ -67,9 +67,9 @@ phrase("c3 d3 e3 f3 g3 a3 b3 c4 b3 c4", "16 16 8 8 4 4 8 2 2 1") %>% track %>% s
 
 ## Rests and ties
 
-Rests and tied notes are actually part of the `note` argument. Both have duration, which is what belongs on the `info`.
+Rests and tied notes are actually part of the `note` argument. Both have duration, which is what belongs in `info`.
 
-Rests are denoted by `"r"`. In general, string specification is irrelevant for rests because nothing is played, so you can use a placeholder like `x` instead of a string number. This is shown further below, but for the moment this example is not specifying the optional argument, `string`. Replacing some notes in the previous phrase with rests looks like the following.
+Rests are denoted by `"r"`. In general, string specification is irrelevant for rests because nothing is played, so you can use a placeholder like `x` instead of a string number (see next section on string numbers). For the moment this example is not specifying the optional argument, `string`, so this can be ignored. Replacing some notes in the previous phrase with rests looks like the following.
 
 ```{r p3, results="hide", eval=FALSE}
 phrase("r d3 e3 r g3 r b3 r b3 r", "16 16 8 8 4 4 8 2 2 1") %>% track %>% score %>% tab("ex02.pdf")

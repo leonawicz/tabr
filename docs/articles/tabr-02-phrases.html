@@ -143,8 +143,8 @@
 <div id="rests-and-ties" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rests-and-ties" class="anchor"></a>Rests and ties</h2>
-<p>Rests and tied notes are actually part of the <code>note</code> argument. Both have duration, which is what belongs on the <code>info</code>.</p>
-<p>Rests are denoted by <code>"r"</code>. In general, string specification is irrelevant for rests because nothing is played, so you can use a placeholder like <code>x</code> instead of a string number. This is shown further below, but for the moment this example is not specifying the optional argument, <code>string</code>. Replacing some notes in the previous phrase with rests looks like the following.</p>
+<p>Rests and tied notes are actually part of the <code>note</code> argument. Both have duration, which is what belongs in <code>info</code>.</p>
+<p>Rests are denoted by <code>"r"</code>. In general, string specification is irrelevant for rests because nothing is played, so you can use a placeholder like <code>x</code> instead of a string number (see next section on string numbers). For the moment this example is not specifying the optional argument, <code>string</code>, so this can be ignored. Replacing some notes in the previous phrase with rests looks like the following.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">phrase</span>(<span class="st">"r d3 e3 r g3 r b3 r b3 r"</span>, <span class="st">"16 16 8 8 4 4 8 2 2 1"</span>) <span class="op">%&gt;%</span><span class="st"> </span>track <span class="op">%&gt;%</span><span class="st"> </span>score <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">    </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex02.pdf"</span>)</code></pre></div>
 <p align="center">
