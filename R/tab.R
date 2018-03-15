@@ -261,7 +261,7 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 }
 
 .strsub <- function(x){
-  x <- strsplit(x, " ")[[1]] %>% purrr::map_chr(.star_expand) %>% paste0(collapse = " ")
+  x <- strsplit(as.character(x), " ")[[1]] %>% purrr::map_chr(.star_expand) %>% paste0(collapse = " ")
   x <- gsub("a", "654321", x)
   x <- gsub("6s", "654321", x)
   x <- gsub("5s", "54321", x)
