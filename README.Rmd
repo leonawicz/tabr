@@ -33,7 +33,7 @@ cat('Create guitar tablature ("tabs") from R code with `tabr`. The `tabr` packag
 
 A standalone LilyPond (.ly) file can be created or the package can make a system call to LilyPond directly to render the guitar tablature output (pdf or png). While LilyPond caters to sheet music in general, `tabr` is focused on leveraging it specifically for creating quality guitar tablature.
 
-*Note: `tabr` has been tested only on Windows so far. It has not been generalized to Linux and Mac operating systems yet.*
+*Note: `tabr` has been tested on Windows. It has been minimally tested on Linux. It has not yet been tested on Mac.*
 
 ## Installation
 
@@ -63,7 +63,7 @@ The third argument, `string`, is optional but generally important for guitar tab
 
 ## Score metadata and accessing LilyPond
 
-Finally, specify some song metadata to reproduce the original staff: the key of D minor, common time, and the tempo. If LilyPond is installed on your system and added to your system PATH variable, `tab` should call it successfully. Alternatively, it can be added explicitly by calling `tabr_options`. An example of this is commented out below.
+Finally, specify some song metadata to reproduce the original staff: the key of D minor, common time, and the tempo. If LilyPond is installed on your system (and added to your system PATH variable on Windows systems), `tab` should call it successfully. Alternatively, on Windows, it can be added explicitly by calling `tabr_options`. This option to specify the LilyPond path is still available on other systems. An example of this is commented out below.
 
 ## R code
 

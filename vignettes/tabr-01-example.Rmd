@@ -64,11 +64,13 @@ song
 
 ## Calling LilyPond from R
 
-Once a score object is created, it is ready to be sent to LilyPond. If LilyPond is installed on your system and added to your system PATH variable (Windows OS), `tab` should call it successfully. Alternatively, it can be added explicitly by calling `tabr_options` as follows.
+Once a score object is created, it is ready to be sent to LilyPond. If LilyPond is installed on your system (and added to your system PATH variable on Windows systems), `tab` should call it successfully. Alternatively, on Windows, it can be added explicitly by calling `tabr_options` as follows.
 
 ```{r opts}
 tabr_options(lilypond = "C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe")
 ```
+
+Technically, when loading `tabr` on Windows it will attempt to check the specific path above to see if `lilypond.exe` exists there. If it does, the path in `tabr_options` will be filled in for you. Therefore, if you need to specify the LilyPond path because it is not in your PATH environment variable and nothing shows in `tabr_options()`, then the path shown above is probably not where you installed LilyPond.
 
 ## Score metadata
 

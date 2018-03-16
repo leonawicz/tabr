@@ -142,8 +142,9 @@ song
 <div id="calling-lilypond-from-r" class="section level2">
 <h2 class="hasAnchor">
 <a href="#calling-lilypond-from-r" class="anchor"></a>Calling LilyPond from R</h2>
-<p>Once a score object is created, it is ready to be sent to LilyPond. If LilyPond is installed on your system and added to your system PATH variable (Windows OS), <code>tab</code> should call it successfully. Alternatively, it can be added explicitly by calling <code>tabr_options</code> as follows.</p>
+<p>Once a score object is created, it is ready to be sent to LilyPond. If LilyPond is installed on your system (and added to your system PATH variable on Windows systems), <code>tab</code> should call it successfully. Alternatively, on Windows, it can be added explicitly by calling <code>tabr_options</code> as follows.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/tabr_options.html">tabr_options</a></span>(<span class="dt">lilypond =</span> <span class="st">"C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe"</span>)</code></pre></div>
+<p>Technically, when loading <code>tabr</code> on Windows it will attempt to check the specific path above to see if <code>lilypond.exe</code> exists there. If it does, the path in <code>tabr_options</code> will be filled in for you. Therefore, if you need to specify the LilyPond path because it is not in your PATH environment variable and nothing shows in <code><a href="../reference/tabr_options.html">tabr_options()</a></code>, then the path shown above is probably not where you installed LilyPond.</p>
 </div>
 <div id="score-metadata" class="section level2">
 <h2 class="hasAnchor">
