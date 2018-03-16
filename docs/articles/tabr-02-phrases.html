@@ -59,6 +59,21 @@
     <li>
       <a href="../articles/tabr-02-phrases.html">Musical phrases</a>
     </li>
+    <li>
+      <a href="../articles/tabr-03-helpers.html">Phrase helpers</a>
+    </li>
+    <li>
+      <a href="../articles/tabr-04-chords.html">Chords</a>
+    </li>
+    <li>
+      <a href="../articles/tabr-05-repeats.html">Repeats</a>
+    </li>
+    <li>
+      <a href="../articles/tabr-06-tracks-scores.html">Tracks and scores</a>
+    </li>
+    <li>
+      <a href="../articles/tabr-07-engraving.html">Engraving</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -206,21 +221,45 @@ strings &lt;-<span class="st"> "6 6 5 5 5 4 4 4 4 4"</span>
 <div id="slides" class="section level3">
 <h3 class="hasAnchor">
 <a href="#slides" class="anchor"></a>Slides</h3>
-<p>Slides are partially implemented. They work well in <code>tabr</code> when sliding from one note to another. Slides that do not begin from a note are not implemented. This is usually done with a bit of a hack in LilyPond by bending from a grace not and then hiding the grace note. This hack or some another approach has not been ported to <code>tabr</code>.</p>
-<p>Insert example:</p>
+<p>Slides are partially implemented. They work well in <code>tabr</code> when sliding from one note to another note. Slides to a note that do not begin from a previous note and slides from a note that do not terminate at subsequent note are not implemented. This is usually done with a bit of a hack in LilyPond by bending from or to a grace note and then making the grace note invisible. This hack or some another approach has not been ported to <code>tabr</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">phrase</span>(<span class="st">"c3 b2 c3 d3 e3 e3 d3 c3 b2 c3 c3 c4"</span>, <span class="st">"8- 8- 4 8- 8 8- 8 8- 8- 8 4.- 4"</span>, 
+    <span class="st">"5*12"</span>) <span class="op">%&gt;%</span><span class="st"> </span>track <span class="op">%&gt;%</span><span class="st"> </span>score <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex08.pdf"</span>)</code></pre></div>
+<p align="center">
+<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex08.png?raw=true" width="77%"></p>
+<p>As a brief aside, note the use of <code>*</code> above in the <code>string</code> argument to reduce typing. It is necessary to specify <code>string</code> here in order to ensure the notes are all on the fifth string in the output. Any space-delimited elements in <code>phrase</code> can take advantage of this terminal element notation for multiplicative expansion of an element. Terminal means that it must be appended to the end of whatever is being expanded; nothing can follow it. <code>c*4 a*2</code> expands to <code>c c c c a a</code> inside <code>phrase</code>. <code>4.-*2</code> is replaced with <code>4.- 4.-</code>. This convenient multiplicative expansion operator within character strings passed to <code>phrase</code> is available for the <code>notes</code>, <code>info</code> and <code>string</code> arguments.</p>
 </div>
 <div id="hammer-ons-and-pull-offs" class="section level3">
 <h3 class="hasAnchor">
 <a href="#hammer-ons-and-pull-offs" class="anchor"></a>Hammer ons and pull offs</h3>
-<p>Hammer ons and pull offs use the same notation and are essentially equivalent to slurs</p>
-<p>Insert example:</p>
+<p>Hammer ons and pull offs use the same notation and are essentially equivalent to slurs. They require a starting and stopping point. Therefore, they must always come in pairs. Providing an odd number of slur indicators will throw an error. The beginning of a slur is indicated using an open parenthesis, <code>(</code>, and the end of a slur is indicated with a closing parenthesis, <code>)</code>.</p>
+<p>Editing the previous example, change some of the slides to hammer ons and pull offs.</p>
+<ul>
+<li>Change the opening two slides (C to B to C) to use a pull off followed by a hammer on. Note that each must be opened and closed, hence the <code>)(</code> appended to the B, the second eighth note. Using only a single set of parentheses, opening on the first note and closing on the third, would make a single, general slur over all three in the output.</li>
+<li>Next, hammer on from D to E, pick E, and pull off back to D. Notice the notation is identical for in both directions. Whether the slur between the two consecutive notes is a hammer on or pull off is implicit, given by the direction.</li>
+<li>Then play the C-B-C part again, but differently from the opening. Pick, pick, hammer on, pick, and then the final slide.</li>
+<li>Finally, transpose up one octave by increasing the octave numbers attached to the pitches in <code>notes</code>. The reason for this is simply to demonstrate the placement of slurs above or below notes on the tablature staff depending on the string number. With this transposition, move from the fifth to the third string.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">notes &lt;-<span class="st"> </span><span class="kw"><a href="../reference/append_phrases.html">glue</a></span>(<span class="st">"c3 b2 c3 d3 e3 e3 d3 c3 b2 c3 c3 c4"</span>, <span class="st">"c4 b3 c4 d4 e4 e4 d4 c4 b3 c4 c4 c5"</span>)
+info &lt;-<span class="st"> </span><span class="kw"><a href="../reference/append_phrases.html">dup</a></span>(<span class="st">"8( 8)( 4) 8( 8) 8( 8) 8 8( 8) 4.- 4"</span>, <span class="dv">2</span>)
+strings &lt;-<span class="st"> "5*12 3*12"</span>
+<span class="kw">phrase</span>(notes, info, strings) <span class="op">%&gt;%</span><span class="st"> </span>track <span class="op">%&gt;%</span><span class="st"> </span>score <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex09.pdf"</span>)</code></pre></div>
+<p align="center">
+<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex09.png?raw=true" width="100%"></p>
+<p>Another brief aside: <code>tabr</code> has some helper functions that make your work a bit easier and your code a bit more legible, ideally both. Using meaningful separation helps keep the code relatively readable and easier to make changes to when you realize you made a mistake somewhere. Don’t write one enormous string representing an entire song. Aside from the avoiding code duplication where there is musical repetition, even something that might not repeat such as a guitar solo still benefits greatly from being broken up in to manageable parts. <code>glue</code> is used above to combine both parts fed to <code>notes</code> rather than write a single character string. <code>glue</code> is a convenient function for joining strings in <code>tabr</code>. It’s a simple wrapper around <code>paste</code> that maintains space-delimitation as well as the <code>phrase</code> class when at least one element passed to <code>glue</code> is a phrase object. The string passed to <code>info</code> does not change between parts so it can be duplicated. Using the <code>*n</code> within-string operator from earlier does not apply here, but another function much like <code>glue</code> is <code>dup</code>. It is a wrapper around <code>rep</code> that is convenient in a <code>tabr</code> context. Like <code>glue</code>, it maintains the phrase class when applicable.</p>
 </div>
 <div id="string-bending" class="section level3">
 <h3 class="hasAnchor">
 <a href="#string-bending" class="anchor"></a>String bending</h3>
-<p>String bends are available but currently have a limited implementation in <code>tabr</code> and bend engraving in LilyPond itself is not fully developed. Specifying all kinds of bending, and doing so elegantly and yielding an aesthetically pleasing and accurate result, is immensely difficult.</p>
-<p>Insert example:</p>
-<p><em>This and subsequent tutorial sections will be continued/added soon…</em></p>
+<p>String bends are available but currently have a limited implementation in <code>tabr</code> and bend engraving in LilyPond itself is not fully developed. Specifying all kinds of bending, and doing so elegantly and yielding an aesthetically pleasing and accurate result, is immensely difficult. Bends are specified with a <code>^</code>. Bend engraving does not look very good at the moment and control over how a bend is drawn and any associated notation indicating the number of semitones to bend is currently excluded.</p>
+<p>In the example below, a half step bend-release-bend is attempted over the three B notes shown at the end of the first phrase. Because the string is only plucked one time, the first two B notes are tied through to the third. Since a tied note is a note, this is done in <code>notes</code>. The two bends are indicated with <code>^</code> on the first and third notes via <code>info</code>. A similar approach is taken with the second phrase, although with full step bends from G to A. In both cases, the initial bend is not a pre-bend, but should be very quick. None of these fine details can be provided with the current version of <code>tabr</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">notes &lt;-<span class="st"> </span><span class="kw"><a href="../reference/append_phrases.html">glue</a></span>(<span class="st">"r a2 c3 f3 d3 a3 f3 b3~ b3~ b3"</span>, <span class="st">"r a3 c4 d4 a3 f4 d4 g4~ g4~ g4"</span>)
+info &lt;-<span class="st"> </span><span class="kw"><a href="../reference/append_phrases.html">dup</a></span>(<span class="st">"4 8 8 8 8 8 8 16^ 16 2..^"</span>, <span class="dv">2</span>)
+strings &lt;-<span class="st"> </span><span class="kw"><a href="../reference/append_phrases.html">glue</a></span>(<span class="st">"x 5 5 4 4 3 4 3 3 3"</span>, <span class="st">"x 4 3 3 4 2 3 2 2 2"</span>)
+<span class="kw">phrase</span>(notes, info, strings) <span class="op">%&gt;%</span><span class="st"> </span>track <span class="op">%&gt;%</span><span class="st"> </span>score <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex10.pdf"</span>)</code></pre></div>
+<p align="center">
+<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex10.png?raw=true" width="100%"></p>
+<p>As you can see, the implementation is limited <code>tabr</code>. It is also relatively difficult to achieve natively in LilyPond. The bends are different but the number of steps must be inferred from the key. The timing of bends and releases is challenging. The engraving is poor. But it is a start point.</p>
+<p>This covers the detailed introduction to phrases. The next section will cover related helper functions, some of which have already been seen.</p>
 </div>
 </div>
 </div>

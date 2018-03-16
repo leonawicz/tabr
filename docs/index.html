@@ -59,6 +59,21 @@
     <li>
       <a href="articles/tabr-02-phrases.html">Musical phrases</a>
     </li>
+    <li>
+      <a href="articles/tabr-03-helpers.html">Phrase helpers</a>
+    </li>
+    <li>
+      <a href="articles/tabr-04-chords.html">Chords</a>
+    </li>
+    <li>
+      <a href="articles/tabr-05-repeats.html">Repeats</a>
+    </li>
+    <li>
+      <a href="articles/tabr-06-tracks-scores.html">Tracks and scores</a>
+    </li>
+    <li>
+      <a href="articles/tabr-07-engraving.html">Engraving</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -161,7 +176,7 @@ song &lt;-<span class="st"> </span><span class="kw"><a href="reference/score.htm
 <div id="context-and-caveats" class="section level2">
 <h2 class="hasAnchor">
 <a href="#context-and-caveats" class="anchor"></a>Context and caveats</h2>
-<p>The <code>tabr</code> package is in early development. Breaking changes could occur in a later version. Many capabilities are missing. Others are incompletely implemented. Others in the R developer community who are probably much better musicians than myself are welcome to contribute. This is the type of package that will only develop in response to specific needs of its contributor(s). With so much yet to be developed around the basics that are already in place, some edge cases seem far down the road and I have not given thought to them. For example, <code>tabr</code> assumes standard guitar tuning. It has no ability to recognize or handle non-standard tunings or instruments like bass with a different number of strings. This type of development excursion is not a priority and would make sense to consider after <code>tabr</code> has become a bit more robust.</p>
+<p>The <code>tabr</code> package is in early development. Breaking changes could occur in a later version. Many capabilities are missing. Others are incompletely implemented. Others in the R developer community who are probably much better musicians than myself are welcome to contribute. This is the type of package that will only develop in response to specific needs of its contributor(s). There are many things that <code>tabr</code> does not address at this stage of development. For example, <code>tabr</code> assumes standard guitar tuning. It has no ability to recognize or handle non-standard tunings or instruments like bass with a different number of strings. There are essentially countless other aspects of music notation available in LilyPond that <code>tabr</code> does not wrap around. The aim is not to do it all, but certainly to do much more than is currently in place.</p>
 <p>I am not an expert in music theory, or in music notation and transcription, or in LilyPond. In fact, my skill in music notation is ironically low enough that I do not find it any more challenging or an impediment to describe a song in R code rather than to just tab it out by hand. The main intent with <code>tabr</code>, however, is simply to be able to generate markup files that LilyPond accepts and understands, without having to write that markup directly.</p>
 <p>A major part of the motivation for <code>tabr</code> is the desire for high quality guitar tablature, as produced by LilyPond. Using LilyPond for high quality sheet music and tablature creates an entry point to programmatic music notation as opposed to reliance on various GUI-based programs. While I have not personally used every GUI-based music notation software available, I have found that they tend to have a lot of limitations. Some of them also produce sheet music that looks unprofessional when compared to LilyPond-engraved sheet music. LilyPond, generally speaking, offers the ability to engrave exactly what you want, as long as you know how to provide the markup syntax. Like R, it is also open source.</p>
 <p>Finally, there are nonetheless limitations to LilyPond itself. It has been developed for sheet music in general and guitar tablature features were added as a relative afterthought. There are plenty of features I have not yet developed R wrappers around. Then there are other features like string bending that are technically available, but not fully developed yet on the LilyPond side either. Case in point, LilyPond’s bend engraver is still under development; specifying something as common as a bend-release-pull-off is, to put it mildly, challenging.</p>
