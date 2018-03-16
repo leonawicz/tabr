@@ -36,6 +36,7 @@ reference:
   - notate
   - hp
   - tuplet
+  - transpose
 - title: Repeats
   desc: "Functions to assist with repeated sections of music."
   contents:
@@ -62,6 +63,16 @@ navbar:
           href: "articles/tabr-01-example.html"
         - text: "Musical phrases"
           href: "articles/tabr-02-phrases.html"
+        - text: "Phrase helpers"
+          href: "articles/tabr-03-helpers.html"
+        - text: "Chords"
+          href: "articles/tabr-04-chords.html"
+        - text: "Repeats"
+          href: "articles/tabr-05-repeats.html"
+        - text: "Tracks and scores"
+          href: "articles/tabr-06-tracks-scores.html"
+        - text: "Engraving"
+          href: "articles/tabr-06-engraving.html"
     - text: "Reference"
       icon: fa-book
       href: "reference/index.html"
