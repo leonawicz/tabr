@@ -72,7 +72,7 @@ navbar:
         - text: "Tracks and scores"
           href: "articles/tabr-06-tracks-scores.html"
         - text: "Engraving"
-          href: "articles/tabr-06-engraving.html"
+          href: "articles/tabr-07-engraving.html"
     - text: "Reference"
       icon: fa-book
       href: "reference/index.html"
