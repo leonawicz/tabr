@@ -1,0 +1,24 @@
+---
+title: "Repeats"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Repeats}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, tidy = TRUE, out.width = "100%"
+)
+library(tabr)
+tabr_options(lilypond = "C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe")
+```
+
+Attention has been given to minimizing typing and keeping the R code short, particularly when the music is repetitive. However, this also needs to be extended to the tablature itself. Sheet music makes using various styles of repeat notation to keep the number of pages for a song from expanding needlessly. `tabr` offers two functions for common ways to use repeats. One is `volta` and the other is `pct`. The first is useful for repeating entire measures, possibly with alternate endings. The second is useful for simpler repeats.
+
+*This and subsequent tutorial sections will be continued/added soon...*
+
+```{r cleanup, echo=FALSE}
+unlink("*.mid")
+```

@@ -1,0 +1,25 @@
+---
+title: "Tracks and scores"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Tracks and scores}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, tidy = TRUE, out.width = "100%"
+)
+library(tabr)
+tabr_options(lilypond = "C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe")
+```
+
+This section puts the finishing touches on combining phrases into tracks and tracks into scores. The functions `track` and `score` have been used repeatedly in earlier sections out of necessity in order to demonstrate complete examples, but their use has been specific and limited and they have not been discussed.
+In the examples below, phrases are added to multiple tracks, tracks are bound together, and then scores are composed of multiple tracks. Examples using different tracks, voices, and staves are considered. Then chord symbol sequences and chord diagram charts are incorporated into scores.
+
+*This and subsequent tutorial sections will be continued/added soon...*
+
+```{r cleanup, echo=FALSE}
+unlink("*.mid")
+```

@@ -1,0 +1,24 @@
+---
+title: "Chords"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Chords}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, tidy = TRUE, out.width = "100%"
+)
+library(tabr)
+tabr_options(lilypond = "C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe")
+```
+
+This section introduces the use of chords in `tabr`. All of the functionality surrounding individual notes in phrases generalizes to chords. Chords symbols can also be displayed above sheet music staves and chord diagrams can be included at the top of sheet music scores using a chord chart. These topics are covered in the subsequent section on tracks and scores. This section here focuses on using chords in `phrase` where their notation will become part of content engraved in the sheet music staves.
+
+*This and subsequent tutorial sections will be continued/added soon...*
+
+```{r cleanup, echo=FALSE}
+unlink("*.mid")
+```
