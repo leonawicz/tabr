@@ -106,7 +106,7 @@ phrase(notes, info, strings) %>% track %>% score %>% tab("ex04.pdf")
 
 <p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex04.png?raw=true" width="100%"></p>
 
-Some programs like LilyPond allow for specifying a minimum string threshold, such as every note being played on the fourth string or above (four through one). This would work better for some songs than others of course. It is still not as powerful or ideal as being explicit about every note's position. This threshold option is not currently supported by `tabr`. It is recommended to always be explicit anyway, as it leads to more accurate guitar tablature. There is a preponderance of highly inaccurate guitar tabs in the online world. Please do not add to the heap.
+Some programs like LilyPond allow for specifying a minimum fret threshold, such that every note is played at that fret or above. This would work better for some songs than others of course. It is still not as powerful or ideal as being explicit about every note's position. This threshold option is not currently supported by `tabr`. It is recommended to always be explicit anyway, as it leads to more accurate guitar tablature. There is a preponderance of highly inaccurate guitar tabs in the online world. Please do not add to the heap.
 
 ## Note metadata continued
 
