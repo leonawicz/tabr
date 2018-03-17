@@ -182,7 +182,9 @@ phrase(notes, info, strings) %>% track %>% score %>% tab("ex09.pdf")
 
 <p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex09.png?raw=true" width="100%"></p>
 
-Another brief aside: `tabr` has some helper functions that make your work a bit easier and your code a bit more legible, ideally both. Using meaningful separation helps keep the code relatively readable and easier to make changes to when you realize you made a mistake somewhere. Don't write one enormous string representing an entire song. Aside from the avoiding code duplication where there is musical repetition, even something that might not repeat such as a guitar solo still benefits greatly from being broken up in to manageable parts. `glue` is used above to combine both parts fed to `notes` rather than write a single character string. `glue` is a convenient function for joining strings in `tabr`. It's a simple wrapper around `paste` that maintains space-delimitation as well as the `phrase` class when at least one element passed to `glue` is a phrase object. The string passed to `info` does not change between parts so it can be duplicated. Using the `*n` within-string operator from earlier does not apply here, but another function much like `glue` is `dup`. It is a wrapper around `rep` that is convenient in a `tabr` context. Like `glue`, it maintains the phrase class when applicable.
+Another brief aside: `tabr` has some helper functions that make your work a bit easier and your code a bit more legible, ideally both. Using meaningful separation helps keep the code relatively readable and easier to make changes to when you realize you made a mistake somewhere. Don't write one enormous string representing an entire song. Aside from the avoiding code duplication where there is musical repetition, even something that might not repeat such as a guitar solo still benefits greatly from being broken up in to manageable parts. 
+
+`glue` is used above to combine both parts fed to `notes` rather than write a single character string. `glue` is a convenient function for joining strings in `tabr`. It's a simple wrapper around `paste` that maintains space-delimitation as well as the `phrase` class when at least one element passed to `glue` is a phrase object. The string passed to `info` does not change between parts so it can be duplicated. Using the `*n` within-string operator from earlier does not apply here, but another function much like `glue` is `dup`. It is a wrapper around `rep` that is convenient in a `tabr` context. Like `glue`, it maintains the phrase class when applicable.
 
 ### String bending
 
@@ -200,7 +202,7 @@ phrase(notes, info, strings) %>% track %>% score %>% tab("ex10.pdf")
 
 <p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex10.png?raw=true" width="100%"></p>
 
-As you can see, the implementation is limited `tabr`. It is also relatively difficult to achieve natively in LilyPond. The bends are different but the number of steps must be inferred from the key. The timing of bends and releases is challenging. The engraving is poor. But it is a start point.
+As you can see, the implementation is limited in `tabr`. It is also relatively difficult to achieve natively in LilyPond. The bends are different but the number of steps must be inferred from the key. The timing of bends and releases is challenging. The engraving is poor. But it is a start point.
 
 This covers the detailed introduction to phrases. The next section will cover related helper functions, some of which have already been seen.
 
