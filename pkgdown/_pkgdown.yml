@@ -73,6 +73,8 @@ navbar:
           href: "articles/tabr-06-tracks-scores.html"
         - text: "Engraving"
           href: "articles/tabr-07-engraving.html"
+        - text: "Non-standard tuning"
+          href: "articles/tabr-08-tunings.html"
     - text: "Reference"
       icon: fa-book
       href: "reference/index.html"

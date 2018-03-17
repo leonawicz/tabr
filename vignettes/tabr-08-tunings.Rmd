@@ -1,0 +1,24 @@
+---
+title: "Non-standard tuning"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Non-standard tuning}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, tidy = TRUE, out.width = "100%"
+)
+library(tabr)
+tabr_options(lilypond = "C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe")
+```
+
+This section covers non-standard tunings.
+
+*This and subsequent tutorial sections will be continued/added soon...*
+
+```{r cleanup, echo=FALSE}
+unlink("*.mid")
+```
