@@ -100,6 +100,9 @@
     <li>
       <a href="../articles/tabr-07-engraving.html">Engraving</a>
     </li>
+    <li>
+      <a href="../articles/tabr-08-tunings.html">Non-standard tuning</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -137,8 +140,8 @@
     
 
     <pre class="usage"><span class='fu'>tab</span>(<span class='no'>score</span>, <span class='no'>file</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>time</span> <span class='kw'>=</span> <span class='st'>"4/4"</span>, <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='st'>"2 = 60"</span>,
-  <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>endbar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>out_dir</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>keep_ly</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>string_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>endbar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>out_dir</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>keep_ly</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -166,6 +169,10 @@
     <tr>
       <th>header</th>
       <td><p>a named list of arguments passed to the header of the LilyPond file. See details.</p></td>
+    </tr>
+    <tr>
+      <th>string_names</th>
+      <td><p>label strings at beginning of tab staff. <code>NULL</code> (default) for non-standard tunings only, <code>TRUE</code> or <code>FALSE</code> for force on or off completely.</p></td>
     </tr>
     <tr>
       <th>paper</th>
