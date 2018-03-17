@@ -35,7 +35,7 @@ As always, see the LilyPond documentation if you are not familiar with LilyPond 
 x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
 e1 <- phrase("a", 1, 5)
 e2 <- phrase("b", 1, 5)
-volta(x) # one repeat or 2 plays
+volta(x) # one repeat or two plays
 pct(x) # as above, simple percent repeat notation
 volta(x, 1, list(e1, e2)) # one repeat with alternate ending
 volta(x, 4, list(e1, e2)) # multiple repeats but with only one alternate ending

@@ -5,8 +5,8 @@
 \title{Save score to LilyPond file}
 \usage{
 lilypond(score, file, key = "c", time = "4/4", tempo = "2 = 60",
-  header = NULL, paper = NULL, endbar = TRUE, midi = TRUE,
-  out_dir = ".")
+  header = NULL, string_names = NULL, paper = NULL, endbar = TRUE,
+  midi = TRUE, out_dir = ".")
 }
 \arguments{
 \item{score}{a score object.}
@@ -20,6 +20,8 @@ lilypond(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 \item{tempo}{character, defaults to \code{"2 = 60"}.}
 
 \item{header}{a named list of arguments passed to the header of the LilyPond file. See details.}
+
+\item{string_names}{label strings at begining of tab staff. \code{NULL} (default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for force on or off completely.}
 
 \item{paper}{a named list of arguments for the LilyPond file page layout. See details.}
 

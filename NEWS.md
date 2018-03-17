@@ -6,3 +6,4 @@
 * Added readme with basic example.
 * Added initial vignette content.
 * Added initial basic unit tests.
+* Added basic support for non-standard guitar tunings and up to seven-string instruments.

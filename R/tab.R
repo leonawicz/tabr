@@ -13,6 +13,7 @@
 #' @param time character, defaults to \code{"4/4"}.
 #' @param tempo character, defaults to \code{"2 = 60"}.
 #' @param header a named list of arguments passed to the header of the LilyPond file. See details.
+#' @param string_names label strings at begining of tab staff. \code{NULL} (default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for force on or off completely.
 #' @param paper a named list of arguments for the LilyPond file page layout. See details.
 #' @param endbar character, the end bar.
 #' @param midi logical, add midi inclusion specification to LilyPond file.
@@ -23,8 +24,8 @@
 #'
 #' @examples
 #' # not run
-lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
-                     header = NULL, paper = NULL, endbar = TRUE, midi = TRUE, out_dir = "."){
+lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header = NULL,
+                     string_names = NULL, paper = NULL, endbar = TRUE, midi = TRUE, out_dir = "."){
   if(!"score" %in% class(score)) stop("`score` is not a score object.")
   major <- ifelse(utils::tail(strsplit(key, "")[[1]], 1) == "m", FALSE, TRUE)
   key <- gsub("m", "", key)
@@ -56,7 +57,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   melody <- split(score$phrase, score$tabstaff)
   melody_id <- paste0("melody", LETTERS[seq_along(melody)])
   melody <- paste(purrr::map_chr(seq_along(d), ~.set_melody(melody[[.x]], d[[.x]], melody_id[.x])), collapse = "")
-  score <- .set_score(d, melody_id, midi, tempo, has_chords)
+  score <- .set_score(d, melody_id, midi, tempo, has_chords, string_names)
   output <- paste(c(top, global, cd, melody, score, paper), collapse = "")
   write(file = file.path(out_dir, file), output)
 }
@@ -76,6 +77,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 #' @param time character, defaults to \code{"4/4"}.
 #' @param tempo character, defaults to \code{"2 = 60"}.
 #' @param header a named list of arguments passed to the header of the LilyPond file. See details.
+#' @param string_names label strings at begining of tab staff. \code{NULL} (default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for force on or off completely.
 #' @param paper a named list of arguments for the LilyPond file page layout. See details.
 #' @param endbar character, the end bar.
 #' @param midi logical, output midi file in addition to tablature.
@@ -87,13 +89,13 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 #'
 #' @examples
 #' # not run
-tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
-                header = NULL, paper = NULL, endbar = TRUE, midi = TRUE, out_dir = ".",
+tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header = NULL,
+                string_names = NULL, paper = NULL, endbar = TRUE, midi = TRUE, out_dir = ".",
                 keep_ly = FALSE){
   ext <- utils::tail(strsplit(file, "\\.")[[1]], 1)
   lily <- gsub(ext, "ly", file)
   cat("#### Engraving score to", file, "####\n")
-  lilypond(score, lily, key, time, tempo, header, paper, endbar, midi, out_dir)
+  lilypond(score, lily, key, time, tempo, header, string_names, paper, endbar, midi, out_dir)
   system(paste0("\"", tabr_options()$lilypond, "\" --", ext,
                 " -dstrip-output-dir=#f \"", file.path(out_dir, lily), "\""))
   if(!keep_ly) unlink(file.path(out_dir, lily))
@@ -199,15 +201,19 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   paste0(diagram, name, topcenter, collapse = "")
 }
 
-.set_score <- function(d, id, midi, tempo, has_chords){
+.set_score <- function(d, id, midi, tempo, has_chords, string_names){
   clef <- purrr::map_chr(d, ~unique(.x$staff))
+  tuning <- purrr::map_chr(d, ~unique(.x$tuning))
+  str_lab  <- purrr::map_chr(tuning, .tunelab)
   if(any(!is.na(clef))) clef <- clef[!is.na(clef)]
   x <- paste0(
     purrr::map_chr(seq_along(clef), ~({
       paste0(
         if(!is.na(clef[.x]))
           paste0("\\new Staff { \\clef \"", clef[.x], "\" << \\", id[.x], " >> }\n  ", collapse = ""),
-        paste0("\\new TabStaff \\with { stringTunings = #guitar-tuning } {\n    ",
+        paste0("\\new TabStaff \\with { stringTunings = \\stringTuning <", .notesub(tuning[.x]), "> } {\n    ",
+               if((is.null(string_names) && tuning[.x] != "e, a, d g b e'") || (!is.null(string_names) && string_names))
+                 paste("\\set TabStaff.instrumentName = \\markup { \\hspace #7 \\override #'(baseline-skip . 1.5) \\column \\fontsize #-4.5 \\sans {", str_lab[.x], "} }\n    "),
                "\\override Stem #'transparent = ##t\n    \\override Beam #'transparent = ##t\n    ",
                "\\", id[.x], "\n  }\n  ", collapse = "")
       )
@@ -215,6 +221,14 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   paste0("\\score {  <<\n  ", if(has_chords) "\\new ChordNames \\chordNames\n  ", x, ">>\n",
          "  \\layout{ }\n", if(midi) paste0("  \\midi{\n    \\tempo ", tempo, "\n  }\n", collapse = ""),
          "}\n\n")
+}
+
+.tunelab <- function(x){
+  x <- gsub("[,']", "", x)
+  x <- toupper(x)
+  x <- gsub("#", "is", x)
+  x <- gsub("_", "b", x)
+  x
 }
 
 # nolint end
@@ -227,6 +241,7 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   x <- gsub("4", "'", x)
   x <- gsub("5", "''", x)
   x <- gsub("6", "'''", x)
+  x <- gsub("7", "''''", x)
   x
 }
 
@@ -250,8 +265,7 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   x <- strsplit(x, ";")[[1]]
   x[1] <- gsub("-", "\\\\glissando", x[1])
   x[1] <- gsub("x", "xDEADNOTEx", x[1])
-  x[1] <- gsub("#", "is", x[1])
-  x[1] <- gsub("_", "es", x[1])
+  x[1] <- .notesub(x[1])
   x[1] <- gsub("\\]", "\\\\staccato", x[1])
   if(length(x) == 2){
     x[2] <- paste0(";", substr(x[2], 1, 1), gsub("_", " ", substring(x[2], 2)))
@@ -262,7 +276,7 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 
 .strsub <- function(x){
   x <- strsplit(as.character(x), " ")[[1]] %>% purrr::map_chr(.star_expand) %>% paste0(collapse = " ")
-  x <- gsub("a", "654321", x)
+  x <- gsub("7s", "7654321", x)
   x <- gsub("6s", "654321", x)
   x <- gsub("5s", "54321", x)
   x <- gsub("4s", "4321", x)
@@ -280,6 +294,7 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   if(nchar(x) == 1) return(x)
   y <- if(strings) c(0:9, "x", "o") else letters[1:7]
   x <- gsub("es", "ZS", x)
+  if(x == "ZS") x <- "eZS"
   if(strings){
     x <- strsplit(x, "_")[[1]]
     idx0 <- which(as.numeric(x) > 9)
@@ -291,6 +306,7 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   }
   idx <- which(strsplit(x, "")[[1]] %in% y)
   x <- gsub("ZS", "es", x)
+  if(x == "ees") x <- "es"
   if(length(idx) == 1){
     if(!strings) return(x)
     if(length(idx0)) x <- as.character(as.numeric(x) + xdif)
