@@ -21,7 +21,7 @@ lilypond(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 
 \item{header}{a named list of arguments passed to the header of the LilyPond file. See details.}
 
-\item{string_names}{label strings at begining of tab staff. \code{NULL} (default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for force on or off completely.}
+\item{string_names}{label strings at beginning of tab staff. \code{NULL} (default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for force on or off completely.}
 
 \item{paper}{a named list of arguments for the LilyPond file page layout. See details.}
 

@@ -13,7 +13,7 @@
 #' @param time character, defaults to \code{"4/4"}.
 #' @param tempo character, defaults to \code{"2 = 60"}.
 #' @param header a named list of arguments passed to the header of the LilyPond file. See details.
-#' @param string_names label strings at begining of tab staff. \code{NULL} (default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for force on or off completely.
+#' @param string_names label strings at beginning of tab staff. \code{NULL} (default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for force on or off completely.
 #' @param paper a named list of arguments for the LilyPond file page layout. See details.
 #' @param endbar character, the end bar.
 #' @param midi logical, add midi inclusion specification to LilyPond file.
@@ -77,7 +77,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", hea
 #' @param time character, defaults to \code{"4/4"}.
 #' @param tempo character, defaults to \code{"2 = 60"}.
 #' @param header a named list of arguments passed to the header of the LilyPond file. See details.
-#' @param string_names label strings at begining of tab staff. \code{NULL} (default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for force on or off completely.
+#' @param string_names label strings at beginning of tab staff. \code{NULL} (default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for force on or off completely.
 #' @param paper a named list of arguments for the LilyPond file page layout. See details.
 #' @param endbar character, the end bar.
 #' @param midi logical, output midi file in addition to tablature.
