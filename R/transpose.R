@@ -8,6 +8,8 @@
 #' Transposing is intended to be done on a string of notes prior to passing it to \code{phrase}. It will work on strings that use either integer or tick mark octave numbering formats.
 #' The transposed result will be a string with integer octave numbering.
 #'
+#' The only element other pitch that occurs in a valid notes string is a rest, \code{"r"}. This is ignored by transpose.
+#'
 #' @param x character, a valid string of notes, the type passed to \code{phrase}.
 #' @param n integer, positive or negative number of semitones to transpose.
 #' @param key character, the new key signature after transposing \code{x}. If provided, this helps ensure proper use of sharps vs. flats.
@@ -37,6 +39,7 @@ transpose <- function(x, n = 0, key = NULL){
   flat <- c("c", "d_", "d", "e_", "e", "f", "g_", "g", "a_", "a", "b_", "b")
   x <- strsplit(x, " ")[[1]]
   n_split <- purrr::map_int(x, ~({
+    if(.x == "r") return(2L)
     a <- which(!strsplit(.x, "")[[1]] %in% c(letters[1:7], "#", "_"))
     if(length(a)) as.integer(min(a)) else 2L
     })
@@ -77,6 +80,7 @@ transpose <- function(x, n = 0, key = NULL){
       y <- if(is.na(sf) || sf == "sharp") sharp else flat # nolint
     }
     x1new <- purrr::map_chr(x1, ~({
+      if(.x == "r") return("r")
       a <- if(.x %in% sharp) sharp else flat
       x <- rep(a, 3)[12 + match(.x, a) + notes]
       if(nchar(x) == 2){
@@ -91,6 +95,7 @@ transpose <- function(x, n = 0, key = NULL){
   }
 
   cpass <- function(x){
+    if(x == "r") return(0L)
     idx <- unique(c(match(x, sharp), match(x, flat)))
     idx <- idx[!is.na(idx)]
     a <- 0
@@ -101,7 +106,8 @@ transpose <- function(x, n = 0, key = NULL){
 
   pass <- purrr::map_int(x1, cpass)
   x2 <- x2 + octaves + pass
-  if(any(x2 < 0)) stop("`Negative octave number not allowed in `tabr`.")
+  x2[x1 == "r"] <- ""
+  if(any(as.integer(x2[x2 != ""]) < 0)) stop("`Negative octave number not allowed in `tabr`.")
   paste0(x1new, x2, collapse = " ")
 }
 
