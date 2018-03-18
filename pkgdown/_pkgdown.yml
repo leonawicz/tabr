@@ -75,6 +75,10 @@ navbar:
           href: "articles/tabr-07-engraving.html"
         - text: "Non-standard tuning"
           href: "articles/tabr-08-tunings.html"
+        - text: "---------"
+        - text: "Examples"
+        - text: "Tuning and capo"
+          href: "articles/tabr-09-examples-1.html"
     - text: "Reference"
       icon: fa-book
       href: "reference/index.html"
