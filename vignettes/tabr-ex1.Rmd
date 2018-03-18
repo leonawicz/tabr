@@ -1,8 +1,8 @@
 ---
-title: "Short script example"
+title: "Example: alternate tuning plus capo"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Short script example}
+  %\VignetteIndexEntry{Example: alternate tuning plus capo}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -20,7 +20,7 @@ The `tabr` tutorials began with a basic example that introduced the general work
 *    Add the track to a `score`.
 *    Render the score to pdf with `tab`.
 
-This is example is more complex. It does not represent a complete tab of a song; it is just a short arrangement of two basic fingerpicking patterns similar to but not exactly the same as heard in Blues Saraceno's *Devil's got you beat*. While not a complete tab, it is much more thorough than the opening example, making use of several techniques and functions that have been covered.
+This short R script example is more complex. It does not represent a complete tab of a song; it is just a short arrangement of two basic fingerpicking patterns similar to but not exactly the same as heard in Blues Saraceno's *Devil's got you beat*. While not a complete tab, it is much more thorough than the opening example, making use of several techniques and functions that have been covered.
 
 Some of the most interesting things to note below include:
 
@@ -67,7 +67,7 @@ This is not a problem for percent repeats because there is nothing to show, but 
 
 The `e1` and `e2` endings on the phrase `p1` were not used as default and alternate endings in a call to `volta`, respectively, because they would fail the bar check; `p1` alone does not end at the end of a measure, but rather lasts for a measure and a half.
 This example also shows how a single note difference at the very end of the second ending, `e2`, an ending that is only played once at the end of the arrangement, is enough to stop you from defining what would sensibly be the full phrase (`p1` through `e1`) as such.
-The slighest change forces you to split things up and expand the code, just like in a tab. And most music, at least the kind for which there is any point in transcribing, is going to change things up often even for repeated sections.
+The slightest change forces you to split things up and expand the code, just like in a tab. And most music, at least the kind for which there is any point in transcribing, is going to change things up often even for repeated sections.
 
 ## Result
 
