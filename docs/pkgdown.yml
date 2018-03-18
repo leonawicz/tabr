@@ -2,13 +2,13 @@ urls:
   reference: http://leonawicz.github.io//reference
   article: http://leonawicz.github.io//articles
 articles:
-  tabr-01-example: tabr-01-example.html
-  tabr-02-phrases: tabr-02-phrases.html
-  tabr-03-helpers: tabr-03-helpers.html
-  tabr-04-chords: tabr-04-chords.html
-  tabr-05-repeats: tabr-05-repeats.html
-  tabr-06-tracks-scores: tabr-06-tracks-scores.html
-  tabr-07-engraving: tabr-07-engraving.html
-  tabr-08-tunings: tabr-08-tunings.html
-  tabr-09-examples-1: tabr-09-examples-1.html
+  tabr-basics: tabr-basics.html
+  tabr-chords: tabr-chords.html
+  tabr-engraving: tabr-engraving.html
+  tabr-ex1: tabr-ex1.html
+  tabr-helpers: tabr-helpers.html
+  tabr-phrases: tabr-phrases.html
+  tabr-repeats: tabr-repeats.html
+  tabr-tracks-scores: tabr-tracks-scores.html
+  tabr-tunings: tabr-tunings.html
 
