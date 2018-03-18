@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Short script example • tabr</title>
+<title>Example: alternate tuning plus capo • tabr</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
@@ -111,7 +111,7 @@
       </header><div class="row">
   <div class="col-md-9">
     <div class="page-header toc-ignore">
-      <h1>Short script example</h1>
+      <h1>Example: alternate tuning plus capo</h1>
             
           </div>
 
@@ -125,7 +125,7 @@
 <li>Add the track to a <code>score</code>.</li>
 <li>Render the score to pdf with <code>tab</code>.</li>
 </ul>
-<p>This is example is more complex. It does not represent a complete tab of a song; it is just a short arrangement of two basic fingerpicking patterns similar to but not exactly the same as heard in Blues Saraceno’s <em>Devil’s got you beat</em>. While not a complete tab, it is much more thorough than the opening example, making use of several techniques and functions that have been covered.</p>
+<p>This short R script example is more complex. It does not represent a complete tab of a song; it is just a short arrangement of two basic fingerpicking patterns similar to but not exactly the same as heard in Blues Saraceno’s <em>Devil’s got you beat</em>. While not a complete tab, it is much more thorough than the opening example, making use of several techniques and functions that have been covered.</p>
 <p>Some of the most interesting things to note below include:</p>
 <ul>
 <li>Non-standard tuning (DADGAD) <em>plus</em> a capo on the first fret.</li>
@@ -160,7 +160,7 @@ song &lt;-<span class="st"> </span><span class="kw"><a href="../reference/append
     e2) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(tuning) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/score.html">score</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(song, <span class="st">"out.pdf"</span>, <span class="st">"dm"</span>, <span class="st">"4/4"</span>, 
     <span class="st">"4 = 115"</span>, header)</code></pre></div>
 <p>You can see above that <code>notate</code> can often obstruct otherwise convenient opportunities for code reduction. Avoiding repeating the annotation means avoiding repeating whatever it is bound to. This is not a problem for percent repeats because there is nothing to show, but would be for the repetitions of the melody at the end of the score. This is why <code>info</code> was mapped to a length 2 vector using an opening note with and without a bound text annotation, respectively.</p>
-<p>The <code>e1</code> and <code>e2</code> endings on the phrase <code>p1</code> were not used as default and alternate endings in a call to <code>volta</code>, respectively, because they would fail the bar check; <code>p1</code> alone does not end at the end of a measure, but rather lasts for a measure and a half. This example also shows how a single note difference at the very end of the second ending, <code>e2</code>, an ending that is only played once at the end of the arrangement, is enough to stop you from defining what would sensibly be the full phrase (<code>p1</code> through <code>e1</code>) as such. The slighest change forces you to split things up and expand the code, just like in a tab. And most music, at least the kind for which there is any point in transcribing, is going to change things up often even for repeated sections.</p>
+<p>The <code>e1</code> and <code>e2</code> endings on the phrase <code>p1</code> were not used as default and alternate endings in a call to <code>volta</code>, respectively, because they would fail the bar check; <code>p1</code> alone does not end at the end of a measure, but rather lasts for a measure and a half. This example also shows how a single note difference at the very end of the second ending, <code>e2</code>, an ending that is only played once at the end of the arrangement, is enough to stop you from defining what would sensibly be the full phrase (<code>p1</code> through <code>e1</code>) as such. The slightest change forces you to split things up and expand the code, just like in a tab. And most music, at least the kind for which there is any point in transcribing, is going to change things up often even for repeated sections.</p>
 </div>
 <div id="result" class="section level2">
 <h2 class="hasAnchor">
