@@ -56,8 +56,8 @@ chord_set <- function(x, id){
 #' track(x)
 track <- function(phrase, tuning = "e, a, d g b e'", add_staff = "treble_8", voice = 1L){
   if(!"phrase" %in% class(phrase)) stop("`phrase` is not a phrase object.")
-  x <- tibble::data_frame(phrase, staff = as.character(add_staff),
-                          tuning = .octavesub(tuning), voice = as.integer(voice))
+  x <- tibble::data_frame(phrase, tuning = .octavesub(tuning),
+                          staff = as.character(add_staff), voice = as.integer(voice))
   x$phrase <- purrr::map(x$phrase, ~as.phrase(.x))
   class(x) <- unique(c("track", class(x)))
   x
