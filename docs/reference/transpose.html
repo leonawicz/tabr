@@ -144,7 +144,7 @@
     <p>Transpose pitch by a number of semitones.</p>
     
 
-    <pre class="usage"><span class='fu'>transpose</span>(<span class='no'>x</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>transpose</span>(<span class='no'>notes</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='fu'>tp</span>(<span class='no'>...</span>)</pre>
     
@@ -152,7 +152,7 @@
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
+      <th>notes</th>
       <td><p>character, a valid string of notes, the type passed to <code>phrase</code>.</p></td>
     </tr>
     <tr>
@@ -161,7 +161,7 @@
     </tr>
     <tr>
       <th>key</th>
-      <td><p>character, the new key signature after transposing <code>x</code>. If provided, this helps ensure proper use of sharps vs. flats.</p></td>
+      <td><p>character, the new key signature after transposing <code>notes</code>. If provided, this helps ensure proper use of sharps vs. flats.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -179,6 +179,7 @@
 <p>Transposing is not done on a phrase object. The notes in a phrase object have already been transformed to LilyPond syntax and mixed with other potentially complex and variable information.
 Transposing is intended to be done on a string of notes prior to passing it to <code>phrase</code>. It will work on strings that use either integer or tick mark octave numbering formats.
 The transposed result will be a string with integer octave numbering.</p>
+<p>The only element other pitch that occurs in a valid notes string is a rest, <code>"r"</code>. This is ignored by transpose.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
