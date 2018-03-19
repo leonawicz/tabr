@@ -31,9 +31,9 @@
 #' tp("a, b c'", 2, key = "g")
 transpose <- function(notes, n = 0, key = NULL){
   x <- notes
-  if(!inherits(x, "character")) stop("`x` must be a valid character string of notes.")
+  if(!inherits(x, "character")) stop("`notes` must be a valid character string of notes.")
   if(inherits(x, "phrase"))
-    stop("`x` must be a valid character string of notes, not a phrase object.")
+    stop("`notes` must be a valid character string of notes, not a phrase object.")
   n <- as.integer(n)
   if(n == 0) return(x)
   sharp <- c("c", "c#", "d", "d#", "e", "f", "f#", "g", "g#", "a", "a#", "b")
@@ -60,7 +60,7 @@ transpose <- function(notes, n = 0, key = NULL){
       } else if(substr(.x, 1, 1) == "'"){
         direction <- "up"
       } else {
-        stop("`x` is not a valid string of notes.")
+        stop("`notes` is not a valid string of notes.")
       }
       if(direction == "up") 3L + nchar(.x) else 3L - nchar(.x)
     } else {
