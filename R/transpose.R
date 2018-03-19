@@ -39,6 +39,8 @@ transpose <- function(notes, n = 0, key = NULL){
   sharp <- c("c", "c#", "d", "d#", "e", "f", "f#", "g", "g#", "a", "a#", "b")
   flat <- c("c", "d_", "d", "e_", "e", "f", "g_", "g", "a_", "a", "b_", "b")
   x <- strsplit(x, " ")[[1]]
+  idx <- grep("~", x)
+  if(length(idx) > 0) x <- gsub("~", "", x)
   n_split <- purrr::map_int(x, ~({
     if(.x == "r") return(2L)
     a <- which(!strsplit(.x, "")[[1]] %in% c(letters[1:7], "#", "_"))
@@ -117,6 +119,7 @@ transpose <- function(notes, n = 0, key = NULL){
   x2 <- x2 + octaves + pass
   x2[x1 == "r"] <- ""
   if(any(as.integer(x2[x2 != ""]) < 0)) stop("`Negative octave number not allowed in `tabr`.")
+  if(length(idx) > 0) x2[idx] <- paste0(x2[idx], "~")
   paste0(x1new, x2, collapse = " ")
 }
 
