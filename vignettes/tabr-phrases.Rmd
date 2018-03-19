@@ -25,7 +25,7 @@ The opening section showed a basic example using a single, and very simple, phra
 
 ## Notes
 
-The first argument to `phrase` is `notes`. Notes are represented simply by the lowercase letters `c, d, e, f, g, a, b`. 
+The first argument to `phrase` is `notes`. Notes are represented simply by the lowercase letters `c d e f g a b`. 
 
 ### Sharps and flats
 
