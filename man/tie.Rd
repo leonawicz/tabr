@@ -7,7 +7,7 @@
 tie(x)
 }
 \arguments{
-\item{x}{character.}
+\item{x}{character, a single chord.}
 }
 \value{
 a character string.
@@ -16,7 +16,7 @@ a character string.
 Tie notes efficiently.
 }
 \details{
-This is useful for bar chords.
+This function is useful for bar chords.
 }
 \examples{
 tie("e,b,egbe'")

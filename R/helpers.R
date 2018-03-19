@@ -2,9 +2,9 @@
 #'
 #' Tie notes efficiently.
 #'
-#' This is useful for bar chords.
+#' This function is useful for bar chords.
 #'
-#' @param x character.
+#' @param x character, a single chord.
 #'
 #' @return a character string.
 #' @export
