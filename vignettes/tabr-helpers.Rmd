@@ -71,7 +71,7 @@ tie(em)
 
 There is a simple helper function, `hp`, for hammer ons and pull offs, or for slurs in general. Like several other helpers it is a wrapper around paste. It ensures slurs come in an even number so there is always a starting and stopping point and accepts several input styles.
 
-```{r hp}
+```{r hp1}
 hp("16 16")
 hp("16", "16")
 hp(16, 16, 8, "2.")
@@ -79,7 +79,7 @@ hp(16, 16, 8, "2.")
 
 It is particularly useful for long runs of similar repeated hammer ons and/or pull offs that would be frustrating to type out directly.
 
-```{r hp}
+```{r hp2}
 hp(dup("16 8", 8))
 ```
 
