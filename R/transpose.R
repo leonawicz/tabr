@@ -10,9 +10,9 @@
 #'
 #' The only element other pitch that occurs in a valid notes string is a rest, \code{"r"}. This is ignored by transpose.
 #'
-#' @param x character, a valid string of notes, the type passed to \code{phrase}.
+#' @param notes character, a valid string of notes, the type passed to \code{phrase}.
 #' @param n integer, positive or negative number of semitones to transpose.
-#' @param key character, the new key signature after transposing \code{x}. If provided, this helps ensure proper use of sharps vs. flats.
+#' @param key character, the new key signature after transposing \code{notes}. If provided, this helps ensure proper use of sharps vs. flats.
 #' @param ... arguments passed to transpose.
 #'
 #' @return a character string.
@@ -29,7 +29,8 @@
 #' tp("a3 b4 c5", 2, key = "g")
 #' tp("a b' c''", 2, key = "f")
 #' tp("a, b c'", 2, key = "g")
-transpose <- function(x, n = 0, key = NULL){
+transpose <- function(notes, n = 0, key = NULL){
+  x <- notes
   if(!inherits(x, "character")) stop("`x` must be a valid character string of notes.")
   if(inherits(x, "phrase"))
     stop("`x` must be a valid character string of notes, not a phrase object.")
@@ -72,12 +73,20 @@ transpose <- function(x, n = 0, key = NULL){
 
   if(notes != 0){
     if(is.null(key)){
-      y <- if(n > 0) sharp else flat # nolint
+      y <- if(n > 0) sharp else flat # nolint start
     } else {
       if(!key %in% .keydata$key)
         stop(cat("Invalid `key`. Options are:\n", paste0(.keydata$key, collapse = ", "), ".\n"))
       sf <- .keydata$sf[.keydata$key == key]
-      y <- if(is.na(sf) || sf == "sharp") sharp else flat # nolint
+      if(is.na(sf) && n > 0){
+        y <- sharp
+      } else if(is.na(sf) && n < 0){
+        y <- flat
+      } else if(sf == "sharp"){
+        y <- sharp
+      } else {
+        y <- flat # nolint end
+      }
     }
     x1new <- purrr::map_chr(x1, ~({
       if(.x == "r") return("r")

@@ -5,16 +5,16 @@
 \alias{tp}
 \title{Transpose pitch}
 \usage{
-transpose(x, n = 0, key = NULL)
+transpose(notes, n = 0, key = NULL)
 
 tp(...)
 }
 \arguments{
-\item{x}{character, a valid string of notes, the type passed to \code{phrase}.}
+\item{notes}{character, a valid string of notes, the type passed to \code{phrase}.}
 
 \item{n}{integer, positive or negative number of semitones to transpose.}
 
-\item{key}{character, the new key signature after transposing \code{x}. If provided, this helps ensure proper use of sharps vs. flats.}
+\item{key}{character, the new key signature after transposing \code{notes}. If provided, this helps ensure proper use of sharps vs. flats.}
 
 \item{...}{arguments passed to transpose.}
 }
@@ -30,6 +30,8 @@ This function transposes the pitch of notes in a valid character string. The str
 Transposing is not done on a phrase object. The notes in a phrase object have already been transformed to LilyPond syntax and mixed with other potentially complex and variable information.
 Transposing is intended to be done on a string of notes prior to passing it to \code{phrase}. It will work on strings that use either integer or tick mark octave numbering formats.
 The transposed result will be a string with integer octave numbering.
+
+The only element other pitch that occurs in a valid notes string is a rest, \code{"r"}. This is ignored by transpose.
 }
 \examples{
 transpose("a_3 b_4 c5", 0)
