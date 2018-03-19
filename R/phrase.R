@@ -24,7 +24,7 @@
 #'
 #' Opening and closing slurs (or hammer ons and pull offs) are indicated with opening and closing parentheses, slides with \code{-}, and simple bends with \code{^}.
 #' Text annotations aligned vertically with a note in time on the staff is done by appending the text to the note info entry itself. See \code{\link{notate}}.
-#' More complete and powerful features will be added later.
+#' FOr more details and example, see the package vignettes.
 #'
 #' @param notes character, notes \code{a} through \code{g}. See details.
 #' @param info character, metadata pertaining to the \code{notes }. See details.
@@ -88,7 +88,7 @@ phrase <- function(notes, info, string = NULL, bar = FALSE){
 p <- function(...) phrase(...)
 
 #' @export
-print.phrase <- function(x, ...) cat(x)
+print.phrase <- function(x, ...) cat(x, "\n", sep = "")
 
 #' Create a volta/repeat phrase
 #'
