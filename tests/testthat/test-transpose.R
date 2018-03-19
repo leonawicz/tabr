@@ -16,5 +16,5 @@ test_that("transpose returns as expected.", {
   expect_equal(tp("r a, b r c'", 2, key = "g"), "r b2 c#4 r d4")
   expect_equal(tp("r a,~ a, b r c'~", 2, key = "g"), "r b2~ b2 c#4 r d4~")
 
-  expect_error(tp("x", "`x` is not a valid string of notes."))
+  expect_error(tp("a.", 1), "`notes` is not a valid string of notes.")
 })
