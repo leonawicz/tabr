@@ -173,18 +173,3 @@ tuplet <- function(notes, n, string = NULL, a = 3, b = 2){
 #' @export
 #' @rdname tuplet
 triplet <- function(notes, n, string = NULL) tuplet(notes = notes, n = n, string = string, a = 3, b = 2)
-
-# nolint start
-barcheck <- function(phrase, bpm = 8){
-  x <- unlist(purrr::map(strsplit(phrase, ">")[[1]], ~strsplit(.x, "[ |^]")), recursive = FALSE)
-  y <- purrr::map_dbl(2:length(x), ~({
-    a <- x[[.x]][1]
-    n <- length(grep("\\.", a))
-    if(n == 0) return(1 / as.numeric(a))
-    a <- 1 / as.numeric(a)
-    sum(c(a, a + 0.5 * a, a + 0.25 * a)[1:n])
-  }))
-  bars <- which(cumsum(y) %% 1 == 0)
-  x[1] <- strsplit(x[1], "\\\\")[[1]][2]
-}
-#nolint end
