@@ -13,5 +13,13 @@ before_install:
 r_packages:
     - formatR
 
+notifications:
+  webhooks:
+    urls:
+      - https://webhooks.gitter.im/e/070543d2c2d6a3d016d4
+    on_success: change
+    on_failure: always
+    on_start: never
+
 after_success:
     - Rscript -e 'covr::codecov()'
