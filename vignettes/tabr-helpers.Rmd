@@ -72,8 +72,8 @@ tie(em)
 In the last section there was an example showing a sequence of notes followed by the same sequence transposed one octave up. At the time, it was written out twice. Here, the same sequence is reproduced using `transpose`. Transposing up one octave is done by specifying an increase of 12 semitones or half steps.
 
 ```{r tp1}
-notes1 <- "r a2 c3 f3 d3 a3 f3 b3~ b3~ b3"
-notes2 <- "r a3 c4 d4 a3 f4 d4 g4~ g4~ g4"
+notes1 <- "c3 b2 c3 d3 e3 e3 d3 c3 b2 c3 c3 c4"
+notes2 <- "c4 b3 c4 d4 e4 e4 d4 c4 b3 c4 c4 c5"
 transpose(notes1, 12) == notes2
 ```
 
@@ -114,10 +114,10 @@ tuplet(dup(x, 4), 8) # multiple tuplets, one call
 
 Like `phrase`, these functions accept a `string` number argument, which is critical as usual (try engraving the final phrase below without explicit string numbers and see the mess you get).
 
-```{r tuplet2}
-p1 <- glue(triplet("c4 d4 e4", 8, "4 3 3"), 
+```{r tuplet2, results="hide", eval=FALSE}
+p1 <- glue(triplet("c4 r e4", 8, "4 3 3"), 
            tuplet("f4 g4 a4 b4 c5 b4", 8, "3 2 2 1 1 1", 6, 4), 
-           tuplet("a4 g4 f4 g4 f4 e4 f4 e4 d4 e4 d4 c4", 16, "2 2 3 2 3*7 4"),
+           tuplet("a4 r f4 g4 r e4 f4 e4 d4 e4 d4 c4", 16, "2 2 3 2 3*7 4"),
            tuplet("b a g f e", 16, "4 4 5*3", 5, 4))
 track(glue(p1, p("d c", "8 4.", "6 6"))) %>% score %>% tab("ex12.pdf")
 ```
