@@ -165,6 +165,20 @@
 <span class="kw"><a href="../reference/tie.html">tie</a></span>(em)
 <span class="co">#&gt; [1] "e,~a,~d~g~b~e'~"</span></code></pre></div>
 </div>
+<div id="hammer-onpull-off" class="section level2">
+<h2 class="hasAnchor">
+<a href="#hammer-onpull-off" class="anchor"></a>Hammer on/pull off</h2>
+<p>There is a simple helper function, <code>hp</code>, for hammer ons and pull offs, or for slurs in general. Like several other helpers it is a wrapper around paste. It ensures slurs come in an even number so there is always a starting and stopping point and accepts several input styles.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/hp.html">hp</a></span>(<span class="st">"16 16"</span>)
+<span class="co">#&gt; [1] "16( 16)"</span>
+<span class="kw"><a href="../reference/hp.html">hp</a></span>(<span class="st">"16"</span>, <span class="st">"16"</span>)
+<span class="co">#&gt; [1] "16( 16)"</span>
+<span class="kw"><a href="../reference/hp.html">hp</a></span>(<span class="dv">16</span>, <span class="dv">16</span>, <span class="dv">8</span>, <span class="st">"2."</span>)
+<span class="co">#&gt; [1] "16( 16) 8( 2.)"</span></code></pre></div>
+<p>It is particularly useful for long runs of similar repeated hammer ons and/or pull offs that would be frustrating to type out directly.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/hp.html">hp</a></span>(<span class="kw"><a href="../reference/append_phrases.html">dup</a></span>(<span class="st">"16 8"</span>, <span class="dv">8</span>))
+<span class="co">#&gt; [1] "16( 8) 16( 8) 16( 8) 16( 8) 16( 8) 16( 8) 16( 8) 16( 8)"</span></code></pre></div>
+</div>
 <div id="transpose" class="section level2">
 <h2 class="hasAnchor">
 <a href="#transpose" class="anchor"></a>Transpose</h2>
@@ -231,6 +245,7 @@ notes2 &lt;-<span class="st"> "c4 b3 c4 d4 e4 e4 d4 c4 b3 c4 c4 c5"</span>
       <li><a href="#duplicate-and-glue">Duplicate and glue</a></li>
       <li><a href="#rests">Rests</a></li>
       <li><a href="#ties">Ties</a></li>
+      <li><a href="#hammer-onpull-off">Hammer on/pull off</a></li>
       <li><a href="#transpose">Transpose</a></li>
       <li><a href="#tuplets">Tuplets</a></li>
       </ul>
