@@ -112,7 +112,7 @@ tuplet(dup(x, 2), 8, a = 6, b = 4) # 6 notes per 4 beats
 tuplet(dup(x, 4), 8) # multiple tuplets, one call
 ```
 
-Like `phrase`, these functions accept a `string` number argument, which is critical as usual (try engraving the final phrase below without explicit string numbers and see the mess you get).
+Like `phrase`, these functions accept a `string` number argument, which is critical as usual (try engraving the final phrase below without explicit string numbers and see the mess you get). This example includes some rests.
 
 ```{r tuplet2, results="hide", eval=FALSE}
 p1 <- glue(triplet("c4 r e4", 8, "4 3 3"), 
