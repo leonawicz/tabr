@@ -50,7 +50,7 @@ Any other note metadata is appended to these durations. See examples.
 
 Opening and closing slurs (or hammer ons and pull offs) are indicated with opening and closing parentheses, slides with \code{-}, and simple bends with \code{^}.
 Text annotations aligned vertically with a note in time on the staff is done by appending the text to the note info entry itself. See \code{\link{notate}}.
-FOr more details and example, see the package vignettes.
+For more details and example, see the package vignettes.
 }
 \examples{
 phrase("c ec'g' ec'g'", "4 4 2") # no explicit string specification (not recommended)
