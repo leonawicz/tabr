@@ -164,6 +164,7 @@ tuplet <- function(notes, n, string = NULL, a = 3, b = 2){
                           paste0("\\", .split_chord(string[.x], TRUE)), collapse = " "), ">"))
   notes[1] <- paste0(notes[1], n)
   notes <- paste0(notes, collapse = " ")
+  notes <- gsub("<r>", "r", notes)
   x <- paste0("\\tuplet ", a, "/", b, " ", n / b, " { ", notes, " }")
   class(x) <- c("phrase", class(x))
   x
