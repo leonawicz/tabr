@@ -134,19 +134,44 @@ hp <- function(...){
 #'
 #' Helper function for generating tuplet syntax.
 #'
-#' This is an initial version.
+#' This function gives control over tuplet construction. The default arguments \code{a = 3} and \code{b = 2} generates a triplet where three triplet notes, each lasting for two thirds of a beat, take up two beats.
+#' \code{n} is used to describe the beat duration with the same fraction-of-measure denominator notation used for notes in \code{tabr} phrases, e.g., 16th note triplet, 8th note triplet, etc.
+#'
+#' If you provide a note sequence for multiple tuplets in a row of the same type, they will be connected automatically. It is not necessary to call \code{tuplet} each time when the pattern is constant.
 #'
 #' @param notes character, notes.
-#' @param n integer, tuplet beat, e.g., 8 for 8th note tuplet.
+#' @param n integer, duration of each tuplet note, e.g., 8 for 8th note tuplet.
+#' @param string, character, optional string that specifies which guitar strings to play for each specific note.
+#' @param a integer, notes per tuplet.
+#' @param b integer, beats per tuplet.
 #'
 #' @return character.
 #' @export
 #'
 #' @examples
 #' tuplet("c c# d", 8)
-tuplet <- function(notes, n){
-  paste("\\tuplet 3/2", n, "{", notes, "}")
+#' triplet("c c# d", 8)
+#' tuplet("c c# d c c# d", 4, a = 6, b = 4)
+tuplet <- function(notes, n, string = NULL, a = 3, b = 2){
+  notes <- .octavesub(.notesub(notes))
+  notes <- strsplit(notes, " ")[[1]]
+  s <- !is.null(string)
+  if(s) string <- .strsub(string)
+  notes <- purrr::map_chr(
+    seq_along(notes),
+    ~paste0("<", paste0(.split_chord(notes[.x]),
+                        if(s && notes[.x] != "r")
+                          paste0("\\", .split_chord(string[.x], TRUE)), collapse = " "), ">"))
+  notes[1] <- paste0(notes[1], n)
+  notes <- paste0(notes, collapse = " ")
+  x <- paste0("\\tuplet ", a, "/", b, " ", n / b, " { ", notes, " }")
+  class(x) <- c("phrase", class(x))
+  x
 }
+
+#' @export
+#' @rdname tuplet
+triplet <- function(notes, n, string = NULL) tuplet(notes = notes, n = n, string = string, a = 3, b = 2)
 
 # nolint start
 barcheck <- function(phrase, bpm = 8){

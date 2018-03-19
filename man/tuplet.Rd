@@ -2,14 +2,23 @@
 % Please edit documentation in R/helpers.R
 \name{tuplet}
 \alias{tuplet}
+\alias{triplet}
 \title{Tuplets}
 \usage{
-tuplet(notes, n)
+tuplet(notes, n, string = NULL, a = 3, b = 2)
+
+triplet(notes, n, string = NULL)
 }
 \arguments{
 \item{notes}{character, notes.}
 
-\item{n}{integer, tuplet beat, e.g., 8 for 8th note tuplet.}
+\item{n}{integer, duration of each tuplet note, e.g., 8 for 8th note tuplet.}
+
+\item{string, }{character, optional string that specifies which guitar strings to play for each specific note.}
+
+\item{a}{integer, notes per tuplet.}
+
+\item{b}{integer, beats per tuplet.}
 }
 \value{
 character.
@@ -18,8 +27,13 @@ character.
 Helper function for generating tuplet syntax.
 }
 \details{
-This is an initial version.
+This function gives control over tuplet construction. The default arguments \code{a = 3} and \code{b = 2} generates a triplet where three triplet notes, each lasting for two thirds of a beat, take up two beats.
+\code{n} is used to describe the beat duration with the same fraction-of-measure denominator notation used for notes in \code{tabr} phrases, e.g., 16th note triplet, 8th note triplet, etc.
+
+If you provide a note sequence for multiple tuplets in a row of the same type, they will be connected automatically. It is not necessary to call \code{tuplet} each time when the pattern is constant.
 }
 \examples{
 tuplet("c c# d", 8)
+triplet("c c# d", 8)
+tuplet("c c# d c c# d", 4, a = 6, b = 4)
 }
