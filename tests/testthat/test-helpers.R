@@ -1,5 +1,6 @@
 context("helpers")
 
+# nolint start
 test_that("helpers return as expected.", {
   expect_equal(tie("e,,d'"), "e,,~d'~")
   expect_equal(tie("e,b,egbe'"), "e,~b,~e~g~b~e'~")
@@ -28,3 +29,4 @@ test_that("helpers return as expected.", {
     "\\tuplet 6/4 1 { <b,\\5>4 <c\\5> <cis\\5> <e\\4> <f\\4> <fis\\4> }"
   )
 })
+# nolint end
