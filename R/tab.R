@@ -245,11 +245,13 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header =
   x
 }
 
-.notesub <- function(x, sharp = "#", flat = "_"){
+.notesub <- function(x, sharp = "#", flat = "_", abb = FALSE){
   x <- gsub(sharp[1], "is", x)
   x <- gsub(flat[1], "es", x)
-  x <- gsub("ees", "es", x)
-  x <- gsub("aes", "as", x)
+  if(abb){
+    x <- gsub("ees", "es", x)
+    x <- gsub("aes", "as", x)
+  }
   x
 }
 
@@ -290,11 +292,10 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header =
 
 # nolint end
 
-.split_chord <- function(x, strings = FALSE){
+.split_chord <- function(x, strings = FALSE, abb = TRUE){
   if(nchar(x) == 1) return(x)
   y <- if(strings) c(0:9, "x", "o") else letters[1:7]
   x <- gsub("es", "ZS", x)
-  if(x == "ZS") x <- "eZS"
   if(strings){
     x <- strsplit(x, "_")[[1]]
     idx0 <- which(as.numeric(x) > 9)
@@ -306,13 +307,16 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header =
   }
   idx <- which(strsplit(x, "")[[1]] %in% y)
   x <- gsub("ZS", "es", x)
-  if(x == "ees") x <- "es"
   if(length(idx) == 1){
-    if(!strings) return(x)
+    if(!strings){
+      if(abb) x <- gsub("aes", "as", gsub("ees", "es", x))
+      return(x)
+    }
     if(length(idx0)) x <- as.character(as.numeric(x) + xdif)
     return(x)
   }
   x <- as.character(mapply(substr, x, idx, idx + c(diff(idx), nchar(x) - utils::tail(idx, 1) + 1) - 1))
+  if(!strings & abb) x <- gsub("aes", "as", gsub("ees", "es", x))
   if(strings && length(idx0)) x[idx0] <- as.character(as.numeric(x[idx0]) + xdif)
   x
 }

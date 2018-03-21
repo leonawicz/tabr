@@ -30,6 +30,7 @@
 #' @param info character, metadata pertaining to the \code{notes }. See details.
 #' @param string character, optional string that specifies which guitar strings to play for each specific note.
 #' @param bar logical, insert a bar check at the end of the phrase.
+#' @param abb logical, abbreviate the default LilyPond Dutch notation for A flat and E flat to \code{as} and \code{es}; recommended.
 #' @param ... arguments passed to \code{phrase}.
 #'
 #' @return a phrase.
@@ -48,7 +49,7 @@ NULL
 
 #' @export
 #' @rdname phrase
-phrase <- function(notes, info, string = NULL, bar = FALSE){
+phrase <- function(notes, info, string = NULL, bar = FALSE, abb = TRUE){
   notes <- (strsplit(notes, " ")[[1]] %>% purrr::map_chr(.star_expand) %>%
     paste0(collapse = " ") %>% strsplit(" "))[[1]]
   notes <- .octavesub(notes)
@@ -66,7 +67,7 @@ phrase <- function(notes, info, string = NULL, bar = FALSE){
   if(s) string <- .strsub(string)
   notes <- purrr::map_chr(
     seq_along(notes),
-    ~paste0("<", paste0(.split_chord(notes[.x]),
+    ~paste0("<", paste0(.split_chord(notes[.x], abb = abb),
                         if(s && notes[.x] != "r")
                           paste0("\\", .split_chord(string[.x], TRUE)), collapse = " "), ">"))
   notes <- gsub("<r>", "r", notes)
