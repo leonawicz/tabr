@@ -6,7 +6,7 @@
 \alias{p}
 \title{Create a musical phrase}
 \usage{
-phrase(notes, info, string = NULL, bar = FALSE)
+phrase(notes, info, string = NULL, bar = FALSE, abb = TRUE)
 
 p(...)
 }
@@ -18,6 +18,8 @@ p(...)
 \item{string}{character, optional string that specifies which guitar strings to play for each specific note.}
 
 \item{bar}{logical, insert a bar check at the end of the phrase.}
+
+\item{abb}{logical, abbreviate the default LilyPond Dutch notation for A flat and E flat to \code{as} and \code{es}; recommended.}
 
 \item{...}{arguments passed to \code{phrase}.}
 }
