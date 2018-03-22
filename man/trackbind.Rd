@@ -4,10 +4,12 @@
 \alias{trackbind}
 \title{Bind track tables}
 \usage{
-trackbind(...)
+trackbind(..., tabstaff)
 }
 \arguments{
 \item{...}{track tables.}
+
+\item{tabstaff}{integer, ID vector indicating the tablature staff for each track. See details.}
 }
 \value{
 a track table.
@@ -17,11 +19,20 @@ Bind together track tables by row.
 }
 \details{
 This function appends multiple track tables into a single track table for preparation of generating a multi-track score.
-Regardless of whether a \code{tabstaff} ID column is present in the input tracks, one is added or the existing one is overridden ensuring a unique integer ID for each track.
-This is used to separate music staves in the sheet music/tablature output.
-The actual ID values assigned to each track do not matter; only the order in which tracks are bound, first to last.
+\code{tabstaff} is used to separate music staves in the sheet music/tablature output. A track's \code{voice} is used to separate distinct voices within a common music staff.
+
+If not provided, the \code{tabstaff} ID automatically propagates \code{1:n} for \code{n} tracks passed to \code{...} when binding these tracks together. This expresses the default assumption of one tab staff per track.
+This is the typical use case where each single \code{track} object being bound into a multi-\code{track} object is a fully separated track on its own staff.
+
+However, some tracks represent different voices that share the same staff. These should be assigned the same staff ID value, in which case you must provide the \code{tabstaff} argument.
+An error will be thrown if any two tracks have both the same \code{voice} and the same \code{tabstaff}. The pair must be unique. E.g., provide \code{tabstaff = c(1, 1)} when you have two tracks with \code{voice} equal to 1 and 2. See examples.
+
+Note that the actual ID values assigned to each track do not matter; only the order in which tracks are bound, first to last.
 }
 \examples{
 x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
-trackbind(track(x), track(x))
+x1 <- track(x)
+x2 <- track(x, voice = 2)
+trackbind(x1, x1)
+trackbind(x1, x2, tabstaff = c(1, 1))
 }

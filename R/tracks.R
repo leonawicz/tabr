@@ -45,8 +45,8 @@ chord_set <- function(x, id){
 #'
 #' @param phrase a phrase object.
 #' @param tuning character, space-delimited pitches describing the guitar tuning. Defaults to standard tuning. Tick or integer octave numbering accepted.
+#' @param voice integer, ID indicating the unique voice \code{phrase} belongs to within a single track (another track may share the same tab/music staff but have a different voice ID).
 #' @param add_staff add a standard sheet music staff above the tablature staff. See details.
-#' @param voice integer, ID indicating phrases belonging to unique voices within a single track. May be a vector.
 #'
 #' @return a track table.
 #' @export
@@ -54,10 +54,10 @@ chord_set <- function(x, id){
 #' @examples
 #' x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
 #' track(x)
-track <- function(phrase, tuning = "e, a, d g b e'", add_staff = "treble_8", voice = 1L){
+track <- function(phrase, tuning = "e, a, d g b e'", voice = 1L, add_staff = "treble_8"){
   if(!"phrase" %in% class(phrase)) stop("`phrase` is not a phrase object.")
-  x <- tibble::data_frame(phrase, tuning = .octavesub(tuning),
-                          staff = as.character(add_staff), voice = as.integer(voice))
+  x <- tibble::data_frame(phrase, tuning = .octavesub(tuning), voice = as.integer(voice),
+                          staff = as.character(add_staff))
   x$phrase <- purrr::map(x$phrase, ~as.phrase(.x))
   class(x) <- unique(c("track", class(x)))
   x
@@ -68,23 +68,36 @@ track <- function(phrase, tuning = "e, a, d g b e'", add_staff = "treble_8", voi
 #' Bind together track tables by row.
 #'
 #' This function appends multiple track tables into a single track table for preparation of generating a multi-track score.
-#' Regardless of whether a \code{tabstaff} ID column is present in the input tracks, one is added or the existing one is overridden ensuring a unique integer ID for each track.
-#' This is used to separate music staves in the sheet music/tablature output.
-#' The actual ID values assigned to each track do not matter; only the order in which tracks are bound, first to last.
+#' \code{tabstaff} is used to separate music staves in the sheet music/tablature output. A track's \code{voice} is used to separate distinct voices within a common music staff.
+#'
+#' If not provided, the \code{tabstaff} ID automatically propagates \code{1:n} for \code{n} tracks passed to \code{...} when binding these tracks together. This expresses the default assumption of one tab staff per track.
+#' This is the typical use case where each single \code{track} object being bound into a multi-\code{track} object is a fully separated track on its own staff.
+#'
+#' However, some tracks represent different voices that share the same staff. These should be assigned the same staff ID value, in which case you must provide the \code{tabstaff} argument.
+#' An error will be thrown if any two tracks have both the same \code{voice} and the same \code{tabstaff}. The pair must be unique. E.g., provide \code{tabstaff = c(1, 1)} when you have two tracks with \code{voice} equal to 1 and 2. See examples.
+#'
+#' Note that the actual ID values assigned to each track do not matter; only the order in which tracks are bound, first to last.
 #'
 #' @param ... track tables.
+#' @param tabstaff integer, ID vector indicating the tablature staff for each track. See details.
 #'
 #' @return a track table.
 #' @export
 #'
 #' @examples
 #' x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
-#' trackbind(track(x), track(x))
-trackbind <- function(...){
+#' x1 <- track(x)
+#' x2 <- track(x, voice = 2)
+#' trackbind(x1, x1)
+#' trackbind(x1, x2, tabstaff = c(1, 1))
+trackbind <- function(..., tabstaff){
   x <- list(...)
   if(!all(purrr::map_lgl(x, ~any(class(.x) == "track")))) stop("All arguments must be `track` tables.")
-  x <- purrr::map2(x, seq_along(x), ~dplyr::mutate(.x, tabstaff = as.integer(.y)))
+  y <- if(missing(tabstaff)) seq_along(x) else tabstaff
+  x <- purrr::map2(x, y, ~dplyr::mutate(.x, tabstaff = as.integer(.y)))
   x <- suppressWarnings(dplyr::bind_rows(x))
+  if(nrow(dplyr::distinct(x, .data[["voice"]], .data[["tabstaff"]])) < nrow(x))
+    stop("track `voice` and `tabstaff` ID combination must be unique across track rows.")
   x$phrase <- purrr::map(x$phrase, ~as.phrase(.x))
   class(x) <- unique(c("track", class(x)))
   x

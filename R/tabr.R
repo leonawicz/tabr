@@ -1,3 +1,5 @@
+globalVariables(".data")
+
 #' tabr: Guitar tablature and sheet music engraving.
 #'
 #' The \code{tabr} package provides programmatic music notation and wraps around the open source music engraving program, LilyPond, for creating quality guitar tablature.

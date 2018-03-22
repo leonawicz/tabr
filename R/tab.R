@@ -134,19 +134,18 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header =
 
 .set_melody <- function(x, d, id){
   multivoice <- length(unique(d$voice)) > 1
-  x0 <- paste0(id, " = {\n  \\global\n  ")
+  if(!multivoice) x0 <- paste0(id, " = {\n  \\global\n  ")
   if(multivoice){
     x <- split(x, d$voice)
-    v <- c("first", "second", "third", "fourth")
-    new_staff <- "\\new Staff <<\n"
-    x <- purrr::map2(x, seq_along(x), ~paste0("  \\new Voice = \"", v[.y], "\"\n  { \\voice", v[.y], " ",
-                                              paste(.x, collapse = " "), " }\n"))
-    x <- paste(unlist(x), collapse = "")
-    x <- paste0(new_staff, x, ">>\n}\n")
+    x0 <- paste0(id, LETTERS[as.integer(names(x))], " = {\n  \\global\n  ")
+    v <- c("One", "Two")
+    x <- purrr::map2(x, seq_along(x), ~paste0("  \\voice", v[.y], " ",
+                                              paste(.x, collapse = " "), "\n")) %>% unlist()
+    paste0(x0, "\\override StringNumber #'transparent = ##t\n  ", gsub("\\|", "\\|\n", x), "}\n\n", collapse = "\n")
   } else {
     x <- paste0(paste0(x, collapse = ""), "\n")
+    paste0(x0, "\\override StringNumber #'transparent = ##t\n  ", gsub("\\|", "\\|\n", x), "}\n")
   }
-  paste0(x0, "\\override StringNumber #'transparent = ##t\n  ", gsub("\\|", "\\|\n", x), "}\n\n")
 }
 
 # nolint end
@@ -205,17 +204,28 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header =
   clef <- purrr::map_chr(d, ~unique(.x$staff))
   tuning <- purrr::map_chr(d, ~unique(.x$tuning))
   str_lab  <- purrr::map_chr(tuning, .tunelab)
+  voice <- purrr::map(d, ~unique(.x$voice))
   if(any(!is.na(clef))) clef <- clef[!is.na(clef)]
   x <- paste0(
     purrr::map_chr(seq_along(clef), ~({
+      multivoice <- length(voice[[.x]]) > 1
+      if(!multivoice){
+        x0 <- paste0("<< \\", id[.x], " >>")
+        x1 <- x2 <- paste0("\\", id[.x])
+      }
+      if(multivoice){
+        x0 <- paste0(id, LETTERS[voice[[.x]]])
+        x1 <- paste0("\\context Voice = \"", x0[1], "\" \\", x0[1], " \\context Voice = \"", x0[2], "\" \\", x0[2])
+        x2 <- paste0("\\context TabVoice = \"", x0[1], "\" \\", x0[1], " \\context TabVoice = \"", x0[2], "\" \\", x0[2])
+      }
       paste0(
         if(!is.na(clef[.x]))
-          paste0("\\new Staff { \\clef \"", clef[.x], "\" << \\", id[.x], " >> }\n  ", collapse = ""),
+          paste0("\\new Staff { \\clef \"", clef[.x], "\" ", x1, " }\n  ", collapse = ""),
         paste0("\\new TabStaff \\with { stringTunings = \\stringTuning <", .notesub(tuning[.x]), "> } {\n    ",
                if((is.null(string_names) && tuning[.x] != "e, a, d g b e'") || (!is.null(string_names) && string_names))
                  paste("\\set TabStaff.instrumentName = \\markup { \\hspace #7 \\override #'(baseline-skip . 1.5) \\column \\fontsize #-4.5 \\sans {", str_lab[.x], "} }\n    "),
                "\\override Stem #'transparent = ##t\n    \\override Beam #'transparent = ##t\n    ",
-               "\\", id[.x], "\n  }\n  ", collapse = "")
+               x2, "\n  }\n  ", collapse = "")
       )
     })), collapse = "")
   paste0("\\score {  <<\n  ", if(has_chords) "\\new ChordNames \\chordNames\n  ", x, ">>\n",

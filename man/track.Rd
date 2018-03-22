@@ -4,17 +4,17 @@
 \alias{track}
 \title{Create a music track}
 \usage{
-track(phrase, tuning = "e, a, d g b e'", add_staff = "treble_8",
-  voice = 1L)
+track(phrase, tuning = "e, a, d g b e'", voice = 1L,
+  add_staff = "treble_8")
 }
 \arguments{
 \item{phrase}{a phrase object.}
 
 \item{tuning}{character, space-delimited pitches describing the guitar tuning. Defaults to standard tuning. Tick or integer octave numbering accepted.}
 
-\item{add_staff}{add a standard sheet music staff above the tablature staff. See details.}
+\item{voice}{integer, ID indicating the unique voice \code{phrase} belongs to within a single track (another track may share the same tab/music staff but have a different voice ID).}
 
-\item{voice}{integer, ID indicating phrases belonging to unique voices within a single track. May be a vector.}
+\item{add_staff}{add a standard sheet music staff above the tablature staff. See details.}
 }
 \value{
 a track table.
