@@ -1,0 +1,77 @@
+---
+title: "Example: multiple voices"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Example: multiple voices}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, tidy = TRUE, out.width = "100%"
+)
+```
+
+The previous example used a fingerstyle arrangement based on guitar patterns in *Devil's got you beat*. This example picks up from there, regenrating the exact same guitar tab, but this time properly acknowledging the two guitar voices: the part played by with the thumb and the part played with the other fingers. The setup is the same as before.
+
+```{r p1, eval=FALSE}
+library(tabr)
+header <- list(
+  title = "Devil's got you beat",
+  composer = "Words and music Blues Saraceno",
+  performer = "Blues Saraceno",
+  album = "Dark Country 4",
+  subtitle = "From the album Dark Country 4 by Blues Saraceno",
+  arranger = "Two picking patterns over Eb arranged by Matthew Leonawicz",
+  copyright = "2016 Extreme Music"
+)
+
+txt <- c("DADGAD tuning with capo on 1st fret (Eb). Fingerpicking. Let ring.")
+tuning <- "d2 a2 d3 g3 a3 d4"
+```
+
+## Multiple voices
+
+In this fingerstyle guitar tab it is appropriate to use two voices for the guitar part. Even though it is one guitar playing, the thumb playing on the low three strings and the fingers playing the higher strings should be shown as two distinct voices. Multiple voices like this go on the same staff; they do not need a separate staff. The voice played with the thumb shows notes with their stems pointing down and the higher voice has stems pointing up.
+
+This changes the phrases seen earlier as they must be split into two complementary phrases. Voice ID is indicated in `track`. There are now two tracks, but they are represented by different voices, not by different music staves. Therfore, the two tracks will use `voice = 1` and `voice = 2`, respectively, but they will not have different `tabstaff` IDs.
+
+Below, `s` is used instead of `r` for silent rests, but this is not required. This suppresses the rest notation of the resting voice while the other voice is active. This works well for this melody since the two voices are never both at rest. Notice how the additional rests fill in the gaps where each voice is now effectively inactive while the other is played. In more complex fingerstyle arrangements they will of course overlap.
+
+```{r voices, eval=FALSE}
+# melody 1: voice 1
+notes1 <- glue(dup("s a3 d4", 2), "s a3 d4 s")
+info1 <- "4. 16 16 4. 16 16 8 16 16 4"
+strings1 <- "x 2 1 x 2 1 x 2 1 x"
+p1 <- p(notes1, info1, strings1)
+
+p1e1 <- p("s a3 d4 s", "8 16 16 4", "x 2 1 x")
+p1e2 <- p("s a3 d4 s s", "8 16 16 4 1", "x 2 1 x x")
+
+# melody 1: voice 2
+notes2 <- glue(dup("f3 d3 c3 d3 s", 2), "f3 g3 s f3 d3 c3 a2")
+info2 <- purrr::map_chr(c("16(", notate("16(", txt)),
+                       ~glue(.x, "16) 8 8 8 16( 16) 8 8 8 16- 16 8 16*4"))
+strings2 <- "4 4 5 4 s 4 4 5 4 s 4 4 s 4 4 5 5"
+p2 <-purrr::map(info2, ~p(notes2, .x, strings2))
+
+p2e1 <- p("d3 s c3 a2 f2 d2", "8 8 16( 16) 16( 16)", "4 x 5 5 6 6")
+p2e2 <- p("d3 s c3 a2 f2 e2 d2", "8 8 16( 16) 16- 16( 1)", "4 x 5 5 6 6 6")
+
+# melody 2: voices 1 and 2
+p3 <- p("s a3 d4 s", "8 16 16 4", "x 2 1 x")
+p4 <- p("d3 s f3 d3 c3", "8 8 16 16 8", "4 x 4 4 5")
+
+t1 <- glue(pct(glue(p1, p1e1), 3), volta(pct(p3, 3), 1), p1, p1e1, p1, p1e2) %>% track(tuning, 1)
+t2 <- glue(pct(glue(p2[[2]], p2e1), 3), volta(pct(p4, 3), 1), p2[[1]], p2e1, p2[[1]], p2e2) %>% track(tuning, 2)
+trackbind(t1, t2, tabstaff = c(1, 1)) %>% score() %>% tab("out.pdf", "dm", "4/4", "4 = 115", header)
+```
+
+Notice the 1 and 2 passed to the respective calls to `track` for the voice ID. Subsequently, in the call to `trackbind` the two tracks are assigned the same staff ID. By default, not providing `tabstaff` leads to a unique staves per track. This is the more common usage. Providing non-unique staff IDs will throw an error if the voice IDs for a single staff ID are not unique.
+
+## Result
+
+This is a somewhat frustrating refactor for such a small change in result, but keep in mind it is just an comparative example for illustration. Normally, it would only have been coded this second way to begin with. The new output is shown. It is almost identical, as it should be, with the single exception of a change in stem direction representing the two voices. Note that the order in which the tracks are bound determines which voice receives upward stems and which receives downward stems. This is just like when binding multiple tracks destined for their own staves. The actual ID values do not matter; it only matters that they are unique.
+
+<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/complete01b.png?raw=true" width="100%"></p>
