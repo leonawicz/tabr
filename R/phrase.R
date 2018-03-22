@@ -68,9 +68,9 @@ phrase <- function(notes, info, string = NULL, bar = FALSE, abb = TRUE){
   notes <- purrr::map_chr(
     seq_along(notes),
     ~paste0("<", paste0(.split_chord(notes[.x], abb = abb),
-                        if(s && notes[.x] != "r")
+                        if(s && notes[.x] != "r" && notes[.x] != "s")
                           paste0("\\", .split_chord(string[.x], TRUE)), collapse = " "), ">"))
-  notes <- gsub("<r>", "r", notes)
+  notes <- gsub("<s>", "s", gsub("<r>", "r", notes))
   x <- paste0(notes, info)
   if(length(bend)) x[bend] <- paste0(x[bend], .bend)
   if(length(dead)) x[dead] <- paste("\\deadNote", x[dead])
