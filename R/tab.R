@@ -220,12 +220,12 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header =
       }
       paste0(
         if(!is.na(clef[.x]))
-          paste0("\\new Staff { \\clef \"", clef[.x], "\" ", x1, " }\n  ", collapse = ""),
-        paste0("\\new TabStaff \\with { stringTunings = \\stringTuning <", .notesub(tuning[.x]), "> } {\n    ",
+          paste0("\\new Staff << \\clef \"", clef[.x], "\" ", x1, " >>\n  ", collapse = ""),
+        paste0("\\new TabStaff \\with { stringTunings = \\stringTuning <", .notesub(tuning[.x]), "> } <<\n    ",
                if((is.null(string_names) && tuning[.x] != "e, a, d g b e'") || (!is.null(string_names) && string_names))
                  paste("\\set TabStaff.instrumentName = \\markup { \\hspace #7 \\override #'(baseline-skip . 1.5) \\column \\fontsize #-4.5 \\sans {", str_lab[.x], "} }\n    "),
                "\\override Stem #'transparent = ##t\n    \\override Beam #'transparent = ##t\n    ",
-               x2, "\n  }\n  ", collapse = "")
+               x2, "\n  >>\n  ", collapse = "")
       )
     })), collapse = "")
   paste0("\\score {  <<\n  ", if(has_chords) "\\new ChordNames \\chordNames\n  ", x, ">>\n",
