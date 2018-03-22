@@ -16,7 +16,7 @@ pct(phrase, n = 1)
 
 \item{endings}{list of phrases or basic strings, alternate endings.}
 
-\item{silent}{if \code{TRUE}, no text will be printed above the staff to indicate the number of repeats when greater than one and no \code{endings = NULL}. This is useful when another staff already displays the text.}
+\item{silent}{if \code{TRUE}, no text will be printed above the staff to indicate the number of plays when greater than one repeat and \code{endings} is not \code{NULL}. This is useful when another staff already displays the text.}
 }
 \value{
 a phrase.

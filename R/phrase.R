@@ -104,7 +104,7 @@ print.phrase <- function(x, ...) cat(x, "\n", sep = "")
 #' @param phrase a phrase or basic string to be repeated.
 #' @param n integer, number of repeats of \code{phrase} (one less than the total number of plays).
 #' @param endings list of phrases or basic strings, alternate endings.
-#' @param silent if \code{TRUE}, no text will be printed above the staff to indicate the number of repeats when greater than one and no \code{endings = NULL}. This is useful when another staff already displays the text.
+#' @param silent if \code{TRUE}, no text will be printed above the staff to indicate the number of plays when greater than one repeat and \code{endings} is not \code{NULL}. This is useful when another staff already displays the text.
 #'
 #' @return a phrase.
 #' @export
