@@ -38,7 +38,7 @@ header <- list(
   composer = "Words and music Blues Saraceno",
   performer = "Blues Saraceno",
   album = "Dark Country 4",
-  subtitle = paste("From the album", album, "by", performer),
+  subtitle = "From the album Dark Country 4 by Blues Saraceno",
   arranger = "Two picking patterns over Eb arranged by Matthew Leonawicz",
   copyright = "2016 Extreme Music"
 )
@@ -58,8 +58,8 @@ e2 <- p("d3 a3 d4 c3 a2 f2 e2 d2", "8 16 16 16( 16) 16- 16( 1)", "4 2 1 5 5 6 6 
 #melody 2
 p2 <- p("d3 a3 d4 f3 d3 c3", "8 16 16 16 16 8", "4 2 1 4 4 5")
 
-song <- glue(pct(glue(p1[[2]], e1), 3), volta(pct(p2, 3), 1), p1[[1]], e1, p1[[1]], e2) %>%
-  track(tuning) %>% score() %>% tab(song, "out.pdf", "dm", "4/4", "4 = 115", header)
+p_all <- glue(pct(glue(p1[[2]], e1), 3), volta(pct(p2, 3), 1), p1[[1]], e1, p1[[1]], e2)
+track(p_all, tuning) %>% score() %>% tab("out.pdf", "dm", "4/4", "4 = 115", header)
 ```
 
 You can see above that `notate` can often obstruct otherwise convenient opportunities for code reduction. Avoiding repeating the annotation means avoiding repeating whatever it is bound to.
@@ -74,3 +74,5 @@ The slightest change forces you to split things up and expand the code, just lik
 The result of the call to `tab` is as follows.
 
 <p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/complete01.png?raw=true" width="100%"></p>
+
+The next example refactors the phrases above to properly represent [multiple voices](https://leonawicz.github.io/tabr/articles/tabr-ex2.html) in the output.
