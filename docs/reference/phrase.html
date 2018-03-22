@@ -108,6 +108,9 @@
     <li>
       <a href="../articles/tabr-ex1.html">Tuning and capo</a>
     </li>
+    <li>
+      <a href="../articles/tabr-ex2.html">Multiple voices</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -145,7 +148,7 @@
 Notes separated in time are separated in the <code>notes</code> string by spaces. Sharps and flats are indicated by appending <code>#</code> and <code>_</code>, respectively, e.g. <code>f#</code> or <code>g_</code>.</p>
     
 
-    <pre class="usage"><span class='fu'>phrase</span>(<span class='no'>notes</span>, <span class='no'>info</span>, <span class='kw'>string</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bar</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>phrase</span>(<span class='no'>notes</span>, <span class='no'>info</span>, <span class='kw'>string</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bar</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>abb</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>p</span>(<span class='no'>...</span>)</pre>
     
@@ -167,6 +170,10 @@ Notes separated in time are separated in the <code>notes</code> string by spaces
     <tr>
       <th>bar</th>
       <td><p>logical, insert a bar check at the end of the phrase.</p></td>
+    </tr>
+    <tr>
+      <th>abb</th>
+      <td><p>logical, abbreviate the default LilyPond Dutch notation for A flat and E flat to <code>as</code> and <code>es</code>; recommended.</p></td>
     </tr>
     <tr>
       <th>...</th>

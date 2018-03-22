@@ -108,6 +108,9 @@
     <li>
       <a href="../articles/tabr-ex1.html">Tuning and capo</a>
     </li>
+    <li>
+      <a href="../articles/tabr-ex2.html">Multiple voices</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -144,8 +147,8 @@
     <p>Create a music track from a collection of musical phrases.</p>
     
 
-    <pre class="usage"><span class='fu'>track</span>(<span class='no'>phrase</span>, <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"e, a, d g b e'"</span>, <span class='kw'>add_staff</span> <span class='kw'>=</span> <span class='st'>"treble_8"</span>,
-  <span class='kw'>voice</span> <span class='kw'>=</span> <span class='fl'>1L</span>)</pre>
+    <pre class="usage"><span class='fu'>track</span>(<span class='no'>phrase</span>, <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"e, a, d g b e'"</span>, <span class='kw'>voice</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
+  <span class='kw'>add_staff</span> <span class='kw'>=</span> <span class='st'>"treble_8"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -159,12 +162,12 @@
       <td><p>character, space-delimited pitches describing the guitar tuning. Defaults to standard tuning. Tick or integer octave numbering accepted.</p></td>
     </tr>
     <tr>
-      <th>add_staff</th>
-      <td><p>add a standard sheet music staff above the tablature staff. See details.</p></td>
+      <th>voice</th>
+      <td><p>integer, ID indicating the unique voice <code>phrase</code> belongs to within a single track (another track may share the same tab/music staff but have a different voice ID).</p></td>
     </tr>
     <tr>
-      <th>voice</th>
-      <td><p>integer, ID indicating phrases belonging to unique voices within a single track. May be a vector.</p></td>
+      <th>add_staff</th>
+      <td><p>add a standard sheet music staff above the tablature staff. See details.</p></td>
     </tr>
     </table>
     
@@ -185,9 +188,9 @@ This is appropriate for simple guitar patterns where there are already multiple 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>phrase</span>(<span class='st'>"c ec'g' ec'g'"</span>, <span class='st'>"4 4 2"</span>, <span class='st'>"5 432 432"</span>)
 <span class='fu'>track</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
-#&gt;   phrase       tuning         staff    voice
-#&gt;   &lt;list&gt;       &lt;chr&gt;          &lt;chr&gt;    &lt;int&gt;
-#&gt; 1 &lt;S3: phrase&gt; e, a, d g b e' treble_8     1</div></pre>
+#&gt;   phrase       tuning         voice staff   
+#&gt;   &lt;list&gt;       &lt;chr&gt;          &lt;int&gt; &lt;chr&gt;   
+#&gt; 1 &lt;S3: phrase&gt; e, a, d g b e'     1 treble_8</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
