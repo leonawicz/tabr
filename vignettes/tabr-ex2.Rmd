@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The previous example used a fingerstyle arrangement based on guitar patterns in *Devil's got you beat*. This example picks up from there, regenrating the exact same guitar tab, but this time properly acknowledging the two guitar voices: the part played by with the thumb and the part played with the other fingers. The setup is the same as before.
+The previous example used a fingerstyle arrangement based on guitar patterns in *Devil's got you beat*. This example picks up from there, regenerating the exact same guitar tab, but this time properly acknowledging the two guitar voices: the part played by with the thumb and the part played with the other fingers. The setup is the same as before.
 
 ```{r p1, eval=FALSE}
 library(tabr)
@@ -35,7 +35,7 @@ tuning <- "d2 a2 d3 g3 a3 d4"
 
 In this fingerstyle guitar tab it is appropriate to use two voices for the guitar part. Even though it is one guitar playing, the thumb playing on the low three strings and the fingers playing the higher strings should be shown as two distinct voices. Multiple voices like this go on the same staff; they do not need a separate staff. The voice played with the thumb shows notes with their stems pointing down and the higher voice has stems pointing up.
 
-This changes the phrases seen earlier as they must be split into two complementary phrases. Voice ID is indicated in `track`. There are now two tracks, but they are represented by different voices, not by different music staves. Therfore, the two tracks will use `voice = 1` and `voice = 2`, respectively, but they will not have different `tabstaff` IDs.
+This changes the phrases seen earlier as they must be split into two complementary phrases. Voice ID is indicated in `track`. There are now two tracks, but they are represented by different voices, not by different music staves. Therefore, the two tracks will use `voice = 1` and `voice = 2`, respectively, but they will not have different `tabstaff` IDs.
 
 Below, `s` is used instead of `r` for silent rests, but this is not required. This suppresses the rest notation of the resting voice while the other voice is active. This works well for this melody since the two voices are never both at rest. Notice how the additional rests fill in the gaps where each voice is now effectively inactive while the other is played. In more complex fingerstyle arrangements they will of course overlap.
 
@@ -68,10 +68,12 @@ t2 <- glue(pct(glue(p2[[2]], p2e1), 3), volta(pct(p4, 3), 1), p2[[1]], p2e1, p2[
 trackbind(t1, t2, tabstaff = c(1, 1)) %>% score() %>% tab("out.pdf", "dm", "4/4", "4 = 115", header)
 ```
 
-Notice the 1 and 2 passed to the respective calls to `track` for the voice ID. Subsequently, in the call to `trackbind` the two tracks are assigned the same staff ID. By default, not providing `tabstaff` leads to a unique staves per track. This is the more common usage. Providing non-unique staff IDs will throw an error if the voice IDs for a single staff ID are not unique.
+Notice the 1 and 2 passed to the respective calls to `track` for the voice ID. Subsequently, in the call to `trackbind` the two tracks are assigned the same staff ID, `tabstaff = c(1, 1)`. By default, not providing `tabstaff` leads to a unique staff per track. This is the more common usage. Providing non-unique staff IDs will throw an error if the voice IDs for a single staff ID are also not unique. Every track must be directed into a unique voice or staff.
 
 ## Result
 
-This is a somewhat frustrating refactor for such a small change in result, but keep in mind it is just an comparative example for illustration. Normally, it would only have been coded this second way to begin with. The new output is shown. It is almost identical, as it should be, with the single exception of a change in stem direction representing the two voices. Note that the order in which the tracks are bound determines which voice receives upward stems and which receives downward stems. This is just like when binding multiple tracks destined for their own staves. The actual ID values do not matter; it only matters that they are unique.
+This is a somewhat frustrating refactor for such a small change in result, but keep in mind it is just a comparative example for illustration. Normally, it would only have been coded this second way to begin with. The new output is shown below. It is almost identical, as it should be, with the single exception of a change in stem direction representing the two voices.
+
+Note that the order of voice 1 and 2 *assignment* determines which one is stem up and which is stem down. `voice = 1` points up, `voice = 2` points down, and they should be assigned properly to avoid obtaining the backwards result. Since together these tracks share one staff, the order in which they are passed to `trackbind` actually does not matter here. `trackbind` order matters only for staff order, not voice order within a staff. For both voices and staves, first to last is mapped top to bottom in the output.
 
 <p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/complete01b.png?raw=true" width="100%"></p>
