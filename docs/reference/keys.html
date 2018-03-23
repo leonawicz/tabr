@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create tablature — tab â€¢ tabr</title>
+<title>Key signatures — keys â€¢ tabr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -140,90 +140,53 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create tablature</h1>
+    <h1>Key signatures</h1>
     </div>
 
     
-    <p>Create sheet music/guitar tablature from a music score.</p>
+    <p>Helper functions for key signature information.</p>
     
 
-    <pre class="usage"><span class='fu'>tab</span>(<span class='no'>score</span>, <span class='no'>file</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>time</span> <span class='kw'>=</span> <span class='st'>"4/4"</span>, <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='st'>"2 = 60"</span>,
-  <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>string_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>endbar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>keep_ly</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
+    <pre class="usage"><span class='fu'>keys</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"all"</span>, <span class='st'>"sharp"</span>, <span class='st'>"flat"</span>))
+
+<span class='fu'>is_natural</span>(<span class='no'>key</span>)
+
+<span class='fu'>is_sharp</span>(<span class='no'>key</span>)
+
+<span class='fu'>is_flat</span>(<span class='no'>key</span>)
+
+<span class='fu'>n_sharps</span>(<span class='no'>key</span>)
+
+<span class='fu'>n_flats</span>(<span class='no'>key</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>score</th>
-      <td><p>a score object.</p></td>
-    </tr>
-    <tr>
-      <th>file</th>
-      <td><p>character, output file ending in .pdf or .png.</p></td>
+      <th>type</th>
+      <td><p>character, defaults to <code>"all"</code>.</p></td>
     </tr>
     <tr>
       <th>key</th>
-      <td><p>character, key signature, e.g., <code>c</code>, <code>b_</code>, <code>f#m</code>, etc.</p></td>
-    </tr>
-    <tr>
-      <th>time</th>
-      <td><p>character, defaults to <code>"4/4"</code>.</p></td>
-    </tr>
-    <tr>
-      <th>tempo</th>
-      <td><p>character, defaults to <code>"2 = 60"</code>.</p></td>
-    </tr>
-    <tr>
-      <th>header</th>
-      <td><p>a named list of arguments passed to the header of the LilyPond file. See details.</p></td>
-    </tr>
-    <tr>
-      <th>string_names</th>
-      <td><p>label strings at beginning of tab staff. <code>NULL</code> (default) for non-standard tunings only, <code>TRUE</code> or <code>FALSE</code> for force on or off completely.</p></td>
-    </tr>
-    <tr>
-      <th>paper</th>
-      <td><p>a named list of arguments for the LilyPond file page layout. See details.</p></td>
-    </tr>
-    <tr>
-      <th>endbar</th>
-      <td><p>character, the end bar.</p></td>
-    </tr>
-    <tr>
-      <th>midi</th>
-      <td><p>logical, output midi file in addition to tablature.</p></td>
-    </tr>
-    <tr>
-      <th>keep_ly</th>
-      <td><p>logical, keep LilyPond file.</p></td>
-    </tr>
-    <tr>
-      <th>path</th>
-      <td><p>character, output directory for <code>file</code>, must be a relative path.</p></td>
+      <td><p>character, key signature.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>nothing returned; a file is written.</p>
+    <p>character vector.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Generate a pdf or png of a music score using the LilyPond music engraving program.
-Output format is inferred from <code>file</code> extension. This function is a wrapper around <code><a href='lilypond.html'>lilypond</a></code>, the function that creates the LilyPond (<code>.ly</code>) file.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <p><code><a href='lilypond.html'>lilypond</a></code>, <code><a href='miditab.html'>miditab</a></code></p>
+    <p>The <code>keys</code> function returns a vector of valid key signature IDs. These IDs are how key signatures are specified throughout <code>tabr</code>, including in the other helper functions here via <code>key</code>.
+Like the other functions here, <code>is_sharp</code> and <code>is_flat</code> are for <em>key signatures</em>, not single pitches whose sharp or flat status is always self-evident by its notation.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>phrase</span>(<span class='st'>"c ec'g' ec'g'"</span>, <span class='st'>"4 4 2"</span>, <span class='st'>"5 432 432"</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='track.html'>track</a></span>(<span class='no'>x</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='score.html'>score</a></span>(<span class='no'>x</span>)</div><span class='co'># NOT RUN {</span>
-<span class='fu'>tab</span>(<span class='no'>x</span>, <span class='st'>"out.ly"</span>) <span class='co'># requires LilyPond installation</span>
-<span class='co'># }</span></pre>
+    <pre class="examples"><div class='input'><span class='fu'>keys</span>()</div><div class='output co'>#&gt;  [1] "c"   "g"   "d"   "a"   "e"   "b"   "f#"  "c#"  "f"   "b_"  "e_"  "a_" 
+#&gt; [13] "d_"  "g_"  "c_"  "am"  "em"  "bm"  "f#m" "c#m" "g#m" "d#m" "a#m" "dm" 
+#&gt; [25] "gm"  "cm"  "fm"  "b_m" "e_m" "a_m"</div><div class='input'><span class='fu'>is_natural</span>(<span class='fu'>c</span>(<span class='st'>"c"</span>, <span class='st'>"am"</span>, <span class='st'>"c#"</span>))</div><div class='output co'>#&gt; [1]  TRUE  TRUE FALSE</div><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"a"</span>, <span class='st'>"e_"</span>)
+<span class='fu'>is_sharp</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1]  TRUE FALSE</div><div class='input'><span class='fu'>is_flat</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] FALSE  TRUE</div><div class='input'><span class='fu'>n_sharps</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 3 0</div><div class='input'><span class='fu'>n_flats</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 0 3</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -233,8 +196,6 @@ Output format is inferred from <code>file</code> extension. This function is a w
       <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create tablature — tab â€¢ tabr</title>
+<title>Convert MIDI to LilyPond file — midily â€¢ tabr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -140,63 +140,59 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create tablature</h1>
+    <h1>Convert MIDI to LilyPond file</h1>
     </div>
 
     
-    <p>Create sheet music/guitar tablature from a music score.</p>
+    <p>Convert a MIDI file (<code>.mid</code>) to a LilyPond format (<code>.ly</code>) text file.</p>
     
 
-    <pre class="usage"><span class='fu'>tab</span>(<span class='no'>score</span>, <span class='no'>file</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>time</span> <span class='kw'>=</span> <span class='st'>"4/4"</span>, <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='st'>"2 = 60"</span>,
-  <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>string_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>endbar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>keep_ly</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
+    <pre class="usage"><span class='fu'>midily</span>(<span class='no'>midi_file</span>, <span class='no'>file</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>absolute</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>quantize</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>explicit</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>start_quant</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>allow_tuplet</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"4*2/3"</span>, <span class='st'>"8*2/3"</span>,
+  <span class='st'>"16*2/3"</span>), <span class='kw'>details</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>lyric</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>score</th>
-      <td><p>a score object.</p></td>
+      <th>midi_file</th>
+      <td><p>character, MIDI file (<code>.mid</code>).</p></td>
     </tr>
     <tr>
       <th>file</th>
-      <td><p>character, output file ending in .pdf or .png.</p></td>
+      <td><p>LilyPond output file ending in <code>.ly</code>.</p></td>
     </tr>
     <tr>
       <th>key</th>
-      <td><p>character, key signature, e.g., <code>c</code>, <code>b_</code>, <code>f#m</code>, etc.</p></td>
+      <td><p>key signature, defaults to <code>"c"</code>.</p></td>
     </tr>
     <tr>
-      <th>time</th>
-      <td><p>character, defaults to <code>"4/4"</code>.</p></td>
+      <th>absolute</th>
+      <td><p>logical, print absolute pitches.</p></td>
     </tr>
     <tr>
-      <th>tempo</th>
-      <td><p>character, defaults to <code>"2 = 60"</code>.</p></td>
+      <th>quantize</th>
+      <td><p>integer, duration, quantize notes on duration.</p></td>
     </tr>
     <tr>
-      <th>header</th>
-      <td><p>a named list of arguments passed to the header of the LilyPond file. See details.</p></td>
+      <th>explicit</th>
+      <td><p>logical, print explicit durations.</p></td>
     </tr>
     <tr>
-      <th>string_names</th>
-      <td><p>label strings at beginning of tab staff. <code>NULL</code> (default) for non-standard tunings only, <code>TRUE</code> or <code>FALSE</code> for force on or off completely.</p></td>
+      <th>start_quant</th>
+      <td><p>integer, duration, quantize note starts on the duration.</p></td>
     </tr>
     <tr>
-      <th>paper</th>
-      <td><p>a named list of arguments for the LilyPond file page layout. See details.</p></td>
+      <th>allow_tuplet</th>
+      <td><p>character vector, allow tuplet durations. See details.</p></td>
     </tr>
     <tr>
-      <th>endbar</th>
-      <td><p>character, the end bar.</p></td>
+      <th>details</th>
+      <td><p>logical, verbose detail.</p></td>
     </tr>
     <tr>
-      <th>midi</th>
-      <td><p>logical, output midi file in addition to tablature.</p></td>
-    </tr>
-    <tr>
-      <th>keep_ly</th>
-      <td><p>logical, keep LilyPond file.</p></td>
+      <th>lyric</th>
+      <td><p>logical, treat all text as lyrics.</p></td>
     </tr>
     <tr>
       <th>path</th>
@@ -210,19 +206,26 @@
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Generate a pdf or png of a music score using the LilyPond music engraving program.
-Output format is inferred from <code>file</code> extension. This function is a wrapper around <code><a href='lilypond.html'>lilypond</a></code>, the function that creates the LilyPond (<code>.ly</code>) file.</p>
+    <p>Under development/testing. See warning and details below.</p>
+<p>This function is a wrapper around the <code>midi2ly</code> command line utility provided by LilyPond. It inherits all the limitations thereof. LilyPond is not intended to be used to produce meaningful sheet music from arbitrary MIDI files.
+<em>A future version will offer additional arguments that use <code>tabr</code> to subsequently edit the generated LilyPond file as a second step, allowing the user to make some nominal substitutions or additions to the default output.</em>
+While <code><a href='lilypond.html'>lilypond</a></code> converts R code <code>score</code> objects to LilyPond markup directly, MIDI conversion to LilyPond markup by <code>midily</code> requires LilyPond.</p>
+<p>WARNING: Even though the purpose of the command line utility is to convert an existing MIDI file to a LilyPond file, it nevertheless generates a LilyPond file that <em>specifies inclusion of MIDI output</em>.
+This means when you subsequently process the LilyPond file with LilyPond or if you use <code>miditab</code> to go straight from your MIDI file to pdf output, the command line tool will also produce a MIDI file output. It will overwrite your original MIDI file if it has the same file name and location!
+The next version of this function will add an default argument <code>midi_out = FALSE</code> to remove this from the generated LilyPond file. If <code>TRUE</code> and the basename of <code>midi_file</code> matches the basename of <code>file</code>, then <code>file</code> will be renamed, the basename appended with a <code>-1</code>.
+    <code>allow_tuplets = NULL</code> to disallow all tuplets. Fourth, eighth and sixteenth note triplets are allowed. The format is a character vector where each element is <code>duration*numerator/denominator</code>, no spaces. See default argument.</p>
+<p>On Windows systems, it may be necessary to specify a path in tabr_options to both <code>midi2ly</code> and <code>python</code> if they are not already successfully set as follows.
+On package load, <code>tabr</code> will attempt to check for <code>midi2ly.exe</code> at <code>C:/Program Files (x86)/LilyPond/usr/bin/midi2ly.py</code> and similarly for the <code>python.exe</code> that ships with LilyPond at <code>C:/Program Files (x86)/LilyPond/usr/bin/python.exe</code>.
+If this is not where LilyPond is installed, then LilyPond and Python need to be provided to <code>tabr_options</code> or added to the system PATH variable.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='lilypond.html'>lilypond</a></code>, <code><a href='miditab.html'>miditab</a></code></p>
+    <p><code><a href='miditab.html'>miditab</a></code>, <code><a href='tab.html'>tab</a></code>, <code><a href='lilypond.html'>lilypond</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>phrase</span>(<span class='st'>"c ec'g' ec'g'"</span>, <span class='st'>"4 4 2"</span>, <span class='st'>"5 432 432"</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='track.html'>track</a></span>(<span class='no'>x</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='score.html'>score</a></span>(<span class='no'>x</span>)</div><span class='co'># NOT RUN {</span>
-<span class='fu'>tab</span>(<span class='no'>x</span>, <span class='st'>"out.ly"</span>) <span class='co'># requires LilyPond installation</span>
+    <pre class="examples"><div class='input'><span class='no'>midi</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='st'>"example.mid"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"tabr"</span>)</div><span class='co'># NOT RUN {</span>
+<span class='fu'>midily</span>(<span class='no'>midi</span>, <span class='st'>"out.ly"</span>) <span class='co'># requires LilyPond installation</span>
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

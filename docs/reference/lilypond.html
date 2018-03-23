@@ -144,12 +144,12 @@
     </div>
 
     
-    <p>Write score to a LilyPond format (<code>.ly</code>) text file for later use by LilyPond or subsequent editing outside of R.</p>
+    <p>Write a score to a LilyPond format (<code>.ly</code>) text file for later use by LilyPond or subsequent editing outside of R.</p>
     
 
     <pre class="usage"><span class='fu'>lilypond</span>(<span class='no'>score</span>, <span class='no'>file</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>time</span> <span class='kw'>=</span> <span class='st'>"4/4"</span>, <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='st'>"2 = 60"</span>,
   <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>string_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>endbar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>out_dir</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
+  <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -160,7 +160,7 @@
     </tr>
     <tr>
       <th>file</th>
-      <td><p>LilyPond output file, should end in <code>.ly</code>.</p></td>
+      <td><p>character, LilyPond output file ending in <code>.ly</code>.</p></td>
     </tr>
     <tr>
       <th>key</th>
@@ -195,8 +195,8 @@
       <td><p>logical, add midi inclusion specification to LilyPond file.</p></td>
     </tr>
     <tr>
-      <th>out_dir</th>
-      <td><p>character, output directory, defaults to working directory.</p></td>
+      <th>path</th>
+      <td><p>character, output directory for <code>file</code>, must be a relative path.</p></td>
     </tr>
     </table>
     
@@ -206,15 +206,39 @@
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The options for <code>header</code> include <code>title</code>, <code>subtitle</code>, <code>composer</code>, <code>album</code>, <code>arranger</code>, <code>instrument</code>, <code>meter</code>, <code>opus</code>, <code>piece</code>, <code>poet</code>, <code>copyright</code> and <code>tagline</code>.
-All <code>header</code> arguments are character strings.
-The <code>paper</code> argument list options are <code>textheight</code>, <code>linewidth</code>, <code>indent</code>, <code>first_page_number</code>, <code>page_numbers</code> and <code>fontsize</code>.
-All <code>paper</code> arguments are numeric except <code>page_numbers</code>, which is logical.</p>
+    <p>All <code>header</code> list elements are character strings. The options for <code>header</code> include:</p><ul>
+<li><p><code>title</code></p></li>
+<li><p><code>subtitle</code></p></li>
+<li><p><code>composer</code></p></li>
+<li><p><code>album</code></p></li>
+<li><p><code>arranger</code></p></li>
+<li><p><code>instrument</code></p></li>
+<li><p><code>meter</code></p></li>
+<li><p><code>opus</code></p></li>
+<li><p><code>piece</code></p></li>
+<li><p><code>poet</code></p></li>
+<li><p><code>copyright</code></p></li>
+<li><p><code>tagline</code></p></li>
+</ul>
+    <p>All <code>paper</code> list elements are numeric except <code>page_numbers</code>, which is logical. The options for <code>paper</code> include:</p><ul>
+<li><p><code>textheight</code></p></li>
+<li><p><code>linewidth</code></p></li>
+<li><p><code>indent</code></p></li>
+<li><p><code>first_page_number</code></p></li>
+<li><p><code>page_numbers</code></p></li>
+<li><p><code>fontsize</code></p></li>
+</ul>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p><code><a href='tab.html'>tab</a></code>, <code><a href='midily.html'>midily</a></code>,</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'># not run
-</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>phrase</span>(<span class='st'>"c ec'g' ec'g'"</span>, <span class='st'>"4 4 2"</span>, <span class='st'>"5 432 432"</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='track.html'>track</a></span>(<span class='no'>x</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='score.html'>score</a></span>(<span class='no'>x</span>)
+<span class='fu'>lilypond</span>(<span class='no'>x</span>, <span class='st'>"out.ly"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -224,6 +248,8 @@ All <code>paper</code> arguments are numeric except <code>page_numbers</code>, w
       <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
