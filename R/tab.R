@@ -1,14 +1,35 @@
 #' Save score to LilyPond file
 #'
-#' Write score to a LilyPond format (\code{.ly}) text file for later use by LilyPond or subsequent editing outside of R.
+#' Write a score to a LilyPond format (\code{.ly}) text file for later use by LilyPond or subsequent editing outside of R.
 #'
-#' The options for \code{header} include \code{title}, \code{subtitle}, \code{composer}, \code{album}, \code{arranger}, \code{instrument}, \code{meter}, \code{opus}, \code{piece}, \code{poet}, \code{copyright} and \code{tagline}.
-#' All \code{header} arguments are character strings.
-#' The \code{paper} argument list options are \code{textheight}, \code{linewidth}, \code{indent}, \code{first_page_number}, \code{page_numbers} and \code{fontsize}.
-#' All \code{paper} arguments are numeric except \code{page_numbers}, which is logical.
+#' All \code{header} list elements are character strings. The options for \code{header} include:
+#' \itemize{
+#'   \item \code{title}
+#'   \item \code{subtitle}
+#'   \item \code{composer}
+#'   \item \code{album}
+#'   \item \code{arranger}
+#'   \item \code{instrument}
+#'   \item \code{meter}
+#'   \item \code{opus}
+#'   \item \code{piece}
+#'   \item \code{poet}
+#'   \item \code{copyright}
+#'   \item \code{tagline}
+#' }
+#'
+#' All \code{paper} list elements are numeric except \code{page_numbers}, which is logical. The options for \code{paper} include:
+#' \itemize{
+#'   \item \code{textheight}
+#'   \item \code{linewidth}
+#'   \item \code{indent}
+#'   \item \code{first_page_number}
+#'   \item \code{page_numbers}
+#'   \item \code{fontsize}
+#' }
 #'
 #' @param score a score object.
-#' @param file LilyPond output file, should end in \code{.ly}.
+#' @param file character, LilyPond output file ending in \code{.ly}.
 #' @param key character, key signature, e.g., \code{c}, \code{b_}, \code{f#m}, etc.
 #' @param time character, defaults to \code{"4/4"}.
 #' @param tempo character, defaults to \code{"2 = 60"}.
@@ -17,15 +38,19 @@
 #' @param paper a named list of arguments for the LilyPond file page layout. See details.
 #' @param endbar character, the end bar.
 #' @param midi logical, add midi inclusion specification to LilyPond file.
-#' @param out_dir character, output directory, defaults to working directory.
+#' @param path character, output directory for \code{file}, must be a relative path.
 #'
 #' @return nothing returned; a file is written.
 #' @export
+#' @seealso \code{\link{tab}}, \code{\link{midily}},
 #'
 #' @examples
-#' # not run
+#' x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
+#' x <- track(x)
+#' x <- score(x)
+#' lilypond(x, "out.ly")
 lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header = NULL,
-                     string_names = NULL, paper = NULL, endbar = TRUE, midi = TRUE, out_dir = "."){
+                     string_names = NULL, paper = NULL, endbar = TRUE, midi = TRUE, path = "."){
   if(!"score" %in% class(score)) stop("`score` is not a score object.")
   major <- ifelse(utils::tail(strsplit(key, "")[[1]], 1) == "m", FALSE, TRUE)
   key <- gsub("m", "", key)
@@ -59,7 +84,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", hea
   melody <- paste(purrr::map_chr(seq_along(d), ~.set_melody(melody[[.x]], d[[.x]], melody_id[.x])), collapse = "")
   score <- .set_score(d, melody_id, midi, tempo, has_chords, string_names)
   output <- paste(c(top, global, cd, melody, score, paper), collapse = "")
-  write(file = file.path(out_dir, file), output)
+  write(file = file.path(path, file), output)
 }
 
 # nolint start
@@ -68,11 +93,11 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", hea
 #'
 #' Create sheet music/guitar tablature from a music score.
 #'
-#' This function generates a pdf (optionally a png) of a music score using the LilyPond music engraving program.
-#' Output format is inferred from \code{file} extension.
+#' Generate a pdf or png of a music score using the LilyPond music engraving program.
+#' Output format is inferred from \code{file} extension. This function is a wrapper around \code{\link{lilypond}}, the function that creates the LilyPond (\code{.ly}) file.
 #'
 #' @param score a score object.
-#' @param file character, output file, should end in .pdf or .png.
+#' @param file character, output file ending in .pdf or .png.
 #' @param key character, key signature, e.g., \code{c}, \code{b_}, \code{f#m}, etc.
 #' @param time character, defaults to \code{"4/4"}.
 #' @param tempo character, defaults to \code{"2 = 60"}.
@@ -81,24 +106,29 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", hea
 #' @param paper a named list of arguments for the LilyPond file page layout. See details.
 #' @param endbar character, the end bar.
 #' @param midi logical, output midi file in addition to tablature.
-#' @param out_dir character, output directory, defaults to working directory.
 #' @param keep_ly logical, keep LilyPond file.
+#' @param path character, output directory for \code{file}, must be a relative path.
 #'
 #' @return nothing returned; a file is written.
 #' @export
+#' @seealso \code{\link{lilypond}}, \code{\link{miditab}}
 #'
 #' @examples
-#' # not run
+#' x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
+#' x <- track(x)
+#' x <- score(x)
+#' \dontrun{tab(x, "out.ly") # requires LilyPond installation}
 tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header = NULL,
-                string_names = NULL, paper = NULL, endbar = TRUE, midi = TRUE, out_dir = ".",
-                keep_ly = FALSE){
+                string_names = NULL, paper = NULL, endbar = TRUE, midi = TRUE,
+                keep_ly = FALSE, path = "."){
   ext <- utils::tail(strsplit(file, "\\.")[[1]], 1)
   lily <- gsub(ext, "ly", file)
   cat("#### Engraving score to", file, "####\n")
-  lilypond(score, lily, key, time, tempo, header, string_names, paper, endbar, midi, out_dir)
+  lilypond(score, lily, key, time, tempo, header, string_names, paper, endbar, midi, path)
+  lily <- file.path(path, lily)
   system(paste0("\"", tabr_options()$lilypond, "\" --", ext,
-                " -dstrip-output-dir=#f \"", file.path(out_dir, lily), "\""))
-  if(!keep_ly) unlink(file.path(out_dir, lily))
+                " -dstrip-output-dir=#f \"", lily, "\""))
+  if(!keep_ly) unlink(lily)
   invisible()
 }
 

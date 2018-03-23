@@ -14,10 +14,11 @@ reference:
   contents:
   - tabr
 - title: Create tablature
-  desc: "Functions for writing and executing LilyPond files."
+  desc: "Functions for writing and rendering LilyPond files."
   contents:
   - tab
   - lilypond
+  - tabr_options
 - title: Organizing music
   desc: "Functions for hierarchical music notation organization."
   contents:
@@ -46,9 +47,18 @@ reference:
   desc: "Functions for chord description."
   contents:
   - chord_set
+- title: Key signsture helpers
+  desc: "Functions providing key information and specification"
+  contents:
+  - keys
+- title: MIDI conversion
+  desc: "Functions for converting MIDI files with LilyPond"
+  contents:
+  - midily
+  - miditab
 - title: Other functions
   contents:
-  - - starts_with("%")
+  - starts_with("%")
 
 navbar:
   title: "tabr"

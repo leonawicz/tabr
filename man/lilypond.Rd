@@ -6,12 +6,12 @@
 \usage{
 lilypond(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   header = NULL, string_names = NULL, paper = NULL, endbar = TRUE,
-  midi = TRUE, out_dir = ".")
+  midi = TRUE, path = ".")
 }
 \arguments{
 \item{score}{a score object.}
 
-\item{file}{LilyPond output file, should end in \code{.ly}.}
+\item{file}{character, LilyPond output file ending in \code{.ly}.}
 
 \item{key}{character, key signature, e.g., \code{c}, \code{b_}, \code{f#m}, etc.}
 
@@ -29,20 +29,47 @@ lilypond(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 
 \item{midi}{logical, add midi inclusion specification to LilyPond file.}
 
-\item{out_dir}{character, output directory, defaults to working directory.}
+\item{path}{character, output directory for \code{file}, must be a relative path.}
 }
 \value{
 nothing returned; a file is written.
 }
 \description{
-Write score to a LilyPond format (\code{.ly}) text file for later use by LilyPond or subsequent editing outside of R.
+Write a score to a LilyPond format (\code{.ly}) text file for later use by LilyPond or subsequent editing outside of R.
 }
 \details{
-The options for \code{header} include \code{title}, \code{subtitle}, \code{composer}, \code{album}, \code{arranger}, \code{instrument}, \code{meter}, \code{opus}, \code{piece}, \code{poet}, \code{copyright} and \code{tagline}.
-All \code{header} arguments are character strings.
-The \code{paper} argument list options are \code{textheight}, \code{linewidth}, \code{indent}, \code{first_page_number}, \code{page_numbers} and \code{fontsize}.
-All \code{paper} arguments are numeric except \code{page_numbers}, which is logical.
+All \code{header} list elements are character strings. The options for \code{header} include:
+\itemize{
+  \item \code{title}
+  \item \code{subtitle}
+  \item \code{composer}
+  \item \code{album}
+  \item \code{arranger}
+  \item \code{instrument}
+  \item \code{meter}
+  \item \code{opus}
+  \item \code{piece}
+  \item \code{poet}
+  \item \code{copyright}
+  \item \code{tagline}
+}
+
+All \code{paper} list elements are numeric except \code{page_numbers}, which is logical. The options for \code{paper} include:
+\itemize{
+  \item \code{textheight}
+  \item \code{linewidth}
+  \item \code{indent}
+  \item \code{first_page_number}
+  \item \code{page_numbers}
+  \item \code{fontsize}
+}
 }
 \examples{
-# not run
+x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
+x <- track(x)
+x <- score(x)
+lilypond(x, "out.ly")
+}
+\seealso{
+\code{\link{tab}}, \code{\link{midily}},
 }

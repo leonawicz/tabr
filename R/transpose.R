@@ -126,11 +126,3 @@ transpose <- function(notes, n = 0, key = NULL){
 #' @export
 #' @rdname transpose
 tp <- function(...) transpose(...)
-
-.keydata <- data.frame(
-  key = c("c", "g", "d", "a", "e", "b", "f#", "c#", "f", "b_", "e_", "a_", "d_", "g_", "c_",
-          "am", "em", "bm", "f#m", "c#m", "g#m", "d#m", "a#m", "dm", "gm", "cm", "fm", "b_m", "e_m", "a_m"),
-  sf = rep(c(NA, rep("sharp", 7), rep("flat", 7)), 2),
-  nsf = rep(c(0L, 1:7, 1:7), 2),
-  major = rep(c(TRUE, FALSE), each = 15), stringsAsFactors = FALSE
-)

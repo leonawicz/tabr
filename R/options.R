@@ -2,7 +2,7 @@
 #'
 #' Options for tabr package.
 #'
-#' Currently only \code{lilypond} is used. If the system path for the LilyPond executable is not stored in the system path environmental variables, it must be provided by the user after loading the package.
+#' Currently only \code{lilypond}, \code{midi2ly} and \code{python} are used. On Windows systems, if the system path for lilypond.exe, midi2ly.py and python.exe are not stored in the system PATH environmental variable, they must be provided by the user after loading the package.
 #'
 #' @param ... a list of options.
 #'

@@ -6,12 +6,12 @@
 \usage{
 tab(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   header = NULL, string_names = NULL, paper = NULL, endbar = TRUE,
-  midi = TRUE, out_dir = ".", keep_ly = FALSE)
+  midi = TRUE, keep_ly = FALSE, path = ".")
 }
 \arguments{
 \item{score}{a score object.}
 
-\item{file}{character, output file, should end in .pdf or .png.}
+\item{file}{character, output file ending in .pdf or .png.}
 
 \item{key}{character, key signature, e.g., \code{c}, \code{b_}, \code{f#m}, etc.}
 
@@ -29,9 +29,9 @@ tab(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 
 \item{midi}{logical, output midi file in addition to tablature.}
 
-\item{out_dir}{character, output directory, defaults to working directory.}
-
 \item{keep_ly}{logical, keep LilyPond file.}
+
+\item{path}{character, output directory for \code{file}, must be a relative path.}
 }
 \value{
 nothing returned; a file is written.
@@ -40,9 +40,15 @@ nothing returned; a file is written.
 Create sheet music/guitar tablature from a music score.
 }
 \details{
-This function generates a pdf (optionally a png) of a music score using the LilyPond music engraving program.
-Output format is inferred from \code{file} extension.
+Generate a pdf or png of a music score using the LilyPond music engraving program.
+Output format is inferred from \code{file} extension. This function is a wrapper around \code{\link{lilypond}}, the function that creates the LilyPond (\code{.ly}) file.
 }
 \examples{
-# not run
+x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
+x <- track(x)
+x <- score(x)
+\dontrun{tab(x, "out.ly") # requires LilyPond installation}
+}
+\seealso{
+\code{\link{lilypond}}, \code{\link{miditab}}
 }
