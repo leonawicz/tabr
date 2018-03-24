@@ -12,7 +12,7 @@ phrase(notes, info, string = NULL, bar = FALSE, abb = TRUE)
 p(...)
 
 alt(notes, info, string = NULL, alt = NULL, bar = FALSE, abb = TRUE,
-  char = TRUE)
+  times = 1, char = TRUE)
 }
 \arguments{
 \item{notes}{character, notes \code{a} through \code{g}. See details.}
@@ -28,6 +28,8 @@ alt(notes, info, string = NULL, alt = NULL, bar = FALSE, abb = TRUE,
 \item{...}{arguments passed to \code{phrase} (or to \code{alt} function).}
 
 \item{alt}{length 3 character vector, alternate ending substitutions for \code{notes}, \code{info} and \code{string}, respectively. See details.}
+
+\item{times}{length 2 numeric vector, the number of times the original and alternate phrase should be repeated in the output when using \code{alt}, defaults to 1 each.}
 
 \item{char}{logical, return character vector or list for \code{alt} function.}
 }
