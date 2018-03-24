@@ -9,11 +9,11 @@
 #' That said, using the raised and lowered tick mark approach can be surprisingly easier to read for chords, which have no spaces between notes, especially six-string chords,
 #' given that the tick marks help break up the notes in the chord visually much more so than integers do. See examples.
 #'
-#' The function \code{p} is a convenient shorthand wrapper for \code{phrase}.
+#' The function \code{p} is a convenient shorthand wrapper for \code{phrase}. It also calls the \code{alt} function when the \code{alt} argument is supplied. See examples.
 #'
 #' Tied notes indicated by \code{~} are part of the \code{note} notation and not part of the \code{info} notation, e.g. \code{c''~}.
 #'
-#' Notes be comprise chords. These are bound tightly rather than space-delimited, as they are not separated in time.
+#' Notes can comprise chords. These are bound tightly rather than space-delimited, as they are not separated in time.
 #' For example, a C chord could be given as \code{ceg} and in the case of tied notes would be \code{c~e~g~}.
 #'
 #' Other information about a note is indicated with the \code{info} string.
@@ -26,14 +26,23 @@
 #' Text annotations aligned vertically with a note in time on the staff is done by appending the text to the note info entry itself. See \code{\link{notate}}.
 #' For more details and example, see the package vignettes.
 #'
+#' In cases where a phrase is very long and is used multiple times, but there is at least one instance where that phrase might have a very slight alternate ending, the \code{alt} wrapper function can be helpful in code reduction.
+#' It takes three space-delimited character string entries analogous to \code{notes}, \code{info} and \code{string}. Each of n space-delimited entries will substitute for the final n entries in the original strings.
+#' The three do not have to be the same length. If only substituting the final two notes in \code{notes} for example, then the \code{alt} argument in the \code{alt} function should be something like \code{alt = c("a2 b2", "", "")}.
+#' \code{alt} returns a character vector of both phrase strings, the original and the alternate, or a list of both phrase objects if \code{char = FALSE}.
+#' If an entry is longer than the original, it will substitute entirely. Since it is based on space-delimitation, take care with complex \code{info} strings that might have attached text from \code{notate}.
+#'
 #' @param notes character, notes \code{a} through \code{g}. See details.
 #' @param info character, metadata pertaining to the \code{notes }. See details.
 #' @param string character, optional string that specifies which guitar strings to play for each specific note.
 #' @param bar logical, insert a bar check at the end of the phrase.
 #' @param abb logical, abbreviate the default LilyPond Dutch notation for A flat and E flat to \code{as} and \code{es}; recommended.
-#' @param ... arguments passed to \code{phrase}.
+#' @param alt length 3 character vector, alternate ending substitutions for \code{notes}, \code{info} and \code{string}, respectively. See details.
+#' @param times length 2 numeric vector, the number of times the original and alternate phrase should be repeated in the output when using \code{alt}, defaults to 1 each.
+#' @param char logical, return character vector or list for \code{alt} function.
+#' @param ... arguments passed to \code{phrase} (or to \code{alt} function).
 #'
-#' @return a phrase.
+#' @return a phrase. For \code{alt}, return a length 2 character vector or list of phrases.
 #' @name phrase
 #' @export
 #'
@@ -42,7 +51,14 @@
 #' phrase("c ec4g4 ec4g4", "4 4 2") # same as above
 #' phrase("c b, c", "4. 8( 8)", "5 5 5") # direction implies hammer on
 #' phrase("b2 c d", "4( 4)- 2", "5 5 5") # hammer and slide
+#'
 #' phrase("c ec'g' ec'g'", "1 1 1", "5 432 432")
+#' p("c ec'g' ec'g'", "1 1 1", "5 432 432") # same as above
+#'
+#' e <- c("c'", "2", "5")
+#' alt("c ec'g' ec'g'", "1 1 1", "5 432 432", e)
+#' p("c ec'g' ec'g'", "1 1 1", "5 432 432", alt = e) # same as above
+#' p("c ec'g' ec'g'", "1 1 1", "5 432 432", alt = e, char = FALSE)
 NULL
 
 # nolint start
@@ -50,6 +66,9 @@ NULL
 #' @export
 #' @rdname phrase
 phrase <- function(notes, info, string = NULL, bar = FALSE, abb = TRUE){
+  .check_phrase_input(notes, "notes")
+  .check_phrase_input(info, "info")
+  if(!is.null(string)) .check_phrase_input(string, "string")
   notes <- (strsplit(notes, " ")[[1]] %>% purrr::map_chr(.star_expand) %>%
     paste0(collapse = " ") %>% strsplit(" "))[[1]]
   notes <- .octavesub(notes)
@@ -64,6 +83,7 @@ phrase <- function(notes, info, string = NULL, bar = FALSE, abb = TRUE){
   info <- gsub(";", "", info)
   .bend <- "\\bendAfter #+6"
   s <- !is.null(string)
+  if(s && is.numeric(string)) string <- paste0(rep(string, length(notes)), collapse = " ")
   if(s) string <- .strsub(string)
   notes <- purrr::map_chr(
     seq_along(notes),
@@ -84,12 +104,49 @@ phrase <- function(notes, info, string = NULL, bar = FALSE, abb = TRUE){
 
 # nolint end
 
+.check_phrase_input <- function(x, y){
+  if(length(x) > 1) stop(paste0("`", y, "` must be length one."))
+}
+
 #' @export
 #' @rdname phrase
-p <- function(...) phrase(...)
+p <- function(...){
+  if(!is.null(list(...)$alt)) alt(...) else phrase(...)
+}
 
 #' @export
 print.phrase <- function(x, ...) cat(x, "\n", sep = "")
+
+#' @export
+#' @rdname phrase
+alt <- function(notes, info, string = NULL, alt = NULL, bar = FALSE, abb = TRUE, times = 1, char = TRUE){
+  if(is.null(alt) || identical(alt, c("", "", "")))
+    return(phrase(notes, info, string, bar, abb))
+  if(!is.character(alt) || length(alt) != 3) stop("`alt` must be a length 3 character vector.")
+
+  f <- function(x, y){
+    if(is.null(x)) return(y)
+    if(y != ""){
+      y <- strsplit(y, " ")[[1]]
+      n <- length(y)
+      x <- strsplit(x, " ")[[1]]
+      if(n >= length(x)){
+        x <- paste0(y, collapse = " ")
+      } else {
+        x <- paste0(c(x[1:(length(x) - n)], y), collapse = " ")
+      }
+    }
+    x
+  }
+
+  x <- list(notes, info, string)
+  y <- list(f(notes, alt[1]), f(info, alt[2]), f(string, alt[3]))
+  x <- purrr::map(list(x, y), ~phrase(.x[[1]], .x[[2]], .x[[3]], bar, abb))
+  times <- rep(times, length = 2)
+  x <- x[c(rep(1, times[1]), rep(2, times[2]))]
+  if(char) x <- as.character(x)
+  x
+}
 
 #' Create a volta/repeat phrase
 #'

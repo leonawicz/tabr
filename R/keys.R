@@ -11,7 +11,8 @@
 #' Helper functions for key signature information.
 #'
 #' The \code{keys} function returns a vector of valid key signature IDs. These IDs are how key signatures are specified throughout \code{tabr}, including in the other helper functions here via \code{key}.
-#' Like the other functions here, \code{is_sharp} and \code{is_flat} are for \emph{key signatures}, not single pitches whose sharp or flat status is always self-evident by its notation.
+#' Like the other functions here, \code{is_sharp} and \code{is_flat} are for \emph{key signatures}, not single pitches whose sharp or flat status is always self-evident from their notation.
+#' Major and minor keys are also self-evident from their notation, but \code{is_major} and \code{is_minor} can still be useful when programming.
 #'
 #' @param type character, defaults to \code{"all"}.
 #' @param key character, key signature.
@@ -70,4 +71,18 @@ n_sharps <- function(key){
 n_flats <- function(key){
   .keycheck(key)
   purrr::map_int(key, ~ifelse(is_flat(.x), .keydata$nsf[.keydata$key == .x], 0L))
+}
+
+#' @export
+#' @rdname keys
+is_major <- function(key){
+  .keycheck(key)
+  .keydata$major[match(key, .keydata$key)]
+}
+
+#' @export
+#' @rdname keys
+is_minor <- function(key){
+  .keycheck(key)
+  !is_major(key)
 }
