@@ -11,8 +11,8 @@ phrase(notes, info, string = NULL, bar = FALSE, abb = TRUE)
 
 p(...)
 
-alt(notes, info, string = NULL, alt = NULL, bar = FALSE, abb = TRUE,
-  times = 1, char = TRUE)
+alt(notes, info, string = NULL, alt = NULL, times = 1, char = TRUE,
+  bar = FALSE, abb = TRUE)
 }
 \arguments{
 \item{notes}{character, notes \code{a} through \code{g}. See details.}

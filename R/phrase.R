@@ -119,7 +119,7 @@ print.phrase <- function(x, ...) cat(x, "\n", sep = "")
 
 #' @export
 #' @rdname phrase
-alt <- function(notes, info, string = NULL, alt = NULL, bar = FALSE, abb = TRUE, times = 1, char = TRUE){
+alt <- function(notes, info, string = NULL, alt = NULL, times = 1, char = TRUE, bar = FALSE, abb = TRUE){
   if(is.null(alt) || identical(alt, c("", "", "")))
     return(phrase(notes, info, string, bar, abb))
   if(!is.character(alt) || length(alt) != 3) stop("`alt` must be a length 3 character vector.")
