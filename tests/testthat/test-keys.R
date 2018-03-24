@@ -12,4 +12,7 @@ test_that("key helpers return as expected", {
   expect_equal(is_flat(x), c(FALSE, FALSE, FALSE, TRUE))
   expect_equal(n_sharps(x), c(0, 0, 3, 0))
   expect_equal(n_flats(x), c(0, 0, 0, 3))
+  y <- c(TRUE, FALSE, TRUE, TRUE)
+  expect_equal(is_major(x), y)
+  expect_equal(is_major(x), !is_minor(x))
 })

@@ -29,4 +29,39 @@ test_that("phrase returns as expected", {
   x2 <- phrase("b2 c d", "4( 4)- 2", "5 5 5") # hammer and slide
   expect_equal(as.character(x1), "<c\\5>4. <b,\\5>8( <c\\5>8)")
   expect_equal(as.character(x2), "<b,\\5>4( <c\\5>4)\\glissando <d\\5>2")
+
+  expect_error(p(1:2, 1, 1), "`notes` must be length one.")
+  expect_error(p("a", 1:2, 1), "`info` must be length one.")
+  expect_error(p("a", 1, 1:2), "`string` must be length one.")
+})
+
+test_that("alt returns as expected", {
+  x <- c("<c\\5>1 <e\\4 c'\\3 g'\\2>1 <e\\4 c'\\3 g'\\2>1", "<c\\5>1 <e\\4 c'\\3 g'\\2>1 <c'\\5>2")
+  e <- c("c'", "2", "5")
+  y1 <- alt("c ec'g' ec'g'", "1 1 1", "5 432 432", e)
+  y2 <- p("c ec'g' ec'g'", "1 1 1", "5 432 432", alt = e)
+  y3 <- p("c ec'g' ec'g'", "1 1 1", "5 432 432", alt = e, char = FALSE)
+  y <- list(y1, y2, y3)
+  purrr::walk2(y, c("character", "character", "list"), ~expect_is(.x, .y))
+  purrr::walk(y3, ~expect_is(.x, "phrase"))
+  expect_identical(y1, x)
+  expect_identical(y2, x)
+  expect_identical(unlist(y3), x)
+
+  y1 <- alt("c ec'g' ec'g'", "1 1 1", "5 432 432", e, c(1, 1))
+  expect_identical(y1, x)
+  y1 <- alt("c ec'g' ec'g'", "1 1 1", "5 432 432", e, 2)
+  expect_identical(y1, rep(x, each = 2))
+  y1 <- alt("c ec'g' ec'g'", "1 1 1", "5 432 432", e, c(1, 2))
+  expect_identical(y1, rep(x, times = c(1, 2)))
+  y1 <- alt("c ec'g' ec'g'", "1 1 1", "5 432 432", e, c(3, 2))
+  expect_identical(y1, rep(x, times = c(3, 2)))
+
+  expect_identical(alt("a2", 1, 5), p("a2", 1, 5))
+  expect_identical(alt("a2", 1, 5, c("", "", "")), p("a2", 1, 5))
+  expect_identical(alt("a2 b2 c3", "1 1 1", alt = c("", "", "")), p("a2 b2 c3", 1))
+  expect_identical(alt("a2 b2 c3", "1 1 1", 5, c("", "", "")), p("a2 b2 c3", 1, 5))
+  e <- "`alt` must be a length 3 character vector."
+  expect_error(alt("a2", 1, 5, c("", "")), e)
+  expect_error(alt("a2", 1, 5, list("", "", "")), e)
 })
