@@ -20,7 +20,7 @@ The `tabr` tutorials began with a basic example that introduced the general work
 *    Add the track to a `score`.
 *    Render the score to pdf with `tab`.
 
-This short R script example is more complex. It does not represent a complete tab of a song; it is just a short arrangement of two basic fingerpicking patterns similar to but not exactly the same as heard in Blues Saraceno's *Devil's got you beat*. While not a complete tab, it is much more thorough than the opening example, making use of several techniques and functions that have been covered.
+This short R script example is more complex. It does not represent a complete tab of a song; it is just a short arrangement of two basic fingerpicking patterns similar to but not exactly the same as heard in Blues Saraceno's *Devil's got you beat*. The second pattern is actually just a small slice of the first pattern that is shifted in time slightly. While not a complete tab, it is much more thorough than the opening tutorial example, making use of several techniques and functions that have been covered.
 
 Some of the most interesting things to note below include:
 
