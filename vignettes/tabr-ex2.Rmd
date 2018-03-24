@@ -49,11 +49,11 @@ p1 <- paste(p(glue(dup("s a d4", 3), "s"), "4. 16 16 4. 16 16 8 16 16 4"),
             c(p("s a d s", "8 16 16 4"), p("s a d4 s s", "8 16 16 4 1")))
 
 # melody 1: voice 2
-notes <- c(glue(dup("f d c d s", 2), "f g s f d c a2"), "d s c a2 f2 d2")
+notes <- c(glue(dup("f d c d s", 2), "f g s f d c a2"), "d s c a2 f2 d2", "d s c a2 f2 e2 d2")
 info <- purrr::map_chr(c("16(", notate("16(", txt)), ~glue(.x, "16) 8*3 16( 16) 8*3 16- 16 8 16*4"))
 p2 <- paste(unlist(purrr::map(info[c(2, 1, 1)], ~p(notes[1], .x))),
             c(rep(p(notes[2], "8 8 16( 16) 16( 16)"), 2), 
-              p(glue(notes[2], "d2"), "8 8 16( 16) 16- 16( 1)")))
+              p(notes[3], "8 8 16( 16) 16- 16( 1)")))
 p2 <- gsub("<g>", "<g\\\\4>", p2) # force string for one note
 
 # melody 2: voices 1 and 2
