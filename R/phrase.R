@@ -184,7 +184,7 @@ volta <- function(phrase, n = 1, endings = NULL, silent = FALSE){
     }
     phrase <- paste0(phrase, collapse = " ")
   }
-  x <- paste("\\repeat volta", n, "{", paste(phrase, collapse = " "), "| }\n")
+  x <- paste("\\repeat volta", n + 1, "{", paste(phrase, collapse = " "), "| }\n")
   if(!is.null(endings)){
     x <- paste0(x, "\\alternative {\n", paste("  {", endings, "| }\n", collapse = ""), "}")
   }
