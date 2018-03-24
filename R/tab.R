@@ -79,15 +79,40 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", hea
     cd <- NULL
   }
   d <- split(score, score$tabstaff)
-  melody <- split(score$phrase, score$tabstaff)
-  melody_id <- paste0("melody", LETTERS[seq_along(melody)])
-  melody <- paste(purrr::map_chr(seq_along(d), ~.set_melody(melody[[.x]], d[[.x]], melody_id[.x])), collapse = "")
-  score <- .set_score(d, melody_id, midi, tempo, has_chords, string_names)
+  melody0 <- split(score$phrase, score$tabstaff)
+  melody_id <- paste0("melody", LETTERS[seq_along(melody0)])
+  melody <- paste0(purrr::map_chr(seq_along(d), ~.set_melody(melody0[[.x]], d[[.x]], melody_id[.x])), collapse = "")
+  melody_id_final <- .get_melody_id(melody)
+  score <- .set_score(d, melody_id, TRUE, NULL, NULL, tempo, has_chords, string_names)
+
+  midi_tag <- paste0("  \\midi{\n    \\tempo ", tempo, "\n  }\n", collapse = "")
+  midi_melody <- NULL
+  if(midi){
+    any_repeats <- any(purrr::map_int("repeat", ~length(grep(.x, melody))))
+    if(any_repeats){
+      melody_id2 <- paste0("midi", melody_id)
+      midi_melody <- paste0(purrr::map_chr(seq_along(d),
+                                           ~.set_melody(melody0[[.x]], d[[.x]], melody_id2[.x], TRUE)), collapse = "")
+
+      melody_id2_final <- .get_melody_id(midi_melody)
+      score2 <- .set_score(d, melody_id, FALSE, midi_tag, melody_id2_final, tempo, FALSE, NULL)
+      melody <- paste0(melody, midi_melody, collapse = "\n\n")
+    } else {
+      score2 <- .set_score(d, melody_id, FALSE, midi_tag, melody_id_final, tempo, FALSE, NULL)
+    }
+    score <- paste0(score, score2, collapse = "\n")
+  }
   output <- paste(c(top, global, cd, melody, score, paper), collapse = "")
   write(file = file.path(path, file), output)
 }
 
 # nolint start
+
+.get_melody_id <- function(x){
+  x <- strsplit(x, "[ =\n]")[[1]]
+  idx <- grep("melody", x)
+  x[idx]
+}
 
 #' Create tablature
 #'
@@ -162,7 +187,7 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header =
 
 # nolint start
 
-.set_melody <- function(x, d, id){
+.set_melody <- function(x, d, id, midi = FALSE){
   multivoice <- length(unique(d$voice)) > 1
   if(!multivoice) x0 <- paste0(id, " = {\n  \\global\n  ")
   if(multivoice){
@@ -171,10 +196,12 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header =
     v <- c("One", "Two")
     x <- purrr::map2(x, seq_along(x), ~paste0("  \\voice", v[.y], " ",
                                               paste(.x, collapse = " "), "\n")) %>% unlist()
-    paste0(x0, "\\override StringNumber #'transparent = ##t\n  ", gsub("\\|", "\\|\n", x), "}\n\n", collapse = "\n")
+    if(midi) x <- paste("\\unfoldRepeats {", x, "}")
+    paste0(x0, "\\override StringNumber #'transparent = ##t\n  ", gsub("\n\n", "\n", gsub("\\|", "\\|\n", x)), "}\n\n", collapse = "\n")
   } else {
     x <- paste0(paste0(x, collapse = ""), "\n")
-    paste0(x0, "\\override StringNumber #'transparent = ##t\n  ", gsub("\\|", "\\|\n", x), "}\n")
+    if(midi) x <- paste("\\unfoldRepeats {", x, "}")
+    paste0(x0, "\\override StringNumber #'transparent = ##t\n  ", gsub("\n\n", "\n", gsub("\\|", "\\|\n", x)), "}\n\n")
   }
 }
 
@@ -230,37 +257,41 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header =
   paste0(diagram, name, topcenter, collapse = "")
 }
 
-.set_score <- function(d, id, midi, tempo, has_chords, string_names){
-  clef <- purrr::map_chr(d, ~unique(.x$staff))
-  tuning <- purrr::map_chr(d, ~unique(.x$tuning))
-  str_lab  <- purrr::map_chr(tuning, .tunelab)
-  voice <- purrr::map(d, ~unique(.x$voice))
-  if(any(!is.na(clef))) clef <- clef[!is.na(clef)]
-  x <- paste0(
-    purrr::map_chr(seq_along(clef), ~({
-      multivoice <- length(voice[[.x]]) > 1
-      if(!multivoice){
-        x0 <- paste0("<< \\", id[.x], " >>")
-        x1 <- x2 <- paste0("\\", id[.x])
-      }
-      if(multivoice){
-        x0 <- paste0(id, LETTERS[voice[[.x]]])
-        x1 <- paste0("\\context Voice = \"", x0[1], "\" \\", x0[1], " \\context Voice = \"", x0[2], "\" \\", x0[2])
-        x2 <- paste0("\\context TabVoice = \"", x0[1], "\" \\", x0[1], " \\context TabVoice = \"", x0[2], "\" \\", x0[2])
-      }
-      paste0(
-        if(!is.na(clef[.x]))
-          paste0("\\new Staff << \\clef \"", clef[.x], "\" ", x1, " >>\n  ", collapse = ""),
-        paste0("\\new TabStaff \\with { stringTunings = \\stringTuning <", .notesub(tuning[.x]), "> } <<\n    ",
-               if((is.null(string_names) && tuning[.x] != "e, a, d g b e'") || (!is.null(string_names) && string_names))
-                 paste("\\set TabStaff.instrumentName = \\markup { \\hspace #7 \\override #'(baseline-skip . 1.5) \\column \\fontsize #-4.5 \\sans {", str_lab[.x], "} }\n    "),
-               "\\override Stem #'transparent = ##t\n    \\override Beam #'transparent = ##t\n    ",
-               x2, "\n  >>\n  ", collapse = "")
-      )
-    })), collapse = "")
+.set_score <- function(d, id, layout, midi, midi_melody_id, tempo, has_chords, string_names){
+  if(layout){
+    clef <- purrr::map_chr(d, ~unique(.x$staff))
+    tuning <- purrr::map_chr(d, ~unique(.x$tuning))
+    str_lab  <- purrr::map_chr(tuning, .tunelab)
+    voice <- purrr::map(d, ~unique(.x$voice))
+    if(any(!is.na(clef))) clef <- clef[!is.na(clef)]
+    x <- paste0(
+      purrr::map_chr(seq_along(clef), ~({
+        multivoice <- length(voice[[.x]]) > 1
+        if(!multivoice){
+          x0 <- paste0("<< \\", id[.x], " >>")
+          x1 <- x2 <- paste0("\\", id[.x])
+        }
+        if(multivoice){
+          x0 <- paste0(id, LETTERS[voice[[.x]]])
+          x1 <- paste0("\\context Voice = \"", x0[1], "\" \\", x0[1], " \\context Voice = \"", x0[2], "\" \\", x0[2])
+          x2 <- paste0("\\context TabVoice = \"", x0[1], "\" \\", x0[1], " \\context TabVoice = \"", x0[2], "\" \\", x0[2])
+        }
+        paste0(
+          if(!is.na(clef[.x]))
+            paste0("\\new Staff << \\clef \"", clef[.x], "\" ", x1, " >>\n  ", collapse = ""),
+          paste0("\\new TabStaff \\with { stringTunings = \\stringTuning <", .notesub(tuning[.x]), "> } <<\n    ",
+                 if((is.null(string_names) && tuning[.x] != "e, a, d g b e'") || (!is.null(string_names) && string_names))
+                   paste("\\set TabStaff.instrumentName = \\markup { \\hspace #7 \\override #'(baseline-skip . 1.5) \\column \\fontsize #-4.5 \\sans {",
+                         str_lab[.x], "} }\n    "),
+                 "\\override Stem #'transparent = ##t\n    \\override Beam #'transparent = ##t\n    ",
+                 x2, "\n  >>\n  ", collapse = "")
+        )
+      })), collapse = "")
+  } else {
+    x <- paste0(paste0("\\", midi_melody_id, collapse = "\n  "), "\n  ")
+  }
   paste0("\\score {  <<\n  ", if(has_chords) "\\new ChordNames \\chordNames\n  ", x, ">>\n",
-         "  \\layout{ }\n", if(midi) paste0("  \\midi{\n    \\tempo ", tempo, "\n  }\n", collapse = ""),
-         "}\n\n")
+         if(layout) "  \\layout{ }\n", if(!is.null(midi)) midi, "}\n\n")
 }
 
 .tunelab <- function(x){
