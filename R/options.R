@@ -16,11 +16,9 @@ tabr_options <- function(...){
   x <- list(...)
   opts <- .tabr_env$opts
   if(length(x)){
-      if(length(x) > 0){
-        opts[names(x)] <- x
-        .tabr_env$opts <- opts
-      }
-      invisible()
+    opts[names(x)] <- x
+    .tabr_env$opts <- opts
+    invisible()
   } else {
     opts
   }
