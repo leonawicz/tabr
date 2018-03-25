@@ -1,29 +1,75 @@
-#' Create a volta/repeat phrase
+#' Repeat phrases
 #'
 #' Create a repeat section in LilyPond readable format.
 #'
-#' This function takes a musical phrase or even a basic string and converts it into a volta phrase for the LilyPond volta engraver.
+#' These functions wraps a phrase object or a character string in LilyPond repeat syntax. The most basic is \code{rp} for basic wrapping a LilyPond \code{unfold} repeat tag around a phrase.
+#' This repeats the phrase \code{n} times, but it is displayed in the engraved sheet music fully written out as a literal propagation of the phrase with no repeat notation used to reduce redundant presentation.
+#' The next is \code{pct}, which wraps a \code{percent} repeat tag around a phrase. This is displayed in sheet music as percent repeat notation whose specific notation changes based on the legnth of the repeated section of music, used for beats or whole measures.
+#' \code{volta} wraps a phrase in a \code{volta} repeat tag, used for long repeats of one or more full measures or bars of music, optionally with alternate endings.
 #'
-#' Note that basic strings should still be interpretable as a valid musical phrase by LilyPond.
-#' For example, a one-measure rest, \code{"r1"} does not need to be wrapped in a phrase class to work, nor would any other string explicitly written out in valid LilyPond syntax.
+#' Note that basic strings should still be interpretable as a valid musical phrase by LilyPond and such strings will be coerced to the phrase class by these functions.
+#' For example, a one-measure rest, \code{"r1"}, does not need to be a phrase object to work with these functions, nor does any other character string explicitly written out in valid LilyPond syntax.
 #' As always, see the LilyPond documentation if you are not familiar with LilyPond syntax.
+#'
+#' VOLTA REPEAT: When \code{silent = TRUE} there is no indication of the number of plays above the staff at the start of the volta section. This otherwise happens automatically when the number of repeats is greater than one and no alternate endings are included (which are already numbered).
+#' This override creates ambiguity on its own, but is important to use multiple staves are present and another staff already displays the text regarding the number or plays. This prevents printing the same text above every staff.
+#'
+#' PERCENT REPEAT: As indicated in the parameter descriptions, the arguments \code{counter} and \code{step} only apply to full measures or bars of music. It does not apply to shorter beats that are repeated using \code{pct}.
 #'
 #' @param phrase a phrase or basic string to be repeated.
 #' @param n integer, number of repeats of \code{phrase} (one less than the total number of plays).
 #' @param endings list of phrases or basic strings, alternate endings.
-#' @param silent if \code{TRUE}, no text will be printed above the staff to indicate the number of plays when greater than one repeat and \code{endings} is not \code{NULL}. This is useful when another staff already displays the text.
+#' @param silent if \code{TRUE}, no text will be printed above the staff at the beginning of a volta section.See details.
+#' @param counter logical, if \code{TRUE}, print the percent repeat counter above the staff, applies only to \emph{measure} repeats of more than two repeats (\code{n} > 2).
+#' @param step integer, print the \emph{measure} percent repeat counter above the staff only at every \code{step} measures when \code{counter = TRUE}.
+#' @param reset logical, percent repeat \code{counter} and \code{step} settings are only applied to the single \code{pct} call and are reset afterward. If \code{reset = FALSE}, the settings are left open to apply to any subsequent percent repeat sections in a track.
 #'
 #' @return a phrase.
+#' @name repeats
+#' @seealso \code{\link{phrase}}
 #' @export
 #'
 #' @examples
 #' x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
-#' e1 <- phrase("a", 1, 5)
-#' e2 <- phrase("b", 1, 5)
+#' e1 <- phrase("a", 1, 5) # ending 1
+#' e2 <- phrase("b", 1, 5) # ending 2
+#'
+#' rp(x) # simple unfolded repeat, one repeat or two plays
+#' rp(x, 3) # three repeats or four plays
+#'
+#' pct(x) # one repeat or two plays
+#' pct(x, 9, TRUE, 5) # 10 plays, add counter every 5 steps
+#' pct(x, 9, TRUE, 5, FALSE) # as above, but do not reset counter settings
+#'
 #' volta(x) # one repeat or two plays
-#' pct(x) # as above, simple percent repeat notation
 #' volta(x, 1, list(e1, e2)) # one repeat with alternate ending
 #' volta(x, 4, list(e1, e2)) # multiple repeats but with only one alternate ending
+#' volta(x, 4) # no alternates, more than one repeat
+
+#' @export
+#' @rdname repeats
+rp <- function(phrase, n = 1){
+  x <- paste("\\repeat unfold", n + 1, "{", paste(phrase, collapse = " "), " }\n")
+  class(x) <- c("phrase", class(x))
+  x
+}
+
+#' @export
+#' @rdname repeats
+pct <- function(phrase, n = 1, counter = FALSE, step = 1, reset = TRUE){
+  x <- paste("\\repeat percent", n + 1, "{", paste(phrase, collapse = " "), " }\n")
+  if(counter) x <- paste0("\\set countPercentRepeats = ##",
+                          ifelse(counter, "t", "f"),
+                          "\n\\set repeatCountVisibility = #(every-nth-repeat-count-visible ",
+                          step, ")\n", x)
+  if(counter & reset) x <- paste0(x, "\\set countPercentRepeats = ##f\n",
+                        "\\set repeatCountVisibility = #(every-nth-repeat-count-visible 1)\n")
+  class(x) <- c("phrase", class(x))
+  x
+}
+
+#' @export
+#' @rdname repeats
 volta <- function(phrase, n = 1, endings = NULL, silent = FALSE){
   if(n > 1 & is.null(endings) & !silent){
     phrase <- strsplit(phrase, " ")[[1]]
@@ -39,14 +85,6 @@ volta <- function(phrase, n = 1, endings = NULL, silent = FALSE){
     x <- paste0(x, "\\alternative {\n", paste("  {", endings, "| }\n", collapse = ""), "}")
   }
   x <- gsub("\\| \\|", "\\|", x)
-  class(x) <- c("phrase", class(x))
-  x
-}
-
-#' @export
-#' @rdname volta
-pct <- function(phrase, n = 1){
-  x <- paste("\\repeat percent", n + 1, "{", paste(phrase, collapse = " "), " }\n")
   class(x) <- c("phrase", class(x))
   x
 }
