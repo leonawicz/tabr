@@ -115,7 +115,7 @@ p <- function(...){
 }
 
 #' @export
-print.phrase <- function(x, ...) cat(x, "\n", sep = "")
+print.phrase <- function(x, ...) cat(gsub("\n\n", "\n", paste0(x, "\n")), sep = "")
 
 #' @export
 #' @rdname phrase
