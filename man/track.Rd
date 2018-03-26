@@ -4,13 +4,12 @@
 \alias{track}
 \title{Create a music track}
 \usage{
-track(phrase, tuning = "e, a, d g b e'", voice = 1L,
-  add_staff = "treble_8")
+track(phrase, tuning = "standard", voice = 1L, add_staff = "treble_8")
 }
 \arguments{
 \item{phrase}{a phrase object.}
 
-\item{tuning}{character, space-delimited pitches describing the guitar tuning. Defaults to standard tuning. Tick or integer octave numbering accepted.}
+\item{tuning}{character, space-delimited pitches describing the instrument string tuning or a predefined tuning ID (see \code{\link{tunings}}). Defaults to standard guitar tuning. Tick or integer octave numbering accepted for custom tuning entries.}
 
 \item{voice}{integer, ID indicating the unique voice \code{phrase} belongs to within a single track (another track may share the same tab/music staff but have a different voice ID).}
 

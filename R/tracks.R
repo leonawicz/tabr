@@ -44,7 +44,7 @@ chord_set <- function(x, id){
 #' This is appropriate for simple guitar patterns where there are already multiple guitar tracks and the additional space required for two staves per instrument is unnecessary and wasteful.
 #'
 #' @param phrase a phrase object.
-#' @param tuning character, space-delimited pitches describing the guitar tuning. Defaults to standard tuning. Tick or integer octave numbering accepted.
+#' @param tuning character, space-delimited pitches describing the instrument string tuning or a predefined tuning ID (see \code{\link{tunings}}). Defaults to standard guitar tuning. Tick or integer octave numbering accepted for custom tuning entries.
 #' @param voice integer, ID indicating the unique voice \code{phrase} belongs to within a single track (another track may share the same tab/music staff but have a different voice ID).
 #' @param add_staff add a standard sheet music staff above the tablature staff. See details.
 #'
@@ -54,8 +54,9 @@ chord_set <- function(x, id){
 #' @examples
 #' x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
 #' track(x)
-track <- function(phrase, tuning = "e, a, d g b e'", voice = 1L, add_staff = "treble_8"){
+track <- function(phrase, tuning = "standard", voice = 1L, add_staff = "treble_8"){
   if(!"phrase" %in% class(phrase)) stop("`phrase` is not a phrase object.")
+  tuning <- .map_tuning(tuning)
   x <- tibble::data_frame(phrase, tuning = .octavesub(tuning), voice = as.integer(voice),
                           staff = as.character(add_staff))
   x$phrase <- purrr::map(x$phrase, ~as.phrase(.x))
