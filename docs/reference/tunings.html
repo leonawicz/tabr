@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>All news • tabr</title>
+<title>Predefined instrument tunings. � tunings • tabr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -49,7 +49,7 @@
   </head>
 
   <body>
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -138,40 +138,31 @@
       </header>
 
       <div class="row">
-
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Change log <small>All releases</small></h1>
+    <h1>Predefined instrument tunings.</h1>
     </div>
 
-    <div class="contents">
-    <div id="tabr-0-1-0" class="section level1">
-<h1 class="hasAnchor">
-<a href="#tabr-0-1-0" class="anchor"></a>tabr 0.1.0</h1>
-<ul>
-<li>Added package scaffolding.</li>
-<li>Developed initial functions for music description and organization.</li>
-<li>Developed initial functions for generating Lilypond (<code>.ly</code>) files and wrapping around system calls to Lilypond for rendering sheet music to pdf or png.</li>
-<li>Added readme with basic example.</li>
-<li>Added initial vignette content.</li>
-<li>Added unit tests.</li>
-<li>Added support for custom, non-standard guitar tunings and instruments with different numbers of strings, up to seven.</li>
-<li>Added <code>.mid</code> to <code>.ly</code> and <code>.mid</code> to tab output convenience functions.</li>
-<li>Added support for multiple voices per staff.</li>
-</ul>
-</div>
-    </div>
+    
+    <p>A data frame containing some predefined instrument tunings commonly used for guitar, bass, mandolin, banjo, ukulele and orchestral instruments.</p>
+    
+
+    <pre class="usage"><span class='no'>tunings</span></pre>
+        
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>A data frame with 2 columns for the tuning ID and corresponding pitches and 32 rows for all predefined tunings.</p>
+    
+
   </div>
-
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#tabr-0-1-0">0.1.0</a></li>
-      </ul>
-    </div>
-  </div>
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      
+      <li><a href="#format">Format</a></li>
+          </ul>
 
+  </div>
 </div>
 
       <footer>

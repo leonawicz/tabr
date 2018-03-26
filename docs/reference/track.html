@@ -147,8 +147,7 @@
     <p>Create a music track from a collection of musical phrases.</p>
     
 
-    <pre class="usage"><span class='fu'>track</span>(<span class='no'>phrase</span>, <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"e, a, d g b e'"</span>, <span class='kw'>voice</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
-  <span class='kw'>add_staff</span> <span class='kw'>=</span> <span class='st'>"treble_8"</span>)</pre>
+    <pre class="usage"><span class='fu'>track</span>(<span class='no'>phrase</span>, <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>, <span class='kw'>voice</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>add_staff</span> <span class='kw'>=</span> <span class='st'>"treble_8"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -159,7 +158,7 @@
     </tr>
     <tr>
       <th>tuning</th>
-      <td><p>character, space-delimited pitches describing the guitar tuning. Defaults to standard tuning. Tick or integer octave numbering accepted.</p></td>
+      <td><p>character, space-delimited pitches describing the instrument string tuning or a predefined tuning ID (see <code><a href='tunings.html'>tunings</a></code>). Defaults to standard guitar tuning. Tick or integer octave numbering accepted for custom tuning entries.</p></td>
     </tr>
     <tr>
       <th>voice</th>
