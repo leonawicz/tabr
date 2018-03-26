@@ -4,7 +4,7 @@
 #'
 #' These functions wraps a phrase object or a character string in LilyPond repeat syntax. The most basic is \code{rp} for basic wrapping a LilyPond \code{unfold} repeat tag around a phrase.
 #' This repeats the phrase \code{n} times, but it is displayed in the engraved sheet music fully written out as a literal propagation of the phrase with no repeat notation used to reduce redundant presentation.
-#' The next is \code{pct}, which wraps a \code{percent} repeat tag around a phrase. This is displayed in sheet music as percent repeat notation whose specific notation changes based on the legnth of the repeated section of music, used for beats or whole measures.
+#' The next is \code{pct}, which wraps a \code{percent} repeat tag around a phrase. This is displayed in sheet music as percent repeat notation whose specific notation changes based on the length of the repeated section of music, used for beats or whole measures.
 #' \code{volta} wraps a phrase in a \code{volta} repeat tag, used for long repeats of one or more full measures or bars of music, optionally with alternate endings.
 #'
 #' Note that basic strings should still be interpretable as a valid musical phrase by LilyPond and such strings will be coerced to the phrase class by these functions.
