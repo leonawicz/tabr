@@ -15,7 +15,11 @@ library(tabr)
 tabr_options(lilypond = "C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe")
 ```
 
-Attention has been given to minimizing typing and keeping the R code short, particularly when the music is repetitive. However, this also needs to be extended to the tablature itself. Sheet music makes using various styles of repeat notation to keep the number of pages for a song from expanding needlessly. `tabr` offers two functions for common ways to use repeats. One is `volta` and the other is `pct`. The first is useful for repeating entire measures, possibly with alternate endings. The second is useful for simpler repeats.
+Attention has been given to minimizing typing and keeping the R code short, particularly when the music is repetitive. However, this also needs to be extended to the tablature itself. Sheet music makes use of various styles of repeat notation to keep the number of pages for a song transcription from expanding needlessly. 
+
+`tabr` offers three functions for common ways to use repeats with LilyPond and in sheet music. The first is `rp`. (Unfortunately, both `rep` and `repeat` are already integral to R, but think of `rp` as "repeat" or even "repeat phrase") This function is the only one that does not reduce the length of the guitar tablature. It only serves to shorten code, specifically the resulting LilyPond syntax. `rp` does *unfolds* repeated sections of music so that in the output the music will be explicitly written out on the staff however many times.
+
+The other two functions are `pct` and `volta`. These functions do shorten the tablature output. `pct` is useful for simple repetition of individual beats or of full measures or bars of music. `volta` is useful for repeating entire measures, optionally with alternate endings. `volta` is the standard approach when alternate section endings are present.
 
 *This and subsequent tutorial sections will be continued/added soon...*
 
