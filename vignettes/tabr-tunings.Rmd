@@ -15,7 +15,9 @@ library(tabr)
 tabr_options(lilypond = "C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe")
 ```
 
-This section covers non-standard tunings.
+This section covers non-standard tunings. Different tunings can be associated with individual music staves and are therefore specified when calling `track`. The `tuning` argument to track accepts a variety of predefined commonly used string tunings, defaulting to `standard`.
+
+More importantly, track tuning can also be expressed using explicit pitch for completely arbitrary tunings with any number of strings (`tabr` technically supports up to seven strings as a general rule). While the predefined set is convenient, it is not necessary to use and this is where the use of alternate tunings really shines.
 
 *This and subsequent tutorial sections will be continued/added soon...*
 
