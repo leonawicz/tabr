@@ -75,7 +75,7 @@ In the case of multiple voices on one staff discussed above, this is where those
 
 Once all tracks are bound into a single track table where every row (unique track) has a unique combination of `tabstaff` and `voice` ID values, such a valid track table object can be passed to `score`.
 
-`score` takes additional arguments, `chords` and `chord_seq`. These were introduced in the previous tutorial section on chord specification. The first informs the chord fretboard diagrams and the second informs the chord symbols places above them as well as above the music staves. These are incorporated into the final music score at the `score` function stage because the diagrams are associated with the entire score and not with an specific phrase or track, voice or staff. Similarly, the chord symbol sequence appears in time with the music above the topmost staff, not above each staff.
+`score` takes additional arguments, `chords` and `chord_seq`. These were introduced in the earlier tutorial section on chord specification. The first informs the chord fretboard diagrams and the second informs the chord symbols places above them as well as above the music staves. These are incorporated into the final music score at the `score` function stage because the diagrams are associated with the entire score and not with an specific phrase or track, voice or staff. Similarly, the chord symbol sequence appears in time with the music above the topmost staff, not above each staff.
 
 *This and subsequent tutorial sections will be continued/added soon...*
 
