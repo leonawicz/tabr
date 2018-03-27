@@ -15,8 +15,67 @@ library(tabr)
 tabr_options(lilypond = "C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe")
 ```
 
+*This section is a work in progress. Check back later.*
+
 This section puts the finishing touches on combining phrases into tracks and tracks into scores. The functions `track` and `score` have been used repeatedly in earlier sections out of necessity in order to demonstrate complete examples, but their use has been specific and limited and they have not been discussed.
+
 In the examples below, phrases are added to multiple tracks, tracks are bound together, and then scores are composed of multiple tracks. Examples using different tracks, voices, and staves are considered. Then chord symbol sequences and chord diagram charts are incorporated into scores.
+
+## Adding phrases to a track
+
+Phrases are added to a track using the first argument to `track`, which strictly accepts a phrase object. Expect for the briefest examples, you will typically concatenate a sequence of multiple phrases and rests into a longer section of music, usually lasting the full duration of the piece. This new single phrase object is passed to `track`.
+
+Multiple simultaneous tracks can be bound vertically, as shown later, but tracks are not bound horizontally, or sequentially in time; tracks are always complete and are never concatenated like phrase objects.
+
+### Single voice
+
+By default, a phrase passed to `track` is treated as part of a single voice. See below for multiple voices. `track` assigns the integer ID `1` to the voice of the phrase being transformed into a track. This can be ignored here.
+
+### Multiple voices
+
+Phrase objects may be associated with different voices, but still part of the same track. For example, it is standard to transcribe fingerstyle guitar using two voices: one for the thumb that plays the bass line and one for the fingers that play the higher melody.
+
+These voices belong on the same music staff and tab staff and therefore must share the same track ID in `tabr`. The phrase objects corresponding to each voice must still be transformed into two unique track objects. The only change is that one must be explicitly assigned the voice ID `2`.
+
+It is shown below when discussing track binding how these two tracks are merged to represent a single music staff displaying two distinct voices.
+
+### Mulitple tracks
+
+Multiple tracks are actually simpler than multiple voices because while also defined as multiple track objects, they do not require specifying any voices. It is assumed that each track has only one voice.
+
+### String tuning
+
+String tuning can be unique to each track, but this is intended to translate to each music staff. This means that entirely different tracks (destined for different music staves in the output) may be tuned differently. However, distinct voices that share the same staff should be be passed different tunings in their respective `track` calls.
+
+Some control over displaying alternate tunings in the output is available using 
+
+## Supplemental music staff
+
+The addition of a standard music staff above the tab staff is absolutely critical for quality guitar tablature. It is the only way to provide accurate rhythm information and other details not suitable to a tab staff. The tab staff does an excellent job of showing you *what* to play, but attempts to force it to provide more and more information regarding *how* to play it lead to ugly "plain text" style tabs that can be incredibly difficult to read and reason about.
+
+A supplemental *8va* (one octave up) treble clef music staff is included by default.
+
+## Adding tracks to a score
+
+Music tracks are combined into a single score by passing a track table object to `score`.
+
+### A single track
+
+For consistency, a single track is stored in a track table even though that table has only one row. In general, track tables can have any number of rows. Each row in a track table translates to either a new tab staff or to a combined set of two staves: one tab staff with one general music staff positioned above it. The simplest calls to score take only a single-track track table object.
+
+### Multiple tracks
+
+Multiple tracks are bound together using `trackbind`. This simply row-binds multiple track tables, resulting in a multi-row track table containing a number of rows equal to the sum of the input tables. The input track tables may be single- or multi-track.
+
+`score` accepts only a single track table as the first argument; multiple tracks must be bound together before passing them to `score`.
+
+By default, `trackbind` will create a sequential integer ID variable, `tabstaff`, in the new track table if not already present (from a previous `trackbind` call), assigning a unique ID to each input track table in ascending order based on the order they are passed to `trackbind`.
+
+In the case of multiple voices on one staff discussed above, this is where those two tracks with voice IDs `1` and `2` are assigned the same staff ID by overriding the default for the `tabstaff` argument in `trackbind`.
+
+Once all tracks are bound into a single track table where every row (unique track) has a unique combination of `tabstaff` and `voice` ID values, such a valid track table object can be passed to `score`.
+
+`score` takes additional arguments, `chords` and `chord_seq`. These were introduced in the previous tutorial section on chord specification. The first informs the chord fretboard diagrams and the second informs the chord symbols places above them as well as above the music staves. These are incorporated into the final music score at the `score` function stage because the diagrams are associated with the entire score and not with an specific phrase or track, voice or staff. Similarly, the chord symbol sequence appears in time with the music above the topmost staff, not above each staff.
 
 *This and subsequent tutorial sections will be continued/added soon...*
 

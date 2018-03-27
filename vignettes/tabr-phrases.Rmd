@@ -206,7 +206,7 @@ phrase(notes, info, strings) %>% track %>% score %>% tab("ex10.pdf")
 
 As you can see, the implementation is limited in `tabr`. It is also relatively difficult to achieve natively in LilyPond. The bends are different but the number of steps must be inferred from the key. The timing of bends and releases is challenging. The engraving is poor. But it is a start point.
 
-### Chords
+## Chords
 
 Chords are covered in detail in later sections. For now, a brief example is given to more fully demonstrate the concept of space-delimited time and the use of simultaneous vs. sequential notes in `tabr`. The example below shows how to include some open C major chords inside `notes`. It is simply a matter of removing spaces. The tightly bound notes are simultaneous in time. `info` applies to the entire chord because it describes attributes of notes played at a given moment. There are obvious limitations to this though fortunately not hugely detrimental. `string` numbers are tightly bound for chords as well.
 

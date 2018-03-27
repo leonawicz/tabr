@@ -15,9 +15,43 @@ library(tabr)
 tabr_options(lilypond = "C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe")
 ```
 
-This section introduces the use of chords in `tabr`. All of the functionality surrounding individual notes in phrases generalizes to chords. Chords symbols can also be displayed above sheet music staves and chord diagrams can be included at the top of sheet music scores using a chord chart. These topics are covered in the subsequent section on tracks and scores. This section here focuses on using chords in `phrase` where their notation will become part of content engraved in the sheet music staves.
+*This section is a work in progress. Check back later.*
 
-*This and subsequent tutorial sections will be continued/added soon...*
+This section introduces the use of chords in `tabr`. All of the functionality surrounding individual notes in phrases generalizes to chords. Chords symbols can also be displayed above sheet music staves and chord diagrams can be included at the top of sheet music scores using a chord chart. These topics are covered in the subsequent section on tracks and scores. This section here focuses on using chords in `phrase` where their notation will become part of the content engraved in the sheet music staves.
+
+### Chord syntax
+
+Like individual pitches, chords and other combinations of simultaneous pitches can be specified in multiple equivalent ways. The only difference is that there are no spaces between the notes. The following are equivalent ways to specify the same open C major chord.
+
+```{r chord1}
+phrase("cegc'e' c3e3g3c4e4 cegc4e4", 4)
+```
+
+When the notes of a chord are tied over to the next, it is convenient to use `tie` to avoid having to write the `~` explicitly for each note in the chord.
+
+```{r tie}
+tie("c3e3g3c4e4")
+```
+
+Similar to `notes`, explicit string numbers passed to the `string` argument also require simply removing the spaces between individual notes. Recall the abbreviated syntax style `5s` and the expansion operator. Be careful with simple recycling, however. It does not work here for string number. Recycling will only work when it is a single note (single string entry) that can be passed as an single integer, like how the `4` below is passed as a recycled quarter beat. You cannot passed `"5s"` for example.
+
+```{r chord2}
+chords <- "cegc'e' c3e3g3c4e4 cegc4e4"
+phrase(chords, 4, "54321 54321 54321")
+phrase(chords, 4, "5s*3")
+```
+
+## Chord syntax for chord diagrams
+
+Chord diagrams refer to the fretboard diagrams commonly displayed in sheet music written for guitar. These chord diagram specifications are passed to `score`, discussed in the next section that brings together the overall process of moving from phrases to tracks to a score. Here, the syntax used to specify chords for chord diagrams is introduced.
+
+## Chord symbols
+
+Chord symbols refer to the shorthand chord notation, or chord labels, often shown above chord diagrams as well as above a music staff at the beginning of measures or at each chord change. These are the familiar labels such as `C Dm F# F/C`.
+
+## Chord sequence
+
+In order to place chord symbols in time above a music staff, it is necessary to specify their sequence and the duration of each chord just like is required for all the notes and chords shown in the staff that are created from a sequence of phrase objects.
 
 ```{r cleanup, echo=FALSE}
 unlink("*.mid")
