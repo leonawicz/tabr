@@ -5,7 +5,7 @@
 \alias{tp}
 \title{Transpose pitch}
 \usage{
-transpose(notes, n = 0, key = NULL)
+transpose(notes, n = 0, key = NA, style = c("default", "tick", "integer"))
 
 tp(...)
 }
@@ -14,7 +14,9 @@ tp(...)
 
 \item{n}{integer, positive or negative number of semitones to transpose.}
 
-\item{key}{character, the new key signature after transposing \code{notes}. If provided, this helps ensure proper use of sharps vs. flats.}
+\item{key}{character, the new key signature after transposing \code{notes}. See details.}
+
+\item{style}{character, specify tick or integer style octave numbering in result. The default is to use integer style if any integers occur in \code{notes}. The other two options force the respective styles.}
 
 \item{...}{arguments passed to transpose.}
 }
@@ -31,7 +33,11 @@ Transposing is not done on a phrase object. The notes in a phrase object have al
 Transposing is intended to be done on a string of notes prior to passing it to \code{phrase}. It will work on strings that use either integer or tick mark octave numbering formats.
 The transposed result will be a string with integer octave numbering.
 
-The only element other pitch that occurs in a valid notes string is a rest, \code{"r"}. This is ignored by transpose.
+If \code{key} is provided, this helps ensure proper use of sharps vs. flats. Alternatively, you can simply provide \code{key = "sharp"} or \code{key = "flat"}. The exact key signature is not required, just more clear and informative for the user.
+If not provided (\code{key = NA}), transposition lacks full information and simply defaults to sharping any resulting accidentals for positive \code{n} and flattening for negative \code{n}.
+\code{n = 0} returns the input without any modification.
+
+The only element other pitch that occurs in a valid notes string is a rest, \code{"r"} or \code{"s"} (silent rest). Rests are ignored by transpose.
 }
 \examples{
 transpose("a_3 b_4 c5", 0)
@@ -42,6 +48,6 @@ tp("a#3 b4 c#5", 12)
 tp("a#3 b4 c#5", 13)
 tp("a3 b4 c5", 2, key = "f")
 tp("a3 b4 c5", 2, key = "g")
-tp("a b' c''", 2, key = "f")
-tp("a, b c'", 2, key = "g")
+tp("a b' c''", 2, key = "flat")
+tp("a, b c'", 2, key = "sharp")
 }

@@ -8,11 +8,16 @@
 #' Transposing is intended to be done on a string of notes prior to passing it to \code{phrase}. It will work on strings that use either integer or tick mark octave numbering formats.
 #' The transposed result will be a string with integer octave numbering.
 #'
-#' The only element other pitch that occurs in a valid notes string is a rest, \code{"r"}. This is ignored by transpose.
+#' If \code{key} is provided, this helps ensure proper use of sharps vs. flats. Alternatively, you can simply provide \code{key = "sharp"} or \code{key = "flat"}. The exact key signature is not required, just more clear and informative for the user.
+#' If not provided (\code{key = NA}), transposition lacks full information and simply defaults to sharping any resulting accidentals for positive \code{n} and flattening for negative \code{n}.
+#' \code{n = 0} returns the input without any modification.
+#'
+#' The only element other pitch that occurs in a valid notes string is a rest, \code{"r"} or \code{"s"} (silent rest). Rests are ignored by transpose.
 #'
 #' @param notes character, a valid string of notes, the type passed to \code{phrase}.
 #' @param n integer, positive or negative number of semitones to transpose.
-#' @param key character, the new key signature after transposing \code{notes}. If provided, this helps ensure proper use of sharps vs. flats.
+#' @param key character, the new key signature after transposing \code{notes}. See details.
+#' @param style character, specify tick or integer style octave numbering in result. The default is to use integer style if any integers occur in \code{notes}. The other two options force the respective styles.
 #' @param ... arguments passed to transpose.
 #'
 #' @return a character string.
@@ -27,10 +32,14 @@
 #' tp("a#3 b4 c#5", 13)
 #' tp("a3 b4 c5", 2, key = "f")
 #' tp("a3 b4 c5", 2, key = "g")
-#' tp("a b' c''", 2, key = "f")
-#' tp("a, b c'", 2, key = "g")
-transpose <- function(notes, n = 0, key = NULL){
+#' tp("a b' c''", 2, key = "flat")
+#' tp("a, b c'", 2, key = "sharp")
+transpose <- function(notes, n = 0, key = NA, style = c("default", "tick", "integer")){
+  style <- match.arg(style)
   x <- notes
+  if(style == "default"){
+    style <- ifelse(length(grep("[0-9]", x)), "integer", "tick")
+  }
   if(!inherits(x, "character")) stop("`notes` must be a valid character string of notes.")
   if(inherits(x, "phrase"))
     stop("`notes` must be a valid character string of notes, not a phrase object.")
@@ -74,9 +83,11 @@ transpose <- function(notes, n = 0, key = NULL){
   notes <- sign(n) * notes
 
   if(notes != 0){
-    if(is.null(key)){
+    if(is.na(key)){
       y <- if(n > 0) sharp else flat # nolint start
     } else {
+      if(key == "sharp") key <- "c#"
+      if(key == "flat") key <- "d_"
       if(!key %in% .keydata$key)
         stop(cat("Invalid `key`. Options are:\n", paste0(.keydata$key, collapse = ", "), ".\n"))
       sf <- .keydata$sf[.keydata$key == key]
@@ -120,9 +131,57 @@ transpose <- function(notes, n = 0, key = NULL){
   x2[x1 == "r"] <- ""
   if(any(as.integer(x2[x2 != ""]) < 0)) stop("`Negative octave number not allowed in `tabr`.")
   if(length(idx) > 0) x2[idx] <- paste0(x2[idx], "~")
-  paste0(x1new, x2, collapse = " ")
+  x <- paste0(x1new, x2, collapse = " ")
+  if(style == "tick") x <- .octavesub(x)
+  x
 }
 
 #' @export
 #' @rdname transpose
 tp <- function(...) transpose(...)
+
+.ly_transpose_defs <-
+"#(define (naturalize-pitch p)
+(let ((o (ly:pitch-octave p))
+      (a (* 4 (ly:pitch-alteration p)))
+      ;; alteration, a, in quarter tone steps,
+      ;; for historical reasons
+      (n (ly:pitch-notename p)))
+ (cond
+   ((and (> a 1) (or (eqv? n 6) (eqv? n 2)))
+     (set! a (- a 2))
+     (set! n (+ n 1)))
+   ((and (< a -1) (or (eqv? n 0) (eqv? n 3)))
+     (set! a (+ a 2))
+     (set! n (- n 1))))
+ (cond
+   ((> a 2) (set! a (- a 4)) (set! n (+ n 1)))
+   ((< a -2) (set! a (+ a 4)) (set! n (- n 1))))
+ (if (< n 0) (begin (set! o (- o 1)) (set! n (+ n 7))))
+ (if (> n 6) (begin (set! o (+ o 1)) (set! n (- n 7))))
+ (ly:make-pitch o n (/ a 4))))
+
+#(define (naturalize music)
+(let ((es (ly:music-property music 'elements))
+           (e (ly:music-property music 'element))
+      (p (ly:music-property music 'pitch)))
+          (if (pair? es)
+          (ly:music-set-property!
+          music 'elements
+          (map naturalize es)))
+      (if (ly:music? e)
+        (ly:music-set-property!
+           music 'element
+         (naturalize e)))
+         (if (ly:pitch? p)
+         (begin
+         (set! p (naturalize-pitch p))
+         (ly:music-set-property! music 'pitch p)))
+  music))
+
+naturalizeMusic =
+  #(define-music-function (m)
+  (ly:music?)
+(naturalize m))
+
+"

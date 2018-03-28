@@ -53,8 +53,8 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", hea
                      string_names = NULL, paper = NULL, endbar = TRUE, midi = TRUE, path = "."){
   if(!"score" %in% class(score)) stop("`score` is not a score object.")
   major <- ifelse(utils::tail(strsplit(key, "")[[1]], 1) == "m", FALSE, TRUE)
-  key <- gsub("m", "", key)
-  key <- .notesub(key)
+  raw_key <- gsub("m", "", key)
+  key <- .notesub(raw_key)
   mode <- ifelse(major, "\\major", "\\minor")
   if((major && !key %in% .keys$major) || (!major && !key %in% .keys$minor)) stop("Invalid key.")
   paper_args <- .lp_paper_args(paper)
@@ -67,7 +67,8 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", hea
     names(chord_seq) <- .notesub(names(chord_seq))
   }
   global <- .lp_global(time, key, mode, tempo, endbar)
-  top <- .lp_top(paper_args$fontsize, header)
+  rel_tp <- ifelse(any(score$ms_transpose != 0), TRUE, FALSE)
+  top <- .lp_top(paper_args$fontsize, header, rel_tp)
   if(has_chords){
     top <- paste0(top, purrr::map_chr(
       seq_along(chords), ~paste0("#(define fb", .x, " (make-fretboard-table))\n",
@@ -83,7 +84,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", hea
   melody_id <- paste0("melody", LETTERS[seq_along(melody0)])
   melody <- paste0(purrr::map_chr(seq_along(d), ~.set_melody(melody0[[.x]], d[[.x]], melody_id[.x])), collapse = "")
   melody_id_final <- .get_melody_id(melody)
-  score <- .set_score(d, melody_id, TRUE, NULL, NULL, tempo, has_chords, string_names)
+  score <- .set_score(d, melody_id, TRUE, NULL, NULL, tempo, has_chords, string_names, rel_tp, raw_key)
 
   midi_tag <- paste0("  \\midi{\n    \\tempo ", tempo, "\n  }\n", collapse = "")
   midi_melody <- NULL
@@ -95,10 +96,10 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", hea
                                            ~.set_melody(melody0[[.x]], d[[.x]], melody_id2[.x], TRUE)), collapse = "")
 
       melody_id2_final <- .get_melody_id(midi_melody)
-      score2 <- .set_score(d, melody_id, FALSE, midi_tag, melody_id2_final, tempo, FALSE, NULL)
+      score2 <- .set_score(d, melody_id, FALSE, midi_tag, melody_id2_final, tempo, FALSE, NULL, rel_tp, raw_key)
       melody <- paste0(melody, midi_melody, collapse = "\n\n")
     } else {
-      score2 <- .set_score(d, melody_id, FALSE, midi_tag, melody_id_final, tempo, FALSE, NULL)
+      score2 <- .set_score(d, melody_id, FALSE, midi_tag, melody_id_final, tempo, FALSE, NULL, rel_tp, raw_key)
     }
     score <- paste0(score, score2, collapse = "\n")
   }
@@ -187,7 +188,7 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header =
 
 # nolint start
 
-.set_melody <- function(x, d, id, midi = FALSE){
+.set_melody <- function(x, d, id, midi = FALSE, rel_tp = FALSE, raw_key){
   multivoice <- length(unique(d$voice)) > 1
   if(!multivoice) x0 <- paste0(id, " = {\n  \\global\n  ")
   if(multivoice){
@@ -197,12 +198,13 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header =
     x <- purrr::map2(x, seq_along(x), ~paste0("  \\voice", v[.y], " ",
                                               paste(.x, collapse = " "), "\n")) %>% unlist()
     if(midi) x <- paste("\\unfoldRepeats {", x, "}")
-    paste0(x0, "\\override StringNumber #'transparent = ##t\n  ", gsub("\n\n", "\n", gsub("\\|", "\\|\n", x)), "}\n\n", collapse = "\n")
+    x <- paste0(x0, "\\override StringNumber #'transparent = ##t\n  ", gsub("\n\n", "\n", gsub("\\|", "\\|\n", x)), "}\n\n", collapse = "\n")
   } else {
     x <- paste0(paste0(x, collapse = ""), "\n")
     if(midi) x <- paste("\\unfoldRepeats {", x, "}")
-    paste0(x0, "\\override StringNumber #'transparent = ##t\n  ", gsub("\n\n", "\n", gsub("\\|", "\\|\n", x)), "}\n\n")
+    x <- paste0(x0, "\\override StringNumber #'transparent = ##t\n  ", gsub("\n\n", "\n", gsub("\\|", "\\|\n", x)), "}\n\n")
   }
+  gsub("  ", "", gsub("  ", " ", x))
 }
 
 # nolint end
@@ -234,9 +236,10 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header =
 
 # nolint start
 
-.lp_top <- function(fontsize, header){
+.lp_top <- function(fontsize, header, rel_tp){
   if(is.null(header)) header <- list()
-  paste0(paste("#(set-global-staff-size", fontsize, ")\n"), do.call(.lp_header, header),
+  paste0(if(rel_tp) .ly_transpose_defs,
+         paste("#(set-global-staff-size", fontsize, ")\n"), do.call(.lp_header, header),
          "\\include \"predefined-guitar-fretboards.ly\"\n\n")
 }
 
@@ -257,23 +260,32 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header =
   paste0(diagram, name, topcenter, collapse = "")
 }
 
-.set_score <- function(d, id, layout, midi, midi_melody_id, tempo, has_chords, string_names){
+.set_score <- function(d, id, layout, midi, midi_melody_id, tempo, has_chords, string_names, rel_tp, raw_key){
+  if(rel_tp) key <- .notesub(raw_key)
   if(layout){
     clef <- purrr::map_chr(d, ~unique(.x$staff))
     tuning <- purrr::map_chr(d, ~unique(.x$tuning))
     str_lab  <- purrr::map_chr(tuning, .tunelab)
     voice <- purrr::map(d, ~unique(.x$voice))
+    ms_tp <- purrr::map_int(d, ~unique(.x$ms_transpose))
+    ms_key <- purrr::map_chr(d, ~unique(.x$ms_key))
     if(any(!is.na(clef))) clef <- clef[!is.na(clef)]
     x <- paste0(
       purrr::map_chr(seq_along(clef), ~({
+        tp_wrap <- ms_tp[.x] != 0
+        if(tp_wrap){
+          rel_tp_key <- .notesub(transpose(raw_key, ms_tp[.x], ms_key[.x], "tick"))
+          rel_tp_string <- paste("\\transpose", key, rel_tp_key, "{ ") # tentatively removed "\\naturalizeMusic"
+        }
         multivoice <- length(voice[[.x]]) > 1
         if(!multivoice){
-          x0 <- paste0("<< \\", id[.x], " >>")
-          x1 <- x2 <- paste0("\\", id[.x])
+          x2 <- paste0("\\", id[.x])
+          x1 <- paste0(if(tp_wrap) rel_tp_string, x2, if(tp_wrap) " }")
         }
         if(multivoice){
           x0 <- paste0(id, LETTERS[voice[[.x]]])
-          x1 <- paste0("\\context Voice = \"", x0[1], "\" \\", x0[1], " \\context Voice = \"", x0[2], "\" \\", x0[2])
+          x1 <- paste0(if(tp_wrap) rel_tp_string, "\\context Voice = \"", x0[1], "\" \\", x0[1], if(tp_wrap) " }",
+                       " ", if(tp_wrap) rel_tp_string, "\\context Voice = \"", x0[2], "\" \\", x0[2], if(tp_wrap) " }")
           x2 <- paste0("\\context TabVoice = \"", x0[1], "\" \\", x0[1], " \\context TabVoice = \"", x0[2], "\" \\", x0[2])
         }
         paste0(
@@ -288,7 +300,17 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header =
         )
       })), collapse = "")
   } else {
-    x <- paste0(paste0("\\", midi_melody_id, collapse = "\n  "), "\n  ")
+    ms_tp <- unique(purrr::map_int(d, ~unique(.x$ms_transpose)))
+    ms_key <- unique(purrr::map_chr(d, ~unique(.x$ms_key)))
+    if(rel_tp && length(ms_tp) == 1 && ms_tp != 0 && length(ms_key) == 1){
+      rel_tp_key <- .notesub(transpose(raw_key, ms_tp, ms_key, "tick"))
+      rel_tp_string <- paste("\\transpose", key, rel_tp_key, "{ ") # tentatively removed "\\naturalizeMusic"
+      midi_melody_id <- paste0(rel_tp_string, "\\", midi_melody_id, " }")
+    } else {
+      if(rel_tp) warning("Multiple music staves with different transposed key signatures. MIDI output not transposed.")
+      midi_melody_id <- paste0("\\", midi_melody_id)
+    }
+    x <- paste0(paste0(midi_melody_id, collapse = "\n  "), "\n  ")
   }
   paste0("\\score {  <<\n  ", if(has_chords) "\\new ChordNames \\chordNames\n  ", x, ">>\n",
          if(layout) "  \\layout{ }\n", if(!is.null(midi)) midi, "}\n\n")
