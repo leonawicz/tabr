@@ -121,12 +121,78 @@
     
     
 <div class="contents">
-<p>This section puts the finishing touches on combining phrases into tracks and tracks into scores. The functions <code>track</code> and <code>score</code> have been used repeatedly in earlier sections out of necessity in order to demonstrate complete examples, but their use has been specific and limited and they have not been discussed. In the examples below, phrases are added to multiple tracks, tracks are bound together, and then scores are composed of multiple tracks. Examples using different tracks, voices, and staves are considered. Then chord symbol sequences and chord diagram charts are incorporated into scores.</p>
+<p><em>This section is a work in progress. Check back later.</em></p>
+<p>This section puts the finishing touches on combining phrases into tracks and tracks into scores. The functions <code>track</code> and <code>score</code> have been used repeatedly in earlier sections out of necessity in order to demonstrate complete examples, but their use has been specific and limited and they have not been discussed.</p>
+<p>In the examples below, phrases are added to multiple tracks, tracks are bound together, and then scores are composed of multiple tracks. Examples using different tracks, voices, and staves are considered. Then chord symbol sequences and chord diagram charts are incorporated into scores.</p>
+<div id="adding-phrases-to-a-track" class="section level2">
+<h2 class="hasAnchor">
+<a href="#adding-phrases-to-a-track" class="anchor"></a>Adding phrases to a track</h2>
+<p>Phrases are added to a track using the first argument to <code>track</code>, which strictly accepts a phrase object. Expect for the briefest examples, you will typically concatenate a sequence of multiple phrases and rests into a longer section of music, usually lasting the full duration of the piece. This new single phrase object is passed to <code>track</code>.</p>
+<p>Multiple simultaneous tracks can be bound vertically, as shown later, but tracks are not bound horizontally, or sequentially in time; tracks are always complete and are never concatenated like phrase objects.</p>
+<div id="single-voice" class="section level3">
+<h3 class="hasAnchor">
+<a href="#single-voice" class="anchor"></a>Single voice</h3>
+<p>By default, a phrase passed to <code>track</code> is treated as part of a single voice. See below for multiple voices. <code>track</code> assigns the integer ID <code>1</code> to the voice of the phrase being transformed into a track. This can be ignored here.</p>
+</div>
+<div id="multiple-voices" class="section level3">
+<h3 class="hasAnchor">
+<a href="#multiple-voices" class="anchor"></a>Multiple voices</h3>
+<p>Phrase objects may be associated with different voices, but still part of the same track. For example, it is standard to transcribe fingerstyle guitar using two voices: one for the thumb that plays the bass line and one for the fingers that play the higher melody.</p>
+<p>These voices belong on the same music staff and tab staff and therefore must share the same track ID in <code>tabr</code>. The phrase objects corresponding to each voice must still be transformed into two unique track objects. The only change is that one must be explicitly assigned the voice ID <code>2</code>.</p>
+<p>It is shown below when discussing track binding how these two tracks are merged to represent a single music staff displaying two distinct voices.</p>
+</div>
+<div id="mulitple-tracks" class="section level3">
+<h3 class="hasAnchor">
+<a href="#mulitple-tracks" class="anchor"></a>Mulitple tracks</h3>
+<p>Multiple tracks are actually simpler than multiple voices because while also defined as multiple track objects, they do not require specifying any voices. It is assumed that each track has only one voice.</p>
+</div>
+<div id="string-tuning" class="section level3">
+<h3 class="hasAnchor">
+<a href="#string-tuning" class="anchor"></a>String tuning</h3>
+<p>String tuning can be unique to each track, but this is intended to translate to each music staff. This means that entirely different tracks (destined for different music staves in the output) may be tuned differently. However, distinct voices that share the same staff should be be passed different tunings in their respective <code>track</code> calls.</p>
+<p>Some control over displaying alternate tunings in the output is available using</p>
+</div>
+</div>
+<div id="supplemental-music-staff" class="section level2">
+<h2 class="hasAnchor">
+<a href="#supplemental-music-staff" class="anchor"></a>Supplemental music staff</h2>
+<p>The addition of a standard music staff above the tab staff is absolutely critical for quality guitar tablature. It is the only way to provide accurate rhythm information and other details not suitable to a tab staff. The tab staff does an excellent job of showing you <em>what</em> to play, but attempts to force it to provide more and more information regarding <em>how</em> to play it lead to ugly “plain text” style tabs that can be incredibly difficult to read and reason about.</p>
+<p>A supplemental <em>8va</em> (one octave up) treble clef music staff is included by default.</p>
+</div>
+<div id="adding-tracks-to-a-score" class="section level2">
+<h2 class="hasAnchor">
+<a href="#adding-tracks-to-a-score" class="anchor"></a>Adding tracks to a score</h2>
+<p>Music tracks are combined into a single score by passing a track table object to <code>score</code>.</p>
+<div id="a-single-track" class="section level3">
+<h3 class="hasAnchor">
+<a href="#a-single-track" class="anchor"></a>A single track</h3>
+<p>For consistency, a single track is stored in a track table even though that table has only one row. In general, track tables can have any number of rows. Each row in a track table translates to either a new tab staff or to a combined set of two staves: one tab staff with one general music staff positioned above it. The simplest calls to score take only a single-track track table object.</p>
+</div>
+<div id="multiple-tracks" class="section level3">
+<h3 class="hasAnchor">
+<a href="#multiple-tracks" class="anchor"></a>Multiple tracks</h3>
+<p>Multiple tracks are bound together using <code>trackbind</code>. This simply row-binds multiple track tables, resulting in a multi-row track table containing a number of rows equal to the sum of the input tables. The input track tables may be single- or multi-track.</p>
+<p><code>score</code> accepts only a single track table as the first argument; multiple tracks must be bound together before passing them to <code>score</code>.</p>
+<p>By default, <code>trackbind</code> will create a sequential integer ID variable, <code>tabstaff</code>, in the new track table if not already present (from a previous <code>trackbind</code> call), assigning a unique ID to each input track table in ascending order based on the order they are passed to <code>trackbind</code>.</p>
+<p>In the case of multiple voices on one staff discussed above, this is where those two tracks with voice IDs <code>1</code> and <code>2</code> are assigned the same staff ID by overriding the default for the <code>tabstaff</code> argument in <code>trackbind</code>.</p>
+<p>Once all tracks are bound into a single track table where every row (unique track) has a unique combination of <code>tabstaff</code> and <code>voice</code> ID values, such a valid track table object can be passed to <code>score</code>.</p>
+<p><code>score</code> takes additional arguments, <code>chords</code> and <code>chord_seq</code>. These were introduced in the earlier tutorial section on chord specification. The first informs the chord fretboard diagrams and the second informs the chord symbols places above them as well as above the music staves. These are incorporated into the final music score at the <code>score</code> function stage because the diagrams are associated with the entire score and not with an specific phrase or track, voice or staff. Similarly, the chord symbol sequence appears in time with the music above the topmost staff, not above each staff.</p>
 <p><em>This and subsequent tutorial sections will be continued/added soon…</em></p>
+</div>
+</div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+        <div id="tocnav">
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+<li><a href="#adding-phrases-to-a-track">Adding phrases to a track</a></li>
+      <li><a href="#supplemental-music-staff">Supplemental music staff</a></li>
+      <li><a href="#adding-tracks-to-a-score">Adding tracks to a score</a></li>
+      </ul>
+</div>
       </div>
 
 </div>

@@ -149,10 +149,10 @@
 <p>Track construction is as simple as wrapping a phrase object in <code>track</code>. This example uses a single phrase. Typically a track would consist of many phrases glued together. Tracks are just tibble data frames with an additional track class.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">track1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(p1)
 track1
-<span class="co">#&gt; # A tibble: 1 x 4</span>
-<span class="co">#&gt;   phrase       tuning         voice staff   </span>
-<span class="co">#&gt;   &lt;list&gt;       &lt;chr&gt;          &lt;int&gt; &lt;chr&gt;   </span>
-<span class="co">#&gt; 1 &lt;S3: phrase&gt; e, a, d g b e'     1 treble_8</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 1 x 6</span>
+<span class="co">#&gt;   phrase       tuning         voice staff    ms_transpose ms_key</span>
+<span class="co">#&gt;   &lt;list&gt;       &lt;chr&gt;          &lt;int&gt; &lt;chr&gt;           &lt;int&gt; &lt;chr&gt; </span>
+<span class="co">#&gt; 1 &lt;S3: phrase&gt; e, a, d g b e'     1 treble_8            0 &lt;NA&gt;</span></code></pre></div>
 </div>
 <div id="scores" class="section level2">
 <h2 class="hasAnchor">
@@ -160,10 +160,10 @@ track1
 <p>The complete score is composed of one or more tracks. This example has only a single track. Just as the track constructor takes phrases, the score constructor takes tracks as inputs. Score objects are tibble data frames with an additional score class.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">song &lt;-<span class="st"> </span><span class="kw"><a href="../reference/score.html">score</a></span>(track1)
 song
-<span class="co">#&gt; # A tibble: 1 x 5</span>
-<span class="co">#&gt;   phrase       tuning         voice staff    tabstaff</span>
-<span class="co">#&gt;   &lt;list&gt;       &lt;chr&gt;          &lt;int&gt; &lt;chr&gt;       &lt;int&gt;</span>
-<span class="co">#&gt; 1 &lt;S3: phrase&gt; e, a, d g b e'     1 treble_8        1</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 1 x 7</span>
+<span class="co">#&gt;   phrase       tuning         voice staff    ms_transpose ms_key tabstaff</span>
+<span class="co">#&gt;   &lt;list&gt;       &lt;chr&gt;          &lt;int&gt; &lt;chr&gt;           &lt;int&gt; &lt;chr&gt;     &lt;int&gt;</span>
+<span class="co">#&gt; 1 &lt;S3: phrase&gt; e, a, d g b e'     1 treble_8            0 &lt;NA&gt;          1</span></code></pre></div>
 </div>
 <div id="calling-lilypond-from-r" class="section level2">
 <h2 class="hasAnchor">

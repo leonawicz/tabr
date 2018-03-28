@@ -122,21 +122,30 @@
     
 <div class="contents">
 <p>The previous example used a fingerstyle arrangement based on guitar patterns in <em>Devil’s got you beat</em>. This example picks up from there, regenerating the exact same guitar tab, but this time properly acknowledging the two guitar voices: the part played by with the thumb and the part played with the other fingers.</p>
-<p>The setup is the same as before, but as a part of this code refactor, simplify some of the code where possible. For instance, this particular melody uses lowest fret numbers and open strings because the tuning is done in a way to allow for much faster playing. This means that a most of the notes are in the second or third octave. Here, most are in the third, which is the central octave and it is not necessary to specify all those <code>3</code> characters. Notice they have been removed from the tuning below. They are also removed from the entire song further below.</p>
+<p>The setup is the same as before, but as a part of this code refactor, simplify some of the code where possible. For instance, this particular melody uses lowest fret numbers and open strings because the tuning is done in a way to allow for much faster playing. This means that a most of the notes are in the second or third octave. Here, most are in the third, which is the central octave and it is not necessary to specify all those <code>3</code> characters. They are removed from the entire song further below. The tuning is a common one so you can use the predefined tuning.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tabr)
 header &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">title =</span> <span class="st">"Devil's got you beat"</span>, <span class="dt">composer =</span> <span class="st">"Words and music Blues Saraceno"</span>, 
     <span class="dt">performer =</span> <span class="st">"Blues Saraceno"</span>, <span class="dt">album =</span> <span class="st">"Dark Country 4"</span>, <span class="dt">subtitle =</span> <span class="st">"From the album Dark Country 4 by Blues Saraceno"</span>, 
-    <span class="dt">arranger =</span> <span class="st">"Two picking patterns over Eb arranged by Matthew Leonawicz"</span>, 
-    <span class="dt">copyright =</span> <span class="st">"2016 Extreme Music"</span>)
+    <span class="dt">arranger =</span> <span class="st">"Two picking patterns arranged by Matthew Leonawicz"</span>, <span class="dt">copyright =</span> <span class="st">"2016 Extreme Music"</span>)
 
-txt &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">"DADGAD tuning with capo on 1st fret (Eb). Fingerpicking. Let ring."</span>)
-tuning &lt;-<span class="st"> "d2 a2 d g a d4"</span></code></pre></div>
+txt &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">"DADGAD tuning with capo on 1st fret. Fingerpicking. Let ring."</span>)
+tuning &lt;-<span class="st"> "DADGAD"</span></code></pre></div>
 <div id="multiple-voices" class="section level2">
 <h2 class="hasAnchor">
 <a href="#multiple-voices" class="anchor"></a>Multiple voices</h2>
 <p>In this fingerstyle guitar tab it is appropriate to use two voices for the guitar part. Even though it is one guitar playing, the thumb playing on the low three strings and the fingers playing the higher strings should be shown as two distinct voices. Multiple voices like this go on the same staff; they do not need a separate staff. The voice played with the thumb shows notes with their stems pointing down and the higher voice has stems pointing up.</p>
 <p>This changes the phrases seen earlier as they must be split into two complementary phrases. Voice ID is indicated in <code>track</code>. There are now two tracks, but they are represented by different voices, not by different music staves. Therefore, the two tracks will use <code>voice = 1</code> and <code>voice = 2</code>, respectively, but they will not have different <code>tabstaff</code> IDs.</p>
 <p>Below, <code>s</code> is used instead of <code>r</code> for silent rests, but this is not required. This suppresses the rest notation of the resting voice while the other voice is active. This works well for this melody since the two voices are never both at rest. Notice how the additional rests fill in the gaps where each voice is now effectively inactive while the other is played. In more complex fingerstyle arrangements they will of course overlap.</p>
+</div>
+<div id="transposed-music-staff" class="section level2">
+<h2 class="hasAnchor">
+<a href="#transposed-music-staff" class="anchor"></a>Transposed music staff</h2>
+<p>While refactoring the code, take it one step further and transpose the treble clef music staff up one semitone while leaving the tablature staff as is. This transposition of the music staff relative to the tab staff is useful when a score is shared with musicians playing other instruments who need to see the music on the staff written out explicitly as heard, rather than having to infer what to play from the statement about the guitar capo position.</p>
+<p>This can be done by specifying <code>ms_transpose = 1</code> and <code>key = "e_m"</code> (or just <code>key = "flat"</code>) in <code>track</code>. This transposes the <em>music staff</em> up by one semitone, but does not affect the tablature staff. <code>key</code> is necessary for ensuring the staff is written as in the key of E flat minor rather than D sharp following transposition. Note that the call to <code>tab</code> still specifies <code>key = "dm"</code> since this is the overall perspective and presentation of the guitar tab.</p>
+</div>
+<div id="final-notes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#final-notes" class="anchor"></a>Final notes</h2>
 <p>The last thing to note is that for the same reason there are a lot of octave <code>3</code> characters that can be omitted, there is no need to specify the <code>string</code> argument. The default chosen by LilyPond turns out to be exactly what is wanted. The creates even more room for code reduction compared to previous example. Some phrases are also conveniently listed using <code>paste</code> <code>c</code> and <code>rep</code>, which coerce these phrases to character strings, but this is okay as long as they are eventually combined with other phrase objects using <code>glue</code> or wrapped in other calls like <code>volta</code> or <code>pct</code> because <code>tabr</code> is aggressive for the phrase class and will convert them back.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># melody 1: voice 1</span>
 p1 &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="kw"><a href="../reference/append_phrases.html">glue</a></span>(<span class="kw"><a href="../reference/append_phrases.html">dup</a></span>(<span class="st">"s a d4"</span>, <span class="dv">3</span>), <span class="st">"s"</span>), <span class="st">"4. 16 16 4. 16 16 8 16 16 4"</span>), <span class="kw">c</span>(<span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"s a d s"</span>, 
@@ -153,9 +162,10 @@ p2 &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">"
 p3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/repeats.html">volta</a></span>(<span class="kw"><a href="../reference/repeats.html">pct</a></span>(<span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"s a d4 s"</span>, <span class="st">"8 16 16 4"</span>), <span class="dv">3</span>))
 p4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/repeats.html">volta</a></span>(<span class="kw"><a href="../reference/repeats.html">pct</a></span>(<span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"d s f d c"</span>, <span class="st">"8 8 16 16 8"</span>), <span class="dv">3</span>))
 
-e3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"d2"</span>, <span class="dv">1</span>)
-t1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/append_phrases.html">glue</a></span>(<span class="kw"><a href="../reference/repeats.html">pct</a></span>(p1[<span class="dv">1</span>], <span class="dv">3</span>), p3, p1[<span class="dv">1</span>], p1[<span class="dv">2</span>]) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(tuning, <span class="dv">1</span>)
-t2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/append_phrases.html">glue</a></span>(<span class="kw"><a href="../reference/repeats.html">pct</a></span>(p2[<span class="dv">1</span>], <span class="dv">3</span>), p4, p2[<span class="dv">2</span>], p2[<span class="dv">3</span>]) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(tuning, <span class="dv">2</span>)
+t1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/append_phrases.html">glue</a></span>(<span class="kw"><a href="../reference/repeats.html">pct</a></span>(p1[<span class="dv">1</span>], <span class="dv">3</span>), p3, p1[<span class="dv">1</span>], p1[<span class="dv">2</span>]) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(tuning, <span class="dv">1</span>, <span class="dt">ms_transpose =</span> <span class="dv">1</span>, 
+    <span class="dt">ms_key =</span> <span class="st">"e_m"</span>)
+t2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/append_phrases.html">glue</a></span>(<span class="kw"><a href="../reference/repeats.html">pct</a></span>(p2[<span class="dv">1</span>], <span class="dv">3</span>), p4, p2[<span class="dv">2</span>], p2[<span class="dv">3</span>]) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(tuning, <span class="dv">2</span>, <span class="dt">ms_transpose =</span> <span class="dv">1</span>, 
+    <span class="dt">ms_key =</span> <span class="st">"e_m"</span>)
 <span class="kw"><a href="../reference/trackbind.html">trackbind</a></span>(t1, t2, <span class="dt">tabstaff =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/score.html">score</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"out.pdf"</span>, <span class="st">"dm"</span>, <span class="st">"4/4"</span>, 
     <span class="st">"4 = 115"</span>, header)</code></pre></div>
 </div>
@@ -189,6 +199,8 @@ t2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/append_p
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#multiple-voices">Multiple voices</a></li>
+      <li><a href="#transposed-music-staff">Transposed music staff</a></li>
+      <li><a href="#final-notes">Final notes</a></li>
       <li><a href="#refactor-recap">Refactor recap</a></li>
       <li><a href="#result">Result</a></li>
       </ul>

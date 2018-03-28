@@ -121,12 +121,52 @@
     
     
 <div class="contents">
-<p>This section introduces the use of chords in <code>tabr</code>. All of the functionality surrounding individual notes in phrases generalizes to chords. Chords symbols can also be displayed above sheet music staves and chord diagrams can be included at the top of sheet music scores using a chord chart. These topics are covered in the subsequent section on tracks and scores. This section here focuses on using chords in <code>phrase</code> where their notation will become part of content engraved in the sheet music staves.</p>
-<p><em>This and subsequent tutorial sections will be continued/added soon…</em></p>
+<p><em>This section is a work in progress. Check back later.</em></p>
+<p>This section introduces the use of chords in <code>tabr</code>. All of the functionality surrounding individual notes in phrases generalizes to chords. Chords symbols can also be displayed above sheet music staves and chord diagrams can be included at the top of sheet music scores using a chord chart. These topics are covered in the subsequent section on tracks and scores. This section here focuses on using chords in <code>phrase</code> where their notation will become part of the content engraved in the sheet music staves.</p>
+<div id="chord-syntax" class="section level3">
+<h3 class="hasAnchor">
+<a href="#chord-syntax" class="anchor"></a>Chord syntax</h3>
+<p>Like individual pitches, chords and other combinations of simultaneous pitches can be specified in multiple equivalent ways. The only difference is that there are no spaces between the notes. The following are equivalent ways to specify the same open C major chord.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">phrase</span>(<span class="st">"cegc'e' c3e3g3c4e4 cegc4e4"</span>, <span class="dv">4</span>)
+<span class="co">#&gt; &lt;c e g c' e'&gt;4 &lt;c e g c' e'&gt;4 &lt;c e g c' e'&gt;4</span></code></pre></div>
+<p>When the notes of a chord are tied over to the next, it is convenient to use <code>tie</code> to avoid having to write the <code>~</code> explicitly for each note in the chord.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/tie.html">tie</a></span>(<span class="st">"c3e3g3c4e4"</span>)
+<span class="co">#&gt; [1] "c3~e3~g3~c4~e4~"</span></code></pre></div>
+<p>Similar to <code>notes</code>, explicit string numbers passed to the <code>string</code> argument also require simply removing the spaces between individual notes. Recall the abbreviated syntax style <code>5s</code> and the expansion operator. Be careful with simple recycling, however. It does not work here for string number. Recycling will only work when it is a single note (single string entry) that can be passed as an single integer, like how the <code>4</code> below is passed as a recycled quarter beat. You cannot passed <code>"5s"</code> for example.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">chords &lt;-<span class="st"> "cegc'e' c3e3g3c4e4 cegc4e4"</span>
+<span class="kw">phrase</span>(chords, <span class="dv">4</span>, <span class="st">"54321 54321 54321"</span>)
+<span class="co">#&gt; &lt;c\5 e\4 g\3 c'\2 e'\1&gt;4 &lt;c\5 e\4 g\3 c'\2 e'\1&gt;4 &lt;c\5 e\4 g\3 c'\2 e'\1&gt;4</span>
+<span class="kw">phrase</span>(chords, <span class="dv">4</span>, <span class="st">"5s*3"</span>)
+<span class="co">#&gt; &lt;c\5 e\4 g\3 c'\2 e'\1&gt;4 &lt;c\5 e\4 g\3 c'\2 e'\1&gt;4 &lt;c\5 e\4 g\3 c'\2 e'\1&gt;4</span></code></pre></div>
+</div>
+<div id="chord-syntax-for-chord-diagrams" class="section level2">
+<h2 class="hasAnchor">
+<a href="#chord-syntax-for-chord-diagrams" class="anchor"></a>Chord syntax for chord diagrams</h2>
+<p>Chord diagrams refer to the fretboard diagrams commonly displayed in sheet music written for guitar. These chord diagram specifications are passed to <code>score</code>, discussed in the next section that brings together the overall process of moving from phrases to tracks to a score. Here, the syntax used to specify chords for chord diagrams is introduced.</p>
+</div>
+<div id="chord-symbols" class="section level2">
+<h2 class="hasAnchor">
+<a href="#chord-symbols" class="anchor"></a>Chord symbols</h2>
+<p>Chord symbols refer to the shorthand chord notation, or chord labels, often shown above chord diagrams as well as above a music staff at the beginning of measures or at each chord change. These are the familiar labels such as <code>C Dm F# F/C</code>.</p>
+</div>
+<div id="chord-sequence" class="section level2">
+<h2 class="hasAnchor">
+<a href="#chord-sequence" class="anchor"></a>Chord sequence</h2>
+<p>In order to place chord symbols in time above a music staff, it is necessary to specify their sequence and the duration of each chord just like is required for all the notes and chords shown in the staff that are created from a sequence of phrase objects.</p>
+</div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+        <div id="tocnav">
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+<li><a href="#chord-syntax-for-chord-diagrams">Chord syntax for chord diagrams</a></li>
+      <li><a href="#chord-symbols">Chord symbols</a></li>
+      <li><a href="#chord-sequence">Chord sequence</a></li>
+      </ul>
+</div>
       </div>
 
 </div>

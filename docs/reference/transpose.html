@@ -147,7 +147,7 @@
     <p>Transpose pitch by a number of semitones.</p>
     
 
-    <pre class="usage"><span class='fu'>transpose</span>(<span class='no'>notes</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>transpose</span>(<span class='no'>notes</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"default"</span>, <span class='st'>"tick"</span>, <span class='st'>"integer"</span>))
 
 <span class='fu'>tp</span>(<span class='no'>...</span>)</pre>
     
@@ -164,7 +164,11 @@
     </tr>
     <tr>
       <th>key</th>
-      <td><p>character, the new key signature after transposing <code>notes</code>. If provided, this helps ensure proper use of sharps vs. flats.</p></td>
+      <td><p>character, the new key signature after transposing <code>notes</code>. See details.</p></td>
+    </tr>
+    <tr>
+      <th>style</th>
+      <td><p>character, specify tick or integer style octave numbering in result. The default is to use integer style if any integers occur in <code>notes</code>. The other two options force the respective styles.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -182,11 +186,14 @@
 <p>Transposing is not done on a phrase object. The notes in a phrase object have already been transformed to LilyPond syntax and mixed with other potentially complex and variable information.
 Transposing is intended to be done on a string of notes prior to passing it to <code>phrase</code>. It will work on strings that use either integer or tick mark octave numbering formats.
 The transposed result will be a string with integer octave numbering.</p>
-<p>The only element other pitch that occurs in a valid notes string is a rest, <code>"r"</code>. This is ignored by transpose.</p>
+<p>If <code>key</code> is provided, this helps ensure proper use of sharps vs. flats. Alternatively, you can simply provide <code>key = "sharp"</code> or <code>key = "flat"</code>. The exact key signature is not required, just more clear and informative for the user.
+If not provided (<code>key = NA</code>), transposition lacks full information and simply defaults to sharping any resulting accidentals for positive <code>n</code> and flattening for negative <code>n</code>.
+<code>n = 0</code> returns the input without any modification.</p>
+<p>The only element other pitch that occurs in a valid notes string is a rest, <code>"r"</code> or <code>"s"</code> (silent rest). Rests are ignored by transpose.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>transpose</span>(<span class='st'>"a_3 b_4 c5"</span>, <span class='fl'>0</span>)</div><div class='output co'>#&gt; [1] "a_3 b_4 c5"</div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a_3 b_4 c5"</span>, -<span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "g3 a4 b4"</div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a_3 b_4 c5"</span>, <span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "a3 b4 c#5"</div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a#3 b4 c#5"</span>, <span class='fl'>11</span>)</div><div class='output co'>#&gt; [1] "a4 a#5 c6"</div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a#3 b4 c#5"</span>, <span class='fl'>12</span>)</div><div class='output co'>#&gt; [1] "a#4 b5 c#6"</div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a#3 b4 c#5"</span>, <span class='fl'>13</span>)</div><div class='output co'>#&gt; [1] "b4 c6 d6"</div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a3 b4 c5"</span>, <span class='fl'>2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"f"</span>)</div><div class='output co'>#&gt; [1] "b3 d_5 d5"</div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a3 b4 c5"</span>, <span class='fl'>2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"g"</span>)</div><div class='output co'>#&gt; [1] "b3 c#5 d5"</div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a b' c''"</span>, <span class='fl'>2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"f"</span>)</div><div class='output co'>#&gt; [1] "b3 d_5 d5"</div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a, b c'"</span>, <span class='fl'>2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"g"</span>)</div><div class='output co'>#&gt; [1] "b2 c#4 d4"</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>transpose</span>(<span class='st'>"a_3 b_4 c5"</span>, <span class='fl'>0</span>)</div><div class='output co'>#&gt; [1] "a_3 b_4 c5"</div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a_3 b_4 c5"</span>, -<span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "g3 a4 b4"</div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a_3 b_4 c5"</span>, <span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "a3 b4 c#5"</div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a#3 b4 c#5"</span>, <span class='fl'>11</span>)</div><div class='output co'>#&gt; [1] "a4 a#5 c6"</div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a#3 b4 c#5"</span>, <span class='fl'>12</span>)</div><div class='output co'>#&gt; [1] "a#4 b5 c#6"</div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a#3 b4 c#5"</span>, <span class='fl'>13</span>)</div><div class='output co'>#&gt; [1] "b4 c6 d6"</div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a3 b4 c5"</span>, <span class='fl'>2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"f"</span>)</div><div class='output co'>#&gt; [1] "b3 d_5 d5"</div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a3 b4 c5"</span>, <span class='fl'>2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"g"</span>)</div><div class='output co'>#&gt; [1] "b3 c#5 d5"</div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a b' c''"</span>, <span class='fl'>2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"flat"</span>)</div><div class='output co'>#&gt; [1] "b d_'' d''"</div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a, b c'"</span>, <span class='fl'>2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"sharp"</span>)</div><div class='output co'>#&gt; [1] "b, c#' d'"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

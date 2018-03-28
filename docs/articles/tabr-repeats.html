@@ -121,7 +121,9 @@
     
     
 <div class="contents">
-<p>Attention has been given to minimizing typing and keeping the R code short, particularly when the music is repetitive. However, this also needs to be extended to the tablature itself. Sheet music makes using various styles of repeat notation to keep the number of pages for a song from expanding needlessly. <code>tabr</code> offers two functions for common ways to use repeats. One is <code>volta</code> and the other is <code>pct</code>. The first is useful for repeating entire measures, possibly with alternate endings. The second is useful for simpler repeats.</p>
+<p>Attention has been given to minimizing typing and keeping the R code short, particularly when the music is repetitive. However, this also needs to be extended to the tablature itself. Sheet music makes use of various styles of repeat notation to keep the number of pages for a song transcription from expanding needlessly.</p>
+<p><code>tabr</code> offers three functions for common ways to use repeats with LilyPond and in sheet music. The first is <code>rp</code>. (Unfortunately, both <code>rep</code> and <code>repeat</code> are already integral to R, but think of <code>rp</code> as “repeat” or even “repeat phrase”) This function is the only one that does not reduce the length of the guitar tablature. It only serves to shorten code, specifically the resulting LilyPond syntax. <code>rp</code> does <em>unfolds</em> repeated sections of music so that in the output the music will be explicitly written out on the staff however many times.</p>
+<p>The other two functions are <code>pct</code> and <code>volta</code>. These functions do shorten the tablature output. <code>pct</code> is useful for simple repetition of individual beats or of full measures or bars of music. <code>volta</code> is useful for repeating entire measures, optionally with alternate endings. <code>volta</code> is the standard approach when alternate section endings are present.</p>
 <p><em>This and subsequent tutorial sections will be continued/added soon…</em></p>
 </div>
   </div>
