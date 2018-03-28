@@ -104,7 +104,9 @@ tp("a#3 b4 c#5", 12)
 tp("a#3 b4 c#5", 13)
 ```
 
-If no other information is passed to `transpose`, positive `n` will sharp naturals, even if the resulting sharp note had its equivalent flat note present in the input. Similarly, negative `n` will flat naturals, even if the resulting flat note had its equivalent sharp note present in the input. This is not ideal because it permits an automatic mixing of sharps and flats for the same pitch, e.g. `a#2` and `b_2`. This can be problematic even for different pitches, such as `a#2` and `d_2` because a standard key signature is composed of notes that may include flats or sharps but not both. To avoid this problem, specify they key signature with `key`. Since `notes` can be arbitrarily short, even a single note, there is no reason for `transpose` to attempt to guess the original or new key from the notes present and degree of transposition. `transpose` works with either integer or tick format octave numbering as shown below.
+If no other information is passed to `transpose`, positive `n` will sharp naturals, even if the resulting sharp note had its equivalent flat note present in the input. Similarly, negative `n` will flat naturals, even if the resulting flat note had its equivalent sharp note present in the input. This is not ideal because it permits an automatic mixing of sharps and flats for the same pitch, e.g. `a#2` and `b_2`.
+
+This can be problematic even for different pitches, such as `a#2` and `d_2` because a standard key signature is composed of notes that may include flats or sharps but not both. To avoid this problem, specify they key signature with `key` to be formal or just specify flat or sharp because this is really all that is needed. Since `notes` can be arbitrarily short, even a single note, there is no reason for `transpose` to attempt to guess the original or new key from the notes present and degree of transposition. `transpose` works with either integer or tick format octave numbering as shown below and the the output `style` can be forced either way.
 
 ```{r tp3}
 tp("a3 b4 c5", 2, key = "f")
@@ -113,7 +115,9 @@ tp("a b' c''", 2, key = "flat")
 tp("a, b c'", 2, key = "sharp", style = "integer")
 ```
 
-The key of F has one flat (B flat) and the key of G has one sharp (F sharp). Transposing the above notes up by a whole step (two semitones or half steps) results in a new note sequence that includes either a D flat or C sharp for the second note. This pitch does not occur (except as an accidental) in either of those keys. Nevertheless, because F is a key with some number of sharps and G is a key with some number of flats, transpositions resulting in any non-natural notes are represented as flats and sharps, respectively. The key of C major and its relative A minor have only natural notes. Setting `key "c"` or `key = "am"` results in the default behavior, falling back on sharp notes for transposing up and flat notes for transposing down.
+The key of F has one flat (B flat) and the key of G has one sharp (F sharp). Transposing the above notes up by a whole step (two semitones or half steps) results in a new note sequence that includes either a D flat or C sharp for the second note. This pitch does not occur (except as an accidental) in either of those keys. 
+
+Nevertheless, because F is a key with some number of sharps and G is a key with some number of flats, transpositions resulting in any non-natural notes are represented as flats and sharps, respectively. The key of C major and its relative A minor have only natural notes. Setting `key "c"` or `key = "am"` results in the default behavior, falling back on sharp notes for transposing up and flat notes for transposing down.
 
 ## Tuplets
 
