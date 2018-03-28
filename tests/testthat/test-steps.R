@@ -24,7 +24,7 @@ x <- list(
   track(p1, ms_transpose = 1, ms_key = "sharp")
 )
 
-test_that("track arguments accepted", {
+test_that("track arguments accepted and scores returned", {
   cl <- "track"
   purrr::walk(x, ~expect_is(.x, cl))
   x2 <- do.call(trackbind, x)
