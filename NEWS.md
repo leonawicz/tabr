@@ -9,3 +9,4 @@
 * Added support for custom, non-standard guitar tunings and instruments with different numbers of strings, up to seven.
 * Added `.mid` to `.ly` and `.mid` to tab output convenience functions.
 * Added support for multiple voices per staff.
+* Added support for transposition of music staff relative to tablature staff.
