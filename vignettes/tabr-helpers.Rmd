@@ -108,9 +108,9 @@ If no other information is passed to `transpose`, positive `n` will sharp natura
 
 ```{r tp3}
 tp("a3 b4 c5", 2, key = "f")
-tp("a3 b4 c5", 2, key = "g")
-tp("a b' c''", 2, key = "f")
-tp("a, b c'", 2, key = "g")
+tp("a3 b4 c5", 2, key = "g", style = "tick")
+tp("a b' c''", 2, key = "flat")
+tp("a, b c'", 2, key = "gsharp", style = "integer")
 ```
 
 The key of F has one flat (B flat) and the key of G has one sharp (F sharp). Transposing the above notes up by a whole step (two semitones or half steps) results in a new note sequence that includes either a D flat or C sharp for the second note. This pitch does not occur (except as an accidental) in either of those keys. Nevertheless, because F is a key with some number of sharps and G is a key with some number of flats, transpositions resulting in any non-natural notes are represented as flats and sharps, respectively. The key of C major and its relative A minor have only natural notes. Setting `key "c"` or `key = "am"` results in the default behavior, falling back on sharp notes for transposing up and flat notes for transposing down.

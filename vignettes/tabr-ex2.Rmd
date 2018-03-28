@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 
 The previous example used a fingerstyle arrangement based on guitar patterns in *Devil's got you beat*. This example picks up from there, regenerating the exact same guitar tab, but this time properly acknowledging the two guitar voices: the part played by with the thumb and the part played with the other fingers.
 
-The setup is the same as before, but as a part of this code refactor, simplify some of the code where possible. For instance, this particular melody uses lowest fret numbers and open strings because the tuning is done in a way to allow for much faster playing. This means that a most of the notes are in the second or third octave. Here, most are in the third, which is the central octave and it is not necessary to specify all those `3` characters. Notice they have been removed from the tuning below. They are also removed from the entire song further below.
+The setup is the same as before, but as a part of this code refactor, simplify some of the code where possible. For instance, this particular melody uses lowest fret numbers and open strings because the tuning is done in a way to allow for much faster playing. This means that a most of the notes are in the second or third octave. Here, most are in the third, which is the central octave and it is not necessary to specify all those `3` characters. They are removed from the entire song further below. The tuning is a common one so you can use the predefined tuning.
 
 ```{r p1, eval=FALSE}
 library(tabr)
@@ -25,12 +25,12 @@ header <- list(
   performer = "Blues Saraceno",
   album = "Dark Country 4",
   subtitle = "From the album Dark Country 4 by Blues Saraceno",
-  arranger = "Two picking patterns over Eb arranged by Matthew Leonawicz",
+  arranger = "Two picking patterns arranged by Matthew Leonawicz",
   copyright = "2016 Extreme Music"
 )
 
-txt <- c("DADGAD tuning with capo on 1st fret (Eb). Fingerpicking. Let ring.")
-tuning <- "d2 a2 d g a d4"
+txt <- c("DADGAD tuning with capo on 1st fret. Fingerpicking. Let ring.")
+tuning <- "DADGAD"
 ```
 
 ## Multiple voices
@@ -40,6 +40,14 @@ In this fingerstyle guitar tab it is appropriate to use two voices for the guita
 This changes the phrases seen earlier as they must be split into two complementary phrases. Voice ID is indicated in `track`. There are now two tracks, but they are represented by different voices, not by different music staves. Therefore, the two tracks will use `voice = 1` and `voice = 2`, respectively, but they will not have different `tabstaff` IDs.
 
 Below, `s` is used instead of `r` for silent rests, but this is not required. This suppresses the rest notation of the resting voice while the other voice is active. This works well for this melody since the two voices are never both at rest. Notice how the additional rests fill in the gaps where each voice is now effectively inactive while the other is played. In more complex fingerstyle arrangements they will of course overlap.
+
+## Transposed music staff
+
+While refactoring the code, take it one step further and transpose the treble clef music staff up one semitone while leaving the tablature staff as is. This transposition of the music staff relative to the tab staff is useful when a score is shared with musicians playing other instruments who need to see the music on the staff written out explicitly as heard, rather than having to infer what to play from the statement about the guitar capo position.
+
+This can be done by specifying `ms_transpose = 1` and `key = e_` in `track`. This transposed the *music staff* up by one semitone. `key` is necessary for ensuring the staff is written as in the key of E flat rather than D sharp following transposition. Note that the call to `tab` still specifies `key = "dm"` since this is the overall perspective and presentation of the guitar tab.
+
+## Final notes
 
 The last thing to note is that for the same reason there are a lot of octave `3` characters that can be omitted, there is no need to specify the `string` argument. The default chosen by LilyPond turns out to be exactly what is wanted. The creates even more room for code reduction compared to previous example. Some phrases are also conveniently listed using `paste` `c` and `rep`, which coerce these phrases to character strings, but this is okay as long as they are eventually combined with other phrase objects using `glue` or wrapped in other calls like `volta` or `pct` because `tabr` is aggressive for the phrase class and will convert them back.
 
@@ -63,7 +71,10 @@ p4 <- volta(pct(p("d s f d c", "8 8 16 16 8"), 3))
 e3 <- p("d2", 1)
 t1 <- glue(pct(p1[1], 3), p3, p1[1], p1[2]) %>% track(tuning, 1)
 t2 <- glue(pct(p2[1], 3), p4, p2[2], p2[3]) %>% track(tuning, 2)
-trackbind(t1, t2, tabstaff = c(1, 1)) %>% score() %>% tab("out.pdf", "dm", "4/4", "4 = 115", header)
+trackbind(t1, t2, tabstaff = c(1, 1)) %>% score() %>% lilypond("out.ly", "dm", "4/4", "4 = 115", header)
+t1 <- glue(pct(p1[1], 3), p3, p1[1], p1[2]) %>% track(tuning, 1, ms_transpose = 1, ms_key = "e_")
+t2 <- glue(pct(p2[1], 3), p4, p2[2], p2[3]) %>% track(tuning, 2, ms_transpose = 1, ms_key = "e_")
+trackbind(t1, t2, tabstaff = c(1, 1)) %>% score() %>% lilypond("out2.ly", "dm", "4/4", "4 = 115", header)
 ```
 
 ## Refactor recap

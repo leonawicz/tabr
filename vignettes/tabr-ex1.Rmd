@@ -39,11 +39,11 @@ header <- list(
   performer = "Blues Saraceno",
   album = "Dark Country 4",
   subtitle = "From the album Dark Country 4 by Blues Saraceno",
-  arranger = "Two picking patterns over Eb arranged by Matthew Leonawicz",
+  arranger = "Two picking patterns arranged by Matthew Leonawicz",
   copyright = "2016 Extreme Music"
 )
 
-txt <- c("DADGAD tuning with capo on 1st fret (Eb). Fingerpicking. Let ring.")
+txt <- c("DADGAD tuning with capo on 1st fret. Fingerpicking. Let ring.")
 tuning <- "d2 a2 d3 g3 a3 d4"
 
 # melody 1
