@@ -10,11 +10,21 @@ test_that("transpose returns as expected.", {
   expect_equal(tp(x[[2]], 13), "b4 c6 d6")
   expect_equal(tp(x[[3]], 2, key = "f"), "b3 d_5 d5")
   expect_equal(tp(x[[3]], 2, key = "g"), "b3 c#5 d5")
-  expect_equal(tp("a b' c''", 2, key = "f"), "b3 d_5 d5")
-  expect_equal(tp("a, b c'", 2, key = "g"), "b2 c#4 d4")
 
-  expect_equal(tp("r a, b r c'", 2, key = "g"), "r b2 c#4 r d4")
-  expect_equal(tp("r a,~ a, b r c'~", 2, key = "g"), "r b2~ b2 c#4 r d4~")
+  expect_equal(tp("a b' c''", 2, key = "f"), "b d_'' d''")
+  expect_equal(tp("a b' c''", 2, key = "flat"), "b d_'' d''")
+  expect_equal(tp("a, b3 c'", 2, key = "g"), "b2 c#4 d4")
+  expect_equal(tp("a2 b c4", 2, key = "sharp", style = "tick"), "b, c#' d'")
+
+  expect_equal(tp("a b' c''", 2, key = "f", style = "integer"), "b3 d_5 d5")
+  expect_equal(tp("a b' c''", 2, key = "flat", style = "integer"), "b3 d_5 d5")
+  expect_equal(tp("a, b c'", 2, key = "g", style = "integer"), "b2 c#4 d4")
+  expect_equal(tp("a, b c'", 2, key = "sharp", style = "integer"), "b2 c#4 d4")
+
+  x <- "r b2 c#4 r d4"
+  expect_equal(tp("r a, b r c'", 2, key = "g", "integer"), x)
+  expect_equal(tp("r a, b r c4", 2, key = "sharp"), x)
+  expect_equal(tp("r a,~ a, b r c'~", 2, key = "g", "integer"), "r b2~ b2 c#4 r d4~")
 
   expect_error(tp("a.", 1), "`notes` is not a valid string of notes.")
 })
