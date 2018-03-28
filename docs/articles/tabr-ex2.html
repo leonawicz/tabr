@@ -172,7 +172,7 @@ t2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/append_p
 <div id="refactor-recap" class="section level2">
 <h2 class="hasAnchor">
 <a href="#refactor-recap" class="anchor"></a>Refactor recap</h2>
-<p>Notice the 1 and 2 passed to the respective calls to <code>track</code> for the voice ID. Subsequently, in the call to <code>trackbind</code> the two tracks are assigned the same staff ID, <code>tabstaff = c(1, 1)</code>. By default, not providing <code>tabstaff</code> leads to a unique staff per track. This is the more common usage. Providing non-unique staff IDs will throw an error if the voice IDs for a single staff ID are also not unique. Every track must be directed into a unique voice or staff.</p>
+<p>Notice the 1 and 2 passed to the respective calls to <code>track</code> for the voice ID. Subsequently, in the call to <code>trackbind</code> the two tracks are assigned the same staff ID, <code>tabstaff = c(1, 1)</code>. By default, not providing <code>tabstaff</code> leads to a unique staff per track. This is the more common usage. Providing non-unique staff IDs will throw an error if the voice IDs for a single staff ID are also not unique. Every track must be directed into a unique voice/staff combination. <code>t1</code> and <code>t2</code> are also transposed up one semitone to E flat minor for use with another instrument that do not use tabs.</p>
 <p>A recap of the code reduction:</p>
 <ul>
 <li>Reduce code by removing all the <code>3</code> characters for all notes in octave three, which is many.</li>

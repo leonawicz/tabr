@@ -75,7 +75,7 @@ trackbind(t1, t2, tabstaff = c(1, 1)) %>% score() %>% tab("out.pdf", "dm", "4/4"
 
 ## Refactor recap
 
-Notice the 1 and 2 passed to the respective calls to `track` for the voice ID. Subsequently, in the call to `trackbind` the two tracks are assigned the same staff ID, `tabstaff = c(1, 1)`. By default, not providing `tabstaff` leads to a unique staff per track. This is the more common usage. Providing non-unique staff IDs will throw an error if the voice IDs for a single staff ID are also not unique. Every track must be directed into a unique voice or staff.
+Notice the 1 and 2 passed to the respective calls to `track` for the voice ID. Subsequently, in the call to `trackbind` the two tracks are assigned the same staff ID, `tabstaff = c(1, 1)`. By default, not providing `tabstaff` leads to a unique staff per track. This is the more common usage. Providing non-unique staff IDs will throw an error if the voice IDs for a single staff ID are also not unique. Every track must be directed into a unique voice/staff combination. `t1` and `t2` are also transposed up one semitone to E flat minor for use with another instrument that do not use tabs.
 
 A recap of the code reduction:
 
