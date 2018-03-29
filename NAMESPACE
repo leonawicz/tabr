@@ -2,7 +2,6 @@
 
 S3method(print,phrase)
 export("%>%")
-export(alt)
 export(chord_set)
 export(dup)
 export(glue)

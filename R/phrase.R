@@ -36,10 +36,6 @@
 #' @param info character, metadata pertaining to the \code{notes }. See details.
 #' @param string character, optional string that specifies which guitar strings to play for each specific note.
 #' @param bar logical, insert a bar check at the end of the phrase.
-#' @param abb logical, abbreviate the default LilyPond Dutch notation for A flat and E flat to \code{as} and \code{es}; recommended.
-#' @param alt length 3 character vector, alternate ending substitutions for \code{notes}, \code{info} and \code{string}, respectively. See details.
-#' @param times length 2 numeric vector, the number of times the original and alternate phrase should be repeated in the output when using \code{alt}, defaults to 1 each.
-#' @param char logical, return character vector or list for \code{alt} function.
 #' @param ... arguments passed to \code{phrase} (or to \code{alt} function).
 #'
 #' @return a phrase. For \code{alt}, return a length 2 character vector or list of phrases.
@@ -54,18 +50,13 @@
 #'
 #' phrase("c ec'g' ec'g'", "1 1 1", "5 432 432")
 #' p("c ec'g' ec'g'", "1 1 1", "5 432 432") # same as above
-#'
-#' e <- c("c'", "2", "5")
-#' alt("c ec'g' ec'g'", "1 1 1", "5 432 432", e)
-#' p("c ec'g' ec'g'", "1 1 1", "5 432 432", alt = e) # same as above
-#' p("c ec'g' ec'g'", "1 1 1", "5 432 432", alt = e, char = FALSE)
 NULL
 
 # nolint start
 
 #' @export
 #' @rdname phrase
-phrase <- function(notes, info, string = NULL, bar = FALSE, abb = TRUE){
+phrase <- function(notes, info, string = NULL, bar = FALSE){
   .check_phrase_input(notes, "notes")
   .check_phrase_input(info, "info")
   if(!is.null(string)) .check_phrase_input(string, "string")
@@ -87,7 +78,7 @@ phrase <- function(notes, info, string = NULL, bar = FALSE, abb = TRUE){
   if(s) string <- .strsub(string)
   notes <- purrr::map_chr(
     seq_along(notes),
-    ~paste0("<", paste0(.split_chord(notes[.x], abb = abb),
+    ~paste0("<", paste0(.split_chord(notes[.x], abb = TRUE),
                         if(s && notes[.x] != "r" && notes[.x] != "s")
                           paste0("\\", .split_chord(string[.x], TRUE)), collapse = " "), ">"))
   notes <- gsub("<s>", "s", gsub("<r>", "r", notes))
@@ -110,40 +101,7 @@ phrase <- function(notes, info, string = NULL, bar = FALSE, abb = TRUE){
 
 #' @export
 #' @rdname phrase
-p <- function(...){
-  if(!is.null(list(...)$alt)) alt(...) else phrase(...)
-}
+p <- function(...) phrase(...)
 
 #' @export
 print.phrase <- function(x, ...) cat(gsub("\n\n", "\n", paste0(x, "\n")), sep = "")
-
-#' @export
-#' @rdname phrase
-alt <- function(notes, info, string = NULL, alt = NULL, times = 1, char = TRUE, bar = FALSE, abb = TRUE){
-  if(is.null(alt) || identical(alt, c("", "", "")))
-    return(phrase(notes, info, string, bar, abb))
-  if(!is.character(alt) || length(alt) != 3) stop("`alt` must be a length 3 character vector.")
-
-  f <- function(x, y){
-    if(is.null(x)) return(y)
-    if(y != ""){
-      y <- strsplit(y, " ")[[1]]
-      n <- length(y)
-      x <- strsplit(x, " ")[[1]]
-      if(n >= length(x)){
-        x <- paste0(y, collapse = " ")
-      } else {
-        x <- paste0(c(x[1:(length(x) - n)], y), collapse = " ")
-      }
-    }
-    x
-  }
-
-  x <- list(notes, info, string)
-  y <- list(f(notes, alt[1]), f(info, alt[2]), f(string, alt[3]))
-  x <- purrr::map(list(x, y), ~phrase(.x[[1]], .x[[2]], .x[[3]], bar, abb))
-  times <- rep(times, length = 2)
-  x <- x[c(rep(1, times[1]), rep(2, times[2]))]
-  if(char) x <- as.character(x)
-  x
-}

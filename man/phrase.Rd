@@ -4,15 +4,11 @@
 \alias{phrase}
 \alias{phrase}
 \alias{p}
-\alias{alt}
 \title{Create a musical phrase}
 \usage{
-phrase(notes, info, string = NULL, bar = FALSE, abb = TRUE)
+phrase(notes, info, string = NULL, bar = FALSE)
 
 p(...)
-
-alt(notes, info, string = NULL, alt = NULL, times = 1, char = TRUE,
-  bar = FALSE, abb = TRUE)
 }
 \arguments{
 \item{notes}{character, notes \code{a} through \code{g}. See details.}
@@ -23,15 +19,7 @@ alt(notes, info, string = NULL, alt = NULL, times = 1, char = TRUE,
 
 \item{bar}{logical, insert a bar check at the end of the phrase.}
 
-\item{abb}{logical, abbreviate the default LilyPond Dutch notation for A flat and E flat to \code{as} and \code{es}; recommended.}
-
 \item{...}{arguments passed to \code{phrase} (or to \code{alt} function).}
-
-\item{alt}{length 3 character vector, alternate ending substitutions for \code{notes}, \code{info} and \code{string}, respectively. See details.}
-
-\item{times}{length 2 numeric vector, the number of times the original and alternate phrase should be repeated in the output when using \code{alt}, defaults to 1 each.}
-
-\item{char}{logical, return character vector or list for \code{alt} function.}
 }
 \value{
 a phrase. For \code{alt}, return a length 2 character vector or list of phrases.
@@ -63,12 +51,6 @@ Any other note metadata is appended to these durations. See examples.
 Opening and closing slurs (or hammer ons and pull offs) are indicated with opening and closing parentheses, slides with \code{-}, and simple bends with \code{^}.
 Text annotations aligned vertically with a note in time on the staff is done by appending the text to the note info entry itself. See \code{\link{notate}}.
 For more details and example, see the package vignettes.
-
-In cases where a phrase is very long and is used multiple times, but there is at least one instance where that phrase might have a very slight alternate ending, the \code{alt} wrapper function can be helpful in code reduction.
-It takes three space-delimited character string entries analogous to \code{notes}, \code{info} and \code{string}. Each of n space-delimited entries will substitute for the final n entries in the original strings.
-The three do not have to be the same length. If only substituting the final two notes in \code{notes} for example, then the \code{alt} argument in the \code{alt} function should be something like \code{alt = c("a2 b2", "", "")}.
-\code{alt} returns a character vector of both phrase strings, the original and the alternate, or a list of both phrase objects if \code{char = FALSE}.
-If an entry is longer than the original, it will substitute entirely. Since it is based on space-delimitation, take care with complex \code{info} strings that might have attached text from \code{notate}.
 }
 \examples{
 phrase("c ec'g' ec'g'", "4 4 2") # no explicit string specification (not recommended)
@@ -78,9 +60,4 @@ phrase("b2 c d", "4( 4)- 2", "5 5 5") # hammer and slide
 
 phrase("c ec'g' ec'g'", "1 1 1", "5 432 432")
 p("c ec'g' ec'g'", "1 1 1", "5 432 432") # same as above
-
-e <- c("c'", "2", "5")
-alt("c ec'g' ec'g'", "1 1 1", "5 432 432", e)
-p("c ec'g' ec'g'", "1 1 1", "5 432 432", alt = e) # same as above
-p("c ec'g' ec'g'", "1 1 1", "5 432 432", alt = e, char = FALSE)
 }
