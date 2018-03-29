@@ -25,7 +25,7 @@ chord_set <- function(x, id){
     purrr::map(~({
       if(substr(.x, 1, 1) == "(") substring(.x, 2) else strsplit(.x, "")[[1]]
     }
-    )) %>% unlist() %>% paste0(collapse = ";")
+    )) %>% unlist() %>% paste(collapse = ";") %>% paste0(";")
   x <- purrr::map_chr(x, f)
   names(x) <- id
   x

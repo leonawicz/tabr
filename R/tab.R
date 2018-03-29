@@ -62,7 +62,12 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", hea
   chords <- attributes(score)$chords
   has_chords <- !is.null(chords)
   chord_seq <- attributes(score)$chord_seq
+  has_chord_seq <- !is.null(chord_seq)
   if(has_chords){
+    if(!has_chord_seq){
+      chord_seq <- rep(1, length(chords))
+      names(chord_seq) <- names(chords)
+    }
     names(chords) <- .notesub(names(chords))
     names(chord_seq) <- .notesub(names(chord_seq))
   }
@@ -84,7 +89,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", hea
   melody_id <- paste0("melody", LETTERS[seq_along(melody0)])
   melody <- paste0(purrr::map_chr(seq_along(d), ~.set_melody(melody0[[.x]], d[[.x]], melody_id[.x])), collapse = "")
   melody_id_final <- .get_melody_id(melody)
-  score <- .set_score(d, melody_id, TRUE, NULL, NULL, tempo, has_chords, string_names, rel_tp, raw_key)
+  score <- .set_score(d, melody_id, TRUE, NULL, NULL, tempo, has_chord_seq, string_names, rel_tp, raw_key)
 
   midi_tag <- paste0("  \\midi{\n    \\tempo ", tempo, "\n  }\n", collapse = "")
   midi_melody <- NULL
@@ -260,7 +265,7 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header =
   paste0(diagram, name, topcenter, collapse = "")
 }
 
-.set_score <- function(d, id, layout, midi, midi_melody_id, tempo, has_chords, string_names, rel_tp, raw_key){
+.set_score <- function(d, id, layout, midi, midi_melody_id, tempo, has_chord_seq, string_names, rel_tp, raw_key){
   if(rel_tp) key <- .notesub(raw_key)
   if(layout){
     clef <- purrr::map_chr(d, ~unique(.x$staff))
@@ -312,7 +317,7 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header =
     }
     x <- paste0(paste0(midi_melody_id, collapse = "\n  "), "\n  ")
   }
-  paste0("\\score {  <<\n  ", if(has_chords) "\\new ChordNames \\chordNames\n  ", x, ">>\n",
+  paste0("\\score {  <<\n  ", if(has_chord_seq) "\\new ChordNames \\chordNames\n  ", x, ">>\n",
          if(layout) "  \\layout{ }\n", if(!is.null(midi)) midi, "}\n\n")
 }
 
