@@ -43,7 +43,31 @@ phrase(chords, 4, "5s*3")
 
 ## Chord syntax for chord diagrams
 
-Chord diagrams refer to the fretboard diagrams commonly displayed in sheet music written for guitar. These chord diagram specifications are passed to `score`, discussed in the next section that brings together the overall process of moving from phrases to tracks to a score. Here, the syntax used to specify chords for chord diagrams is introduced.
+Chord diagrams refer to the fretboard diagrams commonly displayed in sheet music written for guitar. These chord diagram specifications are passed to `score`, discussed in the next section that brings together the overall process of moving from phrases to tracks to a score. Here, the syntax used to specify chords for chord diagrams is introduced. Below are some chords that appear in a song.
+
+Note that minor chord names, indicated by `m`, come after the qualifier `:`. This is different from how key signatures can be expressed throughout most of `tabr`, with just a `"dm"` for example, but the qualifier has more general uses for chord diagrams. There will be more examples of this in a moment. The chords also require position descriptions, because the same chord can be played many ways. This is the part that fully defines the chord diagram. As is standard, `x` means a string is not played and `o` refers to an open string. The numbers refer to the fret. The string is six characters representing strings six through one (low to high pitch) from left to right.
+
+```{r chord3}
+chord_names <- c("d:m", "f", "g:m", "a")
+chord_positions <- c("xxo231", "133211", "355333", "xo222o")
+```
+
+To demonstrate the chord chart, make a dummy song and include the chord set. Analogous to `phrase`, `chord_set` is a simple function that manipulates the name and position strings into a named character vector of chord entries in a format understood by LilyPond.
+
+```{r chord4}
+chords <- chord_set(chord_positions, chord_names)
+chords
+```
+
+The output for the dummy song now contains a chord chart centered at the top of the first page of sheet music.
+
+```{r chord5, results="hide", eval=FALSE}
+p("r", 1) %>% track %>% score(chords) %>% tab("ex13.pdf")
+```
+
+<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex13.png?raw=true" width="100%"></p>
+
+*to be continued...*
 
 ## Chord symbols
 
