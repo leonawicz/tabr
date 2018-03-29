@@ -148,12 +148,9 @@
 Notes separated in time are separated in the <code>notes</code> string by spaces. Sharps and flats are indicated by appending <code>#</code> and <code>_</code>, respectively, e.g. <code>f#</code> or <code>g_</code>.</p>
     
 
-    <pre class="usage"><span class='fu'>phrase</span>(<span class='no'>notes</span>, <span class='no'>info</span>, <span class='kw'>string</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bar</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>abb</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+    <pre class="usage"><span class='fu'>phrase</span>(<span class='no'>notes</span>, <span class='no'>info</span>, <span class='kw'>string</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bar</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>p</span>(<span class='no'>...</span>)
-
-<span class='fu'>alt</span>(<span class='no'>notes</span>, <span class='no'>info</span>, <span class='kw'>string</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>alt</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>times</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>char</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>bar</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>abb</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+<span class='fu'>p</span>(<span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -175,24 +172,8 @@ Notes separated in time are separated in the <code>notes</code> string by spaces
       <td><p>logical, insert a bar check at the end of the phrase.</p></td>
     </tr>
     <tr>
-      <th>abb</th>
-      <td><p>logical, abbreviate the default LilyPond Dutch notation for A flat and E flat to <code>as</code> and <code>es</code>; recommended.</p></td>
-    </tr>
-    <tr>
       <th>...</th>
       <td><p>arguments passed to <code>phrase</code> (or to <code>alt</code> function).</p></td>
-    </tr>
-    <tr>
-      <th>alt</th>
-      <td><p>length 3 character vector, alternate ending substitutions for <code>notes</code>, <code>info</code> and <code>string</code>, respectively. See details.</p></td>
-    </tr>
-    <tr>
-      <th>times</th>
-      <td><p>length 2 numeric vector, the number of times the original and alternate phrase should be repeated in the output when using <code>alt</code>, defaults to 1 each.</p></td>
-    </tr>
-    <tr>
-      <th>char</th>
-      <td><p>logical, return character vector or list for <code>alt</code> function.</p></td>
     </tr>
     </table>
     
@@ -219,25 +200,11 @@ Any other note metadata is appended to these durations. See examples.</p>
 <p>Opening and closing slurs (or hammer ons and pull offs) are indicated with opening and closing parentheses, slides with <code>-</code>, and simple bends with <code>^</code>.
 Text annotations aligned vertically with a note in time on the staff is done by appending the text to the note info entry itself. See <code><a href='notate.html'>notate</a></code>.
 For more details and example, see the package vignettes.</p>
-<p>In cases where a phrase is very long and is used multiple times, but there is at least one instance where that phrase might have a very slight alternate ending, the <code>alt</code> wrapper function can be helpful in code reduction.
-It takes three space-delimited character string entries analogous to <code>notes</code>, <code>info</code> and <code>string</code>. Each of n space-delimited entries will substitute for the final n entries in the original strings.
-The three do not have to be the same length. If only substituting the final two notes in <code>notes</code> for example, then the <code>alt</code> argument in the <code>alt</code> function should be something like <code>alt = c("a2 b2", "", "")</code>.
-<code>alt</code> returns a character vector of both phrase strings, the original and the alternate, or a list of both phrase objects if <code>char = FALSE</code>.
-If an entry is longer than the original, it will substitute entirely. Since it is based on space-delimitation, take care with complex <code>info</code> strings that might have attached text from <code>notate</code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>phrase</span>(<span class='st'>"c ec'g' ec'g'"</span>, <span class='st'>"4 4 2"</span>) <span class='co'># no explicit string specification (not recommended)</span></div><div class='output co'>#&gt; &lt;c&gt;4 &lt;e c' g'&gt;4 &lt;e c' g'&gt;2</div><div class='input'><span class='fu'>phrase</span>(<span class='st'>"c ec4g4 ec4g4"</span>, <span class='st'>"4 4 2"</span>) <span class='co'># same as above</span></div><div class='output co'>#&gt; &lt;c&gt;4 &lt;e c' g'&gt;4 &lt;e c' g'&gt;2</div><div class='input'><span class='fu'>phrase</span>(<span class='st'>"c b, c"</span>, <span class='st'>"4. 8( 8)"</span>, <span class='st'>"5 5 5"</span>) <span class='co'># direction implies hammer on</span></div><div class='output co'>#&gt; &lt;c\5&gt;4. &lt;b,\5&gt;8( &lt;c\5&gt;8)</div><div class='input'><span class='fu'>phrase</span>(<span class='st'>"b2 c d"</span>, <span class='st'>"4( 4)- 2"</span>, <span class='st'>"5 5 5"</span>) <span class='co'># hammer and slide</span></div><div class='output co'>#&gt; &lt;b,\5&gt;4( &lt;c\5&gt;4)\glissando &lt;d\5&gt;2</div><div class='input'>
-<span class='fu'>phrase</span>(<span class='st'>"c ec'g' ec'g'"</span>, <span class='st'>"1 1 1"</span>, <span class='st'>"5 432 432"</span>)</div><div class='output co'>#&gt; &lt;c\5&gt;1 &lt;e\4 c'\3 g'\2&gt;1 &lt;e\4 c'\3 g'\2&gt;1</div><div class='input'><span class='fu'>p</span>(<span class='st'>"c ec'g' ec'g'"</span>, <span class='st'>"1 1 1"</span>, <span class='st'>"5 432 432"</span>) <span class='co'># same as above</span></div><div class='output co'>#&gt; &lt;c\5&gt;1 &lt;e\4 c'\3 g'\2&gt;1 &lt;e\4 c'\3 g'\2&gt;1</div><div class='input'>
-<span class='no'>e</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"c'"</span>, <span class='st'>"2"</span>, <span class='st'>"5"</span>)
-<span class='fu'>alt</span>(<span class='st'>"c ec'g' ec'g'"</span>, <span class='st'>"1 1 1"</span>, <span class='st'>"5 432 432"</span>, <span class='no'>e</span>)</div><div class='output co'>#&gt; [1] "&lt;c\\5&gt;1 &lt;e\\4 c'\\3 g'\\2&gt;1 &lt;e\\4 c'\\3 g'\\2&gt;1"
-#&gt; [2] "&lt;c\\5&gt;1 &lt;e\\4 c'\\3 g'\\2&gt;1 &lt;c'\\5&gt;2"           </div><div class='input'><span class='fu'>p</span>(<span class='st'>"c ec'g' ec'g'"</span>, <span class='st'>"1 1 1"</span>, <span class='st'>"5 432 432"</span>, <span class='kw'>alt</span> <span class='kw'>=</span> <span class='no'>e</span>) <span class='co'># same as above</span></div><div class='output co'>#&gt; [1] "&lt;c\\5&gt;1 &lt;e\\4 c'\\3 g'\\2&gt;1 &lt;e\\4 c'\\3 g'\\2&gt;1"
-#&gt; [2] "&lt;c\\5&gt;1 &lt;e\\4 c'\\3 g'\\2&gt;1 &lt;c'\\5&gt;2"           </div><div class='input'><span class='fu'>p</span>(<span class='st'>"c ec'g' ec'g'"</span>, <span class='st'>"1 1 1"</span>, <span class='st'>"5 432 432"</span>, <span class='kw'>alt</span> <span class='kw'>=</span> <span class='no'>e</span>, <span class='kw'>char</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt; &lt;c\5&gt;1 &lt;e\4 c'\3 g'\2&gt;1 &lt;e\4 c'\3 g'\2&gt;1
-#&gt; 
-#&gt; [[2]]
-#&gt; &lt;c\5&gt;1 &lt;e\4 c'\3 g'\2&gt;1 &lt;c'\5&gt;2
-#&gt; </div></pre>
+<span class='fu'>phrase</span>(<span class='st'>"c ec'g' ec'g'"</span>, <span class='st'>"1 1 1"</span>, <span class='st'>"5 432 432"</span>)</div><div class='output co'>#&gt; &lt;c\5&gt;1 &lt;e\4 c'\3 g'\2&gt;1 &lt;e\4 c'\3 g'\2&gt;1</div><div class='input'><span class='fu'>p</span>(<span class='st'>"c ec'g' ec'g'"</span>, <span class='st'>"1 1 1"</span>, <span class='st'>"5 432 432"</span>) <span class='co'># same as above</span></div><div class='output co'>#&gt; &lt;c\5&gt;1 &lt;e\4 c'\3 g'\2&gt;1 &lt;e\4 c'\3 g'\2&gt;1</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
