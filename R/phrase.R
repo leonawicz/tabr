@@ -26,12 +26,6 @@
 #' Text annotations aligned vertically with a note in time on the staff is done by appending the text to the note info entry itself. See \code{\link{notate}}.
 #' For more details and example, see the package vignettes.
 #'
-#' In cases where a phrase is very long and is used multiple times, but there is at least one instance where that phrase might have a very slight alternate ending, the \code{alt} wrapper function can be helpful in code reduction.
-#' It takes three space-delimited character string entries analogous to \code{notes}, \code{info} and \code{string}. Each of n space-delimited entries will substitute for the final n entries in the original strings.
-#' The three do not have to be the same length. If only substituting the final two notes in \code{notes} for example, then the \code{alt} argument in the \code{alt} function should be something like \code{alt = c("a2 b2", "", "")}.
-#' \code{alt} returns a character vector of both phrase strings, the original and the alternate, or a list of both phrase objects if \code{char = FALSE}.
-#' If an entry is longer than the original, it will substitute entirely. Since it is based on space-delimitation, take care with complex \code{info} strings that might have attached text from \code{notate}.
-#'
 #' @param notes character, notes \code{a} through \code{g}. See details.
 #' @param info character, metadata pertaining to the \code{notes }. See details.
 #' @param string character, optional string that specifies which guitar strings to play for each specific note.
