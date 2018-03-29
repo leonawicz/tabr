@@ -86,10 +86,11 @@ hp(dup("16 8", 8))
 ## Transpose
 
 In the last section there was an example showing a sequence of notes followed by the same sequence transposed one octave up. At the time, it was written out twice. Here, the same sequence is reproduced using `transpose`. Transposing up one octave is done by specifying an increase of 12 semitones or half steps.
+Note that `transpose` drops the unnecessary `3`s for the third octave, the central octave in LilyPond. They are dropped from `note2` here 
 
 ```{r tp1}
 notes1 <- "c3 b2 c3 d3 e3 e3 d3 c3 b2 c3 c3 c4"
-notes2 <- "c4 b3 c4 d4 e4 e4 d4 c4 b3 c4 c4 c5"
+notes2 <- "c4 b c4 d4 e4 e4 d4 c4 b c4 c4 c5"
 transpose(notes1, 12) == notes2
 ```
 
@@ -104,9 +105,9 @@ tp("a#3 b4 c#5", 12)
 tp("a#3 b4 c#5", 13)
 ```
 
-If no other information is passed to `transpose`, positive `n` will sharp naturals, even if the resulting sharp note had its equivalent flat note present in the input. Similarly, negative `n` will flat naturals, even if the resulting flat note had its equivalent sharp note present in the input. This is not ideal because it permits an automatic mixing of sharps and flats for the same pitch, e.g. `a#2` and `b_2`.
+If no other information is passed to `transpose`, positive `n` will sharpen naturals. Negative `n` will flatten naturals. This is not ideal because it may not fit a key signature. A standard key signature is composed of notes that may include flats or sharps but not both. To avoid simply defaulting to one or the other based on direction of transposition, specify they key signature with `key` to be formal, e.g. `key = "dm"`, or just specify `"flat"` or `"sharp"`" because this is really all that is needed.
 
-This can be problematic even for different pitches, such as `a#2` and `d_2` because a standard key signature is composed of notes that may include flats or sharps but not both. To avoid this problem, specify they key signature with `key` to be formal or just specify flat or sharp because this is really all that is needed. Since `notes` can be arbitrarily short, even a single note, there is no reason for `transpose` to attempt to guess the original or new key from the notes present and degree of transposition. `transpose` works with either integer or tick format octave numbering as shown below and the the output `style` can be forced either way.
+Since `notes` can be arbitrarily short, even a single note, there is no reason for `transpose` to attempt to guess the original or new key from the notes present and degree of transposition. `notes` may easily include accidentals anyhow. `transpose` works with either integer or tick style octave numbering as shown below and the the output `style` can be forced either way.
 
 ```{r tp3}
 tp("a3 b4 c5", 2, key = "f")
