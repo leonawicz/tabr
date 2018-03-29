@@ -18,13 +18,9 @@
   x
 }
 
-.notesub <- function(x, sharp = "#", flat = "_", abb = FALSE){
+.notesub <- function(x, sharp = "#", flat = "_"){
   x <- gsub(sharp[1], "is", x)
   x <- gsub(flat[1], "es", x)
-  if(abb){
-    x <- gsub("ees", "es", x)
-    x <- gsub("aes", "as", x)
-  }
   x
 }
 
@@ -61,7 +57,6 @@
   purrr::map(strsplit(x, " ")[[1]], ~({
     x <- gsub("as", "aes", .x)
     x <- gsub("^es| es", "ees", x)
-    #x <- gsub(" es", " ees", x)
     x <- .split_chord(x)
     x <- gsub("is", "#", x)
     x <- gsub("^as|^aes", "a_", x)
