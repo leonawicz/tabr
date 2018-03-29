@@ -1,6 +1,9 @@
 context("transpose")
 
 test_that("transpose returns as expected.", {
+  expect_equal(transpose("b_,", -1, "am"), "a,")
+  expect_equal(transpose("b_2", 1, "c"), "b2")
+
   x <- list("a_3 b_4 c5", "a#3 b4 c#5", "a3 b4 c5")
   expect_equal(transpose(x[[1]], 0), x[[1]])
   expect_equal(tp(x[[1]], -1), "g a4 b4")
