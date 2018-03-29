@@ -323,7 +323,7 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header =
   x <- toupper(x)
   x <- gsub("#", "is", x)
   x <- gsub("_", "b", x)
-  x
+  paste(rev(strsplit(x, " ")[[1]]), collapse = " ")
 }
 
 .star_expand <- function(x){
