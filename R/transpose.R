@@ -88,14 +88,7 @@ transpose <- function(notes, n = 0, key = NA, style = c("default", "tick", "inte
     if(type == "tick"){
       n <- nchar(.x)
       if(n == 0) return(3L)
-      if(substr(.x, 1, 1) == ","){
-        direction <- "down"
-      } else if(substr(.x, 1, 1) == "'"){
-        direction <- "up"
-      } else {
-        stop("`notes` is not a valid string of notes.")
-      }
-      if(direction == "up") 3L + nchar(.x) else 3L - nchar(.x)
+      if(substr(.x, 1, 1) == ",") 3L - nchar(.x) else 3L + nchar(.x)
     } else {
       as.integer(.x)
     }
