@@ -16,7 +16,7 @@ tp(...)
 
 \item{key}{character, the new key signature after transposing \code{notes}. See details.}
 
-\item{style}{character, specify tick or integer style octave numbering in result. The default is to use integer style if any integers occur in \code{notes}. The other two options force the respective styles.}
+\item{style}{character, specify tick or integer style octave numbering in result. See details.}
 
 \item{...}{arguments passed to transpose.}
 }
@@ -38,6 +38,8 @@ If not provided (\code{key = NA}), transposition lacks full information and simp
 \code{n = 0} returns the input without any modification.
 
 The only element other pitch that occurs in a valid notes string is a rest, \code{"r"} or \code{"s"} (silent rest). Rests are ignored by transpose.
+
+The default \code{style} is to use tick style if no integers occur in \code{notes}. The other two options force the respective styles. When integer style is returned, all \code{3}s are dropped since the third octave is the implicit center in LilyPond.
 }
 \examples{
 transpose("a_3 b_4 c5", 0)
@@ -49,5 +51,5 @@ tp("a#3 b4 c#5", 13)
 tp("a3 b4 c5", 2, key = "f")
 tp("a3 b4 c5", 2, key = "g")
 tp("a b' c''", 2, key = "flat")
-tp("a, b c'", 2, key = "sharp")
+tp("a, b ceg", 2, key = "sharp")
 }

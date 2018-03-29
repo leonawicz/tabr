@@ -316,6 +316,8 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header =
          if(layout) "  \\layout{ }\n", if(!is.null(midi)) midi, "}\n\n")
 }
 
+# nolint end
+
 .tunelab <- function(x){
   x <- gsub("[,']", "", x)
   x <- toupper(x)
@@ -324,66 +326,11 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header =
   x
 }
 
-# nolint end
-
-.octavesub <- function(x){
-  x <- gsub("0", ",,,", x)
-  x <- gsub("1", ",,", x)
-  x <- gsub("2", ",", x)
-  x <- gsub("3", "", x)
-  x <- gsub("4", "'", x)
-  x <- gsub("5", "''", x)
-  x <- gsub("6", "'''", x)
-  x <- gsub("7", "''''", x)
-  x
-}
-
-.notesub <- function(x, sharp = "#", flat = "_", abb = FALSE){
-  x <- gsub(sharp[1], "is", x)
-  x <- gsub(flat[1], "es", x)
-  if(abb){
-    x <- gsub("ees", "es", x)
-    x <- gsub("aes", "as", x)
-  }
-  x
-}
-
 .star_expand <- function(x){
   if(length(grep("\\*", x)) == 0) return(x)
   x <- strsplit(x, "\\*")[[1]]
   do.call(dup, list(x = x[1], n = as.integer(x[2])))
 }
-
-# nolint start
-
-.tabsub <- function(x){
-  x <- strsplit(x, ";")[[1]]
-  x[1] <- gsub("-", "\\\\glissando", x[1])
-  x[1] <- gsub("x", "xDEADNOTEx", x[1])
-  x[1] <- .notesub(x[1])
-  x[1] <- gsub("\\]", "\\\\staccato", x[1])
-  if(length(x) == 2){
-    x[2] <- paste0(";", substr(x[2], 1, 1), gsub("_", " ", substring(x[2], 2)))
-    x <- paste0(x, collapse = "")
-  }
-  x
-}
-
-.strsub <- function(x){
-  x <- strsplit(as.character(x), " ")[[1]] %>% purrr::map_chr(.star_expand) %>% paste0(collapse = " ")
-  x <- gsub("7s", "7654321", x)
-  x <- gsub("6s", "654321", x)
-  x <- gsub("5s", "54321", x)
-  x <- gsub("4s", "4321", x)
-  x <- gsub("3s", "321", x)
-  f <- function(x) strsplit(gsub("\\(", " \\(", gsub("\\)", " ", x)), " ")[[1]] %>%
-    purrr::map(~({
-      if(substr(.x, 1, 1) == "(") substring(.x, 2) else strsplit(.x, "")[[1]]
-    })) %>% unlist() %>% paste0(collapse = "_")
-  purrr::map_chr(strsplit(x, " ")[[1]], f)
-}
-
-# nolint end
 
 .split_chord <- function(x, strings = FALSE, abb = TRUE){
   if(nchar(x) == 1) return(x)
