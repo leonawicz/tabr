@@ -11,7 +11,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# tabr <a hef="https://github.com/leonawicz/tabr/blob/master/data-raw/tabr.png?raw=true" _target="blank"><img src="https://github.com/leonawicz/tabr/blob/master/inst/tabr.png?raw=true" style="width:120px;margin-bottom:5px;" align="right"></a>
+# tabr <a hef="https://github.com/leonawicz/tabr/blob/master/data-raw/tabr.png?raw=true" _target="blank"><img src="https://github.com/leonawicz/tabr/blob/master/inst/tabr.png?raw=true" style="margin-bottom:5px;" width="120" align="right"></a>
 
 [![Travis-CI Build Status](https://travis-ci.org/leonawicz/tabr.svg?branch=master)](https://travis-ci.org/leonawicz/tabr)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/leonawicz/tabr?branch=master&svg=true)](https://ci.appveyor.com/project/leonawicz/tabr)
