@@ -1,9 +1,12 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-tabr
-====
+tabr <a hef="https://github.com/leonawicz/tabr/blob/master/data-raw/tabr.png?raw=true" _target="blank"><img src="https://github.com/leonawicz/tabr/blob/master/inst/tabr.png?raw=true" style="max-width:120px;margin-bottom:5px;" align="right"></a>
+====================================================================================================================================================================================================================================================
 
 [![Travis-CI Build Status](https://travis-ci.org/leonawicz/tabr.svg?branch=master)](https://travis-ci.org/leonawicz/tabr) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/leonawicz/tabr?branch=master&svg=true)](https://ci.appveyor.com/project/leonawicz/tabr) [![Coverage Status](https://img.shields.io/codecov/c/github/leonawicz/tabr/master.svg)](https://codecov.io/github/leonawicz/tabr?branch=master) [![gitter](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/leonawicz/tabr)
+
+Overview
+--------
 
 <p style="text-align:center;">
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/tabr_logo.png?raw=true" width="100%">
@@ -22,7 +25,7 @@ Installation
 You can install tabr from GitHub with:
 
 ``` r
-# install.packages('devtools')
+# install.packages("devtools")
 devtools::install_github("leonawicz/tabr")
 ```
 
@@ -55,7 +58,7 @@ R code
 
 ``` r
 library(tabr)
-# path <- 'C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe'
+# path <- "C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe"
 # tabr_options(lilypond = path)
 
 p1 <- p("r a2 c3 f3 d3 a3 f3", "4 8 8 8 8 8 8", "x 5 5 4 4 3 4")
