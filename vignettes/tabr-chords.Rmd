@@ -99,7 +99,7 @@ You have already seen chord symbols, placed above the fretboard diagrams above. 
 In order to place chord symbols in time above a music staff, it is necessary to specify their sequence and the duration of each chord, just like is required for all the notes and chords shown inside the staff that are created from a sequence of phrase objects. The two examples below uses a simple melody of arpeggiated, broken chords played using the chords C, F and G. Those chord symbols are shown above the staff at the appropriate point in time based on the defined chord sequence.
 
 
-```{r chord5, results="hide", eval=FALSE}
+```{r chord7, results="hide", eval=FALSE}
 notes <- "c e g c' e' c' g e g b d' g' f a c' f' c e g e c"
 info <- c("8*20 2", "4*20 1")
 strings <- glue(c(5:1, 2:4, 4:1, 4:1, 5:3, 4:5)) # almost not needed, but for 1st 2 notes of G chord
@@ -112,7 +112,7 @@ In the first version, there is a chord change halfway through a measure. Assign 
 
 Finally, `score` takes a `chord_seq` argument after the `chords` argument. Building on the previous example, here both are passed to `score`.
 
-```{r chord6, results="hide", eval=FALSE}
+```{r chord8, results="hide", eval=FALSE}
 chord_seq <- c(1, 2, 2, 1)
 names(chord_seq) <- names(chords)[c(1, 3:1)] # C G F C
 track(p1) %>% score(chords, chord_seq) %>% tab("ex15.pdf")
@@ -124,7 +124,7 @@ Version two double the duration of all notes. Now the C chord lasts for two full
 
 To illustrate how rests factor into chord sequences, a silent rest is used for measure two. This avoids showing the C chord twice in a row without a chord change in between. Nothing is shown above the staff at this point in time. The final measure of the phrase uses a regular rest, which is not silent. This leads to the "no chord" symbol `N.C.` being printed above the staff. You do not show a chord as lasting longer than a measure by providing values less than one. This example also shows a very simple but also very common case where a song does have every chord in its chord sequence last for exactly one measure.
 
-```{r chord7, results="hide", eval=FALSE}
+```{r chord9, results="hide", eval=FALSE}
 chord_seq <- rep(1, 6)
 names(chord_seq) <- names(chords)[c(1, 5, 3:1, 4)] # C (s) G F C (r)
 track(p2) %>% score(chords, chord_seq) %>% tab("ex16.pdf")
