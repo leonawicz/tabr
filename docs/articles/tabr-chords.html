@@ -121,11 +121,10 @@
     
     
 <div class="contents">
-<p><em>This section is a work in progress. Check back later.</em></p>
 <p>This section introduces the use of chords in <code>tabr</code>. All of the functionality surrounding individual notes in phrases generalizes to chords. Chords symbols can also be displayed above sheet music staves and chord diagrams can be included at the top of sheet music scores using a chord chart. These topics are covered in the subsequent section on tracks and scores. This section here focuses on using chords in <code>phrase</code> where their notation will become part of the content engraved in the sheet music staves.</p>
-<div id="chord-syntax" class="section level3">
-<h3 class="hasAnchor">
-<a href="#chord-syntax" class="anchor"></a>Chord syntax</h3>
+<div id="chord-syntax" class="section level2">
+<h2 class="hasAnchor">
+<a href="#chord-syntax" class="anchor"></a>Chord syntax</h2>
 <p>Like individual pitches, chords and other combinations of simultaneous pitches can be specified in multiple equivalent ways. The only difference is that there are no spaces between the notes. The following are equivalent ways to specify the same open C major chord.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">phrase</span>(<span class="st">"cegc'e' c3e3g3c4e4 cegc4e4"</span>, <span class="dv">4</span>)
 <span class="co">#&gt; &lt;c e g c' e'&gt;4 &lt;c e g c' e'&gt;4 &lt;c e g c' e'&gt;4</span></code></pre></div>
@@ -139,33 +138,100 @@
 <span class="kw">phrase</span>(chords, <span class="dv">4</span>, <span class="st">"5s*3"</span>)
 <span class="co">#&gt; &lt;c\5 e\4 g\3 c'\2 e'\1&gt;4 &lt;c\5 e\4 g\3 c'\2 e'\1&gt;4 &lt;c\5 e\4 g\3 c'\2 e'\1&gt;4</span></code></pre></div>
 </div>
-<div id="chord-syntax-for-chord-diagrams" class="section level2">
+<div id="chord-syntax-for-fretboard-diagrams" class="section level2">
 <h2 class="hasAnchor">
-<a href="#chord-syntax-for-chord-diagrams" class="anchor"></a>Chord syntax for chord diagrams</h2>
+<a href="#chord-syntax-for-fretboard-diagrams" class="anchor"></a>Chord syntax for fretboard diagrams</h2>
 <p>Chord diagrams refer to the fretboard diagrams commonly displayed in sheet music written for guitar. These chord diagram specifications are passed to <code>score</code>, discussed in the next section that brings together the overall process of moving from phrases to tracks to a score. Here, the syntax used to specify chords for chord diagrams is introduced. Below are some chords that appear in a song.</p>
-<p>Note that minor chord names, indicated by <code>m</code>, come after the qualifier <code>:</code>. This is different from how key signatures can be expressed throughout most of <code>tabr</code>, with just a <code>"dm"</code> for example, but the qualifier has more general uses for chord diagrams. There will be more examples of this in a moment. The chords also require position descriptions, because the same chord can be played many ways. This is the part that fully defines the chord diagram. As is standard, <code>x</code> means a string is not played and <code>o</code> refers to an open string. The numbers refer to the fret. The string is six characters representing strings six through one (low to high pitch) from left to right.</p>
+<p>Note that minor chord names, indicated by <code>m</code>, are one of the available chord modifiers. These modifiers come after the separator <code>:</code>. This is different from how key signatures can be expressed throughout most of <code>tabr</code>, with just a <code>"dm"</code> for example, but the modifiers that follow the colon have more general uses for chord diagrams. There will be more examples of this in a moment.</p>
+<p>The chords also require position descriptions, because the same chord can be played many ways. This is the part that fully defines the chord diagram. As is standard, <code>x</code> means a string is not played and <code>o</code> refers to an open string. The numbers refer to the fret. The string is six characters representing strings six through one (low to high pitch) from left to right.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">chord_names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">"d:m"</span>, <span class="st">"f"</span>, <span class="st">"g:m"</span>, <span class="st">"a"</span>)
 chord_positions &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">"xxo231"</span>, <span class="st">"133211"</span>, <span class="st">"355333"</span>, <span class="st">"xo222o"</span>)</code></pre></div>
-<p>To demonstrate the chord chart, make a dummy song and include the chord set. Analogous to <code>phrase</code>, <code>chord_set</code> is a simple function that manipulates the name and position strings into a named character vector of chord entries in a format understood by LilyPond.</p>
+<div id="named-vector-input" class="section level3">
+<h3 class="hasAnchor">
+<a href="#named-vector-input" class="anchor"></a>Named vector input</h3>
+<p>If the chord positions are a named vector, there is no need to pass both positions and names separately to <code>chord_set</code>. It will check the first argument for names before looking to the second argument.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">chords &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chord_set.html">chord_set</a></span>(chord_positions, chord_names)
 chords
 <span class="co">#&gt;            d:m              f            g:m              a </span>
-<span class="co">#&gt; "x;x;o;2;3;1;" "1;3;3;2;1;1;" "3;5;5;3;3;3;" "x;o;2;2;2;o;"</span></code></pre></div>
-<p>The output for the dummy song now contains a chord chart centered at the top of the first page of sheet music.</p>
+<span class="co">#&gt; "x;x;o;2;3;1;" "1;3;3;2;1;1;" "3;5;5;3;3;3;" "x;o;2;2;2;o;"</span>
+
+<span class="kw">names</span>(chord_positions) &lt;-<span class="st"> </span>chord_names
+<span class="kw">identical</span>(chords, <span class="kw"><a href="../reference/chord_set.html">chord_set</a></span>(chord_positions))
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+<p>Analogous to <code>phrase</code>, <code>chord_set</code> is a simple function that manipulates the input strings into a named character vector of chord entries in a format understood by LilyPond.</p>
+</div>
+<div id="chord-chart" class="section level3">
+<h3 class="hasAnchor">
+<a href="#chord-chart" class="anchor"></a>Chord chart</h3>
+<p>Next, to demonstrate the chord chart, make a dummy song and include the chord set. The output for the dummy song now contains a chord chart centered at the top of the first page of sheet music.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"r"</span>, <span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span>track <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/score.html">score</a></span>(chords) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex13.pdf"</span>)</code></pre></div>
 <p align="center">
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex13.png?raw=true" width="100%"></p>
-<p><em>to be continued…</em></p>
 </div>
-<div id="chord-symbols" class="section level2">
-<h2 class="hasAnchor">
-<a href="#chord-symbols" class="anchor"></a>Chord symbols</h2>
-<p>Chord symbols refer to the shorthand chord notation, or chord labels, often shown above chord diagrams as well as above a music staff at the beginning of measures or at each chord change. These are the familiar labels such as <code>C Dm F# F/C</code>.</p>
+<div id="details" class="section level3">
+<h3 class="hasAnchor">
+<a href="#details" class="anchor"></a>Details</h3>
+<p>The next example highlights several facts about chord specification for fretboard diagrams and chord charts.</p>
+<ul>
+<li>There are other chord modifiers besides the common <code>m</code> that follow the <code>:</code> separator including chords such as suspended second and forth chords. See the first two chords below. Common modifiers include <code>m</code>, <code>7</code>, <code>m7</code>, <code>dim</code>, <code>dim7</code>, <code>maj7</code>, <code>6</code>, <code>sus2</code>, <code>sus4</code>, <code>aug</code>, <code>9</code>.</li>
+<li>Chord inversions, or simply any chord described as a chord combined with some alternate bass or root note, are examples of chords notated with a <code>/&lt;note&gt;</code>. This is suffixed to the the chord regardless of whether that places it against an otherwise unmodified chord or after a chord modifier. See the next two chords below.</li>
+<li>Chords played at higher frets, ten and above, require wrapping fret numbers in parentheses. For example, <code>(10)</code> means 10th fret for a given string. This makes it distinct from <code>10</code>, which is first fret and open position for two adjacent strings. See the fifth chord below.</li>
+<li>The same chord name can be assigned to different chord positions. See the next two chords below, both D minor.</li>
+<li>Number of strings on the instrument is inferred from the number of entries in the chord string. However, there is not currently support for different numbers of strings. See the final chord below, which attempts to add a seventh (unplayed) string, duplicating the first Asus2 chord. The <code>x</code> is marked in the output, but no string appears. Similarly, if fewer strings are indicated by the fret positions provided, such as for an instrument with fewer than six strings, this results in erroneously applying them to a subset of the six guitar strings in the fretboard diagram. More general support may come later.</li>
+<li>If a chord vector used for other purposes (see next section on chord sequences) happens to contain <code>r</code> or <code>s</code> entries for rests or silent rests, they are passed through by <code>chord_set</code> but ignored when generating chord charts.</li>
+<li>The chord chart displays chords in the order they were defined.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">chords &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">"xo22oo"</span>, <span class="st">"xo223o"</span>, <span class="st">"xxx565"</span>, <span class="st">"xxx786"</span>, <span class="st">"xx(10)(10)(10)8"</span>, <span class="st">"xxo231"</span>, 
+    <span class="st">"xxx765"</span>, <span class="st">"xxo22oo"</span>, <span class="ot">NA</span>, <span class="ot">NA</span>)
+<span class="kw">names</span>(chords) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">"a:sus2"</span>, <span class="st">"a:sus4"</span>, <span class="st">"f/c"</span>, <span class="st">"g:m/d"</span>, <span class="st">"f"</span>, <span class="st">"d:m"</span>, <span class="st">"d:m"</span>, <span class="st">"a:sus2"</span>, 
+    <span class="st">"r"</span>, <span class="st">"s"</span>)
+chords &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chord_set.html">chord_set</a></span>(chords)
+<span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"r"</span>, <span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span>track <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/score.html">score</a></span>(chords) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex14.pdf"</span>)</code></pre></div>
+<p align="center">
+<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex14.png?raw=true" width="100%"></p>
 </div>
-<div id="chord-sequence" class="section level2">
+</div>
+<div id="chord-symbols-and-sequences" class="section level2">
 <h2 class="hasAnchor">
-<a href="#chord-sequence" class="anchor"></a>Chord sequence</h2>
-<p>In order to place chord symbols in time above a music staff, it is necessary to specify their sequence and the duration of each chord just like is required for all the notes and chords shown in the staff that are created from a sequence of phrase objects.</p>
+<a href="#chord-symbols-and-sequences" class="anchor"></a>Chord symbols and sequences</h2>
+<p>You have already seen chord symbols, placed above the fretboard diagrams above. Chord symbols refer to the shorthand chord notation, or chord labels, often shown above chord diagrams as well as above a music staff at the beginning of measures or at each chord change. These are the familiar labels such as <code>C Dm F# F/C</code>. The next use of chords is placement above the staff in time. This is the chord sequence.</p>
+<p>In order to place chord symbols in time above a music staff, it is necessary to specify their sequence and the duration of each chord, just like is required for all the notes and chords shown inside the staff that are created from a sequence of phrase objects. The two examples below uses a simple melody of arpeggiated, broken chords played using the chords C, F and G. Those chord symbols are shown above the staff at the appropriate point in time based on the defined chord sequence.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">notes &lt;-<span class="st"> "c e g c' e' c' g e g b d' g' f a c' f' c e g e c"</span>
+info &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">"8*20 2"</span>, <span class="st">"4*20 1"</span>)
+strings &lt;-<span class="st"> </span><span class="kw"><a href="../reference/append_phrases.html">glue</a></span>(<span class="kw">c</span>(<span class="dv">5</span><span class="op">:</span><span class="dv">1</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">4</span><span class="op">:</span><span class="dv">1</span>, <span class="dv">4</span><span class="op">:</span><span class="dv">1</span>, <span class="dv">5</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">4</span><span class="op">:</span><span class="dv">5</span>))  <span class="co"># almost not needed, but for 1st 2 notes of G chord</span>
+p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/phrase.html">p</a></span>(notes, info[<span class="dv">1</span>], strings)
+p2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/phrase.html">p</a></span>(notes, info[<span class="dv">2</span>], strings)
+chords &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chord_set.html">chord_set</a></span>(<span class="kw">c</span>(<span class="dt">c =</span> <span class="st">"x32o1o"</span>, <span class="dt">f =</span> <span class="st">"xx3211"</span>, <span class="dt">g =</span> <span class="st">"xx5433"</span>, <span class="dt">r =</span> <span class="ot">NA</span>, <span class="dt">s =</span> <span class="ot">NA</span>))</code></pre></div>
+<div id="chord-sequence" class="section level3">
+<h3 class="hasAnchor">
+<a href="#chord-sequence" class="anchor"></a>Chord sequence</h3>
+<p>In the first version, there is a chord change halfway through a measure. Assign beat duration information for each chord in the sequence just as you would with the <code>info</code> argument to <code>phrase</code>, e.g., half a measure is given with <code>2</code>. The C chord is played for a full measure both times while the F and G chords each last half a measure. The chord sequence is named just like <code>chords</code> above. This is how the correct chord symbol is applied above the staff at the correct time. Taking the names directly from <code>chords</code> as a chord dictionary for the song is the suggested way to avoid having to type chord symbols repeatedly.</p>
+<p>Finally, <code>score</code> takes a <code>chord_seq</code> argument after the <code>chords</code> argument. Building on the previous example, here both are passed to <code>score</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">chord_seq &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>)
+<span class="kw">names</span>(chord_seq) &lt;-<span class="st"> </span><span class="kw">names</span>(chords)[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span><span class="op">:</span><span class="dv">1</span>)]  <span class="co"># C G F C</span>
+<span class="kw"><a href="../reference/track.html">track</a></span>(p1) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/score.html">score</a></span>(chords, chord_seq) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex15.pdf"</span>)</code></pre></div>
+<p align="center">
+<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex15.png?raw=true" width="100%"></p>
+</div>
+<div id="using-rests" class="section level3">
+<h3 class="hasAnchor">
+<a href="#using-rests" class="anchor"></a>Using rests</h3>
+<p>Version two double the duration of all notes. Now the C chord lasts for two full measures while the F and G chords are played for one measure each. You can always specify a chord for every measure, in this case providing the C chord in the sequence twice in a row for one measure each. However, this example uses rests. Note the inclusion of <code>r</code> and <code>s</code> in the current <code>chords</code> vector.</p>
+<p>To illustrate how rests factor into chord sequences, a silent rest is used for measure two. This avoids showing the C chord twice in a row without a chord change in between. Nothing is shown above the staff at this point in time. The final measure of the phrase uses a regular rest, which is not silent. This leads to the “no chord” symbol <code>N.C.</code> being printed above the staff. You do not show a chord as lasting longer than a measure by providing values less than one. This example also shows a very simple but also very common case where a song does have every chord in its chord sequence last for exactly one measure.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">chord_seq &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>, <span class="dv">6</span>)
+<span class="kw">names</span>(chord_seq) &lt;-<span class="st"> </span><span class="kw">names</span>(chords)[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">3</span><span class="op">:</span><span class="dv">1</span>, <span class="dv">4</span>)]  <span class="co"># C (s) G F C (r)</span>
+<span class="kw"><a href="../reference/track.html">track</a></span>(p2) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/score.html">score</a></span>(chords, chord_seq) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex16.pdf"</span>)</code></pre></div>
+<p align="center">
+<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex16.png?raw=true" width="100%"></p>
+</div>
+<div id="overall-picture" class="section level3">
+<h3 class="hasAnchor">
+<a href="#overall-picture" class="anchor"></a>Overall picture</h3>
+<p>Since the chord chart is included and was only shown in prior examples zoomed in, here is the result above showing the full sheet, which includes the staves and chord symbols, the chord chart positioned top center, and for perspective the page numbering in the top right corner.</p>
+<p align="center">
+<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex16b.png?raw=true" width="100%"></p>
+<p>To sum up, chords are used in <code>tabr</code> in three ways. Using <code>phrase</code>, they appear among other notes in staves as the core component of the music transcription. They are also used by <code>score</code> to generate chord charts using fretboard diagrams that summarize all the chords that occur in a song. Finally, the same chord symbols can be listed in sequence with corresponding durations to be applied above a music staff, showing the chord progression throughout the song in proper time.</p>
+</div>
 </div>
 </div>
   </div>
@@ -175,9 +241,9 @@ chords
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#chord-syntax-for-chord-diagrams">Chord syntax for chord diagrams</a></li>
-      <li><a href="#chord-symbols">Chord symbols</a></li>
-      <li><a href="#chord-sequence">Chord sequence</a></li>
+<li><a href="#chord-syntax">Chord syntax</a></li>
+      <li><a href="#chord-syntax-for-fretboard-diagrams">Chord syntax for fretboard diagrams</a></li>
+      <li><a href="#chord-symbols-and-sequences">Chord symbols and sequences</a></li>
       </ul>
 </div>
       </div>
