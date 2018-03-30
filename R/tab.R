@@ -61,6 +61,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", hea
   paper <- do.call(.lp_paper, paper_args)
   chords <- attributes(score)$chords
   has_chords <- !is.null(chords)
+  if(has_chords) chords <- chords[!names(chords) %in% c("r", "s")]
   chord_seq <- attributes(score)$chord_seq
   has_chord_seq <- !is.null(chord_seq)
   if(has_chords){
