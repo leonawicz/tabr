@@ -15,8 +15,6 @@ library(tabr)
 tabr_options(lilypond = "C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe")
 ```
 
-*This section is a work in progress. Check back later.*
-
 This section introduces the use of chords in `tabr`. All of the functionality surrounding individual notes in phrases generalizes to chords. Chords symbols can also be displayed above sheet music staves and chord diagrams can be included at the top of sheet music scores using a chord chart. These topics are covered in the subsequent section on tracks and scores. This section here focuses on using chords in `phrase` where their notation will become part of the content engraved in the sheet music staves.
 
 ### Chord syntax
@@ -45,20 +43,26 @@ phrase(chords, 4, "5s*3")
 
 Chord diagrams refer to the fretboard diagrams commonly displayed in sheet music written for guitar. These chord diagram specifications are passed to `score`, discussed in the next section that brings together the overall process of moving from phrases to tracks to a score. Here, the syntax used to specify chords for chord diagrams is introduced. Below are some chords that appear in a song.
 
-Note that minor chord names, indicated by `m`, come after the qualifier `:`. This is different from how key signatures can be expressed throughout most of `tabr`, with just a `"dm"` for example, but the qualifier has more general uses for chord diagrams. There will be more examples of this in a moment. The chords also require position descriptions, because the same chord can be played many ways. This is the part that fully defines the chord diagram. As is standard, `x` means a string is not played and `o` refers to an open string. The numbers refer to the fret. The string is six characters representing strings six through one (low to high pitch) from left to right.
+Note that minor chord names, indicated by `m`, are one of the available chord modifiers. These modifiers come after the separator `:`. This is different from how key signatures can be expressed throughout most of `tabr`, with just a `"dm"` for example, but the modifiers that follow the colon have more general uses for chord diagrams. There will be more examples of this in a moment. The chords also require position descriptions, because the same chord can be played many ways. This is the part that fully defines the chord diagram. As is standard, `x` means a string is not played and `o` refers to an open string. The numbers refer to the fret. The string is six characters representing strings six through one (low to high pitch) from left to right.
 
 ```{r chord3}
 chord_names <- c("d:m", "f", "g:m", "a")
 chord_positions <- c("xxo231", "133211", "355333", "xo222o")
 ```
 
-To demonstrate the chord chart, make a dummy song and include the chord set. Analogous to `phrase`, `chord_set` is a simple function that manipulates the name and position strings into a named character vector of chord entries in a format understood by LilyPond.
+If the chord positions are a named vector, there is no need to pass both positions and names separately to `chord_set`. It will check the first argument for names before looking to the second argument.
 
 ```{r chord4}
 chords <- chord_set(chord_positions, chord_names)
 chords
+
+names(chord_positions) <- chord_names
+identical(chords, chord_set(named_positions))
 ```
 
+Analogous to `phrase`, `chord_set` is a simple function that manipulates the input strings into a named character vector of chord entries in a format understood by LilyPond.
+
+Next, to demonstrate the chord chart, make a dummy song and include the chord set. 
 The output for the dummy song now contains a chord chart centered at the top of the first page of sheet music.
 
 ```{r chord5, results="hide", eval=FALSE}
@@ -67,15 +71,72 @@ p("r", 1) %>% track %>% score(chords) %>% tab("ex13.pdf")
 
 <p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex13.png?raw=true" width="100%"></p>
 
-*to be continued...*
+The next example highlights several facts about chord specification for fretboard diagrams and chord charts.
+
+*    There are other chord modifiers besides the common `m` that follow the `:` separator including chords such as suspended second and forth chords. See the first two chords below. Common modifiers include `m`, `7`, `m7`, `dim`, `dim7`, `maj7`, `6`, `sus2`, `sus4`, `aug`, `9`.
+*    Chord inversions, or simply any chord described as a chord combined with some alternate bass or root note, are examples of chords notated with a `/<note>`. This is suffixed to the the chord regardless of whether that places it against an otherwise unmodified chord or after a chord modifier. See the next two chords below.
+*    Chords played at higher frets, ten and above, require wrapping fret numbers in parentheses. For example, `(10)` means 10th fret for a given string. This makes it distinct from `10`, which is first fret and open position for two adjacent strings. See the fifth chord below.
+*    The same chord name can be assigned to different chord positions. See the next two chords below, both D minor.
+*    Number of strings on the instrument is inferred from the number of entries in the chord string. However, there is not currently support for different numbers of strings. See the final chord below, which attempts to add a seventh (unplayed) string, duplicating the first Asus2 chord. The `x` is marked in the output, but no string appears. Similarly, if fewer strings are indicated by the fret positions provided, such as for an instrument with fewer than six strings, this results in erroneously applying them to a subset of the six guitar strings in the fretboard diagram. More general support may come later.
+*    If a chord vector used for other purposes (see next section on chord sequences) happens to contain `r` or `s` entries for rests or silent rests, they are passed through by `chord_set` but ignored when generating chord charts. 
+*    The chord chart displays chords in the order they were defined.
+
+```{r chord6, results="hide", eval=FALSE}
+chords <- c("xo22oo", "xo223o", "xxx565", "xxx786", "xx(10)(10)(10)8", "xxo231", "xxx765", "xxo22oo", NA, NA)
+names(chords) <- c("a:sus2", "a:sus4", "f/c", "g:m/d", "f", "d:m", "d:m", "a:sus2", "r", "s")
+chords <- chord_set(chords)
+p("r", 1) %>% track %>% score(chords) %>% tab("ex14.pdf")
+```
+
+<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex14.png?raw=true" width="100%"></p>
 
 ## Chord symbols
 
-Chord symbols refer to the shorthand chord notation, or chord labels, often shown above chord diagrams as well as above a music staff at the beginning of measures or at each chord change. These are the familiar labels such as `C Dm F# F/C`.
+You have already seen chord symbols, placed above the fretboard diagrams above. Chord symbols refer to the shorthand chord notation, or chord labels, often shown above chord diagrams as well as above a music staff at the beginning of measures or at each chord change. These are the familiar labels such as `C Dm F# F/C`. The next use of chords is placement above the staff in time. This is the chord sequence.
 
 ## Chord sequence
 
-In order to place chord symbols in time above a music staff, it is necessary to specify their sequence and the duration of each chord just like is required for all the notes and chords shown in the staff that are created from a sequence of phrase objects.
+In order to place chord symbols in time above a music staff, it is necessary to specify their sequence and the duration of each chord, just like is required for all the notes and chords shown inside the staff that are created from a sequence of phrase objects. The two examples below uses a simple melody of arpeggiated, broken chords played using the chords C, F and G. Those chord symbols are shown above the staff at the appropriate point in time based on the defined chord sequence.
+
+
+```{r chord5, results="hide", eval=FALSE}
+notes <- "c e g c' e' c' g e g b d' g' f a c' f' c e g e c"
+info <- c("8*20 2", "4*20 1")
+strings <- glue(c(5:1, 2:4, 4:1, 4:1, 5:3, 4:5)) # almost not needed, but for 1st 2 notes of G chord
+p1 <- p(notes, info[1], strings)
+p2 <- p(notes, info[2], strings)
+chords <- chord_set(c(c = "x32o1o", f = "xx3211", g = "xx5433", r = NA, s = NA))
+```
+
+In the first version, there is a chord change halfway through a measure. Assign beat duration information for each chord in the sequence just as you would with the `info` argument to `phrase`, e.g., half a measure is given with `2`. The C chord is played for a full measure both times while the F and G chords each last half a measure. The chord sequence is named just like `chords` above. This is how the correct chord symbol is applied above the staff at the correct time. Taking the names directly from `chords` as a chord dictionary for the song is the suggested way to avoid having to type chord symbols repeatedly.
+
+Finally, `score` takes a `chord_seq` argument after the `chords` argument. Building on the previous example, here both are passed to `score`.
+
+```{r chord6, results="hide", eval=FALSE}
+chord_seq <- c(1, 2, 2, 1)
+names(chord_seq) <- names(chords)[c(1, 3:1)] # C G F C
+track(p1) %>% score(chords, chord_seq) %>% tab("ex15.pdf")
+```
+
+<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex15.png?raw=true" width="100%"></p>
+
+Version two double the duration of all notes. Now the C chord lasts for two full measures while the F and G chords are played for one measure each. You can always specify a chord for every measure, in this case providing the C chord in the sequence twice in a row for one measure each. However, this example uses rests. Note the inclusion of `r` and `s` in the current `chords` vector.
+
+To illustrate how rests factor into chord sequences, a silent rest is used for measure two. This avoids showing the C chord twice in a row without a chord change in between. Nothing is shown above the staff at this point in time. The final measure of the phrase uses a regular rest, which is not silent. This leads to the "no chord" symbol `N.C.` being printed above the staff. You do not show a chord as lasting longer than a measure by providing values less than one. This example also shows a very simple but also very common case where a song does have every chord in its chord sequence last for exactly one measure.
+
+```{r chord7, results="hide", eval=FALSE}
+chord_seq <- rep(1, 6)
+names(chord_seq) <- names(chords)[c(1, 5, 3:1, 4)] # C (s) G F C (r)
+track(p2) %>% score(chords, chord_seq) %>% tab("ex16.pdf")
+```
+
+<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex16.png?raw=true" width="100%"></p>
+
+Since the chord chart is included and was only shown in prior examples zoomed in, here is the result above showing the full sheet, which includes the staves and chord symbols, the chord chart positioned top center, and for perspective the page numbering in the top right corner.
+
+<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex16b.png?raw=true" width="100%"></p>
+
+To sum up, chords are used in `tabr` in three ways. Using `phrase`, they appear among other notes in staves as the core component of the music transcription. They are also used by `score` to generate chord charts using fretboard diagrams that summarize all the chords that occur in a song. Finally, the same chord symbols can be listed in sequence with corresponding durations to be applied above a music staff, showing the chord progression throughout the song in proper time.
 
 ```{r cleanup, echo=FALSE}
 unlink("*.mid")
