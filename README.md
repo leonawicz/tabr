@@ -9,7 +9,7 @@ Overview
 --------
 
 <p style="text-align:center;">
-<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/tabr_logo.png?raw=true" width="100%">
+<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/tabr_logo.png?raw=true" width="400" align="center">
 </p>
 <br/>
 
