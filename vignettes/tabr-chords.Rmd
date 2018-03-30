@@ -57,7 +57,7 @@ chords <- chord_set(chord_positions, chord_names)
 chords
 
 names(chord_positions) <- chord_names
-identical(chords, chord_set(named_positions))
+identical(chords, chord_set(chord_positions))
 ```
 
 Analogous to `phrase`, `chord_set` is a simple function that manipulates the input strings into a named character vector of chord entries in a format understood by LilyPond.
