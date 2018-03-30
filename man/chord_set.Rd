@@ -4,12 +4,12 @@
 \alias{chord_set}
 \title{Generate a chord set}
 \usage{
-chord_set(x, id)
+chord_set(x, id = NULL)
 }
 \arguments{
-\item{x}{character, six-string chord description from lowest to highest pitch, strings 6 through 1, e.g., the open A minor chord in standard tuning is \code{"xo221o"}.}
+\item{x}{character, n-string chord description from lowest to highest pitch, strings n through 1. E.g., \code{"xo221o"}. See details.}
 
-\item{id}{character, the name of the chord in LilyPond readable format, e.g., \code{"a:m"}.}
+\item{id}{character, the name of the chord in LilyPond readable format, e.g., \code{"a:m"}. Ignored if \code{x} is already a named vector.}
 }
 \value{
 a named list.
@@ -18,11 +18,14 @@ a named list.
 Generate a chord set for a music score.
 }
 \details{
-The chord set is a named list. The names are the chords and the list elements are strings defining string and fret fingering readable by LilyPond.
+The chord set list returned by \code{chord_set} is only used for top center placement of a full set of chord fretboard diagrams for a music score.
+\code{chord_set} returns a named list. The names are the chords and the list elements are strings defining string and fret fingering readable by LilyPond.
 Multiple chord positions can be defined for the same chord name.
-When defining chords, you may also wish to define rests or silence for chords added to a score for placement above the staff in time,
-where no chord is to be played, though this will be excluded from the chord set as unnecessary.
-The chord set list output by \code{chord_set} is only used for top center placement of a full set of chord diagrams for a music score.
+Instruments with a number of strings other than six are not currently supported.
+
+When defining chords, you may also wish to define rests or silence for chords added to a score for placement above the staff in time, where no chord is to be played.
+Therefore, there are occasions where you may pass chord names and positions that happen to include entries \code{r} and/or \code{s} as \code{NA} as shown in the example.
+These two special cases are passed through by \code{chord_set} but are ignored when the chord chart is generated.
 }
 \examples{
 chord_names <- c("e:m", "c", "d", "e:m", "d", "r", "s")
