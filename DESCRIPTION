@@ -18,7 +18,8 @@ Suggests:
     testthat,
     knitr,
     rmarkdown,
-    covr
+    covr,
+    kableExtra
 Imports: 
     magrittr,
     dplyr,
