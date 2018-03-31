@@ -61,6 +61,7 @@ reference:
   - starts_with("%")
 - title: Datasets
   contents:
+  - tabrSyntax
   - tunings
 
 navbar:

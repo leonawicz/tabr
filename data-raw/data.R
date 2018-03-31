@@ -21,4 +21,10 @@
 
 tunings <- data.frame(id = names(.predefined_tunings), value = .predefined_tunings,
                       row.names = NULL, stringsAsFactors = FALSE)
-usethis::use_data(tunings)
+
+.syntax_desc <- c("note/pitch", "sharp", "flat", "drop or raise one octave", "octave number", "tied notes", "note duration", "dotted note", "slide", "bend", "staccato", "muted/dead note", "slur/hammer/pull off", "rest", "silent rest", "expansion operator")
+.syntax_id <- c("a b ... g", "#", "_", ", or '", "0 1 ...", "~", "2^n", ".", "-", "^", "]", "x", "()", "r", "s", "*")
+.syntax_example <- c("a", "a#", "a_", "a, a a'", "a2 a3 a4", "a~ a", "1 2 4 8 16", "2. 2..", "2-", "2^", "2[", "2x", "2( 2)", "r", "s", "ceg*8, 1*4")
+tabrSyntax <- data.frame(description = .syntax_desc, syntax = .syntax_id, example = .syntax_example)
+
+usethis::use_data(tunings, tabrSyntax)

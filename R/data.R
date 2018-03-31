@@ -10,3 +10,10 @@
   if(!length(grep(" ", x)) || length(grep("[h-zA-Z]", x))) stop("Invalid `tuning`.")
   .octavesub(x)
 }
+
+#' tabr syntax.
+#'
+#' A data frame containing descriptions of syntax used in phrase construction in tabr.
+#'
+#' @format A data frame with 3 columns for syntax description, operators and examples.
+"tabrSyntax"
