@@ -12,7 +12,6 @@ knitr::opts_chunk$set(
   collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, tidy = TRUE, out.width = "100%"
 )
 library(tabr)
-library(kableExtra)
 ```
 
 ```{r syntax, echo=FALSE}
@@ -20,7 +19,7 @@ x <- tabrSyntax
 x$syntax <- gsub("\\-", "\\\\-", gsub("\\*", "\\\\*", x$syntax))
 x$example <- gsub("\\*", "\\\\*", x$example)
 x %>% knitr::kable("html", escape = TRUE, align = "c", caption = "tabr::tabrSyntax") %>%
-  kable_styling(bootstrap_options = c("striped", "condensed"), position = "float_right", full_width = FALSE)
+  kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), position = "float_right", full_width = FALSE)
 ```
 
 ## Overview
