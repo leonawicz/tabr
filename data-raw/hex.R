@@ -5,7 +5,7 @@ img <- "data-raw/hexsubplot.png"
 out <- "data-raw/tabr.png"
 mult <- 4 # multiplier for larger sticker size, prevents pixelated subplot image text.
 
-sticker(img, 1, 0.8, 0.9, 1, "tabr", p_size = mult * 48, h_size = mult * 1.2, h_fill = "firebrick1",
+sticker(img, 1, 0.8, 0.8, 1, "tabr", p_size = mult * 48, h_size = mult * 1.2, h_fill = "firebrick1",
         h_color = "gray20", url = "leonawicz.github.io/tabr", u_color = "white", u_size = mult * 3,
         filename = out)
 
