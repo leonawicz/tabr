@@ -38,7 +38,7 @@ glue(dup(p1, 2), rp(p1)) %>% track %>% score %>% tab("example17.pdf")
 
 <p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex17.png?raw=true" width="100%"></p>
 
-In the tablature output above, the first two measures pertaining to the use of `dup` are identical to the last two resulting from `rp`. Unfolding a repeated section is no different than writing it out fully. `rp` represents a shorting of LilyPond markup by applying the `\repeat \unfold 2` tag around the music. The `2` shown is the number of plays, `n + 1`, even though the number of repeats, `n`, was provided to `rp`. Think of `dup` as a more general purpose helper function in `tabr` for pasting copies of strings together whereas `rp` might be used when you are thinking more specifically about meaningful, discrete section of music.
+In the tablature output above, the first two measures pertaining to the use of `dup` are identical to the last two resulting from `rp`. Unfolding a repeated section is no different than writing it out fully. `rp` represents a shortening of LilyPond markup by applying the `\repeat \unfold 2` tag around the music. The `2` shown is the number of plays, `n + 1`, even though the number of repeats, `n`, was provided to `rp`. Think of `dup` as a more general purpose helper function in `tabr` for pasting copies of strings together whereas `rp` might be used when you are thinking more specifically about meaningful, discrete section of music.
 
 ### Aside on `n`
 
@@ -64,9 +64,6 @@ glue(pct(p1, 3), pct(p2, 3)) %>% track %>% score %>% tab("example18.pdf")
 <p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex18.png?raw=true" width="100%"></p>
 
 It is nice to not have to stare at those rapid bar chords in every measure. The earlier measures are also shorter as a result of not having to display all the notes.
-
-Also, note that you could not have used `rp` instead of `dup` inside the call to `phrase` above. Repeat functions are too specific. They can wrap around phrases and can be pasted together as part of a larger phrase, but they cannot be used inside `phrase` because they do not fit the simple definitions of any of the function arguments. Their output already represents a complete phrase object.
-
 
 ## Volta repeats
 

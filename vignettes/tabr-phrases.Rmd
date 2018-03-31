@@ -12,7 +12,18 @@ knitr::opts_chunk$set(
   collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, tidy = TRUE, out.width = "100%"
 )
 library(tabr)
+library(kableExtra)
 ```
+
+```{r syntax, echo=FALSE}
+x <- tabrSyntax
+x$syntax <- gsub("\\-", "\\\\-", gsub("\\*", "\\\\*", x$syntax))
+x$example <- gsub("\\*", "\\\\*", x$example)
+x %>% knitr::kable("html", escape = TRUE, align = "c", caption = "tabr::tabrSyntax") %>%
+  kable_styling(bootstrap_options = c("striped", "condensed"), position = "float_right", full_width = FALSE)
+```
+
+## Overview
 
 This section goes into deeper detail on building musical phrases out of individual notes using the various component parts available for phrase construction. It also describes how to add information, note metadata, to the notes in a phrase so that the phrase is defined unambiguously.
 
@@ -21,6 +32,8 @@ As mentioned in the last section, phrases in `tabr` do not require a strict defi
 Writing out music in R code is not intended to be any more readable than writing out LilyPond markup. The driving motivation here is a preference for avoiding writing LilyPond markup directly, aimed at people who specifically want to do this from R. Care must still be taken to not write phrases that are so long and complex that even you can not adequately parse their information by eye afterward.
 
 The opening section showed a basic example using a single, and very simple, phrase. This section will cover phrases that include notes and rests of different duration, slides, hammer ons and pull offs, simple string bends, and various other elements. Phrases will become longer and more visually complex. There is no way around this fact. But with proper care they can be kept manageable and interpretable, depending on your comfort level with music theory, notation and R programming.
+
+Before diving in, take a look at the table to the right for an overview of some syntax and operators that are used throughout this section.
 
 ## Notes
 
