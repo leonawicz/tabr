@@ -11,17 +11,132 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, tidy = TRUE, out.width = "100%"
 )
-library(tabr)
-tabr_options(lilypond = "C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe")
 ```
 
 Attention has been given to minimizing typing and keeping the R code short, particularly when the music is repetitive. However, this also needs to be extended to the tablature itself. Sheet music makes use of various styles of repeat notation to keep the number of pages for a song transcription from expanding needlessly. 
 
-`tabr` offers three functions for common ways to use repeats with LilyPond and in sheet music. The first is `rp`. (Unfortunately, both `rep` and `repeat` are already integral to R, but think of `rp` as "repeat" or even "repeat phrase") This function is the only one that does not reduce the length of the guitar tablature. It only serves to shorten code, specifically the resulting LilyPond syntax. `rp` does *unfolds* repeated sections of music so that in the output the music will be explicitly written out on the staff however many times.
+`tabr` offers three functions for common ways to use repeats with LilyPond and in sheet music. The first is `rp`. (Unfortunately, both `rep` and `repeat` are already integral to R, but think of `rp` as "repeat" or even "repeat phrase") This function is the only one that does not reduce the length of the guitar tablature. It only serves to shorten code. `rp` *unfolds* repeated sections of music so that in the output the music is explicitly written out on the staff however many times.
 
-The other two functions are `pct` and `volta`. These functions do shorten the tablature output. `pct` is useful for simple repetition of individual beats or of full measures or bars of music. `volta` is useful for repeating entire measures, optionally with alternate endings. `volta` is the standard approach when alternate section endings are present.
+The other two functions are `pct` and `volta`. These functions do shorten the tablature output. `pct` is for percent repeat notation. It is useful for simple repetition of individual beats or of full measures or bars of music. `volta` is useful for repeating entire measures, optionally with alternate endings. `volta` is the standard approach when alternate section endings are present. All three functions operate similarly and share the same perspective on repeated sections of music even though some of their arguments as well as their results differ.
 
-*This and subsequent tutorial sections will be continued/added soon...*
+## Unfolded repeats
+
+You have already seen how `dup` is used to duplicate or repeat phrases and character strings `n` times. This helps keep R code shorter for repetitive music. However, this does nothing for the resulting LilyPond markup or the final sheet music output. It is strictly to limit repetitive typing and used more generally than for section repeats. `rp` achieves the same result. It does not shorten the music transcription. It is the simplest of the collection of repeat functions that apply LilyPond repeat tags around phrase objects.
+
+Take the following phrase as an example. Note the difference in `n` and the results of `dup` vs. `rp`.
+
+```{r rep1}
+library(tabr)
+p1 <- p("c e g c' e' c' g e", 8)
+dup(p1, 2) # repeat n = 2 times
+rp(p1, 1) # repeat once (n = 1), or play twice (n + 1)
+```
+
+```{r rep1b, results="hide", eval=FALSE}
+glue(dup(p1, 2), rp(p1)) %>% track %>% score %>% tab("example17.pdf")
+```
+
+<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex17.png?raw=true" width="100%"></p>
+
+In the tablature output above, the first two measures pertaining to the use of `dup` are identical to the last two resulting from `rp`. Unfolding a repeated section is no different than writing it out fully. `rp` represents a shorting of LilyPond markup by applying the `\repeat \unfold 2` tag around the music. The `2` shown is the number of plays, `n + 1`, even though the number of repeats, `n`, was provided to `rp`. Think of `dup` as a more general purpose helper function in `tabr` for pasting copies of strings together whereas `rp` might be used when you are thinking more specifically about meaningful, discrete section of music.
+
+### Aside on `n`
+
+The argument `n` in the three section repeat functions behaves slightly differently from `n` in `dup`. For the three functions dedicated to notating section repeats in sheet music, `n` refers to the number of *repeats*, not the total number of plays. This is for a few reasons. First, there is never any reason to use any of these functions when the number of plays is one and the number of repeats is zero. The actual number of repeats, one less than than the number of plays, should still always be a positive integer. Second, it is also extremely common that the number of repeats desired is one. This means not having to enter `n = 2` as a change from the default all those times these functions are called, which would be required if `n` represented the number of plays. Of course, the default could be `n = 2` in that case and the functions could also reject user attempts to specify `n` less than two. But this is an atypical default for such functions and given the context here is that the number of repeats is never zero when these functions are used, it is sensible to have `n` refer to the number of repeats and count from one.
+
+*But I still might change my mind about `n`.*
+
+## Percent repeats
+
+Like `rp`, `pct` does not remove measures of music in the tablature output. However, percent repeat symbols can shorten sheet music in so much as they may make measures of music smaller in size as a result of having nothing else to print in the measure but the repeat symbol itself. They can also make the transcription less messy or straining on the eyes particularly when the section being repeated with percent symbols is one that uses a lot of ink on the page.
+
+The next example uses `pct` with the previous phrase and follows with a high ink measure using percent repeats for another four measures.
+
+```{r rep2}
+pct(p1, 3)
+```
+
+```{r rep2b, results="hide", eval=FALSE}
+p2 <- p("g,b,dgbg'*16", 16)
+glue(pct(p1, 3), pct(p2, 3)) %>% track %>% score %>% tab("example18.pdf")
+```
+
+<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex18.png?raw=true" width="100%"></p>
+
+It is nice to not have to stare at those rapid bar chords in every measure. The earlier measures are also shorter as a result of not having to display all the notes.
+
+Also, note that you could not have used `rp` instead of `dup` inside the call to `phrase` above. Repeat functions are too specific. They can wrap around phrases and can be pasted together as part of a larger phrase, but they cannot be used inside `phrase` because they do not fit the simple definitions of any of the function arguments. Their output already represents a complete phrase object.
+
+
+## Volta repeats
+
+Finally there is the `volta` repeat function. Unlike `rp` and `pct`, `volta` must be applied to whole measures of music. The endings also must be whole measures. It is also the only way to specify repeats with alternate endings, though not required. In either case, this type of repeat notation does remove entire measures of music from the output.
+
+The examples below uses `volta` with the original phrase various endings. Here are the endings.
+
+```{r rep3}
+e1 <- p("f a c' f'", 4)
+e2 <- p("c*8", 8)
+e3 <- p("cegc'e'", 1)
+```
+
+### No alternate endings
+
+When `n = 1` repeat, `volta` simply adds the double bars around the section. With no other annotation in the sheet music, it is assumed that the section is repeated one time. When `n` is greater than one, annotation appears clarifying the number of times to play the section.
+
+```{r rep3b}
+volta(p1)
+volta(p1, 2)
+```
+
+For brevity, concatenate both of these. Note that the volta repeat bar at the beginning of a repeated section is omitted from the staff if it occurs at the start of the song.
+
+```{r rep3c, results="hide", eval=FALSE}
+glue(volta(p1), volta(p1, 2)) %>% track %>% score %>% tab("example19.pdf")
+```
+
+<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex19.png?raw=true" width="100%"></p>
+
+There are instances where you want to suppress this annotation. Specifically, if there are multiple tab staffs present, there is no need to print the same annotation above every staff other than the top one. Also, there is the edge case where notes in the section may already have annotations attached to them via `notate`, in which case the above annotation may get in the way. It can be suppressed in `volta` with `silent = TRUE`.
+
+### Single alternate ending
+
+When alternate endings are used with `volta`, the annotation above the staff is never included because the number of times the section is played is clear from the explicit endings numbering. Note that when the number of repeats exceeds the number of alternate endings, the initial alternate ending is reused first until the number of remaining repeats are covered by the alternate endings. The subsequent alternate endings are not recycled.
+
+To be clear, the phrase passed to `volta` does not contain or represent its own implicit default ending. When used without alternate endings, there is no "ending"; it is just the phrase. When alternate endings are provided, they represent all endings. The first alternate is the "default" if you want to think of it this way.
+
+```{r rep3d}
+volta(p1, 1, e1)
+volta(p1, 2, e1)
+```
+
+As before, concatenate the above two examples. For the remaining examples using alternate endings, a single measure of a whole note C is added after repeated sections to separate them and provide a better sense of the context.
+
+```{r rep3e, results="hide", eval=FALSE}
+c1 <- p("c", 1)
+glue(volta(p1, 1, e1), c1, volta(p1, 2, e1), c1) %>% track %>% score %>% tab("example20.pdf")
+```
+
+<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex20.png?raw=true" width="100%"></p>
+
+### Multiple alternate endings
+
+Multiple alternate endings work similarly to single. The first ending is recycled if necessary. Subsequent endings are used once. If you want to use these subsequent ending more than once, just provide it accordingly. Clearly, there is no reason to provide more endings than the number of times the section is played. If extra endings are providing, LilyPond will issue a warning when rendering the document notifying that there are more alternates than repeats and that the excess have been ignored.
+
+```{r rep3f}
+x1 <- volta(p1, 2, list(e1, e2, e3))
+x2 <- volta(p1, 2, list(e1, e2))
+x3 <- volta(p1, 2, e1)
+x1
+x2
+x3
+```
+
+```{r rep3g, results="hide", eval=FALSE}
+glue(x1, c1, x2, c1, x3, c1) %>% track %>% score %>% tab("example21.pdf")
+```
+
+<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex21.png?raw=true" width="100%"></p>
 
 ```{r cleanup, echo=FALSE}
 unlink("*.mid")
