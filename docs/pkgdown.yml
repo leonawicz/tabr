@@ -1,6 +1,6 @@
-urls:
-  reference: http://leonawicz.github.io//reference
-  article: http://leonawicz.github.io//articles
+pandoc: 1.19.2.1
+pkgdown: 0.1.0.9000
+pkgdown_sha: b074c575119c35459f544f15e3dae3a6d617d9bb
 articles:
   tabr-basics: tabr-basics.html
   tabr-chords: tabr-chords.html
@@ -12,4 +12,7 @@ articles:
   tabr-repeats: tabr-repeats.html
   tabr-tracks-scores: tabr-tracks-scores.html
   tabr-tunings: tabr-tunings.html
+urls:
+  reference: http://leonawicz.github.io//reference
+  article: http://leonawicz.github.io//articles
 

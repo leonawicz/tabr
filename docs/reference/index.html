@@ -18,13 +18,16 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+<meta property="og:title" content="Function reference" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -46,6 +49,8 @@
 
 </script>
 
+
+
   </head>
 
   <body>
@@ -59,8 +64,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">tabr</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">tabr</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -130,6 +139,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -137,238 +147,233 @@
       
       </header>
 
-      <div class="row">
-  <div class="col-md-9">
+<div class="row">
+  <div class="contents col-md-9">
     <div class="page-header">
-      <h1>
-        Reference
-        <small>version&nbsp;0.1.0</small>
-      </h1>
+      <h1>Reference</h1>
     </div>
 
-    <div class="contents">
-      <table class="ref-index">
+    <table class="ref-index">
 
-      <colgroup>
-        <col class="alias" />
-        <col class="title" />
-      </colgroup>
+    <colgroup>
+      <col class="alias" />
+      <col class="title" />
+    </colgroup>
 
-      <tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-package" class="hasAnchor"><a href="#section-package" class="anchor"></a>Package</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="tabr.html">tabr</a></code> </p>
-          </td>
-          <td><p>tabr: Guitar tablature and sheet music engraving.</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-create-tablature" class="hasAnchor"><a href="#section-create-tablature" class="anchor"></a>Create tablature</h2>
-            <p class="section-desc"><p>Functions for writing and rendering LilyPond files.</p></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="tab.html">tab</a></code> </p>
-          </td>
-          <td><p>Create tablature</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="lilypond.html">lilypond</a></code> </p>
-          </td>
-          <td><p>Save score to LilyPond file</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="tabr_options.html">tabr_options</a></code> </p>
-          </td>
-          <td><p>Options</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-organizing-music" class="hasAnchor"><a href="#section-organizing-music" class="anchor"></a>Organizing music</h2>
-            <p class="section-desc"><p>Functions for hierarchical music notation organization.</p></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="phrase.html">phrase</a></code> <code><a href="phrase.html">p</a></code> </p>
-          </td>
-          <td><p>Create a musical phrase</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="track.html">track</a></code> </p>
-          </td>
-          <td><p>Create a music track</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="trackbind.html">trackbind</a></code> </p>
-          </td>
-          <td><p>Bind track tables</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="score.html">score</a></code> </p>
-          </td>
-          <td><p>Create a music score</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-phrase-helpers" class="hasAnchor"><a href="#section-phrase-helpers" class="anchor"></a>Phrase helpers</h2>
-            <p class="section-desc"><p>Functions for describing, assembling and connecting musical phrases.</p></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="append_phrases.html">glue</a></code> <code><a href="append_phrases.html">dup</a></code> </p>
-          </td>
-          <td><p>Append and duplicate</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="rest.html">rest</a></code> </p>
-          </td>
-          <td><p>Create rests</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="tie.html">tie</a></code> </p>
-          </td>
-          <td><p>Tied notes</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="notate.html">notate</a></code> </p>
-          </td>
-          <td><p>Add text to music staff</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="hp.html">hp</a></code> </p>
-          </td>
-          <td><p>Hammer ons and pull offs</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="tuplet.html">tuplet</a></code> <code><a href="tuplet.html">triplet</a></code> </p>
-          </td>
-          <td><p>Tuplets</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="transpose.html">transpose</a></code> <code><a href="transpose.html">tp</a></code> </p>
-          </td>
-          <td><p>Transpose pitch</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-repeats" class="hasAnchor"><a href="#section-repeats" class="anchor"></a>Repeats</h2>
-            <p class="section-desc"><p>Functions to assist with repeated sections of music.</p></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="repeats.html">rp</a></code> <code><a href="repeats.html">pct</a></code> <code><a href="repeats.html">volta</a></code> </p>
-          </td>
-          <td><p>Repeat phrases</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-chords" class="hasAnchor"><a href="#section-chords" class="anchor"></a>Chords</h2>
-            <p class="section-desc"><p>Functions for chord description.</p></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="chord_set.html">chord_set</a></code> </p>
-          </td>
-          <td><p>Generate a chord set</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-key-signsture-helpers" class="hasAnchor"><a href="#section-key-signsture-helpers" class="anchor"></a>Key signsture helpers</h2>
-            <p class="section-desc"><p>Functions providing key information and specification</p></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="keys.html">keys</a></code> <code><a href="keys.html">is_natural</a></code> <code><a href="keys.html">is_sharp</a></code> <code><a href="keys.html">is_flat</a></code> <code><a href="keys.html">n_sharps</a></code> <code><a href="keys.html">n_flats</a></code> <code><a href="keys.html">is_major</a></code> <code><a href="keys.html">is_minor</a></code> </p>
-          </td>
-          <td><p>Key signatures</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-midi-conversion" class="hasAnchor"><a href="#section-midi-conversion" class="anchor"></a>MIDI conversion</h2>
-            <p class="section-desc"><p>Functions for converting MIDI files with LilyPond</p></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="midily.html">midily</a></code> </p>
-          </td>
-          <td><p>Convert MIDI to LilyPond file</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="miditab.html">miditab</a></code> </p>
-          </td>
-          <td><p>Convert MIDI to tablature</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-other-functions" class="hasAnchor"><a href="#section-other-functions" class="anchor"></a>Other functions</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="pipe.html">%>%</a></code> </p>
-          </td>
-          <td><p>Pipe</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-datasets" class="hasAnchor"><a href="#section-datasets" class="anchor"></a>Datasets</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="tunings.html">tunings</a></code> </p>
-          </td>
-          <td><p>Predefined instrument tunings.</p></td>
-        </tr>
-      </tbody>
-      </table>
-    </div>
+    <tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-package" class="hasAnchor"><a href="#section-package" class="anchor"></a>Package</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="tabr.html">tabr</a></code> </p>
+        </td>
+        <td><p>tabr: Guitar tablature and sheet music engraving.</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-create-tablature" class="hasAnchor"><a href="#section-create-tablature" class="anchor"></a>Create tablature</h2>
+          <p class="section-desc"><p>Functions for writing and rendering LilyPond files.</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="tab.html">tab()</a></code> </p>
+        </td>
+        <td><p>Create tablature</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="lilypond.html">lilypond()</a></code> </p>
+        </td>
+        <td><p>Save score to LilyPond file</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="tabr_options.html">tabr_options()</a></code> </p>
+        </td>
+        <td><p>Options</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-organizing-music" class="hasAnchor"><a href="#section-organizing-music" class="anchor"></a>Organizing music</h2>
+          <p class="section-desc"><p>Functions for hierarchical music notation organization.</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="phrase.html">phrase()</a></code> <code><a href="phrase.html">p()</a></code> </p>
+        </td>
+        <td><p>Create a musical phrase</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="track.html">track()</a></code> </p>
+        </td>
+        <td><p>Create a music track</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="trackbind.html">trackbind()</a></code> </p>
+        </td>
+        <td><p>Bind track tables</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="score.html">score()</a></code> </p>
+        </td>
+        <td><p>Create a music score</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-phrase-helpers" class="hasAnchor"><a href="#section-phrase-helpers" class="anchor"></a>Phrase helpers</h2>
+          <p class="section-desc"><p>Functions for describing, assembling and connecting musical phrases.</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="append_phrases.html">glue()</a></code> <code><a href="append_phrases.html">dup()</a></code> </p>
+        </td>
+        <td><p>Append and duplicate</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="rest.html">rest()</a></code> </p>
+        </td>
+        <td><p>Create rests</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="tie.html">tie()</a></code> </p>
+        </td>
+        <td><p>Tied notes</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="notate.html">notate()</a></code> </p>
+        </td>
+        <td><p>Add text to music staff</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="hp.html">hp()</a></code> </p>
+        </td>
+        <td><p>Hammer ons and pull offs</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="tuplet.html">tuplet()</a></code> <code><a href="tuplet.html">triplet()</a></code> </p>
+        </td>
+        <td><p>Tuplets</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="transpose.html">transpose()</a></code> <code><a href="transpose.html">tp()</a></code> </p>
+        </td>
+        <td><p>Transpose pitch</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-repeats" class="hasAnchor"><a href="#section-repeats" class="anchor"></a>Repeats</h2>
+          <p class="section-desc"><p>Functions to assist with repeated sections of music.</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="repeats.html">rp()</a></code> <code><a href="repeats.html">pct()</a></code> <code><a href="repeats.html">volta()</a></code> </p>
+        </td>
+        <td><p>Repeat phrases</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-chords" class="hasAnchor"><a href="#section-chords" class="anchor"></a>Chords</h2>
+          <p class="section-desc"><p>Functions for chord description.</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="chord_set.html">chord_set()</a></code> </p>
+        </td>
+        <td><p>Generate a chord set</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-key-signsture-helpers" class="hasAnchor"><a href="#section-key-signsture-helpers" class="anchor"></a>Key signsture helpers</h2>
+          <p class="section-desc"><p>Functions providing key information and specification</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="keys.html">keys()</a></code> <code><a href="keys.html">is_natural()</a></code> <code><a href="keys.html">is_sharp()</a></code> <code><a href="keys.html">is_flat()</a></code> <code><a href="keys.html">n_sharps()</a></code> <code><a href="keys.html">n_flats()</a></code> <code><a href="keys.html">is_major()</a></code> <code><a href="keys.html">is_minor()</a></code> </p>
+        </td>
+        <td><p>Key signatures</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-midi-conversion" class="hasAnchor"><a href="#section-midi-conversion" class="anchor"></a>MIDI conversion</h2>
+          <p class="section-desc"><p>Functions for converting MIDI files with LilyPond</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="midily.html">midily()</a></code> </p>
+        </td>
+        <td><p>Convert MIDI to LilyPond file</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="miditab.html">miditab()</a></code> </p>
+        </td>
+        <td><p>Convert MIDI to tablature</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-other-functions" class="hasAnchor"><a href="#section-other-functions" class="anchor"></a>Other functions</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="pipe.html">%>%</a></code> </p>
+        </td>
+        <td><p>Pipe</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-datasets" class="hasAnchor"><a href="#section-datasets" class="anchor"></a>Datasets</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="tunings.html">tunings</a></code> </p>
+        </td>
+        <td><p>Predefined instrument tunings.</p></td>
+      </tr>
+    </tbody>
+    </table>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -394,11 +399,14 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+
