@@ -12,7 +12,6 @@ knitr::opts_chunk$set(
   collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, tidy = TRUE, out.width = "100%"
 )
 library(tabr)
-tabr_options(lilypond = "C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe")
 ```
 
 This section goes into deeper detail on building musical phrases out of individual notes using the various component parts available for phrase construction. It also describes how to add information, note metadata, to the notes in a phrase so that the phrase is defined unambiguously.
