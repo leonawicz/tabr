@@ -130,10 +130,210 @@
 
     
     
+<table class="table" style="width: auto !important; float: right; margin-left: 10px;">
+<caption>
+tabr::tabrSyntax
+</caption>
+<thead><tr>
+<th style="text-align:center;">
+description
+</th>
+<th style="text-align:center;">
+syntax
+</th>
+<th style="text-align:center;">
+example
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+note/pitch
+</td>
+<td style="text-align:center;">
+a b … g
+</td>
+<td style="text-align:center;">
+a
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+sharp
+</td>
+<td style="text-align:center;">
+#
+</td>
+<td style="text-align:center;">
+a#
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+flat
+</td>
+<td style="text-align:center;">
+_
+</td>
+<td style="text-align:center;">
+a_
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+drop or raise one octave
+</td>
+<td style="text-align:center;">
+, or ’
+</td>
+<td style="text-align:center;">
+a, a a’
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+octave number
+</td>
+<td style="text-align:center;">
+0 1 …
+</td>
+<td style="text-align:center;">
+a2 a3 a4
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+tied notes
+</td>
+<td style="text-align:center;">
+~
+</td>
+<td style="text-align:center;">
+a~ a
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+note duration
+</td>
+<td style="text-align:center;">
+2^n
+</td>
+<td style="text-align:center;">
+1 2 4 8 16
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+dotted note
+</td>
+<td style="text-align:center;">
+.
+</td>
+<td style="text-align:center;">
+<ol start="2" style="list-style-type: decimal"><li>2..
+</li></ol>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+slide
+</td>
+<td style="text-align:center;">
+-
+</td>
+<td style="text-align:center;">
+2-
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+bend
+</td>
+<td style="text-align:center;">
+^
+</td>
+<td style="text-align:center;">
+2^
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+staccato
+</td>
+<td style="text-align:center;">
+]
+</td>
+<td style="text-align:center;">
+2[
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+muted/dead note
+</td>
+<td style="text-align:center;">
+x
+</td>
+<td style="text-align:center;">
+2x
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+slur/hammer/pull off
+</td>
+<td style="text-align:center;">
+()
+</td>
+<td style="text-align:center;">
+2( 2)
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+rest
+</td>
+<td style="text-align:center;">
+r
+</td>
+<td style="text-align:center;">
+r
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+silent rest
+</td>
+<td style="text-align:center;">
+s
+</td>
+<td style="text-align:center;">
+s
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+expansion operator
+</td>
+<td style="text-align:center;">
+*
+</td>
+<td style="text-align:center;">
+ceg*8, 1*4
+</td>
+</tr>
+</tbody>
+</table>
+<div id="overview" class="section level2">
+<h2 class="hasAnchor">
+<a href="#overview" class="anchor"></a>Overview</h2>
 <p>This section goes into deeper detail on building musical phrases out of individual notes using the various component parts available for phrase construction. It also describes how to add information, note metadata, to the notes in a phrase so that the phrase is defined unambiguously.</p>
 <p>As mentioned in the last section, phrases in <code>tabr</code> do not require a strict definition. It is recommended to keep phrases short enough that they do not cause you difficulty dissecting them again visually. They should also represent meaningful or at least convenient segments of music, for example whole measures, a particular rhythm section, or an identifiable section of a longer solo.</p>
 <p>Writing out music in R code is not intended to be any more readable than writing out LilyPond markup. The driving motivation here is a preference for avoiding writing LilyPond markup directly, aimed at people who specifically want to do this from R. Care must still be taken to not write phrases that are so long and complex that even you can not adequately parse their information by eye afterward.</p>
 <p>The opening section showed a basic example using a single, and very simple, phrase. This section will cover phrases that include notes and rests of different duration, slides, hammer ons and pull offs, simple string bends, and various other elements. Phrases will become longer and more visually complex. There is no way around this fact. But with proper care they can be kept manageable and interpretable, depending on your comfort level with music theory, notation and R programming.</p>
+<p>Before diving in, take a look at the table to the right for an overview of some syntax and operators that are used throughout this section.</p>
+</div>
 <div id="notes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#notes" class="anchor"></a>Notes</h2>
@@ -301,7 +501,8 @@ strings &lt;-<span class="st"> </span><span class="kw"><a href="../reference/app
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#notes">Notes</a></li>
+<li><a href="#overview">Overview</a></li>
+      <li><a href="#notes">Notes</a></li>
       <li><a href="#time-the-essential-note-metadata">Time: the essential note metadata</a></li>
       <li><a href="#rests-and-ties">Rests and ties</a></li>
       <li><a href="#explicit-string-fret-combinations">Explicit string-fret combinations</a></li>

@@ -13,6 +13,7 @@ http://leonawicz.github.io//reference/rest.html
 http://leonawicz.github.io//reference/score.html
 http://leonawicz.github.io//reference/tab.html
 http://leonawicz.github.io//reference/tabr.html
+http://leonawicz.github.io//reference/tabrSyntax.html
 http://leonawicz.github.io//reference/tabr_options.html
 http://leonawicz.github.io//reference/tie.html
 http://leonawicz.github.io//reference/track.html
