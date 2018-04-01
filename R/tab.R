@@ -90,6 +90,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", hea
   melody_id <- paste0("melody", LETTERS[seq_along(melody0)])
   melody <- paste0(purrr::map_chr(seq_along(d), ~.set_melody(melody0[[.x]], d[[.x]], melody_id[.x])), collapse = "")
   melody_id_final <- .get_melody_id(melody)
+
   score <- .set_score(d, melody_id, TRUE, NULL, NULL, tempo, has_chord_seq, string_names, rel_tp, raw_key)
 
   midi_tag <- paste0("  \\midi{\n    \\tempo ", tempo, "\n  }\n", collapse = "")
@@ -275,7 +276,6 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header =
     voice <- purrr::map(d, ~unique(.x$voice))
     ms_tp <- purrr::map_int(d, ~unique(.x$ms_transpose))
     ms_key <- purrr::map_chr(d, ~unique(.x$ms_key))
-    if(any(!is.na(clef))) clef <- clef[!is.na(clef)]
     x <- paste0(
       purrr::map_chr(seq_along(clef), ~({
         tp_wrap <- ms_tp[.x] != 0
@@ -289,14 +289,13 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header =
           x1 <- paste0(if(tp_wrap) rel_tp_string, x2, if(tp_wrap) " }")
         }
         if(multivoice){
-          x0 <- paste0(id, LETTERS[voice[[.x]]])
+          x0 <- paste0(id[.x], LETTERS[voice[[.x]]])
           x1 <- paste0(if(tp_wrap) rel_tp_string, "\\context Voice = \"", x0[1], "\" \\", x0[1], if(tp_wrap) " }",
                        " ", if(tp_wrap) rel_tp_string, "\\context Voice = \"", x0[2], "\" \\", x0[2], if(tp_wrap) " }")
           x2 <- paste0("\\context TabVoice = \"", x0[1], "\" \\", x0[1], " \\context TabVoice = \"", x0[2], "\" \\", x0[2])
         }
         paste0(
-          if(!is.na(clef[.x]))
-            paste0("\\new Staff << \\clef \"", clef[.x], "\" ", x1, " >>\n  ", collapse = ""),
+          if(!is.na(clef[.x])) paste0("\\new Staff << \\clef \"", clef[.x], "\" ", x1, " >>\n  ", collapse = ""),
           paste0("\\new TabStaff \\with { stringTunings = \\stringTuning <", .notesub(tuning[.x]), "> } <<\n    ",
                  if((is.null(string_names) && tuning[.x] != "e, a, d g b e'") || (!is.null(string_names) && string_names))
                    paste("\\set TabStaff.instrumentName = \\markup { \\hspace #7 \\override #'(baseline-skip . 1.5) \\column \\fontsize #-4.5 \\sans {",
