@@ -16,47 +16,168 @@ library(tabr)
 
 *This section is a work in progress. Check back later.*
 
-This section puts the finishing touches on combining phrases into tracks and tracks into scores. The functions `track` and `score` have been used repeatedly in earlier sections out of necessity in order to demonstrate complete examples, but their use has been specific and limited and they have not been discussed.
+This section puts the finishing touches on combining phrases into tracks and tracks into scores. The functions `track` and `score` have been used repeatedly throughout these tutorials out of necessity in order to demonstrate complete examples, but their use has been specific and limited and they have not been discussed.
 
-In the examples below, phrases are added to multiple tracks, tracks are bound together, and then scores are composed of multiple tracks. Examples using different tracks, voices, and staves are considered. Then chord symbol sequences and chord diagram charts are incorporated into scores.
+In the examples below, phrases are added to multiple tracks, tracks are bound together, and then scores are composed of multiple tracks. Examples using different tracks, voices, and staves are considered. Then chord symbol sequences and chord charts are incorporated into scores.
 
 ## Adding phrases to a track
 
-Phrases are added to a track using the first argument to `track`, which strictly accepts a phrase object. Expect for the briefest examples, you will typically concatenate a sequence of multiple phrases and rests into a longer section of music, usually lasting the full duration of the piece. This new single phrase object is passed to `track`.
+Phrases are added to a track using the first argument to `track`, which strictly accepts a phrase object. Except for the briefest examples, you will typically concatenate a sequence of multiple phrases and rests into a longer section of music, usually lasting the full duration of the piece. This new single phrase object is passed to `track`. Taking an earlier example and breaking it up as though it were multiple phrases for illustration.
 
-Multiple simultaneous tracks can be bound vertically, as shown later, but tracks are not bound horizontally, or sequentially in time; tracks are always complete and are never concatenated like phrase objects.
+```{r intro}
+p1 <- p("c e g c' e' c' g e", 8, "5 4 3 2 1 2 3 4")
+p2 <- p("g b d' g'", 8, "4 3 2 1")
+p3 <- p("f a c' f'", 8, "4 3 2 1")
+p4 <- p("c e g e c", "8*4 2", "5 4 3 4 5")
+p_all <- glue(p1, p2, p3, p4)
+track(p_all) %>% score
+```
 
-### Single voice
+This general process has been seen many times already. Now, examples are given that use the various arguments available in these functions, beginning with tracks.
 
-By default, a phrase passed to `track` is treated as part of a single voice. See below for multiple voices. `track` assigns the integer ID `1` to the voice of the phrase being transformed into a track. This can be ignored here.
+## Single voice
 
-### Multiple voices
+By default, a phrase passed to `track` is treated as part of a single voice. See below for multiple voices. By default `track` assigns the integer ID `1` to the voice of the phrase being transformed into a track. This can be ignored for now.
+
+Other arguments to `track` include `tuning`, `music_staff`, `ms_transpose` and `ms_key`. In the vast majority of cases, tracks contain a single voice.
+
+The simplest change to make is to suppress the music staff that appears by default above the tablature staff. `ms_transpose` and `ms_key` refer to transposition and resulting key signature of the *music staff*. Therefore, these two arguments are ignored whenever this staff is suppressed. You might wish to suppress it to save space in the tablature output for very simplistic rhythm patterns or melodies that are easy to interpret even without the explicit rhythm information.
+
+```{r track1}
+track(p_all, music_staff = NA)
+```
+
+When the staff is not suppressed, there is the option to use the other two associated arguments to transpose the music on the staff *relative to the tablature staff*. This is highly useful for for example when guitar tabs are shared with musicians playing other instruments but the tablature is written with respect to capo position. This enables the music staff to be written as heard. It is not necessary to provide the new key. However, it is needed if you want to ensure that the transposed staff shows the proper key signature.
+
+In the example below, assume the song is in the key of C. The guitarist is played with standard tuning and a capo on the second fret. This means that while the tablature is written relative to the capo, so everything still appears to be in C based on the chord shapes and fret numbers, what is heard is actually in the key of D, two semitones up. The music staff can be transposed to represent the song in D while the overall tab remains written in C with D inferred from the mention of capo position.
+
+```{r track2}
+t1 <- track(p_all, ms_transpose = 2)
+t2 <- track(p_all, ms_transpose = 2, ms_key = "d")
+t1
+t2
+```
+
+The result above shows how this information is stored in the track tables. Here is how it looks when rendered. The tab staff remains in C, written with respect to capo 2. The key of D is inferred. However, the music staff now shows the the transposition of the music to D, which has two sharps. The notes have moved on the staff accordingly.
+
+```{r track2b, results="hide", eval=FALSE}
+score(t2) %>% tab("ex22.pdf")
+```
+
+<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex22.png?raw=true" width="100%"></p>
+
+## Multiple voices
 
 Phrase objects may be associated with different voices, but still part of the same track. For example, it is standard to transcribe fingerstyle guitar using two voices: one for the thumb that plays the bass line and one for the fingers that play the higher melody.
 
-These voices belong on the same music staff and tab staff and therefore must share the same track ID in `tabr`. The phrase objects corresponding to each voice must still be transformed into two unique track objects. The only change is that one must be explicitly assigned the voice ID `2`.
+These voices belong on the same music staff and tab staff and therefore must share the same track ID in `tabr`. The phrase objects corresponding to each voice must still be transformed into two unique track objects. The only change is that one must be explicitly assigned the voice ID `2`. Make a second voice. Let the new, higher voice be voice one.
 
-It is shown below when discussing track binding how these two tracks are merged to represent a single music staff displaying two distinct voices.
+```{r track3}
+p_all2 <- p("c5 d5 e5 f5 g5", "1 2 4 4 1", "1*5")
+t1 <- track(p_all2, voice = 1)
+t2 <- track(p_all, voice = 2)
+trackbind(t1, t2)
+```
 
-### Mulitple tracks
+The is the first use shown of `trackbind` to combine single-row track tables into multi-row track tables. Each row can be thought of as a different track. The result above is not technically correct. The two voices are intended to share the same staff, but notice that by default they are assigned incremental `tabstaff` integer IDs. The `voice` column does this here as intended based on the values supplied to each `track` call. However, to force these voices to share the same staff, it is necessary to override the tab staff ID as follows.
 
-Multiple tracks are actually simpler than multiple voices because while also defined as multiple track objects, they do not require specifying any voices. It is assumed that each track has only one voice.
+```{r track3b}
+t_all <- trackbind(t1, t2, tabstaff = c(1, 1))
+t_all
+```
+
+Also note that `trackbind` takes any number of tracks via the `...` argument. If providing `tabstaff` as above, it must be as a named argument. The two voices are distinguished here by different stem direction on the notes. The first voice by ID value is stem up and the second is stem down.
+
+```{r track3c, results="hide", eval=FALSE}
+score(t_all) %>% tab("ex23.pdf")
+```
+
+<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex23.png?raw=true" width="100%"></p>
+
+## Mulitple tracks
+
+Multiple voices are a special case of multiple tracks where the tab staff ID is constant and the voice ID varies, allowing the voices to be transcribed distinctly on a single staff. In general, multiple tracks are automatically designated for unique tablature and corresponding music staves. The default when track binding is to iterate the `tabstaff` entries for each track table row unless told otherwise and to keep a constant single `voice` in each tab staff (and corresponding music staff if included). This more common usage is actually simpler than using multiple voices because you can get away with specifying neither IDs for your individual tracks.
+
+The above example redone with a single unique voice for two different sets of staves looks like the following.
+
+```{r track4}
+t1 <- track(p_all2)
+t2 <- track(p_all)
+trackbind(t1, t2)
+```
+
+Now the same tracks are simply split out to two different sets of staves.
+
+```{r track4b, results="hide", eval=FALSE}
+trackbind(t1, t2) %>% score %>% tab("ex24.pdf")
+```
+
+<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex24.png?raw=true" width="100%"></p>
+
+Multiple voices are engraved in the output based on the order of their voice IDs. Multiple tracks assigned to different staves are engraved top to bottom based on the order they are passed to `trackbind`, *not based on their ID values*. As mentioned, these are propagated automatically when calling `trackbind`, except in that relatively rare case of using multiple voices per staff. Unlike voice IDs assigned in `track` calls, tab staff IDs are not. They do not even appear until there has been use of `trackbind`. The tab staff ID order is generally a consequence of the order in which the user provides the tracks to `trackbind`.
+
+Below is an example with multiple tracks. The first two tracks combine as two voices on one staff set. The third track goes on a unique staff. Since the bottom track (track three) is so simple, suppress the music staff. Even though this means the bottom tab staff does not have any rhythm information associated with it, the rhythm can at least be inferred from the tab staff note spacing with respect to the notes in the first tab staff, which do have explicit rhythm information provided by the treble clef staff.
+
+Some information is still going to be absent from the bottom staff, such as whether this rhythm is staccato, or made up of eighth notes or quarter notes. Of course, you provide this in the definition of `t3` below, but it doesn't change the fact that no one else looking at the sheet music will know for sure. Suppressing the music staves is generally a trade off between being unambiguous and saving space.
+
+Remember to specify `tabstaff` in `trackbind` since multiple voices per staff means you cannot rely on the automatic iterated staff IDs.
+
+```{r track5}
+t1 <- track(p_all2, voice = 1)
+t2 <- track(p_all, voice = 2)
+t3 <- track(p("ce*4 g,*2 f,*2 ce*3", "4*10 2", "54*4 6*4 54*3"), music_staff = NA)
+t_all <- trackbind(t1, t2, t3, tabstaff = c(1, 1, 2))
+t_all
+```
+
+```{r track5b, results="hide", eval=FALSE}
+score(t_all) %>% tab("ex25.pdf")
+```
+
+<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex25.png?raw=true" width="100%"></p>
+
+Another important fact worth mentioning is that while multiple simultaneous tracks can be bound vertically, they are never bound horizontally, or sequentially in time. Tracks are always complete segments of music with a fixed beginning and end and are never concatenated serially like phrase objects. To put it another way, `trackbind` is used to row bind track tables but not to column bind them.
 
 ### String tuning
 
-String tuning can be unique to each track, but this is intended to translate to each music staff. This means that entirely different tracks (destined for different music staves in the output) may be tuned differently. However, distinct voices that share the same staff should be be passed different tunings in their respective `track` calls.
+String tuning can be unique to each track, but this is intended to translate to each music staff. This means that entirely different tracks (destined for different music staves in the output) may be tuned differently. However, distinct voices that share the same staff should not be be passed different tunings in their respective `track` calls. The next example shows the change to the tuning for the first tab staff.
 
-Some control over displaying alternate tunings in the output is available using 
+```{r track6}
+p1 <- p("e, g, c g b e'", 8)
+t1 <- track(p1)
+t2 <- track(p1, tuning = "dropD")
+t3 <- track(p1, tuning = "dropC")
+```
+
+```{r track6b, echo=FALSE, results="hide", eval=FALSE}
+score(t1) %>% tab("ex26a.pdf")
+score(t2) %>% tab("ex26b.pdf")
+score(t3) %>% tab("ex26c.pdf")
+```
+
+<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex26.png?raw=true" width="100%"></p>
+
+Rendering each of these tracks, all three look as expected given the different tuning of the guitar. By default a staff based on a non-standard tunings indicate the tuning at the beginning of the staff. For more on tunings, see the next tutorial section on non-standard tunings. Some control over displaying alternate tunings for the whole score in the rendered sheet music is available via `score`, touched on further below.
 
 ## Supplemental music staff
 
-The addition of a standard music staff above the tab staff is absolutely critical for quality guitar tablature. It is the only way to provide accurate rhythm information and other details not suitable to a tab staff. The tab staff does an excellent job of showing you *what* to play, but attempts to force it to provide more and more information regarding *how* to play it lead to ugly "plain text" style tabs that can be incredibly difficult to read and reason about.
+Return for a moment to the music staff. Earlier it was suppressed. It was also shown how `ms_tranpose` and `ms_key` relate to it. Generally speaking, the addition of a standard music staff above the tab staff is absolutely critical for quality guitar tablature. It is the only way to provide accurate and complete rhythm information and other details not suitable to a tab staff. The tab staff does an excellent job of showing you *what* to play, but attempts to force it to provide more and more information regarding *how* to play it lead to ugly "plain text" style tabs that can be incredibly difficult to read and reason about.
 
-A supplemental *8va* (one octave up) treble clef music staff is included by default.
+`tabr` focuses on guitar tabs. This is why the default music staff is `treble_8` for the treble clef, or G clef, transposed one octave (guitar is a transposing instrument). However, any music staff ID accepted by LilyPond can be provided; for example, `bass_8` for the bass clef. Simply change the value of the `music_staff` argument.
+
+```{r track7, results="hide", eval=FALSE}
+track(p1, music_staff = "bass_8") %>% score %>% tab("ex27.pdf")
+```
+
+<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex27.png?raw=true" width="42%"></p>
 
 ## Adding tracks to a score
 
+*This and subsequent tutorial sections will be continued/added soon...*
+
 Music tracks are combined into a single score by passing a track table object to `score`.
+
+When the score is rendered, the notes transcribed on the tab staff and associated music staff adjust accordingly
 
 ### A single track
 
@@ -75,8 +196,6 @@ In the case of multiple voices on one staff discussed above, this is where those
 Once all tracks are bound into a single track table where every row (unique track) has a unique combination of `tabstaff` and `voice` ID values, such a valid track table object can be passed to `score`.
 
 `score` takes additional arguments, `chords` and `chord_seq`. These were introduced in the earlier tutorial section on chord specification. The first informs the chord fretboard diagrams and the second informs the chord symbols places above them as well as above the music staves. These are incorporated into the final music score at the `score` function stage because the diagrams are associated with the entire score and not with an specific phrase or track, voice or staff. Similarly, the chord symbol sequence appears in time with the music above the topmost staff, not above each staff.
-
-*This and subsequent tutorial sections will be continued/added soon...*
 
 ```{r cleanup, echo=FALSE}
 unlink("*.mid")
