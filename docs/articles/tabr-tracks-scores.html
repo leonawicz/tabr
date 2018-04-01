@@ -246,7 +246,7 @@ t_all
 <h3 class="hasAnchor">
 <a href="#string-tuning" class="anchor"></a>String tuning</h3>
 <p>String tuning can be unique to each track, but this is intended to translate to each music staff. This means that entirely different tracks (destined for different music staves in the output) may be tuned differently. However, distinct voices that share the same staff should not be be passed different tunings in their respective <code>track</code> calls. The next example shows the change to the tuning for the first tab staff.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"e, g, c g b e'"</span>, <span class="dv">8</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"e, b, e g b e'"</span>, <span class="dv">8</span>)
 t1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(p1)
 t2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(p1, <span class="dt">tuning =</span> <span class="st">"dropD"</span>)
 t3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(p1, <span class="dt">tuning =</span> <span class="st">"dropC"</span>)</code></pre></div>

@@ -143,7 +143,7 @@ Another important fact worth mentioning is that while multiple simultaneous trac
 String tuning can be unique to each track, but this is intended to translate to each music staff. This means that entirely different tracks (destined for different music staves in the output) may be tuned differently. However, distinct voices that share the same staff should not be be passed different tunings in their respective `track` calls. The next example shows the change to the tuning for the first tab staff.
 
 ```{r track6}
-p1 <- p("e, g, c g b e'", 8)
+p1 <- p("e, b, e g b e'", 8)
 t1 <- track(p1)
 t2 <- track(p1, tuning = "dropD")
 t3 <- track(p1, tuning = "dropC")
