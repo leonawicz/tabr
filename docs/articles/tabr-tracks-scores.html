@@ -267,24 +267,75 @@ t3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.ht
 <div id="adding-tracks-to-a-score" class="section level2">
 <h2 class="hasAnchor">
 <a href="#adding-tracks-to-a-score" class="anchor"></a>Adding tracks to a score</h2>
-<p><em>This and subsequent tutorial sections will be continued/added soon…</em></p>
-<p>Music tracks are combined into a single score by passing a track table object to <code>score</code>.</p>
-<p>When the score is rendered, the notes transcribed on the tab staff and associated music staff adjust accordingly</p>
-<div id="a-single-track" class="section level3">
+<p>Music tracks are combined into a single score by passing a track table object to <code>score</code>. Like basic track usage, this has also been seen many times over by this point. There are only two other arguments that score can take, <code>chords</code> and <code>chord_seq</code> and you have seen these as well in the earlier section on chord usage in <code>tabr</code>. There is not much to add here other than to go over some details about how the three arguments to score behave.</p>
+<div id="single-vs-multiple-tracks" class="section level3">
 <h3 class="hasAnchor">
-<a href="#a-single-track" class="anchor"></a>A single track</h3>
-<p>For consistency, a single track is stored in a track table even though that table has only one row. In general, track tables can have any number of rows. Each row in a track table translates to either a new tab staff or to a combined set of two staves: one tab staff with one general music staff positioned above it. The simplest calls to score take only a single-track track table object.</p>
-</div>
-<div id="multiple-tracks" class="section level3">
-<h3 class="hasAnchor">
-<a href="#multiple-tracks" class="anchor"></a>Multiple tracks</h3>
-<p>Multiple tracks are bound together using <code>trackbind</code>. This simply row-binds multiple track tables, resulting in a multi-row track table containing a number of rows equal to the sum of the input tables. The input track tables may be single- or multi-track.</p>
-<p><code>score</code> accepts only a single track table as the first argument; multiple tracks must be bound together before passing them to <code>score</code>.</p>
-<p>By default, <code>trackbind</code> will create a sequential integer ID variable, <code>tabstaff</code>, in the new track table if not already present (from a previous <code>trackbind</code> call), assigning a unique ID to each input track table in ascending order based on the order they are passed to <code>trackbind</code>.</p>
+<a href="#single-vs-multiple-tracks" class="anchor"></a>Single vs. multiple tracks</h3>
+<p>For consistency, a single track is stored in a track table even though that table has only one row. All tracks are track tables. In general, track tables can have any number of rows as you have seen. Each row in a track table translates to either a new tab staff or to a combined set of two staves: one tab staff with one general music staff positioned above it. The simplest calls to score take only a single-track track table object.</p>
+<p>Multiple tracks are bound together using <code>trackbind</code>. This simply row-binds multiple track tables, resulting in a multi-row track table containing a number of rows equal to the number of input tables. The input track tables may be single- or multi-track. As far as <code>score</code> is concerned, these are all the same. <code>score</code> accepts only a single track table as the first argument; multiple tracks must be bound together before passing them to <code>score</code>.</p>
+<p>As you saw earlier, by default <code>trackbind</code> creates a sequential integer ID variable, <code>tabstaff</code>, in the new track table if not already present (from a previous <code>trackbind</code> call), assigning a unique ID to each input track table in ascending order based on the order they are passed to <code>trackbind</code>. One thing to note about <code>score</code> is that if you pass it a single-row track table that was never wrapped in <code>trackbind</code>, it will not have a <code>tabstaff</code> ID column yet. In this case, <code>score</code> will add the column with the ID value <code>1</code>. This means that any <code>score</code> object will consistently have this column even if its input track table did not have it.</p>
 <p>In the case of multiple voices on one staff discussed above, this is where those two tracks with voice IDs <code>1</code> and <code>2</code> are assigned the same staff ID by overriding the default for the <code>tabstaff</code> argument in <code>trackbind</code>.</p>
-<p>Once all tracks are bound into a single track table where every row (unique track) has a unique combination of <code>tabstaff</code> and <code>voice</code> ID values, such a valid track table object can be passed to <code>score</code>.</p>
-<p><code>score</code> takes additional arguments, <code>chords</code> and <code>chord_seq</code>. These were introduced in the earlier tutorial section on chord specification. The first informs the chord fretboard diagrams and the second informs the chord symbols places above them as well as above the music staves. These are incorporated into the final music score at the <code>score</code> function stage because the diagrams are associated with the entire score and not with an specific phrase or track, voice or staff. Similarly, the chord symbol sequence appears in time with the music above the topmost staff, not above each staff.</p>
 </div>
+<div id="chords-and-chord-sequences" class="section level3">
+<h3 class="hasAnchor">
+<a href="#chords-and-chord-sequences" class="anchor"></a>Chords and chord sequences</h3>
+<p><code>score</code> accepts the additional arguments, <code>chords</code> and <code>chord_seq</code>. See the tutorial section on chords for a refresher. The first informs the chord fretboard diagrams that make up the chord chart placed at the top center on the rendered tabs. If <code>chords</code> is not provided, there will simply be no chord chart inserted at the top of the first page. <code>chord_seq</code> informs the chord symbols places above the chord chart (if present) as well as above the topmost music or tab staff.</p>
+<p>Both of these elements are incorporated into the final music score at the <code>score</code> function stage because the diagrams are associated with the entire score and not with an specific phrase or track, voice or staff. Similarly, the chord symbol sequence appears in time with the music above the topmost staff, not above each staff, and pertains to the entire score.</p>
+<p>There is some redundancy when both of these arguments are provided to <code>score</code>. Both contain the names of the chords that inform the chord symbols. So for example, if you provide <code>chord_seq</code>, you might wonder if this makes <code>chords</code> redundant and unnecessary to make a chord chart, but it does not. While the names of the chord sequence vector could be used internally to define chords (and in fact, many common chord positions are predefined in LilyPond), you really do lose too much control over the specifications of the actual chord positions that inform the fretboard diagrams.</p>
+<p>Besides, when defining a named vector for <code>chord_seq</code>, it is highly likely you named that sequence using a previously defined <code>chords</code> vector anyhow. Finally, the separation of the two arguments is not only essentially necessary for good control over definitions, but allows you to use any combination of the two. You may want a chord chart but feel no need for a chord sequence to be written out above the top staff, or vice versa. The examples below show each combination.</p>
+</div>
+</div>
+<div id="score-examples" class="section level2">
+<h2 class="hasAnchor">
+<a href="#score-examples" class="anchor"></a>Score examples</h2>
+<p>To make it more interesting, these examples use the three track example from earlier. However, this time convert the bottom tab staff into a bass tab.</p>
+<ul>
+<li>Specify <code>tuning = "bass"</code> in <code>track</code>. This is shorthand for standard four string bass tuning. For more details on tunings and other instruments, see the next tutorial section on strings and tunings.</li>
+<li>Instead of suppressing the music staff for this track like was done last time, use a bass clef staff to see how this looks when it is all brought together: <code>music_staff = "bass_8"</code>.</li>
+<li>The bass tuning is one octave lower than the guitar tuning. Drop the notes in the phrase for track three by one octave.</li>
+<li>The guitar and bass are in their respective standard tunings, which means the four strings of the bass match the bottom four of the guitar in terms of notes: E A D G. This makes it a simple shift of string numbers for the phrase; the bottom string is now string four.</li>
+</ul>
+<p>Finally, repeat every phrase two additional times by wrapping each phrase in <code>rp</code> with <code>n = 2</code> for two unfolded repeats or three plays. This is simply to provide a better sense of what a rendered score tends to look like by allowing these short phrases to actually extend across a full page width of sheet music. In this first example, there is still no chord chart or chord sequence.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(<span class="kw"><a href="../reference/repeats.html">rp</a></span>(p_all2, <span class="dv">2</span>), <span class="dt">voice =</span> <span class="dv">1</span>)
+t2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(<span class="kw"><a href="../reference/repeats.html">rp</a></span>(p_all, <span class="dv">2</span>), <span class="dt">voice =</span> <span class="dv">2</span>)
+t3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(<span class="kw"><a href="../reference/repeats.html">rp</a></span>(<span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"c2e2*4 g1*2 f1*2 c2e2*3"</span>, <span class="st">"4*10 2"</span>, <span class="st">"32*4 4*4 32*3"</span>), <span class="dv">2</span>), 
+    <span class="dt">tuning =</span> <span class="st">"bass"</span>, <span class="dt">music_staff =</span> <span class="st">"bass_8"</span>)
+t_all &lt;-<span class="st"> </span><span class="kw"><a href="../reference/trackbind.html">trackbind</a></span>(t1, t2, t3, <span class="dt">tabstaff =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>))
+t_all
+<span class="co">#&gt; # A tibble: 3 x 7</span>
+<span class="co">#&gt;   phrase       tuning         voice staff    ms_transpose ms_key tabstaff</span>
+<span class="co">#&gt;   &lt;list&gt;       &lt;chr&gt;          &lt;int&gt; &lt;chr&gt;           &lt;int&gt; &lt;chr&gt;     &lt;int&gt;</span>
+<span class="co">#&gt; 1 &lt;S3: phrase&gt; e, a, d g b e'     1 treble_8            0 &lt;NA&gt;          1</span>
+<span class="co">#&gt; 2 &lt;S3: phrase&gt; e, a, d g b e'     2 treble_8            0 &lt;NA&gt;          1</span>
+<span class="co">#&gt; 3 &lt;S3: phrase&gt; e,, a,, d, g,      1 bass_8              0 &lt;NA&gt;          2</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/score.html">score</a></span>(t_all) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex28.pdf"</span>)</code></pre></div>
+<p align="center">
+<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex28.png?raw=true" width="100%"></p>
+<p>Notice the bass tuning automatically leads to a four line tab.</p>
+<p><code>t_all</code> remains unchanged from here forward. In the next examples, all that is needed is to alter the <code>chords</code> and <code>chord_seq</code> arguments to <code>score</code>. First, define these named vectors. The chord progression is C G F C. The C chords last over measures one and three. The F and G chords split the second measure, one half each.</p>
+<p>You can define these chords however you like. They do not necessarily have to refer to the broken chords represented by the second voice of the guitar track in the output, though that would be common. Let’s say the chords in the chord chart refer generally to chords you can use to strum along, but this generic strumming is not actually shown in the tab as an explicit track because the pattern is meant to be whatever you want to make of it. Let the C chord be the open C chord, matching the melody in voice two, but the F and G chords refer to six string bar chords.</p>
+<p>Remember that the order of the chords in <code>chords</code> is the order they appear in the chord chart. It is customary to show them in the order in which they first appear in a song, so C G F here, but this is certainly not a rule. The important part is that you have complete control over this. Also, because you repeated the who piece of music, you have to repeat the named chord sequence of integers similarly or the sequence chord symbols above the top staff will terminate prematurely.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">chords &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chord_set.html">chord_set</a></span>(<span class="kw">c</span>(<span class="dt">c =</span> <span class="st">"x32o1o"</span>, <span class="dt">g =</span> <span class="st">"355433"</span>, <span class="dt">f =</span> <span class="st">"133211"</span>))
+chord_seq &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">setNames</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>), <span class="kw">names</span>(chords)[<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">1</span>)]), <span class="dv">3</span>)
+chords
+<span class="co">#&gt;              c              g              f </span>
+<span class="co">#&gt; "x;3;2;o;1;o;" "3;5;5;4;3;3;" "1;3;3;2;1;1;"</span>
+chord_seq
+<span class="co">#&gt; c g f c c g f c c g f c </span>
+<span class="co">#&gt; 1 2 2 1 1 2 2 1 1 2 2 1</span></code></pre></div>
+<p>Now create a version that only adds a chord chart.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/score.html">score</a></span>(t_all, <span class="dt">chords =</span> chords) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex29.pdf"</span>)</code></pre></div>
+<p align="center">
+<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex29.png?raw=true" width="100%"></p>
+<p>The chart in the example above matches the order in which you defined your chord positions. Next, remake the score adding only the chord symbol sequence over the top staff. Remove the chord chart.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/score.html">score</a></span>(t_all, <span class="dt">chord_seq =</span> chord_seq) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex30.pdf"</span>)</code></pre></div>
+<p align="center">
+<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex30.png?raw=true" width="100%"></p>
+<p>Finally, combine both.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/score.html">score</a></span>(t_all, chords, chord_seq) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex31.pdf"</span>)</code></pre></div>
+<p align="center">
+<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex31.png?raw=true" width="100%"></p>
+<p>These examples demonstrate the level of control you have over this type of content, which you can elect to include or exclude depending on your preferences and how important or helpful the supplemental information is for a given song.</p>
 </div>
   </div>
 
@@ -299,6 +350,7 @@ t3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.ht
       <li><a href="#mulitple-tracks">Mulitple tracks</a></li>
       <li><a href="#supplemental-music-staff">Supplemental music staff</a></li>
       <li><a href="#adding-tracks-to-a-score">Adding tracks to a score</a></li>
+      <li><a href="#score-examples">Score examples</a></li>
       </ul>
 </div>
       </div>
