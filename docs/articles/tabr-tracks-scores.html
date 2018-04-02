@@ -82,7 +82,7 @@
       <a href="../articles/tabr-engraving.html">Engraving</a>
     </li>
     <li>
-      <a href="../articles/tabr-tunings.html">Non-standard tuning</a>
+      <a href="../articles/tabr-tunings.html">Strings and tunings</a>
     </li>
     <li class="divider">
     <li class="dropdown-header">Examples</li>
@@ -137,7 +137,8 @@
 <h2 class="hasAnchor">
 <a href="#adding-phrases-to-a-track" class="anchor"></a>Adding phrases to a track</h2>
 <p>Phrases are added to a track using the first argument to <code>track</code>, which strictly accepts a phrase object. Except for the briefest examples, you will typically concatenate a sequence of multiple phrases and rests into a longer section of music, usually lasting the full duration of the piece. This new single phrase object is passed to <code>track</code>. Taking an earlier example and breaking it up as though it were multiple phrases for illustration.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"c e g c' e' c' g e"</span>, <span class="dv">8</span>, <span class="st">"5 4 3 2 1 2 3 4"</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tabr)
+p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"c e g c' e' c' g e"</span>, <span class="dv">8</span>, <span class="st">"5 4 3 2 1 2 3 4"</span>)
 p2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"g b d' g'"</span>, <span class="dv">8</span>, <span class="st">"4 3 2 1"</span>)
 p3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"f a c' f'"</span>, <span class="dv">8</span>, <span class="st">"4 3 2 1"</span>)
 p4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"c e g e c"</span>, <span class="st">"8*4 2"</span>, <span class="st">"5 4 3 4 5"</span>)
@@ -252,7 +253,7 @@ t2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.ht
 t3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(p1, <span class="dt">tuning =</span> <span class="st">"dropC"</span>)</code></pre></div>
 <p align="center">
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex26.png?raw=true" width="100%"></p>
-<p>Rendering each of these tracks, all three look as expected given the different tuning of the guitar. By default a staff based on a non-standard tunings indicate the tuning at the beginning of the staff. For more on tunings, see the next tutorial section on non-standard tunings. Some control over displaying alternate tunings for the whole score in the rendered sheet music is available via <code>score</code>, touched on further below.</p>
+<p>Rendering each of these tracks, all three look as expected given the different tuning of the guitar. By default a staff based on a non-standard tunings indicate the tuning at the beginning of the staff. For more on tunings, see the later tutorial section on non-standard tunings. Some control over displaying alternate tunings for the whole score in the rendered sheet music is available via <code>score</code>, touched on further below.</p>
 </div>
 </div>
 <div id="supplemental-music-staff" class="section level2">
@@ -290,7 +291,7 @@ t3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.ht
 <a href="#score-examples" class="anchor"></a>Score examples</h2>
 <p>To make it more interesting, these examples use the three track example from earlier. However, this time convert the bottom tab staff into a bass tab.</p>
 <ul>
-<li>Specify <code>tuning = "bass"</code> in <code>track</code>. This is shorthand for standard four string bass tuning. For more details on tunings and other instruments, see the next tutorial section on strings and tunings.</li>
+<li>Specify <code>tuning = "bass"</code> in <code>track</code>. This is shorthand for standard four string bass tuning. For more details on tunings and other instruments, see the later tutorial section on strings and tunings.</li>
 <li>Instead of suppressing the music staff for this track like was done last time, use a bass clef staff to see how this looks when it is all brought together: <code>music_staff = "bass_8"</code>.</li>
 <li>The bass tuning is one octave lower than the guitar tuning. Drop the notes in the phrase for track three by one octave.</li>
 <li>The guitar and bass are in their respective standard tunings, which means the four strings of the bass match the bottom four of the guitar in terms of notes: E A D G. This makes it a simple shift of string numbers for the phrase; the bottom string is now string four.</li>

@@ -82,7 +82,7 @@
       <a href="../articles/tabr-engraving.html">Engraving</a>
     </li>
     <li>
-      <a href="../articles/tabr-tunings.html">Non-standard tuning</a>
+      <a href="../articles/tabr-tunings.html">Strings and tunings</a>
     </li>
     <li class="divider">
     <li class="dropdown-header">Examples</li>
@@ -131,10 +131,120 @@
     
     
 <p>This section covers <code>lilypond</code> and <code>tab</code> for writing LilyPond files and engraving to sheet music with LilyPond, respectively. Examples of the various pieces of song metadata that can be passed to to these functions are provided.</p>
-<p><em>This and subsequent tutorial sections will be continued/added soon…</em></p>
+<p>The examples focus on <code>tab</code> because this generates the tablature whereas <code>lilypond</code> only creates the LilyPond file that <code>tab</code> renders. <code>tab</code> is a wrapper around <code>lilypond</code>. The two functions have identical arguments, as <code>tab</code> merely passes them along to <code>lilypond</code> internally, except for one. <code>tab</code> has <code>keep_ly = FALSE</code> by default, which removes the <code>.ly</code> file created by <code>lilypond</code> following rendering of the file to pdf or png. To keep the LilyPond file, set this to <code>TRUE</code>. All other arguments are the same for both functions so they are really <code>lilypond</code> arguments, but after the first example using both functions, examples switch to only calling <code>tab</code>.</p>
+<p>Here are the <code>lilypond</code> arguments:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tabr)
+<span class="kw">args</span>(lilypond)
+<span class="co">#&gt; function (score, file, key = "c", time = "4/4", tempo = "2 = 60", </span>
+<span class="co">#&gt;     header = NULL, string_names = NULL, paper = NULL, endbar = TRUE, </span>
+<span class="co">#&gt;     midi = TRUE, path = ".") </span>
+<span class="co">#&gt; NULL</span></code></pre></div>
+<p>By now you have seen many calls to <code>tab</code> in order to show full examples in early tutorial sections. With sufficient coverage of phrases, tracks and scores, and the progression through them, now it is time to go into detail on all the render time arguments that can be supplied that apply to the entire piece of tablature and any metadata or general song information associated with it.</p>
+<div id="score-metadata" class="section level2">
+<h2 class="hasAnchor">
+<a href="#score-metadata" class="anchor"></a>Score metadata</h2>
+<p>These are the most critical components that can be supplied to <code>lilypond</code>. These are the three arguments immediately after the input <code>score</code> and output <code>file</code>. While they have default values, they will almost invariably need to be changed for just about any song. <code>key</code> specifies the key signature, e.g. <code>key ="dm"</code>. Key changes in the middle of a song are not supported, but you can always edit the LilyPond file by hand to make highly customized changes. <code>time</code> gives the time signature, defaulting to common time, or 4/4 time. <code>tempo</code> provides the song tempo, defaulting to <code>tempo = "2 = 60"</code>. Note that <code>key</code> takes the <code>tabr</code> consistent key signature notation whereas <code>time</code> and <code>tempo</code> take literal LilyPond strings. Look up options for these strings if you are not familiar with them in LilyPond.</p>
+<p>Throughout this tutorial section, the guitar and bass example from the section on tracks and scores is reused. The chord chart and chord sequence are retained to provide the most complete illustration of a rendered score. For completeness, here is what you have so far.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">voice1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/repeats.html">rp</a></span>(<span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"c5 d5 e5 f5 g5"</span>, <span class="st">"1 2 4 4 1"</span>, <span class="st">"1*5"</span>), <span class="dv">2</span>)
+
+notes &lt;-<span class="st"> "c e g c' e' c' g e g b d' g' f a c' f' c e g e c"</span>
+strings &lt;-<span class="st"> "5 4 3 2 1 2 3 4 4 3 2 1 4 3 2 1 5 4 3 4 5"</span>
+voice2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/repeats.html">rp</a></span>(<span class="kw"><a href="../reference/phrase.html">p</a></span>(notes, <span class="st">"8*20 2"</span>, strings), <span class="dv">2</span>)
+
+bass &lt;-<span class="st"> </span><span class="kw"><a href="../reference/repeats.html">rp</a></span>(<span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"c2e2*4 g1*2 f1*2 c2e2*3"</span>, <span class="st">"4*10 2"</span>, <span class="st">"32*4 4*4 32*3"</span>), <span class="dv">2</span>)
+
+t1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(voice1, <span class="dt">voice =</span> <span class="dv">1</span>)
+t2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(voice2, <span class="dt">voice =</span> <span class="dv">2</span>)
+t3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(bass, <span class="dt">tuning =</span> <span class="st">"bass"</span>, <span class="dt">music_staff =</span> <span class="st">"bass_8"</span>)
+
+chords &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chord_set.html">chord_set</a></span>(<span class="kw">c</span>(<span class="dt">c =</span> <span class="st">"x32o1o"</span>, <span class="dt">g =</span> <span class="st">"355433"</span>, <span class="dt">f =</span> <span class="st">"133211"</span>))
+chord_seq &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">setNames</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>), <span class="kw">names</span>(chords)[<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">1</span>)]), <span class="dv">3</span>)
+chords
+<span class="co">#&gt;              c              g              f </span>
+<span class="co">#&gt; "x;3;2;o;1;o;" "3;5;5;4;3;3;" "1;3;3;2;1;1;"</span>
+chord_seq
+<span class="co">#&gt; c g f c c g f c c g f c </span>
+<span class="co">#&gt; 1 2 2 1 1 2 2 1 1 2 2 1</span>
+
+song &lt;-<span class="st"> </span><span class="kw"><a href="../reference/trackbind.html">trackbind</a></span>(t1, t2, t3, <span class="dt">tabstaff =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/score.html">score</a></span>(chords, chord_seq)
+song
+<span class="co">#&gt; # A tibble: 3 x 7</span>
+<span class="co">#&gt;   phrase       tuning         voice staff    ms_transpose ms_key tabstaff</span>
+<span class="co">#&gt;   &lt;list&gt;       &lt;chr&gt;          &lt;int&gt; &lt;chr&gt;           &lt;int&gt; &lt;chr&gt;     &lt;int&gt;</span>
+<span class="co">#&gt; 1 &lt;S3: phrase&gt; e, a, d g b e'     1 treble_8            0 &lt;NA&gt;          1</span>
+<span class="co">#&gt; 2 &lt;S3: phrase&gt; e, a, d g b e'     2 treble_8            0 &lt;NA&gt;          1</span>
+<span class="co">#&gt; 3 &lt;S3: phrase&gt; e,, a,, d, g,      1 bass_8              0 &lt;NA&gt;          2</span></code></pre></div>
+<p>This time, when rendering the song, use settings for the three arguments discussed above. Given what is written, it doesn’t make sense to change them all. For example, this won’t fit well as a waltz (time = “3/4”). But for illustration purposes, pretend the song is actually in the key of D minor (F major). This key has one flat, B, so this will force the B note in the G chord to be annotated as an accidental. Change the time to <code>8/8</code> just for the sake of changing it, which won’t be any different from <code>4/4</code>. Finally, change the tempo to <code>4 = 120</code>, which is also equivalent to the default, but will show up in the output slightly differently.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/lilypond.html">lilypond</a></span>(song, <span class="st">"ex32.ly"</span>, <span class="st">"dm"</span>, <span class="st">"8/8"</span>, <span class="st">"4 = 120"</span>)
+<span class="kw"><a href="../reference/tab.html">tab</a></span>(song, <span class="st">"ex32.pdf"</span>, <span class="st">"dm"</span>, <span class="st">"8/8"</span>, <span class="st">"4 = 120"</span>)</code></pre></div>
+<p align="center">
+<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex32.png?raw=true" width="100%"></p>
+<p>Notice how the key change alone, which added room for a single flat symbol to be squeezed into the start of the treble and bass clef staves, was enough to push everything to the point of wrapping around onto a second entire line compared to the earlier tutorial section where it all fit on one line. This is because it was a really tight fit to in the previous examples and there was not enough room for LilyPond to continue fitting everything on one line with this slight widening created by the key change. LilyPond generates sheet music with a somewhat responsive layout engraver. It won’t leave everything on line one jam packaged and push a single measure to the line two. This will return to fitting on one line in a moment when we revert the key change.</p>
+<div id="ouput-file-and-path" class="section level3">
+<h3 class="hasAnchor">
+<a href="#ouput-file-and-path" class="anchor"></a>Ouput file and path</h3>
+<p>The output file specified with <code>file</code> ends in pdf in every example. However, you can switch to png output simply by specifying a file name with that extension.</p>
+<p>Regarding the <code>path</code> argument, which defaults to <code>"."</code>, a quick note on this: you can change this to something other than the working directory, but <code>path</code> <em>must always be a relative path</em>. You cannot use an absolute path or LilyPond will fail, at least in how it is called with <code>tabr</code>.</p>
+</div>
+</div>
+<div id="song-information" class="section level2">
+<h2 class="hasAnchor">
+<a href="#song-information" class="anchor"></a>Song information</h2>
+<p>The next important argument to <code>lilypond</code> is <code>header</code>. <code>header</code> takes a named list of character strings that are used to fill in general song information such as the title and composer. All previous examples were blank above the tabs because none of this information was ever provided. Below an example is given that uses all available arguments. You can use any subset of these. There is no requirement to supply them all. This example just shows what is available. Several of these would likely not be used in most cases.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">header &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">title =</span> <span class="st">"Song title"</span>, <span class="dt">composer =</span> <span class="st">"Words and music by the composer"</span>, 
+    <span class="dt">performer =</span> <span class="st">"Song performer"</span>, <span class="dt">album =</span> <span class="st">"Album title"</span>, <span class="dt">subtitle =</span> <span class="st">"Subtitle"</span>, 
+    <span class="dt">arranger =</span> <span class="st">"Arranged by tab arranger"</span>, <span class="dt">copyright =</span> <span class="st">"2018 &lt;Record Label&gt;"</span>, 
+    <span class="dt">instrument =</span> <span class="st">"guitar and bass"</span>, <span class="dt">tagline =</span> <span class="st">"A tagline"</span>, <span class="dt">meter =</span> <span class="st">"meter tag"</span>, 
+    <span class="dt">opus =</span> <span class="st">"opus tag"</span>, <span class="dt">piece =</span> <span class="st">"piece tag"</span>, <span class="dt">poet =</span> <span class="st">"poet tag"</span>)
+
+<span class="kw"><a href="../reference/tab.html">tab</a></span>(song, <span class="st">"ex33.pdf"</span>, <span class="dt">header =</span> header)</code></pre></div>
+<p align="center">
+<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex33.png?raw=true" width="100%"></p>
+<p>The copyright and tagline are cutoff in the above image, but in your pdf you will see these if you scroll to the bottom of the rendered page.</p>
+</div>
+<div id="other-settings" class="section level2">
+<h2 class="hasAnchor">
+<a href="#other-settings" class="anchor"></a>Other settings</h2>
+<div id="midi-files" class="section level3">
+<h3 class="hasAnchor">
+<a href="#midi-files" class="anchor"></a>MIDI files</h3>
+<p>You have probably noticed by now that every time a pdf if rendered, an accompanying MIDI file is also generated. This can be turned off with <code>midi = FALSE</code>. This specification goes into the LilyPond file itself via <code>lilypond</code>. Therefore, no MIDI output will be created even if you create the LilyPond file with <code>lilypond</code> but convert that to pdf with LilyPond outside of R.</p>
+<p>One thing to note about MIDI files is that <code>tabr</code> will unfold any repeats that occur in a song due to calls to <code>rp</code>, <code>pct</code> or <code>volta</code>. This allows the MIDI file to play everything the proper number of times rather than ending prematurely by not being able to read repeat notation.</p>
+<p>Also, <code>tabr</code> is a package aimed at creating guitar tablature. It is not concerned with MIDI or audio signals and audio data in general. Any MIDI functionality is considered to be an extra feature and does not receive priority development or support. At this time, there is no way to make other alterations to the MIDI file internals. MIDI output can be toggled on or off as mentioned. And without you having to do anything, MIDI output will respect repeat notation in the rendered LilyPond file. MIDI output will also automatically be transposed to match a transposition that is applied to a music staff (under reasonable and simplified conditions).</p>
+</div>
+<div id="string-names" class="section level3">
+<h3 class="hasAnchor">
+<a href="#string-names" class="anchor"></a>String names</h3>
+<p>The <code>string_names</code> argument defaults to <code>NULL</code>. This means that standard tuning is never specified alongside the lines of a tab staff at the beginning of the tablature. However, any other tuning will be explicitly noted so the reader is aware of the alternate tuning of any applicable track. This can also be set to <code>TRUE</code> to force all tunings to be explicit including standard guitar tuning or <code>FALSE</code> to suppress them all (though it is unclear what value there is in the <code>FALSE</code> setting).</p>
+</div>
+<div id="paper-settings" class="section level3">
+<h3 class="hasAnchor">
+<a href="#paper-settings" class="anchor"></a>Paper settings</h3>
+<p>There is some nominal level of control over the paper layout via <code>paper</code>. Like <code>header</code>, this is a named list. The defaults are fine so you probably do not need to alter most of these values. There are six options, all numeric except for <code>page_numbers</code>, which is logical.</p>
+<ul>
+<li><code>textheight</code></li>
+<li><code>linewidth</code></li>
+<li><code>indent</code></li>
+<li><code>first_page_number</code></li>
+<li><code>page_numbers</code></li>
+<li><code>fontsize</code></li>
+</ul>
+<p>If you pass any values for some of these in a named list to <code>paper</code>, any not passed will retain their built in defaults. You do not have to supply them all when using <code>paper</code>.</p>
+<p>For more detail on these settings and others further above, see the help documentation, <code><a href="../reference/lilypond.html">?lilypond</a></code>.</p>
+</div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+        <div id="tocnav">
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+<li><a href="#score-metadata">Score metadata</a></li>
+      <li><a href="#song-information">Song information</a></li>
+      <li><a href="#other-settings">Other settings</a></li>
+      </ul>
+</div>
       </div>
 
 </div>
