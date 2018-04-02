@@ -65,10 +65,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", hea
   chord_seq <- attributes(score)$chord_seq
   has_chord_seq <- !is.null(chord_seq)
   if(has_chords){
-    if(!has_chord_seq){
-      chord_seq <- rep(1, length(chords))
-      names(chord_seq) <- names(chords)
-    }
+    if(!has_chord_seq) chord_seq <- stats::setNames(rep(1, length(chords)), names(chords))
     names(chords) <- .notesub(names(chords))
     names(chord_seq) <- .notesub(names(chord_seq))
   }
@@ -81,10 +78,8 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", hea
                                  "\\storePredefinedDiagram #fb", .x, " \\chordmode{",
                                  names(chords)[.x], "} #guitar-tuning \"", chords[[.x]], "\"\n")) %>%
         paste(collapse = ""), "\n", collapse = "")
-    cd <- .chord_diagram(chords, chord_seq)
-  } else {
-    cd <- NULL
   }
+  cd <- .chord_diagram(chords, chord_seq)
   d <- split(score, score$tabstaff)
   melody0 <- split(score$phrase, score$tabstaff)
   melody_id <- paste0("melody", LETTERS[seq_along(melody0)])
@@ -251,19 +246,25 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header =
 }
 
 .chord_diagram <- function(chords, chord_seq){
-  diagram <- paste0("mychorddiagrams = \\chordmode {\n",
-                    paste0("  \\set predefinedDiagramTable = #fb", seq_along(chords), " ",
-                           names(chords), "\n", collapse = ""), "}\n\n")
+  if(is.null(chords) & is.null(chord_seq)) return()
+  if(!is.null(chords)){
+    diagram <- paste0("mychorddiagrams = \\chordmode {\n",
+                      paste0("  \\set predefinedDiagramTable = #fb", seq_along(chords), " ",
+                             names(chords), "\n", collapse = ""), "}\n\n")
+    topcenter <- paste0(
+      "\\markup\\vspace #3\n",
+      "\\markup \\fill-line {\n  \\score {\n    <<\n      \\context ChordNames { \\mychorddiagrams }\n",
+      "      \\context FretBoards {\n        \\override FretBoards.FretBoard.size = #'1.2\n",
+      "        \\mychorddiagrams\n      }\n    >>\n  \\layout {}\n  }\n}\n\\markup\\vspace #3\n\n")
+  } else {
+    diagram <- NULL
+    topcenter <- NULL
+  }
   modifiers <- purrr::map_chr(strsplit(names(chord_seq), ":"), ~({if(length(.x) == 1) NA else .x[2]}))
   chords <- paste0(sapply(strsplit(names(chord_seq), ":"), "[", 1), chord_seq,
                    ifelse(is.na(modifiers), "", paste0(":", modifiers)))
   name <- paste0("chordNames = \\chordmode {\n  \\override ChordName.font-size = #2\n  \\global\n  ",
                  paste(chords, collapse = " "), "\n}\n\n")
-  topcenter <- paste0(
-    "\\markup\\vspace #3\n",
-    "\\markup \\fill-line {\n  \\score {\n    <<\n      \\context ChordNames { \\mychorddiagrams }\n",
-    "      \\context FretBoards {\n        \\override FretBoards.FretBoard.size = #'1.2\n",
-    "        \\mychorddiagrams\n      }\n    >>\n  \\layout {}\n  }\n}\n\\markup\\vspace #3\n\n")
   paste0(diagram, name, topcenter, collapse = "")
 }
 
