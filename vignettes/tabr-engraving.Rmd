@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 
 This section covers `lilypond` and `tab` for writing LilyPond files and engraving to sheet music with LilyPond, respectively. Examples of the various pieces of song metadata that can be passed to to these functions are provided.
 
-The examples focus on `tab` because this generates the tablature whereas `lilypond` only creates the LilyPond file that `tab` renders. `tab` is a wrapper around `lilypond`. The two functions have identical arguments, as `tab` merely passes them along to `lilypond` internally, except for one. `tab` has `keep_ly = FALSE` by default, which removes the `.ly` file created by `lilypond` following rendering of the file to pdf or png. To keep the LilyPond file, set this to `TRUE`. All other arguments are the same for both functions so they are really `lilypond` arguments, but after the first example using both functions, examples switch to only calling `tab`.
+The examples focus on `tab` because this generates the tablature whereas `lilypond` only creates the LilyPond file that `tab` renders. `tab` is a wrapper around `lilypond`. The two functions have identical arguments, as `tab` merely passes them along to `lilypond` internally, except for one. `tab` has `keep_ly = FALSE` by default, which removes the `.ly` file created by `lilypond` following rendering of the file to pdf or png. To keep the LilyPond file, set this to `TRUE`. All other arguments are the same for both functions so they are really `lilypond` arguments.
 
 Here are the `lilypond` arguments:
 
@@ -54,11 +54,11 @@ song <- trackbind(t1, t2, t3, tabstaff = c(1, 1, 2)) %>% score(chords, chord_seq
 song
 ```
 
-This time, when rendering the song, use settings for the three arguments discussed above. Given what is written, it doesn't make sense to change them all. For example, this won't fit well as a waltz (time = "3/4"). But for illustration purposes, pretend the song is actually in the key of D minor (F major). This key has one flat, B, so this will force the B note in the G chord to be annotated as an accidental. Change the time to `8/8` just for the sake of changing it, which won't be any different from `4/4`. Finally, change the tempo to `4 = 120`, which is also equivalent to the default, but will show up in the output slightly differently.
+This time, when rendering the song, use settings for the three arguments discussed above. Given what is written, it doesn't make sense to change them all. For example, this won't fit well as a waltz (time = "3/4"). But for illustration purposes, pretend the song is actually in the key of D minor (F major). This key has one flat, B, so this will force the B note in the G chord to be annotated as an accidental. Change the time to `2/2` just for the sake of changing it, which won't really be any different from `4/4` except you will see a line through the common time symbol. Finally, change the tempo to `4 = 120`, which is also equivalent to the default, but will show up in the output slightly differently as well.
 
 ```{r metadata, results="hide", eval=FALSE}
-lilypond(song, "ex32.ly", "dm", "8/8", "4 = 120")
-tab(song, "ex32.pdf", "dm", "8/8", "4 = 120")
+lilypond(song, "ex32.ly", "dm", "2/2", "4 = 120")
+tab(song, "ex32.pdf", "dm", "2/2", "4 = 120")
 ```
 
 <p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex32.png?raw=true" width="100%"></p>
