@@ -87,7 +87,7 @@ navbar:
           href: "articles/tabr-tracks-scores.html"
         - text: "Engraving"
           href: "articles/tabr-engraving.html"
-        - text: "Non-standard tuning"
+        - text: "Strings and tunings"
           href: "articles/tabr-tunings.html"
         - text: "---------"
         - text: "Examples"

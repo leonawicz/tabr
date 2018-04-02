@@ -11,7 +11,6 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, tidy = TRUE, out.width = "100%"
 )
-library(tabr)
 ```
 
 *This section is a work in progress. Check back later.*
@@ -25,6 +24,7 @@ In the examples below, phrases are added to multiple tracks, tracks are bound to
 Phrases are added to a track using the first argument to `track`, which strictly accepts a phrase object. Except for the briefest examples, you will typically concatenate a sequence of multiple phrases and rests into a longer section of music, usually lasting the full duration of the piece. This new single phrase object is passed to `track`. Taking an earlier example and breaking it up as though it were multiple phrases for illustration.
 
 ```{r intro}
+library(tabr)
 p1 <- p("c e g c' e' c' g e", 8, "5 4 3 2 1 2 3 4")
 p2 <- p("g b d' g'", 8, "4 3 2 1")
 p3 <- p("f a c' f'", 8, "4 3 2 1")
@@ -157,7 +157,7 @@ score(t3) %>% tab("ex26c.pdf")
 
 <p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex26.png?raw=true" width="100%"></p>
 
-Rendering each of these tracks, all three look as expected given the different tuning of the guitar. By default a staff based on a non-standard tunings indicate the tuning at the beginning of the staff. For more on tunings, see the next tutorial section on non-standard tunings. Some control over displaying alternate tunings for the whole score in the rendered sheet music is available via `score`, touched on further below.
+Rendering each of these tracks, all three look as expected given the different tuning of the guitar. By default a staff based on a non-standard tunings indicate the tuning at the beginning of the staff. For more on tunings, see the later tutorial section on non-standard tunings. Some control over displaying alternate tunings for the whole score in the rendered sheet music is available via `score`, touched on further below.
 
 ## Supplemental music staff
 
@@ -200,7 +200,7 @@ Besides, when defining a named vector for `chord_seq`, it is highly likely you n
 
 To make it more interesting, these examples use the three track example from earlier. However, this time convert the bottom tab staff into a bass tab.
 
-*    Specify `tuning = "bass"` in `track`. This is shorthand for standard four string bass tuning. For more details on tunings and other instruments, see the next tutorial section on strings and tunings.
+*    Specify `tuning = "bass"` in `track`. This is shorthand for standard four string bass tuning. For more details on tunings and other instruments, see the later tutorial section on strings and tunings.
 *    Instead of suppressing the music staff for this track like was done last time, use a bass clef staff to see how this looks when it is all brought together: `music_staff = "bass_8"`.
 *    The bass tuning is one octave lower than the guitar tuning. Drop the notes in the phrase for track three by one octave.
 *    The guitar and bass are in their respective standard tunings, which means the four strings of the bass match the bottom four of the guitar in terms of notes: E A D G. This makes it a simple shift of string numbers for the phrase; the bottom string is now string four.
