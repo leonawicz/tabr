@@ -19,10 +19,10 @@ p(...)
 
 \item{bar}{logical, insert a bar check at the end of the phrase.}
 
-\item{...}{arguments passed to \code{phrase} (or to \code{alt} function).}
+\item{...}{arguments passed to \code{phrase}.}
 }
 \value{
-a phrase. For \code{alt}, return a length 2 character vector or list of phrases.
+a phrase.
 }
 \description{
 Create a musical phrase from character strings that define notes, note metadata, and optionally explicit strings fretted. The latter can be used to ensure proper tablature layout.
@@ -35,7 +35,7 @@ for the middle octave (no need to type c3, d3, ...), and is automatically conver
 That said, using the raised and lowered tick mark approach can be surprisingly easier to read for chords, which have no spaces between notes, especially six-string chords,
 given that the tick marks help break up the notes in the chord visually much more so than integers do. See examples.
 
-The function \code{p} is a convenient shorthand wrapper for \code{phrase}. It also calls the \code{alt} function when the \code{alt} argument is supplied. See examples.
+The function \code{p} is a convenient shorthand wrapper for \code{phrase}.
 
 Tied notes indicated by \code{~} are part of the \code{note} notation and not part of the \code{info} notation, e.g. \code{c''~}.
 

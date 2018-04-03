@@ -37,6 +37,7 @@ reference:
   - hp
   - tuplet
   - transpose
+  - sf_phrase
 - title: Repeats
   desc: "Functions to assist with repeated sections of music."
   contents:
