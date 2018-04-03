@@ -1,12 +1,12 @@
 context("outputs")
 
-notes <- "r s a2~ a2 c3 c f4 f' d a f"
-info <- "4 4 8*9"
-p1 <- p(notes, info)
-p2 <- p("r s a~ a c' c4 f5 f'' d4 a4 f'", info)
+notes <- "r s a2~ a2 c3 c f4 f' d a f ce_g ceg#"
+info <- "4 4 8*9 2. 4"
+p1 <- glue(pct(p("a", 1)), rp(p(notes, info)))
+p2 <- volta(p("r s a~ a c' c4 f5 f'' d4 a4 f' c'e_'g' c'e'g#'", info))
 x1 <- track(p1) %>% score()
-x2 <- track(p1, tuning = "DADGAD", ms_transpose = 1, ms_key = "flat") %>% score()
-x3 <- track(p1, music_staff = NA) %>% score()
+x2 <- track(p2, tuning = "DADGAD", ms_transpose = 1, ms_key = "flat") %>% score()
+x3 <- track(glue(p1, p2), music_staff = NA) %>% score()
 
 notes <- "a, b, c d e f g a"
 p1 <- p(notes, 8)
