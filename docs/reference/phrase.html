@@ -188,13 +188,13 @@ Notes separated in time are separated in the <code>notes</code> string by spaces
     </tr>
     <tr>
       <th>...</th>
-      <td><p>arguments passed to <code>phrase</code> (or to <code>alt</code> function).</p></td>
+      <td><p>arguments passed to <code>phrase</code>.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a phrase. For <code>alt</code>, return a length 2 character vector or list of phrases.</p>
+    <p>a phrase.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -203,7 +203,7 @@ But this is not necessary. Instead, you can use octave numbering. This may easie
 for the middle octave (no need to type c3, d3, ...), and is automatically converted for you by <code>phrase</code> to the tick mark format interpreted by LilyPond.
 That said, using the raised and lowered tick mark approach can be surprisingly easier to read for chords, which have no spaces between notes, especially six-string chords,
 given that the tick marks help break up the notes in the chord visually much more so than integers do. See examples.</p>
-<p>The function <code>p</code> is a convenient shorthand wrapper for <code>phrase</code>. It also calls the <code>alt</code> function when the <code>alt</code> argument is supplied. See examples.</p>
+<p>The function <code>p</code> is a convenient shorthand wrapper for <code>phrase</code>.</p>
 <p>Tied notes indicated by <code>~</code> are part of the <code>note</code> notation and not part of the <code>info</code> notation, e.g. <code>c''~</code>.</p>
 <p>Notes can comprise chords. These are bound tightly rather than space-delimited, as they are not separated in time.
 For example, a C chord could be given as <code>ceg</code> and in the case of tied notes would be <code>c~e~g~</code>.</p>

@@ -11,6 +11,7 @@ http://leonawicz.github.io//reference/pipe.html
 http://leonawicz.github.io//reference/repeats.html
 http://leonawicz.github.io//reference/rest.html
 http://leonawicz.github.io//reference/score.html
+http://leonawicz.github.io//reference/sf_phrase.html
 http://leonawicz.github.io//reference/tab.html
 http://leonawicz.github.io//reference/tabr.html
 http://leonawicz.github.io//reference/tabrSyntax.html
