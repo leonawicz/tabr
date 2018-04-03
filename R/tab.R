@@ -67,8 +67,8 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", hea
   if(has_chords){
     if(!has_chord_seq) chord_seq <- stats::setNames(rep(1, length(chords)), names(chords))
     names(chords) <- .notesub(names(chords))
-    names(chord_seq) <- .notesub(names(chord_seq))
   }
+  if(!is.null(chord_seq)) names(chord_seq) <- .notesub(names(chord_seq))
   global <- .lp_global(time, key, mode, tempo, endbar)
   rel_tp <- ifelse(any(score$ms_transpose != 0), TRUE, FALSE)
   top <- .lp_top(paper_args$fontsize, header, rel_tp)
@@ -262,8 +262,12 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header =
     diagram <- NULL
     topcenter <- NULL
   }
-  modifiers <- purrr::map_chr(strsplit(names(chord_seq), ":"), ~({if(length(.x) == 1) NA else .x[2]}))
-  chords <- paste0(sapply(strsplit(names(chord_seq), ":"), "[", 1), chord_seq,
+  a <- names(chord_seq)
+  modifiers <- purrr::map_chr(strsplit(a, ":"), ~({if(length(.x) == 1) NA else .x[2]}))
+  base_chords <- purrr::map_chr(strsplit(a, ":"), 1)
+  alt_bass <- purrr::map_chr(strsplit(base_chords, "/"), ~({if(length(.x) == 1) NA else .x[2]}))
+  base_chords <- purrr::map_chr(strsplit(base_chords, "/"), 1)
+  chords <- paste0(base_chords, chord_seq, ifelse(is.na(alt_bass), "", paste0("/", alt_bass)),
                    ifelse(is.na(modifiers), "", paste0(":", modifiers)))
   name <- paste0("chordNames = \\chordmode {\n  \\override ChordName.font-size = #2\n  \\global\n  ",
                  paste(chords, collapse = " "), "\n}\n\n")
