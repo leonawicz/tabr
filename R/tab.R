@@ -54,7 +54,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", hea
   if(!"score" %in% class(score)) stop("`score` is not a score object.")
   major <- ifelse(utils::tail(strsplit(key, "")[[1]], 1) == "m", FALSE, TRUE)
   raw_key <- gsub("m", "", key)
-  key <- .notesub(raw_key)
+  key <- .split_chord(.notesub(raw_key))
   mode <- ifelse(major, "\\major", "\\minor")
   if((major && !key %in% .keys$major) || (!major && !key %in% .keys$minor)) stop("Invalid key.")
   paper_args <- .lp_paper_args(paper)
@@ -136,6 +136,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", hea
 #' @param midi logical, output midi file in addition to tablature.
 #' @param keep_ly logical, keep LilyPond file.
 #' @param path character, output directory for \code{file}, must be a relative path.
+#' @param details logical, set to \code{FALSE} to disable printing of log output to console.
 #'
 #' @return nothing returned; a file is written.
 #' @export
@@ -148,14 +149,15 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", hea
 #' \dontrun{tab(x, "out.ly") # requires LilyPond installation}
 tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header = NULL,
                 string_names = NULL, paper = NULL, endbar = TRUE, midi = TRUE,
-                keep_ly = FALSE, path = "."){
+                keep_ly = FALSE, path = ".", details = TRUE){
   ext <- utils::tail(strsplit(file, "\\.")[[1]], 1)
   lily <- gsub(ext, "ly", file)
-  cat("#### Engraving score to", file, "####\n")
+  if(details) cat("#### Engraving score to", file, "####\n")
   lilypond(score, lily, key, time, tempo, header, string_names, paper, endbar, midi, path)
   lily <- file.path(path, lily)
   system(paste0("\"", tabr_options()$lilypond, "\" --", ext,
-                " -dstrip-output-dir=#f \"", lily, "\""))
+                " -dstrip-output-dir=#f \"", lily, "\""),
+         show.output.on.console = details)
   if(!keep_ly) unlink(lily)
   invisible()
 }
@@ -184,8 +186,8 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header =
                         page_numbers = TRUE, first_page_number = 1)
 
 .keys <- list(
-  major = c("fis", "h", "e", "a", "d", "g", "c", "f", "b", "es", "as", "des", "ges"),
-  minor = c("cis", "gis", "dis", "fis", "h", "e", "a", "d", "g", "c", "f", "b", "es")
+  major = .notesub(dplyr::filter(.keydata, major)$key, simplify = TRUE),
+  minor = .notesub(gsub("m", "", dplyr::filter(.keydata, !major)$key), simplify = TRUE)
 )
 
 # nolint start

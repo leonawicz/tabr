@@ -18,9 +18,10 @@
   x
 }
 
-.notesub <- function(x, sharp = "#", flat = "_"){
+.notesub <- function(x, sharp = "#", flat = "_", simplify = FALSE){
   x <- gsub(sharp[1], "is", x)
   x <- gsub(flat[1], "es", x)
+  if(simplify) x <- gsub("ees", "es", gsub("aes", "as", x))
   x
 }
 

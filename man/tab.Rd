@@ -6,7 +6,7 @@
 \usage{
 tab(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   header = NULL, string_names = NULL, paper = NULL, endbar = TRUE,
-  midi = TRUE, keep_ly = FALSE, path = ".")
+  midi = TRUE, keep_ly = FALSE, path = ".", details = TRUE)
 }
 \arguments{
 \item{score}{a score object.}
@@ -32,6 +32,8 @@ tab(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 \item{keep_ly}{logical, keep LilyPond file.}
 
 \item{path}{character, output directory for \code{file}, must be a relative path.}
+
+\item{details}{logical, set to \code{FALSE} to disable printing of log output to console.}
 }
 \value{
 nothing returned; a file is written.
