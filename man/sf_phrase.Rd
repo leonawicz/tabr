@@ -5,8 +5,7 @@
 \alias{sfp}
 \title{Create a musical phrase from string/fret combinations}
 \usage{
-sf_phrase(string, fret, info, tuning = "standard", key = "c",
-  style = c("tick", "integer"), bar = FALSE)
+sf_phrase(string, fret, info, tuning = "standard", key = "c", bar = FALSE)
 
 sfp(...)
 }
@@ -19,9 +18,7 @@ sfp(...)
 
 \item{tuning}{character, instrument tuning.}
 
-\item{key}{character, key signature. Passed to \code{transpose} function.}
-
-\item{style}{character, octave numbering style, tick or integer.}
+\item{key}{character, key signature or just specify \code{"sharp"} or \code{"flat"}.}
 
 \item{bar}{logical, insert a bar check at the end of the phrase.}
 
@@ -34,9 +31,29 @@ a phrase.
 Create a musical phrase from character strings that define string numbers, fret numbers and note metadata. This function is a wrapper around \code{\link{phrase}}.
 It allows for specifying string/fret combinations instead of unambiguous pitch as is used by \code{phrase}.
 In order to remove ambiguity, it is critical to specify the instrument string tuning and key signature.
-See the main function \code{phrase} for more details.
+It essentially uses \code{string} and \code{fret} in combination with a known tuning and key signature in order to generate \code{notes} for \code{\link{phrase}}.
+\code{info} is passed straight through to \code{phrase}, as is \code{string} once it is done being used to help inform \code{notes}.
 }
 \details{
+See the main function \code{phrase} for more details. If you landed here first and are not familiar with \code{phrase}, be aware that \code{sf_phrase} is a tangential extra feature wrapper function in \code{tabr} and for a variety of reasons (see below) the approach it uses is discouraged in general.
+If this is your only option, take note of the drtails and limitations below.
+
+This function is a crutch for users not working with musical notes (what to play), but rather just position on the guitar neck (where to play). This method has its conveniences, but it is inherently limiting.
+In order to remove ambiguity, it is necessary to specify the instrument tuning and the key signature (or at least whether non-natural notes in the output should be sharps or flats).
+
+In the standard approach where you specify what to play, specifying exactly where to play is optional, but highly recommended (by providing \code{string}). Here \code{string} is of course required along with \code{fret}.
+But any time the tuning changes, this "where to play" method breaks down and must be redone. It is much more robust to provide the string and pitch rather than the string and fret.
+The key is always important because it is the only way to indicate if non-natural notes are sharps or flats.
+
+This crutch method also increases redundancy and typing. In order to specify rests \code{r}, silent rests \code{s}, and tied notes \code{~}, these must now be providing in parallel in both the \code{string} and \code{fret} arguments,
+whereas in the standard method using \code{phrase}, they need only be provided once to \code{notes}.
+A mismatch will throw an error. Despite the redundancy, this is helpful for ensuring proper match up between \code{string} and \code{fret}, which is essentially a dual entry method that aims to reduce itself inside \code{sf_phrase} to a single \code{notes} string that is passed internally to \code{phrase}.
+
+The important thing to keep in mind is that by its nature, this method of writing out music does not lend itself well to high detail.
+Tabs that are informed by nothing but string and fret number remove a lot of important information, and those that attempt to compensate with additional symbols in say, an ascii tab, are difficult to read.
+This wrapper function providing this alternative input method does its job of allowing users to create phrase objects that are equivalent to standard \code{phrase}-generated objects, including rests and ties, but practice and comfort with working with \code{phrase} and not this wrapper is highly recommended,
+not just for eventual ease of use but for not preventing yourself from learning your way around the guitar neck and where all the different pitches are located.
+
 The function \code{sfp} is a convenient shorthand wrapper for \code{sf_phrase}.
 }
 \examples{
