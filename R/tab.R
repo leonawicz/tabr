@@ -368,6 +368,8 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header =
     return(x)
   }
   x <- as.character(mapply(substr, x, idx, idx + c(diff(idx), nchar(x) - utils::tail(idx, 1) + 1) - 1))
+  note_tie <- grepl("~", x)
+  if(!strings && length(x) > 1 && any(note_tie) && !all(note_tie)) x[!note_tie] <- paste0(x[!note_tie], "~")
   if(!strings & abb) x <- gsub("aes", "as", gsub("ees", "es", x))
   if(strings && length(idx0)) x[idx0] <- as.character(as.numeric(x[idx0]) + xdif)
   x
