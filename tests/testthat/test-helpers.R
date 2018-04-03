@@ -4,6 +4,10 @@ context("helpers")
 test_that("helpers return as expected.", {
   expect_equal(tie("e,,d'"), "e,,~d'~")
   expect_equal(tie("e,b,egbe'"), "e,~b,~e~g~b~e'~")
+  p1 <- p("e,~b,~e~g~b~e'~ e,b,egbe'", 1)
+  expect_equal(p(glue(tie("e,b,egbe'"), "e,b,egbe'"), 1), p1)
+  expect_equal(p("e,b,egbe'~ e,b,egbe'", 1), p1)
+  expect_equal(p("e,b,~eg~be'~ e,b,egbe'", 1), p1)
 
   expect_equal(rest(c(1, 8), c(1, 4)), "r1 r8 r8 r8 r8")
 

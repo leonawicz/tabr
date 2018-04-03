@@ -1,7 +1,7 @@
 context("outputs")
 
 notes <- "r s a2~ a2 c3 c f4 f' d a f ce_g ceg#"
-info <- "4 4 8*9 2. 4"
+info <- "4. 4. 8*9 2. 4."
 p1 <- glue(pct(p("a", 1)), rp(p(notes, info)))
 p2 <- volta(p("r s a~ a c' c4 f5 f'' d4 a4 f' c'e_'g' c'e'g#'", info))
 x1 <- track(p1) %>% score()
@@ -59,5 +59,5 @@ test_that("miditab and midily functions run without error", {
   expect_is(midily(midi, "out.ly"), "NULL")
   expect_is(miditab(midi, "out.pdf"), "NULL")
   expect_is(miditab(midi, "out.png"), "NULL")
-  unlink(c("out.mid", "out.pdf", "out.png"))
+  unlink(c("out.mid", "out.pdf", "out.png", "out.log"))
 })
