@@ -1,7 +1,7 @@
 Package: tabr
 Version: 0.1.0
 Title: Create Guitar Tablature
-Description: Creates guitar tablature from R code by providing functions for describing and organizing musical structures and wrapping around the LilyPond backend (http://lilypond.org).
+Description: Creates guitar tablature from R code by providing functions for describing and organizing musical structures and wrapping around the LilyPond backend (<http://lilypond.org>).
     LilyPond is open source music engraving software for generating high quality sheet music based on markup language. 'tabr' provides a wrapper around this
     software and generates files following the LilyPond markup syntax to be subsequently processed by LilyPond into sheet music pdf files.
     A standalone LilyPond file can be created or the package can make a system call to LilyPond directly to render the guitar tablature output.
