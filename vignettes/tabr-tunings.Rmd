@@ -1,5 +1,5 @@
 ---
-title: "Non-standard tuning"
+title: "Strings and tunings"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Non-standard tuning}
@@ -14,11 +14,85 @@ knitr::opts_chunk$set(
 library(tabr)
 ```
 
-This section covers non-standard tunings. Different tunings can be associated with individual music staves and are therefore specified when calling `track`. The `tuning` argument to track accepts a variety of predefined commonly used string tunings, defaulting to `standard`.
+```{r table1, echo=FALSE}
+knitr::kable(tunings, "html", escape = TRUE, align = "c") %>%
+  kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), position = "float_right", full_width = FALSE)
+```
+
+This section covers differently strung guitars and string instruments as well as non-standard tunings. Different tunings can be associated with individual music staves and are therefore specified when calling `track`.
+
+## Predefined tunings
+
+The `tuning` argument to track accepts a variety of predefined commonly used string tunings, defaulting to `standard`. To the right is a table of predefined tunings for various instruments.
+
+```{r table0, eval=FALSE}
+library(tabr)
+tunings
+```
+
+## Arbitrary tunings
 
 More importantly, track tuning can also be expressed using explicit pitch for completely arbitrary tunings with any number of strings (`tabr` technically supports up to seven strings as a general rule). While the predefined set is convenient, it is not necessary to use and this is where the use of alternate tunings really shines.
 
-*This and subsequent tutorial sections will be continued/added soon...*
+Any of the explicit tunings shown in the `tunings` table can be supplied to `track` exactly as shown instead of using the given names, or any other explicit tuning. Tuning can be provided using tick or integer octave numbering style.
+
+When providing a tuning, names are checked first against the IDs in `tunings`. If there is no match, it is assumed to be an explicit tuning already. Some additional checks are performed to catch common user errors in entering a tuning.
+
+Tuning for a track defaults to standard tuning on a six string guitar. The following calls are equivalent and result in the same explicit tuning stored in each of the the track tables.
+
+```{r tuning1}
+p1 <- p("a", 1)
+track(p1, tuning = "standard")
+track(p1, tuning = "e2 a2 d g b e4")
+track(p1, tuning = "e, a, d g b e'")
+```
+
+## Number of strings
+
+While `tabr` has a focus on guitar tablature, it does offer some built in support for string instruments more generally.
+
+A convenient approach taken by `tabr` is that the number of strings an instrument has, and in turn the number of horizontal lines in a rendered tablature staff, is inferred directly from the explicit tuning.
+
+Take the predefined `bass` tuning (standard bass tuning) or the explicit tuning it is converted to by `track`, which is `e,, a,, d, g,`. This is a tuning that specifies four strings. This is all `tabr` needs to know and pass along to LilyPond to yield a tablature staff with four staff lines as opposed to the standard six line staff used for typical guitar tabs.
+
+The next example shows three different tablature staves: six string guitar in standard tuning, four string bass in standard tuning, and just for illustration, a one string instrument tuning to the fourth octave C note.
+
+```{r tuning2}
+guitar <- tuplet("e, a, d g b e'", 4)
+bass <- p("e,, a,, d, g,", 4)
+one_string <- p("c' d' e' f'", 4)
+tracks <- trackbind(track(guitar, music_staff = NA), 
+                    track(bass, "bass", music_staff = NA), 
+                    track(one_string, "c'", music_staff = NA))
+tracks
+```
+
+```{r tuning2b, results="hide", eval=FALSE}
+score(tracks) %>% tab("out.pdf")
+```
+
+<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex34.png?raw=true" width="40%"></p>
+
+Notice that for tunings other than standard guitar, the default is to show the note each string is tuned to at the start of the tablature staff. These can be turning off in `score` using `string_names = FALSE`. For example, when making a pure bass tab in standard tuning, you might opt to exclude this. There must still be some familiarity with the instrument of course. In the case of the made up one string instrument, no one would know which octave the open C belongs to, but the person with such an instrument would surely know what to expect.
+
+Take another look at the same example, but this time including music staves. Because of the different octave ranges of the different instruments, it is best to use an appropriate clef. Recall the default (used for guitar) is `treble_8` because guitar is a transposing instrument. Compare this with `treble` used for the third instrument that is in a higher octave. These different notations help prevent difficult to read transcriptions where the notes go far above or below the staff lines.
+
+```{r tuning3}
+tracks <- trackbind(track(guitar), 
+                    track(bass, "bass", music_staff = "bass_8"), 
+                    track(one_string, "c'", music_staff = "treble"))
+tracks
+```
+
+```{r tuning3b, results="hide", eval=FALSE}
+score(tracks) %>% tab("out.pdf")
+```
+
+<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex35.png?raw=true" width="40%"></p>
+
+## Current limitations
+
+Although `tabr` infers the an instrument's number of strings from its tuning, there are limitations. Chord fretboard diagrams are only supported for guitar, six string guitar specifically. If you trying to pass four or five strings worth of information to `chord_set` for bass, ukulele or banjo for example, this will incompletely fill in a six string guitar fretboard diagram in the chord chart of the output. Similarly, if you trying to provide seven strings for a seven string guitar, the chord chart will show the additional note, but it will be floating to the side of the chart because a seventh string line is not will not be added to the diagram. Number of strings inferred from instrument tuning shows up in the tablature staff but does not generalize to fretboard diagrams.
 
 ```{r cleanup, echo=FALSE}
 unlink("*.mid")
