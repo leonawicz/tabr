@@ -7,7 +7,7 @@
 
 .map_tuning <- function(x){
   if(x %in% tabr::tunings$id) return(tabr::tunings$value[x == tabr::tunings$id])
-  if(!length(grep(" ", x)) || length(grep("[h-zA-Z]", x))) stop("Invalid `tuning`.")
+  if(length(grep("[h-zA-Z]", x))) stop("Invalid `tuning`.")
   .octavesub(x)
 }
 
