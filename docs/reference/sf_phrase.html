@@ -213,7 +213,7 @@ It essentially uses <code>string</code> and <code>fret</code> in combination wit
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>See the main function <code>phrase</code> for more details. If you landed here first and are not familiar with <code>phrase</code>, be aware that <code>sf_phrase</code> is a tangential extra feature wrapper function in <code>tabr</code> and for a variety of reasons (see below) the approach it uses is discouraged in general.
-If this is your only option, take note of the drtails and limitations below.</p>
+If this is your only option, take note of the details and limitations below.</p>
 <p>This function is a crutch for users not working with musical notes (what to play), but rather just position on the guitar neck (where to play). This method has its conveniences, but it is inherently limiting.
 In order to remove ambiguity, it is necessary to specify the instrument tuning and the key signature (or at least whether non-natural notes in the output should be sharps or flats).</p>
 <p>In the standard approach where you specify what to play, specifying exactly where to play is optional, but highly recommended (by providing <code>string</code>). Here <code>string</code> is of course required along with <code>fret</code>.

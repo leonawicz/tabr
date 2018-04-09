@@ -9,7 +9,7 @@
 #' \code{info} is passed straight through to \code{phrase}, as is \code{string} once it is done being used to help inform \code{notes}.
 #'
 #' See the main function \code{phrase} for more details. If you landed here first and are not familiar with \code{phrase}, be aware that \code{sf_phrase} is a tangential extra feature wrapper function in \code{tabr} and for a variety of reasons (see below) the approach it uses is discouraged in general.
-#' If this is your only option, take note of the drtails and limitations below.
+#' If this is your only option, take note of the details and limitations below.
 #'
 #' This function is a crutch for users not working with musical notes (what to play), but rather just position on the guitar neck (where to play). This method has its conveniences, but it is inherently limiting.
 #' In order to remove ambiguity, it is necessary to specify the instrument tuning and the key signature (or at least whether non-natural notes in the output should be sharps or flats).
