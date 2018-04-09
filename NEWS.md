@@ -1,3 +1,12 @@
+# tabr 0.1.1
+
+Adjustments to meet requirements for CRAN resubmission: 
+
+* Updated DESCRIPTION.
+* Adjusted file-writing locations for unit tests to use `tempdir`.
+* Add `dontrun` tag around one last file-writing package example that was using `lilypond`.
+* Update `lilypond`, `tab`, `midily` and `miditab` to work with system calls that use absolute paths for output files instead of only working with relative paths.
+
 # tabr 0.1.0
 
 * Added package scaffolding.

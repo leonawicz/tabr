@@ -18,7 +18,7 @@
 #' On package load, \code{tabr} will attempt to check for \code{midi2ly.exe} at \code{C:/Program Files (x86)/LilyPond/usr/bin/midi2ly.py} and similarly for the \code{python.exe} that ships with LilyPond at \code{C:/Program Files (x86)/LilyPond/usr/bin/python.exe}.
 #' If this is not where LilyPond is installed, then LilyPond and Python need to be provided to \code{tabr_options} or added to the system PATH variable.
 #'
-#' @param midi_file character, MIDI file (\code{.mid}).
+#' @param midi_file character, MIDI file (\code{.mid}). May include an absolute or relative path.
 #' @param file LilyPond output file ending in \code{.ly}.
 #' @param key key signature, defaults to \code{"c"}.
 #' @param absolute logical, print absolute pitches.
@@ -28,7 +28,7 @@
 #' @param allow_tuplet character vector, allow tuplet durations. See details.
 #' @param details logical, verbose detail.
 #' @param lyric logical, treat all text as lyrics.
-#' @param path character, output directory for \code{file}, must be a relative path.
+#' @param path character, optional output directory prefixed to \code{file}, may be an absolute or relative path. If \code{NULL} (default), only \code{file} is used.
 #'
 #' @return nothing returned; a file is written.
 #' @export
@@ -39,7 +39,7 @@
 #' \dontrun{midily(midi, "out.ly") # requires LilyPond installation}
 midily <- function(midi_file, file, key = "c", absolute = FALSE, quantize = NULL, explicit = FALSE,
                    start_quant = NULL, allow_tuplet = c("4*2/3", "8*2/3", "16*2/3"), details = FALSE,
-                   lyric = FALSE, path = "."){
+                   lyric = FALSE, path = NULL){
   x <- paste0("--key=", .midily_key(key))
   if(absolute) x <- paste(x, "--absolute-pitches")
   if(!is.null(quantize)) x <- paste(x, paste0("--duration-quant=", quantize))
@@ -50,9 +50,8 @@ midily <- function(midi_file, file, key = "c", absolute = FALSE, quantize = NULL
   }
   if(explicit) x <- paste(x, "--verbose")
   if(explicit) x <- paste(x, "--text-lyrics")
-  file <- file.path(path, file)
   system(paste0("\"", tabr_options()$python, "\" ", "\"", tabr_options()$midi2ly, "\" ", x,
-                " --output=\"", file, "\" \"", midi_file, "\""))
+                " --output=\"", .adjust_file_path(file, path)$lp, "\" \"", midi_file, "\""))
   invisible()
 }
 
@@ -81,10 +80,10 @@ midily <- function(midi_file, file, key = "c", absolute = FALSE, quantize = NULL
 #' On package load, \code{tabr} will attempt to check for \code{midi2ly.exe} at \code{C:/Program Files (x86)/LilyPond/usr/bin/midi2ly.py} and similarly for the \code{python.exe} that ships with LilyPond at \code{C:/Program Files (x86)/LilyPond/usr/bin/python.exe}.
 #' If this is not where LilyPond is installed, then LilyPond and Python need to be provided to \code{tabr_options} or added to the system PATH variable.
 #'
-#' @param midi_file character, MIDI file (\code{.mid}).
+#' @param midi_file character, MIDI file (\code{.mid}). May include an absolute or relative path.
 #' @param file character, output file ending in .pdf or .png.
 #' @param keep_ly logical, keep LilyPond file.
-#' @param path character, output directory for \code{file}, must be a relative path.
+#' @param path character, optional output directory prefixed to \code{file}, may be an absolute or relative path. If \code{NULL} (default), only \code{file} is used.
 #' @param ... additional arguments passed to \code{\link{midily}}.
 #'
 #' @return nothing returned; a file is written.
@@ -94,14 +93,11 @@ midily <- function(midi_file, file, key = "c", absolute = FALSE, quantize = NULL
 #' @examples
 #' midi <- system.file("example.mid", package = "tabr")
 #' \dontrun{miditab(midi, "out.pdf") # requires LilyPond installation}
-miditab <- function(midi_file, file, keep_ly = FALSE, path = ".", ...){
-  ext <- utils::tail(strsplit(file, "\\.")[[1]], 1)
-  lily <- gsub(ext, "ly", file)
-  cat("#### Engraving midi to", file, "####\n")
-  do.call(midily, c(list(midi_file = midi_file, file = lily, path = path), list(...)))
-  lily <- file.path(path, lily)
-  system(paste0("\"", tabr_options()$lilypond, "\" --", ext,
-                " -dstrip-output-dir=#f \"", lily, "\""))
-  if(!keep_ly) unlink(lily)
+miditab <- function(midi_file, file, keep_ly = FALSE, path = NULL, ...){
+  fp <- .adjust_file_path(file, path)
+  cat("#### Engraving midi to", fp$tp, "####\n")
+  do.call(midily, c(list(midi_file = midi_file, file = basename(fp$lp), path = dirname(fp$lp)), list(...)))
+  system(paste0("\"", tabr_options()$lilypond, "\" --", fp$ext, " -dstrip-output-dir=#f \"", fp$lp, "\""))
+  if(!keep_ly) unlink(fp$lp)
   invisible()
 }

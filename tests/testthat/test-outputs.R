@@ -32,32 +32,44 @@ header <- list(
 paper <- list(textheight = 230, linewidth = 160, indent = 20, fontsize = 16, first_page_number = 10,
               page_numbers = FALSE)
 
+out <- file.path(tempdir(), c("out.ly", "out.pdf", "out.png"))
+cleanup <- file.path(tempdir(), c("out.mid", "out.pdf", "out.png", "out.log"))
+cl <- "NULL"
+
 test_that("tab and lilypond functions run without error", {
   skip_on_appveyor()
   skip_on_cran()
-  purrr::walk(x, ~expect_is(lilypond(.x, "out.ly"), "NULL"))
-  expect_is(tab(x1, "out.pdf"), "NULL")
-  purrr::walk(x, ~expect_is(tab(.x, "out.pdf", details = FALSE), "NULL"))
-  purrr::walk(x, ~expect_is(tab(.x, "out.png", details = FALSE), "NULL"))
 
-  expect_error(tab(x8, "out.pdf", "d_m", details = FALSE), "Invalid key.")
+  expect_is(lilypond(x1, out[1]), cl)
+  expect_is(lilypond(x1, basename(out[1]), path = tempdir()), cl)
+  expect_is(tab(x1, out[2]), cl)
+  expect_is(tab(x1, basename(out[2]), path = tempdir()), cl)
+  expect_is(tab(x1, out[3]), cl)
+  expect_is(tab(x1, basename(out[3]), path = tempdir()), cl)
 
-  purrr::walk(keys(), ~expect_is(tab(x8, "out.pdf", .x, "2/2", "4 = 110",
+  purrr::walk(x, ~expect_is(lilypond(.x, out[1]), cl))
+  purrr::walk(x, ~expect_is(tab(.x, out[2], details = FALSE), cl))
+  purrr::walk(x, ~expect_is(tab(.x, out[3], details = FALSE), cl))
+
+  expect_error(tab(x8, out[2], "d_m", details = FALSE), "Invalid key.")
+
+  purrr::walk(keys(), ~expect_is(tab(x8, out[2], .x, "2/2", "4 = 110",
                 header = header, string_names = FALSE, paper = paper,
-                endbar = FALSE, midi = FALSE, keep_ly = FALSE, details = FALSE), "NULL"))
+                endbar = FALSE, midi = FALSE, keep_ly = FALSE, details = FALSE), cl))
 
-  expect_is(tab(x8, "out.pdf", "c#", "2/2", "4 = 110",
+  expect_is(tab(x8, out[2], "c#", "2/2", "4 = 110",
                 header = header[c(1, 3, 4)], string_names = TRUE, paper = paper[1:5],
-                endbar = FALSE, midi = FALSE, keep_ly = FALSE, details = FALSE), "NULL")
-  unlink(c("out.mid", "out.pdf", "out.png", "out.log"))
+                endbar = FALSE, midi = FALSE, keep_ly = FALSE, details = FALSE), cl)
+  unlink(cleanup)
 })
 
 test_that("miditab and midily functions run without error", {
   skip_on_appveyor()
   skip_on_cran()
+
   midi <- system.file("example.mid", package = "tabr")
-  expect_is(midily(midi, "out.ly"), "NULL")
-  expect_is(miditab(midi, "out.pdf"), "NULL")
-  expect_is(miditab(midi, "out.png"), "NULL")
-  unlink(c("out.mid", "out.pdf", "out.png", "out.log"))
+  expect_is(midily(midi, out[1]), cl)
+  expect_is(miditab(midi, out[2]), cl)
+  expect_is(miditab(midi, out[3]), cl)
+  unlink(cleanup)
 })

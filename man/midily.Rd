@@ -6,10 +6,10 @@
 \usage{
 midily(midi_file, file, key = "c", absolute = FALSE, quantize = NULL,
   explicit = FALSE, start_quant = NULL, allow_tuplet = c("4*2/3", "8*2/3",
-  "16*2/3"), details = FALSE, lyric = FALSE, path = ".")
+  "16*2/3"), details = FALSE, lyric = FALSE, path = NULL)
 }
 \arguments{
-\item{midi_file}{character, MIDI file (\code{.mid}).}
+\item{midi_file}{character, MIDI file (\code{.mid}). May include an absolute or relative path.}
 
 \item{file}{LilyPond output file ending in \code{.ly}.}
 
@@ -29,7 +29,7 @@ midily(midi_file, file, key = "c", absolute = FALSE, quantize = NULL,
 
 \item{lyric}{logical, treat all text as lyrics.}
 
-\item{path}{character, output directory for \code{file}, must be a relative path.}
+\item{path}{character, optional output directory prefixed to \code{file}, may be an absolute or relative path. If \code{NULL} (default), only \code{file} is used.}
 }
 \value{
 nothing returned; a file is written.

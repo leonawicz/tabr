@@ -4,16 +4,16 @@
 \alias{miditab}
 \title{Convert MIDI to tablature}
 \usage{
-miditab(midi_file, file, keep_ly = FALSE, path = ".", ...)
+miditab(midi_file, file, keep_ly = FALSE, path = NULL, ...)
 }
 \arguments{
-\item{midi_file}{character, MIDI file (\code{.mid}).}
+\item{midi_file}{character, MIDI file (\code{.mid}). May include an absolute or relative path.}
 
 \item{file}{character, output file ending in .pdf or .png.}
 
 \item{keep_ly}{logical, keep LilyPond file.}
 
-\item{path}{character, output directory for \code{file}, must be a relative path.}
+\item{path}{character, optional output directory prefixed to \code{file}, may be an absolute or relative path. If \code{NULL} (default), only \code{file} is used.}
 
 \item{...}{additional arguments passed to \code{\link{midily}}.}
 }

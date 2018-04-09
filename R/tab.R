@@ -29,7 +29,7 @@
 #' }
 #'
 #' @param score a score object.
-#' @param file character, LilyPond output file ending in \code{.ly}.
+#' @param file character, LilyPond output file ending in \code{.ly}. May include an absolute or relative path.
 #' @param key character, key signature, e.g., \code{c}, \code{b_}, \code{f#m}, etc.
 #' @param time character, defaults to \code{"4/4"}.
 #' @param tempo character, defaults to \code{"2 = 60"}.
@@ -38,7 +38,7 @@
 #' @param paper a named list of arguments for the LilyPond file page layout. See details.
 #' @param endbar character, the end bar.
 #' @param midi logical, add midi inclusion specification to LilyPond file.
-#' @param path character, output directory for \code{file}, must be a relative path.
+#' @param path character, optional output directory prefixed to \code{file}, may be an absolute or relative path. If \code{NULL} (default), only \code{file} is used.
 #'
 #' @return nothing returned; a file is written.
 #' @export
@@ -48,9 +48,9 @@
 #' x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
 #' x <- track(x)
 #' x <- score(x)
-#' lilypond(x, "out.ly")
+#' \dontrun{lilypond(x, "out.ly")}
 lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header = NULL,
-                     string_names = NULL, paper = NULL, endbar = TRUE, midi = TRUE, path = "."){
+                     string_names = NULL, paper = NULL, endbar = TRUE, midi = TRUE, path = NULL){
   if(!"score" %in% class(score)) stop("`score` is not a score object.")
   major <- ifelse(utils::tail(strsplit(key, "")[[1]], 1) == "m", FALSE, TRUE)
   raw_key <- gsub("m", "", key)
@@ -106,7 +106,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", hea
     score <- paste0(score, score2, collapse = "\n")
   }
   output <- paste(c(top, global, cd, melody, score, paper), collapse = "")
-  write(file = file.path(path, file), output)
+  write(file = .adjust_file_path(file, path)$lp, output)
 }
 
 # nolint start
@@ -125,7 +125,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", hea
 #' Output format is inferred from \code{file} extension. This function is a wrapper around \code{\link{lilypond}}, the function that creates the LilyPond (\code{.ly}) file.
 #'
 #' @param score a score object.
-#' @param file character, output file ending in .pdf or .png.
+#' @param file character, output file ending in .pdf or .png. May include an absolute or relative path.
 #' @param key character, key signature, e.g., \code{c}, \code{b_}, \code{f#m}, etc.
 #' @param time character, defaults to \code{"4/4"}.
 #' @param tempo character, defaults to \code{"2 = 60"}.
@@ -135,7 +135,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", hea
 #' @param endbar character, the end bar.
 #' @param midi logical, output midi file in addition to tablature.
 #' @param keep_ly logical, keep LilyPond file.
-#' @param path character, output directory for \code{file}, must be a relative path.
+#' @param path character, optional output directory prefixed to \code{file}, may be an absolute or relative path. If \code{NULL} (default), only \code{file} is used.
 #' @param details logical, set to \code{FALSE} to disable printing of log output to console.
 #'
 #' @return nothing returned; a file is written.
@@ -149,17 +149,29 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", hea
 #' \dontrun{tab(x, "out.ly") # requires LilyPond installation}
 tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header = NULL,
                 string_names = NULL, paper = NULL, endbar = TRUE, midi = TRUE,
-                keep_ly = FALSE, path = ".", details = TRUE){
+                keep_ly = FALSE, path = NULL, details = TRUE){
+  fp <- .adjust_file_path(file, path)
+  if(details) cat("#### Engraving score to", fp$tp, "####\n")
+  lilypond(score, basename(fp$lp), key, time, tempo, header, string_names, paper, endbar, midi, dirname(fp$lp))
+  system(paste0("\"", tabr_options()$lilypond, "\" --", fp$ext,
+                " -dstrip-output-dir=#f \"", fp$lp, "\""),
+         show.output.on.console = details)
+  if(!keep_ly) unlink(fp$lp)
+  invisible()
+}
+
+.adjust_file_path <- function(file, path){
+  make_path <- function(file, path) ifelse(is.null(path), file, gsub("//", "/", file.path(path, file)))
+  file <- gsub("\\\\", "/", file)
   ext <- utils::tail(strsplit(file, "\\.")[[1]], 1)
   lily <- gsub(ext, "ly", file)
-  if(details) cat("#### Engraving score to", file, "####\n")
-  lilypond(score, lily, key, time, tempo, header, string_names, paper, endbar, midi, path)
-  lily <- file.path(path, lily)
-  system(paste0("\"", tabr_options()$lilypond, "\" --", ext,
-                " -dstrip-output-dir=#f \"", lily, "\""),
-         show.output.on.console = details)
-  if(!keep_ly) unlink(lily)
-  invisible()
+  if(!is.null(path) || basename(file) == file)
+    return(list(tp = make_path(file, path), lp = make_path(lily, path), ext = ext))
+  file <- strsplit(file, "/")[[1]]
+  path <- paste(file[-length(file)], collapse = "/")
+  file <- file[length(file)]
+  lily <- gsub(ext, "ly", file)
+  list(tp = make_path(file, path), lp = make_path(lily, path), ext = ext)
 }
 
 .lp_header <- function(title = "", subtitle = "", composer = "", arranger = "", instrument = "",

@@ -67,9 +67,7 @@ Notice how the key change alone, which added room for a single flat symbol to be
 
 ### Ouput file and path
 
-The output file specified with `file` ends in pdf in every example. However, you can switch to png output simply by specifying a file name with that extension.
-
-Regarding the `path` argument, which defaults to `"."`, a quick note on this: you can change this to something other than the working directory, but `path` *must always be a relative path*. You cannot use an absolute path or LilyPond will fail, at least in how it is called with `tabr`.
+The output file specified with `file` ends in pdf in every example. However, you can switch to png output simply by specifying a file name with that extension. `file` can specify just the file named or the path to the file. The path may be relative or absolute. Optionally, the path to the output file can be passed separately to `path`, which otherwise defaults to `NULL`.
 
 ## Song information
 

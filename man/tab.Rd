@@ -6,12 +6,12 @@
 \usage{
 tab(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   header = NULL, string_names = NULL, paper = NULL, endbar = TRUE,
-  midi = TRUE, keep_ly = FALSE, path = ".", details = TRUE)
+  midi = TRUE, keep_ly = FALSE, path = NULL, details = TRUE)
 }
 \arguments{
 \item{score}{a score object.}
 
-\item{file}{character, output file ending in .pdf or .png.}
+\item{file}{character, output file ending in .pdf or .png. May include an absolute or relative path.}
 
 \item{key}{character, key signature, e.g., \code{c}, \code{b_}, \code{f#m}, etc.}
 
@@ -31,7 +31,7 @@ tab(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 
 \item{keep_ly}{logical, keep LilyPond file.}
 
-\item{path}{character, output directory for \code{file}, must be a relative path.}
+\item{path}{character, optional output directory prefixed to \code{file}, may be an absolute or relative path. If \code{NULL} (default), only \code{file} is used.}
 
 \item{details}{logical, set to \code{FALSE} to disable printing of log output to console.}
 }

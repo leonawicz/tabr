@@ -6,12 +6,12 @@
 \usage{
 lilypond(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   header = NULL, string_names = NULL, paper = NULL, endbar = TRUE,
-  midi = TRUE, path = ".")
+  midi = TRUE, path = NULL)
 }
 \arguments{
 \item{score}{a score object.}
 
-\item{file}{character, LilyPond output file ending in \code{.ly}.}
+\item{file}{character, LilyPond output file ending in \code{.ly}. May include an absolute or relative path.}
 
 \item{key}{character, key signature, e.g., \code{c}, \code{b_}, \code{f#m}, etc.}
 
@@ -29,7 +29,7 @@ lilypond(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 
 \item{midi}{logical, add midi inclusion specification to LilyPond file.}
 
-\item{path}{character, output directory for \code{file}, must be a relative path.}
+\item{path}{character, optional output directory prefixed to \code{file}, may be an absolute or relative path. If \code{NULL} (default), only \code{file} is used.}
 }
 \value{
 nothing returned; a file is written.
@@ -68,7 +68,7 @@ All \code{paper} list elements are numeric except \code{page_numbers}, which is 
 x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
 x <- track(x)
 x <- score(x)
-lilypond(x, "out.ly")
+\dontrun{lilypond(x, "out.ly")}
 }
 \seealso{
 \code{\link{tab}}, \code{\link{midily}},
