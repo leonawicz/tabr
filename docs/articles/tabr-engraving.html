@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.1</span>
       </span>
     </div>
 
@@ -137,7 +137,7 @@
 <span class="kw">args</span>(lilypond)
 <span class="co">#&gt; function (score, file, key = "c", time = "4/4", tempo = "2 = 60", </span>
 <span class="co">#&gt;     header = NULL, string_names = NULL, paper = NULL, endbar = TRUE, </span>
-<span class="co">#&gt;     midi = TRUE, path = ".") </span>
+<span class="co">#&gt;     midi = TRUE, path = NULL) </span>
 <span class="co">#&gt; NULL</span></code></pre></div>
 <p>By now you have seen many calls to <code>tab</code> in order to show full examples in early tutorial sections. With sufficient coverage of phrases, tracks and scores, and the progression through them, now it is time to go into detail on all the render time arguments that can be supplied that apply to the entire piece of tablature and any metadata or general song information associated with it.</p>
 <div id="score-metadata" class="section level2">
@@ -183,8 +183,7 @@ song
 <div id="ouput-file-and-path" class="section level3">
 <h3 class="hasAnchor">
 <a href="#ouput-file-and-path" class="anchor"></a>Ouput file and path</h3>
-<p>The output file specified with <code>file</code> ends in pdf in every example. However, you can switch to png output simply by specifying a file name with that extension.</p>
-<p>Regarding the <code>path</code> argument, which defaults to <code>"."</code>, a quick note on this: you can change this to something other than the working directory, but <code>path</code> <em>must always be a relative path</em>. You cannot use an absolute path or LilyPond will fail, at least in how it is called with <code>tabr</code>.</p>
+<p>The output file specified with <code>file</code> ends in pdf in every example. However, you can switch to png output simply by specifying a file name with that extension. <code>file</code> can specify just the file named or the path to the file. The path may be relative or absolute. Optionally, the path to the output file can be passed separately to <code>path</code>, which otherwise defaults to <code>NULL</code>.</p>
 </div>
 </div>
 <div id="song-information" class="section level2">
