@@ -7,25 +7,19 @@
   lp_path <- Sys.which(x[1])
   ml_path <- Sys.which(x[2])
   py_path <- Sys.which(x[3])
-  if(lp_path == ""){
-    lp_path <- x[1]
-    if(.Platform$OS.type == "windows"){
+  is_win <- .Platform$OS.type == "windows"
+  if(is_win){
+    if(lp_path == ""){
       opts <- file.path(win_paths, "lilypond.exe")
       if(file.exists(opts[1])) lp_path <- opts[1]
       if(file.exists(opts[2])) lp_path <- opts[2]
     }
-  }
-  if(ml_path == ""){
-    ml_path <- x[2]
-    if(.Platform$OS.type == "windows"){
+    if(ml_path == "" ){
       opts <- file.path(win_paths, "midi2ly.py")
       if(file.exists(opts[1])) ml_path <- opts[1]
       if(file.exists(opts[2])) ml_path <- opts[2]
     }
-  }
-  if(py_path == ""){
-    py_path <- x[3]
-    if(.Platform$OS.type == "windows"){
+    if(py_path == ""){
       opts <- file.path(win_paths, "python.exe")
       if(file.exists(opts[1])) py_path <- opts[1]
       if(file.exists(opts[2])) py_path <- opts[2]
