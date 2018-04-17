@@ -149,7 +149,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", hea
 #'   x <- track(x)
 #'   x <- score(x)
 #'   outfile <- file.path(tempdir(), "out.pdf")
-#'   tab(x, outfile) # requires LilyPond installation
+#'   tab(x, outfile, details = FALSE) # requires LilyPond installation
 #' }
 tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header = NULL,
                 string_names = NULL, paper = NULL, endbar = TRUE, midi = TRUE,

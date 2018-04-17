@@ -87,6 +87,7 @@ midily <- function(midi_file, file, key = "c", absolute = FALSE, quantize = NULL
 #' @param file character, output file ending in .pdf or .png.
 #' @param keep_ly logical, keep LilyPond file.
 #' @param path character, optional output directory prefixed to \code{file}, may be an absolute or relative path. If \code{NULL} (default), only \code{file} is used.
+#' @param details logical, set to \code{FALSE} to disable printing of log output to console.
 #' @param ... additional arguments passed to \code{\link{midily}}.
 #'
 #' @return nothing returned; a file is written.
@@ -97,13 +98,14 @@ midily <- function(midi_file, file, key = "c", absolute = FALSE, quantize = NULL
 #' if(tabr_options()$midi2ly != ""){
 #'   midi <- system.file("example.mid", package = "tabr")
 #'   outfile <- file.path(tempdir(), "out.pdf")
-#'   miditab(midi, outfile) # requires LilyPond installation
+#'   miditab(midi, outfile, details = FALSE) # requires LilyPond installation
 #' }
-miditab <- function(midi_file, file, keep_ly = FALSE, path = NULL, ...){
+miditab <- function(midi_file, file, keep_ly = FALSE, path = NULL, details = TRUE, ...){
   fp <- .adjust_file_path(file, path)
-  cat("#### Engraving midi to", fp$tp, "####\n")
+  if(details) cat("#### Engraving midi to", fp$tp, "####\n")
   do.call(midily, c(list(midi_file = midi_file, file = basename(fp$lp), path = dirname(fp$lp)), list(...)))
-  system(paste0("\"", tabr_options()$lilypond, "\" --", fp$ext, " -dstrip-output-dir=#f \"", fp$lp, "\""))
+  system(paste0("\"", tabr_options()$lilypond, "\" --", fp$ext, " -dstrip-output-dir=#f \"", fp$lp, "\""),
+         show.output.on.console = details)
   if(!keep_ly) unlink(fp$lp)
   invisible()
 }

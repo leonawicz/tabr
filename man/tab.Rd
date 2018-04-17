@@ -51,7 +51,7 @@ if(tabr_options()$lilypond != ""){
   x <- track(x)
   x <- score(x)
   outfile <- file.path(tempdir(), "out.pdf")
-  tab(x, outfile) # requires LilyPond installation
+  tab(x, outfile, details = FALSE) # requires LilyPond installation
 }
 }
 \seealso{

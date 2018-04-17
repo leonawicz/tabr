@@ -4,7 +4,8 @@
 \alias{miditab}
 \title{Convert MIDI to tablature}
 \usage{
-miditab(midi_file, file, keep_ly = FALSE, path = NULL, ...)
+miditab(midi_file, file, keep_ly = FALSE, path = NULL, details = TRUE,
+  ...)
 }
 \arguments{
 \item{midi_file}{character, MIDI file (\code{.mid}). May include an absolute or relative path.}
@@ -14,6 +15,8 @@ miditab(midi_file, file, keep_ly = FALSE, path = NULL, ...)
 \item{keep_ly}{logical, keep LilyPond file.}
 
 \item{path}{character, optional output directory prefixed to \code{file}, may be an absolute or relative path. If \code{NULL} (default), only \code{file} is used.}
+
+\item{details}{logical, set to \code{FALSE} to disable printing of log output to console.}
 
 \item{...}{additional arguments passed to \code{\link{midily}}.}
 }
@@ -41,7 +44,7 @@ If this is not where LilyPond is installed, then LilyPond and Python need to be 
 if(tabr_options()$midi2ly != ""){
   midi <- system.file("example.mid", package = "tabr")
   outfile <- file.path(tempdir(), "out.pdf")
-  miditab(midi, outfile) # requires LilyPond installation
+  miditab(midi, outfile, details = FALSE) # requires LilyPond installation
 }
 }
 \seealso{
