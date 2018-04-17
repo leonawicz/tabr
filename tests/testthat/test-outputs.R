@@ -69,7 +69,7 @@ test_that("miditab and midily functions run without error", {
     midi <- system.file("example.mid", package = "tabr")
     expect_is(midily(midi, out[1]), cl)
     expect_is(miditab(midi, out[2]), cl)
-    expect_is(miditab(midi, out[3]), cl)
+    expect_is(miditab(midi, out[3], details = FALSE), cl)
     unlink(cleanup)
   }
 })
