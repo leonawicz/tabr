@@ -35,8 +35,11 @@
 #' @seealso \code{\link{miditab}}, \code{\link{tab}}, \code{\link{lilypond}}
 #'
 #' @examples
-#' midi <- system.file("example.mid", package = "tabr")
-#' \dontrun{midily(midi, "out.ly") # requires LilyPond installation}
+#' if(tabr_options()$midi2ly != ""){
+#'   midi <- system.file("example.mid", package = "tabr")
+#'   outfile <- file.path(tempdir(), "out.ly")
+#'   midily(midi, outfile) # requires LilyPond installation
+#' }
 midily <- function(midi_file, file, key = "c", absolute = FALSE, quantize = NULL, explicit = FALSE,
                    start_quant = NULL, allow_tuplet = c("4*2/3", "8*2/3", "16*2/3"), details = FALSE,
                    lyric = FALSE, path = NULL){
@@ -91,8 +94,11 @@ midily <- function(midi_file, file, key = "c", absolute = FALSE, quantize = NULL
 #' @seealso \code{\link{midily}}, \code{\link{tab}}, \code{\link{lilypond}}
 #'
 #' @examples
-#' midi <- system.file("example.mid", package = "tabr")
-#' \dontrun{miditab(midi, "out.pdf") # requires LilyPond installation}
+#' if(tabr_options()$midi2ly != ""){
+#'   midi <- system.file("example.mid", package = "tabr")
+#'   outfile <- file.path(tempdir(), "out.pdf")
+#'   miditab(midi, outfile) # requires LilyPond installation
+#' }
 miditab <- function(midi_file, file, keep_ly = FALSE, path = NULL, ...){
   fp <- .adjust_file_path(file, path)
   cat("#### Engraving midi to", fp$tp, "####\n")

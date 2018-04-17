@@ -38,38 +38,38 @@ cl <- "NULL"
 
 test_that("tab and lilypond functions run without error", {
   skip_on_appveyor()
-  skip_on_cran()
+  if(tabr_options()$lilypond != ""){
+    expect_is(lilypond(x1, out[1]), cl)
+    expect_is(lilypond(x1, basename(out[1]), path = tempdir()), cl)
+    expect_is(tab(x1, out[2]), cl)
+    expect_is(tab(x1, basename(out[2]), path = tempdir()), cl)
+    expect_is(tab(x1, out[3]), cl)
+    expect_is(tab(x1, basename(out[3]), path = tempdir()), cl)
 
-  expect_is(lilypond(x1, out[1]), cl)
-  expect_is(lilypond(x1, basename(out[1]), path = tempdir()), cl)
-  expect_is(tab(x1, out[2]), cl)
-  expect_is(tab(x1, basename(out[2]), path = tempdir()), cl)
-  expect_is(tab(x1, out[3]), cl)
-  expect_is(tab(x1, basename(out[3]), path = tempdir()), cl)
+    purrr::walk(x, ~expect_is(lilypond(.x, out[1]), cl))
+    purrr::walk(x, ~expect_is(tab(.x, out[2], details = FALSE), cl))
+    purrr::walk(x, ~expect_is(tab(.x, out[3], details = FALSE), cl))
 
-  purrr::walk(x, ~expect_is(lilypond(.x, out[1]), cl))
-  purrr::walk(x, ~expect_is(tab(.x, out[2], details = FALSE), cl))
-  purrr::walk(x, ~expect_is(tab(.x, out[3], details = FALSE), cl))
+    expect_error(tab(x8, out[2], "d_m", details = FALSE), "Invalid key.")
 
-  expect_error(tab(x8, out[2], "d_m", details = FALSE), "Invalid key.")
+    purrr::walk(keys(), ~expect_is(tab(x8, out[2], .x, "2/2", "4 = 110",
+                  header = header, string_names = FALSE, paper = paper,
+                  endbar = FALSE, midi = FALSE, keep_ly = FALSE, details = FALSE), cl))
 
-  purrr::walk(keys(), ~expect_is(tab(x8, out[2], .x, "2/2", "4 = 110",
-                header = header, string_names = FALSE, paper = paper,
-                endbar = FALSE, midi = FALSE, keep_ly = FALSE, details = FALSE), cl))
-
-  expect_is(tab(x8, out[2], "c#", "2/2", "4 = 110",
-                header = header[c(1, 3, 4)], string_names = TRUE, paper = paper[1:5],
-                endbar = FALSE, midi = FALSE, keep_ly = FALSE, details = FALSE), cl)
-  unlink(cleanup)
+    expect_is(tab(x8, out[2], "c#", "2/2", "4 = 110",
+                  header = header[c(1, 3, 4)], string_names = TRUE, paper = paper[1:5],
+                  endbar = FALSE, midi = FALSE, keep_ly = FALSE, details = FALSE), cl)
+    unlink(cleanup)
+  }
 })
 
 test_that("miditab and midily functions run without error", {
   skip_on_appveyor()
-  skip_on_cran()
-
-  midi <- system.file("example.mid", package = "tabr")
-  expect_is(midily(midi, out[1]), cl)
-  expect_is(miditab(midi, out[2]), cl)
-  expect_is(miditab(midi, out[3]), cl)
-  unlink(cleanup)
+  if(tabr_options()$midi2ly != ""){
+    midi <- system.file("example.mid", package = "tabr")
+    expect_is(midily(midi, out[1]), cl)
+    expect_is(miditab(midi, out[2]), cl)
+    expect_is(miditab(midi, out[3]), cl)
+    unlink(cleanup)
+  }
 })

@@ -48,7 +48,8 @@
 #' x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
 #' x <- track(x)
 #' x <- score(x)
-#' \dontrun{lilypond(x, "out.ly")}
+#' outfile <- file.path(tempdir(), "out.ly")
+#' lilypond(x, outfile)
 lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header = NULL,
                      string_names = NULL, paper = NULL, endbar = TRUE, midi = TRUE, path = NULL){
   if(!"score" %in% class(score)) stop("`score` is not a score object.")
@@ -143,10 +144,13 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", hea
 #' @seealso \code{\link{lilypond}}, \code{\link{miditab}}
 #'
 #' @examples
-#' x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
-#' x <- track(x)
-#' x <- score(x)
-#' \dontrun{tab(x, "out.ly") # requires LilyPond installation}
+#' if(tabr_options()$lilypond != ""){
+#'   x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
+#'   x <- track(x)
+#'   x <- score(x)
+#'   outfile <- file.path(tempdir(), "out.pdf")
+#'   tab(x, outfile) # requires LilyPond installation
+#' }
 tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header = NULL,
                 string_names = NULL, paper = NULL, endbar = TRUE, midi = TRUE,
                 keep_ly = FALSE, path = NULL, details = TRUE){

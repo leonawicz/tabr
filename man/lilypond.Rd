@@ -68,7 +68,8 @@ All \code{paper} list elements are numeric except \code{page_numbers}, which is 
 x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
 x <- track(x)
 x <- score(x)
-\dontrun{lilypond(x, "out.ly")}
+outfile <- file.path(tempdir(), "out.ly")
+lilypond(x, outfile)
 }
 \seealso{
 \code{\link{tab}}, \code{\link{midily}},

@@ -55,8 +55,11 @@ On package load, \code{tabr} will attempt to check for \code{midi2ly.exe} at \co
 If this is not where LilyPond is installed, then LilyPond and Python need to be provided to \code{tabr_options} or added to the system PATH variable.
 }
 \examples{
-midi <- system.file("example.mid", package = "tabr")
-\dontrun{midily(midi, "out.ly") # requires LilyPond installation}
+if(tabr_options()$midi2ly != ""){
+  midi <- system.file("example.mid", package = "tabr")
+  outfile <- file.path(tempdir(), "out.ly")
+  midily(midi, outfile) # requires LilyPond installation
+}
 }
 \seealso{
 \code{\link{miditab}}, \code{\link{tab}}, \code{\link{lilypond}}

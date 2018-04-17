@@ -1,3 +1,10 @@
+# tabr 0.1.2
+
+* Unwrapped `lilypond` example from `dontrun` tag.
+* Switched to `tempdir()` location for examples that write files.
+* Added LilyPond to SystemRequirements field in DESCRIPTION.
+* Attempt to run file-writing examples and file-writing unit tests conditionally if LilyPond found on system.
+
 # tabr 0.1.1
 
 Adjustments to meet requirements for CRAN resubmission: 
