@@ -48,7 +48,13 @@ test_that("sf_phrase and phrase calls are equivalanet", {
   expect_identical(sfp("s 6~ 6 r", "s 1~ 1 r", info), p("s f,~ f, r", info, "x 6 6 x"))
   expect_identical(sfp("s 6s~ 6s r", "s 133211~ 133211 r", info), p("s f,cfac'f'~ f,cfac'f' r", info, "x 6s 6s x"))
 
+  strings <- "4~ 4 r 5s s 5"
+  frets <- "1~ 1 r 02220 s 2"
   info <- "1 4. 8 2 16 2..."
-  expect_identical(sfp("4~ 4 r 5s s 5", "1~ 1 r 02220 s 2", info, key = "sharp"),
+  expect_identical(sfp(strings, frets, info, key = "sharp"),
                    p("d#~ d# r a,eac#'e' s b,", info, "4 4 x 5s x 5"))
+  x <- sf_phrase(strings, frets, info, key = "sharp", to_notes = TRUE)
+  expect_identical(x, sfp(strings, frets, info, key = "sharp", to_notes = TRUE))
+  expect_identical(x, sf_note(strings, frets, info, key = "sharp"))
+  expect_identical(x, sfn(strings, frets, info, key = "sharp"))
 })
