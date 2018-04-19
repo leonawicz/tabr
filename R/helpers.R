@@ -138,8 +138,9 @@ hp <- function(...){
 #' \code{n} is used to describe the beat duration with the same fraction-of-measure denominator notation used for notes in \code{tabr} phrases, e.g., 16th note triplet, 8th note triplet, etc.
 #'
 #' If you provide a note sequence for multiple tuplets in a row of the same type, they will be connected automatically. It is not necessary to call \code{tuplet} each time when the pattern is constant.
+#' If you provide a complete phrase object, it will simply be wrapped in the tuplet tag, so take care to ensure the phrase contents make sense as part of a tuplet.
 #'
-#' @param notes character, notes.
+#' @param x phrase object or character string of notes.
 #' @param n integer, duration of each tuplet note, e.g., 8 for 8th note tuplet.
 #' @param string, character, optional string that specifies which guitar strings to play for each specific note.
 #' @param a integer, notes per tuplet.
@@ -152,7 +153,17 @@ hp <- function(...){
 #' tuplet("c c# d", 8)
 #' triplet("c c# d", 8)
 #' tuplet("c c# d c c# d", 4, a = 6, b = 4)
-tuplet <- function(notes, n, string = NULL, a = 3, b = 2){
+#'
+#' p1 <- phrase("c c# d", "8] 8( 8)", "5*3")
+#' tuplet(p1, 8)
+tuplet <- function(x, n, string = NULL, a = 3, b = 2){
+  if("phrase" %in% class(x)){
+    x <- paste0("\\tuplet ", a, "/", b, " ", n / b, " { ", x, " }")
+    class(x) <- c("phrase", class(x))
+    return(x)
+  } else {
+    notes <- x
+  }
   notes <- .octavesub(.notesub(notes))
   notes <- strsplit(notes, " ")[[1]]
   s <- !is.null(string)
@@ -172,4 +183,4 @@ tuplet <- function(notes, n, string = NULL, a = 3, b = 2){
 
 #' @export
 #' @rdname tuplet
-triplet <- function(notes, n, string = NULL) tuplet(notes = notes, n = n, string = string, a = 3, b = 2)
+triplet <- function(x, n, string = NULL) tuplet(x = x, n = n, string = string, a = 3, b = 2)

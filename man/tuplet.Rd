@@ -5,12 +5,12 @@
 \alias{triplet}
 \title{Tuplets}
 \usage{
-tuplet(notes, n, string = NULL, a = 3, b = 2)
+tuplet(x, n, string = NULL, a = 3, b = 2)
 
-triplet(notes, n, string = NULL)
+triplet(x, n, string = NULL)
 }
 \arguments{
-\item{notes}{character, notes.}
+\item{x}{phrase object or character string of notes.}
 
 \item{n}{integer, duration of each tuplet note, e.g., 8 for 8th note tuplet.}
 
@@ -31,9 +31,13 @@ This function gives control over tuplet construction. The default arguments \cod
 \code{n} is used to describe the beat duration with the same fraction-of-measure denominator notation used for notes in \code{tabr} phrases, e.g., 16th note triplet, 8th note triplet, etc.
 
 If you provide a note sequence for multiple tuplets in a row of the same type, they will be connected automatically. It is not necessary to call \code{tuplet} each time when the pattern is constant.
+If you provide a complete phrase object, it will simply be wrapped in the tuplet tag, so take care to ensure the phrase contents make sense as part of a tuplet.
 }
 \examples{
 tuplet("c c# d", 8)
 triplet("c c# d", 8)
 tuplet("c c# d c c# d", 4, a = 6, b = 4)
+
+p1 <- phrase("c c# d", "8] 8( 8)", "5*3")
+tuplet(p1, 8)
 }
