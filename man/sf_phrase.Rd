@@ -3,11 +3,18 @@
 \name{sf_phrase}
 \alias{sf_phrase}
 \alias{sfp}
+\alias{sf_note}
+\alias{sfn}
 \title{Create a musical phrase from string/fret combinations}
 \usage{
-sf_phrase(string, fret, info, tuning = "standard", key = "c", bar = FALSE)
+sf_phrase(string, fret, info, key = "c", tuning = "standard",
+  to_notes = FALSE, bar = FALSE)
 
 sfp(...)
+
+sf_note(...)
+
+sfn(...)
 }
 \arguments{
 \item{string}{character, string numbers associated with notes.}
@@ -16,9 +23,11 @@ sfp(...)
 
 \item{info}{character, metadata associated with notes.}
 
+\item{key}{character, key signature or just specify \code{"sharp"} or \code{"flat"}.}
+
 \item{tuning}{character, instrument tuning.}
 
-\item{key}{character, key signature or just specify \code{"sharp"} or \code{"flat"}.}
+\item{to_notes}{logical, return only the mapped notes character string rather than the entire phrase object.}
 
 \item{bar}{logical, insert a bar check at the end of the phrase.}
 
@@ -54,7 +63,7 @@ Tabs that are informed by nothing but string and fret number remove a lot of imp
 This wrapper function providing this alternative input method does its job of allowing users to create phrase objects that are equivalent to standard \code{phrase}-generated objects, including rests and ties, but practice and comfort with working with \code{phrase} and not this wrapper is highly recommended,
 not just for eventual ease of use but for not preventing yourself from learning your way around the guitar neck and where all the different pitches are located.
 
-The function \code{sfp} is a convenient shorthand wrapper for \code{sf_phrase}.
+The function \code{sfp} is a convenient shorthand wrapper for \code{sf_phrase}. \code{sf_note} and the alias \code{sfn} are wrappers around \code{sf_phrase} that force \code{to_notes = TRUE}.
 }
 \examples{
 sf_phrase("5 4 3 2 1", "1 3 3 3 1", "8*4 1", key = "b_")

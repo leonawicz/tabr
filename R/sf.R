@@ -27,13 +27,14 @@
 #' This wrapper function providing this alternative input method does its job of allowing users to create phrase objects that are equivalent to standard \code{phrase}-generated objects, including rests and ties, but practice and comfort with working with \code{phrase} and not this wrapper is highly recommended,
 #' not just for eventual ease of use but for not preventing yourself from learning your way around the guitar neck and where all the different pitches are located.
 #'
-#' The function \code{sfp} is a convenient shorthand wrapper for \code{sf_phrase}.
+#' The function \code{sfp} is a convenient shorthand wrapper for \code{sf_phrase}. \code{sf_note} and the alias \code{sfn} are wrappers around \code{sf_phrase} that force \code{to_notes = TRUE}.
 #'
 #' @param string character, string numbers associated with notes.
 #' @param fret character, fret numbers associated with notes.
 #' @param info character, metadata associated with notes.
-#' @param tuning character, instrument tuning.
 #' @param key character, key signature or just specify \code{"sharp"} or \code{"flat"}.
+#' @param tuning character, instrument tuning.
+#' @param to_notes logical, return only the mapped notes character string rather than the entire phrase object.
 #' @param bar logical, insert a bar check at the end of the phrase.
 #' @param ... arguments passed to \code{sf_phrase}.
 #'
@@ -45,7 +46,7 @@
 #' sf_phrase("5 4 3 2 1", "1 3 3 3 1", "8*4 1", key = "b_")
 #' sf_phrase("654321 6s 12 1 21", "133211 355333 11 (13) (13)(13)", "4 4 8 8 4", key = "f")
 #' sfp("6s*2 1*4", "000232*2 2*4", "4 4 8*4", tuning = "dropD", key = "d")
-sf_phrase <- function(string, fret, info, tuning = "standard", key = "c", bar = FALSE){
+sf_phrase <- function(string, fret, info, key = "c", tuning = "standard", to_notes = FALSE, bar = FALSE){
   .check_phrase_input(string, "string")
   .check_phrase_input(fret, "fret")
   string <- paste(gsub("_", "", .strsub(string)), collapse = " ")
@@ -76,6 +77,7 @@ sf_phrase <- function(string, fret, info, tuning = "standard", key = "c", bar = 
     if(any(string_tie)) x[string_tie] <- paste0(x[string_tie], "~")
     paste(x, collapse = "")
   })) %>% unlist %>% paste(collapse = " ")
+  if(to_notes) return(notes)
   phrase(notes, info, gsub("~", "", string), bar)
 }
 
@@ -84,3 +86,15 @@ sf_phrase <- function(string, fret, info, tuning = "standard", key = "c", bar = 
 #' @export
 #' @rdname sf_phrase
 sfp <- function(...) sf_phrase(...)
+
+#' @export
+#' @rdname sf_phrase
+sf_note <- function(...){
+  o <- list(...)
+  o$to_notes <- TRUE
+  do.call(sf_phrase, o)
+}
+
+#' @export
+#' @rdname sf_phrase
+sfn <- function(...) sf_note(...)
