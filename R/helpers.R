@@ -171,11 +171,12 @@ tuplet <- function(x, n, string = NULL, a = 3, b = 2){
   notes <- purrr::map_chr(
     seq_along(notes),
     ~paste0("<", paste0(.split_chord(notes[.x]),
-                        if(s && notes[.x] != "r")
+                        if(s && notes[.x] != "r" && notes[.x] != "s")
                           paste0("\\", .split_chord(string[.x], TRUE)), collapse = " "), ">"))
   notes[1] <- paste0(notes[1], n)
   notes <- paste0(notes, collapse = " ")
   notes <- gsub("<r>", "r", notes)
+  notes <- gsub("<s>", "s", notes)
   x <- paste0("\\tuplet ", a, "/", b, " ", n / b, " { ", notes, " }")
   class(x) <- c("phrase", class(x))
   x
