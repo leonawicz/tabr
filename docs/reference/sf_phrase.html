@@ -73,7 +73,7 @@ info is passed straight through to phrase, as is string once it is done being us
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.2.9000</span>
       </span>
     </div>
 
@@ -169,9 +169,14 @@ It essentially uses <code>string</code> and <code>fret</code> in combination wit
 <code>info</code> is passed straight through to <code>phrase</code>, as is <code>string</code> once it is done being used to help inform <code>notes</code>.</p>
     
 
-    <pre class="usage"><span class='fu'>sf_phrase</span>(<span class='no'>string</span>, <span class='no'>fret</span>, <span class='no'>info</span>, <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>bar</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>sf_phrase</span>(<span class='no'>string</span>, <span class='no'>fret</span>, <span class='no'>info</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>,
+  <span class='kw'>to_notes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>bar</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>sfp</span>(<span class='no'>...</span>)</pre>
+<span class='fu'>sfp</span>(<span class='no'>...</span>)
+
+<span class='fu'>sf_note</span>(<span class='no'>...</span>)
+
+<span class='fu'>sfn</span>(<span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -189,12 +194,16 @@ It essentially uses <code>string</code> and <code>fret</code> in combination wit
       <td><p>character, metadata associated with notes.</p></td>
     </tr>
     <tr>
+      <th>key</th>
+      <td><p>character, key signature or just specify <code>"sharp"</code> or <code>"flat"</code>.</p></td>
+    </tr>
+    <tr>
       <th>tuning</th>
       <td><p>character, instrument tuning.</p></td>
     </tr>
     <tr>
-      <th>key</th>
-      <td><p>character, key signature or just specify <code>"sharp"</code> or <code>"flat"</code>.</p></td>
+      <th>to_notes</th>
+      <td><p>logical, return only the mapped notes character string rather than the entire phrase object.</p></td>
     </tr>
     <tr>
       <th>bar</th>
@@ -226,7 +235,7 @@ A mismatch will throw an error. Despite the redundancy, this is helpful for ensu
 Tabs that are informed by nothing but string and fret number remove a lot of important information, and those that attempt to compensate with additional symbols in say, an ascii tab, are difficult to read.
 This wrapper function providing this alternative input method does its job of allowing users to create phrase objects that are equivalent to standard <code>phrase</code>-generated objects, including rests and ties, but practice and comfort with working with <code>phrase</code> and not this wrapper is highly recommended,
 not just for eventual ease of use but for not preventing yourself from learning your way around the guitar neck and where all the different pitches are located.</p>
-<p>The function <code>sfp</code> is a convenient shorthand wrapper for <code>sf_phrase</code>.</p>
+<p>The function <code>sfp</code> is a convenient shorthand wrapper for <code>sf_phrase</code>. <code>sf_note</code> and the alias <code>sfn</code> are wrappers around <code>sf_phrase</code> that force <code>to_notes = TRUE</code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

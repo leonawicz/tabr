@@ -66,7 +66,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.2.9000</span>
       </span>
     </div>
 
@@ -154,9 +154,23 @@
       <small>Source: <a href='https://github.com/leonawicz/tabr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="tabr-0-1-2" class="section level1">
+    <div id="tabr-0-1-2-9000" class="section level1">
 <h1 class="page-header">
-<a href="#tabr-0-1-2" class="anchor"></a>tabr 0.1.2</h1>
+<a href="#tabr-0-1-2-9000" class="anchor"></a>tabr 0.1.2.9000<small> Unreleased </small>
+</h1>
+<ul>
+<li>Refactored <code>tuplet</code> (and <code>triplet</code>) to accept a phrase object as well as a character string of notes. Previously, only notes were accepted but this was too limiting. The argument name has changed to from <code>notes</code> to <code>x</code> and <code>tuplet</code> will now check the class of <code>x</code> and handle phrase objects accordingly.</li>
+<li>Added handling of silent rests in note strings for <code>tuplet</code>.</li>
+<li>
+<code>sf_phrase</code> (and <code>sfp</code>) updated to allow returning early with only the notes string as opposed to the entire phrase object. This is useful if you just want a quick, cleaner string representation of what notes are mapped by string/fret combinations.</li>
+<li>Minor updates to <code>.onLoad</code> for non-Windows systems.</li>
+<li>Added and updated unit tests.</li>
+</ul>
+</div>
+    <div id="tabr-0-1-2-release-date-2018-04-18" class="section level1">
+<h1 class="page-header">
+<a href="#tabr-0-1-2-release-date-2018-04-18" class="anchor"></a>tabr 0.1.2 (Release date: 2018-04-18)<small> 2018-04-18 </small>
+</h1>
 <ul>
 <li>Unwrapped <code>lilypond</code> example from <code>dontrun</code> tag.</li>
 <li>Switched to <code>tempdir()</code> location for examples that write files.</li>
@@ -166,7 +180,8 @@
 </div>
     <div id="tabr-0-1-1" class="section level1">
 <h1 class="page-header">
-<a href="#tabr-0-1-1" class="anchor"></a>tabr 0.1.1</h1>
+<a href="#tabr-0-1-1" class="anchor"></a>tabr 0.1.1<small> Unreleased </small>
+</h1>
 <p>Adjustments to meet requirements for CRAN resubmission:</p>
 <ul>
 <li>Updated DESCRIPTION.</li>
@@ -177,7 +192,8 @@
 </div>
     <div id="tabr-0-1-0" class="section level1">
 <h1 class="page-header">
-<a href="#tabr-0-1-0" class="anchor"></a>tabr 0.1.0</h1>
+<a href="#tabr-0-1-0" class="anchor"></a>tabr 0.1.0<small> Unreleased </small>
+</h1>
 <ul>
 <li>Added package scaffolding.</li>
 <li>Developed initial functions for music description and organization.</li>
@@ -197,7 +213,8 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#tabr-0-1-2">0.1.2</a></li>
+        <li><a href="#tabr-0-1-2-9000">0.1.2.9000</a></li>
+        <li><a href="#tabr-0-1-2-release-date-2018-04-18">0.1.2</a></li>
         <li><a href="#tabr-0-1-1">0.1.1</a></li>
         <li><a href="#tabr-0-1-0">0.1.0</a></li>
       </ul>
