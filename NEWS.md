@@ -1,4 +1,10 @@
-# tabr 0.1.2
+# tabr 0.1.2.9000
+
+* Refactored `tuplet` (and `triplet`) to accept a phrase object as well as a character string of notes. Previously, only notes were accepted but this was too limiting. The argument name has changed to from `notes` to `x` and `tuplet` will now check the class of `x` and handle phrase objects accordingly.
+* `sf_phrase` (and `sfp`) updated to allow returning early with only the notes string as opposed to the entire phrase object. This is useful if you just want a quick, cleaner string representation of what notes are mapped by string/fret combinations.
+* Minor updates to `.onLoad` for non-Windows systems.
+
+# tabr 0.1.2 (Release date: 2018-04-18)
 
 * Unwrapped `lilypond` example from `dontrun` tag.
 * Switched to `tempdir()` location for examples that write files.

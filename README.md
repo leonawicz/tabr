@@ -3,7 +3,7 @@
 tabr <a hef="https://github.com/leonawicz/tabr/blob/master/data-raw/tabr.png?raw=true" _target="blank"><img src="https://github.com/leonawicz/tabr/blob/master/inst/tabr.png?raw=true" style="margin-bottom:5px;" width="120" align="right"></a>
 ================================================================================================================================================================================================================================================
 
-[![Travis-CI Build Status](https://travis-ci.org/leonawicz/tabr.svg?branch=master)](https://travis-ci.org/leonawicz/tabr) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/leonawicz/tabr?branch=master&svg=true)](https://ci.appveyor.com/project/leonawicz/tabr) [![Coverage Status](https://img.shields.io/codecov/c/github/leonawicz/tabr/master.svg)](https://codecov.io/github/leonawicz/tabr?branch=master) [![gitter](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/leonawicz/tabr)
+[![CRAN status](http://www.r-pkg.org/badges/version/tabr)](https://cran.r-project.org/package=tabr) [![CRAN downloads](http://cranlogs.r-pkg.org/badges/grand-total/tabr)](https://cran.r-project.org/package=tabr) [![Rdoc](http://www.rdocumentation.org/badges/version/tabr)](http://www.rdocumentation.org/packages/tabr) [![Travis-CI Build Status](https://travis-ci.org/leonawicz/tabr.svg?branch=master)](https://travis-ci.org/leonawicz/tabr) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/leonawicz/tabr?branch=master&svg=true)](https://ci.appveyor.com/project/leonawicz/tabr) [![Coverage Status](https://img.shields.io/codecov/c/github/leonawicz/tabr/master.svg)](https://codecov.io/github/leonawicz/tabr?branch=master) [![gitter](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/leonawicz/tabr)
 
 Overview
 --------
@@ -21,6 +21,12 @@ A standalone LilyPond (.ly) file can be created or the package can make a system
 
 Installation
 ------------
+
+You can install tabr from CRAN with:
+
+``` r
+install.packages("tabr")
+```
 
 You can install tabr from GitHub with:
 
