@@ -65,7 +65,7 @@ test_that("tab and lilypond functions run without error", {
 
 test_that("miditab and midily functions run without error", {
   skip_on_appveyor()
-  if(tabr_options()$midi2ly != ""){
+  if(tabr_options()$midi2ly != "" || identical(Sys.getenv("TRAVIS"), "true")){
     midi <- system.file("example.mid", package = "tabr")
     expect_is(midily(midi, out[1]), cl)
     expect_is(miditab(midi, out[2]), cl)

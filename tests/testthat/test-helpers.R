@@ -42,6 +42,7 @@ test_that("helpers return as expected.", {
   )
 
   # lower level function
+  expect_equal(.split_chord("15", strings = TRUE, abb = TRUE), "15")
   expect_equal(.split_chord("15_26", strings = TRUE, abb = TRUE), c("15", "26"))
 })
 # nolint end
