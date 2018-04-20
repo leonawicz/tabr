@@ -25,7 +25,6 @@ Suggests:
 Imports: 
     magrittr,
     dplyr,
-    tibble,
     purrr
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1

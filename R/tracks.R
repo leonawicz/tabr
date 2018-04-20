@@ -72,7 +72,7 @@ chord_set <- function(x, id = NULL){
 track <- function(phrase, tuning = "standard", voice = 1L, music_staff = "treble_8",
                   ms_transpose = 0, ms_key = NA){
   if(!"phrase" %in% class(phrase)) stop("`phrase` is not a phrase object.")
-  x <- tibble::data_frame(phrase, tuning = .map_tuning(tuning), voice = as.integer(voice),
+  x <- dplyr::data_frame(phrase, tuning = .map_tuning(tuning), voice = as.integer(voice),
                           staff = as.character(music_staff),
                           ms_transpose = as.integer(ms_transpose),
                           ms_key = as.character(ms_key))
