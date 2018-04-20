@@ -4,6 +4,8 @@
 * Added handling of silent rests in note strings for `tuplet`.
 * `sf_phrase` (and `sfp`) updated to allow returning early with only the notes string as opposed to the entire phrase object. This is useful if you just want a quick, cleaner string representation of what notes are mapped by string/fret combinations.
 * Minor updates to `.onLoad` for non-Windows systems.
+* Removed `tibble` package dependency. Using only `dplyr` suffices.
+* Updated Readme and basic example intro vignette.
 * Added and updated unit tests.
 
 # tabr 0.1.2 (Release date: 2018-04-18)
