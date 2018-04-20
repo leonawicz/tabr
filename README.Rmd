@@ -7,7 +7,7 @@ output: github_document
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE, comment = "#>", fig.path = "man/figures/README-",
-  message = FALSE, warning = FALSE, error = FALSE, tidy = TRUE, out.width = "100%"
+  message = FALSE, warning = FALSE, error = FALSE, tidy = FALSE, out.width = "100%"
 )
 ```
 
@@ -39,6 +39,31 @@ cat('Create guitar tablature ("tabs") from R code with `tabr`. The `tabr` packag
 
 A standalone LilyPond (.ly) file can be created or the package can make a system call to LilyPond directly to render the guitar tablature output (pdf or png). While LilyPond caters to sheet music in general, `tabr` is focused on leveraging it specifically for creating quality guitar tablature.
 
+## Functionality and support
+
+The `tabr` package offers the following:
+
+* Render guitar tablature and sheet music to pdf or png.
+* Write accompanying MIDI files that can respect repeat notation and transposition in the sheet music (under reasonable conditions).
+* Support tablature for other string instruments besides guitar such as bass or banjo.
+* Support for instruments with different numbers of strings.
+* Support for arbitrary instrument tuning.
+* Offers inclusion (or exclusion) of formal music staves above tab staves, such as treble and bass clef staves for complete rhythm and timing information.
+* Track-specific setup for features like instrument type, tuning and supplemental music staves.
+* Provide common notation such as slide, bend, hammer on, pull off, slur, tie, staccato, dotted notes, visible and silent rests.
+* Allows arbitrary tuplet structure.
+* Above-staff text annotation.
+* Percent and volta repeat section notation.
+* Note transposition.
+* Staff transposition.
+* Multiple voices per track and multiple tracks per score.
+* Chord symbols above staff
+* Chord fretboard diagrams and chord chart at top of score.
+* Rich set of layout control options covering settings from score attributions to font size.
+* Optional alternative input format allowing the user to provide string/fret combinations (along with key signature and instrument tuning) to map to pitch.
+
+Note that MIDI support and string/fret alternative input format support are not prioritized in ongoing `tabr` development. These are considered tangential extra features in `tabr` that fall outside the general scope and intent of the package.
+
 ## Installation
 
 You can install tabr from CRAN with:
@@ -56,7 +81,7 @@ devtools::install_github("leonawicz/tabr")
 
 ## Basic example
 
-As a brief example, recreate the tablature shown in the `tabr` logo. Here are the steps.
+As a brief example, recreate the tablature shown in the image above (minus the R logo). Here are the steps.
 
 *    Define a musical phrase with `phrase` or the shorthand alias `p`. 
 *    Add the phrase to a `track`.
@@ -71,26 +96,29 @@ The second argument is a similar string giving note metadata. In this example th
 
 The third argument, `string`, is optional but generally important for guitar tablature. In similar format, it specifies the strings of the guitar on which notes are played. Providing this information fixes the fret-string combinations so that LilyPond does not have to guess what position on the neck of the guitar to play a specific note. An inability to specify this in various tablature notation software (or laziness by the user), is a common cause of inaccurate tabs scouring the internet, where even when the notes are correct they are written in the tab suggesting they be played in positions no one would sensibly use. Note that the `x` shown below is just a placeholder indicating no need to specify a string for the quarter note rest.
 
+The example below employs a couple shortcuts to further reduce typing. The first is to use the `*` in-string expansion operator mentioned above to avoid typing a long series of eighth notes. Second, it drops explicit reference to octave number three since this central octave is the default octave in LilyPond. This applies to all but the first note below.
+
+While explicit string numbers are not needed for this example, they are provided anyway for full context. Dropping the `string` argument would further reduce typing.
+
 ## Score metadata and accessing LilyPond
 
-Finally, specify some song metadata to reproduce the original staff: the key of D minor, common time, and the tempo. If LilyPond is installed on your system (and added to your system PATH variable on Windows systems), `tab` should call it successfully. Alternatively, on Windows, it can be added explicitly by calling `tabr_options`. This option to specify the LilyPond path is still available on other systems. An example of this is commented out below.
+Finally, specify some song metadata to reproduce the original staff: the key of D minor, common time, and the tempo.
+
+If LilyPond is installed on your system (and added to your system PATH variable on Windows systems), `tab` should call it successfully. Alternatively, on Windows, it can be added explicitly by calling `tabr_options`. This option to specify the LilyPond path is still available on other systems. An example of this is commented out below. However, `tabr` will do its best on package load to set these paths in `tabr_options` for you if it can successfully detect a LilyPond installation in a standard file system location, so you may not have to do anything. Just check `tabr_options()` after you load the package. If any of the paths are equal to the empty string `""`, then you need to set the paths. Otherwise you should be ready to run LilyPond from R.
 
 ## R code
 
 ```{r opts, echo=FALSE}
 library(tabr)
-tabr_options(lilypond = "C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe")
 ```
 
 ```{r ex1, results="hide", eval=FALSE}
 library(tabr)
 # path <- "C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe"
-# tabr_options(lilypond = path)
+# tabr_options(lilypond = path) # may not be necessary
 
-p1 <- p("r a2 c3 f3 d3 a3 f3", "4 8 8 8 8 8 8", "x 5 5 4 4 3 4")
-track1 <- track(p1)
-song <- score(track1)
-tab(song, "phrase.pdf", key = "dm", time = "4/4", tempo = "4 = 120")
+p("r a2 c f d a f", "4 8*6", "x 5 5 4 4 3 4") %>% track %>% score %>%
+  tab(song, "phrase.pdf", key = "dm", time = "4/4", tempo = "4 = 120")
 ```
 
 ```{r log, echo=FALSE}
@@ -120,18 +148,19 @@ cat('See the pdf result embedded at the [tabr website](https://leonawicz.github.
 cat('<embed src="phrase.pdf?#zoom=175" width="100%" height="300"></embed><br/>')
 ```
 
-## Context and caveats
+Note above that `tabr` also exports the pipe `%>%` operator. Even given the hierarchy of objects involved in the series of steps to move from a phrase to a rendered pdf, a short example like this does not even require a single assignment. While music can be quite complex and a full score will be much longer, `tabr` strives to minimize the work while still forcing some sense of interpretable, organized structure. For long and complex music, it can require some effort and practice to ensure your approach to transcription in your R code is not opaque.
 
-The `tabr` package is in early development. Breaking changes could occur in a later version. Many capabilities are missing. Others are incompletely implemented. Others in the R developer community who are probably much better musicians than myself are welcome to contribute. This is the type of package that will only develop in response to specific needs of its contributor(s). There are many things that `tabr` does not address at this stage of development. There are countless aspects of music notation available in LilyPond that `tabr` does not wrap around. The aim is not to do it all, but eventually to do much more than is currently in place.
+## Additional context
 
-I am not an expert in music theory, or in music notation and transcription, or in LilyPond. In fact, my skill in music notation is ironically low enough that I do not find it any more challenging or an impediment to describe a song in R code rather than to just tab it out by hand. The main intent with `tabr`, however, is simply to be able to generate markup files that LilyPond accepts and understands, without having to write that markup directly.
+Why LilyPond? LilyPond is an exceptional sheet music engraving program. It produces professional, high quality output. It is open source. It offers an access point for a programmatic approach to music notation. It is developed and utilized by a large community. Most GUI-based applications are WYSIWYG and force a greater limitation on what you can do and what it will look like after you do it. On the other hand, I have zero interest in writing LilyPond files. `tabr` has made it more enjoyable, a bit less ugly, and enables me to stick with LilyPond for its quality as I try to shield myself from its native input structures. I'm sure there are far more LilyPond users who don't mind it at all and have never heard of R; to each their own.
 
-A major part of the motivation for `tabr` is the desire for high quality guitar tablature, as produced by LilyPond. Using LilyPond for high quality sheet music and tablature creates an entry point to programmatic music notation as opposed to reliance on various GUI-based programs. While I have not personally used every GUI-based music notation software available, I have found that they tend to have a lot of limitations. Some of them also produce sheet music that looks unprofessional when compared to LilyPond-engraved sheet music. LilyPond, generally speaking, offers the ability to engrave exactly what you want, as long as you know how to provide the markup syntax. Like R, it is also open source.
+## Limitations
 
-Finally, there are nonetheless limitations to LilyPond itself. It has been developed for sheet music in general and guitar tablature features were added as a relative afterthought. There are plenty of features I have not yet developed R wrappers around. Then there are other features like string bending that are technically available, but not fully developed yet on the LilyPond side either. Case in point, LilyPond's bend engraver is still under development; specifying something as common as a bend-release-pull-off is, to put it mildly, challenging.
+There is far more that LilyPond can do that `tabr` does not tap into. Instead of listing a million things, this is just to highlight an example of a critical feature that still has limited functionality in both `tabr` and in LilyPond itself: LilyPond's bend engraver. Rendering sheet music with quality string bend notation is quite difficult. This is an area that will benefit greatly from further development.
+
 
 ```{r md_pkg_ref, echo = FALSE, results = "asis", eval = is_md}
-cat('## Reference\n\n[Complete package reference and function documentation](https://leonawicz.github.io/tabr/)')
+cat('## Reference\n\nThere is a rich collection of vignette tutorials available at the tabr website.\n[Complete package reference and function documentation](https://leonawicz.github.io/tabr/)')
 ```
 
 ```{r cleanup, echo=FALSE}
