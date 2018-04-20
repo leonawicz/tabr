@@ -9,7 +9,7 @@ vignette: >
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, tidy = TRUE, out.width = "100%"
+  collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, tidy = FALSE, out.width = "100%"
 )
 ```
 
@@ -24,7 +24,7 @@ A good place to start is with a simple, reproducible example that outlines the b
 
 A phrase here does not require a strict definition. Think of it as the smallest piece of musical structure you intend to string together. The first argument to `phrase` is a string describing notes of a specific pitch (or rests: "r"), separated in time by spaces. For chords, just remove spaces to indicate simultaneous notes. Integers are appended to indicate the octave number so that the pitch is unique. For example, a rest followed by a sequence of notes might be given by `notes = "r a2 c3 f3 d3 a3 f3"`.
 
-The second argument is a similar string giving note metadata. In this example there is nothing to add but the time durations. Whole notes taking up an entire measure of music are given by 1, half notes by 2, quarter notes 4, eighth notes 8, and so on. To specify a quarter note rest followed by a sequence of eighth notes, use `info = "4 8 8 8 8 8 8"`. This basic example does not require specifying additional note information such as dotted notes for different fractions of time, staccato notes, ties/slurs, slides, bends, hammer ons and pull offs, etc. These specifications are currently available in `tabr` to varying degrees of development and are covered in the vignette tutorials.
+The second argument is a similar string giving note metadata. In this example there is nothing to add but the time durations. Whole notes taking up an entire measure of music are given by 1, half notes by 2, quarter notes 4, eighth notes 8, and so on. To specify a quarter note rest followed by a sequence of eighth notes, use `info = "4 8 8 8 8 8 8"` (or shorten to just `info = "4 8*6"`). This basic example does not require specifying additional note information such as dotted notes for different fractions of time, staccato notes, ties/slurs, slides, bends, hammer ons and pull offs, etc. These specifications are currently available in `tabr` to varying degrees of development and are covered in the vignette tutorials.
 
 The third argument, `string`, is optional but generally important for guitar tablature. In similar format, it specifies the strings of the guitar on which notes are played. Providing this information fixes the fret-string combinations so that LilyPond does not have to guess what position on the neck of the guitar to play a specific note. An inability to specify this in various tablature notation software (or laziness by the user), is a common cause of inaccurate tabs scouring the internet, where even when the notes are correct they are written in the tab suggesting they be played in positions no one would sensibly use. Note that the `x` shown below is just a placeholder indicating no need to specify a string for the quarter note rest.
 
@@ -32,16 +32,16 @@ The third argument, `string`, is optional but generally important for guitar tab
 library(tabr)
 phrase(notes = "r a2 c3 f3 d3 a3 f3", info = "4 8 8 8 8 8 8", string = "x 5 5 4 4 3 4")
 ```
-The print method for `phrase` uses cat rather than print because the phrase strings print better this way given the preponderance of backslashes in the output. This result shows (one way) how to write the LilyPond markup.
+The print method for `phrase` uses `cat` rather than `print`. The phrase strings print more cleanly this way, given the preponderance of backslashes. This result shows (one way) how to write the LilyPond markup.
 
 Before going further, a brief aside on how there is no free lunch, no way to be completely unambiguous with the music notation while greatly restricting the amount of typing. Ultimately, every song is unique and must be written out differently in R just as in LilyPond or elsewhere. While doing this programmatically can be highly efficient for writing out new sections or editing existing sections of music that are highly repetitive, there will always be just as many instances of musical sequences that are not sufficiently repetitive, incorporating subtle deviations, or highly unpatterned sections like a guitar solo.
 
 There is no way around it; even in cases where using `tabr` as a wrapper is much more convenient than typing out a LilyPond file directly, there can still be plenty of typing. Generic coding to avoid code duplication is helpful, but is never going to be a magical solution enabling extreme code reduction when writing all but the simplest and most boring musical scores.
 
-In the interest of minimizing typing, one thing that you can do is use the alias `p` for `phrase` and drop the argument names, which will be used repeatedly and remembering them will not be difficult. Store the phrase:
+In the interest of minimizing typing, there are several shortcuts available in `tabr`. The example below reproduces the same phrase. The first shortcut is to use the `*` in-string expansion operator mentioned above to avoid typing a long series of eighth notes. Second, drop explicit reference to octave number three since this central octave is the default octave in LilyPond. This applies to all but the first note. Explicit string numbers are also not needed for this phrase. Another thing that you can do is use the alias `p` for `phrase`. It is also fine to drop the argument names, as they will be used often and remembering them will not be difficult. Use all these shortcuts and store the phrase:
 
 ```{r p2}
-p1 <- p("r a2 c3 f3 d3 a3 f3", "4 8 8 8 8 8 8", "x 5 5 4 4 3 4")
+p1 <- p("r a2 c f d a f", "4 8*6")
 ```
 
 ## Tracks
@@ -64,10 +64,11 @@ song
 
 ## Calling LilyPond from R
 
-Once a score object is created, it is ready to be sent to LilyPond. If LilyPond is installed on your system (and added to your system PATH variable on Windows systems), `tab` should call it successfully. Alternatively, on Windows, it can be added explicitly by calling `tabr_options` as follows.
+Once a score object is created, it is ready to be sent to LilyPond. If LilyPond is installed on your system (and added to your system PATH variable on Windows systems), `tab` should call it successfully. Alternatively, on Windows, it can be added explicitly by calling `tabr_options`. This option to specify the LilyPond path is still available on other systems. An example of this is commented out below. However, `tabr` will do its best on package load to set these paths in `tabr_options` for you if it can successfully detect a LilyPond installation in a standard file system location, so you may not have to do anything. Just check `tabr_options()` after you load the package. If any of the paths are equal to the empty string `""`, then you need to set the paths. Otherwise you should be ready to run LilyPond from R.
 
 ```{r opts}
-tabr_options(lilypond = "C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe")
+# may not be necessary
+# tabr_options(lilypond = "C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe")
 ```
 
 Technically, when loading `tabr` on Windows it will attempt to check the specific path above to see if `lilypond.exe` exists there. If it does, the path in `tabr_options` will be filled in for you. Therefore, if you need to specify the LilyPond path because it is not in your PATH environment variable and nothing shows in `tabr_options()`, then the path shown above is probably not where you installed LilyPond.
@@ -102,5 +103,16 @@ cat(
 This log output will be printed at the R console. Load the new pdf file to see the result. It should look like this.
 
 <p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex00.png?raw=true" width="50%"></p>
+
+## Piping
+
+Note above that `tabr` also exports the pipe `%>%` operator. Even given the hierarchy of objects involved in the series of steps to move from a phrase to a rendered pdf, a short example like this does not even require a single assignment. The same steps involved in building up the structure and rendering the output could be performed as follows.
+
+```{r pipe, results="hide", eval=FALSE}
+p("r a2 c f d a f", "4 8*6") %>% track %>% score %>%
+  tab(song, "phrase.pdf", key = "dm", time = "4/4", tempo = "4 = 120")
+```
+
+While music can be quite complex and a full score will be much longer, `tabr` strives to minimize the work while still forcing some sense of interpretable, organized structure. For long and complex music, it can require some effort and practice to ensure your approach to transcription in your R code is not opaque.
 
 To recap, the `phrase` is defined, added to a `track`, the track is added to a `score`, and the score is rendered to tablature in a pdf file with `tab`. The next tutorial section discusses phrases in more detail and provides an overview of the different notes and note metadata that can be specified when constructing a phrase.
