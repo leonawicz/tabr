@@ -1,4 +1,4 @@
-# tabr 0.1.2.9000
+# tabr 0.2.0
 
 * Refactored `tuplet` (and `triplet`) to accept a phrase object as well as a character string of notes. Previously, only notes were accepted but this was too limiting. The argument name has changed to from `notes` to `x` and `tuplet` will now check the class of `x` and handle phrase objects accordingly.
 * Added handling of silent rests in note strings for `tuplet`.
@@ -7,6 +7,7 @@
 * Removed `tibble` package dependency. Using only `dplyr` suffices.
 * Updated Readme and basic example intro vignette.
 * Added and updated unit tests.
+* Added `lintr` to Suggests field in DESCRIPTION per CRAN maintainer request regarding `testthat` unit tests.
 
 # tabr 0.1.2 (Release date: 2018-04-18)
 

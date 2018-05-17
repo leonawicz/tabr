@@ -1,15 +1,13 @@
-## Resubmission
+## Update release
 
-This is a resubmission. In this version I have:
+This is an update release submission. In this version I have:
 
-* Unwrapped `lilypond` example from `dontrun` tag.
-* Switched to `tempdir()` location for examples that write files.
-* Added LilyPond to SystemRequirements field in DESCRIPTION.
-* PLEASE NOTE: Attempted to wrap these examples in if-statements to only run if LilyPond is found on the system, per CRAN review request. However, I do not know specifically how to check for this on Win-Builder or Windows/Linux/Mac OS CRAN machines in general.
+* Added `lintr` package to DESCRIPTION Suggests field per CRAN maintainer request regarding undeclared packages used in `testhat` unit tests.
+* Added other minor function and and documentation updates since last submission.
 
 ## Test environments
-* local Windows 10 install, R 3.4.4
-* ubuntu 14.04 (on travis-ci), R 3.4.4
+* local Windows 10 install, R 3.5.0
+* ubuntu 14.04 (on travis-ci), R 3.5.0
 * win-builder (devel and release)
 
 ## R CMD check results
