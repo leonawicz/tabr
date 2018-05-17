@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Append and duplicate — append_phrases" />
 
 <meta property="og:description" content="Helper functions for appending or pasting musical phrases and other strings together as well as repetition.
@@ -43,19 +46,15 @@ Combining a phrase with a non-phrase string will assume compatibility and result
 <![endif]-->
 
 
-<!-- Google analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-46129458-3"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-  ga('create', 'UA-46129458-3', 'auto');
-  ga('send', 'pageview');
-
+  gtag('config', 'UA-46129458-3');
 </script>
-
-
 
   </head>
 
@@ -72,7 +71,7 @@ Combining a phrase with a non-phrase string will assume compatibility and result
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.2.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -157,15 +156,18 @@ Combining a phrase with a non-phrase string will assume compatibility and result
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Append and duplicate</h1>
-    <small>Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/helpers.R'><code>R/helpers.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/helpers.R'><code>R/helpers.R</code></a></small>
+    <div class="hidden name"><code>append_phrases.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Helper functions for appending or pasting musical phrases and other strings together as well as repetition.
 The functions <code>glue</code> and <code>dup</code> are based on base functions <code>paste</code> and<code>rep</code>, respectively, but are tailored for efficiency in creating musical phrases.
 These functions respect and retain the phrase class when applied to phrases.
 Combining a phrase with a non-phrase string will assume compatibility and result in a new phrase object.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>glue</span>(<span class='no'>...</span>)
 

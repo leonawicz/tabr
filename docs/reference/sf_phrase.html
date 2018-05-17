@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Create a musical phrase from string/fret combinations — sf_phrase" />
 
 <meta property="og:description" content="Create a musical phrase from character strings that define string numbers, fret numbers and note metadata. This function is a wrapper around phrase.
@@ -44,19 +47,15 @@ info is passed straight through to phrase, as is string once it is done being us
 <![endif]-->
 
 
-<!-- Google analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-46129458-3"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-  ga('create', 'UA-46129458-3', 'auto');
-  ga('send', 'pageview');
-
+  gtag('config', 'UA-46129458-3');
 </script>
-
-
 
   </head>
 
@@ -73,7 +72,7 @@ info is passed straight through to phrase, as is string once it is done being us
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.2.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -158,9 +157,11 @@ info is passed straight through to phrase, as is string once it is done being us
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Create a musical phrase from string/fret combinations</h1>
-    <small>Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/sf.R'><code>R/sf.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/sf.R'><code>R/sf.R</code></a></small>
+    <div class="hidden name"><code>sf_phrase.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Create a musical phrase from character strings that define string numbers, fret numbers and note metadata. This function is a wrapper around <code>phrase</code>.
 It allows for specifying string/fret combinations instead of unambiguous pitch as is used by <code>phrase</code>.
@@ -168,6 +169,7 @@ In order to remove ambiguity, it is critical to specify the instrument string tu
 It essentially uses <code>string</code> and <code>fret</code> in combination with a known tuning and key signature in order to generate <code>notes</code> for <code>phrase</code>.
 <code>info</code> is passed straight through to <code>phrase</code>, as is <code>string</code> once it is done being used to help inform <code>notes</code>.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>sf_phrase</span>(<span class='no'>string</span>, <span class='no'>fret</span>, <span class='no'>info</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>,
   <span class='kw'>to_notes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>bar</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)

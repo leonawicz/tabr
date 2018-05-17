@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Create a musical phrase — phrase" />
 
 <meta property="og:description" content="Create a musical phrase from character strings that define notes, note metadata, and optionally explicit strings fretted. The latter can be used to ensure proper tablature layout.
@@ -41,19 +44,15 @@ Notes separated in time are separated in the notes string by spaces. Sharps and 
 <![endif]-->
 
 
-<!-- Google analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-46129458-3"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-  ga('create', 'UA-46129458-3', 'auto');
-  ga('send', 'pageview');
-
+  gtag('config', 'UA-46129458-3');
 </script>
-
-
 
   </head>
 
@@ -70,7 +69,7 @@ Notes separated in time are separated in the notes string by spaces. Sharps and 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.2.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -155,13 +154,16 @@ Notes separated in time are separated in the notes string by spaces. Sharps and 
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Create a musical phrase</h1>
-    <small>Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/phrase.R'><code>R/phrase.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/phrase.R'><code>R/phrase.R</code></a></small>
+    <div class="hidden name"><code>phrase.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Create a musical phrase from character strings that define notes, note metadata, and optionally explicit strings fretted. The latter can be used to ensure proper tablature layout.
 Notes separated in time are separated in the <code>notes</code> string by spaces. Sharps and flats are indicated by appending <code>#</code> and <code>_</code>, respectively, e.g. <code>f#</code> or <code>g_</code>.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>phrase</span>(<span class='no'>notes</span>, <span class='no'>info</span>, <span class='kw'>string</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bar</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 

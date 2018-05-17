@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Changelog" />
 
 
@@ -37,19 +40,15 @@
 <![endif]-->
 
 
-<!-- Google analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-46129458-3"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-  ga('create', 'UA-46129458-3', 'auto');
-  ga('send', 'pageview');
-
+  gtag('config', 'UA-46129458-3');
 </script>
-
-
 
   </head>
 
@@ -66,7 +65,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.2.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -154,9 +153,9 @@
       <small>Source: <a href='https://github.com/leonawicz/tabr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="tabr-0-1-2-9000" class="section level1">
+    <div id="tabr-0-2-0" class="section level1">
 <h1 class="page-header">
-<a href="#tabr-0-1-2-9000" class="anchor"></a>tabr 0.1.2.9000<small> Unreleased </small>
+<a href="#tabr-0-2-0" class="anchor"></a>tabr 0.2.0<small> Unreleased </small>
 </h1>
 <ul>
 <li>Refactored <code>tuplet</code> (and <code>triplet</code>) to accept a phrase object as well as a character string of notes. Previously, only notes were accepted but this was too limiting. The argument name has changed to from <code>notes</code> to <code>x</code> and <code>tuplet</code> will now check the class of <code>x</code> and handle phrase objects accordingly.</li>
@@ -167,6 +166,7 @@
 <li>Removed <code>tibble</code> package dependency. Using only <code>dplyr</code> suffices.</li>
 <li>Updated Readme and basic example intro vignette.</li>
 <li>Added and updated unit tests.</li>
+<li>Added <code>lintr</code> to Suggests field in DESCRIPTION per CRAN maintainer request regarding <code>testthat</code> unit tests.</li>
 </ul>
 </div>
     <div id="tabr-0-1-2-release-date-2018-04-18" class="section level1">
@@ -215,7 +215,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#tabr-0-1-2-9000">0.1.2.9000</a></li>
+        <li><a href="#tabr-0-2-0">0.2.0</a></li>
         <li><a href="#tabr-0-1-2-release-date-2018-04-18">0.1.2</a></li>
         <li><a href="#tabr-0-1-1">0.1.1</a></li>
         <li><a href="#tabr-0-1-0">0.1.0</a></li>
