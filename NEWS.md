@@ -1,4 +1,4 @@
-# tabr 0.2.0
+# tabr 0.2.0 (Release date: 2018-05-17)
 
 * Refactored `tuplet` (and `triplet`) to accept a phrase object as well as a character string of notes. Previously, only notes were accepted but this was too limiting. The argument name has changed to from `notes` to `x` and `tuplet` will now check the class of `x` and handle phrase objects accordingly.
 * Added handling of silent rests in note strings for `tuplet`.
