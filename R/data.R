@@ -17,3 +17,10 @@
 #'
 #' @format A data frame with 3 columns for syntax description, operators and examples.
 "tabrSyntax"
+
+#' Main musical intervals.
+#'
+#' A data frame containing descriptions of the main intervals, simple and compound.
+#'
+#' @format A data frame with 5 columns and 26 rows.
+"mainIntervals"

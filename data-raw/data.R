@@ -24,7 +24,34 @@ tunings <- data.frame(id = names(.predefined_tunings), value = .predefined_tunin
 
 .syntax_desc <- c("note/pitch", "sharp", "flat", "drop or raise one octave", "octave number", "tied notes", "note duration", "dotted note", "slide", "bend", "staccato", "muted/dead note", "slur/hammer/pull off", "rest", "silent rest", "expansion operator")
 .syntax_id <- c("a b ... g", "#", "_", ", or '", "0 1 ...", "~", "2^n", ".", "-", "^", "]", "x", "()", "r", "s", "*")
-.syntax_example <- c("a", "a#", "a_", "a, a a'", "a2 a3 a4", "a~ a", "1 2 4 8 16", "2. 2..", "2-", "2^", "2[", "2x", "2( 2)", "r", "s", "ceg*8, 1*4")
+.syntax_example <- c("a", "a#", "a_", "a, a a'", "a2 a3 a4", "a~ a", "1 2 4 8 16", "2. 2..", "2-", "2^", "2]", "2x", "2( 2)", "r", "s", "ceg*8, 1*4")
 tabrSyntax <- data.frame(description = .syntax_desc, syntax = .syntax_id, example = .syntax_example)
 
-usethis::use_data(tunings, tabrSyntax)
+mainIntervals <- data.frame(
+  semitones = 0:25,
+  mmp = c("perfect unison", "minor second", "major second", "minor third", "major third", "perfect fourth",
+          "tritone", "perfect fifth", "minor sixth", "major sixth", "minor seventh", "major seventh",
+          "perfect octave", "minor ninth", "major ninth", "minor tenth", "major tenth", "perfect eleventh",
+          NA, "perfect twelfth", "minor thirteenth", "major thirteenth", "minor fourteenth", "major fourteenth",
+          "perfect fifteenth", NA),
+  mmp_abb = c("P1", "m2", "M2", "m3", "M3", "P4", "TT", "P5", "m6", "M6", "m7", "M7", "P8",
+              "m9", "M9", "m10", "M10", "P11", NA, "P12", "m13", "M13", "m14", "M14", "P15", NA),
+  ad = c(
+    paste(c("diminished", "augmented"), c("second", "unison", "third", "second", "fourth", "third")),
+    "diminished fifth/augmented fourth",
+    paste(c("diminished", "augmented"), c("sixth", "fifth", "seventh", "sixth", "octave")),
+    "diminished ninth/augmented seventh",
+    paste(c("augmented", "diminished"), c("octave", "tenth", "ninth", "eleventh", "tenth")),
+    "diminished twelfth/augmented eleventh",
+    paste(c("diminished", "augmented"), c("thirteenth", "twelfth", "fourteenth", "thirteenth", "fifteenth",
+                                          "fourteenth")),
+    "augmented fifteenth"),
+  ad_abb = c(
+    paste0(c("d", "A"), c(2, 1, 3, 2, 4, 3)), "d5/A4",
+    paste0(c("d", "A"), c(6, 5, 7, 6, 8)), "d9/A7",
+    paste0(c("A", "d"), c(8, 10, 9, 11, 10)), "d12/A11",
+    paste0(c("d", "A"), c(13, 12, 14, 13, 15, 14)), "A15"),
+  stringsAsFactors = FALSE
+)
+
+usethis::use_data(tunings, tabrSyntax, mainIntervals)
