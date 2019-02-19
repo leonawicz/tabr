@@ -65,7 +65,7 @@ tab(song, "ex32.pdf", "dm", "2/2", "4 = 120")
 
 Notice how the key change alone, which added room for a single flat symbol to be squeezed into the start of the treble and bass clef staves, was enough to push everything to the point of wrapping around onto a second entire line compared to the earlier tutorial section where it all fit on one line. This is because it was a really tight fit to in the previous examples and there was not enough room for LilyPond to continue fitting everything on one line with this slight widening created by the key change. LilyPond generates sheet music with a somewhat responsive layout engraver. It won't leave everything on line one jam packaged and push a single measure to the line two. This will return to fitting on one line in a moment when we revert the key change.
 
-### Ouput file and path
+### Output file and path
 
 The output file specified with `file` ends in pdf in every example. However, you can switch to png output simply by specifying a file name with that extension. `file` can specify just the file named or the path to the file. The path may be relative or absolute. Optionally, the path to the output file can be passed separately to `path`, which otherwise defaults to `NULL`.
 

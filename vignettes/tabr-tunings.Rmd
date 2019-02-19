@@ -92,7 +92,7 @@ score(tracks) %>% tab("out.pdf")
 
 ## Current limitations
 
-Although `tabr` infers the an instrument's number of strings from its tuning, there are limitations. Chord fretboard diagrams are only supported for guitar, six string guitar specifically. If you trying to pass four or five strings worth of information to `chord_set` for bass, ukulele or banjo for example, this will incompletely fill in a six string guitar fretboard diagram in the chord chart of the output. Similarly, if you trying to provide seven strings for a seven string guitar, the chord chart will show the additional note, but it will be floating to the side of the chart because a seventh string line is not will not be added to the diagram. Number of strings inferred from instrument tuning shows up in the tablature staff but does not generalize to fretboard diagrams.
+Although `tabr` infers the an instrument's number of strings from its tuning, there are limitations. Chord fretboard diagrams are only supported for guitar, six string guitar specifically. If attempting to pass four or five strings of information to `chord_set` for bass, ukulele or banjo for example, this will incompletely fill in a six string guitar fretboard diagram in the chord chart of the output. Similarly, if attempting to provide seven strings for a seven string guitar, the chord chart will show the additional note, but it will be floating to the side of the chart. A seventh string line is not added to the diagram. Number of strings inferred from instrument tuning displays in the tablature staff, but does not generalize to fretboard diagrams.
 
 ```{r cleanup, echo=FALSE}
 unlink("*.mid")

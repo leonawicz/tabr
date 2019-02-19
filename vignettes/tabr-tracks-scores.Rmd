@@ -92,7 +92,7 @@ score(t_all) %>% tab("ex23.pdf")
 
 <p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex23.png?raw=true" width="100%"></p>
 
-## Mulitple tracks
+## Multiple tracks
 
 Multiple voices are a special case of multiple tracks where the tab staff ID is constant and the voice ID varies, allowing the voices to be transcribed distinctly on a single staff. In general, multiple tracks are automatically designated for unique tablature and corresponding music staves. The default when track binding is to iterate the `tabstaff` entries for each track table row unless told otherwise and to keep a constant single `voice` in each tab staff (and corresponding music staff if included). This more common usage is actually simpler than using multiple voices because you can get away with specifying neither IDs for your individual tracks.
 
