@@ -134,6 +134,19 @@ Limitations
 
 There is far more that LilyPond can do that `tabr` does not tap into. Instead of listing a million things, this is just to highlight an example of a critical feature that still has limited functionality in both `tabr` and in LilyPond itself: LilyPond's bend engraver. Rendering sheet music with quality string bend notation is quite difficult. This is an area that will benefit greatly from further development.
 
+New in v 0.3.0: more music programming support
+----------------------------------------------
+
+Version 0.3.0 of adds many new helper functions ranging from simple to complex. These functions do not directly impact the core functionality and purpose of `tabr`, which is leveraging LilyPond for engraving guitar tablature and other sheet music.
+
+While indirectly supporting this core focus by keeping within the framework of `tabr`-LilyPond syntax, always with an eye toward transcription-related projects, the utility of these new functions is somewhat orthogonal to the music transcription side of `tabr`. Version 0.3.0 focuses on expanding music programming with `tabr` more generally.
+
+All of the new functions are fully documented. See the reference pages for details. Some are still under development, but all work as currently implemented.
+
+I was hopeful that the next version of `tabr` would be able to leverage a new, native bend engraver in LilyPond, but it appears that on the LilyPond side this development has not progressed since I last checked.
+
+Look forward to a separate collection of articles under a music programming heading that introduce many of the new functions. I just haven't had time to put this together yet.
+
 Reference
 ---------
 
