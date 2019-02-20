@@ -4,8 +4,8 @@
 \alias{miditab}
 \title{Convert MIDI to tablature}
 \usage{
-miditab(midi_file, file, keep_ly = FALSE, path = NULL, details = TRUE,
-  ...)
+miditab(midi_file, file, keep_ly = FALSE, path = NULL,
+  details = TRUE, ...)
 }
 \arguments{
 \item{midi_file}{character, MIDI file (\code{.mid}). May include an absolute or relative path.}

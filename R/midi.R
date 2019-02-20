@@ -62,7 +62,7 @@ midily <- function(midi_file, file, key = "c", absolute = FALSE, quantize = NULL
   .keycheck(x)
   idx <- which(.keydata$key == x)
   n <- .keydata$nsf[idx]
-  if(is_flat(x)) n <- -n
+  if(key_is_flat(x)) n <- -n
   if(.keydata$major[idx]) paste0(n, ":0") else paste0(n, ":1")
 }
 

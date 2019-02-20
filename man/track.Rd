@@ -4,8 +4,8 @@
 \alias{track}
 \title{Create a music track}
 \usage{
-track(phrase, tuning = "standard", voice = 1L, music_staff = "treble_8",
-  ms_transpose = 0, ms_key = NA)
+track(phrase, tuning = "standard", voice = 1L,
+  music_staff = "treble_8", ms_transpose = 0, ms_key = NA)
 }
 \arguments{
 \item{phrase}{a phrase object.}

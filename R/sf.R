@@ -12,11 +12,11 @@
 #' If this is your only option, take note of the details and limitations below.
 #'
 #' This function is a crutch for users not working with musical notes (what to play), but rather just position on the guitar neck (where to play). This method has its conveniences, but it is inherently limiting.
-#' In order to remove ambiguity, it is necessary to specify the instrument tuning and the key signature (or at least whether non-natural notes in the output should be sharps or flats).
+#' In order to remove ambiguity, it is necessary to specify the instrument tuning and the key signature (or at least whether accidentals in the output should be sharps or flats).
 #'
 #' In the standard approach where you specify what to play, specifying exactly where to play is optional, but highly recommended (by providing \code{string}). Here \code{string} is of course required along with \code{fret}.
 #' But any time the tuning changes, this "where to play" method breaks down and must be redone. It is much more robust to provide the string and pitch rather than the string and fret.
-#' The key is always important because it is the only way to indicate if non-natural notes are sharps or flats.
+#' The key is always important because it is the only way to indicate if accidentals are sharps or flats.
 #'
 #' This crutch method also increases redundancy and typing. In order to specify rests \code{r}, silent rests \code{s}, and tied notes \code{~}, these must now be providing in parallel in both the \code{string} and \code{fret} arguments,
 #' whereas in the standard method using \code{phrase}, they need only be provided once to \code{notes}.

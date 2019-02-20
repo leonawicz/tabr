@@ -23,7 +23,7 @@ The chord set list returned by \code{chord_set} is only used for top center plac
 Multiple chord positions can be defined for the same chord name.
 Instruments with a number of strings other than six are not currently supported.
 
-When defining chords, you may also wish to define rests or silence for chords added to a score for placement above the staff in time, where no chord is to be played.
+When defining chords, you may also wish to define rests or silent rests for chords that are to be added to a score for placement above the staff in time, where no chord is to be played or explicitly written.
 Therefore, there are occasions where you may pass chord names and positions that happen to include entries \code{r} and/or \code{s} as \code{NA} as shown in the example.
 These two special cases are passed through by \code{chord_set} but are ignored when the chord chart is generated.
 }

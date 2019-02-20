@@ -7,7 +7,7 @@
 #' Multiple chord positions can be defined for the same chord name.
 #' Instruments with a number of strings other than six are not currently supported.
 #'
-#' When defining chords, you may also wish to define rests or silence for chords added to a score for placement above the staff in time, where no chord is to be played.
+#' When defining chords, you may also wish to define rests or silent rests for chords that are to be added to a score for placement above the staff in time, where no chord is to be played or explicitly written.
 #' Therefore, there are occasions where you may pass chord names and positions that happen to include entries \code{r} and/or \code{s} as \code{NA} as shown in the example.
 #' These two special cases are passed through by \code{chord_set} but are ignored when the chord chart is generated.
 #'
@@ -24,7 +24,10 @@
 chord_set <- function(x, id = NULL){
   if(!is.null(names(x))) id <- names(x)
   idx <- which(is.na(x))
-  if(length(idx)) x2 <- x[idx]
+  if(length(idx)){
+    x2 <- x[idx]
+    names(x2) <- id[idx]
+  }
   x <- x[!is.na(x)]
   id <- id[!id %in% c("r", "s")]
   f <- function(x) strsplit(gsub("\\(", " \\(", gsub("\\)", " ", x)), " ")[[1]] %>%
@@ -72,11 +75,11 @@ chord_set <- function(x, id = NULL){
 track <- function(phrase, tuning = "standard", voice = 1L, music_staff = "treble_8",
                   ms_transpose = 0, ms_key = NA){
   if(!"phrase" %in% class(phrase)) stop("`phrase` is not a phrase object.")
-  x <- dplyr::data_frame(phrase, tuning = .map_tuning(tuning), voice = as.integer(voice),
+  x <- dplyr::tibble(phrase, tuning = .map_tuning(tuning), voice = as.integer(voice),
                           staff = as.character(music_staff),
                           ms_transpose = as.integer(ms_transpose),
                           ms_key = as.character(ms_key))
-  x$phrase <- purrr::map(x$phrase, ~as.phrase(.x))
+  x$phrase <- purrr::map(x$phrase, ~as_phrase(.x))
   class(x) <- unique(c("track", class(x)))
   x
 }
@@ -116,13 +119,8 @@ trackbind <- function(..., tabstaff){
   x <- suppressWarnings(dplyr::bind_rows(x))
   if(nrow(dplyr::distinct(x, .data[["voice"]], .data[["tabstaff"]])) < nrow(x))
     stop("track `voice` and `tabstaff` ID combination must be unique across track rows.")
-  x$phrase <- purrr::map(x$phrase, ~as.phrase(.x))
+  x$phrase <- purrr::map(x$phrase, ~as_phrase(.x))
   class(x) <- unique(c("track", class(x)))
-  x
-}
-
-as.phrase <- function(x){
-  class(x) <- c("phrase", class(x))
   x
 }
 

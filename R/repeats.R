@@ -50,8 +50,7 @@
 #' @rdname repeats
 rp <- function(phrase, n = 1){
   x <- paste("\\repeat unfold", n + 1, "{", paste(phrase, collapse = " "), " }\n")
-  class(x) <- c("phrase", class(x))
-  x
+  as_phrase(x)
 }
 
 #' @export
@@ -64,8 +63,7 @@ pct <- function(phrase, n = 1, counter = FALSE, step = 1, reset = TRUE){
                           step, ")\n", x)
   if(counter & reset) x <- paste0(x, "\\set countPercentRepeats = ##f\n",
                         "\\set repeatCountVisibility = #(every-nth-repeat-count-visible 1)\n")
-  class(x) <- c("phrase", class(x))
-  x
+  as_phrase(x)
 }
 
 #' @export
@@ -85,6 +83,5 @@ volta <- function(phrase, n = 1, endings = NULL, silent = FALSE){
     x <- paste0(x, "\\alternative {\n", paste("  {", endings, "| }\n", collapse = ""), "}")
   }
   x <- gsub("\\| \\|", "\\|", x)
-  class(x) <- c("phrase", class(x))
-  x
+  as_phrase(x)
 }
