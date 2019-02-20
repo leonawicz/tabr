@@ -16,7 +16,7 @@
 #'
 #' The only element other pitch that occurs in a valid notes string is a rest, \code{"r"} or \code{"s"} (silent rest). Rests are ignored by transpose.
 #'
-#' The default \code{style} is to use tick style if no integers occur in \code{notes}. The other two options force the respective styles. When integer style is returned, all \code{3}s are dropped since the third octave is the implicit center in LilyPond.
+#' The default \code{style} is to use tick style if no integers occur in \code{notes}. The \code{"tick"} and \code{"integer"} options force the respective styles. When integer style is returned, all \code{3}s are dropped since the third octave is the implicit center in LilyPond. \code{style = "strip"} removes any explicit octave information.
 #'
 #' @param notes character, a valid string of notes, the type passed to \code{phrase}.
 #' @param n integer, positive or negative number of semitones to transpose.
@@ -38,12 +38,12 @@
 #' tp("a3 b4 c5", 2, key = "g")
 #' tp("a b' c''", 2, key = "flat")
 #' tp("a, b ceg", 2, key = "sharp")
-transpose <- function(notes, n = 0, key = NA, style = c("default", "tick", "integer")){
+transpose <- function(notes, n = 0, key = NA, style = c("default", "tick", "integer", "strip")){
   if(!inherits(notes, "character")) stop("`notes` must be a valid character string of notes.")
   if(inherits(notes, "phrase"))
     stop("`notes` must be a valid character string of notes, not a phrase object.")
   n <- as.integer(n)
-  if(n == 0) return(notes)
+  if(n == 0 & is.na(key)) return(notes)
   style <- match.arg(style)
   if(gsub("[a-grs#_0-9,'~ ]", "", notes) != "") stop("`notes` is not a valid string of notes.")
   if(style == "default") style <- ifelse(length(grep("[,']", notes)), "tick", "integer")
@@ -99,7 +99,7 @@ transpose <- function(notes, n = 0, key = NA, style = c("default", "tick", "inte
   octaves <- sign(n) * ((abs(n) - notes) / 12)
   notes <- sign(n) * notes
 
-  if(notes != 0){
+  if(!(notes == 0 & is.na(key))){
     if(is.na(key)){
       y <- if(n > 0) sharp else flat # nolint start
     } else {
@@ -112,6 +112,8 @@ transpose <- function(notes, n = 0, key = NA, style = c("default", "tick", "inte
         y <- sharp
       } else if(is.na(sf) && n < 0){
         y <- flat
+      } else if(is.na(sf)){
+        y <- sharp
       } else if(sf == "sharp"){
         y <- sharp
       } else {
@@ -151,6 +153,7 @@ transpose <- function(notes, n = 0, key = NA, style = c("default", "tick", "inte
   x <- paste0(x1new, x2, collapse = " ")
   if(style == "tick") x <- .octavesub(x)
   x <- gsub("3", "", x)
+  if(style == "strip") x <- gsub("\\d|,|'", "", x)
   x
 }
 

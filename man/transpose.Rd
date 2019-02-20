@@ -5,7 +5,8 @@
 \alias{tp}
 \title{Transpose pitch}
 \usage{
-transpose(notes, n = 0, key = NA, style = c("default", "tick", "integer"))
+transpose(notes, n = 0, key = NA, style = c("default", "tick",
+  "integer", "strip"))
 
 tp(...)
 }
@@ -39,7 +40,7 @@ If not provided (\code{key = NA}), transposition lacks full information and simp
 
 The only element other pitch that occurs in a valid notes string is a rest, \code{"r"} or \code{"s"} (silent rest). Rests are ignored by transpose.
 
-The default \code{style} is to use tick style if no integers occur in \code{notes}. The other two options force the respective styles. When integer style is returned, all \code{3}s are dropped since the third octave is the implicit center in LilyPond.
+The default \code{style} is to use tick style if no integers occur in \code{notes}. The \code{"tick"} and \code{"integer"} options force the respective styles. When integer style is returned, all \code{3}s are dropped since the third octave is the implicit center in LilyPond. \code{style = "strip"} removes any explicit octave information.
 }
 \examples{
 transpose("a_3 b_4 c5", 0)
