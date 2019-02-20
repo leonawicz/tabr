@@ -1,4 +1,4 @@
-url: http://leonawicz.github.io/
+url: http://leonawicz.github.io/tabr
 
 template:
   params:
@@ -48,10 +48,42 @@ reference:
   desc: "Functions for chord description."
   contents:
   - chord_set
-- title: Key signsture helpers
+- title: Phrase validation and coercion
+  desc: "Functions for checking and decomposing phrases objects."
+  contents:
+  - phrase-checks
+- title: Key signature helpers
   desc: "Functions providing key information and specification"
   contents:
   - keys
+- title: Scale helpers
+  desc: "Functions for working with musical scales"
+  contents:
+  - scale-deg
+  - scale-helpers
+- title: Mode helpers
+  desc: "Functions for working with musical modes"
+  contents:
+  - mode-helpers
+- title: Interval helpers
+  desc: "Functions for calculating musical intervals"
+  contents:
+  - interval-helpers
+  - interval_semitones
+- title: Chord helpers
+  desc: "Functions for constructing and manipulating chord strings"
+  contents:
+  - chord_invert
+  - chord_break
+  - chord_is_diatonic
+  - dyad
+  - chords
+- title: Note and pitch helpers
+  desc: "Functions for manipulating simple note and pitch strings"
+  contents:
+  - note-helpers
+  - valid-notes
+  - note-equivalence
 - title: MIDI conversion
   desc: "Functions for converting MIDI files with LilyPond"
   contents:
@@ -64,6 +96,7 @@ reference:
   contents:
   - tabrSyntax
   - tunings
+  - mainIntervals
 
 navbar:
   title: "tabr"
