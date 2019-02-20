@@ -71,7 +71,7 @@ tracks
 score(tracks) %>% tab("out.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex34.png?raw=true" width="40%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex34.png?raw=true" class="centerimg" width="40%"></p>
 
 Notice that for tunings other than standard guitar, the default is to show the note each string is tuned to at the start of the tablature staff. These can be turning off in `score` using `string_names = FALSE`. For example, when making a pure bass tab in standard tuning, you might opt to exclude this. There must still be some familiarity with the instrument of course. In the case of the made up one string instrument, no one would know which octave the open C belongs to, but the person with such an instrument would surely know what to expect.
 
@@ -88,7 +88,7 @@ tracks
 score(tracks) %>% tab("out.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex35.png?raw=true" width="40%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex35.png?raw=true" class="centerimg" width="40%"></p>
 
 ## Current limitations
 

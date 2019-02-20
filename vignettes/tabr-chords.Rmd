@@ -74,7 +74,7 @@ The output for the dummy song now contains a chord chart centered at the top of 
 p("r", 1) %>% track %>% score(chords) %>% tab("ex13.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex13.png?raw=true" width="100%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex13.png?raw=true" class="centerimg" width="100%"></p>
 
 ### Details
 
@@ -95,7 +95,7 @@ chords <- chord_set(chords)
 p("r", 1) %>% track %>% score(chords) %>% tab("ex14.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex14.png?raw=true" width="100%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex14.png?raw=true" class="centerimg" width="100%"></p>
 
 ## Chord symbols and sequences
 
@@ -124,7 +124,7 @@ names(chord_seq) <- names(chords)[c(1, 3:1)] # C G F C
 track(p1) %>% score(chords, chord_seq) %>% tab("ex15.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex15.png?raw=true" width="100%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex15.png?raw=true" class="centerimg" width="100%"></p>
 
 ### Using rests
 
@@ -138,13 +138,13 @@ names(chord_seq) <- names(chords)[c(1, 5, 3:1, 4)] # C (s) G F C (r)
 track(p2) %>% score(chords, chord_seq) %>% tab("ex16.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex16.png?raw=true" width="100%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex16.png?raw=true" class="centerimg" width="100%"></p>
 
 ### Overall picture
 
 Since the chord chart is included and was only shown in prior examples zoomed in, here is the result above showing the full sheet, which includes the staves and chord symbols, the chord chart positioned top center, and for perspective the page numbering in the top right corner.
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex16b.png?raw=true" width="100%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex16b.png?raw=true" class="centerimg" width="100%"></p>
 
 To sum up, chords are used in `tabr` in three ways. Using `phrase`, they appear among other notes in staves as the core component of the music transcription. They are also used by `score` to generate chord charts using fretboard diagrams that summarize all the chords that occur in a song. Finally, the same chord symbols can be listed in sequence with corresponding durations to be applied above a music staff, showing the chord progression throughout the song in proper time.
 

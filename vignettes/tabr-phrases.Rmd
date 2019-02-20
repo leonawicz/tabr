@@ -78,7 +78,7 @@ The format is technically specifying the denominator. You might be inclined towa
 phrase("c3 d3 e3 f3 g3 a3 b3 c4 b3 c4", "16 16 8 8 4 4 8 2 2 1") %>% track %>% score %>% tab("ex01.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex01.png?raw=true" width="100%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex01.png?raw=true" class="centerimg" width="100%"></p>
 
 ## Rests and ties
 
@@ -90,7 +90,7 @@ Rests are denoted by `"r"`. In general, string specification is irrelevant for r
 phrase("r d3 e3 r g3 r b3 r b3 r", "16 16 8 8 4 4 8 2 2 1") %>% track %>% score %>% tab("ex02.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex02.png?raw=true" width="100%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex02.png?raw=true" class="centerimg" width="100%"></p>
 
 At first glance, tied notes might seem like something that ought to be described via `info`, but even though the note is only played once initially and not played second time where the tie ends, a tied note is still distinct from the note to which it is tied *as far as notation is concerned*.
 
@@ -100,7 +100,7 @@ For example, when tying a note over to a new measure, it must be included twice 
 phrase("r a2 b2 c3~ c3", "2 8 8 4 1") %>% track %>% score %>% tab("ex03.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex03.png?raw=true" width="55%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex03.png?raw=true" class="centerimg" width="55%"></p>
 
 The note is played once and last for one and a quarter measures, but is still annotated as one quarter note tied to one whole note.
 
@@ -119,7 +119,7 @@ strings <- "6 6 5 5 5 4 4 4 4 4"
 phrase(notes, info, strings) %>% track %>% score %>% tab("ex04.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex04.png?raw=true" width="100%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex04.png?raw=true" class="centerimg" width="100%"></p>
 
 Some programs like LilyPond allow for specifying a minimum fret threshold, such that every note is played at that fret or above. This would work better for some songs than others of course. It is still not as powerful or ideal as being explicit about every note's position. This threshold option is not currently supported by `tabr`. It is recommended to always be explicit anyway, as it leads to more accurate guitar tablature. There is a preponderance of highly inaccurate guitar tabs in the online world. Please do not add to the heap.
 
@@ -139,7 +139,7 @@ phrase("c3 d3 e3 e3 e3 d3 c3", "4. 4. 8 8 2.. 8 1") %>% track %>% score %>% tab(
 
 Dots are tightly bound in dotted notes. `tabr` treats these multi-character time durations as singular elements, just as it does for, say, sixteenth notes given by a `"16"`.
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex05.png?raw=true" width="72%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex05.png?raw=true" class="centerimg" width="72%"></p>
 
 ### Staccato
 
@@ -149,7 +149,7 @@ Notes played staccato are specified by appending a closing square bracket direct
 phrase("c3 e3 g3 e3 c3", "8] 8] 8] 8] 2") %>% track %>% score %>% tab("ex06.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex06.png?raw=true" width="42%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex06.png?raw=true" class="centerimg" width="42%"></p>
 
 ### Muted or dead notes
 
@@ -159,7 +159,7 @@ Muted or dead notes are indicated by appending an `"x"` to a note duration, e.g.
 phrase("c3 e3 g3 e3 c3", "8x] 8x] 8x] 8x] 2x") %>% track %>% score %>% tab("ex07.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex07.png?raw=true" width="42%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex07.png?raw=true" class="centerimg" width="42%"></p>
 
 Multiple pieces of information can be strung together for a single note. For example, combining a muted note with staccato can be given as `"8x]"`. In this early version of `tabr`, do this with caution, as not all orderings of note information have been thoroughly tested yet. Duration always comes first though. Some pieces of information are not meant to go together either, such as a staccato note that must essentially be held rather than released, for the purpose of sliding to another note. Use human judgment. If you don't ever see something in sheet music, it may not work in `tabr` either.
 
@@ -173,7 +173,7 @@ Slides are partially implemented. They work well in `tabr` when sliding from one
 phrase("c3 b2 c3 d3 e3 e3 d3 c3 b2 c3 c3 c4", "8- 8- 4 8- 8 8- 8 8- 8- 8 4.- 4", "5*12") %>% track %>% score %>% tab("ex08.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex08.png?raw=true" width="77%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex08.png?raw=true" class="centerimg" width="77%"></p>
 
 As a brief aside, note the use of `*` above in the `string` argument to reduce typing. It is necessary to specify `string` here in order to ensure the notes are all on the fifth string in the output. Any space-delimited elements in `phrase` can take advantage of this terminal element notation for multiplicative expansion of an element. Terminal means that it must be appended to the end of whatever is being expanded; nothing can follow it. `c*4 a*2` expands to `c c c c a a` inside `phrase`. `4.-*2` is replaced with `4.- 4.-`. This convenient multiplicative expansion operator within character strings passed to `phrase` is available for the `notes`, `info` and `string` arguments.
 
@@ -195,7 +195,7 @@ strings <- "5*12 3*12"
 phrase(notes, info, strings) %>% track %>% score %>% tab("ex09.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex09.png?raw=true" width="100%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex09.png?raw=true" class="centerimg" width="100%"></p>
 
 Another brief aside: `tabr` has some helper functions that make your work a bit easier and your code a bit more legible, ideally both. Using meaningful separation helps keep the code relatively readable and easier to make changes to when you realize you made a mistake somewhere. Don't write one enormous string representing an entire song. Aside from the avoiding code duplication where there is musical repetition, even something that might not repeat such as a guitar solo still benefits greatly from being broken up in to manageable parts. 
 
@@ -215,7 +215,7 @@ strings <- glue("x 5 5 4 4 3 4 3 3 3", "x 4 3 3 4 2 3 2 2 2")
 phrase(notes, info, strings) %>% track %>% score %>% tab("ex10.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex10.png?raw=true" width="100%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex10.png?raw=true" class="centerimg" width="100%"></p>
 
 As you can see, the implementation is limited in `tabr`. It is also relatively difficult to achieve natively in LilyPond. The bends are different but the number of steps must be inferred from the key. The timing of bends and releases is challenging. The engraving is poor. But it is a start point.
 
@@ -230,7 +230,7 @@ track(p1) %>% score %>% tab("ex11.pdf")
 
 It can be seen above that just like individual notes, chords can be specified using any combination of tick or integer octave numbering. They are equivalent. Tick style may be more readable for some. Leaving out the integer 3 can help for many chords. Note the shorthand string numbering, `5s`, used for the second C chord. This is useful for bar chords. `[n]s` runs from `n` to 1.
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex11.png?raw=true" width="37%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex11.png?raw=true" class="centerimg" width="37%"></p>
 
 This covers the detailed introduction to phrases. The next section will cover related helper functions, some of which have already been seen.
 

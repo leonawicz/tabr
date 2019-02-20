@@ -62,7 +62,7 @@ The result above shows how this information is stored in the track tables. Here 
 score(t2) %>% tab("ex22.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex22.png?raw=true" width="100%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex22.png?raw=true" class="centerimg" width="100%"></p>
 
 ## Multiple voices
 
@@ -90,7 +90,7 @@ Also note that `trackbind` takes any number of tracks via the `...` argument. If
 score(t_all) %>% tab("ex23.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex23.png?raw=true" width="100%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex23.png?raw=true" class="centerimg" width="100%"></p>
 
 ## Multiple tracks
 
@@ -110,7 +110,7 @@ Now the same tracks are simply split out to two different sets of staves.
 trackbind(t1, t2) %>% score %>% tab("ex24.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex24.png?raw=true" width="100%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex24.png?raw=true" class="centerimg" width="100%"></p>
 
 Multiple voices are engraved in the output based on the order of their voice IDs. Multiple tracks assigned to different staves are engraved top to bottom based on the order they are passed to `trackbind`, *not based on their ID values*. As mentioned, these are propagated automatically when calling `trackbind`, except in that relatively rare case of using multiple voices per staff. Unlike voice IDs assigned in `track` calls, tab staff IDs are not. They do not even appear until there has been use of `trackbind`. The tab staff ID order is generally a consequence of the order in which the user provides the tracks to `trackbind`.
 
@@ -132,7 +132,7 @@ t_all
 score(t_all) %>% tab("ex25.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex25.png?raw=true" width="100%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex25.png?raw=true" class="centerimg" width="100%"></p>
 
 Another important fact worth mentioning is that while multiple simultaneous tracks can be bound vertically, they are never bound horizontally, or sequentially in time. Tracks are always complete segments of music with a fixed beginning and end and are never concatenated serially like phrase objects. To put it another way, `trackbind` is used to row bind track tables but not to column bind them.
 
@@ -153,7 +153,7 @@ score(t2) %>% tab("ex26b.pdf")
 score(t3) %>% tab("ex26c.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex26.png?raw=true" width="100%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex26.png?raw=true" class="centerimg" width="100%"></p>
 
 Rendering each of these tracks, all three look as expected given the different tuning of the guitar. By default a staff based on a non-standard tunings indicate the tuning at the beginning of the staff. For more on tunings, see the later tutorial section on non-standard tunings. Some control over displaying alternate tunings for the whole score in the rendered sheet music is available via `score`, touched on further below.
 
@@ -167,7 +167,7 @@ Return for a moment to the music staff. Earlier it was suppressed. It was also s
 track(p1, music_staff = "bass_8") %>% score %>% tab("ex27.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex27.png?raw=true" width="42%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex27.png?raw=true" class="centerimg" width="42%"></p>
 
 ## Adding tracks to a score
 
@@ -217,7 +217,7 @@ t_all
 score(t_all) %>% tab("ex28.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex28.png?raw=true" width="100%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex28.png?raw=true" class="centerimg" width="100%"></p>
 
 Notice the bass tuning automatically leads to a four line tab.
 
@@ -240,7 +240,7 @@ Now create a version that only adds a chord chart.
 score(t_all, chords = chords) %>% tab("ex29.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex29.png?raw=true" width="100%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex29.png?raw=true" class="centerimg" width="100%"></p>
 
 The chart in the example above matches the order in which you defined your chord positions. Next, remake the score adding only the chord symbol sequence over the top staff. Remove the chord chart.
 
@@ -248,7 +248,7 @@ The chart in the example above matches the order in which you defined your chord
 score(t_all, chord_seq = chord_seq) %>% tab("ex30.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex30.png?raw=true" width="100%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex30.png?raw=true" class="centerimg" width="100%"></p>
 
 Finally, combine both.
 
@@ -256,7 +256,7 @@ Finally, combine both.
 score(t_all, chords, chord_seq) %>% tab("ex31.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex31.png?raw=true" width="100%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex31.png?raw=true" class="centerimg" width="100%"></p>
 
 These examples demonstrate the level of control you have over this type of content, which you can elect to include or exclude depending on your preferences and how important or helpful the supplemental information is for a given song.
 

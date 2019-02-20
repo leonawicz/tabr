@@ -73,6 +73,6 @@ The slightest change forces you to split things up and expand the code, just lik
 
 The result of the call to `tab` is as follows.
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/complete01.png?raw=true" width="100%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/complete01.png?raw=true" class="centerimg" width="100%"></p>
 
 The next example refactors the phrases above to properly represent [multiple voices](https://leonawicz.github.io/tabr/articles/tabr-ex2.html) in the output.

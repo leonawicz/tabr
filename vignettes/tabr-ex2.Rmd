@@ -92,4 +92,4 @@ This may seem like a frustrating refactor in the sense that much of the code cha
 
 Note that the order of voice 1 and 2 *assignment* determines which one is stem up and which is stem down. `voice = 1` points up, `voice = 2` points down, and they should be assigned properly to avoid obtaining the backwards result. Since together these tracks share one staff, the order in which they are passed to `trackbind` actually does not matter here. `trackbind` order matters only for staff order, not voice order within a staff. In general, for voices and for staves, first to last is mapped top to bottom in the output.
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/complete01b.png?raw=true" width="100%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/complete01b.png?raw=true" class="centerimg" width="100%"></p>

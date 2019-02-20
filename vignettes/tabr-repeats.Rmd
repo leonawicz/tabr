@@ -38,7 +38,7 @@ Note the difference in `n` and the results of `dup` vs. `rp`. Usually an argumen
 glue(dup(p1, 2), rp(p1)) %>% track %>% score %>% tab("example17.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex17.png?raw=true" width="100%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex17.png?raw=true" class="centerimg" width="100%"></p>
 
 In the tablature output above, the first two measures pertaining to the use of `dup` are identical to the last two resulting from `rp`. Unfolding a repeated section is no different than writing it out fully. `rp` represents a shortening of LilyPond markup by applying the `\repeat \unfold` tag around the music. The `2` shown in the LilyPond markup output is the total number of plays, `n + 1`. Think of `dup` as a more general purpose helper function in `tabr` for pasting copies of strings together whereas `rp` might be used when you are thinking more specifically about meaningful, discrete section of music.
 
@@ -57,7 +57,7 @@ p2 <- p("g,b,dgbg'*16", 16)
 glue(pct(p1, 3), pct(p2, 3)) %>% track %>% score %>% tab("example18.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex18.png?raw=true" width="100%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex18.png?raw=true" class="centerimg" width="100%"></p>
 
 It is nice to not have to stare at those rapid bar chords in every measure. The earlier measures are also shorter as a result of not having to display all the notes.
 
@@ -88,7 +88,7 @@ For brevity, concatenate both of these. Note that the volta repeat bar at the be
 glue(volta(p1), volta(p1, 2)) %>% track %>% score %>% tab("example19.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex19.png?raw=true" width="100%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex19.png?raw=true" class="centerimg" width="100%"></p>
 
 There are instances where you want to suppress this annotation. Specifically, if there are multiple tab staffs present, there is no need to print the same annotation above every staff other than the top one. Also, there is the edge case where notes in the section may already have annotations attached to them via `notate`, in which case the above annotation may get in the way. It can be suppressed in `volta` with `silent = TRUE`.
 
@@ -110,7 +110,7 @@ c1 <- p("c", 1)
 glue(volta(p1, 1, e1), c1, volta(p1, 2, e1), c1) %>% track %>% score %>% tab("example20.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex20.png?raw=true" width="100%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex20.png?raw=true" class="centerimg" width="100%"></p>
 
 ### Multiple alternate endings
 
@@ -129,7 +129,7 @@ x3
 glue(x1, c1, x2, c1, x3, c1) %>% track %>% score %>% tab("example21.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex21.png?raw=true" width="100%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex21.png?raw=true" class="centerimg" width="100%"></p>
 
 ```{r cleanup, echo=FALSE}
 unlink("*.mid")

@@ -61,7 +61,7 @@ lilypond(song, "ex32.ly", "dm", "2/2", "4 = 120")
 tab(song, "ex32.pdf", "dm", "2/2", "4 = 120")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex32.png?raw=true" width="100%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex32.png?raw=true" class="centerimg" width="100%"></p>
 
 Notice how the key change alone, which added room for a single flat symbol to be squeezed into the start of the treble and bass clef staves, was enough to push everything to the point of wrapping around onto a second entire line compared to the earlier tutorial section where it all fit on one line. This is because it was a really tight fit to in the previous examples and there was not enough room for LilyPond to continue fitting everything on one line with this slight widening created by the key change. LilyPond generates sheet music with a somewhat responsive layout engraver. It won't leave everything on line one jam packaged and push a single measure to the line two. This will return to fitting on one line in a moment when we revert the key change.
 
@@ -90,7 +90,7 @@ header <- list(
 tab(song, "ex33.pdf", header = header)
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex33.png?raw=true" width="100%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex33.png?raw=true" class="centerimg" width="100%"></p>
 
 The copyright and tagline are cutoff in the above image, but in your pdf you will see these if you scroll to the bottom of the rendered page.
 

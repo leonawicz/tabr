@@ -142,7 +142,7 @@ p1 <- glue(triplet("c4 r e4", 8, "4 3 3"),
 track(glue(p1, p("d c", "8 4.", "6 6"))) %>% score %>% tab("ex12.pdf")
 ```
 
-<p align="center"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex12.png?raw=true" width="100%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex12.png?raw=true" class="centerimg" width="100%"></p>
 
 This concludes the section on helper functions associated with phrases and note sequences. The next section goes into deeper detail on chord specification and the various use of chords in `tabr`.
 
