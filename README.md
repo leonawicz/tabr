@@ -14,7 +14,7 @@ Overview
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/tabr_logo.png?raw=true" width="400px" align="center">
 </p>
 <br/>
- 
+
 Create guitar tablature ("tabs") from R code with `tabr`. The `tabr` package provides programmatic music notation and a wrapper around [LilyPond](http://lilypond.org/) for creating quality guitar tablature.
 
 `tabr` offers functions for describing and organizing musical structures and wraps around the LilyPond backend. LilyPond is an open source music engraving program for generating high quality sheet music based on markup syntax. `tabr` generates files following the LilyPond markup syntax to be subsequently processed by LilyPond into sheet music.
@@ -137,7 +137,7 @@ There is far more that LilyPond can do that `tabr` does not tap into. Instead of
 New in v 0.3.0: more music programming support
 ----------------------------------------------
 
-Version 0.3.0 of adds many new helper functions ranging from simple to complex. These functions do not directly impact the core functionality and purpose of `tabr`, which is leveraging LilyPond for engraving guitar tablature and other sheet music.
+Version 0.3.0 of `tabr` adds many new helper functions ranging from simple to complex. These functions do not directly impact the core functionality and purpose of `tabr`, which is leveraging LilyPond for engraving guitar tablature and other sheet music.
 
 While indirectly supporting this core focus by keeping within the framework of `tabr`-LilyPond syntax, always with an eye toward transcription-related projects, the utility of these new functions is somewhat orthogonal to the music transcription side of `tabr`. Version 0.3.0 focuses on expanding music programming with `tabr` more generally.
 
@@ -145,7 +145,7 @@ All of the new functions are fully documented. See the reference pages for detai
 
 I was hopeful that the next version of `tabr` would be able to leverage a new, native bend engraver in LilyPond, but it appears that on the LilyPond side this development has not progressed since I last checked.
 
-Look forward to a separate collection of articles under a music programming heading that introduce many of the new functions. I just haven't had time to put this together yet.
+Look forward to a separate collection of articles under a music programming heading that introduce many of the new functions. I just haven't had time to put these together yet.
 
 Reference
 ---------
