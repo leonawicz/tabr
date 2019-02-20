@@ -53,7 +53,9 @@ NULL
 phrase <- function(notes, info, string = NULL, bar = FALSE){
   .check_phrase_input(notes, "notes")
   .check_phrase_input(info, "info")
+  if(!is.null(string) && is.na(string)) string <- NULL
   if(!is.null(string)) .check_phrase_input(string, "string")
+  .check_noteworthy(notes)
   notes <- (strsplit(notes, " ")[[1]] %>% purrr::map_chr(.star_expand) %>%
     paste0(collapse = " ") %>% strsplit(" "))[[1]]
   notes <- .octavesub(notes)
@@ -83,8 +85,7 @@ phrase <- function(notes, info, string = NULL, bar = FALSE){
   x <- paste(x, collapse = " ")
   if(bar) x <- paste(x, "|")
   x <- gsub("\\| \\|", "\\|", x)
-  class(x) <- c("phrase", class(x))
-  x
+  as_phrase(x)
 }
 
 # nolint end
@@ -95,7 +96,164 @@ phrase <- function(notes, info, string = NULL, bar = FALSE){
 
 #' @export
 #' @rdname phrase
-p <- function(...) phrase(...)
+p <- phrase
 
 #' @export
 print.phrase <- function(x, ...) cat(gsub("\n\n", "\n", paste0(x, "\n")), sep = "")
+
+#' Phrase validation and coercion
+#'
+#' These helper functions add some validation checks for phrase and candidate phrase objects.
+#'
+#' Use these functions with some caution. They are not intended for strictness and perfection.
+#' \code{phrasey} checks whether an object is weakly phrase-like and returns \code{TRUE} or \code{FALSE}.
+#' It can be used to safeguard against the most obvious cases of \code{phrase} not containing valid phrase syntax when programming.
+#' However, it may also be limiting. Use wear sensible.
+#'
+#' \code{as_phrase} coerces an object to a phrase object if possible. This function performs an internal \code{phrasey} check.
+#'
+#' \code{notify} attempts to decompose a phrase object back to its original input vectors consisting of notes, note info, and optionally, instrument string numbering.
+#' If successful, it returns a tibble data frame with columns: \code{notes}, \code{info}, \code{string}.
+#'
+#' Unless decomposing very simple phrases, this function is likely to reveal limitations.
+#' Complex phrase objects constructed originally with \code{phrase} can be challenging to deconstruct in a one to one manner.
+#' Information may be lost, garbled, or the function may fail.
+#' For example, this function is not advanced enough to unravel repeat notation or handle arbitrary text notations attached to notes.
+#'
+#'  \code{notable} returns \code{TRUE} or \code{FALSE} regarding whether a phrase can be converted back to character string inputs,
+#'  not necessarily with complete correctness, but without simple failure.
+#'  It checks for phrasiness. Then it tries to call \code{notify} and returns \code{FALSE} gracefully if that call throws an exception.
+#'
+#' @param phrase phrase object or character string (candidate phrase).
+#' @param collapse logical, collapse result into a single string ready for phrase construction.
+#'
+#' @return see details for each function's purpose and return value.
+#' @export
+#' @name phrase-checks
+#'
+#' @examples
+#' # Create a list of phrase objects
+#' p1 <- phrase("c ec'g' ec'g'", "4 4 2") # no explicit string specification (not recommended)
+#' p2 <- phrase("c ec4g4 ec4g4", "4 4 2") # same as above
+#' p3 <- phrase("c b, c", "4. 8( 8)", "5 5 5") # direction implies hammer on
+#' p4 <- phrase("b2 c d", "4( 4)- 2", "5 5 5") # hammer and slide
+#' p5 <- phrase("c ec'g'~ ec'g'", 1, "5 432 432") # tied chord
+#' x <- list(p1, p2, p3, p4, p5)
+#'
+#' # Check if phrases and strings are phrasey
+#' sapply(x, phrasey)
+#' sapply(as.character(x), phrasey, USE.NAMES = FALSE)
+#'
+#' # Coerce character string representation to phrase and compare with original
+#' y <- lapply(as.character(x), as_phrase)
+#' identical(x, y)
+#'
+#' # Check if notable
+#' sapply(x, notable)
+#' notable(p("a b c", 1))
+#' notable("a b x") # note: not constructible as a phrase in the first place
+#'
+#' # Notify phrases
+#' d <- do.call(rbind, lapply(x, notify))
+#' d
+#'
+#' # Wrappers around notify that extract each component, default to collapsed strings
+#' phrase_notes(p5)
+#' phrase_info(p5)
+#' phrase_strings(p5)
+#'
+#' # If phrase decomposition works well, coercion is one to one
+#' x2 <- lapply(x, function(x) p(phrase_notes(x), phrase_info(x), phrase_strings(x)))
+#' identical(x, x2)
+as_phrase <- function(phrase){
+  x <- phrase
+  if(inherits(x, "phrase")) return(x)
+  if(!inherits(x, "character")) stop(paste("Cannot coerce", class(x)[1], "to phrase."))
+  if(!phrasey(x)) stop("`x` is not phrasey.")
+  class(x) <- unique(c("phrase", class(x)))
+  x
+}
+
+#' @export
+#' @rdname phrase-checks
+phrasey <- function(phrase){
+  if(!inherits(phrase, "phrase") & !inherits(phrase, "character")) return(FALSE)
+  i1 <- sum(attr(gregexpr("<", phrase)[[1]], "match.length"))
+  if(i1 < 1){
+    if(gsub(" |r\\d+|s\\d+", "", phrase) == "") return(TRUE) else return(FALSE)
+  }
+  i2 <- sum(attr(gregexpr(">", phrase)[[1]], "match.length"))
+  if(i1 != i2) return(FALSE)
+  TRUE
+}
+
+# nolint start
+
+#' @export
+#' @rdname phrase-checks
+notify <- function(phrase){
+  if(!phrasey(phrase)) stop("`phrase` is not phrasey.")
+  x <- strsplit(phrase, " <")[[1]]
+  x <- gsub("\\\\glissando", "-", x)
+  x <- gsub("is", "#", x)
+  x <- gsub("(^|<)([a|e])s", "\\2_", x)
+  x <- gsub(" ([a|e])s", " \\1_", x)
+  x <- gsub("es", "_", x)
+  x <- gsub(" ", "", x)
+  x <- gsub("^<", "", x)
+  x <- strsplit(x, ">")
+  notes <- sapply(x, "[[", 1)
+  info <- sapply(x, "[[", 2)
+
+  pat <- "\\\\\\d+"
+  y <- gregexpr(pat, notes)
+
+  f <- function(i){
+    start <- y[[i]] + 1
+    end <- start + attributes(y[[i]])$match.length - 2
+    y <- sapply(seq_along(start), function(x) substr(notes[i], start[x], end[x]))
+    y <- paste(y, collapse = "")
+    y[y == ""] <- NA
+    y
+  }
+
+  string <- sapply(seq_along(y), f)
+  notes <- gsub(pat, "", notes)
+  dplyr::tibble(notes = notes, info = info, string = string)
+}
+
+# nolint end
+
+#' @export
+#' @rdname phrase-checks
+phrase_notes <- function(phrase, collapse = TRUE){
+  x <- notify(phrase)$notes
+  if(collapse) x <- paste(x, collapse = " ")
+  x
+}
+
+#' @export
+#' @rdname phrase-checks
+phrase_info <- function(phrase, collapse = TRUE){
+  x <- notify(phrase)$info
+  if(collapse) x <- paste(x, collapse = " ")
+  x
+}
+
+#' @export
+#' @rdname phrase-checks
+phrase_strings <- function(phrase, collapse = TRUE){
+  x <- notify(phrase)$string
+  if(collapse){
+    x <- if(any(is.na(x))) as.character(NA) else paste(x, collapse = " ")
+  }
+  x
+}
+
+#' @export
+#' @rdname phrase-checks
+notable <- function(phrase){
+  if(!phrasey(phrase)) return(FALSE)
+  tryCatch(notify(phrase), error = function(e) FALSE)
+  TRUE
+}

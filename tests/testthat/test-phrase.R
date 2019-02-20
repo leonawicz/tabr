@@ -34,3 +34,49 @@ test_that("phrase returns as expected", {
   expect_error(p("a", 1:2, 1), "`info` must be length one.")
   expect_error(p("a", 1, 1:2), "`string` must be length one.")
 })
+
+p1 <- phrase("c ec'g' ec'g'", "4 4 2") # no explicit string specification (not recommended)
+p2 <- phrase("c ec4g4 ec4g4", "4 4 2") # same as above
+p3 <- phrase("c b, c", "4. 8( 8)", "5 5 5") # direction implies hammer on
+p4 <- phrase("b2 c d", "4( 4)- 2", "5 5 5") # hammer and slide
+p5 <- phrase("c ec'g'~ ec'g'", 1, "5 432 432") # tied chord
+x <- list(p1, p2, p3, p4, p5)
+
+y <- lapply(as.character(x), as_phrase)
+
+test_that("phrasey returns as expected", {
+  expect_true(all(sapply(x, phrasey)))
+  expect_true(all(sapply(as.character(x), phrasey)))
+
+  expect_identical(x, y)
+
+  expect_false(phrasey(1))
+  expect_false(phrasey("x"))
+  expect_true(phrasey("r1 s2"))
+})
+
+test_that("as_phrase returns as expected", {
+  expect_identical(x, lapply(x, as_phrase))
+  expect_identical(x, lapply(y, as_phrase))
+
+  expect_identical(x, y)
+
+  expect_error(as_phrase(1), paste("Cannot coerce numeric to phrase."))
+  expect_error(as_phrase("r"), paste("`x` is not phrasey."))
+})
+
+test_that("notable returns as expected", {
+  expect_true(all(sapply(x, notable)))
+  expect_true(notable(p("a b c", 1)))
+  expect_false(notable("a b x"))
+})
+
+test_that("notification works as expected", {
+  d <- do.call(rbind, lapply(x, notify))
+  expect_is(d, "tbl_df")
+  expect_equal(dim(d), c(15, 3))
+  expect_true(all(is.na(d$string[1:6])))
+
+  x2 <- lapply(x, function(x) p(phrase_notes(x), phrase_info(x), phrase_strings(x)))
+  identical(x, x2)
+})

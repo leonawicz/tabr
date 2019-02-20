@@ -2,13 +2,12 @@
 % Please edit documentation in R/phrase.R
 \name{phrase}
 \alias{phrase}
-\alias{phrase}
 \alias{p}
 \title{Create a musical phrase}
 \usage{
 phrase(notes, info, string = NULL, bar = FALSE)
 
-p(...)
+p(notes, info, string = NULL, bar = FALSE)
 }
 \arguments{
 \item{notes}{character, notes \code{a} through \code{g}. See details.}
