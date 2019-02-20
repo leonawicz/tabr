@@ -3,7 +3,9 @@
           "am", "em", "bm", "f#m", "c#m", "g#m", "d#m", "a#m", "dm", "gm", "cm", "fm", "b_m", "e_m", "a_m"),
   sf = rep(c(NA, rep("sharp", 7), rep("flat", 7)), 2),
   nsf = rep(c(0L, 1:7, 1:7), 2L),
-  major = rep(c(TRUE, FALSE), each = 15), stringsAsFactors = FALSE
+  major = rep(c(TRUE, FALSE), each = 15),
+  c_am_rel_int = as.integer(rep(c(0, 7, 2, 9, 4, 11, 6, 1, 5, 10, 3, 8, 1, 6, 11), 2)),
+  stringsAsFactors = FALSE
 )
 
 #' Key signatures
@@ -11,8 +13,8 @@
 #' Helper functions for key signature information.
 #'
 #' The \code{keys} function returns a vector of valid key signature IDs. These IDs are how key signatures are specified throughout \code{tabr}, including in the other helper functions here via \code{key}.
-#' Like the other functions here, \code{is_sharp} and \code{is_flat} are for \emph{key signatures}, not single pitches whose sharp or flat status is always self-evident from their notation.
-#' Major and minor keys are also self-evident from their notation, but \code{is_major} and \code{is_minor} can still be useful when programming.
+#' Like the other functions here, \code{key_is_sharp} and \code{key_is_flat} are for \emph{key signatures}, not single pitches whose sharp or flat status is always self-evident from their notation.
+#' Major and minor keys are also self-evident from their notation, but \code{key_is_major} and \code{key_is_minor} can still be useful when programming.
 #'
 #' @param type character, defaults to \code{"all"}.
 #' @param key character, key signature.
@@ -22,12 +24,12 @@
 #'
 #' @examples
 #' keys()
-#' is_natural(c("c", "am", "c#"))
+#' key_is_natural(c("c", "am", "c#"))
 #' x <- c("a", "e_")
-#' is_sharp(x)
-#' is_flat(x)
-#' n_sharps(x)
-#' n_flats(x)
+#' key_is_sharp(x)
+#' key_is_flat(x)
+#' key_n_sharps(x)
+#' key_n_flats(x)
 keys <- function(type = c("all", "sharp", "flat")){
   type <- match.arg(type)
   if(type == "all") return(.keydata$key)
@@ -38,14 +40,14 @@ keys <- function(type = c("all", "sharp", "flat")){
 
 #' @export
 #' @rdname keys
-is_natural <- function(key){
+key_is_natural <- function(key){
   .keycheck(key)
   is.na(.keydata$sf[match(key, .keydata$key)])
 }
 
 #' @export
 #' @rdname keys
-is_sharp <- function(key){
+key_is_sharp <- function(key){
   .keycheck(key)
   x <- .keydata$sf[match(key, .keydata$key)]
   !is.na(x) & x == "sharp"
@@ -53,7 +55,7 @@ is_sharp <- function(key){
 
 #' @export
 #' @rdname keys
-is_flat <- function(key){
+key_is_flat <- function(key){
   .keycheck(key)
   x <- .keydata$sf[match(key, .keydata$key)]
   !is.na(x) & x == "flat"
@@ -61,28 +63,28 @@ is_flat <- function(key){
 
 #' @export
 #' @rdname keys
-n_sharps <- function(key){
+key_n_sharps <- function(key){
   .keycheck(key)
-  purrr::map_int(key, ~ifelse(is_sharp(.x), .keydata$nsf[.keydata$key == .x], 0L))
+  purrr::map_int(key, ~ifelse(key_is_sharp(.x), .keydata$nsf[.keydata$key == .x], 0L))
 }
 
 #' @export
 #' @rdname keys
-n_flats <- function(key){
+key_n_flats <- function(key){
   .keycheck(key)
-  purrr::map_int(key, ~ifelse(is_flat(.x), .keydata$nsf[.keydata$key == .x], 0L))
+  purrr::map_int(key, ~ifelse(key_is_flat(.x), .keydata$nsf[.keydata$key == .x], 0L))
 }
 
 #' @export
 #' @rdname keys
-is_major <- function(key){
+key_is_major <- function(key){
   .keycheck(key)
   .keydata$major[match(key, .keydata$key)]
 }
 
 #' @export
 #' @rdname keys
-is_minor <- function(key){
+key_is_minor <- function(key){
   .keycheck(key)
-  !is_major(key)
+  !key_is_major(key)
 }

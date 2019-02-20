@@ -2,30 +2,30 @@
 % Please edit documentation in R/keys.R
 \name{keys}
 \alias{keys}
-\alias{is_natural}
-\alias{is_sharp}
-\alias{is_flat}
-\alias{n_sharps}
-\alias{n_flats}
-\alias{is_major}
-\alias{is_minor}
+\alias{key_is_natural}
+\alias{key_is_sharp}
+\alias{key_is_flat}
+\alias{key_n_sharps}
+\alias{key_n_flats}
+\alias{key_is_major}
+\alias{key_is_minor}
 \title{Key signatures}
 \usage{
 keys(type = c("all", "sharp", "flat"))
 
-is_natural(key)
+key_is_natural(key)
 
-is_sharp(key)
+key_is_sharp(key)
 
-is_flat(key)
+key_is_flat(key)
 
-n_sharps(key)
+key_n_sharps(key)
 
-n_flats(key)
+key_n_flats(key)
 
-is_major(key)
+key_is_major(key)
 
-is_minor(key)
+key_is_minor(key)
 }
 \arguments{
 \item{type}{character, defaults to \code{"all"}.}
@@ -40,15 +40,15 @@ Helper functions for key signature information.
 }
 \details{
 The \code{keys} function returns a vector of valid key signature IDs. These IDs are how key signatures are specified throughout \code{tabr}, including in the other helper functions here via \code{key}.
-Like the other functions here, \code{is_sharp} and \code{is_flat} are for \emph{key signatures}, not single pitches whose sharp or flat status is always self-evident from their notation.
-Major and minor keys are also self-evident from their notation, but \code{is_major} and \code{is_minor} can still be useful when programming.
+Like the other functions here, \code{key_is_sharp} and \code{key_is_flat} are for \emph{key signatures}, not single pitches whose sharp or flat status is always self-evident from their notation.
+Major and minor keys are also self-evident from their notation, but \code{key_is_major} and \code{key_is_minor} can still be useful when programming.
 }
 \examples{
 keys()
-is_natural(c("c", "am", "c#"))
+key_is_natural(c("c", "am", "c#"))
 x <- c("a", "e_")
-is_sharp(x)
-is_flat(x)
-n_sharps(x)
-n_flats(x)
+key_is_sharp(x)
+key_is_flat(x)
+key_n_sharps(x)
+key_n_flats(x)
 }
