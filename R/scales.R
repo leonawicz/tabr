@@ -5,8 +5,8 @@
 #' For valid key signatures, see \code{\link{keys}}.
 #'
 #' @param key character, key signature.
-#' @param collapse logical, collapse result into a single string ready for phrase construction.
 #' @param root character, root note.
+#' @param collapse logical, collapse result into a single string ready for phrase construction.
 #' @param sharp logical, accidentals in arbitrary scale output should be sharp rather than flat.
 #'
 #' @return character
@@ -15,31 +15,53 @@
 #' @name scale-helpers
 #'
 #' @examples
-#' scale_major("d")
-#' scale_minor("dm")
-#' scale_chromatic("a")
+#' scale_diatonic(key = "dm")
+#' scale_minor(key = "d")
+#' scale_major(key = "d")
+#' scale_chromatic(root = "a")
 scale_diatonic <- function(key = "c", collapse = FALSE){
   .keycheck(key)
   x <- .keydata[.keydata$key == key, ]
   base <- ifelse(x$major, "c d e f g a b", "a b c d e f g")
   x <- strsplit(transpose(base, x$c_am_rel_int, key, "strip"), " ")[[1]]
   if(collapse) x <- paste0(x, collapse = " ")
-  x
+  note_set_key(x)
 }
 
 #' @export
 #' @rdname scale-helpers
 scale_major <- function(key = "c", collapse = FALSE){
-  if(!key %in% .keydata$key[.keydata$major]) stop("Invalid major `key`.", call. = FALSE)
+  if(!key %in% .keydata$key[.keydata$major])
+    stop("`key` does not indicate a valid major key.", call. = FALSE)
   scale_diatonic(key, collapse)
 }
 
 #' @export
 #' @rdname scale-helpers
 scale_minor <- function(key = "am", collapse = FALSE){
-  if(!key %in% .keydata$key[!.keydata$major]) stop("Invalid minor `key`.", call. = FALSE)
+  if(!key %in% .keydata$key[!.keydata$major])
+    stop("`key` does not indicate a valid minor key.", call. = FALSE)
   scale_diatonic(key, collapse)
 }
+
+#' @export
+#' @rdname scale-helpers
+scale_harmonic_minor <- function(key = "am", collapse = FALSE){
+  x <- scale_minor(key)
+  x[7] <- transpose(x[7], 1, key)
+  if(collapse) x <- paste0(x, collapse = " ")
+  x
+}
+
+# TODO # need to update this, scale_chords; add unit tests for these, for note_set_key, and for new chord helpers
+#' #' @export
+#' #' @rdname scale-helpers
+#' scale_melodic_minor <- function(key = "am", collapse = FALSE){
+#'   x <- scale_minor(key)
+#'   x[7] <- transpose(x[7], 1, key)
+#'   if(collapse) x <- paste0(x, collapse = " ")
+#'   x
+#' }
 
 #' @export
 #' @rdname scale-helpers
@@ -51,6 +73,50 @@ scale_chromatic <- function(root = "c", collapse = FALSE, sharp = TRUE){
   if(idx != 1) y <- y[c(idx:length(y), 1:(idx - 1))]
   if(collapse) y <- paste0(y, collapse = " ")
   y
+}
+
+#' Diatonic chords
+#'
+#' Obtain an ordered sequence of the diatonic chords for a given scale.
+#'
+#' @param root character, root note or starting position of scale.
+#' @param scale character, a valid named scale, referring to one of the existing \code{scale_*} functions.
+#' @param type character, type of chord, either triad or seventh.
+#' @param collapse logical, collapse result into a single string ready for phrase construction.
+#' @param style character, passed to \code{transpose}.
+#'
+#' @return character
+#' @export
+#'
+#' @examples
+#' scale_chords("d", "major")
+#' scale_chords("d", "minor")
+#' scale_chords("d", "harmonic minor")
+#' # scale_chords("d", "melodic minor") TODO
+scale_chords <- function(root = "c", scale = "major", type = c("triad", "seventh"), collapse = FALSE, style = "default"){
+  type <- match.arg(type)
+  s <- paste0("scale_", scale)
+  .check_scale_fun(s)
+  s <- do.call(s, list(root = root))
+
+  f <- switch(scale,
+              "major" = list(xM, xm, xm, xM, xM, xm, xdim),
+              "minor" = list(xm, xdim, xM, xm, xm, xM, xM),
+              "harmonic minor" = list(xm, xdim, xaug, xm, xM, xM, xdim),
+              "melodic minor" = list(xm, xm, xaug, xM, xM, xdim, xdim)
+  )
+  x <- sapply(seq_along(f), function(i) f[[i]](s[i]))
+  r <- chord_order(x)[1] - 1
+  if(r != 0){
+    if(r <= 3){
+      x[1:r] <- sapply(x[1:r], transpose, n = -12, style = style)
+    } else {
+      n <- length(x)
+      x[(r + 1):n] <- sapply(x[(r + 1):n], transpose, n = 12, style = style)
+    }
+  }
+  if(collapse) x <- paste0(x, collapse = " ")
+  x
 }
 
 # nolint start
