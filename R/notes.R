@@ -17,10 +17,11 @@
 #' \code{note_arpeggiate} also allows notes only. It is similar to \code{note_shift}, except that instead of a moving window,
 #' it grows from the original set of notes by \code{n} in t he direction of the sign of \code{n}.
 #'
-#' @param notes character, a string of notes.
+#' @param notes character, a noteworthy string, space-delimited or vector of individual entries.
 #' @param type character, type of note to naturalize.
 #' @param strip logical, strip any octave notation that may be present, returning only the basic notes without explicit pitch.
 #' @param n integer, degree of rotation.
+#' @param key character, key signature to coerce any accidentals to the appropriate form for the key. May also specify \code{"sharp"} or \code{"flat"}.
 #' @param ... additional arguments to \code{transpose}, specifically \code{key} and \code{style}.
 #'
 #' @return character
@@ -33,6 +34,8 @@
 #' note_is_accidental(x)
 #' note_is_flat(x)
 #' note_is_sharp(x)
+#' note_set_key(x, "f")
+#' note_set_key(x, "g")
 #'
 #' x <- "e_2 a_, c#f#a#"
 #' naturalize(x)
@@ -86,14 +89,31 @@ naturalize <- function(notes, type = c("both", "flat", "sharp"), strip = FALSE){
 #' @rdname note-helpers
 sharpen_flat <- function(notes, strip = FALSE){
   .check_noteworthy(notes)
-  transpose(notes, 0, key = "g", style = ifelse(strip, "strip", "default"))
+  x <- if(length(notes) > 1) paste0(notes, collapse = " ") else notes
+  x <- transpose(x, 0, key = "g", style = ifelse(strip, "strip", "default"))
+  if(length(notes) > 1) x <- .uncollapse(x)
+  x
 }
 
 #' @export
 #' @rdname note-helpers
 flatten_sharp <- function(notes, strip = FALSE){
   .check_noteworthy(notes)
-  transpose(notes, 0, key = "f", style = ifelse(strip, "strip", "default"))
+  x <- if(length(notes) > 1) paste0(notes, collapse = " ") else notes
+  x <- transpose(x, 0, key = "f", style = ifelse(strip, "strip", "default"))
+  if(length(notes) > 1) x <- .uncollapse(x)
+  x
+}
+
+#' @export
+#' @rdname note-helpers
+note_set_key <- function(notes, key = "c"){
+  .check_noteworthy(notes)
+  if(key == "flat") return(flatten_sharp(notes))
+  if(key == "sharp") return(sharpen_flat(notes))
+  .keycheck(key)
+  if(key_is_natural(key)) return(notes)
+  Recall(notes, .keydata$sf[.keydata$key == key])
 }
 
 #' @export
