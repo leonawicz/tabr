@@ -151,6 +151,64 @@ dyad <- function(notes, interval, reverse = FALSE, key = "c", collapse = FALSE){
   x
 }
 
+#' Rank, order and sort chords and notes
+#'
+#' Rank, order and sort chords and notes by various definitions.
+#'
+#' There are three options for comparing the relative pitch position of chords provided: comparison of the lowest or root note of each chord, the highest pitch note, or taking the mean of all notes in a chord.
+#'
+#' @param chords character, a noteworthy string, may include individual notes and chords.
+#' @param pitch character, how ranking of chords is determined; lowest pitch, mean pitch, or highest pitch.
+#' @param decreasing logical, sort in decreasing order.
+#' @param ... additional arguments passed to \code{rank} or \code{order}.
+#'
+#' @return integer for rank and order, character for sort
+#' @export
+#' @name chord-compare
+#'
+#' @examples
+#' x <- "a2 c a2 ceg ce_g cea"
+#' chord_rank(x, "min")
+#' chord_rank(x, "max")
+#' chord_rank(x, "mean")
+#'
+#' chord_order(x)
+#' chord_order(x, "mean")
+#' chord_sort(x, "mean")
+chord_rank <- function(chords, pitch = c("min", "mean", "max"), ...){
+  rank(.chord_rank(chords, pitch), ...)
+}
+
+#' @export
+#' @rdname chord-compare
+chord_order <- function(chords, pitch = c("min", "mean", "max"), ...){
+  order(.chord_rank(chords, pitch), ...)
+}
+
+#' @export
+#' @rdname chord-compare
+chord_sort <- function(chords, pitch = c("min", "mean", "max"), decreasing = FALSE, ...){
+  ord <- chord_order(chords, pitch, ...)
+  x <- .uncollapse(chords)[ord]
+  if(decreasing) x <- rev(x)
+  if(length(chords) == 1) x <- paste0(x, collapse = " ")
+  x
+}
+
+# nolint start
+
+.chord_rank <- function(x, pitch = c("min", "mean", "max")){
+  .check_noteworthy(x)
+  pitch <- match.arg(pitch)
+  x <- .uncollapse(x)
+  x <- sapply(x, function(y){
+    y <- sapply(.split_chord(y), function(i) pitch_interval("c", i))
+    switch(pitch, "min" = min(y), "mean" = mean(y), "max" = max(y))
+  }, USE.NAMES = FALSE)
+}
+
+#nolint end
+
 #' Chord constructors
 #'
 #' These functions construct basic chord string notation from a root \code{note}.
@@ -162,7 +220,8 @@ dyad <- function(notes, interval, reverse = FALSE, key = "c", collapse = FALSE){
 #'
 #' @param note character, chord root note.
 #' @param key key signature. See details.
-#' @param ... additional arguments to \code{transpose}. Only accepts \code{style}.
+#' @param style character, passed to \code{transpose}.
+#' @param collapse logical, collapse result into a single string ready for phrase construction.
 #'
 #' @return character
 #' @export
@@ -173,213 +232,217 @@ dyad <- function(notes, interval, reverse = FALSE, key = "c", collapse = FALSE){
 #' chord_min("d")
 #' chord_maj("d")
 #' xM("d")
-chord_min <- function(note, key = "c", ...){
-  f <- .chord_prep(note, key, list(...))
-  paste0(sapply(c(0, 3, 7), f), collapse = "")
+#' xm("c f g")
+#' xm("c, f, g,", key = "e_", collapse = TRUE)
+chord_min <- function(notes, key = "c", collapse = FALSE, style = "default"){
+  semitones <- c(0, 3, 7)
+  .chord_prep(notes, semitones, key, collapse, style)
 }
 
 #' @export
 #' @rdname chords
-chord_maj <- function(note, key = "c", ...){
-  f <- .chord_prep(note, key, list(...))
-  paste0(sapply(c(0, 4, 7), f), collapse = "")
+chord_maj <- function(notes, key = "c", collapse = FALSE, style = "default"){
+  semitones <- c(0, 4, 7)
+  .chord_prep(notes, semitones, key, collapse, style)
 }
 
 #' @export
 #' @rdname chords
-chord_min7 <- function(note, key = "c", ...){
-  f <- .chord_prep(note, key, list(...))
-  paste0(sapply(c(0, 3, 7, 10), f), collapse = "")
+chord_min7 <- function(notes, key = "c", collapse = FALSE, style = "default"){
+  semitones <- c(0, 3, 7, 10)
+  .chord_prep(notes, semitones, key, collapse, style)
 }
 
 #' @export
 #' @rdname chords
-chord_dom7 <- function(note, key = "c", ...){
-  f <- .chord_prep(note, key, list(...))
-  paste0(sapply(c(0, 4, 7, 10), f), collapse = "")
+chord_dom7 <- function(notes, key = "c", collapse = FALSE, style = "default"){
+  semitones <- c(0, 4, 7, 10)
+  .chord_prep(notes, semitones, key, collapse, style)
 }
 
 #' @export
 #' @rdname chords
-chord_7s5 <- function(note, key = "c", ...){
-  f <- .chord_prep(note, key, list(...))
-  paste0(sapply(c(0, 4, 8, 10), f), collapse = "")
+chord_7s5 <- function(notes, key = "c", collapse = FALSE, style = "default"){
+  semitones <- c(0, 4, 8, 10)
+  .chord_prep(notes, semitones, key, collapse, style)
 }
 
 #' @export
 #' @rdname chords
-chord_maj7 <- function(note, key = "c", ...){
-  f <- .chord_prep(note, key, list(...))
-  paste0(sapply(c(0, 4, 7, 11), f), collapse = "")
+chord_maj7 <- function(notes, key = "c", collapse = FALSE, style = "default"){
+  semitones <- c(0, 4, 7, 11)
+  .chord_prep(notes, semitones, key, collapse, style)
 }
 
 #' @export
 #' @rdname chords
-chord_min6 <- function(note, key = "c", ...){
-  f <- .chord_prep(note, key, list(...))
-  paste0(sapply(c(0, 3, 7, 9), f), collapse = "")
+chord_min6 <- function(notes, key = "c", collapse = FALSE, style = "default"){
+  semitones <- c(0, 3, 7, 9)
+  .chord_prep(notes, semitones, key, collapse, style)
 }
 
 #' @export
 #' @rdname chords
-chord_maj6 <- function(note, key = "c", ...){
-  f <- .chord_prep(note, key, list(...))
-  paste0(sapply(c(0, 4, 7, 9), f), collapse = "")
+chord_maj6 <- function(notes, key = "c", collapse = FALSE, style = "default"){
+  semitones <- c(0, 4, 7, 9)
+  .chord_prep(notes, semitones, key, collapse, style)
 }
 
 #' @export
 #' @rdname chords
-chord_dim <- function(note, key = "c", ...){
-  f <- .chord_prep(note, key, list(...))
-  paste0(sapply(c(0, 3, 6), f), collapse = "")
+chord_dim <- function(notes, key = "c", collapse = FALSE, style = "default"){
+  semitones <- c(0, 3, 6)
+  .chord_prep(notes, semitones, key, collapse, style)
 }
 
 #' @export
 #' @rdname chords
-chord_dim7 <- function(note, key = "c", ...){
-  f <- .chord_prep(note, key, list(...))
-  paste0(sapply(c(0, 3, 6, 9), f), collapse = "")
+chord_dim7 <- function(notes, key = "c", collapse = FALSE, style = "default"){
+  semitones <- c(0, 3, 6, 9)
+  .chord_prep(notes, semitones, key, collapse, style)
 }
 
 #' @export
 #' @rdname chords
-chord_m7b5 <- function(note, key = "c", ...){
-  f <- .chord_prep(note, key, list(...))
-  paste0(sapply(c(0, 3, 6, 10), f), collapse = "")
+chord_m7b5 <- function(notes, key = "c", collapse = FALSE, style = "default"){
+  semitones <- c(0, 3, 6, 10)
+  .chord_prep(notes, semitones, key, collapse, style)
 }
 
 #' @export
 #' @rdname chords
-chord_aug <- function(note, key = "c", ...){
-  f <- .chord_prep(note, key, list(...))
-  paste0(sapply(c(0, 4, 8), f), collapse = "")
+chord_aug <- function(notes, key = "c", collapse = FALSE, style = "default"){
+  semitones <- c(0, 4, 8)
+  .chord_prep(notes, semitones, key, collapse, style)
 }
 
 #' @export
 #' @rdname chords
-chord_5 <- function(note, key = "c", ...){
-  f <- .chord_prep(note, key, list(...))
-  paste0(sapply(c(0, 7), f), collapse = "")
+chord_5 <- function(notes, key = "c", collapse = FALSE, style = "default"){
+  semitones <- c(0, 7)
+  .chord_prep(notes, semitones, key, collapse, style)
 }
 
 #' @export
 #' @rdname chords
-chord_sus2 <- function(note, key = "c", ...){
-  f <- .chord_prep(note, key, list(...))
-  paste0(sapply(c(0, 2, 7), f), collapse = "")
+chord_sus2 <- function(notes, key = "c", collapse = FALSE, style = "default"){
+  semitones <- c(0, 2, 7)
+  .chord_prep(notes, semitones, key, collapse, style)
 }
 
 #' @export
 #' @rdname chords
-chord_sus4 <- function(note, key = "c", ...){
-  f <- .chord_prep(note, key, list(...))
-  paste0(sapply(c(0, 5, 7), f), collapse = "")
+chord_sus4 <- function(notes, key = "c", collapse = FALSE, style = "default"){
+  semitones <- c(0, 5, 7)
+  .chord_prep(notes, semitones, key, collapse, style)
 }
 
 #' @export
 #' @rdname chords
-chord_dom9 <- function(note, key = "c", ...){
-  f <- .chord_prep(note, key, list(...))
-  paste0(sapply(c(0, 4, 7, 10, 14), f), collapse = "")
+chord_dom9 <- function(notes, key = "c", collapse = FALSE, style = "default"){
+  semitones <- c(0, 4, 7, 10, 14)
+  .chord_prep(notes, semitones, key, collapse, style)
 }
 
 #' @export
 #' @rdname chords
-chord_7s9 <- function(note, key = "c", ...){
-  f <- .chord_prep(note, key, list(...))
-  paste0(sapply(c(0, 4, 7, 10, 15), f), collapse = "")
+chord_7s9 <- function(notes, key = "c", collapse = FALSE, style = "default"){
+  semitones <- c(0, 4, 7, 10, 15)
+  .chord_prep(notes, semitones, key, collapse, style)
 }
 
 #' @export
 #' @rdname chords
-chord_maj9 <- function(note, key = "c", ...){
-  f <- .chord_prep(note, key, list(...))
-  paste0(sapply(c(0, 4, 7, 11, 14), f), collapse = "")
+chord_maj9 <- function(notes, key = "c", collapse = FALSE, style = "default"){
+  semitones <- c(0, 4, 7, 11, 14)
+  .chord_prep(notes, semitones, key, collapse, style)
 }
 
 #' @export
 #' @rdname chords
-chord_add9 <- function(note, key = "c", ...){
-  f <- .chord_prep(note, key, list(...))
-  paste0(sapply(c(0, 4, 7, 14), f), collapse = "")
+chord_add9 <- function(notes, key = "c", collapse = FALSE, style = "default"){
+  semitones <- c(0, 4, 7, 14)
+  .chord_prep(notes, semitones, key, collapse, style)
 }
 
 #' @export
 #' @rdname chords
-chord_min9 <- function(note, key = "c", ...){
-  f <- .chord_prep(note, key, list(...))
-  paste0(sapply(c(0, 3, 7, 10, 14), f), collapse = "")
+chord_min9 <- function(notes, key = "c", collapse = FALSE, style = "default"){
+  semitones <- c(0, 3, 7, 10, 14)
+  .chord_prep(notes, semitones, key, collapse, style)
 }
 
 #' @export
 #' @rdname chords
-chord_madd9 <- function(note, key = "c", ...){
-  f <- .chord_prep(note, key, list(...))
-  paste0(sapply(c(0, 3, 7, 14), f), collapse = "")
+chord_madd9 <- function(notes, key = "c", collapse = FALSE, style = "default"){
+  semitones <- c(0, 3, 7, 14)
+  .chord_prep(notes, semitones, key, collapse, style)
 }
 
 #' @export
 #' @rdname chords
-chord_min11 <- function(note, key = "c", ...){
-  f <- .chord_prep(note, key, list(...))
-  paste0(sapply(c(0, 3, 7, 10, 14, 17), f), collapse = "")
+chord_min11 <- function(notes, key = "c", collapse = FALSE, style = "default"){
+  semitones <- c(0, 3, 7, 10, 14, 17)
+  .chord_prep(notes, semitones, key, collapse, style)
 }
 
 #' @export
 #' @rdname chords
-chord_7s11 <- function(note, key = "c", ...){
-  f <- .chord_prep(note, key, list(...))
-  paste0(sapply(c(0, 4, 7, 10, 18), f), collapse = "")
+chord_7s11 <- function(notes, key = "c", collapse = FALSE, style = "default"){
+  semitones <- c(0, 4, 7, 10, 18)
+  .chord_prep(notes, semitones, key, collapse, style)
 }
 
 #' @export
 #' @rdname chords
-chord_maj7s11 <- function(note, key = "c", ...){
-  f <- .chord_prep(note, key, list(...))
-  paste0(sapply(c(0, 4, 7, 11, 14, 18), f), collapse = "")
+chord_maj7s11 <- function(notes, key = "c", collapse = FALSE, style = "default"){
+  semitones <- c(0, 4, 7, 11, 14, 18)
+  .chord_prep(notes, semitones, key, collapse, style)
 }
 
 #' @export
 #' @rdname chords
-chord_11 <- function(note, key = "c", ...){
-  f <- .chord_prep(note, key, list(...))
-  paste0(sapply(c(0, 7, 10, 14, 17), f), collapse = "")
+chord_11 <- function(notes, key = "c", collapse = FALSE, style = "default"){
+  semitones <- c(0, 7, 10, 14, 17)
+  .chord_prep(notes, semitones, key, collapse, style)
 }
 
 #' @export
 #' @rdname chords
-chord_maj11 <- function(note, key = "c", ...){
-  f <- .chord_prep(note, key, list(...))
-  paste0(sapply(c(0, 4, 7, 11, 14, 17), f), collapse = "")
+chord_maj11 <- function(notes, key = "c", collapse = FALSE, style = "default"){
+  semitones <- c(0, 4, 7, 11, 14, 17)
+  .chord_prep(notes, semitones, key, collapse, style)
 }
 
 #' @export
 #' @rdname chords
-chord_13 <- function(note, key = "c", ...){
-  f <- .chord_prep(note, key, list(...))
-  paste0(sapply(c(0, 4, 7, 10, 14, 21), f), collapse = "")
+chord_13 <- function(notes, key = "c", collapse = FALSE, style = "default"){
+  semitones <- c(0, 4, 7, 10, 14, 21)
+  .chord_prep(notes, semitones, key, collapse, style)
 }
 
 #' @export
 #' @rdname chords
-chord_min13 <- function(note, key = "c", ...){
-  f <- .chord_prep(note, key, list(...))
-  paste0(sapply(c(0, 3, 7, 10, 14, 21), f), collapse = "")
+chord_min13 <- function(notes, key = "c", collapse = FALSE, style = "default"){
+  semitones <- c(0, 3, 7, 10, 14, 21)
+  .chord_prep(notes, semitones, key, collapse, style)
 }
 
 #' @export
 #' @rdname chords
-chord_maj13 <- function(note, key = "c", ...){
-  f <- .chord_prep(note, key, list(...))
-  paste0(sapply(c(0, 4, 7, 11, 14, 17, 21), f), collapse = "")
+chord_maj13 <- function(notes, key = "c", collapse = FALSE, style = "default"){
+  semitones <- c(0, 4, 7, 11, 14, 17, 21)
+  .chord_prep(notes, semitones, key, collapse, style)
 }
 
-
-.chord_prep <- function(note, key, dots){
-  .check_note(note)
+.chord_prep <- function(notes, semitones, key, collapse, style){
+  .check_note(notes)
   .keycheck(key)
-  style <- .dot_arg(dots, "style", "default")
-  function(x) transpose(note, x, key = key, style = style)
+  x <- sapply(.uncollapse(notes), function(note){
+    paste0(sapply(semitones, function(s) transpose(note, s, key = key, style = style)), collapse = "")
+  }, USE.NAMES = FALSE)
+  if(collapse) x <- paste0(x, collapse = " ")
+  x
 }
 
 .dot_arg <- function(dots, .x, default) if(is.null(dots[[.x]])) default else dots[[.x]]

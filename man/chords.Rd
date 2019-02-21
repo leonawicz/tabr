@@ -62,128 +62,130 @@
 \alias{xM13}
 \title{Chord constructors}
 \usage{
-chord_min(note, key = "c", ...)
+chord_min(notes, key = "c", collapse = FALSE, style = "default")
 
-chord_maj(note, key = "c", ...)
+chord_maj(notes, key = "c", collapse = FALSE, style = "default")
 
-chord_min7(note, key = "c", ...)
+chord_min7(notes, key = "c", collapse = FALSE, style = "default")
 
-chord_dom7(note, key = "c", ...)
+chord_dom7(notes, key = "c", collapse = FALSE, style = "default")
 
-chord_7s5(note, key = "c", ...)
+chord_7s5(notes, key = "c", collapse = FALSE, style = "default")
 
-chord_maj7(note, key = "c", ...)
+chord_maj7(notes, key = "c", collapse = FALSE, style = "default")
 
-chord_min6(note, key = "c", ...)
+chord_min6(notes, key = "c", collapse = FALSE, style = "default")
 
-chord_maj6(note, key = "c", ...)
+chord_maj6(notes, key = "c", collapse = FALSE, style = "default")
 
-chord_dim(note, key = "c", ...)
+chord_dim(notes, key = "c", collapse = FALSE, style = "default")
 
-chord_dim7(note, key = "c", ...)
+chord_dim7(notes, key = "c", collapse = FALSE, style = "default")
 
-chord_m7b5(note, key = "c", ...)
+chord_m7b5(notes, key = "c", collapse = FALSE, style = "default")
 
-chord_aug(note, key = "c", ...)
+chord_aug(notes, key = "c", collapse = FALSE, style = "default")
 
-chord_5(note, key = "c", ...)
+chord_5(notes, key = "c", collapse = FALSE, style = "default")
 
-chord_sus2(note, key = "c", ...)
+chord_sus2(notes, key = "c", collapse = FALSE, style = "default")
 
-chord_sus4(note, key = "c", ...)
+chord_sus4(notes, key = "c", collapse = FALSE, style = "default")
 
-chord_dom9(note, key = "c", ...)
+chord_dom9(notes, key = "c", collapse = FALSE, style = "default")
 
-chord_7s9(note, key = "c", ...)
+chord_7s9(notes, key = "c", collapse = FALSE, style = "default")
 
-chord_maj9(note, key = "c", ...)
+chord_maj9(notes, key = "c", collapse = FALSE, style = "default")
 
-chord_add9(note, key = "c", ...)
+chord_add9(notes, key = "c", collapse = FALSE, style = "default")
 
-chord_min9(note, key = "c", ...)
+chord_min9(notes, key = "c", collapse = FALSE, style = "default")
 
-chord_madd9(note, key = "c", ...)
+chord_madd9(notes, key = "c", collapse = FALSE, style = "default")
 
-chord_min11(note, key = "c", ...)
+chord_min11(notes, key = "c", collapse = FALSE, style = "default")
 
-chord_7s11(note, key = "c", ...)
+chord_7s11(notes, key = "c", collapse = FALSE, style = "default")
 
-chord_maj7s11(note, key = "c", ...)
+chord_maj7s11(notes, key = "c", collapse = FALSE, style = "default")
 
-chord_11(note, key = "c", ...)
+chord_11(notes, key = "c", collapse = FALSE, style = "default")
 
-chord_maj11(note, key = "c", ...)
+chord_maj11(notes, key = "c", collapse = FALSE, style = "default")
 
-chord_13(note, key = "c", ...)
+chord_13(notes, key = "c", collapse = FALSE, style = "default")
 
-chord_min13(note, key = "c", ...)
+chord_min13(notes, key = "c", collapse = FALSE, style = "default")
 
-chord_maj13(note, key = "c", ...)
+chord_maj13(notes, key = "c", collapse = FALSE, style = "default")
 
-xm(note, key = "c", ...)
+xm(notes, key = "c", collapse = FALSE, style = "default")
 
-xM(note, key = "c", ...)
+xM(notes, key = "c", collapse = FALSE, style = "default")
 
-xm7(note, key = "c", ...)
+xm7(notes, key = "c", collapse = FALSE, style = "default")
 
-x7(note, key = "c", ...)
+x7(notes, key = "c", collapse = FALSE, style = "default")
 
-x7s5(note, key = "c", ...)
+x7s5(notes, key = "c", collapse = FALSE, style = "default")
 
-xM7(note, key = "c", ...)
+xM7(notes, key = "c", collapse = FALSE, style = "default")
 
-xm6(note, key = "c", ...)
+xm6(notes, key = "c", collapse = FALSE, style = "default")
 
-xM6(note, key = "c", ...)
+xM6(notes, key = "c", collapse = FALSE, style = "default")
 
-xdim(note, key = "c", ...)
+xdim(notes, key = "c", collapse = FALSE, style = "default")
 
-xdim7(note, key = "c", ...)
+xdim7(notes, key = "c", collapse = FALSE, style = "default")
 
-xm7b5(note, key = "c", ...)
+xm7b5(notes, key = "c", collapse = FALSE, style = "default")
 
-xaug(note, key = "c", ...)
+xaug(notes, key = "c", collapse = FALSE, style = "default")
 
-x5(note, key = "c", ...)
+x5(notes, key = "c", collapse = FALSE, style = "default")
 
-xs2(note, key = "c", ...)
+xs2(notes, key = "c", collapse = FALSE, style = "default")
 
-xs4(note, key = "c", ...)
+xs4(notes, key = "c", collapse = FALSE, style = "default")
 
-x9(note, key = "c", ...)
+x9(notes, key = "c", collapse = FALSE, style = "default")
 
-x7s9(note, key = "c", ...)
+x7s9(notes, key = "c", collapse = FALSE, style = "default")
 
-xM9(note, key = "c", ...)
+xM9(notes, key = "c", collapse = FALSE, style = "default")
 
-xadd9(note, key = "c", ...)
+xadd9(notes, key = "c", collapse = FALSE, style = "default")
 
-xm9(note, key = "c", ...)
+xm9(notes, key = "c", collapse = FALSE, style = "default")
 
-xma9(note, key = "c", ...)
+xma9(notes, key = "c", collapse = FALSE, style = "default")
 
-xm11(note, key = "c", ...)
+xm11(notes, key = "c", collapse = FALSE, style = "default")
 
-x7s11(note, key = "c", ...)
+x7s11(notes, key = "c", collapse = FALSE, style = "default")
 
-xM7s11(note, key = "c", ...)
+xM7s11(notes, key = "c", collapse = FALSE, style = "default")
 
-x_11(note, key = "c", ...)
+x_11(notes, key = "c", collapse = FALSE, style = "default")
 
-xM11(note, key = "c", ...)
+xM11(notes, key = "c", collapse = FALSE, style = "default")
 
-x_13(note, key = "c", ...)
+x_13(notes, key = "c", collapse = FALSE, style = "default")
 
-xm13(note, key = "c", ...)
+xm13(notes, key = "c", collapse = FALSE, style = "default")
 
-xM13(note, key = "c", ...)
+xM13(notes, key = "c", collapse = FALSE, style = "default")
 }
 \arguments{
-\item{note}{character, chord root note.}
-
 \item{key}{key signature. See details.}
 
-\item{...}{additional arguments to \code{transpose}. Only accepts \code{style}.}
+\item{collapse}{logical, collapse result into a single string ready for phrase construction.}
+
+\item{style}{character, passed to \code{transpose}.}
+
+\item{note}{character, chord root note.}
 }
 \value{
 character
@@ -201,6 +203,8 @@ These functions create standard chords, not the multi-octave spanning types of c
 chord_min("d")
 chord_maj("d")
 xM("d")
+xm("c f g")
+xm("c, f, g,", key = "e_", collapse = TRUE)
 }
 \seealso{
 \code{\link{transpose}}
