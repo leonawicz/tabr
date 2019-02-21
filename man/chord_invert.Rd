@@ -12,6 +12,8 @@ chord_invert(chord, n = 0, limit = FALSE)
 \item{n}{inversion.}
 
 \item{limit}{logical, limit inversions in either direction to one less than the number of notes in the chord.}
+
+\item{notes}{a noteworthy string.}
 }
 \value{
 character

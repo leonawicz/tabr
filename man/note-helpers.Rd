@@ -9,6 +9,7 @@
 \alias{naturalize}
 \alias{sharpen_flat}
 \alias{flatten_sharp}
+\alias{note_set_key}
 \alias{note_rotate}
 \alias{note_shift}
 \alias{note_arpeggiate}
@@ -28,6 +29,8 @@ sharpen_flat(notes, strip = FALSE)
 
 flatten_sharp(notes, strip = FALSE)
 
+note_set_key(notes, key = "c")
+
 note_rotate(notes, n = 0)
 
 note_shift(notes, n = 0)
@@ -35,11 +38,13 @@ note_shift(notes, n = 0)
 note_arpeggiate(notes, n = 0, ...)
 }
 \arguments{
-\item{notes}{character, a string of notes.}
+\item{notes}{character, a noteworthy string, space-delimited or vector of individual entries.}
 
 \item{type}{character, type of note to naturalize.}
 
 \item{strip}{logical, strip any octave notation that may be present, returning only the basic notes without explicit pitch.}
+
+\item{key}{character, key signature to coerce any accidentals to the appropriate form for the key. May also specify \code{"sharp"} or \code{"flat"}.}
 
 \item{n}{integer, degree of rotation.}
 
@@ -73,6 +78,8 @@ note_is_natural(x)
 note_is_accidental(x)
 note_is_flat(x)
 note_is_sharp(x)
+note_set_key(x, "f")
+note_set_key(x, "g")
 
 x <- "e_2 a_, c#f#a#"
 naturalize(x)

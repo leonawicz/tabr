@@ -18,6 +18,7 @@
 #' @param chord character, a single chord.
 #' @param n inversion.
 #' @param limit logical, limit inversions in either direction to one less than the number of notes in the chord.
+#' @param notes a noteworthy string.
 #'
 #' @return character
 #' @export

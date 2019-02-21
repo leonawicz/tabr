@@ -5,6 +5,7 @@
 \alias{scale_diatonic}
 \alias{scale_major}
 \alias{scale_minor}
+\alias{scale_harmonic_minor}
 \alias{scale_chromatic}
 \title{Scale helpers}
 \usage{
@@ -13,6 +14,8 @@ scale_diatonic(key = "c", collapse = FALSE)
 scale_major(key = "c", collapse = FALSE)
 
 scale_minor(key = "am", collapse = FALSE)
+
+scale_harmonic_minor(key = "am", collapse = FALSE)
 
 scale_chromatic(root = "c", collapse = FALSE, sharp = TRUE)
 }
@@ -35,9 +38,10 @@ Helper functions for working with musical scales.
 For valid key signatures, see \code{\link{keys}}.
 }
 \examples{
-scale_major("d")
-scale_minor("dm")
-scale_chromatic("a")
+scale_diatonic(key = "dm")
+scale_minor(key = "d")
+scale_major(key = "d")
+scale_chromatic(root = "a")
 }
 \seealso{
 \code{\link{keys}}, \code{\link{mode-helpers}}
