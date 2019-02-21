@@ -93,4 +93,7 @@ test_that("chord constructors return as expected", {
   test_chord_constructors("d#''", 27, "f", style = "tick")
   test_chord_constructors("d#''", 27, "f", style = "integer")
   test_chord_constructors("d#''", 27, "f", style = "strip")
+
+  expect_equal(xm("c# f# g#"), c("c#eg#", "f#ac#4", "g#bd#4"))
+  expect_equal(xm("b_2 f g"), xm(c("b_2", "f", "g")))
 })
