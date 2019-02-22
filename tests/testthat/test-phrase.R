@@ -30,7 +30,7 @@ test_that("phrase returns as expected", {
   expect_equal(as.character(x1), "<c\\5>4. <b,\\5>8( <c\\5>8)")
   expect_equal(as.character(x2), "<b,\\5>4( <c\\5>4)\\glissando <d\\5>2")
 
-  expect_error(p(1:2, 1, 1), "`notes` must be length one.")
+  expect_error(p(1:2, 1, 1), "Invalid notes or chords found.")
   expect_error(p("a", 1:2, 1), "`info` must be length one.")
   expect_error(p("a", 1, 1:2), "`string` must be length one.")
 })

@@ -10,24 +10,32 @@ phrase(notes, info, string = NULL, bar = FALSE)
 p(notes, info, string = NULL, bar = FALSE)
 }
 \arguments{
-\item{notes}{character, notes \code{a} through \code{g}. See details.}
+\item{notes}{character, notes \code{a} through \code{g}, comprising a noteworthy string. \code{notes}. See details.}
 
 \item{info}{character, metadata pertaining to the \code{notes }. See details.}
 
 \item{string}{character, optional string that specifies which guitar strings to play for each specific note.}
 
 \item{bar}{logical, insert a bar check at the end of the phrase.}
-
-\item{...}{arguments passed to \code{phrase}.}
 }
 \value{
 a phrase.
 }
 \description{
 Create a musical phrase from character strings that define notes, note metadata, and optionally explicit strings fretted. The latter can be used to ensure proper tablature layout.
-Notes separated in time are separated in the \code{notes} string by spaces. Sharps and flats are indicated by appending \code{#} and \code{_}, respectively, e.g. \code{f#} or \code{g_}.
 }
 \details{
+Meeting all of the requirements for a string of notes to be valid \code{tabr} syntax is referred to as \emph{noteworthy}. Noteworthy strings are referred to throughout the documentation.
+Such requirements are outlined below.
+
+Noteworthy strings use space-delimited time. This means that notes and chords separated in time are separated in the \code{notes} string by spaces.
+This is by far the most common usage. However, many functions in \code{tabr}, including \code{phrase},
+allow a \code{notes} or similar first function argument to be provided in vector form where each vector element is a single note or chord (single point in time).
+Internally, functions like \code{phrase} will manipulate these forms back and forth as needed. Having both input options provides useful flexibility for music programming in \code{tabr} in general.
+The pipe operator can also be leveraged to chain several functions together.
+
+Sharps and flats are indicated by appending \code{#} and \code{_}, respectively, e.g. \code{f#} or \code{g_}.
+
 Specifying notes that are one or multiple octaves below or above the middle can be done by appending one or multiple commas or single quote tick marks, respectively, e.g. \code{c,} or \code{c''}.
 But this is not necessary. Instead, you can use octave numbering. This may easier to read, generally more familiar, potentially requires less typing, can still be omitted completely
 for the middle octave (no need to type c3, d3, ...), and is automatically converted for you by \code{phrase} to the tick mark format interpreted by LilyPond.

@@ -1,7 +1,17 @@
 #' Create a musical phrase
 #'
 #' Create a musical phrase from character strings that define notes, note metadata, and optionally explicit strings fretted. The latter can be used to ensure proper tablature layout.
-#' Notes separated in time are separated in the \code{notes} string by spaces. Sharps and flats are indicated by appending \code{#} and \code{_}, respectively, e.g. \code{f#} or \code{g_}.
+#'
+#' Meeting all of the requirements for a string of notes to be valid \code{tabr} syntax is referred to as \emph{noteworthy}. Noteworthy strings are referred to throughout the documentation.
+#' Such requirements are outlined below.
+#'
+#' Noteworthy strings use space-delimited time. This means that notes and chords separated in time are separated in the \code{notes} string by spaces.
+#' This is by far the most common usage. However, many functions in \code{tabr}, including \code{phrase},
+#' allow a \code{notes} or similar first function argument to be provided in vector form where each vector element is a single note or chord (single point in time).
+#' Internally, functions like \code{phrase} will manipulate these forms back and forth as needed. Having both input options provides useful flexibility for music programming in \code{tabr} in general.
+#' The pipe operator can also be leveraged to chain several functions together.
+#'
+#' Sharps and flats are indicated by appending \code{#} and \code{_}, respectively, e.g. \code{f#} or \code{g_}.
 #'
 #' Specifying notes that are one or multiple octaves below or above the middle can be done by appending one or multiple commas or single quote tick marks, respectively, e.g. \code{c,} or \code{c''}.
 #' But this is not necessary. Instead, you can use octave numbering. This may easier to read, generally more familiar, potentially requires less typing, can still be omitted completely
@@ -26,11 +36,10 @@
 #' Text annotations aligned vertically with a note in time on the staff is done by appending the text to the note info entry itself. See \code{\link{notate}}.
 #' For more details and example, see the package vignettes.
 #'
-#' @param notes character, notes \code{a} through \code{g}. See details.
+#' @param notes character, notes \code{a} through \code{g}, comprising a noteworthy string. \code{notes}. See details.
 #' @param info character, metadata pertaining to the \code{notes }. See details.
 #' @param string character, optional string that specifies which guitar strings to play for each specific note.
 #' @param bar logical, insert a bar check at the end of the phrase.
-#' @param ... arguments passed to \code{phrase}.
 #'
 #' @return a phrase.
 #' @name phrase
@@ -51,11 +60,11 @@ NULL
 #' @export
 #' @rdname phrase
 phrase <- function(notes, info, string = NULL, bar = FALSE){
-  .check_phrase_input(notes, "notes")
+  .check_noteworthy(notes)
+  if(length(notes) > 1) notes <- paste(notes, collapse = " ")
   .check_phrase_input(info, "info")
   if(!is.null(string) && is.na(string)) string <- NULL
   if(!is.null(string)) .check_phrase_input(string, "string")
-  .check_noteworthy(notes)
   notes <- (strsplit(notes, " ")[[1]] %>% purrr::map_chr(.star_expand) %>%
     paste0(collapse = " ") %>% strsplit(" "))[[1]]
   notes <- .octavesub(notes)
