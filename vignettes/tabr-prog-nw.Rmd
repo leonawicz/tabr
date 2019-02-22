@@ -1,0 +1,76 @@
+---
+title: "Noteworthiness"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Noteworthiness}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, tidy = FALSE, out.width = "100%"
+)
+library(tabr)
+```
+
+The central focus of `tabr` is the creation of guitar tablature and sheet music, but the package also provides a number of functions to support music programming more generally. Like the more focused music transcription-related functions, these functions also use `tabr` syntax so that they can still be leveraged for music transcription support, but their utility is not specific to transcription.
+
+## Noteworthy strings
+
+Before exploring these functions, it is worth introducing an important concept that is expressed throughout `tabr`: noteworthiness. Prior to construction of `phrase` class objects that can be passed to LilyPond for sheet music engraving, you start out with simple character strings. These strings contain letters representing musical notes, and possibly some other characters that indicate such things as sharps and flats, octave number, and rests.
+
+There are a number of requirements strings must meet to have valid `tabr` syntax that can be transformed meaningfully and unambiguously into LilyPond syntax. In `tabr` parlance, a string is considered *noteworthy* if it meets all of these requirements that differentiate from arbitrary character strings.
+
+There is no need to attach a special class to a character string to explicitly differentiate noteworthy strings from ordinary strings in R. It is fine to work with strings as usual. However, it is important to be familiar with the requirements of a noteworthy string so that you can construct them properly.
+
+Functions in `tabr` that take noteworthy strings as input perform internal checks of noteworthiness for you and will throw an error if you provide an unworthy string. These checks are skipped if the input already has the `noteworthy` class. Otherwise, if it is noteworthy, the class is added. If a function returns a noteworthy string, the class will also be `noteworthy`.
+
+The class is mostly used internally by a variety of functions to avoid needless repeated checks of noteworthiness, but otherwise this is an ephemeral class that can quickly be lost when performing your own string manipulations. Users do not need to be directly concerned with the class. However, it is important to understand that the notion of noteworthy strings is implemented throughout `tabr` for the purpose of thorough and strict input validation. This leads to more robust function behavior and consistent user programming experience by rejecting problematic string input early.
+
+A string can be checked directly with `noteworthy`.
+
+```{r noteworthy}
+x <- "a2 r b2*2 ce_g cd#g"
+noteworthy(x)
+noteworthy("h")
+```
+
+This reports whether the entire string conforms to all requirements for it to be valid `tabr` syntax. `is_note` and `is_chord` provide more detailed information on the space-delimited entries in a string. They return a logical vector reporting whether each entry contains a valid note or valid chord representation, respectively.
+
+Notice how the vectorized results accounts for the expansion operator in `b2*2`.
+
+```{r noteworthy2}
+x <- "a2 r b2*2 ce_g cd#g HELLO_WORLD"
+is_note(x)
+is_chord(x)
+```
+
+These functions serve simple enough purposes that you are unlikely to use them when writing tabs. However, these and many others can be highly useful when programming more complex musical manipulations.
+
+## Notable phrases
+
+Before moving on, briefly consider the quasi-counterpart to noteworthy strings: notable phrases. If you have used `tabr`, you are familiar with turning strings into phrases, assembling these phrases into tracks and scores, and sending them on to LilyPond to create sheet music. In this context, you might think of phrase objects as the fundamental unit of musical information and the strings from which you create them seem more like raw data.
+
+`tabr` offers some ability to reverse direction and decompose phrases back into their component parts: `notes`, `info` and `string` character strings. This is done using `notify`, which returns a tibble data frame.
+
+For complex phrases, this can be challenging. There should be no expectation of true one to one functional transformation. For example, `notify` is not complex enough to handle unfolding repeat sections or text notations attached to notes inside phrases. Certainly, this will not work for LilyPond syntax that was originally created in LilyPond rather than with `tabr` because `tabr` only provides access to a tiny fraction of what LilyPond can do. But in many simpler cases, you can successfully invert a phrase previously created from strings in R. Such a phrase is considered *notable*.
+
+`phrasey` can be used to check if a string at least loosely resembled the content of a valid phrase object. Additional related functions are shown below, which takes a phrase through a complete cycle of deconstruction and reconstruction.
+
+```{r notable}
+p1 <- phrase("b, c d ec'g'~ ec'g'", "4( 4)- 2*3", "5*3 432*2")
+p1
+
+x <- as.character(p1)
+phrasey(x)
+identical(as_phrase(x), p1)
+
+notable(p1) # safe logical check
+notify(p1)
+
+p2 <- p(phrase_notes(p1), phrase_info(p1), phrase_strings(p1))
+identical(p1, p2)
+```
+
+With an understanding noteworthy strings, the next section covers a number of functions related to programming around musical scales.

@@ -1,0 +1,117 @@
+---
+title: "Musical scales"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Musical scales}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, tidy = FALSE, out.width = "100%"
+)
+library(tabr)
+```
+
+Programming with musical scales can be assisted by a collection of functions in `tabr` that check and manipulate musical scales, modes and key signatures.
+
+## Key signatures
+
+For key signatures, `keys` lists valid key signature abbreviation strings for each key as used in `tabr`. There are several `key_is*` functions that return a logical result regarding properties of keys:
+
+* key_is_natural
+* key_is_sharp
+* key_is_flat
+* key_is_major
+* key_is_minor
+
+There are also the functions, `key_n_flats` and `key_n_sharps`, that give the number of respective accidentals in a key signature.
+
+```{r key}
+keys()
+
+key_is_flat("f")
+key_n_flats("f")
+```
+
+The previous section gave an overview of noteworthy strings. While some of the functions that help enforce proper notation in R seemed like they did not offer much utility in terms of direct use, it was clear that they were integral to the robustness of other `tabr` functions. Now, looking at these key signature helpers, it may be tempting to dismiss their utility even more quickly because a trained musician does not need to invoke them at the command line to know what result they will return.
+
+These functions are not provided to answer basic questions in an interactive R session so much as they are for programming. These are some of the initial building blocks on top of which more complex functions are built, including many functions in `tabr`. As the collection of music programming helper functions in `tabr` grows, it becomes easy to do more with less.
+
+## Scales
+
+Several predefined musical scales are provided and accessible by calling various `scale_*` functions. 
+
+* scale_chromatic
+* scale_diatonic
+* scale_minor
+* scale_major
+* scale_harmonic_minor
+* scale_hungarian_minor
+* scale_melodic_minor
+* scale_jazz_minor
+
+
+
+```{r scales}
+scale_hungarian_minor(key = "am", collapse = TRUE)
+```
+
+You can specify whether the vector result should be returned as is, for convenient vectorized programming pipelines, or collapsed to a single string in keeping with the space-delimited time syntax format common throughout `tabr`. Many functions in `tabr` accept both formats as inputs and/or offer them as outputs. 
+
+You can also specify if octave numbering should be included or stripped. Octave numbering is included by default because this maintains pitch order when the scale does not start on `C`. Every note in a noteworthy string has an implicit octave-3 position if not explicitly stated. Octave numbering attempts to be somewhat balanced around `C3`. If the result is not what is desired, it can be shifted by 12 semitones with `transpose`.
+
+```{r scales2}
+scale_major("f", TRUE, ignore_octave = TRUE)
+scale_major("f", TRUE, ignore_octave = FALSE)
+```
+
+See `help("scale-helpers")` for details. Depending on the scale, other arguments are available.
+
+## Musical modes
+
+The seven modern modes are also available with `mode_*` functions or through `modern_mode` by passing the mode string name. Other functions include `is_mode` and `rotate_mode`.
+
+* mode_ionian
+* mode_dorian
+* mode_phrygian
+* mode_lydian
+* mode_mixolydian
+* mode_aeolian
+* mode_locrian
+
+```{r modes}
+modes()
+mode_aeolian("c")
+```
+
+## Diatonic scale chords
+
+The `scale_chords` function provides a list of diatonic scale chords based on the root note and scale chosen. It returns triads by default and can also return seventh chords.
+
+```{r scale_chords}
+scale_chords("b_", "major", "seventh", collapse = TRUE)
+scale_chords("f#", "minor", "triad", collapse = TRUE)
+```
+
+## Scale degrees
+
+The functions `scale_note` and `scale_degree` map between notes and degree in a given scale. For chords in a noteworthy string, only the root note is considered. For `scale_degree`, if a note is not diatonic to the scale, `NA` is returned. For `scale_note`, degrees outside the range of the scale return `NA`. 
+
+`note_in_scale` can be used to check whether a note is diatonic to a scale. Unlike the other two functions, it strictly accepts single notes. This is more strict that a noteworthy check, which permits chords.
+
+```{r scale_degrees}
+x <- "c e gb'd'"
+scale_degree(x)
+scale_degree(x, key = "a")
+scale_degree(x, key = "am")
+scale_degree(x, scale = "chromatic")
+
+scale_note(1:7, "d")
+scale_note(c(1:8), "dm", "harmonic minor")
+
+note_in_scale("a_ b c", "a_", ignore_octave = TRUE)
+```
+
+Other functions in `tabr` also work with scales and some build upon functions introduced here.
