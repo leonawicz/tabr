@@ -181,25 +181,26 @@
 
     <pre class="usage"><span class='fu'>modes</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"all"</span>, <span class='st'>"major"</span>, <span class='st'>"minor"</span>))
 
-<span class='fu'>is_mode</span>(<span class='no'>notes</span>)
+<span class='fu'>is_mode</span>(<span class='no'>notes</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>mode_rotate</span>(<span class='no'>notes</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>0</span>)
+<span class='fu'>mode_rotate</span>(<span class='no'>notes</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>mode_modern</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"ionian"</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>mode_modern</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"ionian"</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>mode_ionian</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>mode_ionian</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>mode_dorian</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>mode_dorian</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>mode_phrygian</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>mode_phrygian</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>mode_lydian</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>mode_lydian</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>mode_mixolydian</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>mode_mixolydian</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>mode_aeolian</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>mode_aeolian</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>mode_locrian</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>mode_locrian</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -211,6 +212,10 @@
     <tr>
       <th>notes</th>
       <td><p>character, for mode, may be a string of seven notes or a vector or seven one-note strings.</p></td>
+    </tr>
+    <tr>
+      <th>ignore_octave</th>
+      <td><p>logical, strip octave numbering from modes not rooted on C.</p></td>
     </tr>
     <tr>
       <th>n</th>
@@ -243,9 +248,12 @@ Modes can be rotated with <code>mode_rotate</code>, a wrapper around <code>note_
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>modes</span>()</div><div class='output co'>#&gt; [1] "ionian"     "dorian"     "phrygian"   "lydian"     "mixolydian"
-#&gt; [6] "aeolian"    "locrian"   </div><div class='input'><span class='fu'>mode_dorian</span>(<span class='st'>"c"</span>)</div><div class='output co'>#&gt; [1] "c"  "d"  "e_" "f"  "g"  "a"  "b_"</div><div class='input'><span class='fu'>mode_modern</span>(<span class='st'>"dorian"</span>, <span class='st'>"c"</span>)</div><div class='output co'>#&gt; [1] "c"  "d"  "e_" "f"  "g"  "a"  "b_"</div><div class='input'>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/identical'>identical</a></span>(<span class='fu'>mode_rotate</span>(<span class='fu'>mode_ionian</span>(<span class='st'>"c"</span>), <span class='fl'>1</span>), <span class='fu'>mode_dorian</span>(<span class='st'>"d"</span>))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/setNames'>setNames</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/t'>t</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/lapply'>sapply</a></span>(<span class='fu'>modes</span>(), <span class='no'>mode_modern</span>))), <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/roman'>as.roman</a></span>(<span class='fl'>1</span>:<span class='fl'>7</span>))</div><div class='output co'>#&gt;            I II III IV  V VI VII
+#&gt; [6] "aeolian"    "locrian"   </div><div class='input'><span class='fu'>mode_dorian</span>(<span class='st'>"c"</span>)</div><div class='output co'>#&gt; [1] "c"  "d"  "e_" "f"  "g"  "a"  "b_"</div><div class='input'><span class='fu'>mode_modern</span>(<span class='st'>"dorian"</span>, <span class='st'>"c"</span>)</div><div class='output co'>#&gt; [1] "c"  "d"  "e_" "f"  "g"  "a"  "b_"</div><div class='input'><span class='fu'>mode_modern</span>(<span class='st'>"dorian"</span>, <span class='st'>"c"</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "c"  "d"  "e_" "f"  "g"  "a"  "b_"</div><div class='input'>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/identical'>identical</a></span>(<span class='fu'>mode_rotate</span>(<span class='fu'>mode_ionian</span>(<span class='st'>"c"</span>), <span class='fl'>1</span>), <span class='fu'>mode_dorian</span>(<span class='st'>"d"</span>))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/identical'>identical</a></span>(
+  <span class='fu'>mode_rotate</span>(<span class='fu'>mode_ionian</span>(<span class='st'>"c"</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='fl'>1</span>),
+  <span class='fu'>mode_dorian</span>(<span class='st'>"d"</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/setNames'>setNames</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/t'>t</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/lapply'>sapply</a></span>(<span class='fu'>modes</span>(), <span class='no'>mode_modern</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))), <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/roman'>as.roman</a></span>(<span class='fl'>1</span>:<span class='fl'>7</span>))</div><div class='output co'>#&gt;            I II III IV  V VI VII
 #&gt; ionian     c  d   e  f  g  a   b
 #&gt; dorian     c  d  e_  f  g  a  b_
 #&gt; phrygian   c d_  e_  f  g a_  b_

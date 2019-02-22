@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Note and pitch helpers — note-helpers • tabr</title>
+<title>Rank, order and sort chords and notes — chord-compare • tabr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -39,9 +39,9 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Note and pitch helpers — note-helpers" />
+<meta property="og:title" content="Rank, order and sort chords and notes — chord-compare" />
 
-<meta property="og:description" content="Helper functions for manipulating individual note and pitch strings." />
+<meta property="og:description" content="Rank, order and sort chords and notes by various definitions." />
 
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -168,93 +168,58 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Note and pitch helpers</h1>
-    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/notes.R'><code>R/notes.R</code></a></small>
-    <div class="hidden name"><code>note-helpers.Rd</code></div>
+    <h1>Rank, order and sort chords and notes</h1>
+    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/chords.R'><code>R/chords.R</code></a></small>
+    <div class="hidden name"><code>chord-compare.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Helper functions for manipulating individual note and pitch strings.</p>
+    <p>Rank, order and sort chords and notes by various definitions.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>note_is_natural</span>(<span class='no'>notes</span>)
+    <pre class="usage"><span class='fu'>chord_rank</span>(<span class='no'>chords</span>, <span class='kw'>pitch</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"min"</span>, <span class='st'>"mean"</span>, <span class='st'>"max"</span>), <span class='no'>...</span>)
 
-<span class='fu'>note_is_accidental</span>(<span class='no'>notes</span>)
+<span class='fu'>chord_order</span>(<span class='no'>chords</span>, <span class='kw'>pitch</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"min"</span>, <span class='st'>"mean"</span>, <span class='st'>"max"</span>), <span class='no'>...</span>)
 
-<span class='fu'>note_is_flat</span>(<span class='no'>notes</span>)
-
-<span class='fu'>note_is_sharp</span>(<span class='no'>notes</span>)
-
-<span class='fu'>naturalize</span>(<span class='no'>notes</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"both"</span>, <span class='st'>"flat"</span>, <span class='st'>"sharp"</span>), <span class='kw'>strip</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
-<span class='fu'>sharpen_flat</span>(<span class='no'>notes</span>, <span class='kw'>strip</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
-<span class='fu'>flatten_sharp</span>(<span class='no'>notes</span>, <span class='kw'>strip</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
-<span class='fu'>note_set_key</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>)
-
-<span class='fu'>note_rotate</span>(<span class='no'>notes</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>0</span>)
-
-<span class='fu'>note_shift</span>(<span class='no'>notes</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>0</span>)
-
-<span class='fu'>note_arpeggiate</span>(<span class='no'>notes</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>chord_sort</span>(<span class='no'>chords</span>, <span class='kw'>pitch</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"min"</span>, <span class='st'>"mean"</span>, <span class='st'>"max"</span>), <span class='kw'>decreasing</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>notes</th>
-      <td><p>character, a noteworthy string, space-delimited or vector of individual entries.</p></td>
+      <th>chords</th>
+      <td><p>character, a noteworthy string, may include individual notes and chords.</p></td>
     </tr>
     <tr>
-      <th>type</th>
-      <td><p>character, type of note to naturalize.</p></td>
-    </tr>
-    <tr>
-      <th>strip</th>
-      <td><p>logical, strip any octave notation that may be present, returning only the basic notes without explicit pitch.</p></td>
-    </tr>
-    <tr>
-      <th>key</th>
-      <td><p>character, key signature to coerce any accidentals to the appropriate form for the key. May also specify <code>"sharp"</code> or <code>"flat"</code>.</p></td>
-    </tr>
-    <tr>
-      <th>n</th>
-      <td><p>integer, degree of rotation.</p></td>
+      <th>pitch</th>
+      <td><p>character, how ranking of chords is determined; lowest pitch, mean pitch, or highest pitch.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>additional arguments to <code>transpose</code>, specifically <code>key</code> and <code>style</code>.</p></td>
+      <td><p>additional arguments passed to <code>rank</code> or <code>order</code>.</p></td>
+    </tr>
+    <tr>
+      <th>decreasing</th>
+      <td><p>logical, sort in decreasing order.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>character</p>
+    <p>integer for rank and order, character for sort</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>In this context, sharpening flats and flattening sharps refers to inverting their notation, not raising and lowering a flatted or sharped note by one semitone.
-For the latter, use <code>naturalize</code>, which removes flat and/or sharp notation from a string.</p>
-<p>Due to its simplicity, for <code>note_rotate</code> the strings may include chords. It simply rotates anything space-delimited or vectorized in place.
-Octave numbering is ignored if present.</p>
-<p>By contrast, for <code>note_shift</code> the entire sequence is shifted up or down, as if inverting a broken chord.
-In this case <code>notes</code> is strictly interpreted and may not include chords.
-Octave numbering applies, though large, multi-octave gaps will be condensed in the process.
-Given the context of <code>note_shift</code>, the <code>notes</code> sequence should be ordered by increasing pitch.
-If it is not, ordering will be forced with each inversion during the <code>n</code> shifts.</p>
-<p><code>note_arpeggiate</code> also allows notes only. It is similar to <code>note_shift</code>, except that instead of a moving window,
-it grows from the original set of notes by <code>n</code> in the direction of the sign of <code>n</code>.</p>
+    <p>There are three options for comparing the relative pitch position of chords provided: comparison of the lowest or root note of each chord, the highest pitch note, or taking the mean of all notes in a chord.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"a_ a a#"</span>
-<span class='fu'>note_is_natural</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] FALSE  TRUE FALSE</div><div class='input'><span class='fu'>note_is_accidental</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1]  TRUE FALSE  TRUE</div><div class='input'><span class='fu'>note_is_flat</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1]  TRUE FALSE FALSE</div><div class='input'><span class='fu'>note_is_sharp</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] FALSE FALSE  TRUE</div><div class='input'><span class='fu'>note_set_key</span>(<span class='no'>x</span>, <span class='st'>"f"</span>)</div><div class='output co'>#&gt; [1] "a_ a b_"</div><div class='input'><span class='fu'>note_set_key</span>(<span class='no'>x</span>, <span class='st'>"g"</span>)</div><div class='output co'>#&gt; [1] "g# a a#"</div><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"e_2 a_, c#f#a#"</span>
-<span class='fu'>naturalize</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "e2 a, cfa"</div><div class='input'><span class='fu'>naturalize</span>(<span class='no'>x</span>, <span class='st'>"sharp"</span>)</div><div class='output co'>#&gt; [1] "e_2 a_, cfa"</div><div class='input'><span class='fu'>sharpen_flat</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "d#, g#, c#f#a#"</div><div class='input'><span class='fu'>flatten_sharp</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "e_, a_, d_g_b_"</div><div class='input'>
-<span class='fu'>note_rotate</span>(<span class='no'>x</span>, <span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "a_, c#f#a# e_2"</div><div class='input'><span class='fu'>note_shift</span>(<span class='st'>"c e g"</span>, <span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "e g c4"</div><div class='input'><span class='fu'>note_shift</span>(<span class='st'>"c e g"</span>, -<span class='fl'>4</span>)</div><div class='output co'>#&gt; [1] "g1 c2 e2"</div><div class='input'><span class='fu'>note_arpeggiate</span>(<span class='st'>"c e g"</span>, <span class='fl'>5</span>)</div><div class='output co'>#&gt; [1] "c e g c4 e4 g4 c5 e5"</div><div class='input'><span class='fu'>note_arpeggiate</span>(<span class='st'>"c e g"</span>, -<span class='fl'>5</span>)</div><div class='output co'>#&gt; [1] "e1 g1 c2 e2 g2 c e g"</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"a2 c a2 ceg ce_g cea"</span>
+<span class='fu'>chord_rank</span>(<span class='no'>x</span>, <span class='st'>"min"</span>)</div><div class='output co'>#&gt; [1] 1.5 4.5 1.5 4.5 4.5 4.5</div><div class='input'><span class='fu'>chord_rank</span>(<span class='no'>x</span>, <span class='st'>"max"</span>)</div><div class='output co'>#&gt; [1] 1.5 3.0 1.5 4.5 4.5 6.0</div><div class='input'><span class='fu'>chord_rank</span>(<span class='no'>x</span>, <span class='st'>"mean"</span>)</div><div class='output co'>#&gt; [1] 1.5 3.0 1.5 5.0 4.0 6.0</div><div class='input'>
+<span class='fu'>chord_order</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 1 3 2 4 5 6</div><div class='input'><span class='fu'>chord_order</span>(<span class='no'>x</span>, <span class='st'>"mean"</span>)</div><div class='output co'>#&gt; [1] 1 3 2 5 4 6</div><div class='input'><span class='fu'>chord_sort</span>(<span class='no'>x</span>, <span class='st'>"mean"</span>)</div><div class='output co'>#&gt; [1] "a2 a2 c ce_g ceg cea"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

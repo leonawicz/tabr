@@ -7,7 +7,13 @@
     <loc>http://leonawicz.github.io/tabr/reference/append_phrases.html</loc>
   </url>
   <url>
+    <loc>http://leonawicz.github.io/tabr/reference/chord-compare.html</loc>
+  </url>
+  <url>
     <loc>http://leonawicz.github.io/tabr/reference/chords.html</loc>
+  </url>
+  <url>
+    <loc>http://leonawicz.github.io/tabr/reference/chord_arpeggiate.html</loc>
   </url>
   <url>
     <loc>http://leonawicz.github.io/tabr/reference/chord_break.html</loc>
@@ -80,6 +86,9 @@
   </url>
   <url>
     <loc>http://leonawicz.github.io/tabr/reference/scale-helpers.html</loc>
+  </url>
+  <url>
+    <loc>http://leonawicz.github.io/tabr/reference/scale_chords.html</loc>
   </url>
   <url>
     <loc>http://leonawicz.github.io/tabr/reference/score.html</loc>

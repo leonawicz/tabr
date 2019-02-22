@@ -179,13 +179,25 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>scale_diatonic</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>scale_diatonic</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>scale_major</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>scale_major</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>scale_minor</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"am"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>scale_minor</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"am"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>scale_chromatic</span>(<span class='kw'>root</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>sharp</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+<span class='fu'>scale_harmonic_minor</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"am"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='fu'>scale_hungarian_minor</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"am"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='fu'>scale_melodic_minor</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"am"</span>, <span class='kw'>descending</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='fu'>scale_jazz_minor</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"am"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='fu'>scale_chromatic</span>(<span class='kw'>root</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>sharp</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -197,6 +209,14 @@
     <tr>
       <th>collapse</th>
       <td><p>logical, collapse result into a single string ready for phrase construction.</p></td>
+    </tr>
+    <tr>
+      <th>ignore_octave</th>
+      <td><p>logical, strip octave numbering from scales not rooted on C.</p></td>
+    </tr>
+    <tr>
+      <th>descending</th>
+      <td><p>logical, return the descending scale, available as a built-in argument for the melodic minor scale, which is different in each direction.</p></td>
     </tr>
     <tr>
       <th>root</th>
@@ -222,7 +242,10 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>scale_major</span>(<span class='st'>"d"</span>)</div><div class='output co'>#&gt; [1] "d"  "e"  "f#" "g"  "a"  "b"  "c#"</div><div class='input'><span class='fu'>scale_minor</span>(<span class='st'>"dm"</span>)</div><div class='output co'>#&gt; [1] "d"  "e"  "f"  "g"  "a"  "b_" "c" </div><div class='input'><span class='fu'>scale_chromatic</span>(<span class='st'>"a"</span>)</div><div class='output co'>#&gt;  [1] "a"  "a#" "b"  "c"  "c#" "d"  "d#" "e"  "f"  "f#" "g"  "g#"</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>scale_diatonic</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"dm"</span>)</div><div class='output co'>#&gt; [1] "d"  "e"  "f"  "g"  "a"  "b_" "c4"</div><div class='input'><span class='fu'>scale_minor</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"dm"</span>)</div><div class='output co'>#&gt; [1] "d"  "e"  "f"  "g"  "a"  "b_" "c4"</div><div class='input'><span class='fu'>scale_major</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"d"</span>)</div><div class='output co'>#&gt; [1] "d"   "e"   "f#"  "g"   "a"   "b"   "c#4"</div><div class='input'>
+<span class='fu'>scale_chromatic</span>(<span class='kw'>root</span> <span class='kw'>=</span> <span class='st'>"a"</span>)</div><div class='output co'>#&gt;  [1] "a2"  "a#2" "b2"  "c"   "c#"  "d"   "d#"  "e"   "f"   "f#"  "g"   "g#" </div><div class='input'>
+<span class='fu'>scale_harmonic_minor</span>(<span class='st'>"am"</span>)</div><div class='output co'>#&gt; [1] "a2" "b2" "c"  "d"  "e"  "f"  "g#"</div><div class='input'><span class='fu'>scale_hungarian_minor</span>(<span class='st'>"am"</span>)</div><div class='output co'>#&gt; [1] "a2" "b2" "c"  "d#" "e"  "f"  "g#"</div><div class='input'>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/identical'>identical</a></span>(<span class='fu'>scale_melodic_minor</span>(<span class='st'>"am"</span>), <span class='fu'>scale_jazz_minor</span>(<span class='st'>"am"</span>))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rev'>rev</a></span>(<span class='fu'>scale_melodic_minor</span>(<span class='st'>"am"</span>, <span class='kw'>descending</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; [1] "a2" "b2" "c"  "d"  "e"  "f"  "g" </div><div class='input'><span class='fu'>scale_jazz_minor</span>(<span class='st'>"am"</span>)</div><div class='output co'>#&gt; [1] "a2" "b2" "c"  "d"  "e"  "f#" "g#"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

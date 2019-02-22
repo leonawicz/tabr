@@ -73,9 +73,12 @@ reference:
 - title: Chord helpers
   desc: "Functions for constructing and manipulating chord strings"
   contents:
-  - chord_invert
+  - chord-compare
   - chord_break
+  - chord_invert
+  - chord_arpeggiate
   - chord_is_diatonic
+  - scale_chords
   - dyad
   - chords
 - title: Note and pitch helpers
