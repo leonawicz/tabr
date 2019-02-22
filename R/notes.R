@@ -227,7 +227,7 @@ is_note <- function(x){
 #' @rdname valid-notes
 is_chord <- function(x){
   x <- .uncollapse(x)
-  y <- sapply(x, function(x) length(.split_chord(x)) > 1, USE.NAMES = FALSE)
+  y <- sapply(x, function(x) length(tryCatch(.split_chord(x), error = function(e) NA)) > 1, USE.NAMES = FALSE)
   if(!any(y)) return(y)
   idx <- which(y)
   y[idx] <- sapply(x[idx], function(x) all(is_note(.split_chord(x))), USE.NAMES = FALSE)
