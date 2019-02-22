@@ -276,18 +276,20 @@ is_diatonic <- function(x, key = "c"){
 #' \code{note_is_equal} and \code{note_is_identical} are similar but include a default argument \code{ignore_octave = TRUE}, focusing only on the notes and chords.
 #' This allows an even more relaxed definition of equivalence. Setting this argument to \code{FALSE} is the same as calling the \code{pitch_is_*} variant.
 #'
-#' Chords can be checked the same as notes. Every note in the sequence is checked pairwise between \code{note1} and \code{note2}.
+#' Chords can be checked the same as notes. Every timestep in the sequence is checked pairwise between \code{note1} and \code{note2}.
 #'
 #' These functions will return \code{TRUE} or \code{FALSE} for every timestep in a sequence.
 #' If the two noteworthy strings do not contain the same number of notes at a specific step, such as a single note compared to a chord, this yields a \code{FALSE} value,
 #' even in a case of an octave dyad with octave number ignored.
 #' If the two sequences have unequal length an error is thrown.
-#' These are bare minimum requirement for equivalence. See examples.
+#' These are bare minimum requirements for equivalence. See examples.
 #'
 #' \code{octave_is_equal} and \code{octave_is_identical} allow much weaker forms of equivalence in that they ignore notes completely.
 #' These functions are only concerned with comparing the octave numbers spanned by any pitches present at each timestep.
-#' \code{octave_is_equal} only looks at the octave number associated with the first not at each step, so only the root note of a chord, when checking for equality.
-#' \code{octave_is_identical} compares all octaves spanned at a given timestep. It does not matter if comparing two chords containing different numbers of notes.
+#' When checking for equality, \code{octave_is_equal} only looks at the octave number associated with the first note at each step, e.g., only the root note of a chord.
+#' \code{octave_is_identical} compares all octaves spanned at a given timestep.
+#'
+#' It does not matter when comparing two chords that they may be comprised of a different numbers of notes.
 #' If the set of octaves spanned by one chord is identical to the set spanned by the other, they are considered to have identical octave coverage.
 #' For example, \code{a1b2c3} is identical to \code{d1e1f2g3}. To be equal, it only matters that the two chords begin with \code{x1} where \code{x} is any note.
 #' Alternatively, for \code{octave_is_identical} only, setting \code{single_octave = TRUE} additionally requires that all notes from both chords being compared at a given timestep share a single octave.
@@ -412,6 +414,3 @@ octave_is_identical <- function(notes1, notes2, single_octave = FALSE){
   if(length(x1) != length(x2)) return(NA)
   list(x1, x2)
 }
-
-#' @export
-#' @rdname note-equivalence
