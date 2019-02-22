@@ -6,23 +6,40 @@
 \alias{scale_major}
 \alias{scale_minor}
 \alias{scale_harmonic_minor}
+\alias{scale_hungarian_minor}
+\alias{scale_melodic_minor}
+\alias{scale_jazz_minor}
 \alias{scale_chromatic}
 \title{Scale helpers}
 \usage{
-scale_diatonic(key = "c", collapse = FALSE)
+scale_diatonic(key = "c", collapse = FALSE, ignore_octave = FALSE)
 
-scale_major(key = "c", collapse = FALSE)
+scale_major(key = "c", collapse = FALSE, ignore_octave = FALSE)
 
-scale_minor(key = "am", collapse = FALSE)
+scale_minor(key = "am", collapse = FALSE, ignore_octave = FALSE)
 
-scale_harmonic_minor(key = "am", collapse = FALSE)
+scale_harmonic_minor(key = "am", collapse = FALSE,
+  ignore_octave = FALSE)
 
-scale_chromatic(root = "c", collapse = FALSE, sharp = TRUE)
+scale_hungarian_minor(key = "am", collapse = FALSE,
+  ignore_octave = FALSE)
+
+scale_melodic_minor(key = "am", descending = FALSE, collapse = FALSE,
+  ignore_octave = FALSE)
+
+scale_jazz_minor(key = "am", collapse = FALSE, ignore_octave = FALSE)
+
+scale_chromatic(root = "c", collapse = FALSE, sharp = TRUE,
+  ignore_octave = FALSE)
 }
 \arguments{
 \item{key}{character, key signature.}
 
 \item{collapse}{logical, collapse result into a single string ready for phrase construction.}
+
+\item{ignore_octave}{logical, strip octave numbering from scales not rooted on C.}
+
+\item{descending}{logical, return the descending scale, available as a built-in argument for the melodic minor scale, which is different in each direction.}
 
 \item{root}{character, root note.}
 
@@ -39,9 +56,17 @@ For valid key signatures, see \code{\link{keys}}.
 }
 \examples{
 scale_diatonic(key = "dm")
-scale_minor(key = "d")
+scale_minor(key = "dm")
 scale_major(key = "d")
+
 scale_chromatic(root = "a")
+
+scale_harmonic_minor("am")
+scale_hungarian_minor("am")
+
+identical(scale_melodic_minor("am"), scale_jazz_minor("am"))
+rev(scale_melodic_minor("am", descending = TRUE))
+scale_jazz_minor("am")
 }
 \seealso{
 \code{\link{keys}}, \code{\link{mode-helpers}}

@@ -179,19 +179,19 @@ xm13(notes, key = "c", collapse = FALSE, style = "default")
 xM13(notes, key = "c", collapse = FALSE, style = "default")
 }
 \arguments{
+\item{notes}{character, chord root notes, space-delimited or a vector of individual notes.}
+
 \item{key}{key signature. See details.}
 
 \item{collapse}{logical, collapse result into a single string ready for phrase construction.}
 
 \item{style}{character, passed to \code{transpose}.}
-
-\item{note}{character, chord root note.}
 }
 \value{
 character
 }
 \description{
-These functions construct basic chord string notation from a root \code{note}.
+These functions construct basic chord string notation from root \code{notes}.
 }
 \details{
 Providing a \code{key} signature is used only to ensure flats or sharps for accidentals.

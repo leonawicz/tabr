@@ -25,6 +25,9 @@ test_that("note helpers return as expected", {
   expect_equal(naturalize(notes, "sharp"), "a b c,e_g' d e_ f g")
   expect_equal(naturalize(notes, strip = TRUE), "a b ceg d e f g")
 
+  expect_equal(note_set_key(notes, "f"), "a b c,e_g' e_ e_ f g")
+  expect_equal(note_set_key(notes, "g"), "a b c,d#g' d# d# f g")
+
   x <- "a# b_ c, d'' e3 g_4 A m c2e_2g2 cegh"
   expect_equal(is_note(x), c(rep(TRUE, 6), rep(FALSE, 4)))
   expect_equal(is_chord(x), c(rep(FALSE, 8), TRUE, FALSE))

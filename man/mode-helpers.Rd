@@ -17,30 +17,33 @@
 \usage{
 modes(mode = c("all", "major", "minor"))
 
-is_mode(notes)
+is_mode(notes, ignore_octave = FALSE)
 
-mode_rotate(notes, n = 0)
+mode_rotate(notes, n = 0, ignore_octave = FALSE)
 
-mode_modern(mode = "ionian", key = "c", collapse = FALSE)
+mode_modern(mode = "ionian", key = "c", collapse = FALSE,
+  ignore_octave = FALSE)
 
-mode_ionian(key = "c", collapse = FALSE)
+mode_ionian(key = "c", collapse = FALSE, ignore_octave = FALSE)
 
-mode_dorian(key = "c", collapse = FALSE)
+mode_dorian(key = "c", collapse = FALSE, ignore_octave = FALSE)
 
-mode_phrygian(key = "c", collapse = FALSE)
+mode_phrygian(key = "c", collapse = FALSE, ignore_octave = FALSE)
 
-mode_lydian(key = "c", collapse = FALSE)
+mode_lydian(key = "c", collapse = FALSE, ignore_octave = FALSE)
 
-mode_mixolydian(key = "c", collapse = FALSE)
+mode_mixolydian(key = "c", collapse = FALSE, ignore_octave = FALSE)
 
-mode_aeolian(key = "c", collapse = FALSE)
+mode_aeolian(key = "c", collapse = FALSE, ignore_octave = FALSE)
 
-mode_locrian(key = "c", collapse = FALSE)
+mode_locrian(key = "c", collapse = FALSE, ignore_octave = FALSE)
 }
 \arguments{
 \item{mode}{character, which mode.}
 
 \item{notes}{character, for mode, may be a string of seven notes or a vector or seven one-note strings.}
+
+\item{ignore_octave}{logical, strip octave numbering from modes not rooted on C.}
 
 \item{n}{integer, degree of rotation.}
 
@@ -64,10 +67,15 @@ Modes can be rotated with \code{mode_rotate}, a wrapper around \code{note_rotate
 modes()
 mode_dorian("c")
 mode_modern("dorian", "c")
+mode_modern("dorian", "c", ignore_octave = TRUE)
 
 identical(mode_rotate(mode_ionian("c"), 1), mode_dorian("d"))
+identical(
+  mode_rotate(mode_ionian("c", ignore_octave = TRUE), 1),
+  mode_dorian("d", ignore_octave = TRUE)
+)
 
-setNames(data.frame(t(sapply(modes(), mode_modern))), as.roman(1:7))
+setNames(data.frame(t(sapply(modes(), mode_modern, ignore_octave = TRUE))), as.roman(1:7))
 }
 \seealso{
 \code{\link{keys}}, \code{\link{scale-helpers}}

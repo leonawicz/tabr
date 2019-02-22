@@ -57,7 +57,7 @@ pitch_interval <- function(note1, note2, ignore_octave = FALSE){
   if(!n1_nat && !n2_nat && n2_sharp != n1_sharp)
     note2 <- ifelse(n2_sharp, flatten_sharp(note2), sharpen_flat(note2))
   sharp <- grepl("#", paste(note1, note2))
-  x <- scale_chromatic(note1, sharp = sharp)
+  x <- scale_chromatic(note1, sharp = sharp, ignore_octave = TRUE)
   ngap <- match(note2, x) - match(note1, x)
   12 * (ogap - .cpass(note1, note2, x)) + ngap
 }

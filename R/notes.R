@@ -15,7 +15,7 @@
 #' If it is not, ordering will be forced with each inversion during the \code{n} shifts.
 #'
 #' \code{note_arpeggiate} also allows notes only. It is similar to \code{note_shift}, except that instead of a moving window,
-#' it grows from the original set of notes by \code{n} in t he direction of the sign of \code{n}.
+#' it grows from the original set of notes by \code{n} in the direction of the sign of \code{n}.
 #'
 #' @param notes character, a noteworthy string, space-delimited or vector of individual entries.
 #' @param type character, type of note to naturalize.
@@ -135,7 +135,7 @@ note_shift <- function(notes, n = 0){
   if(n == 0) return(notes)
   x <- .uncollapse(notes)
   nx <- length(x)
-  style <- if(grepl(",|'", notes)) "tick" else "integer"
+  style <- if(any(grepl(",|'", notes))) "tick" else "integer"
   if(nx == 1) return(transpose(x, 12 * n, style = style))
   idx <- (0:n)[-1]
   f <- function(x) if(x == 3) "" else x
@@ -171,7 +171,7 @@ note_arpeggiate <- function(notes, n = 0, ...){
     if(!is.na(k$sf)) sharp <- k$sf == "sharp"
   }
   nx <- length(x)
-  style <- if(grepl(",|'", notes)) "tick" else "integer"
+  style <- if(any(grepl(",|'", notes))) "tick" else "integer"
   if(nx == 1) return(transpose(x, 12 * n, style = style))
   s <- sign(n) * seq(12, 12 * (abs(n) %/% nx + abs(n) %% nx), by = 12)
   if(n > 0){

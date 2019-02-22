@@ -70,7 +70,7 @@ Given the context of \code{note_shift}, the \code{notes} sequence should be orde
 If it is not, ordering will be forced with each inversion during the \code{n} shifts.
 
 \code{note_arpeggiate} also allows notes only. It is similar to \code{note_shift}, except that instead of a moving window,
-it grows from the original set of notes by \code{n} in t he direction of the sign of \code{n}.
+it grows from the original set of notes by \code{n} in the direction of the sign of \code{n}.
 }
 \examples{
 x <- "a_ a a#"

@@ -12,6 +12,7 @@
 #' @param mode character, which mode.
 #' @param notes character, for mode, may be a string of seven notes or a vector or seven one-note strings.
 #' @param n integer, degree of rotation.
+#' @param ignore_octave logical, strip octave numbering from modes not rooted on C.
 #'
 #' @return character
 #' @export
@@ -22,11 +23,15 @@
 #' modes()
 #' mode_dorian("c")
 #' mode_modern("dorian", "c")
+#' mode_modern("dorian", "c", ignore_octave = TRUE)
 #'
 #' identical(mode_rotate(mode_ionian("c"), 1), mode_dorian("d"))
+#' identical(
+#'   mode_rotate(mode_ionian("c", ignore_octave = TRUE), 1),
+#'   mode_dorian("d", ignore_octave = TRUE)
+#' )
 #'
-#' setNames(data.frame(t(sapply(modes(), mode_modern))), as.roman(1:7))
-
+#' setNames(data.frame(t(sapply(modes(), mode_modern, ignore_octave = TRUE))), as.roman(1:7))
 modes <- function(mode = c("all", "major", "minor")){
   mode <- match.arg(mode)
   x <- c("ionian", "dorian", "phrygian", "lydian", "mixolydian", "aeolian", "locrian")
@@ -37,95 +42,95 @@ modes <- function(mode = c("all", "major", "minor")){
 
 #' @export
 #' @rdname mode-helpers
-is_mode <- function(notes){
+is_mode <- function(notes, ignore_octave = FALSE){
   n <- length(notes)
   if(!n %in% c(1, 7)) return(FALSE)
   if(n == 1) notes <- strsplit(notes, " ")[[1]]
-  key <- notes[1]
-  y <- sapply(modes(), mode_modern, key = key)
+  key <- .pitch_to_note(notes[1])
+  y <- sapply(modes(), mode_modern, key = key, ignore_octave = ignore_octave)
   for(i in 1:ncol(y)) if(identical(notes, y[, i])) return(TRUE)
   FALSE
 }
 
 #' @export
 #' @rdname mode-helpers
-mode_rotate <- function(notes, n = 0){
-  if(!is_mode(notes)) stop("`notes` does not define a valid mode.")
+mode_rotate <- function(notes, n = 0, ignore_octave = FALSE){
+  if(!is_mode(notes, ignore_octave)) stop("`notes` does not define a valid mode.")
   note_rotate(notes, n)
 }
 
 #' @export
 #' @rdname mode-helpers
-mode_modern <- function(mode = "ionian", key = "c", collapse = FALSE){
+mode_modern <- function(mode = "ionian", key = "c", collapse = FALSE, ignore_octave = FALSE){
   f <- switch(mode,
               ionian = mode_ionian, dorian = mode_dorian, phrygian = mode_phrygian,
               lydian = mode_lydian, mixolydian = mode_mixolydian,
               aeolian = mode_aeolian, locrian = mode_locrian)
-  f(key, collapse)
+  f(key, collapse, ignore_octave)
 }
 
 #' @export
 #' @rdname mode-helpers
-mode_ionian <- function(key = "c", collapse = FALSE){
-  scale_major(key, collapse)
+mode_ionian <- function(key = "c", collapse = FALSE, ignore_octave = FALSE){
+  scale_major(key, collapse, ignore_octave)
 }
 
 #' @export
 #' @rdname mode-helpers
-mode_dorian <- function(key = "c", collapse = FALSE){
-  x <- scale_major(key)
+mode_dorian <- function(key = "c", collapse = FALSE, ignore_octave = FALSE){
+  x <- scale_major(key, ignore_octave = ignore_octave)
   idx <- c(3, 7)
   x[idx] <- sapply(x[idx], transpose, n = -1, key = key, style = "strip")
   if(collapse) x <- paste0(x, collapse = " ")
-  x
+  note_set_key(x, key)
 }
 
 #' @export
 #' @rdname mode-helpers
-mode_phrygian <- function(key = "c", collapse = FALSE){
-  x <- scale_major(key)
+mode_phrygian <- function(key = "c", collapse = FALSE, ignore_octave = FALSE){
+  x <- scale_major(key, ignore_octave = ignore_octave)
   idx <- c(2, 3, 6, 7)
   x[idx] <- sapply(x[idx], transpose, n = -1, key = key, style = "strip")
   if(collapse) x <- paste0(x, collapse = " ")
-  x
+  note_set_key(x, key)
 }
 
 #' @export
 #' @rdname mode-helpers
-mode_lydian <- function(key = "c", collapse = FALSE){
-  x <- scale_major(key)
+mode_lydian <- function(key = "c", collapse = FALSE, ignore_octave = FALSE){
+  x <- scale_major(key, ignore_octave = ignore_octave)
   idx <- 4
   x[idx] <- sapply(x[idx], transpose, n = 1, key = key, style = "strip")
   if(collapse) x <- paste0(x, collapse = " ")
-  x
+  note_set_key(x, key)
 }
 
 #' @export
 #' @rdname mode-helpers
-mode_mixolydian <- function(key = "c", collapse = FALSE){
-  x <- scale_major(key)
+mode_mixolydian <- function(key = "c", collapse = FALSE, ignore_octave = FALSE){
+  x <- scale_major(key, ignore_octave = ignore_octave)
   idx <- 7
   x[idx] <- sapply(x[idx], transpose, n = -1, key = key, style = "strip")
   if(collapse) x <- paste0(x, collapse = " ")
-  x
+  note_set_key(x, key)
 }
 
 #' @export
 #' @rdname mode-helpers
-mode_aeolian <- function(key = "c", collapse = FALSE){
-  x <- scale_major(key)
+mode_aeolian <- function(key = "c", collapse = FALSE, ignore_octave = FALSE){
+  x <- scale_major(key, ignore_octave = ignore_octave)
   idx <- c(3, 6, 7)
   x[idx] <- sapply(x[idx], transpose, n = -1, key = key, style = "strip")
   if(collapse) x <- paste0(x, collapse = " ")
-  x
+  note_set_key(x, key)
 }
 
 #' @export
 #' @rdname mode-helpers
-mode_locrian <- function(key = "c", collapse = FALSE){
-  x <- scale_major(key)
+mode_locrian <- function(key = "c", collapse = FALSE, ignore_octave = FALSE){
+  x <- scale_major(key, ignore_octave = ignore_octave)
   idx <- c(2, 3, 5, 6, 7)
   x[idx] <- sapply(x[idx], transpose, n = -1, key = key, style = "strip")
   if(collapse) x <- paste0(x, collapse = " ")
-  x
+  note_set_key(x, key)
 }

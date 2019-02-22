@@ -5,28 +5,31 @@
 \title{Diatonic chords}
 \usage{
 scale_chords(root = "c", scale = "major", type = c("triad",
-  "seventh"), collapse = FALSE, style = "default")
+  "seventh"), collapse = FALSE)
 }
 \arguments{
 \item{root}{character, root note or starting position of scale.}
 
 \item{scale}{character, a valid named scale, referring to one of the existing \code{scale_*} functions.}
 
-\item{type}{character, type of chord, either triad or seventh.}
+\item{type}{character, type of chord, triad or seventh.}
 
 \item{collapse}{logical, collapse result into a single string ready for phrase construction.}
-
-\item{style}{character, passed to \code{transpose}.}
 }
 \value{
 character
 }
 \description{
-Obtain an ordered sequence of the diatonic chords for a given scale.
+Obtain an ordered sequence of the diatonic chords for a given scale, as triads or sevenths.
 }
 \examples{
-scale_chords("d", "major")
-scale_chords("d", "minor")
-scale_chords("d", "harmonic minor")
-# scale_chords("d", "melodic minor") TODO
+scale_chords("c", "major")
+scale_chords("a", "minor")
+scale_chords("a", "harmonic minor")
+scale_chords("a", "melodic minor")
+scale_chords("a", "jazz minor")
+scale_chords("a", "hungarian minor")
+
+scale_chords("c", "major", "seventh", collapse = TRUE)
+scale_chords("a", "minor", "seventh", collapse = TRUE)
 }

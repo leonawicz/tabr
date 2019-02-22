@@ -18,7 +18,6 @@
 #' @param chord character, a single chord.
 #' @param n inversion.
 #' @param limit logical, limit inversions in either direction to one less than the number of notes in the chord.
-#' @param notes a noteworthy string.
 #'
 #' @return character
 #' @export
@@ -53,6 +52,43 @@ chord_invert <- function(chord, n = 0, limit = FALSE){
     }
   }
   paste(x, collapse = "")
+}
+
+#' Arpeggiate a chord
+#'
+#' Create an arpeggio from a chord.
+#'
+#' This function is based on \code{chord_invert}. If \code{n = 0} then \code{chord} is returned immediately; other arguments are ignored.
+#'
+#' @param chord character, a single chord.
+#' @param n integer, number of steps, negative indicates reverse direction (decreasing pitch).
+#' @param by whether each of the \code{n} steps refers to individual notes in the chord (an inversion) or raising the entire chord in its given position by one octave.
+#' @param broken logical, return result as an arpeggio of broken chords.
+#' @param collapse logical, collapse result into a single string ready for phrase construction.
+#'
+#' @return character
+#' @export
+#'
+#' @examples
+#' chord_arpeggiate("ce_gb_", 2)
+#' chord_arpeggiate("ce_gb_", -2)
+#' chord_arpeggiate("ce_gb_", 2, by = "chord")
+#' chord_arpeggiate("ce_gb_", 1, broken = TRUE, collapse = TRUE)
+chord_arpeggiate <- function(chord, n = 0, by = c("note", "chord"), broken = FALSE, collapse = FALSE){
+  if(length(chord) != 1) stop("`chord` must be a single chord.")
+  .check_chord(chord)
+  if(n == 0) return(chord)
+  by <- match.arg(by)
+  if(by == "note"){
+    s <- 1:abs(n)
+  } else {
+    nc <- length(.split_chord(chord))
+    s <- seq(nc, nc * abs(n), by = nc)
+  }
+  x <- c(chord, sapply(sign(n) * s, function(i) chord_invert(chord, i)))
+  if(broken) x <- unlist(lapply(x, .split_chord))
+  if(collapse) x <- paste0(x, collapse = " ")
+  x
 }
 
 #' Broken chords
@@ -92,7 +128,7 @@ chord_break <- function(notes){
 #' chord_is_diatonic(c("dfa", "df#a"), "d")
 chord_is_diatonic <- function(chord, key = "c"){
   .check_chord(chord)
-  s <- scale_diatonic(key)
+  s <- scale_diatonic(key, ignore_octave = TRUE)
   x <- .uncollapse(chord)
   sapply(x, function(x) all(.pitch_to_note(.split_chord(x)) %in% s), USE.NAMES = FALSE)
 }
@@ -202,7 +238,7 @@ chord_sort <- function(chords, pitch = c("min", "mean", "max"), decreasing = FAL
   .check_noteworthy(x)
   pitch <- match.arg(pitch)
   x <- .uncollapse(x)
-  x <- sapply(x, function(y){
+  sapply(x, function(y){
     y <- sapply(.split_chord(y), function(i) pitch_interval("c", i))
     switch(pitch, "min" = min(y), "mean" = mean(y), "max" = max(y))
   }, USE.NAMES = FALSE)
@@ -212,14 +248,14 @@ chord_sort <- function(chords, pitch = c("min", "mean", "max"), decreasing = FAL
 
 #' Chord constructors
 #'
-#' These functions construct basic chord string notation from a root \code{note}.
+#' These functions construct basic chord string notation from root \code{notes}.
 #'
 #' Providing a \code{key} signature is used only to ensure flats or sharps for accidentals.
 #' An additional set of aliases with efficient names, of the form \code{x*} where \code{*} is a chord modifier abbreviation, is provided to complement the set of \code{chord_*} functions.
 #'
 #' These functions create standard chords, not the multi-octave spanning types of chords commonly played on guitar.
 #'
-#' @param note character, chord root note.
+#' @param notes character, chord root notes, space-delimited or a vector of individual notes.
 #' @param key key signature. See details.
 #' @param style character, passed to \code{transpose}.
 #' @param collapse logical, collapse result into a single string ready for phrase construction.
@@ -436,6 +472,8 @@ chord_maj13 <- function(notes, key = "c", collapse = FALSE, style = "default"){
   .chord_prep(notes, semitones, key, collapse, style)
 }
 
+# nolint start
+
 .chord_prep <- function(notes, semitones, key, collapse, style){
   .check_note(notes)
   .keycheck(key)
@@ -445,6 +483,8 @@ chord_maj13 <- function(notes, key = "c", collapse = FALSE, style = "default"){
   if(collapse) x <- paste0(x, collapse = " ")
   x
 }
+
+# nolint end
 
 .dot_arg <- function(dots, .x, default) if(is.null(dots[[.x]])) default else dots[[.x]]
 
@@ -494,7 +534,7 @@ xm7b5 <- chord_m7b5
 
 #' @export
 #' @rdname chords
-xaug <- chord_dim
+xaug <- chord_aug
 
 #' @export
 #' @rdname chords
