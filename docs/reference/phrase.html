@@ -41,8 +41,7 @@
   
 <meta property="og:title" content="Create a musical phrase — phrase" />
 
-<meta property="og:description" content="Create a musical phrase from character strings that define notes, note metadata, and optionally explicit strings fretted. The latter can be used to ensure proper tablature layout.
-Notes separated in time are separated in the notes string by spaces. Sharps and flats are indicated by appending # and _, respectively, e.g. f# or g_." />
+<meta property="og:description" content="Create a musical phrase from character strings that define notes, note metadata, and optionally explicit strings fretted. The latter can be used to ensure proper tablature layout." />
 
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -176,8 +175,7 @@ Notes separated in time are separated in the notes string by spaces. Sharps and 
 
     <div class="ref-description">
     
-    <p>Create a musical phrase from character strings that define notes, note metadata, and optionally explicit strings fretted. The latter can be used to ensure proper tablature layout.
-Notes separated in time are separated in the <code>notes</code> string by spaces. Sharps and flats are indicated by appending <code>#</code> and <code>_</code>, respectively, e.g. <code>f#</code> or <code>g_</code>.</p>
+    <p>Create a musical phrase from character strings that define notes, note metadata, and optionally explicit strings fretted. The latter can be used to ensure proper tablature layout.</p>
     
     </div>
 
@@ -190,7 +188,7 @@ Notes separated in time are separated in the <code>notes</code> string by spaces
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>notes</th>
-      <td><p>character, notes <code>a</code> through <code>g</code>. See details.</p></td>
+      <td><p>character, notes <code>a</code> through <code>g</code>, comprising a noteworthy string. <code>notes</code>. See details.</p></td>
     </tr>
     <tr>
       <th>info</th>
@@ -216,7 +214,15 @@ Notes separated in time are separated in the <code>notes</code> string by spaces
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Specifying notes that are one or multiple octaves below or above the middle can be done by appending one or multiple commas or single quote tick marks, respectively, e.g. <code>c,</code> or <code>c''</code>.
+    <p>Meeting all of the requirements for a string of notes to be valid <code>tabr</code> syntax is referred to as <em>noteworthy</em>. Noteworthy strings are referred to throughout the documentation.
+Such requirements are outlined below.</p>
+<p>Noteworthy strings use space-delimited time. This means that notes and chords separated in time are separated in the <code>notes</code> string by spaces.
+This is by far the most common usage. However, many functions in <code>tabr</code>, including <code>phrase</code>,
+allow a <code>notes</code> or similar first function argument to be provided in vector form where each vector element is a single note or chord (single point in time).
+Internally, functions like <code>phrase</code> will manipulate these forms back and forth as needed. Having both input options provides useful flexibility for music programming in <code>tabr</code> in general.
+The pipe operator can also be leveraged to chain several functions together.</p>
+<p>Sharps and flats are indicated by appending <code>#</code> and <code>_</code>, respectively, e.g. <code>f#</code> or <code>g_</code>.</p>
+<p>Specifying notes that are one or multiple octaves below or above the middle can be done by appending one or multiple commas or single quote tick marks, respectively, e.g. <code>c,</code> or <code>c''</code>.
 But this is not necessary. Instead, you can use octave numbering. This may easier to read, generally more familiar, potentially requires less typing, can still be omitted completely
 for the middle octave (no need to type c3, d3, ...), and is automatically converted for you by <code>phrase</code> to the tick mark format interpreted by LilyPond.
 That said, using the raised and lowered tick mark approach can be surprisingly easier to read for chords, which have no spaces between notes, especially six-string chords,
