@@ -26,7 +26,7 @@ reference:
   - track
   - trackbind
   - score
-- title: Phrase helpers
+- title: Phrase construction
   desc: "Functions for describing, assembling and connecting musical phrases."
   contents:
   - glue
@@ -110,6 +110,7 @@ navbar:
     - text: "Tutorials"
       icon: fa-info-circle
       menu:
+        - text: "Transcription"
         - text: "Basic example"
           href: "articles/tabr-basics.html"
         - text: "Musical phrases"
@@ -127,7 +128,19 @@ navbar:
         - text: "Strings and tunings"
           href: "articles/tabr-tunings.html"
         - text: "---------"
-        - text: "Examples"
+        - text: "Programming"
+        - text: "Noteworthiness"
+          href: "articles/tabr-prog-nw.html"
+        - text: "Musical scales"
+          href: "articles/tabr-prog-scales.html"
+        - text: "Musical intervals"
+          href: "articles/tabr-prog-scales.html"
+        - text: "Note functions"
+          href: "articles/tabr-prog-scales.html"
+        - text: "Chord functions"
+          href: "articles/tabr-prog-scales.html"
+    - text: "Examples"
+      menu:
         - text: "Tuning and capo"
           href: "articles/tabr-ex1.html"
         - text: "Multiple voices"
