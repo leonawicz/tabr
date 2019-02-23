@@ -12,7 +12,7 @@ scale_interval(note1, note2, format = c("mmp_abb", "mmp", "ad_abb",
   "ad"), ignore_octave = FALSE)
 }
 \arguments{
-\item{note1}{character, first note.}
+\item{note1}{character, first note. Must be a single note.}
 
 \item{note2}{character, second note.}
 

@@ -32,7 +32,7 @@ interval_semitones <- function(interval){
 #' For \code{scale_interval}, a character string is returned that provides the named main interval, simple or compound, defined by  the two notes.
 #' This function will return \code{NA} for any uncommon interval not listed in \code{\link{mainIntervals}}.
 #'
-#' @param note1 character, first note.
+#' @param note1 character, first note. Must be a single note.
 #' @param note2 character, second note.
 #' @param format character, format of the scale notation: major/minor/perfect, augmented/diminished, and respective abbreviations. See argument options in defaults.
 #' @param ignore_octave logical, reduce the interval to that defined by notes within a single octave.
@@ -47,6 +47,8 @@ interval_semitones <- function(interval){
 #' pitch_interval("c,", "d")
 #' scale_interval("c", "e_")
 pitch_interval <- function(note1, note2, ignore_octave = FALSE){
+  .check_note(note1)
+  .check_note(note2)
   ogap <- .octave_interval(note1, note2, ignore_octave)
   note1 <- .pitch_to_note(note1)
   note2 <- .pitch_to_note(note2)
