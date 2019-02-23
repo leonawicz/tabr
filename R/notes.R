@@ -318,7 +318,7 @@ summary.noteworthy <- function(object, ...){
       nchord, " ", paste0("chord", ifelse(nchord == 1, "", "s")),
       "\n  Octaves: ", o,
       "\n  Accidentals: ", a,
-      "\n  Format: ", format, "\n  Values: ", x, sep = "")
+      "\n  Format: ", format, "\n  Values: ", object, sep = "")
 }
 
 .uncollapse <- function(x){
