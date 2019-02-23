@@ -162,9 +162,136 @@
 
     
     
-<div id="under-construction" class="section level2">
+<div id="chord-identity-and-comparison" class="section level2">
 <h2 class="hasAnchor">
-<a href="#under-construction" class="anchor"></a>Under construction</h2>
+<a href="#chord-identity-and-comparison" class="anchor"></a>Chord identity and comparison</h2>
+<p>You have already seen <code>is_chord</code>, which is similar to <code>is_note</code>. Another check that can be performed on chords is whether they are diatonic to a scale. <code>chord_is_diatonic</code> strictly accepts chords in noteworthy strings.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> "ce_g cd#g"</span>
+<span class="kw"><a href="../reference/chord_is_diatonic.html">chord_is_diatonic</a></span>(x, <span class="dt">key =</span> <span class="st">"b_"</span>)
+<span class="co">#&gt; [1]  TRUE FALSE</span></code></pre></div>
+<p>A few functions that compare chords are <code>chord_rank</code>, <code>chord_order</code> and <code>chord_sort</code>. Ranking chords, and the ordering and sorting based on that, requires a definition or set of definitions to work from.</p>
+<p>The first argument is a noteworthy string. The second, <code>pitch</code>, can be <code>"min"</code> (the default), <code>"mean"</code>, or <code>"max"</code>. Each of these refers to the functions that operate on the three available definitions of ranking chords. When ranking individual notes, the result is fixed because there are only two pitches being compared. For chords, however, <code>pitch = "min"</code> compares only the lowest pitch or root note of a chord. For <code>pitch = "max"</code>, the highest pitch note in each chord is used for establishing rank. For <code>pitch = "mean"</code>, the average of all notes in the chord are used for ranking chords.</p>
+<p>Rank is from lowest to highest pitch. These options define how chords are ranked, but each function below also passes on additional arguments via <code>...</code> to the base functions <code>rank</code> and <code>order</code> for the additional control over the more general aspects of how ranking and ordering are done in R. <code>chord_order</code> works analogously to <code>chord_rank</code>. <code>chord_sort</code> wraps around <code>chord_order</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> "a2 c a2 ceg ce_g cea"</span>
+<span class="kw"><a href="../reference/chord-compare.html">chord_rank</a></span>(x, <span class="st">"min"</span>)
+<span class="co">#&gt; [1] 1.5 4.5 1.5 4.5 4.5 4.5</span>
+<span class="kw"><a href="../reference/chord-compare.html">chord_rank</a></span>(x, <span class="st">"max"</span>)
+<span class="co">#&gt; [1] 1.5 3.0 1.5 4.5 4.5 6.0</span>
+<span class="kw"><a href="../reference/chord-compare.html">chord_rank</a></span>(x, <span class="st">"mean"</span>)
+<span class="co">#&gt; [1] 1.5 3.0 1.5 5.0 4.0 6.0</span>
+
+<span class="kw"><a href="../reference/chord-compare.html">chord_order</a></span>(x)
+<span class="co">#&gt; [1] 1 3 2 4 5 6</span>
+<span class="kw"><a href="../reference/chord-compare.html">chord_order</a></span>(x, <span class="st">"mean"</span>)
+<span class="co">#&gt; [1] 1 3 2 5 4 6</span>
+
+<span class="kw"><a href="../reference/chord-compare.html">chord_sort</a></span>(x, <span class="st">"mean"</span>)
+<span class="co">#&gt; [1] "a2 a2 c ce_g ceg cea"</span></code></pre></div>
+</div>
+<div id="chord-transformations" class="section level2">
+<h2 class="hasAnchor">
+<a href="#chord-transformations" class="anchor"></a>Chord transformations</h2>
+<p>A broken chord can be created with <code>chord_break</code>, which separates a chord into its component notes, separating in time. It accepts a single chord.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> "ce_g"</span>
+<span class="kw"><a href="../reference/chord_break.html">chord_break</a></span>(x)
+<span class="co">#&gt; [1] "c e_ g"</span></code></pre></div>
+<p><code>chord_invert</code> creates chord inversions. It also takes a single chord as input. It treats any chord as being in root position as provided.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/chord_invert.html">chord_invert</a></span>(x, <span class="dv">1</span>)
+<span class="co">#&gt; [1] "e_gc4"</span>
+<span class="kw"><a href="../reference/chord_invert.html">chord_invert</a></span>(x, <span class="dv">2</span>)
+<span class="co">#&gt; [1] "gc4e_4"</span>
+<span class="kw"><a href="../reference/chord_invert.html">chord_invert</a></span>(x, <span class="dv">3</span>)
+<span class="co">#&gt; [1] "c4e_4g4"</span>
+
+<span class="kw"><a href="../reference/chord_invert.html">chord_invert</a></span>(x, <span class="op">-</span><span class="dv">1</span>)
+<span class="co">#&gt; [1] "g2ce_"</span>
+<span class="kw"><a href="../reference/chord_invert.html">chord_invert</a></span>(x, <span class="op">-</span><span class="dv">2</span>)
+<span class="co">#&gt; [1] "e_2g2c"</span>
+<span class="kw"><a href="../reference/chord_invert.html">chord_invert</a></span>(x, <span class="op">-</span><span class="dv">3</span>)
+<span class="co">#&gt; [1] "c2e_2g2"</span></code></pre></div>
+<p>While a chord with <code>n</code> notes has <code>n - 1</code> inversions, <code>chord_invert</code> allows inversions to continue, moving a chord further up or down in octaves. If you want to restrict the function to only allowing the defined number of inversions (excluding root position), set <code>limit = TRUE</code>. This enforces the rule that, for example, a chord with three notes has two inversions and <code>n</code> can only take values between <code>-2</code> and <code>2</code> or it will throw and error.</p>
+<p>Building up on <code>chord_invert</code>, <code>chord_arpeggiate</code> grows a chord up or down the scale in pitch by creating an arpeggio. <code>n</code> describes how many steps to add onto the original chord. Setting <code>by = "chord"</code> will replicate the entire chord as is, up or down the scale. In this case <code>n</code> indicates whole octave transposition steps. By default, <code>n</code> refers to the number of steps that individual chord notes are arpeggiated, like in <code>chord_invert</code>. This means for example that in a chord with three notes, setting <code>n = 3</code> and <code>by = "note"</code> is equivalent to setting <code>n = 1</code> and <code>by = "chord"</code>.</p>
+<p>The argument <code>broken = TRUE</code> will also convert to a broken chord, resulting in an arpeggio of individual notes.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/chord_arpeggiate.html">chord_arpeggiate</a></span>(<span class="st">"ce_gb_"</span>, <span class="dv">2</span>)
+<span class="co">#&gt; [1] "ce_gb_"   "e_gb_c4"  "gb_c4e_4"</span>
+<span class="kw"><a href="../reference/chord_arpeggiate.html">chord_arpeggiate</a></span>(<span class="st">"ce_gb_"</span>, <span class="op">-</span><span class="dv">2</span>)
+<span class="co">#&gt; [1] "ce_gb_"   "b_2ce_g"  "g2b_2ce_"</span>
+<span class="kw"><a href="../reference/chord_arpeggiate.html">chord_arpeggiate</a></span>(<span class="st">"ce_gb_"</span>, <span class="dv">2</span>, <span class="dt">by =</span> <span class="st">"chord"</span>)
+<span class="co">#&gt; [1] "ce_gb_"     "c4e_4g4b_4" "c5e_5g5b_5"</span>
+<span class="kw"><a href="../reference/chord_arpeggiate.html">chord_arpeggiate</a></span>(<span class="st">"ce_gb_"</span>, <span class="dv">1</span>, <span class="dt">broken =</span> <span class="ot">TRUE</span>, <span class="dt">collapse =</span> <span class="ot">TRUE</span>)
+<span class="co">#&gt; [1] "c e_ g b_ e_ g b_ c4"</span></code></pre></div>
+</div>
+<div id="chord-construction" class="section level2">
+<h2 class="hasAnchor">
+<a href="#chord-construction" class="anchor"></a>Chord construction</h2>
+<p>Before introducing the chord constructors, here is a brief mention and example of the <code>dyad</code> function for constructing dyads from a root note and and interval. Dyads are not technically chords, but this is as good a place as any to mention <code>dyad</code>. The interval can be in semitones, or a named interval from <code>mainIntervals</code> that corresponds to the number of semitones.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/dyad.html">dyad</a></span>(<span class="st">"a"</span>, <span class="dv">3</span>)
+<span class="co">#&gt; [1] "ac4"</span>
+x &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"minor third"</span>, <span class="st">"m3"</span>, <span class="st">"augmented second"</span>, <span class="st">"A2"</span>)
+<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/lapply">sapply</a></span>(x, <span class="cf">function</span>(x) <span class="kw"><a href="../reference/dyad.html">dyad</a></span>(<span class="st">"a"</span>, x))
+<span class="co">#&gt;      minor third               m3 augmented second               A2 </span>
+<span class="co">#&gt;            "ac4"            "ac4"            "ac4"            "ac4"</span>
+<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/lapply">sapply</a></span>(x, <span class="cf">function</span>(x) <span class="kw"><a href="../reference/dyad.html">dyad</a></span>(<span class="st">"c'"</span>, x, <span class="dt">reverse =</span> <span class="ot">TRUE</span>))
+<span class="co">#&gt;      minor third               m3 augmented second               A2 </span>
+<span class="co">#&gt;            "ac'"            "ac'"            "ac'"            "ac'"</span></code></pre></div>
+<div id="available-constructors" class="section level3">
+<h3 class="hasAnchor">
+<a href="#available-constructors" class="anchor"></a>Available constructors</h3>
+<p>Now to the topic of chord construction. Chords are often constructed directly, but many can also be constructed using helper functions. Currently, helpers exist for common chords up through thirteenths. There are not currently any constructors for guitar-specific chord shapes and fingerings. <code>tabr</code> offers two options for each chord constructor, the longer <code>chord_*</code>-named function and its <code>x*</code> alias. The table below shows all available constructors.</p>
+<pre><code>#&gt;        full_name abbreviation
+#&gt; 1      chord_min           xm
+#&gt; 2      chord_maj           xM
+#&gt; 3     chord_min7          xm7
+#&gt; 4     chord_dom7           x7
+#&gt; 5      chord_7s5         x7s5
+#&gt; 6     chord_maj7          xM7
+#&gt; 7     chord_min6          xm6
+#&gt; 8     chord_maj6          xM6
+#&gt; 9      chord_dim         xdim
+#&gt; 10    chord_dim7        xdim7
+#&gt; 11    chord_m7b5        xm7b5
+#&gt; 12     chord_aug         xaug
+#&gt; 13       chord_5           x5
+#&gt; 14    chord_sus2          xs2
+#&gt; 15    chord_sus4          xs4
+#&gt; 16    chord_dom9           x9
+#&gt; 17     chord_7s9         x7s9
+#&gt; 18    chord_maj9          xM9
+#&gt; 19    chord_add9        xadd9
+#&gt; 20    chord_min9          xm9
+#&gt; 21   chord_madd9         xma9
+#&gt; 22   chord_min11         xm11
+#&gt; 23    chord_7s11        x7s11
+#&gt; 24 chord_maj7s11       xM7s11
+#&gt; 25      chord_11         x_11
+#&gt; 26   chord_maj11         xM11
+#&gt; 27      chord_13         x_13
+#&gt; 28   chord_min13         xm13
+#&gt; 29   chord_maj13         xM13</code></pre>
+<p>These functions take root notes and a key signature as input. The given function determines the intervals of the chord. This in combination with a root note is all that is needed to create the chord. However, the key signature can enforce whether the result uses flats or sharps when accidentals are present.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/chords.html">chord_min7</a></span>(<span class="st">"a c e"</span>)
+<span class="co">#&gt; [1] "ac4e4g4" "cd#ga#"  "egbd4"</span>
+<span class="kw"><a href="../reference/chords.html">chord_min7</a></span>(<span class="st">"a c e"</span>, <span class="dt">key =</span> <span class="st">"f"</span>)
+<span class="co">#&gt; [1] "ac4e4g4" "ce_gb_"  "egbd4"</span>
+<span class="kw"><a href="../reference/chords.html">xm7</a></span>(<span class="st">"a c e"</span>, <span class="dt">key =</span> <span class="st">"f"</span>)
+<span class="co">#&gt; [1] "ac4e4g4" "ce_gb_"  "egbd4"</span></code></pre></div>
+</div>
+<div id="eventual-direction" class="section level3">
+<h3 class="hasAnchor">
+<a href="#eventual-direction" class="anchor"></a>Eventual direction</h3>
+<p>Chord constructors are a new concept and this collection of convenient wrapper functions may change significantly in a future version of <code>tabr</code>. In the context of creating guitar tablature, these are not very useful. Another concept of chord constructors will be developed in a future version with a focus on generating chords for guitar tablature. Such a constructor or set of constructors may consider information such as:</p>
+<ul>
+<li>chord shape</li>
+<li>number of, or which strings are used</li>
+<li>fret number, or minimum fret</li>
+<li>chord root</li>
+<li>separate bass note</li>
+<li>bar or open</li>
+</ul>
+<p>Some of these considerations could yield different constructors that build chords from different information, each being provided sufficiently complete, but not redundant, information.</p>
+<p>Another distinction to make is among the output formats provided by chord constructors. One group of constructors could yield the noteworthy strings that eventually end up on the tab staff and/or music staff in <code>tabr</code> output. Another group of constructors could generate the chord format used for creating fretboard diagrams, which have a different syntax. Choice of output format could be an argument to a parent constructor, but there can also be separate groups of wrapper functions that default to each type of output.</p>
+<p>In any case, this is mentioned here so that users are aware that there are development plans for chord construction that is tablature focused and helpful for guitar, and which does not look like the examples shown above. The more piano chord style convenience functions above will remain for programming purposes and whatever other conveniences they offer, but as chord construction in <code>tabr</code> receives further development, it is going to look very different, serve different purposes, and the currently available functions will look like an aside. There will likely be a few constructor functions that generate many guitar chords in various ways given different information. There will not be a large collection of functions named after specific guitar chords.</p>
+</div>
 </div>
   </div>
 
@@ -173,7 +300,9 @@
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#under-construction">Under construction</a></li>
+<li><a href="#chord-identity-and-comparison">Chord identity and comparison</a></li>
+      <li><a href="#chord-transformations">Chord transformations</a></li>
+      <li><a href="#chord-construction">Chord construction</a></li>
       </ul>
 </div>
       </div>
