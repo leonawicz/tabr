@@ -19,7 +19,7 @@
 #'
 #' @param notes character, a noteworthy string, space-delimited or vector of individual entries.
 #' @param type character, type of note to naturalize.
-#' @param strip logical, strip any octave notation that may be present, returning only the basic notes without explicit pitch.
+#' @param ignore_octave logical, strip any octave notation that may be present, returning only the basic notes without explicit pitch.
 #' @param n integer, degree of rotation.
 #' @param key character, key signature to coerce any accidentals to the appropriate form for the key. May also specify \code{"sharp"} or \code{"flat"}.
 #' @param ... additional arguments to \code{transpose}, specifically \code{key} and \code{style}.
@@ -76,31 +76,31 @@ note_is_sharp <- function(notes){
 
 #' @export
 #' @rdname note-helpers
-naturalize <- function(notes, type = c("both", "flat", "sharp"), strip = FALSE){
+naturalize <- function(notes, type = c("both", "flat", "sharp"), ignore_octave = FALSE){
   .check_noteworthy(notes)
   type <- match.arg(type)
   pat <- switch(type, both = "_|#", flat = "_", sharp = "#")
   x <- gsub(pat, "", notes)
-  if(strip) x <- .pitch_to_note(x)
+  if(ignore_octave) x <- .pitch_to_note(x)
   x
 }
 
 #' @export
 #' @rdname note-helpers
-sharpen_flat <- function(notes, strip = FALSE){
+sharpen_flat <- function(notes, ignore_octave = FALSE){
   .check_noteworthy(notes)
   x <- if(length(notes) > 1) paste0(notes, collapse = " ") else notes
-  x <- transpose(x, 0, key = "g", style = ifelse(strip, "strip", "default"))
+  x <- transpose(x, 0, key = "g", style = ifelse(ignore_octave, "strip", "default"))
   if(length(notes) > 1) x <- .uncollapse(x)
   x
 }
 
 #' @export
 #' @rdname note-helpers
-flatten_sharp <- function(notes, strip = FALSE){
+flatten_sharp <- function(notes, ignore_octave = FALSE){
   .check_noteworthy(notes)
   x <- if(length(notes) > 1) paste0(notes, collapse = " ") else notes
-  x <- transpose(x, 0, key = "f", style = ifelse(strip, "strip", "default"))
+  x <- transpose(x, 0, key = "f", style = ifelse(ignore_octave, "strip", "default"))
   if(length(notes) > 1) x <- .uncollapse(x)
   x
 }
@@ -196,8 +196,12 @@ note_arpeggiate <- function(notes, n = 0, ...){
 #' \code{is_note} and \code{is_chord} are vectorized and their positive results are mutually exclusive.
 #' \code{noteworthy} is also vectorized and performs both checks, but it returns a scalar logical result indicating whether the entire set contains exclusively valid entries.
 #'
+#' \code{as_noteworthy} can be used to coerce to the \code{noteworthy} class. Coercion will fail if the string is not noteworthy.
+#' Using the \code{noteworthy} class is generally not needed by the user during an interactive session, but is available and offers its own \code{print} and \code{summary} methods for noteworthy strings.
+#' It is more likely to be used by other functions.
+#'
 #' \code{is_diatonic} performs a vectorized logical check on a \code{noteworthy} string for all notes and chords.
-#' TO check strictly notes or chords, see \code{\link{note_in_scale}} and \code{\link{chord_is_diatonic}}.
+#' To check strictly notes or chords, see \code{\link{note_in_scale}} and \code{\link{chord_is_diatonic}}.
 #'
 #' @param x character, space-delimited entries or a vector of single, non-delimited entries.
 #' @param key character, key signature.
@@ -216,6 +220,12 @@ note_arpeggiate <- function(notes, n = 0, ...){
 #'   either = noteworthy(x))
 #'
 #' is_diatonic("ace ac#e d e_", "c")
+#'
+#' x <- "a# b_ c, d'' e3 g_4 c2e_2g2"
+#' x <- as_noteworthy(x)
+#' x
+#'
+#' summary(x)
 is_note <- function(x){
   x <- .uncollapse(x)
   y1 <- grepl("[a-grs]", x) & !grepl("[h-qt-zA-Z]", x)
@@ -236,13 +246,16 @@ is_chord <- function(x){
 
 #' @export
 #' @rdname valid-notes
-noteworthy <- function(x) all(is_note(x) | is_chord(x))
+noteworthy <- function(x){
+  if("noteworthy" %in% class(x)) return(TRUE)
+  all(is_note(x) | is_chord(x))
+}
 
 #' @export
 #' @rdname valid-notes
 is_diatonic <- function(x, key = "c"){
   .check_noteworthy(x)
-  s <- scale_diatonic(key)
+  s <- scale_diatonic(key, ignore_octave = TRUE)
   x <- .uncollapse(x)
   sapply(x, function(x) all(.pitch_to_note(.split_chord(x)) %in% s), USE.NAMES = FALSE)
 }
@@ -252,6 +265,59 @@ is_diatonic <- function(x, key = "c"){
 .check_chord <- function(x) if(any(!is_chord(x))) stop("Invalid chord found.", call. = FALSE)
 
 .check_noteworthy <- function(x) if(!noteworthy(x)) stop("Invalid notes or chords found.", call. = FALSE)
+
+#' @export
+#' @rdname valid-notes
+as_noteworthy <- function(x){
+  .check_noteworthy(x)
+  if(!"noteworthy" %in% class(x)) class(x) <- c("noteworthy", class(x))
+  x
+}
+
+print.noteworthy <- function(x, ...){
+  format <- if(length(x) == 1) "space-delimited time" else "vectorized time"
+  cat("<Noteworthy string>\n", "  Format: ", format, "\n  Values: ", x, sep = "")
+}
+
+summary.noteworthy <- function(x, ...){
+  n <- length(x)
+  format <- if(n == 1) "space-delimited time" else "vectorized time"
+  y <- .uncollapse(x)
+  steps <- length(y)
+  nnote <- sum(is_note(y))
+  nchord <- sum(is_chord(y))
+
+  flat <- any(.pitch_flat(x))
+  sharp <- any(.pitch_sharp(x))
+  if(flat & sharp){
+    a <- "both/ambiguous"
+  } else if(flat){
+    a <- "flat"
+  } else if(sharp){
+    a <- "sharp"
+  } else {
+    a <- "none/unknown"
+  }
+
+  tick <- any(grepl(",|'", x))
+  int <- any(grepl("\\d", x))
+  if(tick & int){
+    o <- "ambiguous"
+  } else if(tick){
+    o <- "tick"
+  } else if(int){
+    o <- "integer"
+  } else {
+    o <- "unknown"
+  }
+
+  cat("<Noteworthy string>\n  Timesteps: ", steps, "\n  ",
+      nnote, " ", paste0("note", ifelse(nnote == 1, "", "s")), ", ",
+      nchord, " ", paste0("chord", ifelse(nchord == 1, "", "s")),
+      "\n  Octaves: ", o,
+      "\n  Accidentals: ", a,
+      "\n  Format: ", format, "\n  Values: ", x, sep = "")
+}
 
 .uncollapse <- function(x){
   if(length(x) == 1) x <- strsplit(x, " ")[[1]]
@@ -281,7 +347,7 @@ is_diatonic <- function(x, key = "c"){
 #' These functions will return \code{TRUE} or \code{FALSE} for every timestep in a sequence.
 #' If the two noteworthy strings do not contain the same number of notes at a specific step, such as a single note compared to a chord, this yields a \code{FALSE} value,
 #' even in a case of an octave dyad with octave number ignored.
-#' If the two sequences have unequal length an error is thrown.
+#' If the two sequences have unequal length \code{NA} is returned.
 #' These are bare minimum requirements for equivalence. See examples.
 #'
 #' \code{octave_is_equal} and \code{octave_is_identical} allow much weaker forms of equivalence in that they ignore notes completely.
@@ -290,8 +356,8 @@ is_diatonic <- function(x, key = "c"){
 #' \code{octave_is_identical} compares all octaves spanned at a given timestep.
 #'
 #' It does not matter when comparing two chords that they may be comprised of a different numbers of notes.
-#' If the set of octaves spanned by one chord is identical to the set spanned by the other, they are considered to have identical octave coverage.
-#' For example, \code{a1b2c3} is identical to \code{d1e1f2g3}. To be equal, it only matters that the two chords begin with \code{x1} where \code{x} is any note.
+#' If the set of unique octaves spanned by one chord is identical to the set spanned by the other, they are considered to have identical octave coverage.
+#' For example, \code{a1b2c3} is identical to \code{d1e1f2g3}. To be equal, it only matters that the two chords begin with \code{x1}, where \code{x} is any note.
 #' Alternatively, for \code{octave_is_identical} only, setting \code{single_octave = TRUE} additionally requires that all notes from both chords being compared at a given timestep share a single octave.
 #'
 #' @param notes1 character, note string, space-delimited or vector of individual entries.

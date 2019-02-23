@@ -23,11 +23,12 @@ note_is_flat(notes)
 
 note_is_sharp(notes)
 
-naturalize(notes, type = c("both", "flat", "sharp"), strip = FALSE)
+naturalize(notes, type = c("both", "flat", "sharp"),
+  ignore_octave = FALSE)
 
-sharpen_flat(notes, strip = FALSE)
+sharpen_flat(notes, ignore_octave = FALSE)
 
-flatten_sharp(notes, strip = FALSE)
+flatten_sharp(notes, ignore_octave = FALSE)
 
 note_set_key(notes, key = "c")
 
@@ -42,7 +43,7 @@ note_arpeggiate(notes, n = 0, ...)
 
 \item{type}{character, type of note to naturalize.}
 
-\item{strip}{logical, strip any octave notation that may be present, returning only the basic notes without explicit pitch.}
+\item{ignore_octave}{logical, strip any octave notation that may be present, returning only the basic notes without explicit pitch.}
 
 \item{key}{character, key signature to coerce any accidentals to the appropriate form for the key. May also specify \code{"sharp"} or \code{"flat"}.}
 

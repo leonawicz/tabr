@@ -2,6 +2,7 @@
 
 S3method(print,phrase)
 export("%>%")
+export(as_noteworthy)
 export(as_phrase)
 export(chord_11)
 export(chord_13)

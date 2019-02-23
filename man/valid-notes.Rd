@@ -6,6 +6,7 @@
 \alias{is_chord}
 \alias{noteworthy}
 \alias{is_diatonic}
+\alias{as_noteworthy}
 \title{Check note and chord validity}
 \usage{
 is_note(x)
@@ -15,6 +16,8 @@ is_chord(x)
 noteworthy(x)
 
 is_diatonic(x, key = "c")
+
+as_noteworthy(x)
 }
 \arguments{
 \item{x}{character, space-delimited entries or a vector of single, non-delimited entries.}
@@ -30,8 +33,12 @@ Check whether a string is comprised exclusively of valid note and/or chord subst
 \code{noteworthy} is also vectorized and performs both checks, but it returns a scalar logical result indicating whether the entire set contains exclusively valid entries.
 }
 \details{
+\code{as_noteworthy} can be used to coerce to the \code{noteworthy} class. Coercion will fail if the string is not noteworthy.
+Using the \code{noteworthy} class is generally not needed by the user during an interactive session, but is available and offers its own \code{print} and \code{summary} methods for noteworthy strings.
+It is more likely to be used by other functions.
+
 \code{is_diatonic} performs a vectorized logical check on a \code{noteworthy} string for all notes and chords.
-TO check strictly notes or chords, see \code{\link{note_in_scale}} and \code{\link{chord_is_diatonic}}.
+To check strictly notes or chords, see \code{\link{note_in_scale}} and \code{\link{chord_is_diatonic}}.
 }
 \examples{
 x <- "a# b_ c, d'' e3 g_4 A m c2e_2g2 cegh"
@@ -42,6 +49,12 @@ data.frame(
   either = noteworthy(x))
 
 is_diatonic("ace ac#e d e_", "c")
+
+x <- "a# b_ c, d'' e3 g_4 c2e_2g2"
+x <- as_noteworthy(x)
+x
+
+summary(x)
 }
 \seealso{
 \code{\link{note_in_scale}}, \code{\link{chord_is_diatonic}}

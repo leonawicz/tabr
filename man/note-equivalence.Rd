@@ -52,7 +52,7 @@ Chords can be checked the same as notes. Every timestep in the sequence is check
 These functions will return \code{TRUE} or \code{FALSE} for every timestep in a sequence.
 If the two noteworthy strings do not contain the same number of notes at a specific step, such as a single note compared to a chord, this yields a \code{FALSE} value,
 even in a case of an octave dyad with octave number ignored.
-If the two sequences have unequal length an error is thrown.
+If the two sequences have unequal length \code{NA} is returned.
 These are bare minimum requirements for equivalence. See examples.
 
 \code{octave_is_equal} and \code{octave_is_identical} allow much weaker forms of equivalence in that they ignore notes completely.
@@ -61,8 +61,8 @@ When checking for equality, \code{octave_is_equal} only looks at the octave numb
 \code{octave_is_identical} compares all octaves spanned at a given timestep.
 
 It does not matter when comparing two chords that they may be comprised of a different numbers of notes.
-If the set of octaves spanned by one chord is identical to the set spanned by the other, they are considered to have identical octave coverage.
-For example, \code{a1b2c3} is identical to \code{d1e1f2g3}. To be equal, it only matters that the two chords begin with \code{x1} where \code{x} is any note.
+If the set of unique octaves spanned by one chord is identical to the set spanned by the other, they are considered to have identical octave coverage.
+For example, \code{a1b2c3} is identical to \code{d1e1f2g3}. To be equal, it only matters that the two chords begin with \code{x1}, where \code{x} is any note.
 Alternatively, for \code{octave_is_identical} only, setting \code{single_octave = TRUE} additionally requires that all notes from both chords being compared at a given timestep share a single octave.
 }
 \examples{

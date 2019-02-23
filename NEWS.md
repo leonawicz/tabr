@@ -6,6 +6,7 @@
 * Added helper functions for working with basic note/pitch strings.
 * Added helper functions for working with musical scales and modes.
 * Added helper functions for working with musical intervals.
+* Added `noteworthy` class, used internally, optional for users (includes custom print and summary methods).
 * Added `mainIntervals` dataset.
 * Added more internal checks of note and chord syntax validity across functions that work with string representations (pre-`phrase` object construction).
 * updated `transpose` to handle additional edge cases, including a new style option, `strip`.
@@ -14,6 +15,7 @@
 * Fixed entry in `tabrSyntax`.
 * Fix class assignment bug and updated `as_phrase`.
 * Added a new column of relative interval size to internal `.keydata` helper table.
+* Added new vignettes focusing on the programming aspect of `tabr`.
 * Updated documentation.
 
 # tabr 0.2.0

@@ -133,12 +133,10 @@ navbar:
           href: "articles/tabr-prog-nw.html"
         - text: "Musical scales"
           href: "articles/tabr-prog-scales.html"
-        - text: "Musical intervals"
-          href: "articles/tabr-prog-scales.html"
         - text: "Note functions"
-          href: "articles/tabr-prog-scales.html"
+          href: "articles/tabr-prog-notes.html"
         - text: "Chord functions"
-          href: "articles/tabr-prog-scales.html"
+          href: "articles/tabr-prog-chords.html"
     - text: "Examples"
       menu:
         - text: "Tuning and capo"
@@ -148,6 +146,8 @@ navbar:
     - text: "Reference"
       icon: fa-book
       href: "reference/index.html"
+    - text: "Changelog"
+      href: "news/index.html"
   right:
     - icon: fa-github fa-lg
       href: https://github.com/leonawicz/tabr
