@@ -268,11 +268,16 @@ To check strictly notes or chords, see <code><a href='scale-deg.html'>note_in_sc
 <span class='fu'>is_diatonic</span>(<span class='st'>"ace ac#e d e_"</span>, <span class='st'>"c"</span>)</div><div class='output co'>#&gt; [1]  TRUE FALSE  TRUE FALSE</div><div class='input'>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"a# b_ c, d'' e3 g_4 c2e_2g2"</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as_noteworthy</span>(<span class='no'>x</span>)
-<span class='no'>x</span></div><div class='output co'>#&gt; [1] "a# b_ c, d'' e3 g_4 c2e_2g2"
-#&gt; attr(,"class")
-#&gt; [1] "noteworthy" "character" </div><div class='input'>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt;     Length     Class1     Class2       Mode 
-#&gt;          1 noteworthy  character  character </div></pre>
+<span class='no'>x</span></div><div class='output co'>#&gt; &lt;Noteworthy string&gt;
+#&gt;   Format: space-delimited time
+#&gt;   Values: a# b_ c, d'' e3 g_4 c2e_2g2</div><div class='input'>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; &lt;Noteworthy string&gt;
+#&gt;   Timesteps: 7
+#&gt;   6 notes, 1 chord
+#&gt;   Octaves: ambiguous
+#&gt;   Accidentals: both/ambiguous
+#&gt;   Format: space-delimited time
+#&gt;   Values: a# b_ c, d'' e3 g_4 c2e_2g2</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

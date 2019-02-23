@@ -189,13 +189,18 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> "a# b_*2 c, d'' e3*2 g_4 c2e_2g2*2"</span>
 x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/valid-notes.html">as_noteworthy</a></span>(x)
 x
-<span class="co">#&gt; [1] "a# b_*2 c, d'' e3*2 g_4 c2e_2g2*2"</span>
-<span class="co">#&gt; attr(,"class")</span>
-<span class="co">#&gt; [1] "noteworthy" "character"</span>
+<span class="co">#&gt; &lt;Noteworthy string&gt;</span>
+<span class="co">#&gt;   Format: space-delimited time</span>
+<span class="co">#&gt;   Values: a# b_*2 c, d'' e3*2 g_4 c2e_2g2*2</span>
 
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(x)
-<span class="co">#&gt;     Length     Class1     Class2       Mode </span>
-<span class="co">#&gt;          1 noteworthy  character  character</span></code></pre></div>
+<span class="co">#&gt; &lt;Noteworthy string&gt;</span>
+<span class="co">#&gt;   Timesteps: 10</span>
+<span class="co">#&gt;   8 notes, 2 chords</span>
+<span class="co">#&gt;   Octaves: ambiguous</span>
+<span class="co">#&gt;   Accidentals: both/ambiguous</span>
+<span class="co">#&gt;   Format: space-delimited time</span>
+<span class="co">#&gt;   Values: a# b_*2 c, d'' e3*2 g_4 c2e_2g2*2</span></code></pre></div>
 </div>
 <div id="stricter-note-and-chord-validation" class="section level3">
 <h3 class="hasAnchor">

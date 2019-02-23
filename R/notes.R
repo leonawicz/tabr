@@ -274,11 +274,13 @@ as_noteworthy <- function(x){
   x
 }
 
+#' @export
 print.noteworthy <- function(x, ...){
   format <- if(length(x) == 1) "space-delimited time" else "vectorized time"
   cat("<Noteworthy string>\n", "  Format: ", format, "\n  Values: ", x, sep = "")
 }
 
+#' @export
 summary.noteworthy <- function(x, ...){
   n <- length(x)
   format <- if(n == 1) "space-delimited time" else "vectorized time"
