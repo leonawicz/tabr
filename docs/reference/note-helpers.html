@@ -140,13 +140,10 @@
       <a href="../articles/tabr-prog-scales.html">Musical scales</a>
     </li>
     <li>
-      <a href="../articles/tabr-prog-scales.html">Musical intervals</a>
+      <a href="../articles/tabr-prog-notes.html">Note functions</a>
     </li>
     <li>
-      <a href="../articles/tabr-prog-scales.html">Note functions</a>
-    </li>
-    <li>
-      <a href="../articles/tabr-prog-scales.html">Chord functions</a>
+      <a href="../articles/tabr-prog-chords.html">Chord functions</a>
     </li>
   </ul>
 </li>
@@ -171,6 +168,9 @@
      
     Reference
   </a>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -212,11 +212,12 @@
 
 <span class='fu'>note_is_sharp</span>(<span class='no'>notes</span>)
 
-<span class='fu'>naturalize</span>(<span class='no'>notes</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"both"</span>, <span class='st'>"flat"</span>, <span class='st'>"sharp"</span>), <span class='kw'>strip</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>naturalize</span>(<span class='no'>notes</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"both"</span>, <span class='st'>"flat"</span>, <span class='st'>"sharp"</span>),
+  <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>sharpen_flat</span>(<span class='no'>notes</span>, <span class='kw'>strip</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>sharpen_flat</span>(<span class='no'>notes</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>flatten_sharp</span>(<span class='no'>notes</span>, <span class='kw'>strip</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>flatten_sharp</span>(<span class='no'>notes</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>note_set_key</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>)
 
@@ -238,7 +239,7 @@
       <td><p>character, type of note to naturalize.</p></td>
     </tr>
     <tr>
-      <th>strip</th>
+      <th>ignore_octave</th>
       <td><p>logical, strip any octave notation that may be present, returning only the basic notes without explicit pitch.</p></td>
     </tr>
     <tr>

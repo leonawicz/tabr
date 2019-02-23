@@ -100,13 +100,10 @@
       <a href="../articles/tabr-prog-scales.html">Musical scales</a>
     </li>
     <li>
-      <a href="../articles/tabr-prog-scales.html">Musical intervals</a>
+      <a href="../articles/tabr-prog-notes.html">Note functions</a>
     </li>
     <li>
-      <a href="../articles/tabr-prog-scales.html">Note functions</a>
-    </li>
-    <li>
-      <a href="../articles/tabr-prog-scales.html">Chord functions</a>
+      <a href="../articles/tabr-prog-chords.html">Chord functions</a>
     </li>
   </ul>
 </li>
@@ -131,6 +128,9 @@
      
     Reference
   </a>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -211,9 +211,9 @@
 <span class="co">#&gt; [1] "f g a b_ c4 d4 e4"</span></code></pre></div>
 <p>See <code><a href="https://www.rdocumentation.org/packages/utils/topics/help">help("scale-helpers")</a></code> for details. Depending on the scale, other arguments are available.</p>
 </div>
-<div id="musical-modes" class="section level2">
+<div id="modes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#musical-modes" class="anchor"></a>Musical modes</h2>
+<a href="#modes" class="anchor"></a>Modes</h2>
 <p>The seven modern modes are also available with <code>mode_*</code> functions or through <code>modern_mode</code> by passing the mode string name. Other functions include <code>is_mode</code> and <code>rotate_mode</code>.</p>
 <ul>
 <li>mode_ionian</li>
@@ -263,6 +263,41 @@
 <span class="co">#&gt; [1]  TRUE FALSE  TRUE</span></code></pre></div>
 <p>Other functions in <code>tabr</code> also work with scales and some build upon functions introduced here.</p>
 </div>
+<div id="musical-intervals" class="section level2">
+<h2 class="hasAnchor">
+<a href="#musical-intervals" class="anchor"></a>Musical intervals</h2>
+<p>Musical intervals can be referenced by a name or a numeric value defining the separation of two notes. <code>interval_semitones</code> returns a positive integer describing the number of semitones spanned by a common interval. It takes a name or abbreviation of a common interval as input. Essentially, any entry from any other column in the <code>mainIntervals</code> dataset can be used to obtain the interval in semitones. It’s a simple filter and match, but it is convenient to map between different representations of the same property in <code>tabr</code> without typing the extra bit of code to do so each time.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mainIntervals
+<span class="co">#&gt; # A tibble: 26 x 5</span>
+<span class="co">#&gt;    semitones mmp            mmp_abb ad                               ad_abb</span>
+<span class="co">#&gt;        &lt;int&gt; &lt;chr&gt;          &lt;chr&gt;   &lt;chr&gt;                            &lt;chr&gt; </span>
+<span class="co">#&gt;  1         0 perfect unison P1      diminished second                d2    </span>
+<span class="co">#&gt;  2         1 minor second   m2      augmented unison                 A1    </span>
+<span class="co">#&gt;  3         2 major second   M2      diminished third                 d3    </span>
+<span class="co">#&gt;  4         3 minor third    m3      augmented second                 A2    </span>
+<span class="co">#&gt;  5         4 major third    M3      diminished fourth                d4    </span>
+<span class="co">#&gt;  6         5 perfect fourth P4      augmented third                  A3    </span>
+<span class="co">#&gt;  7         6 tritone        TT      diminished fifth/augmented four~ d5/A4 </span>
+<span class="co">#&gt;  8         7 perfect fifth  P5      diminished sixth                 d6    </span>
+<span class="co">#&gt;  9         8 minor sixth    m6      augmented fifth                  A5    </span>
+<span class="co">#&gt; 10         9 major sixth    M6      diminished seventh               d7    </span>
+<span class="co">#&gt; # ... with 16 more rows</span>
+
+<span class="kw"><a href="../reference/interval_semitones.html">interval_semitones</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"m3"</span>, <span class="st">"M7"</span>))
+<span class="co">#&gt; [1]  3 11</span></code></pre></div>
+<p>Likely more useful for programming, the function <code>pitch_interval</code> provides the number of semitones between two input notes. This function does not relate to specific scales, but is worth mentioning on the topic of interval helpers. It provides both magnitude and direction. The result is negative if the first note is of higher pitch than the second.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/interval-helpers.html">pitch_interval</a></span>(<span class="st">"c"</span>, <span class="st">"c,"</span>)
+<span class="co">#&gt; [1] -12</span>
+<span class="kw"><a href="../reference/interval-helpers.html">pitch_interval</a></span>(<span class="st">"a2"</span>, <span class="st">"c"</span>)
+<span class="co">#&gt; [1] 3</span></code></pre></div>
+<p><code>pitch_interval</code> accepts a single note for each both note inputs, not sequences, nor chords.</p>
+<p>Next is <code>scale_interval</code>. This function is similar to <code>pitch_interval</code> in that it takes a note for each of two arguments, which together define an interval. It is almost an inverse of <code>interval_semitones</code> except that you provide two distinct notes rather than the semitone distance they define. The function returns a main interval name or abbreviation from <code>mainIntervals</code>, depending on <code>format</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/interval-helpers.html">scale_interval</a></span>(<span class="st">"c"</span>, <span class="st">"c,"</span>)
+<span class="co">#&gt; [1] "P8"</span>
+<span class="kw"><a href="../reference/interval-helpers.html">scale_interval</a></span>(<span class="st">"a2"</span>, <span class="st">"c"</span>, <span class="dt">format =</span> <span class="st">"mmp"</span>)
+<span class="co">#&gt; [1] "minor third"</span></code></pre></div>
+<p>There is not much else to these interval helper functions, but <code>pitch_interval</code> is leveraged extensively in support of more complex music programming.</p>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -272,9 +307,10 @@
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#key-signatures">Key signatures</a></li>
       <li><a href="#scales">Scales</a></li>
-      <li><a href="#musical-modes">Musical modes</a></li>
+      <li><a href="#modes">Modes</a></li>
       <li><a href="#diatonic-scale-chords">Diatonic scale chords</a></li>
       <li><a href="#scale-degrees">Scale degrees</a></li>
+      <li><a href="#musical-intervals">Musical intervals</a></li>
       </ul>
 </div>
       </div>

@@ -100,13 +100,10 @@
       <a href="../articles/tabr-prog-scales.html">Musical scales</a>
     </li>
     <li>
-      <a href="../articles/tabr-prog-scales.html">Musical intervals</a>
+      <a href="../articles/tabr-prog-notes.html">Note functions</a>
     </li>
     <li>
-      <a href="../articles/tabr-prog-scales.html">Note functions</a>
-    </li>
-    <li>
-      <a href="../articles/tabr-prog-scales.html">Chord functions</a>
+      <a href="../articles/tabr-prog-chords.html">Chord functions</a>
     </li>
   </ul>
 </li>
@@ -131,6 +128,9 @@
      
     Reference
   </a>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -168,23 +168,47 @@
 <a href="#noteworthy-strings" class="anchor"></a>Noteworthy strings</h2>
 <p>Before exploring these functions, it is worth introducing an important concept that is expressed throughout <code>tabr</code>: noteworthiness. Prior to construction of <code>phrase</code> class objects that can be passed to LilyPond for sheet music engraving, you start out with simple character strings. These strings contain letters representing musical notes, and possibly some other characters that indicate such things as sharps and flats, octave number, and rests.</p>
 <p>There are a number of requirements strings must meet to have valid <code>tabr</code> syntax that can be transformed meaningfully and unambiguously into LilyPond syntax. In <code>tabr</code> parlance, a string is considered <em>noteworthy</em> if it meets all of these requirements that differentiate from arbitrary character strings.</p>
-<p>There is no need to attach a special class to a character string to explicitly differentiate noteworthy strings from ordinary strings in R. It is fine to work with strings as usual. However, it is important to be familiar with the requirements of a noteworthy string so that you can construct them properly.</p>
-<p>Functions in <code>tabr</code> that take noteworthy strings as input perform internal checks of noteworthiness for you and will throw an error if you provide an unworthy string. These checks are skipped if the input already has the <code>noteworthy</code> class. Otherwise, if it is noteworthy, the class is added. If a function returns a noteworthy string, the class will also be <code>noteworthy</code>.</p>
-<p>The class is mostly used internally by a variety of functions to avoid needless repeated checks of noteworthiness, but otherwise this is an ephemeral class that can quickly be lost when performing your own string manipulations. Users do not need to be directly concerned with the class. However, it is important to understand that the notion of noteworthy strings is implemented throughout <code>tabr</code> for the purpose of thorough and strict input validation. This leads to more robust function behavior and consistent user programming experience by rejecting problematic string input early.</p>
+<p>There is no need to attach a special class to a character string to explicitly differentiate noteworthy strings from ordinary strings in R, though such a class exists (see below). It is fine to work with strings as usual and ignore this class. However, it is important to be familiar with the requirements of a noteworthy string so that you can construct them properly.</p>
+<div id="checking-noteworthiness" class="section level3">
+<h3 class="hasAnchor">
+<a href="#checking-noteworthiness" class="anchor"></a>Checking noteworthiness</h3>
 <p>A string can be checked directly with <code>noteworthy</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> "a2 r b2*2 ce_g cd#g"</span>
 <span class="kw"><a href="../reference/valid-notes.html">noteworthy</a></span>(x)
 <span class="co">#&gt; [1] TRUE</span>
 <span class="kw"><a href="../reference/valid-notes.html">noteworthy</a></span>(<span class="st">"h"</span>)
 <span class="co">#&gt; [1] FALSE</span></code></pre></div>
-<p>This reports whether the entire string conforms to all requirements for it to be valid <code>tabr</code> syntax. <code>is_note</code> and <code>is_chord</code> provide more detailed information on the space-delimited entries in a string. They return a logical vector reporting whether each entry contains a valid note or valid chord representation, respectively.</p>
-<p>Notice how the vectorized results accounts for the expansion operator in <code>b2*2</code>.</p>
+<p>This reports whether the entire string conforms to all requirements for it to be valid <code>tabr</code> syntax.</p>
+</div>
+<div id="optional-noteworthy-class" class="section level3">
+<h3 class="hasAnchor">
+<a href="#optional-noteworthy-class" class="anchor"></a>Optional noteworthy class</h3>
+<p>Functions in <code>tabr</code> that take noteworthy strings as input perform internal checks of noteworthiness for you and will throw an error if you provide an unworthy string. These checks are skipped if the input already has the <code>noteworthy</code> class. If a function returns a noteworthy string, the class will also be <code>noteworthy</code>.</p>
+<p>This class is mostly used internally by a variety of functions, but otherwise this is an ephemeral class that is easily dropped when performing your own string manipulations. Users do not need to be directly concerned with the class. However, it is important to understand that the notion of noteworthy strings is implemented throughout <code>tabr</code> for the purpose of thorough and strict input validation. This leads to more robust function behavior and consistent user programming experience by rejecting problematic string input early.</p>
+<p><code>as_noteworthy</code> can be used to coerce to the <code>noteworthy</code> class. Coercion will fail if the string is not noteworthy. Using the <code>noteworthy</code> class is generally not needed by the user during an interactive session, but is available and offers its own <code>print</code> and <code>summary</code> methods for noteworthy strings.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> "a# b_*2 c, d'' e3*2 g_4 c2e_2g2*2"</span>
+x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/valid-notes.html">as_noteworthy</a></span>(x)
+x
+<span class="co">#&gt; [1] "a# b_*2 c, d'' e3*2 g_4 c2e_2g2*2"</span>
+<span class="co">#&gt; attr(,"class")</span>
+<span class="co">#&gt; [1] "noteworthy" "character"</span>
+
+<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(x)
+<span class="co">#&gt;     Length     Class1     Class2       Mode </span>
+<span class="co">#&gt;          1 noteworthy  character  character</span></code></pre></div>
+</div>
+<div id="stricter-note-and-chord-validation" class="section level3">
+<h3 class="hasAnchor">
+<a href="#stricter-note-and-chord-validation" class="anchor"></a>Stricter note and chord validation</h3>
+<p><code>noteworthy</code> is built upon the more specific, vectorized functions <code>is_note</code> and <code>is_chord</code>, which provide more detailed information on the space-delimited entries in a string. <code>is_note</code> and <code>is_chord</code> return a logical vector reporting whether each entry contains a valid note or valid chord representation, respectively.</p>
+<p>Notice how the vectorized results account for the expansion operator in <code>b2*2</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> "a2 r b2*2 ce_g cd#g HELLO_WORLD"</span>
 <span class="kw"><a href="../reference/valid-notes.html">is_note</a></span>(x)
 <span class="co">#&gt; [1]  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE</span>
 <span class="kw"><a href="../reference/valid-notes.html">is_chord</a></span>(x)
 <span class="co">#&gt; [1] FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE</span></code></pre></div>
 <p>These functions serve simple enough purposes that you are unlikely to use them when writing tabs. However, these and many others can be highly useful when programming more complex musical manipulations.</p>
+</div>
 </div>
 <div id="notable-phrases" class="section level2">
 <h2 class="hasAnchor">

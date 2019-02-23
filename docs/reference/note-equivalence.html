@@ -140,13 +140,10 @@
       <a href="../articles/tabr-prog-scales.html">Musical scales</a>
     </li>
     <li>
-      <a href="../articles/tabr-prog-scales.html">Musical intervals</a>
+      <a href="../articles/tabr-prog-notes.html">Note functions</a>
     </li>
     <li>
-      <a href="../articles/tabr-prog-scales.html">Note functions</a>
-    </li>
-    <li>
-      <a href="../articles/tabr-prog-scales.html">Chord functions</a>
+      <a href="../articles/tabr-prog-chords.html">Chord functions</a>
     </li>
   </ul>
 </li>
@@ -171,6 +168,9 @@
      
     Reference
   </a>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -253,15 +253,15 @@ This allows an even more relaxed definition of equivalence. Setting this argumen
 <p>These functions will return <code>TRUE</code> or <code>FALSE</code> for every timestep in a sequence.
 If the two noteworthy strings do not contain the same number of notes at a specific step, such as a single note compared to a chord, this yields a <code>FALSE</code> value,
 even in a case of an octave dyad with octave number ignored.
-If the two sequences have unequal length an error is thrown.
+If the two sequences have unequal length <code>NA</code> is returned.
 These are bare minimum requirements for equivalence. See examples.</p>
 <p><code>octave_is_equal</code> and <code>octave_is_identical</code> allow much weaker forms of equivalence in that they ignore notes completely.
 These functions are only concerned with comparing the octave numbers spanned by any pitches present at each timestep.
 When checking for equality, <code>octave_is_equal</code> only looks at the octave number associated with the first note at each step, e.g., only the root note of a chord.
 <code>octave_is_identical</code> compares all octaves spanned at a given timestep.</p>
 <p>It does not matter when comparing two chords that they may be comprised of a different numbers of notes.
-If the set of octaves spanned by one chord is identical to the set spanned by the other, they are considered to have identical octave coverage.
-For example, <code>a1b2c3</code> is identical to <code>d1e1f2g3</code>. To be equal, it only matters that the two chords begin with <code>x1</code> where <code>x</code> is any note.
+If the set of unique octaves spanned by one chord is identical to the set spanned by the other, they are considered to have identical octave coverage.
+For example, <code>a1b2c3</code> is identical to <code>d1e1f2g3</code>. To be equal, it only matters that the two chords begin with <code>x1</code>, where <code>x</code> is any note.
 Alternatively, for <code>octave_is_identical</code> only, setting <code>single_octave = TRUE</code> additionally requires that all notes from both chords being compared at a given timestep share a single octave.</p>
     
 

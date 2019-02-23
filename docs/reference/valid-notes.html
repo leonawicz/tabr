@@ -142,13 +142,10 @@ noteworthy is also vectorized and performs both checks, but it returns a scalar 
       <a href="../articles/tabr-prog-scales.html">Musical scales</a>
     </li>
     <li>
-      <a href="../articles/tabr-prog-scales.html">Musical intervals</a>
+      <a href="../articles/tabr-prog-notes.html">Note functions</a>
     </li>
     <li>
-      <a href="../articles/tabr-prog-scales.html">Note functions</a>
-    </li>
-    <li>
-      <a href="../articles/tabr-prog-scales.html">Chord functions</a>
+      <a href="../articles/tabr-prog-chords.html">Chord functions</a>
     </li>
   </ul>
 </li>
@@ -173,6 +170,9 @@ noteworthy is also vectorized and performs both checks, but it returns a scalar 
      
     Reference
   </a>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -214,7 +214,9 @@ noteworthy is also vectorized and performs both checks, but it returns a scalar 
 
 <span class='fu'>noteworthy</span>(<span class='no'>x</span>)
 
-<span class='fu'>is_diatonic</span>(<span class='no'>x</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>)</pre>
+<span class='fu'>is_diatonic</span>(<span class='no'>x</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>)
+
+<span class='fu'>as_noteworthy</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -235,8 +237,11 @@ noteworthy is also vectorized and performs both checks, but it returns a scalar 
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>is_diatonic</code> performs a vectorized logical check on a <code>noteworthy</code> string for all notes and chords.
-TO check strictly notes or chords, see <code><a href='scale-deg.html'>note_in_scale</a></code> and <code><a href='chord_is_diatonic.html'>chord_is_diatonic</a></code>.</p>
+    <p><code>as_noteworthy</code> can be used to coerce to the <code>noteworthy</code> class. Coercion will fail if the string is not noteworthy.
+Using the <code>noteworthy</code> class is generally not needed by the user during an interactive session, but is available and offers its own <code>print</code> and <code>summary</code> methods for noteworthy strings.
+It is more likely to be used by other functions.</p>
+<p><code>is_diatonic</code> performs a vectorized logical check on a <code>noteworthy</code> string for all notes and chords.
+To check strictly notes or chords, see <code><a href='scale-deg.html'>note_in_scale</a></code> and <code><a href='chord_is_diatonic.html'>chord_is_diatonic</a></code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -260,7 +265,14 @@ TO check strictly notes or chords, see <code><a href='scale-deg.html'>note_in_sc
 #&gt; 8        m FALSE FALSE  FALSE
 #&gt; 9  c2e_2g2 FALSE  TRUE  FALSE
 #&gt; 10    cegh FALSE FALSE  FALSE</div><div class='input'>
-<span class='fu'>is_diatonic</span>(<span class='st'>"ace ac#e d e_"</span>, <span class='st'>"c"</span>)</div><div class='output co'>#&gt; [1]  TRUE FALSE  TRUE FALSE</div></pre>
+<span class='fu'>is_diatonic</span>(<span class='st'>"ace ac#e d e_"</span>, <span class='st'>"c"</span>)</div><div class='output co'>#&gt; [1]  TRUE FALSE  TRUE FALSE</div><div class='input'>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"a# b_ c, d'' e3 g_4 c2e_2g2"</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as_noteworthy</span>(<span class='no'>x</span>)
+<span class='no'>x</span></div><div class='output co'>#&gt; [1] "a# b_ c, d'' e3 g_4 c2e_2g2"
+#&gt; attr(,"class")
+#&gt; [1] "noteworthy" "character" </div><div class='input'>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt;     Length     Class1     Class2       Mode 
+#&gt;          1 noteworthy  character  character </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
