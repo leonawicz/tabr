@@ -281,16 +281,16 @@ print.noteworthy <- function(x, ...){
 }
 
 #' @export
-summary.noteworthy <- function(x, ...){
-  n <- length(x)
+summary.noteworthy <- function(object, ...){
+  n <- length(object)
   format <- if(n == 1) "space-delimited time" else "vectorized time"
-  y <- .uncollapse(x)
-  steps <- length(y)
-  nnote <- sum(is_note(y))
-  nchord <- sum(is_chord(y))
+  x <- .uncollapse(object)
+  steps <- length(x)
+  nnote <- sum(is_note(x))
+  nchord <- sum(is_chord(x))
 
-  flat <- any(.pitch_flat(x))
-  sharp <- any(.pitch_sharp(x))
+  flat <- any(.pitch_flat(object))
+  sharp <- any(.pitch_sharp(object))
   if(flat & sharp){
     a <- "both/ambiguous"
   } else if(flat){
@@ -301,8 +301,8 @@ summary.noteworthy <- function(x, ...){
     a <- "none/unknown"
   }
 
-  tick <- any(grepl(",|'", x))
-  int <- any(grepl("\\d", x))
+  tick <- any(grepl(",|'", object))
+  int <- any(grepl("\\d", object))
   if(tick & int){
     o <- "ambiguous"
   } else if(tick){
