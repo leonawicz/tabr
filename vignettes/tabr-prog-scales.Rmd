@@ -12,6 +12,8 @@ knitr::opts_chunk$set(
   collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, tidy = FALSE, out.width = "100%"
 )
 library(tabr)
+library(dplyr)
+mainIntervals <- tbl_df(mainIntervals)
 ```
 
 Programming with musical scales can be assisted by a collection of functions in `tabr` that check and manipulate musical scales, modes and key signatures.
@@ -69,7 +71,7 @@ scale_major("f", TRUE, ignore_octave = FALSE)
 
 See `help("scale-helpers")` for details. Depending on the scale, other arguments are available.
 
-## Musical modes
+## Modes
 
 The seven modern modes are also available with `mode_*` functions or through `modern_mode` by passing the mode string name. Other functions include `is_mode` and `rotate_mode`.
 
@@ -115,3 +117,31 @@ note_in_scale("a_ b c", "a_", ignore_octave = TRUE)
 ```
 
 Other functions in `tabr` also work with scales and some build upon functions introduced here.
+
+## Musical intervals
+
+Musical intervals can be referenced by a name or a numeric value defining the separation of two notes. `interval_semitones` returns a positive integer describing the number of semitones spanned by a common interval. It takes a name or abbreviation of a common interval as input. Essentially, any entry from any other column in the `mainIntervals` dataset can be used to obtain the interval in semitones. It's a simple filter and match, but it is convenient to map between different representations of the same property in `tabr` without typing the extra bit of code to do so each time.
+
+```{r intervals}
+mainIntervals
+
+interval_semitones(c("m3", "M7"))
+```
+
+Likely more useful for programming, the function `pitch_interval` provides the number of semitones between two input notes. This function does not relate to specific scales, but is worth mentioning on the topic of interval helpers. It provides both magnitude and direction. The result is negative if the first note is of higher pitch than the second.
+
+```{r intervals2}
+pitch_interval("c", "c,")
+pitch_interval("a2", "c")
+```
+
+`pitch_interval` accepts a single note for each both note inputs, not sequences, nor chords.
+
+Next is `scale_interval`. This function is similar to `pitch_interval` in that it takes a note for each of two arguments, which together define an interval. It is almost an inverse of `interval_semitones` except that you provide two distinct notes rather than the semitone distance they define. The function returns a main interval name or abbreviation from `mainIntervals`, depending on `format`.
+
+```{r intervals3}
+scale_interval("c", "c,")
+scale_interval("a2", "c", format = "mmp")
+```
+
+There is not much else to these interval helper functions, but `pitch_interval` is leveraged extensively in support of more complex music programming.

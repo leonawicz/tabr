@@ -22,11 +22,9 @@ Before exploring these functions, it is worth introducing an important concept t
 
 There are a number of requirements strings must meet to have valid `tabr` syntax that can be transformed meaningfully and unambiguously into LilyPond syntax. In `tabr` parlance, a string is considered *noteworthy* if it meets all of these requirements that differentiate from arbitrary character strings.
 
-There is no need to attach a special class to a character string to explicitly differentiate noteworthy strings from ordinary strings in R. It is fine to work with strings as usual. However, it is important to be familiar with the requirements of a noteworthy string so that you can construct them properly.
+There is no need to attach a special class to a character string to explicitly differentiate noteworthy strings from ordinary strings in R, though such a class exists (see below). It is fine to work with strings as usual and ignore this class. However, it is important to be familiar with the requirements of a noteworthy string so that you can construct them properly.
 
-Functions in `tabr` that take noteworthy strings as input perform internal checks of noteworthiness for you and will throw an error if you provide an unworthy string. These checks are skipped if the input already has the `noteworthy` class. Otherwise, if it is noteworthy, the class is added. If a function returns a noteworthy string, the class will also be `noteworthy`.
-
-The class is mostly used internally by a variety of functions to avoid needless repeated checks of noteworthiness, but otherwise this is an ephemeral class that can quickly be lost when performing your own string manipulations. Users do not need to be directly concerned with the class. However, it is important to understand that the notion of noteworthy strings is implemented throughout `tabr` for the purpose of thorough and strict input validation. This leads to more robust function behavior and consistent user programming experience by rejecting problematic string input early.
+### Checking noteworthiness
 
 A string can be checked directly with `noteworthy`.
 
@@ -36,9 +34,29 @@ noteworthy(x)
 noteworthy("h")
 ```
 
-This reports whether the entire string conforms to all requirements for it to be valid `tabr` syntax. `is_note` and `is_chord` provide more detailed information on the space-delimited entries in a string. They return a logical vector reporting whether each entry contains a valid note or valid chord representation, respectively.
+This reports whether the entire string conforms to all requirements for it to be valid `tabr` syntax. 
 
-Notice how the vectorized results accounts for the expansion operator in `b2*2`.
+### Optional noteworthy class
+
+Functions in `tabr` that take noteworthy strings as input perform internal checks of noteworthiness for you and will throw an error if you provide an unworthy string. These checks are skipped if the input already has the `noteworthy` class. If a function returns a noteworthy string, the class will also be `noteworthy`.
+
+This class is mostly used internally by a variety of functions, but otherwise this is an ephemeral class that is easily dropped when performing your own string manipulations. Users do not need to be directly concerned with the class. However, it is important to understand that the notion of noteworthy strings is implemented throughout `tabr` for the purpose of thorough and strict input validation. This leads to more robust function behavior and consistent user programming experience by rejecting problematic string input early.
+
+`as_noteworthy` can be used to coerce to the `noteworthy` class. Coercion will fail if the string is not noteworthy. Using the `noteworthy` class is generally not needed by the user during an interactive session, but is available and offers its own `print` and `summary` methods for noteworthy strings.
+
+```{r as_noteworthy}
+x <- "a# b_*2 c, d'' e3*2 g_4 c2e_2g2*2"
+x <- as_noteworthy(x)
+x
+
+summary(x)
+```
+
+### Stricter note and chord validation
+
+`noteworthy` is built upon the more specific, vectorized functions `is_note` and `is_chord`, which provide more detailed information on the space-delimited entries in a string. `is_note` and `is_chord` return a logical vector reporting whether each entry contains a valid note or valid chord representation, respectively.
+
+Notice how the vectorized results account for the expansion operator in `b2*2`.
 
 ```{r noteworthy2}
 x <- "a2 r b2*2 ce_g cd#g HELLO_WORLD"
