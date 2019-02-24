@@ -108,7 +108,23 @@ phrase <- function(notes, info, string = NULL, bar = FALSE){
 p <- phrase
 
 #' @export
-print.phrase <- function(x, ...) cat(gsub("\n\n", "\n", paste0(x, "\n")), sep = "")
+print.phrase <- function(x, ...){
+  x <- gsub("\n\n", "\n", paste0(x, "\n"))
+  col1 <- crayon::make_style("gray50")
+  notes <- crayon::make_style("dodgerblue")$bold
+  info <- crayon::make_style("orange2")
+  strings <- crayon::make_style("firebrick")
+  octaves <- crayon::make_style("dodgerblue")
+  x <- gsub("(<| )([a-girs]+)([,'\\d]+|)(~|)(\\\\\\d|)( |>)",
+            paste0("\\1", notes("\\2"), octaves("\\3"), "\\4", strings("\\5"), "\\6\\7"), x)
+  x <- gsub("( )([a-girs]+)([,'\\d]+|)(~|)(\\\\\\d|)( )",
+            paste0("\\1", notes("\\2"), octaves("\\3"), "\\4", strings("\\5"), "\\6\\7"), x)
+  x <- gsub(">(\\d)(\\.|\\(|\\))+( <)", paste0(">", info("\\1\\2"), " <"), x)
+  x <- gsub(">(\\d)(\\.+|)(\\\\[a-zA-Z]+|)", paste0(">", info("\\1\\2\\3")), x)
+  cat(col1("<"), col1$bold("Musical phrase"), col1(">"), "\n", col1(x), sep = "")
+}
+
+# x <- phrase("c b, c c2e_2g2~ cd#g", "4.- 8( 8) 1 1", "5 5 5 432 432") # for testing crayon look # nolint
 
 #' Phrase validation and coercion
 #'

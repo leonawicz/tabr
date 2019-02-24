@@ -276,12 +276,25 @@ as_noteworthy <- function(x){
 
 #' @export
 print.noteworthy <- function(x, ...){
+  col1 <- crayon::make_style("gray50")$bold
+  notes <- crayon::make_style("dodgerblue")$bold
+  oct <- crayon::make_style("dodgerblue")
+  other <- crayon::make_style("orange2")
+
   format <- if(length(x) == 1) "space-delimited time" else "vectorized time"
-  cat("<Noteworthy string>\n", "  Format: ", format, "\n  Values: ", x, sep = "")
+  x <- gsub("(\\d|[,'])", oct("\\1"), x)
+  x <- gsub("([a-grs]+)", notes("\\1"), x)
+  x <- gsub("([_#~])", other("\\1"), x)
+  cat(col1("<Noteworthy string>\n  Format: "), format, col1("\n  Values: "), x, sep = "")
 }
 
 #' @export
 summary.noteworthy <- function(object, ...){
+  col1 <- crayon::make_style("gray50")$bold
+  notes <- crayon::make_style("dodgerblue")$bold
+  oct <- crayon::make_style("dodgerblue")
+  other <- crayon::make_style("orange2")
+
   n <- length(object)
   format <- if(n == 1) "space-delimited time" else "vectorized time"
   x <- .uncollapse(object)
@@ -313,12 +326,15 @@ summary.noteworthy <- function(object, ...){
     o <- "unknown"
   }
 
-  cat("<Noteworthy string>\n  Timesteps: ", steps, "\n  ",
+  object <- gsub("(\\d|[,'])", oct("\\1"), object)
+  object <- gsub("([a-grs]+)", notes("\\1"), object)
+  object <- gsub("([_#~])", other("\\1"), object)
+  cat(col1("<Noteworthy string>\n  Timesteps: "), steps, " (",
       nnote, " ", paste0("note", ifelse(nnote == 1, "", "s")), ", ",
-      nchord, " ", paste0("chord", ifelse(nchord == 1, "", "s")),
-      "\n  Octaves: ", o,
-      "\n  Accidentals: ", a,
-      "\n  Format: ", format, "\n  Values: ", object, sep = "")
+      nchord, " ", paste0("chord", ifelse(nchord == 1, "", "s"), ")"),
+      col1("\n  Octaves: "), o,
+      col1("\n  Accidentals: "), a,
+      col1("\n  Format: "), format, col1("\n  Values: "), object, sep = "")
 }
 
 .uncollapse <- function(x){

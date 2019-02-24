@@ -27,6 +27,7 @@ Suggests:
 Imports: 
     magrittr,
     dplyr,
-    purrr
+    purrr,
+    crayon
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1
