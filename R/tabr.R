@@ -8,12 +8,17 @@ globalVariables(".data")
 #' @name tabr
 NULL
 
-#' Pipe
+#' Pipe operator
 #'
-#' The tabr package exports the the pipe operator, \code{\%>\%}, from magrittr just like dplyr.
+#' See \code{magrittr::\link[magrittr]{\%>\%}} for details.
 #'
-#' @importFrom magrittr %>%
 #' @name %>%
 #' @rdname pipe
+#' @keywords internal
 #' @export
+#' @importFrom magrittr %>%
+#' @usage lhs \%>\% rhs
+NULL
+
+#' @importFrom dplyr tibble
 NULL

@@ -2,7 +2,11 @@
 % Please edit documentation in R/tabr.R
 \name{\%>\%}
 \alias{\%>\%}
-\title{Pipe}
-\description{
-The tabr package exports the the pipe operator, \code{\%>\%}, from magrittr just like dplyr.
+\title{Pipe operator}
+\usage{
+lhs \%>\% rhs
 }
+\description{
+See \code{magrittr::\link[magrittr]{\%>\%}} for details.
+}
+\keyword{internal}
