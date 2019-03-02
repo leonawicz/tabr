@@ -165,7 +165,7 @@ The most interesting use of `guitarChords` is in using it to map from chord name
 
 `gc_info` can be used to filter `guitarChords`. In the examples below, you can see that multiple chord names can be supplied at once. All are used to filter the chord dataset. If the inputs do not exist, an empty tibble with zero rows is returned. The result is not vectorized to match the number of entries in the input; it is simply a row filter for `guitarChords`.
 
-```{gc_info}
+```{r gc_info}
 gc_info("a") # a major chord, not a single note
 gc_info("ceg a#m7_5") # only third entry is a guitar chord
 gc_info("ceg a#m7_5", key = "f")
