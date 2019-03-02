@@ -146,6 +146,9 @@ lp_chord_mod <- function(root, chord, exact = FALSE, ...){
 #'
 #' \code{gc_info} returns a tibble data frame containing complete information for the subset of predefined guitar chords specified by \code{name} and \code{key}.
 #' Any accidentals present in the chord root of \code{name} (but not in the chord modifier, e.g., \code{m7_5} or \code{m7#5}) are converted according to \code{key} if necessary.
+#' \code{gc_notes} and \code{gc_fretboard} are wrappers around \code{gc_info}, which return noteworthy strings of chord notes and a named vector of LilyPond fretboard diagram data, respectively.
+#' Note that although the input to these functions can contain multiple chord names, whether as a vector or as a single space-delimited string, the result is not intended to be of equal length.
+#' These functions filter \code{guitarChords}. The result is the set of all chords matched by the supplied input filters.
 #'
 #' \code{split_chord_name} splits a vector or space-delimited set of chord names into a tibble data frame containing separate chord root and chord modifier columns.
 #' \code{chord_name_root} and \code{chord_name_mod} are simple wrappers around this.
@@ -175,6 +178,9 @@ lp_chord_mod <- function(root, chord, exact = FALSE, ...){
 #'
 #' gc_info("a,m c d f,")
 #' gc_fretboard("a,m c d f,", 0:3)
+#'
+#' x <- gc_notes("a, b,", 0:2)
+#' summary(x)
 gc_info <- function(name, root_fret = NA, min_fret = NA, bass_string = NA, open = NA,
                     key = "c", ignore_octave = FALSE){
   .keycheck(key)
@@ -187,12 +193,13 @@ gc_info <- function(name, root_fret = NA, min_fret = NA, bass_string = NA, open 
     x$octave <- sapply(x$root, .pitch_to_octave)
     by <- c(by, octave = "octave")
   }
-  x$root <- .pitch_to_note(f(x$root))
+  x$root <- as.character(.pitch_to_note(f(x$root)))
   if(sharp){
     d <- dplyr::filter(tabr::guitarChords, !grepl("_", .data[["notes"]]))
   } else {
     d <- dplyr::filter(tabr::guitarChords, !grepl("#", .data[["notes"]]))
   }
+  x$mod <- factor(x$mod, levels = levels(d$id))
   d <- dplyr::inner_join(d, x, by = by)
   if(!any(is.na(root_fret))) d <- dplyr::filter(d, .data[["root_fret"]] %in% !!root_fret)
   if(!any(is.na(min_fret))) d <- dplyr::filter(d, .data[["min_fret"]] %in% !!min_fret)
@@ -203,10 +210,19 @@ gc_info <- function(name, root_fret = NA, min_fret = NA, bass_string = NA, open 
 
 #' @export
 #' @rdname chord-mapping
-gc_fretboard <- function(name,  root_fret = NA, min_fret = NA, bass_string = NA, open = NA,
+gc_fretboard <- function(name, root_fret = NA, min_fret = NA, bass_string = NA, open = NA,
                          key = "c", ignore_octave = FALSE){
   d <- gc_info(name, root_fret, min_fret, bass_string, open, key, ignore_octave)
   stats::setNames(d$fretboard, d$lp_name)
+}
+
+#' @export
+#' @rdname chord-mapping
+gc_notes <- function(name, root_fret = NA, min_fret = NA, bass_string = NA, open = NA,
+                     key = "c", ignore_octave = FALSE){
+  x <- gc_info(name, root_fret, min_fret, bass_string, open, key, ignore_octave)$notes
+  if(length(name) == 1) x <- paste(x, collapse = " ")
+  .asnw(x)
 }
 
 #' @export
@@ -223,6 +239,8 @@ split_chord_name <- function(name){
   root <- gsub("(^[a-g])(#|_|)(,|'|).*", "\\1\\2\\3", x)
   mod <- gsub("(^[a-g])(#|_|)(,|'|)(.*)", "\\4", x)
   mod[mod == ""] <- "M"
+  idx <- grep("M6", mod)
+  if(length(idx)) mod[idx] <- gsub("M6", "6", mod[idx])
   dplyr::tibble(root = root, mod = mod)
 }
 

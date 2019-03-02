@@ -4,7 +4,7 @@
 \name{guitarChords}
 \alias{guitarChords}
 \title{Predefined guitar chords.}
-\format{A data frame with 13 columns.}
+\format{A data frame with 12 columns and 4,030 rows.}
 \usage{
 guitarChords
 }
