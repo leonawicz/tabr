@@ -2,7 +2,9 @@
 
 * Added functions for phrase validation, coercion and decomposition back to original character string inputs.
 * Added functions for note, pitch, chord and octave equivalence checks.
-* Added a collection of functions for constructing and working with common chords. The chord constructors are among the `chord_*`-named functions and also have shorter `x*`-named aliases.
+* Added a collection of functions for constructing and working with common chords. The chord constructors are among the `chord_*`-named functions and also have shorter `x*`-named aliases. These are "piano chords," i.e., based on the condensed, defining intervals.
+* Added `guitarChords` dataset containing several thousand formations of guitar chord voicings.
+* Added helper functions that use `guitarChords` for obtaining guitar chord information and mapping between different defining properties of a chord, most notably the addition of `gc_notes` and `gc_fretboard` for mapping chord names to noteworthy strings and fretboard diagram syntax.
 * Added helper functions for working with basic note/pitch strings.
 * Added helper functions for working with musical scales and modes.
 * Added helper functions for working with musical intervals.
