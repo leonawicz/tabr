@@ -6,7 +6,7 @@
 \alias{gc_fretboard}
 \alias{gc_notes}
 \alias{chord_is_known}
-\alias{split_chord_name}
+\alias{chord_name_split}
 \alias{chord_name_root}
 \alias{chord_name_mod}
 \title{Chord mapping}
@@ -22,7 +22,7 @@ gc_notes(name, root_fret = NA, min_fret = NA, bass_string = NA,
 
 chord_is_known(notes)
 
-split_chord_name(name)
+chord_name_split(name)
 
 chord_name_root(name)
 
@@ -63,7 +63,7 @@ Any accidentals present in the chord root of \code{name} (but not in the chord m
 Note that although the input to these functions can contain multiple chord names, whether as a vector or as a single space-delimited string, the result is not intended to be of equal length.
 These functions filter \code{guitarChords}. The result is the set of all chords matched by the supplied input filters.
 
-\code{split_chord_name} splits a vector or space-delimited set of chord names into a tibble data frame containing separate chord root and chord modifier columns.
+\code{chord_name_split} splits a vector or space-delimited set of chord names into a tibble data frame containing separate chord root and chord modifier columns.
 \code{chord_name_root} and \code{chord_name_mod} are simple wrappers around this.
 }
 \examples{

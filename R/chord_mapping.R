@@ -23,10 +23,10 @@
 #'
 #' @examples
 #' frets <- c(NA, 0, 2, 2, 1, 0)
-#' chord_def(frets, "M")
-#' chord_def(frets, "M", 6)
+#' chord_def(frets, "m")
+#' chord_def(frets, "m", 6)
 #'
-#' purrr::map_dfr(c(0, 2, 3), ~chord_def(frets + .x, "M"))
+#' purrr::map_dfr(c(0, 2, 3), ~chord_def(frets + .x, "m"))
 chord_def <- function(fret, id, optional = NA, tuning = "standard", ...){
   min_fret <- min(fret, na.rm = TRUE)
   idx <- which(!is.na(fret))
@@ -150,7 +150,7 @@ lp_chord_mod <- function(root, chord, exact = FALSE, ...){
 #' Note that although the input to these functions can contain multiple chord names, whether as a vector or as a single space-delimited string, the result is not intended to be of equal length.
 #' These functions filter \code{guitarChords}. The result is the set of all chords matched by the supplied input filters.
 #'
-#' \code{split_chord_name} splits a vector or space-delimited set of chord names into a tibble data frame containing separate chord root and chord modifier columns.
+#' \code{chord_name_split} splits a vector or space-delimited set of chord names into a tibble data frame containing separate chord root and chord modifier columns.
 #' \code{chord_name_root} and \code{chord_name_mod} are simple wrappers around this.
 #'
 #' @param notes character, a noteworthy string.
@@ -187,7 +187,7 @@ gc_info <- function(name, root_fret = NA, min_fret = NA, bass_string = NA, open 
   acc <- .keydata$sf[.keydata$key == key]
   sharp <- is.na(acc) || acc == "sharp"
   f <- if(sharp) sharpen_flat else flatten_sharp
-  x <- split_chord_name(name)
+  x <- chord_name_split(name)
   by <- c(id = "mod", root = "root")
   if(!ignore_octave){
     x$octave <- sapply(x$root, .pitch_to_octave)
@@ -234,7 +234,7 @@ chord_is_known <- function(notes){
 
 #' @export
 #' @rdname chord-mapping
-split_chord_name <- function(name){
+chord_name_split <- function(name){
   x <- .uncollapse(name)
   root <- gsub("(^[a-g])(#|_|)(,|'|).*", "\\1\\2\\3", x)
   mod <- gsub("(^[a-g])(#|_|)(,|'|)(.*)", "\\4", x)
@@ -247,11 +247,11 @@ split_chord_name <- function(name){
 #' @export
 #' @rdname chord-mapping
 chord_name_root <- function(name){
-  split_chord_name(name)$root
+  chord_name_split(name)$root
 }
 
 #' @export
 #' @rdname chord-mapping
 chord_name_mod <- function(name){
-  split_chord_name(name)$mod
+  chord_name_split(name)$mod
 }

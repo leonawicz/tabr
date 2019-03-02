@@ -36,8 +36,8 @@ The \code{id} is passed directly to the output. It represents the type of chord 
 }
 \examples{
 frets <- c(NA, 0, 2, 2, 1, 0)
-chord_def(frets, "M")
-chord_def(frets, "M", 6)
+chord_def(frets, "m")
+chord_def(frets, "m", 6)
 
-purrr::map_dfr(c(0, 2, 3), ~chord_def(frets + .x, "M"))
+purrr::map_dfr(c(0, 2, 3), ~chord_def(frets + .x, "m"))
 }
