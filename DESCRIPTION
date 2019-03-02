@@ -24,6 +24,7 @@ Suggests:
     covr,
     kableExtra,
     lintr,
+    htmltools,
     fansi
 Imports: 
     magrittr,
