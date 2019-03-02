@@ -106,7 +106,7 @@ glue <- function(...){
   x <- list(...)
   classes <- unlist(lapply(x, class))
   any_phrase <- any(classes == "phrase")
-  nw <- noteworthy(x)
+  nw <- any(sapply(unlist(x), noteworthy))
   x <- paste(unlist(x), collapse = " ")
   if(any_phrase){
     class(x) <- unique(c("phrase", class(x)))
