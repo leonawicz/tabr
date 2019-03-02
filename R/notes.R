@@ -283,33 +283,18 @@ as_noteworthy <- function(x){
 #' @export
 print.noteworthy <- function(x, ...){
   col1 <- crayon::make_style("gray50")$bold
-  notes <- crayon::make_style("dodgerblue")$bold
-  oct <- crayon::make_style("dodgerblue")
-  other <- crayon::make_style("orange2")
-
   if(length(x) == 1){
     format <- "space-delimited time"
     x <- .uncollapse(x)
   } else {
     format <- "vectorized time"
   }
-  idx <- is_chord(x)
-  if(any(idx)) x[idx] <- paste0("<", x[idx], ">")
-  x <- paste(x, collapse = " ")
-  x <- gsub("(\\d|[,'])", oct("\\1"), x)
-  x <- gsub("([a-grs_#]+)", notes("\\1"), x)
-  x <- gsub("(~)", other("\\1"), x)
-  x <- gsub("(<|>)", other("\\1"), x, perl = TRUE)
-  cat(col1("<Noteworthy string>\n  Format: "), format, col1("\n  Values: "), x, sep = "")
+  cat(col1("<Noteworthy string>\n  Format: "), format, col1("\n  Values: "), .tabr_print(x, col1), sep = "")
 }
 
 #' @export
 summary.noteworthy <- function(object, ...){
   col1 <- crayon::make_style("gray50")$bold
-  notes <- crayon::make_style("dodgerblue")$bold
-  oct <- crayon::make_style("dodgerblue")
-  other <- crayon::make_style("orange2")
-
   n <- length(object)
   format <- if(n == 1) "space-delimited time" else "vectorized time"
   x <- .uncollapse(object)
@@ -341,16 +326,27 @@ summary.noteworthy <- function(object, ...){
     o <- "unknown"
   }
 
-  object <- gsub("(\\d|[,'])", oct("\\1"), object)
-  object <- gsub("([a-grs]+)", notes("\\1"), object)
-  object <- gsub("([_#~])", other("\\1"), object)
-  object <- paste(object, collapse = " ")
   cat(col1("<Noteworthy string>\n  Timesteps: "), steps, " (",
       nnote, " ", paste0("note", ifelse(nnote == 1, "", "s")), ", ",
       nchord, " ", paste0("chord", ifelse(nchord == 1, "", "s"), ")"),
       col1("\n  Octaves: "), o,
       col1("\n  Accidentals: "), a,
-      col1("\n  Format: "), format, col1("\n  Values: "), object, sep = "")
+      col1("\n  Format: "), format, col1("\n  Values: "), .tabr_print(x, col1), sep = "")
+}
+
+.tabr_print <- function(x, col1){
+  notes <- crayon::make_style("dodgerblue")$bold
+  oct <- crayon::make_style("dodgerblue")
+  other <- crayon::make_style("orange2")
+
+  idx <- is_chord(x)
+  if(any(idx)) x[idx] <- paste0("<", x[idx], ">")
+  x <- paste(x, collapse = " ")
+  x <- gsub("(\\d|[,']+)", oct("\\1"), x)
+  x <- gsub("([a-grs_#]+)", notes("\\1"), x)
+  x <- gsub("(~)", other("\\1"), x)
+  x <- gsub("(<|>)", other("\\1"), x)
+  x
 }
 
 .uncollapse <- function(x){
