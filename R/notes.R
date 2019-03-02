@@ -221,7 +221,7 @@ note_arpeggiate <- function(notes, n = 0, ...){
 #'
 #' is_diatonic("ace ac#e d e_", "c")
 #'
-#' x <- "a# b_ c, d'' e3 g_4 c2e_2g2"
+#' x <- "a# b_ c,~ c, d'' e3 g_4 c2e_2g2"
 #' x <- as_noteworthy(x)
 #' x
 #'
@@ -289,13 +289,17 @@ print.noteworthy <- function(x, ...){
 
   if(length(x) == 1){
     format <- "space-delimited time"
+    x <- .uncollapse(x)
   } else {
     format <- "vectorized time"
-    x <- paste(x, collapse = " ")
   }
+  idx <- is_chord(x)
+  if(any(idx)) x[idx] <- paste0("<", x[idx], ">")
+  x <- paste(x, collapse = " ")
   x <- gsub("(\\d|[,'])", oct("\\1"), x)
-  x <- gsub("([a-grs]+)", notes("\\1"), x)
-  x <- gsub("([_#~])", other("\\1"), x)
+  x <- gsub("([a-grs_#]+)", notes("\\1"), x)
+  x <- gsub("(~)", other("\\1"), x)
+  x <- gsub("(<|>)", other("\\1"), x, perl = TRUE)
   cat(col1("<Noteworthy string>\n  Format: "), format, col1("\n  Values: "), x, sep = "")
 }
 

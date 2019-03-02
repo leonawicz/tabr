@@ -50,7 +50,7 @@ data.frame(
 
 is_diatonic("ace ac#e d e_", "c")
 
-x <- "a# b_ c, d'' e3 g_4 c2e_2g2"
+x <- "a# b_ c,~ c, d'' e3 g_4 c2e_2g2"
 x <- as_noteworthy(x)
 x
 
