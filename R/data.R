@@ -29,5 +29,5 @@
 #'
 #' A data frame containing information for many predefined guitar chords.
 #'
-#' @format A data frame with 13 columns.
+#' @format A data frame with 12 columns and 4,030 rows.
 "guitarChords"
