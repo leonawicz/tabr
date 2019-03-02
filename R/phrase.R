@@ -109,7 +109,7 @@ p <- phrase
 
 #' @export
 print.phrase <- function(x, ...){
-  x <- gsub("\n\n", "\n", paste0(x, "\n"))
+  x <- gsub("\n\n", "\n", x)
   col1 <- crayon::make_style("gray50")
   notes <- crayon::make_style("dodgerblue")$bold
   info <- crayon::make_style("orange2")
@@ -121,6 +121,7 @@ print.phrase <- function(x, ...){
             paste0("\\1", notes("\\2"), octaves("\\3"), "\\4", strings("\\5"), "\\6\\7"), x)
   x <- gsub(">(\\d)(\\.|\\(|\\))+( <)", paste0(">", info("\\1\\2"), " <"), x)
   x <- gsub(">(\\d)(\\.+|)(\\\\[a-zA-Z]+|)", paste0(">", info("\\1\\2\\3")), x)
+  x <- gsub("(r|s)(\\d+)", paste0(notes("\\1"), info("\\2")), x)
   cat(col1("<"), col1$bold("Musical phrase"), col1(">"), "\n", col1(x), sep = "")
 }
 

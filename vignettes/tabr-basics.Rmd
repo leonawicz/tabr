@@ -8,9 +8,15 @@ vignette: >
 ---
 
 ```{r setup, include = FALSE}
+options(crayon.enabled = TRUE)
+sgr_wrap <- function(x, options){
+  paste0("<pre class=\"r-output\"><code>", fansi::sgr_to_html(x = htmltools::htmlEscape(x)), "</code></pre>")
+}
+knitr::knit_hooks$set(output = sgr_wrap)
 knitr::opts_chunk$set(
   collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, tidy = FALSE, out.width = "100%"
 )
+library(tabr)
 ```
 
 A good place to start is with a simple, reproducible example that outlines the basic flow from small, succinct musical phrases, which combine to form tracks, in turn combined into a score, and ending with engraving the score to familiar sheet music. The brief example below recreates the single measure of guitar tablature shown in the `tabr` logo. Here are the steps as a list.
@@ -29,7 +35,6 @@ The second argument is a similar string giving note metadata. In this example th
 The third argument, `string`, is optional but generally important for guitar tablature. In similar format, it specifies the strings of the guitar on which notes are played. Providing this information fixes the fret-string combinations so that LilyPond does not have to guess what position on the neck of the guitar to play a specific note. An inability to specify this in various tablature notation software (or laziness by the user), is a common cause of inaccurate tabs scouring the internet, where even when the notes are correct they are written in the tab suggesting they be played in positions no one would sensibly use. Note that the `x` shown below is just a placeholder indicating no need to specify a string for the quarter note rest.
 
 ```{r p1}
-library(tabr)
 phrase(notes = "r a2 c3 f3 d3 a3 f3", info = "4 8 8 8 8 8 8", string = "x 5 5 4 4 3 4")
 ```
 The print method for `phrase` uses `cat` rather than `print`. The phrase strings print more cleanly this way, given the preponderance of backslashes. This result shows (one way) how to write the LilyPond markup.

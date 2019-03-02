@@ -8,9 +8,15 @@ vignette: >
 ---
 
 ```{r setup, include = FALSE}
+options(crayon.enabled = TRUE)
+sgr_wrap <- function(x, options){
+  paste0("<pre class=\"r-output\"><code>", fansi::sgr_to_html(x = htmltools::htmlEscape(x)), "</code></pre>")
+}
+knitr::knit_hooks$set(output = sgr_wrap)
 knitr::opts_chunk$set(
   collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, tidy = TRUE, out.width = "100%"
 )
+library(tabr)
 ```
 
 This section puts the finishing touches on combining phrases into tracks and tracks into scores. The functions `track` and `score` have been used repeatedly throughout these tutorials out of necessity in order to demonstrate complete examples, but their use has been specific and limited and they have not been discussed.
@@ -22,7 +28,6 @@ In the examples below, phrases are added to multiple tracks, tracks are bound to
 Phrases are added to a track using the first argument to `track`, which strictly accepts a phrase object. Except for the briefest examples, you will typically concatenate a sequence of multiple phrases and rests into a longer section of music, usually lasting the full duration of the piece. This new single phrase object is passed to `track`. Taking an earlier example and breaking it up as though it were multiple phrases for illustration.
 
 ```{r intro}
-library(tabr)
 p1 <- p("c e g c' e' c' g e", 8, "5 4 3 2 1 2 3 4")
 p2 <- p("g b d' g'", 8, "4 3 2 1")
 p3 <- p("f a c' f'", 8, "4 3 2 1")

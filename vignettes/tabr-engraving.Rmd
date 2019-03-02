@@ -8,9 +8,15 @@ vignette: >
 ---
 
 ```{r setup, include = FALSE}
+options(crayon.enabled = TRUE)
+sgr_wrap <- function(x, options){
+  paste0("<pre class=\"r-output\"><code>", fansi::sgr_to_html(x = htmltools::htmlEscape(x)), "</code></pre>")
+}
+knitr::knit_hooks$set(output = sgr_wrap)
 knitr::opts_chunk$set(
   collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, tidy = TRUE, out.width = "100%"
 )
+library(tabr)
 ```
 
 This section covers `lilypond` and `tab` for writing LilyPond files and engraving to sheet music with LilyPond, respectively. Examples of the various pieces of song metadata that can be passed to to these functions are provided.
@@ -20,7 +26,6 @@ The examples focus on `tab` because this generates the tablature whereas `lilypo
 Here are the `lilypond` arguments:
 
 ```{r args}
-library(tabr)
 args(lilypond)
 ```
 

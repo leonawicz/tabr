@@ -83,6 +83,7 @@ reference:
   - chords
   - chord_def
   - lp_chord_id
+  - chord-mapping
 - title: Note and pitch helpers
   desc: "Functions for manipulating simple note and pitch strings"
   contents:

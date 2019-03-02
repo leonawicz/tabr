@@ -23,7 +23,8 @@ Suggests:
     rmarkdown,
     covr,
     kableExtra,
-    lintr
+    lintr,
+    fansi
 Imports: 
     magrittr,
     dplyr,

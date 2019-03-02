@@ -230,7 +230,7 @@ is_note <- function(x){
   x <- .uncollapse(x)
   y1 <- grepl("[a-grs]", x) & !grepl("[h-qt-zA-Z]", x)
   y2 <- gsub("\\d|,|'|_|#|~|\\*", "", x)
-  y1 & nchar(y2) == 1 & y2 == substr(x, 1, 1)
+  y1 & nchar(y2) == 1 & y2 == substr(x, 1, 1) & !grepl("(r|s)\\d", x)
 }
 
 #' @export

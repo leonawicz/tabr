@@ -8,9 +8,15 @@ vignette: >
 ---
 
 ```{r setup, include = FALSE}
+options(crayon.enabled = TRUE)
+sgr_wrap <- function(x, options){
+  paste0("<pre class=\"r-output\"><code>", fansi::sgr_to_html(x = htmltools::htmlEscape(x)), "</code></pre>")
+}
+knitr::knit_hooks$set(output = sgr_wrap)
 knitr::opts_chunk$set(
   collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, tidy = TRUE, out.width = "100%"
 )
+library(tabr)
 ```
 
 The previous example used a fingerstyle arrangement based on guitar patterns in *Devil's got you beat*. This example picks up from there, regenerating the exact same guitar tab, but this time properly acknowledging the two guitar voices: the part played by with the thumb and the part played with the other fingers.
@@ -18,7 +24,6 @@ The previous example used a fingerstyle arrangement based on guitar patterns in 
 The setup is the same as before, but as a part of this code refactor, simplify some of the code where possible. For instance, this particular melody uses lowest fret numbers and open strings because the tuning is done in a way to allow for much faster playing. This means that a most of the notes are in the second or third octave. Here, most are in the third, which is the central octave and it is not necessary to specify all those `3` characters. They are removed from the entire song further below. The tuning is a common one so you can use the predefined tuning.
 
 ```{r p1, eval=FALSE}
-library(tabr)
 header <- list(
   title = "Devil's got you beat",
   composer = "Words and music Blues Saraceno",
