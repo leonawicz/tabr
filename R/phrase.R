@@ -254,7 +254,7 @@ notify <- function(phrase){
 phrase_notes <- function(phrase, collapse = TRUE){
   x <- notify(phrase)$notes
   if(collapse) x <- paste(x, collapse = " ")
-  x
+  .asnw(x)
 }
 
 #' @export

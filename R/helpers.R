@@ -12,7 +12,19 @@
 #' @examples
 #' tie("e,b,egbe'")
 tie <- function(x){
-  paste0(.split_chord(x), "~", collapse = "")
+  .check_noteworthy(x)
+  y <- .uncollapse(x)
+  if(any(grepl("~", y))) stop("Tied notes already present.", call. = FALSE)
+  y <- sapply(y, function(x) paste0(.split_chord(x), "~", collapse = ""), USE.NAMES = FALSE)
+  if(length(x) == 1) y <- paste(y, collapse = " ")
+  .asnw(y)
+}
+
+#' @export
+#' @rdname tie
+untie <- function(x){
+  .check_noteworthy(x)
+  .asnw(gsub("~", "", x))
 }
 
 #' Create rests
@@ -57,8 +69,11 @@ notate <- function(x, text, position = "top"){
 #'
 #' Helper functions for appending or pasting musical phrases and other strings together as well as repetition.
 #' The functions \code{glue} and \code{dup} are based on base functions \code{paste} and\code{rep}, respectively, but are tailored for efficiency in creating musical phrases.
-#' These functions respect and retain the phrase class when applied to phrases.
+#'
+#' These functions respect and retain the phrase class when applied to phrases. They are aggressive for phrases and secondarily for noteworthy strings.
 #' Combining a phrase with a non-phrase string will assume compatibility and result in a new phrase object.
+#' If no phrase objects are present, the presence of any noteworthy string will in turn attempt to force conversion of all strings to noteworthy strings.
+#' The aggressiveness provides convenience, but is counter to expected coercion rules. It is up to the user to ensure all inputs can be forced into the more specific child class.
 #'
 #' This is especially useful for repeated instances. This function applies to general slur notation as well.
 #' Multiple input formats are allowed. Total number of note durations must be even because all slurs require start and stop points.
@@ -68,7 +83,7 @@ notate <- function(x, text, position = "top"){
 #' @param n integer, number of repetitions.
 #' @name append_phrases
 #'
-#' @return phrase on non-phrase character string.
+#' @return phrase on non-phrase character string, noteworthy string if applicable.
 #'
 #' @examples
 #' glue(8, "16-", "8^")
@@ -89,9 +104,15 @@ NULL
 #' @rdname append_phrases
 glue <- function(...){
   x <- list(...)
-  is_phrase <- any(unlist(purrr::map(x, class)) == "phrase")
+  classes <- unlist(lapply(x, class))
+  any_phrase <- any(classes == "phrase")
+  any_nw <- any(classes == "noteworthy")
   x <- paste(unlist(x), collapse = " ")
-  if(is_phrase) class(x) <- unique(c("phrase", class(x)))
+  if(any_phrase){
+    class(x) <- unique(c("phrase", class(x)))
+  } else if(any_nw){
+    class(x) <- unique(c("noteworthy", class(x)))
+  }
   x
 }
 
@@ -99,10 +120,13 @@ glue <- function(...){
 #' @rdname append_phrases
 dup <- function(x, n = 1){
   if(n == 0) return(x)
-  is_phrase <- "phrase" %in% class(x)
-  x <- paste(rep(x, n), collapse = " ")
-  if(is_phrase) class(x) <- unique(c("phrase", class(x)))
-  x
+  y <- paste(rep(x, n), collapse = " ")
+  if("phrase" %in% class(x)){
+    class(y) <- unique(c("phrase", class(y)))
+  } else if(is.character(x) && noteworthy(x)){
+    y <- .asnw(y)
+  }
+  y
 }
 
 #' Hammer ons and pull offs
@@ -146,7 +170,7 @@ hp <- function(...){
 #' @param a integer, notes per tuplet.
 #' @param b integer, beats per tuplet.
 #'
-#' @return character.
+#' @return phrase
 #' @export
 #'
 #' @examples

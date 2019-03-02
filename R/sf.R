@@ -85,7 +85,7 @@ sf_phrase <- function(string, fret, info, key = "c", tuning = "standard", to_not
 
 #' @export
 #' @rdname sf_phrase
-sfp <- function(...) sf_phrase(...)
+sfp <- sf_phrase
 
 #' @export
 #' @rdname sf_phrase
@@ -97,4 +97,4 @@ sf_note <- function(...){
 
 #' @export
 #' @rdname sf_phrase
-sfn <- function(...) sf_note(...)
+sfn <- sf_note

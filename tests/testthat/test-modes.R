@@ -17,7 +17,7 @@ test_that("mode helpers return as expected", {
   expect_identical(mode_rotate(mode_ionian(), 0), mode_ionian())
   expect_identical(mode_rotate(mode_ionian("c"), 1), mode_dorian("d"))
 
-  expect_equal(mode_modern("dorian", "e", TRUE, TRUE), "e f# g a b c# d")
+  expect_equal(mode_modern("dorian", "e", TRUE, TRUE), as_noteworthy("e f# g a b c# d"))
   expect_identical(mode_rotate(mode_ionian("c"), 1), mode_dorian("d"))
   expect_identical(mode_rotate(mode_ionian("c", ignore_octave = TRUE), 1),
                    mode_dorian("d", ignore_octave = TRUE))

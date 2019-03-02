@@ -51,7 +51,7 @@ chord_invert <- function(chord, n = 0, limit = FALSE){
       x <- x[c(nx, 1:(nx - 1))]
     }
   }
-  paste(x, collapse = "")
+  .asnw(paste(x, collapse = ""))
 }
 
 #' Arpeggiate a chord
@@ -88,7 +88,7 @@ chord_arpeggiate <- function(chord, n = 0, by = c("note", "chord"), broken = FAL
   x <- c(chord, sapply(sign(n) * s, function(i) chord_invert(chord, i)))
   if(broken) x <- unlist(lapply(x, .split_chord))
   if(collapse) x <- paste0(x, collapse = " ")
-  x
+  .asnw(x)
 }
 
 #' Broken chords
@@ -107,7 +107,7 @@ chord_break <- function(notes){
   x <- .uncollapse(notes)
   x <- sapply(x, function(x) paste0(.split_chord(x), collapse = " "), USE.NAMES = FALSE)
   if(length(notes) == 1) x <- paste0(x, collapse = " ")
-  x
+  .asnw(x)
 }
 
 #' Check if a chord is diatonic
@@ -185,7 +185,7 @@ dyad <- function(notes, interval, reverse = FALSE, key = "c", collapse = FALSE){
   }
   x <- sapply(seq_along(notes), f, notes, interval)
   if(collapse) x <- paste(x, collapse = " ")
-  x
+  .asnw(x)
 }
 
 #' Rank, order and sort chords and notes
@@ -229,7 +229,7 @@ chord_sort <- function(chords, pitch = c("min", "mean", "max"), decreasing = FAL
   x <- .uncollapse(chords)[ord]
   if(decreasing) x <- rev(x)
   if(length(chords) == 1) x <- paste0(x, collapse = " ")
-  x
+  .asnw(x)
 }
 
 # nolint start
@@ -481,7 +481,7 @@ chord_maj13 <- function(notes, key = "c", collapse = FALSE, style = "default"){
     paste0(sapply(semitones, function(s) transpose(note, s, key = key, style = style)), collapse = "")
   }, USE.NAMES = FALSE)
   if(collapse) x <- paste0(x, collapse = " ")
-  x
+  .asnw(x)
 }
 
 # nolint end

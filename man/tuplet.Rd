@@ -21,7 +21,7 @@ triplet(x, n, string = NULL)
 \item{b}{integer, beats per tuplet.}
 }
 \value{
-character.
+phrase
 }
 \description{
 Helper function for generating tuplet syntax.

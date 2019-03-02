@@ -18,13 +18,12 @@
 #'
 #' The default \code{style} is to use tick style if no integers occur in \code{notes}. The \code{"tick"} and \code{"integer"} options force the respective styles. When integer style is returned, all \code{3}s are dropped since the third octave is the implicit center in LilyPond. \code{style = "strip"} removes any explicit octave information.
 #'
-#' @param notes character, a valid string of notes, the type passed to \code{phrase}.
+#' @param notes character, a noteworthy string.
 #' @param n integer, positive or negative number of semitones to transpose.
 #' @param key character, the new key signature after transposing \code{notes}. See details.
 #' @param style character, specify tick or integer style octave numbering in result. See details.
-#' @param ... arguments passed to transpose.
 #'
-#' @return a character string.
+#' @return character
 #' @export
 #'
 #' @examples
@@ -39,28 +38,28 @@
 #' tp("a b' c''", 2, key = "flat")
 #' tp("a, b ceg", 2, key = "sharp")
 transpose <- function(notes, n = 0, key = NA, style = c("default", "tick", "integer", "strip")){
-  if(!inherits(notes, "character")) stop("`notes` must be a valid character string of notes.")
   if(inherits(notes, "phrase"))
     stop("`notes` must be a valid character string of notes, not a phrase object.")
+  .check_noteworthy(notes)
   n <- as.integer(n)
-  if(n == 0 & is.na(key)) return(notes)
+  if(n == 0 & is.na(key)) return(.asnw(notes))
   style <- match.arg(style)
   if(gsub("[a-grs#_0-9,'~ ]", "", notes) != "") stop("`notes` is not a valid string of notes.")
   if(style == "default") style <- ifelse(length(grep("[,']", notes)), "tick", "integer")
   x <- purrr::map_chr(strsplit(notes, " ")[[1]], ~({
     .split_chord(.x) %>% sapply(.add_missing_3) %>% paste(collapse = "")
   }))
-  if(all(x %in% c("r", "s"))) return(paste(x, collapse = " "))
+  if(all(x %in% c("r", "s"))) return(.asnw(paste(x, collapse = " ")))
   no_chords <- length(.split_chord(notes)) == length(x)
   if(no_chords){
-    return(.transpose(paste(x, collapse = " "), n, key, style))
+    return(.asnw(.transpose(paste(x, collapse = " "), n, key, style)))
   }
   purrr::map_chr(x, ~({
     if(.x %in% c("r", "s")) return(.x)
     if(length(.split_chord(.x)) == 1) return(.transpose(.x, n, key, style))
     x <- paste(.split_chord(.x), collapse = " ")
     gsub(" ", "", .transpose(x, n, key, style))
-  })) %>% paste(collapse = " ")
+  })) %>% paste(collapse = " ") %>% .asnw()
 }
 
 # nolint end
@@ -159,7 +158,7 @@ transpose <- function(notes, n = 0, key = NA, style = c("default", "tick", "inte
 
 #' @export
 #' @rdname transpose
-tp <- function(...) transpose(...)
+tp <- transpose
 
 .ly_transpose_defs <-
 "#(define (naturalize-pitch p)

@@ -35,7 +35,7 @@ Check whether a string is comprised exclusively of valid note and/or chord subst
 \details{
 \code{as_noteworthy} can be used to coerce to the \code{noteworthy} class. Coercion will fail if the string is not noteworthy.
 Using the \code{noteworthy} class is generally not needed by the user during an interactive session, but is available and offers its own \code{print} and \code{summary} methods for noteworthy strings.
-It is more likely to be used by other functions.
+It is more likely to be used by other functions and functions that output a noteworthy string generally attach the noteworthy class.
 
 \code{is_diatonic} performs a vectorized logical check on a \code{noteworthy} string for all notes and chords.
 To check strictly notes or chords, see \code{\link{note_in_scale}} and \code{\link{chord_is_diatonic}}.

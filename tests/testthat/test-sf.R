@@ -27,15 +27,15 @@ p_list <- list(
 
 test_that("sf_phrase and phrase calls are equivalanet", {
   err <- c("String/fret mismatch.", "Rest mismatch.", "Tied note mismatch.")
-  expect_error(sfp("6 6", "1", 1, err[1]))
-  expect_error(sfp("66", "1", 1, err[1]))
-  expect_error(sfp("s", "r", 1, err[2]))
-  expect_error(sfp("6 r", "1", 1, err[1]))
-  expect_error(sfp("6 s 6 r", "1 s 1 s", 1, err[2]))
-  expect_error(sfp("6~ 6", "1", 1, err[1]))
-  expect_error(sfp("6~ 6", "1 1", 1, err[3]))
-  expect_error(sfp("r 6~ 6", "s 1 1", 1, err[2]))
-  expect_error(sfp("r 6~ 6 s", "r 1 1 s", 1, err[3]))
+  expect_is(sfp("6 6", "1", 1), "phrase")
+  expect_error(sfp("66", "1", 1), err[1])
+  expect_error(sfp("s", "r", 1), err[2])
+  expect_error(sfp("6 r", "1", 1), err[2])
+  expect_error(sfp("6 s 6 r", "1 s 1 s", 1), err[2])
+  expect_error(sfp("6~ 6", "1", 1), err[3])
+  expect_error(sfp("6~ 6", "1 1", 1), err[3])
+  expect_error(sfp("r 6~ 6", "s 1 1", 1), err[2])
+  expect_error(sfp("r 6~ 6 s", "r 1 1 s", 1), err[3])
 
   purrr::walk2(sf_list, p_list, ~expect_identical(.x, .y))
 

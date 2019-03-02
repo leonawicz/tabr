@@ -10,7 +10,8 @@
 sf_phrase(string, fret, info, key = "c", tuning = "standard",
   to_notes = FALSE, bar = FALSE)
 
-sfp(...)
+sfp(string, fret, info, key = "c", tuning = "standard",
+  to_notes = FALSE, bar = FALSE)
 
 sf_note(...)
 

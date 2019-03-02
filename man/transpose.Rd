@@ -8,21 +8,20 @@
 transpose(notes, n = 0, key = NA, style = c("default", "tick",
   "integer", "strip"))
 
-tp(...)
+tp(notes, n = 0, key = NA, style = c("default", "tick", "integer",
+  "strip"))
 }
 \arguments{
-\item{notes}{character, a valid string of notes, the type passed to \code{phrase}.}
+\item{notes}{character, a noteworthy string.}
 
 \item{n}{integer, positive or negative number of semitones to transpose.}
 
 \item{key}{character, the new key signature after transposing \code{notes}. See details.}
 
 \item{style}{character, specify tick or integer style octave numbering in result. See details.}
-
-\item{...}{arguments passed to transpose.}
 }
 \value{
-a character string.
+character
 }
 \description{
 Transpose pitch by a number of semitones.

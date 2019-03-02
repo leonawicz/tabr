@@ -2,9 +2,12 @@
 % Please edit documentation in R/helpers.R
 \name{tie}
 \alias{tie}
+\alias{untie}
 \title{Tied notes}
 \usage{
 tie(x)
+
+untie(x)
 }
 \arguments{
 \item{x}{character, a single chord.}

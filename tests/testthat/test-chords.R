@@ -1,29 +1,31 @@
 context("chords")
 
+library(dplyr)
+
 test_that("chord helpers return as expected", {
   expect_equal(chord_invert("ab", 0), "ab")
   expect_error(chord_invert("a", 1), "Invalid chord found.")
-  expect_equal(chord_invert("ceg", 1), "egc4")
-  expect_equal(chord_invert("ceg", 2), "gc4e4")
-  expect_equal(chord_invert("e_2g#3b_4", 1), "g#3b_4e_5")
-  expect_equal(chord_invert("e_2g#3b_4", 4), "g#5b_5e_6")
-  expect_equal(chord_invert("e_2g#3b_4", -4), "b_0e_1g#1")
+  expect_equal(chord_invert("ceg", 1), as_noteworthy("egc4"))
+  expect_equal(chord_invert("ceg", 2), as_noteworthy("gc4e4"))
+  expect_equal(chord_invert("e_2g#3b_4", 1), as_noteworthy("g#3b_4e_5"))
+  expect_equal(chord_invert("e_2g#3b_4", 4), as_noteworthy("g#5b_5e_6"))
+  expect_equal(chord_invert("e_2g#3b_4", -4), as_noteworthy("b_0e_1g#1"))
 
   err <- "`x` must be a single chord, not space-delimited chords."
   expect_error(chord_invert("ace ace"), err)
   err <- "Chord has 3 notes. `n` must be in -2:2. Set `limit = FALSE` to override."
   expect_error(chord_invert("abc", 3, limit = TRUE), err)
 
-  expect_equal(chord_break("c e g ceg ceg"), "c e g c e g c e g")
-  expect_equal(chord_break(c("c", "ceg")), c("c", "c e g"))
+  expect_equal(chord_break("c e g ceg ceg"), as_noteworthy("c e g c e g c e g"))
+  expect_equal(chord_break(c("c", "ceg")) %>% as.character(), c("c", "c e g"))
 
   expect_equal(chord_is_diatonic("ceg ace ce_g", "c"), c(TRUE, TRUE, FALSE))
   expect_equal(chord_is_diatonic(c("dfa", "df#a"), "d"), c(FALSE, TRUE))
 
-  expect_equal(chord_arpeggiate("ce_gb_", 2), c("ce_gb_", "e_gb_c4", "gb_c4e_4"))
-  expect_equal(chord_arpeggiate("ce_gb_", -2), c("ce_gb_", "b_2ce_g", "g2b_2ce_"))
-  expect_equal(chord_arpeggiate("ce_gb_", 2, by = "chord"), c("ce_gb_", "c4e_4g4b_4", "c5e_5g5b_5"))
-  expect_equal(chord_arpeggiate("ce_gb_", 1, broken = TRUE, collapse = TRUE), "c e_ g b_ e_ g b_ c4")
+  expect_equal(chord_arpeggiate("ce_gb_", 2), as_noteworthy(c("ce_gb_", "e_gb_c4", "gb_c4e_4")))
+  expect_equal(chord_arpeggiate("ce_gb_", -2), as_noteworthy(c("ce_gb_", "b_2ce_g", "g2b_2ce_")))
+  expect_equal(chord_arpeggiate("ce_gb_", 2, by = "chord"), as_noteworthy(c("ce_gb_", "c4e_4g4b_4", "c5e_5g5b_5")))
+  expect_equal(chord_arpeggiate("ce_gb_", 1, broken = TRUE, collapse = TRUE), as_noteworthy("c e_ g b_ e_ g b_ c4"))
 })
 
 test_that("interval_semitones returns as expected", {
@@ -36,18 +38,18 @@ test_that("interval_semitones returns as expected", {
 })
 
 test_that("dyad constructor returns as expected", {
-  expect_equal(dyad("a", 4), "ac#4")
+  expect_equal(dyad("a", 4) %>% as.character(), "ac#4")
   x <- c("minor third", "m3", "augmented second", "A2")
   y <- sapply(x, function(x) dyad("a", x))
   expect_equal(as.character(y), rep("ac4", 4))
   y <- sapply(x, function(x) dyad("c'", x, reverse = TRUE))
   expect_equal(as.character(y), rep("ac'", 4))
   x <- c("M3", "m3", "m3", "M3", "M3", "m3", "m3")
-  y <- dyad(letters[c(3:7, 1, 2)], x)
+  y <- dyad(letters[c(3:7, 1, 2)], x) %>% as.character()
   expect_equal(y, c("ce", "df", "eg", "fa", "gb", "ac4", "bd4"))
   x <- c("P1", "m3", "M3", "P4", "P5", "P8", "M9")
-  expect_equal(dyad("c", x), c("c", "cd#", "ce", "cf", "cg", "cc4", "cd4"))
-  y <- dyad("c", x, reverse = TRUE)
+  expect_equal(dyad("c", x) %>% as.character(), c("c", "cd#", "ce", "cf", "cg", "cc4", "cd4"))
+  y <- dyad("c", x, reverse = TRUE) %>% as.character()
   expect_equal(y, c("c", "a2c", "a_2c", "g2c", "f2c", "c2c", "b_1c"))
 
   err <- c("Invalid `interval`.", "`notes` and `interval` have unequal lengths both > 1.")
@@ -63,14 +65,14 @@ test_that("chord rank, order and sort work as expected", {
 
   expect_equal(chord_order(x), c(1, 3, 2, 4, 5, 6))
   expect_equal(chord_order(x, "mean"), c(1, 3, 2, 5, 4, 6))
-  expect_equal(chord_sort(x, "mean"), "a2 a2 c ce_g ceg cea")
+  expect_equal(chord_sort(x, "mean") %>% as.character(), "a2 a2 c ce_g ceg cea")
 })
 
 test_that("chord constructors return as expected", {
-  expect_equal(xm("c", "g"), "cd#g")
-  expect_equal(xm("c", "f"), "ce_g")
-  expect_equal(xm7("c", "f"), "ce_gb_")
-  expect_equal(x7("c", "f"), "cegb_")
+  expect_equal(xm("c", "g") %>% as.character(), "cd#g")
+  expect_equal(xm("c", "f") %>% as.character(), "ce_g")
+  expect_equal(xm7("c", "f") %>% as.character(), "ce_gb_")
+  expect_equal(x7("c", "f") %>% as.character(), "cegb_")
   expect_equal(x5("c"), dyad("c", "P5"))
 
   test_chord_constructors <- function(root, n, key, ...){
@@ -116,6 +118,6 @@ test_that("chord constructors return as expected", {
   test_chord_constructors("d#''", 27, "f", style = "integer")
   test_chord_constructors("d#''", 27, "f", style = "strip")
 
-  expect_equal(xm("c# f# g#"), c("c#eg#", "f#ac#4", "g#bd#4")) # nolint end
+  expect_equal(xm("c# f# g#") %>% as.character(), c("c#eg#", "f#ac#4", "g#bd#4")) # nolint end
   expect_equal(xm("b_2 f g"), xm(c("b_2", "f", "g")))
 })

@@ -106,7 +106,7 @@ scale_chromatic <- function(root = "c", collapse = FALSE, sharp = TRUE, ignore_o
     if(!ignore_octave) y <- .scale_set_octave(y)
   }
   if(collapse) y <- paste0(y, collapse = " ")
-  y
+  .asnw(y)
 }
 
 #' Diatonic chords
@@ -139,7 +139,7 @@ scale_chords <- function(root = "c", scale = "major", type = c("triad", "seventh
   s <- do.call(s, list(key = key))
   x <- .diatonic_scale_chords(s, seq_along(s), type)
   if(collapse) x <- paste0(x, collapse = " ")
-  x
+  .asnw(x)
 }
 
 .diatonic_scale_chords <- function(scale, deg, type){

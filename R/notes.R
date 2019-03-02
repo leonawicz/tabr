@@ -82,7 +82,7 @@ naturalize <- function(notes, type = c("both", "flat", "sharp"), ignore_octave =
   pat <- switch(type, both = "_|#", flat = "_", sharp = "#")
   x <- gsub(pat, "", notes)
   if(ignore_octave) x <- .pitch_to_note(x)
-  x
+  .asnw(x)
 }
 
 #' @export
@@ -92,7 +92,7 @@ sharpen_flat <- function(notes, ignore_octave = FALSE){
   x <- if(length(notes) > 1) paste0(notes, collapse = " ") else notes
   x <- transpose(x, 0, key = "g", style = ifelse(ignore_octave, "strip", "default"))
   if(length(notes) > 1) x <- .uncollapse(x)
-  x
+  .asnw(x)
 }
 
 #' @export
@@ -102,13 +102,13 @@ flatten_sharp <- function(notes, ignore_octave = FALSE){
   x <- if(length(notes) > 1) paste0(notes, collapse = " ") else notes
   x <- transpose(x, 0, key = "f", style = ifelse(ignore_octave, "strip", "default"))
   if(length(notes) > 1) x <- .uncollapse(x)
-  x
+  .asnw(x)
 }
 
 #' @export
 #' @rdname note-helpers
 note_set_key <- function(notes, key = "c"){
-  .check_noteworthy(notes)
+  notes <- as_noteworthy(notes)
   if(key == "flat") return(flatten_sharp(notes))
   if(key == "sharp") return(sharpen_flat(notes))
   .keycheck(key)
@@ -125,7 +125,7 @@ note_rotate <- function(notes, n = 0){
   if(n == 0) return(notes)
   x <- x[c((n + 1):length(x), 1:n)]
   if(length(notes) == 1) x <- paste0(x, collapse = " ")
-  x
+  .asnw(x)
 }
 
 #' @export
@@ -156,7 +156,7 @@ note_shift <- function(notes, n = 0){
   }
   if(style == "tick") x <- .octavesub(x)
   if(length(notes) == 1) x <- paste0(x, collapse = " ")
-  x
+  .asnw(x)
 }
 
 #' @export
@@ -187,7 +187,7 @@ note_arpeggiate <- function(notes, n = 0, ...){
   }
   if(style == "tick") x <- .octavesub(x)
   if(length(notes) == 1) x <- paste0(x, collapse = " ")
-  x
+  .asnw(x)
 }
 
 #' Check note and chord validity
@@ -198,7 +198,7 @@ note_arpeggiate <- function(notes, n = 0, ...){
 #'
 #' \code{as_noteworthy} can be used to coerce to the \code{noteworthy} class. Coercion will fail if the string is not noteworthy.
 #' Using the \code{noteworthy} class is generally not needed by the user during an interactive session, but is available and offers its own \code{print} and \code{summary} methods for noteworthy strings.
-#' It is more likely to be used by other functions.
+#' It is more likely to be used by other functions and functions that output a noteworthy string generally attach the noteworthy class.
 #'
 #' \code{is_diatonic} performs a vectorized logical check on a \code{noteworthy} string for all notes and chords.
 #' To check strictly notes or chords, see \code{\link{note_in_scale}} and \code{\link{chord_is_diatonic}}.
@@ -266,11 +266,17 @@ is_diatonic <- function(x, key = "c"){
 
 .check_noteworthy <- function(x) if(!noteworthy(x)) stop("Invalid notes or chords found.", call. = FALSE)
 
+.asnw <- function(x){
+  class(x) <- unique(c("noteworthy", class(x)))
+  x
+}
+
 #' @export
 #' @rdname valid-notes
 as_noteworthy <- function(x){
+  if("noteworthy" %in% class(x)) return(x)
   .check_noteworthy(x)
-  if(!"noteworthy" %in% class(x)) class(x) <- c("noteworthy", class(x))
+  class(x) <- c("noteworthy", class(x))
   x
 }
 
@@ -281,7 +287,12 @@ print.noteworthy <- function(x, ...){
   oct <- crayon::make_style("dodgerblue")
   other <- crayon::make_style("orange2")
 
-  format <- if(length(x) == 1) "space-delimited time" else "vectorized time"
+  if(length(x) == 1){
+    format <- "space-delimited time"
+  } else {
+    format <- "vectorized time"
+    x <- paste(x, collapse = " ")
+  }
   x <- gsub("(\\d|[,'])", oct("\\1"), x)
   x <- gsub("([a-grs]+)", notes("\\1"), x)
   x <- gsub("([_#~])", other("\\1"), x)
@@ -329,6 +340,7 @@ summary.noteworthy <- function(object, ...){
   object <- gsub("(\\d|[,'])", oct("\\1"), object)
   object <- gsub("([a-grs]+)", notes("\\1"), object)
   object <- gsub("([_#~])", other("\\1"), object)
+  object <- paste(object, collapse = " ")
   cat(col1("<Noteworthy string>\n  Timesteps: "), steps, " (",
       nnote, " ", paste0("note", ifelse(nnote == 1, "", "s")), ", ",
       nchord, " ", paste0("chord", ifelse(nchord == 1, "", "s"), ")"),

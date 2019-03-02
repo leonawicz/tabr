@@ -48,7 +48,7 @@ is_mode <- function(notes, ignore_octave = FALSE){
   if(n == 1) notes <- strsplit(notes, " ")[[1]]
   key <- .pitch_to_note(notes[1])
   y <- sapply(modes(), mode_modern, key = key, ignore_octave = ignore_octave)
-  for(i in 1:ncol(y)) if(identical(notes, y[, i])) return(TRUE)
+  for(i in 1:ncol(y)) if(identical(as.character(notes), y[, i])) return(TRUE)
   FALSE
 }
 
