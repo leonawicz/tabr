@@ -36,6 +36,7 @@ interval_semitones <- function(interval){
 #' @param note2 character, second note.
 #' @param format character, format of the scale notation: major/minor/perfect, augmented/diminished, and respective abbreviations. See argument options in defaults.
 #' @param ignore_octave logical, reduce the interval to that defined by notes within a single octave.
+#' @param tuning character, string tuning.
 #'
 #' @return a musical interval, integer or character depending on the function.
 #' @export

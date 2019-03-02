@@ -10,10 +10,10 @@
 #' This function uses a vector of fret integers (\code{NA} for muted string) to define a chord, in conjunction with a string \code{tuning} (defaults to standard tuning, six-string guitar).
 #' \code{fret} is from lowest to highest pitch strings, e.g., strings six through one.
 #'
-#' The \code{chord_symbol} becomes the \code{id} value in the output. It should conform to accepted \code{tabr} notation. See \code{id} column in \code{guitar Chords} for examples.
+#' The \code{id} is passed directly to the output. It represents the type of chord and should conform to accepted \code{tabr} notation. See \code{id} column in \code{guitar Chords} for examples.
 #'
 #' @param fret integer vector defining fretted chord. See details.
-#' @param chord_symbol character, the chord symbol. See details.
+#' @param id character, the chord type. See details.
 #' @param optional \code{NA} when all notes required. Otherwise an integer vector giving the indices of\code{fret} that are considered optional notes for the chord.
 #' @param tuning character, string tuning. See \code{tunings} for predefined tunings. Custom tunings are specified with a similar \code{value} string.
 #' @param ... additional arguments passed to \code{transpose}. See examples.
@@ -22,8 +22,12 @@
 #' @export
 #'
 #' @examples
-#' chord_def(c(NA, 0, 2, 2, 1, 0))
-chord_def <- function(fret, chord_symbol, optional = NA, tuning = "standard", ...){
+#' frets <- c(NA, 0, 2, 2, 1, 0)
+#' chord_def(frets, "M")
+#' chord_def(frets, "M", 6)
+#'
+#' purrr::map_dfr(c(0, 2, 3), ~chord_def(frets + .x, "M"))
+chord_def <- function(fret, id, optional = NA, tuning = "standard", ...){
   min_fret <- min(fret, na.rm = TRUE)
   idx <- which(!is.na(fret))
   root_fret <- fret[idx[1]]
@@ -31,7 +35,7 @@ chord_def <- function(fret, chord_symbol, optional = NA, tuning = "standard", ..
 
   f <- function(x) if(is.na(x)) "x" else if(x == 0) "o" else if(nchar(x) == 2) paste0("(", x, ")") else x
   fret2 <- sapply(fret, f)
-  fretboard <- chord_set(paste(fret2, collapse = ""), chord_symbol)
+  fretboard <- chord_set(paste(fret2, collapse = ""), id)
 
   x <- strsplit(.map_tuning(tuning), " ")[[1]]
   semitones <- c(0, cumsum(sapply(1:(length(x) - 1), function(i) pitch_interval(x[i], x[i + 1])))) + fret
@@ -46,9 +50,9 @@ chord_def <- function(fret, chord_symbol, optional = NA, tuning = "standard", ..
   root <- .pitch_to_note(pitch1)
   octave <- .pitch_to_octave(pitch1)
   notes <- paste(notes[idx], collapse = "")
-  lp_name <- lp_chord_id(pitch1, chord_symbol, ...)
+  lp_name <- lp_chord_id(pitch1, id, ...)
 
-  dplyr::tibble(id = chord_symbol, lp_name = lp_name,
+  dplyr::tibble(id = id, lp_name = lp_name,
                 root = root, octave = octave, root_fret = root_fret, min_fret = min_fret,
                 bass_string = bass_string, notes = notes, frets = paste(fret2, collapse = ""),
                 semitones = list(semitones), optional = optional, fretboard = fretboard, open = "o" %in% fret2)

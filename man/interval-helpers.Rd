@@ -22,6 +22,8 @@ tuning_intervals(tuning = "standard")
 \item{ignore_octave}{logical, reduce the interval to that defined by notes within a single octave.}
 
 \item{format}{character, format of the scale notation: major/minor/perfect, augmented/diminished, and respective abbreviations. See argument options in defaults.}
+
+\item{tuning}{character, string tuning.}
 }
 \value{
 a musical interval, integer or character depending on the function.

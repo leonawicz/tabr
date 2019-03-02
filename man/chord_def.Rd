@@ -4,12 +4,12 @@
 \alias{chord_def}
 \title{Define chords}
 \usage{
-chord_def(fret, chord_symbol, optional = NA, tuning = "standard", ...)
+chord_def(fret, id, optional = NA, tuning = "standard", ...)
 }
 \arguments{
 \item{fret}{integer vector defining fretted chord. See details.}
 
-\item{chord_symbol}{character, the chord symbol. See details.}
+\item{id}{character, the chord type. See details.}
 
 \item{optional}{\code{NA} when all notes required. Otherwise an integer vector giving the indices of\code{fret} that are considered optional notes for the chord.}
 
@@ -32,8 +32,12 @@ The user can decide which arguments to vectorize over when creating a chord coll
 This function uses a vector of fret integers (\code{NA} for muted string) to define a chord, in conjunction with a string \code{tuning} (defaults to standard tuning, six-string guitar).
 \code{fret} is from lowest to highest pitch strings, e.g., strings six through one.
 
-The \code{chord_symbol} becomes the \code{id} value in the output. It should conform to accepted \code{tabr} notation. See \code{id} column in \code{guitar Chords} for examples.
+The \code{id} is passed directly to the output. It represents the type of chord and should conform to accepted \code{tabr} notation. See \code{id} column in \code{guitar Chords} for examples.
 }
 \examples{
-chord_def(c(NA, 0, 2, 2, 1, 0))
+frets <- c(NA, 0, 2, 2, 1, 0)
+chord_def(frets, "M")
+chord_def(frets, "M", 6)
+
+purrr::map_dfr(c(0, 2, 3), ~chord_def(frets + .x, "M"))
 }
