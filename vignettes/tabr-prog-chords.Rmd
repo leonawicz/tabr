@@ -56,16 +56,10 @@ x <- "ce_g"
 chord_break(x)
 ```
 
-`chord_invert` creates chord inversions. It also takes a single chord as input. It treats any chord as being in root position as provided.
+`chord_invert` creates chord inversions. It also takes a single chord as input. It treats any chord as being in root position as provided. The example below applies the function over a series of inversion values to show how the output changes.
 
 ```{r chords4}
-chord_invert(x, 1)
-chord_invert(x, 2)
-chord_invert(x, 3)
-
-chord_invert(x, -1)
-chord_invert(x, -2)
-chord_invert(x, -3)
+glue(sapply((-3):3, function(i) chord_invert(x, i)))
 ```
 
 While a chord with `n` notes has `n - 1` inversions, `chord_invert` allows inversions to continue, moving a chord further up or down in octaves. If you want to restrict the function to only allowing the defined number of inversions (excluding root position), set `limit = TRUE`. This enforces the rule that, for example, a chord with three notes has two inversions and `n` can only take values between `-2` and `2` or it will throw and error.
@@ -81,9 +75,9 @@ chord_arpeggiate("ce_gb_", 2, by = "chord")
 chord_arpeggiate("ce_gb_", 1, broken = TRUE, collapse = TRUE)
 ```
 
-## Chord construction
+## Dyads
 
-Before introducing the chord constructors, here is a brief mention and example of the `dyad` function for constructing dyads from a root note and and interval. Dyads are not technically chords, but this is as good a place as any to mention `dyad`. The interval can be in semitones, or a named interval from `mainIntervals` that corresponds to the number of semitones.
+Before introducing the chord constructors, here is a brief mention and example of the `dyad` function for constructing dyads from a root note and and interval. Dyads are not always considered chords, but this is as good a place as any to mention `dyad` since the key distinction made in `tabr` in this context is whether there is a single note or multiple notes. The interval passed to `dyad` can be in semitones, or a named interval from `mainIntervals` that corresponds to the number of semitones.
 
 ```{r chords6}
 dyad("a", 3)
@@ -92,9 +86,11 @@ sapply(x, function(x) dyad("a", x))
 sapply(x, function(x) dyad("c'", x, reverse = TRUE))
 ```
 
-### Available constructors
+## Predefined chord constructors
 
-Now to the topic of chord construction. Chords are often constructed directly, but many can also be constructed using helper functions. Currently, helpers exist for common chords up through thirteenths. There are not currently any constructors for guitar-specific chord shapes and fingerings. `tabr` offers two options for each chord constructor, the longer `chord_*`-named function and its `x*` alias. The table below shows all available constructors.
+Now to the topic of chord construction, there are two general forms of chord construction currently available in `tabr`. The first is for typical chords based on their defining intervals; i.e., "piano chords". These are not particularly useful for guitar-specific chord shapes and fingerings, which generally span a greater pitch range. See further below for guitar chords.  
+
+In `tabr` chords are often constructed from scratch by explicitly typing the chord pitches in a noteworthy string, but many chords can also be constructed using helper functions. Currently, helpers exist for common chords up through thirteenths. `tabr` offers two options for each chord constructor function name: the longer `chord_*`-named function and its `x*` alias. The table below shows all available constructors.
 
 ```{r chords7, echo=FALSE}
 name <- c("chord_min", "chord_maj", "chord_min7", "chord_dom7", "chord_7s5", "chord_maj7", "chord_min6", "chord_maj6", "chord_dim", 
@@ -113,20 +109,99 @@ chord_min7("a c e", key = "f")
 xm7("a c e", key = "f")
 ```
 
-### Eventual direction
+## Predefined guitar chords
 
-Chord constructors are a new concept and this collection of convenient wrapper functions may change significantly in a future version of `tabr`. In the context of creating guitar tablature, these are not very useful. Another concept of chord constructors will be developed in a future version with a focus on generating chords for guitar tablature. Such a constructor or set of constructors may consider information such as:
+The dataset `guitarChords` is a tibble containing `r formatC(nrow(guitarChords), big.mark = ",")` rows of predefined guitar chords. It is highly redundant, but convenient to use. It is generated from a much smaller chords basis set, that is then transposed over all notes, yielding chord types and shapes for all twelve notes. Chords begin from open position and range up one octave to chords whose lowest fret is eleven. There are also multiple chord voicings for many chord types. Finally, chords containing accidentals are included in the table with both the flat and sharp versions.
 
-* chord shape
-* number of, or which strings are used
-* fret number, or minimum fret
-* chord root
-* separate bass note
-* bar or open
+There are twelve columns. Again, some of the column-wise information is also redundant, but it is not a big deal to include and removes the need to do a variety of computations to map from one representation of chord information to another. Here are the first ten rows:
 
-Some of these considerations could yield different constructors that build chords from different information, each being provided sufficiently complete, but not redundant, information.
+```{r guitarChords}
+guitarChords
+```
 
-Another distinction to make is among the output formats provided by chord constructors. One group of constructors could yield the noteworthy strings that eventually end up on the tab staff and/or music staff in `tabr` output.
-Another group of constructors could generate the chord format used for creating fretboard diagrams, which have a different syntax. Choice of output format could be an argument to a parent constructor, but there can also be separate groups of wrapper functions that default to each type of output.
+### Defining new guitar chord collections
 
-In any case, this is mentioned here so that users are aware that there are development plans for chord construction that is tablature focused and helpful for guitar, and which does not look like the examples shown above. The more piano chord style convenience functions above will remain for programming purposes and whatever other conveniences they offer, but as chord construction in `tabr` receives further development, it is going to look very different, serve different purposes, and the currently available functions will look like an aside. There will likely be a few constructor functions that generate many guitar chords in various ways given different information. There will not be a large collection of functions named after specific guitar chords.
+You can also define your own chords using `chord_def`. All you need are the fret numbers for the fretted chord. Currently it is assumed to be a six-string instrument. The default tuning is standard, but this can be changed arbitrarily. `NA` indicates a muted string. Order is from lowest pitch string to highest. In the example below, create a set of minor chords based on the open `Am` shape.
+
+```{r chord_def}
+frets <- c(NA, 0, 2, 2, 1, 0)
+chord_def(frets, "m", 6) # sixth entry (highest string: string #1) is optional
+```
+
+`guitarChords` does not currently contain the `optional` column, but this is a column where you can indicate optional chord notes, as shown above.
+
+`chord_def` is scalar and defines a single chord, always returning a table with one row, but you can map over it however you need in order to define a collection of chords. Below, a set of chords is generated with sharps and again with flats.
+
+```{r chord_def2}
+purrr::map_dfr(1:12, ~chord_def(frets + .x, "m"))
+purrr::map_dfr(1:12, ~chord_def(frets + .x, "m", key = "f")) # flats
+```
+
+### Related helper functions
+
+Several functions are available that glean specific information from `guitarChords`. The functions `lp_chord_id` and `lp_chord_mod` obtain the LilyPond chord name and LilyPond chord modifier (suffix), given a root note and `tabr` format chord name/modifier. It is not quite identical to LilyPond format (set `exact = TRUE`). See function documentation for details.
+
+```{r gc_helpers1}
+lp_chord_id("a a a", "m M m7_5")
+lp_chord_mod("a a a", "m M m7_5")
+```
+
+`chord_is_known` checks against `guitarChords` to see if the explicit chord, as given by its component pitches, exists in the dataset. Notice below that `a` in the string of notes is a note, not a major `A` chord, and hence returns `FALSE`. In the `chord_name_*` functions, the same `a` is now interpreted as a major chord because these functions operate on chord name inputs.
+
+```{r gc_helpers2}
+chord_is_known("a b_,fb_d'f'")
+
+x <- "a aM b_,m7#5"
+chord_name_split(x)
+chord_name_root(x)
+chord_name_mod(x)
+```
+
+## Guitar chord construction
+
+The most interesting use of `guitarChords` is in using it to map from chord names to noteworthy strings. 
+
+### Chord information
+
+`gc_info` can be used to filter `guitarChords`. In the examples below, you can see that multiple chord names can be supplied at once. All are used to filter the chord dataset. If the inputs do not exist, an empty tibble with zero rows is returned. The result is not vectorized to match the number of entries in the input; it is simply a row filter for `guitarChords`.
+
+```{gc_info}
+gc_info("a") # a major chord, not a single note
+gc_info("ceg a#m7_5") # only third entry is a guitar chord
+gc_info("ceg a#m7_5", key = "f")
+
+gc_info("a,m c d f,")
+```
+
+The same properties of `gc_info` apply to wrapper functions around it, namely, `gc_notes` and `gc_fretboard`.
+
+### Map chord names to notes
+
+`gc_notes` takes chord names and returns the notes. Remember, the is just a basic filter. If you specify chords imprecisely, the result will contain many more chords than were in the input. If you specify chords completely unambiguously, then there is one result for each input. However, this also requires you do not provide any chord names that are not in `guitarChord`, or these will be dropped.
+
+Keep in mind that these functions are under active development and the approaches they take may change prior to the next CRAN release of `tabr`. Currently, the ways you can add precision to your chord mapping include passing the following optional arguments:
+
+* `root_fret`: the fret for the root note.
+* `min_fret`: the lowest fret position for a chord.
+* `bass_string`: the lowest unmuted string for a chord.
+* `open`: open chords, closed/movable chords, or both (default).
+* `key`: key signature, to enforce sharps or flats when present.
+
+```{r gc_notes}
+x <- gc_notes("a,7 b,m", 0:2) # filter/restriction: root fret must be in 0:2
+summary(x)
+```
+
+Notice that the octave information helps further restrict the chord set as well. This can be turned off with `ignore_octave = TRUE`.
+
+### Fretboard diagrams
+
+When creating tablature and sheet music with LilyPond, you may wish to include a chord chart containing fretboard diagrams of the chords as they are played. Currently, `tabr` uses the `chord_set` function to prepare a named character vector of chords that have quasi-LilyPond chord names and fretboard notation values, ready to be passed to `score` for proper injection into LilyPond.
+
+This process and the structure of the data objects involved may change soon (I have not decided for certain yet). But for the time being, this is still the process. Therefore, the new function `gc_fretboard` performs the same manipulation using chords from `guitarChords`.
+
+```{r gc_fretboard}
+gc_fretboard("a,m c d f,", NA, 0:1)
+```
+
+This summarizes the current state of guitar chord name-note mapping in `tabr`. This is an area still under active development and subject to change.

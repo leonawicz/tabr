@@ -24,7 +24,7 @@ test_that("chord mapping returns as expected", {
     ))
 })
 
-text_that("lp_chord_name and lp_chord_mod return as expected", {
+test_that("lp_chord_name and lp_chord_mod return as expected", {
   expect_equal(lp_chord_id("a a a", "m M m7_5"), c("a:m", "a:5", "a:m7_5"))
   expect_equal(lp_chord_mod("a a a", "m M m7_5"), c("m", "5", "m7_5"))
   expect_equal(lp_chord_id("a a a", "m M m7_5", exact = TRUE), c("a:m", "a:5", "a:m7es5"))
