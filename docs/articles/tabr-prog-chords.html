@@ -477,7 +477,7 @@ x &lt;-<span class="st"> "a aM b_,m7#5"</span>
 <div id="map-chord-names-to-notes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#map-chord-names-to-notes" class="anchor"></a>Map chord names to notes</h3>
-<p><code>gc_notes</code> takes chord names and returns the notes. Remember, the is just a basic filter. If you specify chords imprecisely, the result will contain many more chords than were in the input. If you specify chords completely unambiguously, then there is one result for each input. However, this also requires you do not provide any chord names that are not in <code>guitarChord</code>, or these will be dropped.</p>
+<p><code>gc_notes</code> takes chord names that exist in <code>guitarChords</code> and returns the noteworthy strings needed for phrase construction. Remember, the is just a basic filter. If you specify chords imprecisely, the result will contain many more chords than were in the input. If you specify chords completely unambiguously, then there is one result for each input. However, this also requires you do not provide any chord names that are not in <code>guitarChords</code>, or these will be dropped.</p>
 <p>Keep in mind that these functions are under active development and the approaches they take may change prior to the next CRAN release of <code>tabr</code>. Currently, the ways you can add precision to your chord mapping include passing the following optional arguments:</p>
 <ul>
 <li>

@@ -177,7 +177,7 @@ The same properties of `gc_info` apply to wrapper functions around it, namely, `
 
 ### Map chord names to notes
 
-`gc_notes` takes chord names and returns the notes. Remember, the is just a basic filter. If you specify chords imprecisely, the result will contain many more chords than were in the input. If you specify chords completely unambiguously, then there is one result for each input. However, this also requires you do not provide any chord names that are not in `guitarChord`, or these will be dropped.
+`gc_notes` takes chord names that exist in `guitarChords` and returns the noteworthy strings needed for phrase construction. Remember, the is just a basic filter. If you specify chords imprecisely, the result will contain many more chords than were in the input. If you specify chords completely unambiguously, then there is one result for each input. However, this also requires you do not provide any chord names that are not in `guitarChords`, or these will be dropped.
 
 Keep in mind that these functions are under active development and the approaches they take may change prior to the next CRAN release of `tabr`. Currently, the ways you can add precision to your chord mapping include passing the following optional arguments:
 
