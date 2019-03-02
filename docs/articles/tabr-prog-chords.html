@@ -167,78 +167,101 @@
 <a href="#chord-identity-and-comparison" class="anchor"></a>Chord identity and comparison</h2>
 <p>You have already seen <code>is_chord</code>, which is similar to <code>is_note</code>. Another check that can be performed on chords is whether they are diatonic to a scale. <code>chord_is_diatonic</code> strictly accepts chords in noteworthy strings.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> "ce_g cd#g"</span>
-<span class="kw"><a href="../reference/chord_is_diatonic.html">chord_is_diatonic</a></span>(x, <span class="dt">key =</span> <span class="st">"b_"</span>)
-<span class="co">#&gt; [1]  TRUE FALSE</span></code></pre></div>
+<span class="kw"><a href="../reference/chord_is_diatonic.html">chord_is_diatonic</a></span>(x, <span class="dt">key =</span> <span class="st">"b_"</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; [1]  TRUE FALSE
+</code></pre>
 <p>A few functions that compare chords are <code>chord_rank</code>, <code>chord_order</code> and <code>chord_sort</code>. Ranking chords, and the ordering and sorting based on that, requires a definition or set of definitions to work from.</p>
 <p>The first argument is a noteworthy string. The second, <code>pitch</code>, can be <code>"min"</code> (the default), <code>"mean"</code>, or <code>"max"</code>. Each of these refers to the functions that operate on the three available definitions of ranking chords. When ranking individual notes, the result is fixed because there are only two pitches being compared. For chords, however, <code>pitch = "min"</code> compares only the lowest pitch or root note of a chord. For <code>pitch = "max"</code>, the highest pitch note in each chord is used for establishing rank. For <code>pitch = "mean"</code>, the average of all notes in the chord are used for ranking chords.</p>
 <p>Rank is from lowest to highest pitch. These options define how chords are ranked, but each function below also passes on additional arguments via <code>...</code> to the base functions <code>rank</code> and <code>order</code> for the additional control over the more general aspects of how ranking and ordering are done in R. <code>chord_order</code> works analogously to <code>chord_rank</code>. <code>chord_sort</code> wraps around <code>chord_order</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> "a2 c a2 ceg ce_g cea"</span>
-<span class="kw"><a href="../reference/chord-compare.html">chord_rank</a></span>(x, <span class="st">"min"</span>)
-<span class="co">#&gt; [1] 1.5 4.5 1.5 4.5 4.5 4.5</span>
-<span class="kw"><a href="../reference/chord-compare.html">chord_rank</a></span>(x, <span class="st">"max"</span>)
-<span class="co">#&gt; [1] 1.5 3.0 1.5 4.5 4.5 6.0</span>
-<span class="kw"><a href="../reference/chord-compare.html">chord_rank</a></span>(x, <span class="st">"mean"</span>)
-<span class="co">#&gt; [1] 1.5 3.0 1.5 5.0 4.0 6.0</span>
-
-<span class="kw"><a href="../reference/chord-compare.html">chord_order</a></span>(x)
-<span class="co">#&gt; [1] 1 3 2 4 5 6</span>
-<span class="kw"><a href="../reference/chord-compare.html">chord_order</a></span>(x, <span class="st">"mean"</span>)
-<span class="co">#&gt; [1] 1 3 2 5 4 6</span>
-
-<span class="kw"><a href="../reference/chord-compare.html">chord_sort</a></span>(x, <span class="st">"mean"</span>)
-<span class="co">#&gt; [1] "a2 a2 c ce_g ceg cea"</span></code></pre></div>
+<span class="kw"><a href="../reference/chord-compare.html">chord_rank</a></span>(x, <span class="st">"min"</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; [1] 1.5 4.5 1.5 4.5 4.5 4.5
+</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/chord-compare.html">chord_rank</a></span>(x, <span class="st">"max"</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; [1] 1.5 3.0 1.5 4.5 4.5 6.0
+</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/chord-compare.html">chord_rank</a></span>(x, <span class="st">"mean"</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; [1] 1.5 3.0 1.5 5.0 4.0 6.0
+</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="kw"><a href="../reference/chord-compare.html">chord_order</a></span>(x)</code></pre></div>
+<pre class="r-output"><code>#&gt; [1] 1 3 2 4 5 6
+</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/chord-compare.html">chord_order</a></span>(x, <span class="st">"mean"</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; [1] 1 3 2 5 4 6
+</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="kw"><a href="../reference/chord-compare.html">chord_sort</a></span>(x, <span class="st">"mean"</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">a</span><span style="color: #00BBBB;">2</span><span> </span><span style="color: #00BBBB;font-weight: bold;">a</span><span style="color: #00BBBB;">2</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ce_g</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ceg</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">cea</span><span style="color: #BBBB00;">&gt;</span><span>
+</span></code></pre>
 </div>
 <div id="chord-transformations" class="section level2">
 <h2 class="hasAnchor">
 <a href="#chord-transformations" class="anchor"></a>Chord transformations</h2>
 <p>A broken chord can be created with <code>chord_break</code>, which separates a chord into its component notes, separating in time. It accepts a single chord.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> "ce_g"</span>
-<span class="kw"><a href="../reference/chord_break.html">chord_break</a></span>(x)
-<span class="co">#&gt; [1] "c e_ g"</span></code></pre></div>
-<p><code>chord_invert</code> creates chord inversions. It also takes a single chord as input. It treats any chord as being in root position as provided.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/chord_invert.html">chord_invert</a></span>(x, <span class="dv">1</span>)
-<span class="co">#&gt; [1] "e_gc4"</span>
-<span class="kw"><a href="../reference/chord_invert.html">chord_invert</a></span>(x, <span class="dv">2</span>)
-<span class="co">#&gt; [1] "gc4e_4"</span>
-<span class="kw"><a href="../reference/chord_invert.html">chord_invert</a></span>(x, <span class="dv">3</span>)
-<span class="co">#&gt; [1] "c4e_4g4"</span>
-
-<span class="kw"><a href="../reference/chord_invert.html">chord_invert</a></span>(x, <span class="op">-</span><span class="dv">1</span>)
-<span class="co">#&gt; [1] "g2ce_"</span>
-<span class="kw"><a href="../reference/chord_invert.html">chord_invert</a></span>(x, <span class="op">-</span><span class="dv">2</span>)
-<span class="co">#&gt; [1] "e_2g2c"</span>
-<span class="kw"><a href="../reference/chord_invert.html">chord_invert</a></span>(x, <span class="op">-</span><span class="dv">3</span>)
-<span class="co">#&gt; [1] "c2e_2g2"</span></code></pre></div>
+<span class="kw"><a href="../reference/chord_break.html">chord_break</a></span>(x)</code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">c</span><span> </span><span style="color: #00BBBB;font-weight: bold;">e_</span><span> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span>
+</span></code></pre>
+<p><code>chord_invert</code> creates chord inversions. It also takes a single chord as input. It treats any chord as being in root position as provided. The example below applies the function over a series of inversion values to show how the output changes.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/append_phrases.html">glue</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/lapply">sapply</a></span>((<span class="op">-</span><span class="dv">3</span>)<span class="op">:</span><span class="dv">3</span>, <span class="cf">function</span>(i) <span class="kw"><a href="../reference/chord_invert.html">chord_invert</a></span>(x, i)))</code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Values: </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">2</span><span style="color: #00BBBB;font-weight: bold;">e_</span><span style="color: #00BBBB;">2</span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #00BBBB;">2</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">e_</span><span style="color: #00BBBB;">2</span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #00BBBB;">2</span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #00BBBB;">2</span><span style="color: #00BBBB;font-weight: bold;">ce_</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ce_g</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">e_gc</span><span style="color: #00BBBB;">4</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">gc</span><span style="color: #00BBBB;">4</span><span style="color: #00BBBB;font-weight: bold;">e_</span><span style="color: #00BBBB;">4</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">4</span><span style="color: #00BBBB;font-weight: bold;">e_</span><span style="color: #00BBBB;">4</span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #00BBBB;">4</span><span style="color: #BBBB00;">&gt;</span><span>
+</span></code></pre>
 <p>While a chord with <code>n</code> notes has <code>n - 1</code> inversions, <code>chord_invert</code> allows inversions to continue, moving a chord further up or down in octaves. If you want to restrict the function to only allowing the defined number of inversions (excluding root position), set <code>limit = TRUE</code>. This enforces the rule that, for example, a chord with three notes has two inversions and <code>n</code> can only take values between <code>-2</code> and <code>2</code> or it will throw and error.</p>
 <p>Building up on <code>chord_invert</code>, <code>chord_arpeggiate</code> grows a chord up or down the scale in pitch by creating an arpeggio. <code>n</code> describes how many steps to add onto the original chord. Setting <code>by = "chord"</code> will replicate the entire chord as is, up or down the scale. In this case <code>n</code> indicates whole octave transposition steps. By default, <code>n</code> refers to the number of steps that individual chord notes are arpeggiated, like in <code>chord_invert</code>. This means for example that in a chord with three notes, setting <code>n = 3</code> and <code>by = "note"</code> is equivalent to setting <code>n = 1</code> and <code>by = "chord"</code>.</p>
 <p>The argument <code>broken = TRUE</code> will also convert to a broken chord, resulting in an arpeggio of individual notes.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/chord_arpeggiate.html">chord_arpeggiate</a></span>(<span class="st">"ce_gb_"</span>, <span class="dv">2</span>)
-<span class="co">#&gt; [1] "ce_gb_"   "e_gb_c4"  "gb_c4e_4"</span>
-<span class="kw"><a href="../reference/chord_arpeggiate.html">chord_arpeggiate</a></span>(<span class="st">"ce_gb_"</span>, <span class="op">-</span><span class="dv">2</span>)
-<span class="co">#&gt; [1] "ce_gb_"   "b_2ce_g"  "g2b_2ce_"</span>
-<span class="kw"><a href="../reference/chord_arpeggiate.html">chord_arpeggiate</a></span>(<span class="st">"ce_gb_"</span>, <span class="dv">2</span>, <span class="dt">by =</span> <span class="st">"chord"</span>)
-<span class="co">#&gt; [1] "ce_gb_"     "c4e_4g4b_4" "c5e_5g5b_5"</span>
-<span class="kw"><a href="../reference/chord_arpeggiate.html">chord_arpeggiate</a></span>(<span class="st">"ce_gb_"</span>, <span class="dv">1</span>, <span class="dt">broken =</span> <span class="ot">TRUE</span>, <span class="dt">collapse =</span> <span class="ot">TRUE</span>)
-<span class="co">#&gt; [1] "c e_ g b_ e_ g b_ c4"</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/chord_arpeggiate.html">chord_arpeggiate</a></span>(<span class="st">"ce_gb_"</span>, <span class="dv">2</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>vectorized time</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Values: </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ce_gb_</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">e_gb_c</span><span style="color: #00BBBB;">4</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">gb_c</span><span style="color: #00BBBB;">4</span><span style="color: #00BBBB;font-weight: bold;">e_</span><span style="color: #00BBBB;">4</span><span style="color: #BBBB00;">&gt;</span><span>
+</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/chord_arpeggiate.html">chord_arpeggiate</a></span>(<span class="st">"ce_gb_"</span>, <span class="op">-</span><span class="dv">2</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>vectorized time</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Values: </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ce_gb_</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">b_</span><span style="color: #00BBBB;">2</span><span style="color: #00BBBB;font-weight: bold;">ce_g</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #00BBBB;">2</span><span style="color: #00BBBB;font-weight: bold;">b_</span><span style="color: #00BBBB;">2</span><span style="color: #00BBBB;font-weight: bold;">ce_</span><span style="color: #BBBB00;">&gt;</span><span>
+</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/chord_arpeggiate.html">chord_arpeggiate</a></span>(<span class="st">"ce_gb_"</span>, <span class="dv">2</span>, <span class="dt">by =</span> <span class="st">"chord"</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>vectorized time</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Values: </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ce_gb_</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">4</span><span style="color: #00BBBB;font-weight: bold;">e_</span><span style="color: #00BBBB;">4</span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #00BBBB;">4</span><span style="color: #00BBBB;font-weight: bold;">b_</span><span style="color: #00BBBB;">4</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">5</span><span style="color: #00BBBB;font-weight: bold;">e_</span><span style="color: #00BBBB;">5</span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #00BBBB;">5</span><span style="color: #00BBBB;font-weight: bold;">b_</span><span style="color: #00BBBB;">5</span><span style="color: #BBBB00;">&gt;</span><span>
+</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/chord_arpeggiate.html">chord_arpeggiate</a></span>(<span class="st">"ce_gb_"</span>, <span class="dv">1</span>, <span class="dt">broken =</span> <span class="ot">TRUE</span>, <span class="dt">collapse =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">c</span><span> </span><span style="color: #00BBBB;font-weight: bold;">e_</span><span> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span> </span><span style="color: #00BBBB;font-weight: bold;">b_</span><span> </span><span style="color: #00BBBB;font-weight: bold;">e_</span><span> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span> </span><span style="color: #00BBBB;font-weight: bold;">b_</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">4</span><span>
+</span></code></pre>
 </div>
-<div id="chord-construction" class="section level2">
+<div id="dyads" class="section level2">
 <h2 class="hasAnchor">
-<a href="#chord-construction" class="anchor"></a>Chord construction</h2>
-<p>Before introducing the chord constructors, here is a brief mention and example of the <code>dyad</code> function for constructing dyads from a root note and and interval. Dyads are not technically chords, but this is as good a place as any to mention <code>dyad</code>. The interval can be in semitones, or a named interval from <code>mainIntervals</code> that corresponds to the number of semitones.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/dyad.html">dyad</a></span>(<span class="st">"a"</span>, <span class="dv">3</span>)
-<span class="co">#&gt; [1] "ac4"</span>
-x &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"minor third"</span>, <span class="st">"m3"</span>, <span class="st">"augmented second"</span>, <span class="st">"A2"</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/lapply">sapply</a></span>(x, <span class="cf">function</span>(x) <span class="kw"><a href="../reference/dyad.html">dyad</a></span>(<span class="st">"a"</span>, x))
-<span class="co">#&gt;      minor third               m3 augmented second               A2 </span>
-<span class="co">#&gt;            "ac4"            "ac4"            "ac4"            "ac4"</span>
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/lapply">sapply</a></span>(x, <span class="cf">function</span>(x) <span class="kw"><a href="../reference/dyad.html">dyad</a></span>(<span class="st">"c'"</span>, x, <span class="dt">reverse =</span> <span class="ot">TRUE</span>))
-<span class="co">#&gt;      minor third               m3 augmented second               A2 </span>
-<span class="co">#&gt;            "ac'"            "ac'"            "ac'"            "ac'"</span></code></pre></div>
-<div id="available-constructors" class="section level3">
-<h3 class="hasAnchor">
-<a href="#available-constructors" class="anchor"></a>Available constructors</h3>
-<p>Now to the topic of chord construction. Chords are often constructed directly, but many can also be constructed using helper functions. Currently, helpers exist for common chords up through thirteenths. There are not currently any constructors for guitar-specific chord shapes and fingerings. <code>tabr</code> offers two options for each chord constructor, the longer <code>chord_*</code>-named function and its <code>x*</code> alias. The table below shows all available constructors.</p>
-<pre><code>#&gt;        full_name abbreviation
+<a href="#dyads" class="anchor"></a>Dyads</h2>
+<p>Before introducing the chord constructors, here is a brief mention and example of the <code>dyad</code> function for constructing dyads from a root note and and interval. Dyads are not always considered chords, but this is as good a place as any to mention <code>dyad</code> since the key distinction made in <code>tabr</code> in this context is whether there is a single note or multiple notes. The interval passed to <code>dyad</code> can be in semitones, or a named interval from <code>mainIntervals</code> that corresponds to the number of semitones.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/dyad.html">dyad</a></span>(<span class="st">"a"</span>, <span class="dv">3</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Values: </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ac</span><span style="color: #00BBBB;">4</span><span style="color: #BBBB00;">&gt;</span><span>
+</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"minor third"</span>, <span class="st">"m3"</span>, <span class="st">"augmented second"</span>, <span class="st">"A2"</span>)
+<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/lapply">sapply</a></span>(x, <span class="cf">function</span>(x) <span class="kw"><a href="../reference/dyad.html">dyad</a></span>(<span class="st">"a"</span>, x))</code></pre></div>
+<pre class="r-output"><code>#&gt;      minor third               m3 augmented second               A2 
+#&gt;            "ac4"            "ac4"            "ac4"            "ac4"
+</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/lapply">sapply</a></span>(x, <span class="cf">function</span>(x) <span class="kw"><a href="../reference/dyad.html">dyad</a></span>(<span class="st">"c'"</span>, x, <span class="dt">reverse =</span> <span class="ot">TRUE</span>))</code></pre></div>
+<pre class="r-output"><code>#&gt;      minor third               m3 augmented second               A2 
+#&gt;            "ac'"            "ac'"            "ac'"            "ac'"
+</code></pre>
+</div>
+<div id="predefined-chord-constructors" class="section level2">
+<h2 class="hasAnchor">
+<a href="#predefined-chord-constructors" class="anchor"></a>Predefined chord constructors</h2>
+<p>Now to the topic of chord construction, there are two general forms of chord construction currently available in <code>tabr</code>. The first is for typical chords based on their defining intervals; i.e., “piano chords”. These are not particularly useful for guitar-specific chord shapes and fingerings, which generally span a greater pitch range. See further below for guitar chords.</p>
+<p>In <code>tabr</code> chords are often constructed from scratch by explicitly typing the chord pitches in a noteworthy string, but many chords can also be constructed using helper functions. Currently, helpers exist for common chords up through thirteenths. <code>tabr</code> offers two options for each chord constructor function name: the longer <code>chord_*</code>-named function and its <code>x*</code> alias. The table below shows all available constructors.</p>
+<pre class="r-output"><code>#&gt;        full_name abbreviation
 #&gt; 1      chord_min           xm
 #&gt; 2      chord_maj           xM
 #&gt; 3     chord_min7          xm7
@@ -267,30 +290,228 @@ x &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumenta
 #&gt; 26   chord_maj11         xM11
 #&gt; 27      chord_13         x_13
 #&gt; 28   chord_min13         xm13
-#&gt; 29   chord_maj13         xM13</code></pre>
+#&gt; 29   chord_maj13         xM13
+</code></pre>
 <p>These functions take root notes and a key signature as input. The given function determines the intervals of the chord. This in combination with a root note is all that is needed to create the chord. However, the key signature can enforce whether the result uses flats or sharps when accidentals are present.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/chords.html">chord_min7</a></span>(<span class="st">"a c e"</span>)
-<span class="co">#&gt; [1] "ac4e4g4" "cd#ga#"  "egbd4"</span>
-<span class="kw"><a href="../reference/chords.html">chord_min7</a></span>(<span class="st">"a c e"</span>, <span class="dt">key =</span> <span class="st">"f"</span>)
-<span class="co">#&gt; [1] "ac4e4g4" "ce_gb_"  "egbd4"</span>
-<span class="kw"><a href="../reference/chords.html">xm7</a></span>(<span class="st">"a c e"</span>, <span class="dt">key =</span> <span class="st">"f"</span>)
-<span class="co">#&gt; [1] "ac4e4g4" "ce_gb_"  "egbd4"</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/chords.html">chord_min7</a></span>(<span class="st">"a c e"</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>vectorized time</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Values: </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ac</span><span style="color: #00BBBB;">4</span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">4</span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #00BBBB;">4</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">cd#ga#</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">egbd</span><span style="color: #00BBBB;">4</span><span style="color: #BBBB00;">&gt;</span><span>
+</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/chords.html">chord_min7</a></span>(<span class="st">"a c e"</span>, <span class="dt">key =</span> <span class="st">"f"</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>vectorized time</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Values: </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ac</span><span style="color: #00BBBB;">4</span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">4</span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #00BBBB;">4</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ce_gb_</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">egbd</span><span style="color: #00BBBB;">4</span><span style="color: #BBBB00;">&gt;</span><span>
+</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/chords.html">xm7</a></span>(<span class="st">"a c e"</span>, <span class="dt">key =</span> <span class="st">"f"</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>vectorized time</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Values: </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ac</span><span style="color: #00BBBB;">4</span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">4</span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #00BBBB;">4</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ce_gb_</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">egbd</span><span style="color: #00BBBB;">4</span><span style="color: #BBBB00;">&gt;</span><span>
+</span></code></pre>
 </div>
-<div id="eventual-direction" class="section level3">
+<div id="predefined-guitar-chords" class="section level2">
+<h2 class="hasAnchor">
+<a href="#predefined-guitar-chords" class="anchor"></a>Predefined guitar chords</h2>
+<p>The dataset <code>guitarChords</code> is a tibble containing 3,967 rows of predefined guitar chords. It is highly redundant, but convenient to use. It is generated from a much smaller chords basis set, that is then transposed over all notes, yielding chord types and shapes for all twelve notes. Chords begin from open position and range up one octave to chords whose lowest fret is eleven. There are also multiple chord voicings for many chord types. Finally, chords containing accidentals are included in the table with both the flat and sharp versions.</p>
+<p>There are twelve columns. Again, some of the column-wise information is also redundant, but it is not a big deal to include and removes the need to do a variety of computations to map from one representation of chord information to another. Here are the first ten rows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">guitarChords</code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 3,967 x 12</span><span>
+#&gt;    id    lp_name root  octave root_fret min_fret bass_string notes frets
+#&gt;    </span><span style="color: #555555;font-style: italic;">&lt;fct&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>       </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>
+#&gt; </span><span style="color: #555555;"> 1</span><span> M     a,:5    a          2         0        0           5 a,ea~ xo22~
+#&gt; </span><span style="color: #555555;"> 2</span><span> M     a,:5    a          2         0        0           5 a,ea~ xo22~
+#&gt; </span><span style="color: #555555;"> 3</span><span> m     a,:m    a          2         0        0           5 a,ea~ xo22~
+#&gt; </span><span style="color: #555555;"> 4</span><span> 7     a,:7    a          2         0        0           5 a,eg~ xo2o~
+#&gt; </span><span style="color: #555555;"> 5</span><span> 7     a,:7    a          2         0        0           5 a,eg~ xo2o~
+#&gt; </span><span style="color: #555555;"> 6</span><span> M7    a,:maj7 a          2         0        0           5 a,eg~ xo21~
+#&gt; </span><span style="color: #555555;"> 7</span><span> M7    a,:maj7 a          2         0        0           5 a,ea~ xo21~
+#&gt; </span><span style="color: #555555;"> 8</span><span> m7    a,:m7   a          2         0        0           5 a,eg~ xo2o~
+#&gt; </span><span style="color: #555555;"> 9</span><span> sus2  a,:sus2 a          2         0        0           5 a,ea~ xo22~
+#&gt; </span><span style="color: #555555;">10</span><span> sus4  a,:sus4 a          2         0        0           5 a,ea~ xo22~
+#&gt; </span><span style="color: #555555;"># ... with 3,957 more rows, and 3 more variables: semitones </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span style="color: #555555;">,
+#&gt; #   fretboard </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span style="color: #555555;">, open </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>
+</span></code></pre>
+<div id="defining-new-guitar-chord-collections" class="section level3">
 <h3 class="hasAnchor">
-<a href="#eventual-direction" class="anchor"></a>Eventual direction</h3>
-<p>Chord constructors are a new concept and this collection of convenient wrapper functions may change significantly in a future version of <code>tabr</code>. In the context of creating guitar tablature, these are not very useful. Another concept of chord constructors will be developed in a future version with a focus on generating chords for guitar tablature. Such a constructor or set of constructors may consider information such as:</p>
+<a href="#defining-new-guitar-chord-collections" class="anchor"></a>Defining new guitar chord collections</h3>
+<p>You can also define your own chords using <code>chord_def</code>. All you need are the fret numbers for the fretted chord. Currently it is assumed to be a six-string instrument. The default tuning is standard, but this can be changed arbitrarily. <code>NA</code> indicates a muted string. Order is from lowest pitch string to highest. In the example below, create a set of minor chords based on the open <code>Am</code> shape.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">frets &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="ot">NA</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+<span class="kw"><a href="../reference/chord_def.html">chord_def</a></span>(frets, <span class="st">"m"</span>, <span class="dv">6</span>) <span class="co"># sixth entry (highest string: string #1) is optional</span></code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 1 x 13</span><span>
+#&gt;   id    lp_name root  octave root_fret min_fret bass_string notes frets
+#&gt;   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>       </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>
+#&gt; </span><span style="color: #555555;">1</span><span> m     a,:m    a          2         0        0           5 a,ea~ xo22~
+#&gt; </span><span style="color: #555555;"># ... with 4 more variables: semitones </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span style="color: #555555;">, optional </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span style="color: #555555;">,
+#&gt; #   fretboard </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span style="color: #555555;">, open </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>
+</span></code></pre>
+<p><code>guitarChords</code> does not currently contain the <code>optional</code> column, but this is a column where you can indicate optional chord notes, as shown above.</p>
+<p><code>chord_def</code> is scalar and defines a single chord, always returning a table with one row, but you can map over it however you need in order to define a collection of chords. Below, a set of chords is generated with sharps and again with flats.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">purrr<span class="op">::</span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map_dfr</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="op">~</span><span class="kw"><a href="../reference/chord_def.html">chord_def</a></span>(frets <span class="op">+</span><span class="st"> </span>.x, <span class="st">"m"</span>))</code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 12 x 13</span><span>
+#&gt;    id    lp_name root  octave root_fret min_fret bass_string notes frets
+#&gt;    </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>       </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>
+#&gt; </span><span style="color: #555555;"> 1</span><span> m     a#,:m   a#         2         1        1           5 a#,f~ x133~
+#&gt; </span><span style="color: #555555;"> 2</span><span> m     b,:m    b          2         2        2           5 b,f#~ x244~
+#&gt; </span><span style="color: #555555;"> 3</span><span> m     c:m     c          3         3        3           5 cgc'~ x355~
+#&gt; </span><span style="color: #555555;"> 4</span><span> m     c#:m    c#         3         4        4           5 c#g#~ x466~
+#&gt; </span><span style="color: #555555;"> 5</span><span> m     d:m     d          3         5        5           5 dad'~ x577~
+#&gt; </span><span style="color: #555555;"> 6</span><span> m     d#:m    d#         3         6        6           5 d#a#~ x688~
+#&gt; </span><span style="color: #555555;"> 7</span><span> m     e:m     e          3         7        7           5 ebe'~ x799~
+#&gt; </span><span style="color: #555555;"> 8</span><span> m     f:m     f          3         8        8           5 fc'f~ x8(1~
+#&gt; </span><span style="color: #555555;"> 9</span><span> m     f#:m    f#         3         9        9           5 f#c#~ x9(1~
+#&gt; </span><span style="color: #555555;">10</span><span> m     g:m     g          3        10       10           5 gd'g~ x(10~
+#&gt; </span><span style="color: #555555;">11</span><span> m     g#:m    g#         3        11       11           5 g#d#~ x(11~
+#&gt; </span><span style="color: #555555;">12</span><span> m     a:m     a          3        12       12           5 ae'a~ x(12~
+#&gt; </span><span style="color: #555555;"># ... with 4 more variables: semitones </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span style="color: #555555;">, optional </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span style="color: #555555;">,
+#&gt; #   fretboard </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span style="color: #555555;">, open </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>
+</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">purrr<span class="op">::</span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map_dfr</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="op">~</span><span class="kw"><a href="../reference/chord_def.html">chord_def</a></span>(frets <span class="op">+</span><span class="st"> </span>.x, <span class="st">"m"</span>, <span class="dt">key =</span> <span class="st">"f"</span>)) <span class="co"># flats</span></code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 12 x 13</span><span>
+#&gt;    id    lp_name root  octave root_fret min_fret bass_string notes frets
+#&gt;    </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>       </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>
+#&gt; </span><span style="color: #555555;"> 1</span><span> m     b_,:m   b_         2         1        1           5 b_,f~ x133~
+#&gt; </span><span style="color: #555555;"> 2</span><span> m     b,:m    b          2         2        2           5 b,g_~ x244~
+#&gt; </span><span style="color: #555555;"> 3</span><span> m     c:m     c          3         3        3           5 cgc'~ x355~
+#&gt; </span><span style="color: #555555;"> 4</span><span> m     d_:m    d_         3         4        4           5 d_a_~ x466~
+#&gt; </span><span style="color: #555555;"> 5</span><span> m     d:m     d          3         5        5           5 dad'~ x577~
+#&gt; </span><span style="color: #555555;"> 6</span><span> m     e_:m    e_         3         6        6           5 e_b_~ x688~
+#&gt; </span><span style="color: #555555;"> 7</span><span> m     e:m     e          3         7        7           5 ebe'~ x799~
+#&gt; </span><span style="color: #555555;"> 8</span><span> m     f:m     f          3         8        8           5 fc'f~ x8(1~
+#&gt; </span><span style="color: #555555;"> 9</span><span> m     g_:m    g_         3         9        9           5 g_d_~ x9(1~
+#&gt; </span><span style="color: #555555;">10</span><span> m     g:m     g          3        10       10           5 gd'g~ x(10~
+#&gt; </span><span style="color: #555555;">11</span><span> m     a_:m    a_         3        11       11           5 a_e_~ x(11~
+#&gt; </span><span style="color: #555555;">12</span><span> m     a:m     a          3        12       12           5 ae'a~ x(12~
+#&gt; </span><span style="color: #555555;"># ... with 4 more variables: semitones </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span style="color: #555555;">, optional </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span style="color: #555555;">,
+#&gt; #   fretboard </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span style="color: #555555;">, open </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>
+</span></code></pre>
+</div>
+<div id="related-helper-functions" class="section level3">
+<h3 class="hasAnchor">
+<a href="#related-helper-functions" class="anchor"></a>Related helper functions</h3>
+<p>Several functions are available that glean specific information from <code>guitarChords</code>. The functions <code>lp_chord_id</code> and <code>lp_chord_mod</code> obtain the LilyPond chord name and LilyPond chord modifier (suffix), given a root note and <code>tabr</code> format chord name/modifier. It is not quite identical to LilyPond format (set <code>exact = TRUE</code>). See function documentation for details.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/lp_chord_id.html">lp_chord_id</a></span>(<span class="st">"a a a"</span>, <span class="st">"m M m7_5"</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; [1] "a:m"    "a:5"    "a:m7_5"
+</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/lp_chord_id.html">lp_chord_mod</a></span>(<span class="st">"a a a"</span>, <span class="st">"m M m7_5"</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; [1] "m"    "5"    "m7_5"
+</code></pre>
+<p><code>chord_is_known</code> checks against <code>guitarChords</code> to see if the explicit chord, as given by its component pitches, exists in the dataset. Notice below that <code>a</code> in the string of notes is a note, not a major <code>A</code> chord, and hence returns <code>FALSE</code>. In the <code>chord_name_*</code> functions, the same <code>a</code> is now interpreted as a major chord because these functions operate on chord name inputs.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/chord-mapping.html">chord_is_known</a></span>(<span class="st">"a b_,fb_d'f'"</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; [1] FALSE  TRUE
+</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+x &lt;-<span class="st"> "a aM b_,m7#5"</span>
+<span class="kw"><a href="../reference/chord-mapping.html">chord_name_split</a></span>(x)</code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 3 x 2</span><span>
+#&gt;   root  mod  
+#&gt;   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>
+#&gt; </span><span style="color: #555555;">1</span><span> a     M    
+#&gt; </span><span style="color: #555555;">2</span><span> a     M    
+#&gt; </span><span style="color: #555555;">3</span><span> b_,   m7#5
+</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/chord-mapping.html">chord_name_root</a></span>(x)</code></pre></div>
+<pre class="r-output"><code>#&gt; [1] "a"   "a"   "b_,"
+</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/chord-mapping.html">chord_name_mod</a></span>(x)</code></pre></div>
+<pre class="r-output"><code>#&gt; [1] "M"    "M"    "m7#5"
+</code></pre>
+</div>
+</div>
+<div id="guitar-chord-construction" class="section level2">
+<h2 class="hasAnchor">
+<a href="#guitar-chord-construction" class="anchor"></a>Guitar chord construction</h2>
+<p>The most interesting use of <code>guitarChords</code> is in using it to map from chord names to noteworthy strings.</p>
+<div id="chord-information" class="section level3">
+<h3 class="hasAnchor">
+<a href="#chord-information" class="anchor"></a>Chord information</h3>
+<p><code>gc_info</code> can be used to filter <code>guitarChords</code>. In the examples below, you can see that multiple chord names can be supplied at once. All are used to filter the chord dataset. If the inputs do not exist, an empty tibble with zero rows is returned. The result is not vectorized to match the number of entries in the input; it is simply a row filter for <code>guitarChords</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/chord-mapping.html">gc_info</a></span>(<span class="st">"a"</span>) <span class="co"># a major chord, not a single note</span></code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 3 x 12</span><span>
+#&gt;   id    lp_name root  octave root_fret min_fret bass_string notes frets
+#&gt;   </span><span style="color: #555555;font-style: italic;">&lt;fct&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>       </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>
+#&gt; </span><span style="color: #555555;">1</span><span> M     a:5     a          3         7        7           4 ae'a~ xx79~
+#&gt; </span><span style="color: #555555;">2</span><span> M     a:5     a          3        12       12           5 ae'a~ x(12~
+#&gt; </span><span style="color: #555555;">3</span><span> M     a:5     a          3        12        9           5 ac#'~ x(12~
+#&gt; </span><span style="color: #555555;"># ... with 3 more variables: semitones </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span style="color: #555555;">, fretboard </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span style="color: #555555;">, open </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>
+</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/chord-mapping.html">gc_info</a></span>(<span class="st">"ceg a#m7_5"</span>) <span class="co"># only third entry is a guitar chord</span></code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 3 x 12</span><span>
+#&gt;   id    lp_name root  octave root_fret min_fret bass_string notes frets
+#&gt;   </span><span style="color: #555555;font-style: italic;">&lt;fct&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>       </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>
+#&gt; </span><span style="color: #555555;">1</span><span> m7_5  a#:m7_5 a#         3         8        4           4 a#c#~ xx86~
+#&gt; </span><span style="color: #555555;">2</span><span> m7_5  a#:m7_5 a#         3         8        8           4 a#e'~ xx89~
+#&gt; </span><span style="color: #555555;">3</span><span> m7_5  a#:m7_5 a#         3        13       12           5 a#g#~ x(13~
+#&gt; </span><span style="color: #555555;"># ... with 3 more variables: semitones </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span style="color: #555555;">, fretboard </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span style="color: #555555;">, open </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>
+</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/chord-mapping.html">gc_info</a></span>(<span class="st">"ceg a#m7_5"</span>, <span class="dt">key =</span> <span class="st">"f"</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 3 x 12</span><span>
+#&gt;   id    lp_name root  octave root_fret min_fret bass_string notes frets
+#&gt;   </span><span style="color: #555555;font-style: italic;">&lt;fct&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>       </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>
+#&gt; </span><span style="color: #555555;">1</span><span> m7_5  b_:m7_5 b_         3         8        4           4 b_d_~ xx86~
+#&gt; </span><span style="color: #555555;">2</span><span> m7_5  b_:m7_5 b_         3         8        8           4 b_e'~ xx89~
+#&gt; </span><span style="color: #555555;">3</span><span> m7_5  b_:m7_5 b_         3        13       12           5 b_a_~ x(13~
+#&gt; </span><span style="color: #555555;"># ... with 3 more variables: semitones </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span style="color: #555555;">, fretboard </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span style="color: #555555;">, open </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>
+</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="kw"><a href="../reference/chord-mapping.html">gc_info</a></span>(<span class="st">"a,m c d f,"</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 13 x 12</span><span>
+#&gt;    id    lp_name root  octave root_fret min_fret bass_string notes frets
+#&gt;    </span><span style="color: #555555;font-style: italic;">&lt;fct&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>       </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>
+#&gt; </span><span style="color: #555555;"> 1</span><span> m     a,:m    a          2         0        0           5 a,ea~ xo22~
+#&gt; </span><span style="color: #555555;"> 2</span><span> m     a,:m    a          2         5        5           6 a,ea~ 5775~
+#&gt; </span><span style="color: #555555;"> 3</span><span> m     a,:m    a          2         5        2           6 a,cea 5322~
+#&gt; </span><span style="color: #555555;"> 4</span><span> M     c:5     c          3         3        3           5 cgc'~ x355~
+#&gt; </span><span style="color: #555555;"> 5</span><span> M     c:5     c          3         3        0           5 cegc~ x32o~
+#&gt; </span><span style="color: #555555;"> 6</span><span> M     c:5     c          3         8        8           6 cgc'~ 8(10~
+#&gt; </span><span style="color: #555555;"> 7</span><span> M     c:5     c          3         8        5           6 cegc~ 8755~
+#&gt; </span><span style="color: #555555;"> 8</span><span> M     d:5     d          3         0        0           4 dad'~ xxo2~
+#&gt; </span><span style="color: #555555;"> 9</span><span> M     d:5     d          3         5        5           5 dad'~ x577~
+#&gt; </span><span style="color: #555555;">10</span><span> M     d:5     d          3         5        2           5 df#a~ x542~
+#&gt; </span><span style="color: #555555;">11</span><span> M     d:5     d          3        10       10           6 dad'~ (10)~
+#&gt; </span><span style="color: #555555;">12</span><span> M     d:5     d          3        10        7           6 df#a~ (10)~
+#&gt; </span><span style="color: #555555;">13</span><span> M     f,:5    f          2         1        1           6 f,cf~ 1332~
+#&gt; </span><span style="color: #555555;"># ... with 3 more variables: semitones </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span style="color: #555555;">, fretboard </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span style="color: #555555;">, open </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>
+</span></code></pre>
+<p>The same properties of <code>gc_info</code> apply to wrapper functions around it, namely, <code>gc_notes</code> and <code>gc_fretboard</code>.</p>
+</div>
+<div id="map-chord-names-to-notes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#map-chord-names-to-notes" class="anchor"></a>Map chord names to notes</h3>
+<p><code>gc_notes</code> takes chord names and returns the notes. Remember, the is just a basic filter. If you specify chords imprecisely, the result will contain many more chords than were in the input. If you specify chords completely unambiguously, then there is one result for each input. However, this also requires you do not provide any chord names that are not in <code>guitarChord</code>, or these will be dropped.</p>
+<p>Keep in mind that these functions are under active development and the approaches they take may change prior to the next CRAN release of <code>tabr</code>. Currently, the ways you can add precision to your chord mapping include passing the following optional arguments:</p>
 <ul>
-<li>chord shape</li>
-<li>number of, or which strings are used</li>
-<li>fret number, or minimum fret</li>
-<li>chord root</li>
-<li>separate bass note</li>
-<li>bar or open</li>
+<li>
+<code>root_fret</code>: the fret for the root note.</li>
+<li>
+<code>min_fret</code>: the lowest fret position for a chord.</li>
+<li>
+<code>bass_string</code>: the lowest unmuted string for a chord.</li>
+<li>
+<code>open</code>: open chords, closed/movable chords, or both (default).</li>
+<li>
+<code>key</code>: key signature, to enforce sharps or flats when present.</li>
 </ul>
-<p>Some of these considerations could yield different constructors that build chords from different information, each being provided sufficiently complete, but not redundant, information.</p>
-<p>Another distinction to make is among the output formats provided by chord constructors. One group of constructors could yield the noteworthy strings that eventually end up on the tab staff and/or music staff in <code>tabr</code> output. Another group of constructors could generate the chord format used for creating fretboard diagrams, which have a different syntax. Choice of output format could be an argument to a parent constructor, but there can also be separate groups of wrapper functions that default to each type of output.</p>
-<p>In any case, this is mentioned here so that users are aware that there are development plans for chord construction that is tablature focused and helpful for guitar, and which does not look like the examples shown above. The more piano chord style convenience functions above will remain for programming purposes and whatever other conveniences they offer, but as chord construction in <code>tabr</code> receives further development, it is going to look very different, serve different purposes, and the currently available functions will look like an aside. There will likely be a few constructor functions that generate many guitar chords in various ways given different information. There will not be a large collection of functions named after specific guitar chords.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chord-mapping.html">gc_notes</a></span>(<span class="st">"a,7 b,m"</span>, <span class="dv">0</span><span class="op">:</span><span class="dv">2</span>) <span class="co"># filter/restriction: root fret must be in 0:2</span>
+<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(x)</code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
+#&gt;   Timesteps: </span><span>2 (0 notes, 2 chords)</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Octaves: </span><span>tick</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Accidentals: </span><span>sharp</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Values: </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">a</span><span style="color: #00BBBB;">,</span><span style="color: #00BBBB;font-weight: bold;">egc#</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">b</span><span style="color: #00BBBB;">,</span><span style="color: #00BBBB;font-weight: bold;">f#bd</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">f#</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span>
+</span></code></pre>
+<p>Notice that the octave information helps further restrict the chord set as well. This can be turned off with <code>ignore_octave = TRUE</code>.</p>
+</div>
+<div id="fretboard-diagrams" class="section level3">
+<h3 class="hasAnchor">
+<a href="#fretboard-diagrams" class="anchor"></a>Fretboard diagrams</h3>
+<p>When creating tablature and sheet music with LilyPond, you may wish to include a chord chart containing fretboard diagrams of the chords as they are played. Currently, <code>tabr</code> uses the <code>chord_set</code> function to prepare a named character vector of chords that have quasi-LilyPond chord names and fretboard notation values, ready to be passed to <code>score</code> for proper injection into LilyPond.</p>
+<p>This process and the structure of the data objects involved may change soon (I have not decided for certain yet). But for the time being, this is still the process. Therefore, the new function <code>gc_fretboard</code> performs the same manipulation using chords from <code>guitarChords</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/chord-mapping.html">gc_fretboard</a></span>(<span class="st">"a,m c d f,"</span>, <span class="ot">NA</span>, <span class="dv">0</span><span class="op">:</span><span class="dv">1</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt;           a,:m            c:5            d:5           f,:5 
+#&gt; "x;o;2;2;1;o;" "x;3;2;o;1;o;" "x;x;o;2;3;2;" "1;3;3;2;1;1;"
+</code></pre>
+<p>This summarizes the current state of guitar chord name-note mapping in <code>tabr</code>. This is an area still under active development and subject to change.</p>
 </div>
 </div>
   </div>
@@ -302,7 +523,10 @@ x &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumenta
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#chord-identity-and-comparison">Chord identity and comparison</a></li>
       <li><a href="#chord-transformations">Chord transformations</a></li>
-      <li><a href="#chord-construction">Chord construction</a></li>
+      <li><a href="#dyads">Dyads</a></li>
+      <li><a href="#predefined-chord-constructors">Predefined chord constructors</a></li>
+      <li><a href="#predefined-guitar-chords">Predefined guitar chords</a></li>
+      <li><a href="#guitar-chord-construction">Guitar chord construction</a></li>
       </ul>
 </div>
       </div>

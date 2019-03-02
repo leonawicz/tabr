@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Chord inversion — chord_invert • tabr</title>
+<title>Predefined guitar chords. — guitarChords • tabr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -39,10 +39,9 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Chord inversion — chord_invert" />
+<meta property="og:title" content="Predefined guitar chords. — guitarChords" />
 
-<meta property="og:description" content="This function inverts a single chord given as a character string. If n = 0, chord is returned immediately.
-Otherwise, the notes of the chord are inverted. If abs(n) is greater than the number of inversions (excluding root position), an error is thrown." />
+<meta property="og:description" content="A data frame containing information for many predefined guitar chords." />
 
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -194,70 +193,31 @@ Otherwise, the notes of the chord are inverted. If abs(n) is greater than the nu
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Chord inversion</h1>
-    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/chords.R'><code>R/chords.R</code></a></small>
-    <div class="hidden name"><code>chord_invert.Rd</code></div>
+    <h1>Predefined guitar chords.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/data.R'><code>R/data.R</code></a></small>
+    <div class="hidden name"><code>guitarChords.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This function inverts a single chord given as a character string. If <code>n = 0</code>, <code>chord</code> is returned immediately.
-Otherwise, the notes of the chord are inverted. If <code><a href='https://www.rdocumentation.org/packages/base/topics/MathFun'>abs(n)</a></code> is greater than the number of inversions (excluding root position), an error is thrown.</p>
+    <p>A data frame containing information for many predefined guitar chords.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>chord_invert</span>(<span class='no'>chord</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>limit</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>chord</th>
-      <td><p>character, a single chord.</p></td>
-    </tr>
-    <tr>
-      <th>n</th>
-      <td><p>inversion.</p></td>
-    </tr>
-    <tr>
-      <th>limit</th>
-      <td><p>logical, limit inversions in either direction to one less than the number of notes in the chord.</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <pre class="usage"><span class='no'>guitarChords</span></pre>
+        
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>character</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Note that <code>chord_invert</code> has no knowledge of whether a chord might be considered as in root position or some inversion already, as informed by a key signature, chord name or user's intent.
-This function simply inverts what it receives, treating any defined chord string as in root position.</p>
-<p>Octave number applies to this function. Chords should always be defined by notes of increasing pitch. Remember that an unspecified octave number on a note is octave 3.
-When the chord is inverted, it moves up the scale.
-The lowest note is moved to the top of the chord, increasing its octave if necessary, to ensure that the note takes the lowest octave number while having the highest pitch.
-The second lowest note becomes the lowest. It's octave does not change.
-This pattern is repeated for higher order inversions. The opposite happens if <code>n</code> is negative.</p>
-<p>The procedure ensures that the resulting inverted chord is still defined by notes of increasing pitch.
-However, if you construct an unusual chord that spans multiple octaves, the extra space will be condensed by inversion.</p>
+    <p>A data frame with 12 columns and 4,030 rows.</p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>chord_invert</span>(<span class='st'>"ce_gb_"</span>, <span class='fl'>3</span>)</div><div class='output co'>#&gt; <span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
-#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>b_c</span><span style='color: #00BBBB;'>4</span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>4</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>4</span><span style='color: #BBBB00;'>&gt;</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+      <li><a href="#format">Format</a></li>
+          </ul>
 
   </div>
 </div>

@@ -180,10 +180,16 @@
 <a href="#duplicate-and-glue" class="anchor"></a>Duplicate and glue</h2>
 <p>The previous section on phrases presented an opportunity to introduce <code>dup</code> for duplicating or repeating strings and <code>glue</code> for joining them together. These were used on strings passed to <code>phrase</code> but work on any character string.</p>
 <p>To recap, <code>dup</code>, short for duplicate, is a simple wrapper around <code>rep</code> that maintains the <code>phrase</code> class when passed a phrase object and space-delimitation when collapsing the repeated input. <code>glue</code> is a simple wrapper around <code>paste</code> that similarly maintains space-delimitation. It can be passed an arbitrary number of input simple character strings or phrase objects. The <code>phrase</code> class is applied to the output as long as at least one input passed to <code>glue</code> is a phrase object. It is the responsibility of the user to ensure that in such a case a simple character string also represents valid phrase content so that the output phrase is valid.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/append_phrases.html">glue</a></span>(<span class="st">"c3 d3 e3"</span>, <span class="st">"f3 g3 a3"</span>)
-<span class="co">#&gt; [1] "c3 d3 e3 f3 g3 a3"</span>
-<span class="kw"><a href="../reference/append_phrases.html">dup</a></span>(<span class="st">"c3 d3 e3"</span>, <span class="dv">2</span>)
-<span class="co">#&gt; [1] "c3 d3 e3 c3 d3 e3"</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/append_phrases.html">glue</a></span>(<span class="st">"c3 d3 e3"</span>, <span class="st">"f3 g3 a3"</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">3</span><span> </span><span style="color: #00BBBB;font-weight: bold;">d</span><span style="color: #00BBBB;">3</span><span> </span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">3</span><span> </span><span style="color: #00BBBB;font-weight: bold;">f</span><span style="color: #00BBBB;">3</span><span> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #00BBBB;">3</span><span> </span><span style="color: #00BBBB;font-weight: bold;">a</span><span style="color: #00BBBB;">3</span><span>
+</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/append_phrases.html">dup</a></span>(<span class="st">"c3 d3 e3"</span>, <span class="dv">2</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">3</span><span> </span><span style="color: #00BBBB;font-weight: bold;">d</span><span style="color: #00BBBB;">3</span><span> </span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">3</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">3</span><span> </span><span style="color: #00BBBB;font-weight: bold;">d</span><span style="color: #00BBBB;">3</span><span> </span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">3</span><span>
+</span></code></pre>
 </div>
 <div id="rests" class="section level2">
 <h2 class="hasAnchor">
@@ -191,14 +197,18 @@
 <p>The <code>rest</code> function is a simple wrapper around <code>rep</code> much like <code>dup</code>. It is useful when you need to propagate a number of rests, perhaps not all of equal duration. It accepts two vectorized arguments. The first is the duration of the rest. The second is the number of times to repeat it.</p>
 <p>For example, say a score has multiple tracks. During a certain period in the score, one track goes silent and needs to be carried over with a sequence of rests. Perhaps the instrument dropped out in the middle of a measure and returns in the middle of another, with several full measures in between. This can easily be notated using <code>dup</code> and <code>glue</code>, but it could be more convenient with <code>rest</code>, or at least offer more interpretable code if you prefer.</p>
 <p>In this example, using <code>rest</code> is compared with writing out the full <code>notes</code> string as well as using some combinations of <code>dup</code> and <code>glue</code>. It is a matter of preference which approach you take and dependent on the content being repeated and pasted together. Note that using the terminal in-string multiplicative expansion operator, <code>*</code>, in cases of many adjacent single-element repetitions, is by far the best option as far as shortening code is concerned. If this method is preferred, it essentially removes any edge case preference there may have been for <code>rest</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">"r8 r8 r8 r1 r1 r1 r1 r1 r1 r1 r1 r1 r1 r4."</span>
-<span class="co">#&gt; [1] "r8 r8 r8 r1 r1 r1 r1 r1 r1 r1 r1 r1 r1 r4."</span>
-<span class="kw"><a href="../reference/append_phrases.html">glue</a></span>(<span class="kw"><a href="../reference/append_phrases.html">dup</a></span>(<span class="st">"r8"</span>, <span class="dv">3</span>), <span class="kw"><a href="../reference/append_phrases.html">dup</a></span>(<span class="st">"r1"</span>, <span class="dv">10</span>), <span class="st">"r4."</span>)
-<span class="co">#&gt; [1] "r8 r8 r8 r1 r1 r1 r1 r1 r1 r1 r1 r1 r1 r4."</span>
-<span class="kw"><a href="../reference/rest.html">rest</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">8</span>, <span class="dv">1</span>, <span class="st">"4."</span>), <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">3</span>, <span class="dv">10</span>, <span class="dv">1</span>))
-<span class="co">#&gt; [1] "r8 r8 r8 r1 r1 r1 r1 r1 r1 r1 r1 r1 r1 r4."</span>
-<span class="st">"r8*3 r1*10 r4."</span>
-<span class="co">#&gt; [1] "r8*3 r1*10 r4."</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">"r8 r8 r8 r1 r1 r1 r1 r1 r1 r1 r1 r1 r1 r4."</span></code></pre></div>
+<pre class="r-output"><code>#&gt; [1] "r8 r8 r8 r1 r1 r1 r1 r1 r1 r1 r1 r1 r1 r4."
+</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/append_phrases.html">glue</a></span>(<span class="kw"><a href="../reference/append_phrases.html">dup</a></span>(<span class="st">"r8"</span>, <span class="dv">3</span>), <span class="kw"><a href="../reference/append_phrases.html">dup</a></span>(<span class="st">"r1"</span>, <span class="dv">10</span>), <span class="st">"r4."</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; [1] "r8 r8 r8 r1 r1 r1 r1 r1 r1 r1 r1 r1 r1 r4."
+</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/rest.html">rest</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">8</span>, <span class="dv">1</span>, <span class="st">"4."</span>), <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">3</span>, <span class="dv">10</span>, <span class="dv">1</span>))</code></pre></div>
+<pre class="r-output"><code>#&gt; [1] "r8 r8 r8 r1 r1 r1 r1 r1 r1 r1 r1 r1 r1 r4."
+</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">"r8*3 r1*10 r4."</span></code></pre></div>
+<pre class="r-output"><code>#&gt; [1] "r8*3 r1*10 r4."
+</code></pre>
 </div>
 <div id="ties" class="section level2">
 <h2 class="hasAnchor">
@@ -206,22 +216,29 @@
 <p>Tied notes were introduced momentarily in the previous section on phrases. The example given showed that ties are denoted by appending the pitch letter of the note with <code>~</code> and this will create a tie in the output from this note to the next one.</p>
 <p>This can be frustrating to type and to read when done for six-string chords for example. <code>tie</code> can make this more bearable. Chords receive further discussion in subsequent sections. They were only shown very briefly at the end of the last section so that space-delimited time and simultaneous notes could be demonstrated clearly. For now, this is enough to appreciate this example of <code>tie</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">em &lt;-<span class="st"> "e,a,dgbe'"</span>
-<span class="kw"><a href="../reference/tie.html">tie</a></span>(em)
-<span class="co">#&gt; [1] "e,~a,~d~g~b~e'~"</span></code></pre></div>
+<span class="kw"><a href="../reference/tie.html">tie</a></span>(em)</code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Values: </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">,</span><span style="color: #BBBB00;">~</span><span style="color: #00BBBB;font-weight: bold;">a</span><span style="color: #00BBBB;">,</span><span style="color: #BBBB00;">~</span><span style="color: #00BBBB;font-weight: bold;">d</span><span style="color: #BBBB00;">~</span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #BBBB00;">~</span><span style="color: #00BBBB;font-weight: bold;">b</span><span style="color: #BBBB00;">~</span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">~&gt;</span><span>
+</span></code></pre>
 </div>
 <div id="hammer-onpull-off" class="section level2">
 <h2 class="hasAnchor">
 <a href="#hammer-onpull-off" class="anchor"></a>Hammer on/pull off</h2>
 <p>There is a simple helper function, <code>hp</code>, for hammer ons and pull offs, or for slurs in general. Like several other helpers it is a wrapper around paste. It ensures slurs come in an even number so there is always a starting and stopping point and accepts several input styles.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/hp.html">hp</a></span>(<span class="st">"16 16"</span>)
-<span class="co">#&gt; [1] "16( 16)"</span>
-<span class="kw"><a href="../reference/hp.html">hp</a></span>(<span class="st">"16"</span>, <span class="st">"16"</span>)
-<span class="co">#&gt; [1] "16( 16)"</span>
-<span class="kw"><a href="../reference/hp.html">hp</a></span>(<span class="dv">16</span>, <span class="dv">16</span>, <span class="dv">8</span>, <span class="st">"2."</span>)
-<span class="co">#&gt; [1] "16( 16) 8( 2.)"</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/hp.html">hp</a></span>(<span class="st">"16 16"</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; [1] "16( 16)"
+</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/hp.html">hp</a></span>(<span class="st">"16"</span>, <span class="st">"16"</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; [1] "16( 16)"
+</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/hp.html">hp</a></span>(<span class="dv">16</span>, <span class="dv">16</span>, <span class="dv">8</span>, <span class="st">"2."</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; [1] "16( 16) 8( 2.)"
+</code></pre>
 <p>It is particularly useful for long runs of similar repeated hammer ons and/or pull offs that would be frustrating to type out directly.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/hp.html">hp</a></span>(<span class="kw"><a href="../reference/append_phrases.html">dup</a></span>(<span class="st">"16 8"</span>, <span class="dv">8</span>))
-<span class="co">#&gt; [1] "16( 8) 16( 8) 16( 8) 16( 8) 16( 8) 16( 8) 16( 8) 16( 8)"</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/hp.html">hp</a></span>(<span class="kw"><a href="../reference/append_phrases.html">dup</a></span>(<span class="st">"16 8"</span>, <span class="dv">8</span>))</code></pre></div>
+<pre class="r-output"><code>#&gt; [1] "16( 8) 16( 8) 16( 8) 16( 8) 16( 8) 16( 8) 16( 8) 16( 8)"
+</code></pre>
 </div>
 <div id="transpose" class="section level2">
 <h2 class="hasAnchor">
@@ -229,31 +246,62 @@
 <p>In the last section there was an example showing a sequence of notes followed by the same sequence transposed one octave up. At the time, it was written out twice. Here, the same sequence is reproduced using <code>transpose</code>. Transposing up one octave is done by specifying an increase of 12 semitones or half steps. Note that <code>transpose</code> drops the unnecessary <code>3</code>s for the third octave, the central octave in LilyPond. They are dropped from <code>note2</code> here</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">notes1 &lt;-<span class="st"> "c3 b2 c3 d3 e3 e3 d3 c3 b2 c3 c3 c4"</span>
 notes2 &lt;-<span class="st"> "c4 b c4 d4 e4 e4 d4 c4 b c4 c4 c5"</span>
-<span class="kw"><a href="../reference/transpose.html">transpose</a></span>(notes1, <span class="dv">12</span>) <span class="op">==</span><span class="st"> </span>notes2
-<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+<span class="kw"><a href="../reference/transpose.html">transpose</a></span>(notes1, <span class="dv">12</span>) <span class="op">==</span><span class="st"> </span>notes2</code></pre></div>
+<pre class="r-output"><code>#&gt; [1] TRUE
+</code></pre>
 <p>Transposing down is done with negative integers. The default (<code>n = 0</code>) returns the input, <code>x</code>, with no transposition. The alias <code>tp</code> can be used to limit typing. Examples are shown below.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/transpose.html">transpose</a></span>(<span class="st">"a_3 b_4 c5"</span>, <span class="dv">0</span>)
-<span class="co">#&gt; [1] "a_3 b_4 c5"</span>
-<span class="kw"><a href="../reference/transpose.html">tp</a></span>(<span class="st">"a_3 b_4 c5"</span>, <span class="op">-</span><span class="dv">1</span>)
-<span class="co">#&gt; [1] "g a4 b4"</span>
-<span class="kw"><a href="../reference/transpose.html">tp</a></span>(<span class="st">"a_3 b_4 c5"</span>, <span class="dv">1</span>)
-<span class="co">#&gt; [1] "a b4 c#5"</span>
-<span class="kw"><a href="../reference/transpose.html">tp</a></span>(<span class="st">"a#3 b4 c#5"</span>, <span class="dv">11</span>)
-<span class="co">#&gt; [1] "a4 a#5 c6"</span>
-<span class="kw"><a href="../reference/transpose.html">tp</a></span>(<span class="st">"a#3 b4 c#5"</span>, <span class="dv">12</span>)
-<span class="co">#&gt; [1] "a#4 b5 c#6"</span>
-<span class="kw"><a href="../reference/transpose.html">tp</a></span>(<span class="st">"a#3 b4 c#5"</span>, <span class="dv">13</span>)
-<span class="co">#&gt; [1] "b4 c6 d6"</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/transpose.html">transpose</a></span>(<span class="st">"a_3 b_4 c5"</span>, <span class="dv">0</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">a_</span><span style="color: #00BBBB;">3</span><span> </span><span style="color: #00BBBB;font-weight: bold;">b_</span><span style="color: #00BBBB;">4</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">5</span><span>
+</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/transpose.html">tp</a></span>(<span class="st">"a_3 b_4 c5"</span>, <span class="op">-</span><span class="dv">1</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">g</span><span> </span><span style="color: #00BBBB;font-weight: bold;">a</span><span style="color: #00BBBB;">4</span><span> </span><span style="color: #00BBBB;font-weight: bold;">b</span><span style="color: #00BBBB;">4</span><span>
+</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/transpose.html">tp</a></span>(<span class="st">"a_3 b_4 c5"</span>, <span class="dv">1</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">a</span><span> </span><span style="color: #00BBBB;font-weight: bold;">b</span><span style="color: #00BBBB;">4</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c#</span><span style="color: #00BBBB;">5</span><span>
+</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/transpose.html">tp</a></span>(<span class="st">"a#3 b4 c#5"</span>, <span class="dv">11</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">a</span><span style="color: #00BBBB;">4</span><span> </span><span style="color: #00BBBB;font-weight: bold;">a#</span><span style="color: #00BBBB;">5</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">6</span><span>
+</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/transpose.html">tp</a></span>(<span class="st">"a#3 b4 c#5"</span>, <span class="dv">12</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">a#</span><span style="color: #00BBBB;">4</span><span> </span><span style="color: #00BBBB;font-weight: bold;">b</span><span style="color: #00BBBB;">5</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c#</span><span style="color: #00BBBB;">6</span><span>
+</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/transpose.html">tp</a></span>(<span class="st">"a#3 b4 c#5"</span>, <span class="dv">13</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">b</span><span style="color: #00BBBB;">4</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">6</span><span> </span><span style="color: #00BBBB;font-weight: bold;">d</span><span style="color: #00BBBB;">6</span><span>
+</span></code></pre>
 <p>If no other information is passed to <code>transpose</code>, positive <code>n</code> will sharpen naturals. Negative <code>n</code> will flatten naturals. This is not ideal because it may not fit a key signature. A standard key signature is composed of notes that may include flats or sharps but not both. To avoid simply defaulting to one or the other based on direction of transposition, specify they key signature with <code>key</code> to be formal, e.g. <code>key = "dm"</code>, or just specify <code>"flat"</code> or <code>"sharp"</code>" because this is really all that is needed.</p>
 <p>Since <code>notes</code> can be arbitrarily short, even a single note, there is no reason for <code>transpose</code> to attempt to guess the original or new key from the notes present and degree of transposition. <code>notes</code> may easily include accidentals anyhow. <code>transpose</code> works with either integer or tick style octave numbering as shown below and the the output <code>style</code> can be forced either way.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/transpose.html">tp</a></span>(<span class="st">"a3 b4 c5"</span>, <span class="dv">2</span>, <span class="dt">key =</span> <span class="st">"f"</span>)
-<span class="co">#&gt; [1] "b d_5 d5"</span>
-<span class="kw"><a href="../reference/transpose.html">tp</a></span>(<span class="st">"a3 b4 c5"</span>, <span class="dv">2</span>, <span class="dt">key =</span> <span class="st">"g"</span>, <span class="dt">style =</span> <span class="st">"tick"</span>)
-<span class="co">#&gt; [1] "b c#'' d''"</span>
-<span class="kw"><a href="../reference/transpose.html">tp</a></span>(<span class="st">"a b' c''"</span>, <span class="dv">2</span>, <span class="dt">key =</span> <span class="st">"flat"</span>)
-<span class="co">#&gt; [1] "b d_'' d''"</span>
-<span class="kw"><a href="../reference/transpose.html">tp</a></span>(<span class="st">"a, b c'"</span>, <span class="dv">2</span>, <span class="dt">key =</span> <span class="st">"sharp"</span>, <span class="dt">style =</span> <span class="st">"integer"</span>)
-<span class="co">#&gt; [1] "b2 c#4 d4"</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/transpose.html">tp</a></span>(<span class="st">"a3 b4 c5"</span>, <span class="dv">2</span>, <span class="dt">key =</span> <span class="st">"f"</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">b</span><span> </span><span style="color: #00BBBB;font-weight: bold;">d_</span><span style="color: #00BBBB;">5</span><span> </span><span style="color: #00BBBB;font-weight: bold;">d</span><span style="color: #00BBBB;">5</span><span>
+</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/transpose.html">tp</a></span>(<span class="st">"a3 b4 c5"</span>, <span class="dv">2</span>, <span class="dt">key =</span> <span class="st">"g"</span>, <span class="dt">style =</span> <span class="st">"tick"</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">b</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c#</span><span style="color: #00BBBB;">''</span><span> </span><span style="color: #00BBBB;font-weight: bold;">d</span><span style="color: #00BBBB;">''</span><span>
+</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/transpose.html">tp</a></span>(<span class="st">"a b' c''"</span>, <span class="dv">2</span>, <span class="dt">key =</span> <span class="st">"flat"</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">b</span><span> </span><span style="color: #00BBBB;font-weight: bold;">d_</span><span style="color: #00BBBB;">''</span><span> </span><span style="color: #00BBBB;font-weight: bold;">d</span><span style="color: #00BBBB;">''</span><span>
+</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/transpose.html">tp</a></span>(<span class="st">"a, b c'"</span>, <span class="dv">2</span>, <span class="dt">key =</span> <span class="st">"sharp"</span>, <span class="dt">style =</span> <span class="st">"integer"</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">b</span><span style="color: #00BBBB;">2</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c#</span><span style="color: #00BBBB;">4</span><span> </span><span style="color: #00BBBB;font-weight: bold;">d</span><span style="color: #00BBBB;">4</span><span>
+</span></code></pre>
 <p>The key of F has one flat (B flat) and the key of G has one sharp (F sharp). Transposing the above notes up by a whole step (two semitones or half steps) results in a new note sequence that includes either a D flat or C sharp for the second note. This pitch does not occur (except as an accidental) in either of those keys.</p>
 <p>Nevertheless, because F is a key with some number of sharps and G is a key with some number of flats, transpositions resulting in any non-natural notes are represented as flats and sharps, respectively. The key of C major and its relative A minor have only natural notes. Setting <code>key "c"</code> or <code>key = "am"</code> results in the default behavior, falling back on sharp notes for transposing up and flat notes for transposing down.</p>
 </div>
@@ -262,14 +310,22 @@ notes2 &lt;-<span class="st"> "c4 b c4 d4 e4 e4 d4 c4 b c4 c4 c5"</span>
 <a href="#tuplets" class="anchor"></a>Tuplets</h2>
 <p>An important feature is the tuplet. This will evenly fit a sequence of notes into a number of beats not otherwise permitted by the time signature. The most common and default tuplet returned by <code>tuplet</code> is the triplet. There is also an alias function, <code>triplet</code> for this. The triplet fits three equally spaced notes into two beats that would normally be taken up by two of those notes, meaning each note in the triplet lasts for two thirds the normal duration. The examples below show the equivalence of default <code>tuplet</code> settings and <code>triplet</code> as well as other specifications for <code>tuplet</code> and the ability to specify multiple consecutive tuplets of a fixed pattern with a single call to <code>tuplet</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> "c4 d4 e4"</span>
-<span class="kw"><a href="../reference/tuplet.html">tuplet</a></span>(x, <span class="dv">8</span>)
-<span class="co">#&gt; \tuplet 3/2 4 { &lt;c'&gt;8 &lt;d'&gt; &lt;e'&gt; }</span>
-<span class="kw"><a href="../reference/tuplet.html">triplet</a></span>(x, <span class="dv">8</span>)  <span class="co"># equivalent</span>
-<span class="co">#&gt; \tuplet 3/2 4 { &lt;c'&gt;8 &lt;d'&gt; &lt;e'&gt; }</span>
-<span class="kw"><a href="../reference/tuplet.html">tuplet</a></span>(<span class="kw"><a href="../reference/append_phrases.html">dup</a></span>(x, <span class="dv">2</span>), <span class="dv">8</span>, <span class="dt">a =</span> <span class="dv">6</span>, <span class="dt">b =</span> <span class="dv">4</span>)  <span class="co"># 6 notes per 4 beats</span>
-<span class="co">#&gt; \tuplet 6/4 2 { &lt;c'&gt;8 &lt;d'&gt; &lt;e'&gt; &lt;c'&gt; &lt;d'&gt; &lt;e'&gt; }</span>
-<span class="kw"><a href="../reference/tuplet.html">tuplet</a></span>(<span class="kw"><a href="../reference/append_phrases.html">dup</a></span>(x, <span class="dv">4</span>), <span class="dv">8</span>)  <span class="co"># multiple tuplets, one call</span>
-<span class="co">#&gt; \tuplet 3/2 4 { &lt;c'&gt;8 &lt;d'&gt; &lt;e'&gt; &lt;c'&gt; &lt;d'&gt; &lt;e'&gt; &lt;c'&gt; &lt;d'&gt; &lt;e'&gt; &lt;c'&gt; &lt;d'&gt; &lt;e'&gt; }</span></code></pre></div>
+<span class="kw"><a href="../reference/tuplet.html">tuplet</a></span>(x, <span class="dv">8</span>)</code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;">&lt;</span><span style="color: #555555;font-weight: bold;">Musical phrase</span><span style="color: #555555;">&gt;</span><span>
+#&gt; </span><span style="color: #555555;">\tuplet 3/2 4 { &lt;</span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">'</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">8</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">d</span><span style="color: #00BBBB;">'</span><span style="color: #555555;">&gt; &lt;</span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">'</span><span style="color: #555555;">&gt; }</span><span>
+</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/tuplet.html">triplet</a></span>(x, <span class="dv">8</span>)  <span class="co"># equivalent</span></code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;">&lt;</span><span style="color: #555555;font-weight: bold;">Musical phrase</span><span style="color: #555555;">&gt;</span><span>
+#&gt; </span><span style="color: #555555;">\tuplet 3/2 4 { &lt;</span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">'</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">8</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">d</span><span style="color: #00BBBB;">'</span><span style="color: #555555;">&gt; &lt;</span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">'</span><span style="color: #555555;">&gt; }</span><span>
+</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/tuplet.html">tuplet</a></span>(<span class="kw"><a href="../reference/append_phrases.html">dup</a></span>(x, <span class="dv">2</span>), <span class="dv">8</span>, <span class="dt">a =</span> <span class="dv">6</span>, <span class="dt">b =</span> <span class="dv">4</span>)  <span class="co"># 6 notes per 4 beats</span></code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;">&lt;</span><span style="color: #555555;font-weight: bold;">Musical phrase</span><span style="color: #555555;">&gt;</span><span>
+#&gt; </span><span style="color: #555555;">\tuplet 6/4 2 { &lt;</span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">'</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">8</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">d</span><span style="color: #00BBBB;">'</span><span style="color: #555555;">&gt; &lt;</span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">'</span><span style="color: #555555;">&gt; &lt;</span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">'</span><span style="color: #555555;">&gt; &lt;</span><span style="color: #00BBBB;font-weight: bold;">d</span><span style="color: #00BBBB;">'</span><span style="color: #555555;">&gt; &lt;</span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">'</span><span style="color: #555555;">&gt; }</span><span>
+</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/tuplet.html">tuplet</a></span>(<span class="kw"><a href="../reference/append_phrases.html">dup</a></span>(x, <span class="dv">4</span>), <span class="dv">8</span>)  <span class="co"># multiple tuplets, one call</span></code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;">&lt;</span><span style="color: #555555;font-weight: bold;">Musical phrase</span><span style="color: #555555;">&gt;</span><span>
+#&gt; </span><span style="color: #555555;">\tuplet 3/2 4 { &lt;</span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">'</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">8</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">d</span><span style="color: #00BBBB;">'</span><span style="color: #555555;">&gt; &lt;</span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">'</span><span style="color: #555555;">&gt; &lt;</span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">'</span><span style="color: #555555;">&gt; &lt;</span><span style="color: #00BBBB;font-weight: bold;">d</span><span style="color: #00BBBB;">'</span><span style="color: #555555;">&gt; &lt;</span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">'</span><span style="color: #555555;">&gt; &lt;</span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">'</span><span style="color: #555555;">&gt; &lt;</span><span style="color: #00BBBB;font-weight: bold;">d</span><span style="color: #00BBBB;">'</span><span style="color: #555555;">&gt; &lt;</span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">'</span><span style="color: #555555;">&gt; &lt;</span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">'</span><span style="color: #555555;">&gt; &lt;</span><span style="color: #00BBBB;font-weight: bold;">d</span><span style="color: #00BBBB;">'</span><span style="color: #555555;">&gt; &lt;</span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">'</span><span style="color: #555555;">&gt; }</span><span>
+</span></code></pre>
 <p>Like <code>phrase</code>, these functions accept a <code>string</code> number argument, which is critical as usual (try engraving the final phrase below without explicit string numbers and see the mess you get). This example includes some rests.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/append_phrases.html">glue</a></span>(<span class="kw"><a href="../reference/tuplet.html">triplet</a></span>(<span class="st">"c4 r e4"</span>, <span class="dv">8</span>, <span class="st">"4 3 3"</span>), <span class="kw"><a href="../reference/tuplet.html">tuplet</a></span>(<span class="st">"f4 g4 a4 b4 c5 b4"</span>, <span class="dv">8</span>, <span class="st">"3 2 2 1 1 1"</span>, 
     <span class="dv">6</span>, <span class="dv">4</span>), <span class="kw"><a href="../reference/tuplet.html">tuplet</a></span>(<span class="st">"a4 r f4 g4 r e4 f4 e4 d4 e4 d4 c4"</span>, <span class="dv">16</span>, <span class="st">"2 2 3 2 3*7 4"</span>), 

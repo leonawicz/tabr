@@ -207,14 +207,15 @@
     <pre class="usage"><span class='fu'>transpose</span>(<span class='no'>notes</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"default"</span>, <span class='st'>"tick"</span>,
   <span class='st'>"integer"</span>, <span class='st'>"strip"</span>))
 
-<span class='fu'>tp</span>(<span class='no'>...</span>)</pre>
+<span class='fu'>tp</span>(<span class='no'>notes</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"default"</span>, <span class='st'>"tick"</span>, <span class='st'>"integer"</span>,
+  <span class='st'>"strip"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>notes</th>
-      <td><p>character, a valid string of notes, the type passed to <code>phrase</code>.</p></td>
+      <td><p>character, a noteworthy string.</p></td>
     </tr>
     <tr>
       <th>n</th>
@@ -228,15 +229,11 @@
       <th>style</th>
       <td><p>character, specify tick or integer style octave numbering in result. See details.</p></td>
     </tr>
-    <tr>
-      <th>...</th>
-      <td><p>arguments passed to transpose.</p></td>
-    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a character string.</p>
+    <p>character</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -252,7 +249,27 @@ If not provided (<code>key = NA</code>), transposition lacks full information an
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>transpose</span>(<span class='st'>"a_3 b_4 c5"</span>, <span class='fl'>0</span>)</div><div class='output co'>#&gt; [1] "a_3 b_4 c5"</div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a_3 b_4 c5"</span>, -<span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "g a4 b4"</div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a_3 b_4 c5"</span>, <span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "a b4 c#5"</div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a#3 b4 c#5"</span>, <span class='fl'>11</span>)</div><div class='output co'>#&gt; [1] "a4 a#5 c6"</div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a#3 b4 c#5"</span>, <span class='fl'>12</span>)</div><div class='output co'>#&gt; [1] "a#4 b5 c#6"</div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a#3 b4 c#5"</span>, <span class='fl'>13</span>)</div><div class='output co'>#&gt; [1] "b4 c6 d6"</div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a3 b4 c5"</span>, <span class='fl'>2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"f"</span>)</div><div class='output co'>#&gt; [1] "b d_5 d5"</div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a3 b4 c5"</span>, <span class='fl'>2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"g"</span>)</div><div class='output co'>#&gt; [1] "b c#5 d5"</div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a b' c''"</span>, <span class='fl'>2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"flat"</span>)</div><div class='output co'>#&gt; [1] "b d_'' d''"</div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a, b ceg"</span>, <span class='fl'>2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"sharp"</span>)</div><div class='output co'>#&gt; [1] "b, c#' df#a"</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>transpose</span>(<span class='st'>"a_3 b_4 c5"</span>, <span class='fl'>0</span>)</div><div class='output co'>#&gt; <span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span style='color: #00BBBB;'>3</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>4</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>5</span><span></div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a_3 b_4 c5"</span>, -<span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>g</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #00BBBB;'>4</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b</span><span style='color: #00BBBB;'>4</span><span></div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a_3 b_4 c5"</span>, <span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b</span><span style='color: #00BBBB;'>4</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c#</span><span style='color: #00BBBB;'>5</span><span></div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a#3 b4 c#5"</span>, <span class='fl'>11</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #00BBBB;'>4</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a#</span><span style='color: #00BBBB;'>5</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>6</span><span></div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a#3 b4 c#5"</span>, <span class='fl'>12</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>a#</span><span style='color: #00BBBB;'>4</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b</span><span style='color: #00BBBB;'>5</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c#</span><span style='color: #00BBBB;'>6</span><span></div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a#3 b4 c#5"</span>, <span class='fl'>13</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>b</span><span style='color: #00BBBB;'>4</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>6</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #00BBBB;'>6</span><span></div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a3 b4 c5"</span>, <span class='fl'>2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"f"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>b</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>d_</span><span style='color: #00BBBB;'>5</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #00BBBB;'>5</span><span></div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a3 b4 c5"</span>, <span class='fl'>2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"g"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>b</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c#</span><span style='color: #00BBBB;'>5</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #00BBBB;'>5</span><span></div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a b' c''"</span>, <span class='fl'>2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"flat"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>b</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>d_</span><span style='color: #00BBBB;'>''</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #00BBBB;'>''</span><span></div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a, b ceg"</span>, <span class='fl'>2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"sharp"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>b</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c#</span><span style='color: #00BBBB;'>'</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>df#a</span><span style='color: #BBBB00;'>&gt;</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

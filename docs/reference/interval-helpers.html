@@ -207,7 +207,9 @@
     <pre class="usage"><span class='fu'>pitch_interval</span>(<span class='no'>note1</span>, <span class='no'>note2</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>scale_interval</span>(<span class='no'>note1</span>, <span class='no'>note2</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"mmp_abb"</span>, <span class='st'>"mmp"</span>, <span class='st'>"ad_abb"</span>,
-  <span class='st'>"ad"</span>), <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='st'>"ad"</span>), <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='fu'>tuning_intervals</span>(<span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -227,6 +229,10 @@
     <tr>
       <th>format</th>
       <td><p>character, format of the scale notation: major/minor/perfect, augmented/diminished, and respective abbreviations. See argument options in defaults.</p></td>
+    </tr>
+    <tr>
+      <th>tuning</th>
+      <td><p>character, string tuning.</p></td>
     </tr>
     </table>
     

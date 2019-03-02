@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Arpeggiate a chord — chord_arpeggiate • tabr</title>
+<title>LilyPond chord notation — lp_chord_id • tabr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -39,9 +39,9 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Arpeggiate a chord — chord_arpeggiate" />
+<meta property="og:title" content="LilyPond chord notation — lp_chord_id" />
 
-<meta property="og:description" content="Create an arpeggio from a chord." />
+<meta property="og:description" content="Obtain LilyPond quasi-chord notation." />
 
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -193,42 +193,39 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Arpeggiate a chord</h1>
-    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/chords.R'><code>R/chords.R</code></a></small>
-    <div class="hidden name"><code>chord_arpeggiate.Rd</code></div>
+    <h1>LilyPond chord notation</h1>
+    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/chord_mapping.R'><code>R/chord_mapping.R</code></a></small>
+    <div class="hidden name"><code>lp_chord_id.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Create an arpeggio from a chord.</p>
+    <p>Obtain LilyPond quasi-chord notation.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>chord_arpeggiate</span>(<span class='no'>chord</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"note"</span>, <span class='st'>"chord"</span>),
-  <span class='kw'>broken</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>lp_chord_id</span>(<span class='no'>root</span>, <span class='no'>chord</span>, <span class='kw'>exact</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+
+<span class='fu'>lp_chord_mod</span>(<span class='no'>root</span>, <span class='no'>chord</span>, <span class='kw'>exact</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>root</th>
+      <td><p>character, root note.</p></td>
+    </tr>
+    <tr>
       <th>chord</th>
-      <td><p>character, a single chord.</p></td>
+      <td><p>character, <code>tabr</code> format chord name.</p></td>
     </tr>
     <tr>
-      <th>n</th>
-      <td><p>integer, number of steps, negative indicates reverse direction (decreasing pitch).</p></td>
+      <th>exact</th>
+      <td><p>logical, return a more exact LilyPond chord representation.</p></td>
     </tr>
     <tr>
-      <th>by</th>
-      <td><p>whether each of the <code>n</code> steps refers to individual notes in the chord (an inversion) or raising the entire chord in its given position by one octave.</p></td>
-    </tr>
-    <tr>
-      <th>broken</th>
-      <td><p>logical, return result as an arpeggio of broken chords.</p></td>
-    </tr>
-    <tr>
-      <th>collapse</th>
-      <td><p>logical, collapse result into a single string ready for phrase construction.</p></td>
+      <th>...</th>
+      <td><p>additional arguments passed to <code>transpose</code>.</p></td>
     </tr>
     </table>
     
@@ -238,19 +235,14 @@
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function is based on <code>chord_invert</code>. If <code>n = 0</code> then <code>chord</code> is returned immediately; other arguments are ignored.</p>
+    <p>These functions take a <code>tabr</code> syntax representation of a chord name and convert it to quasi-LilyPond syntax;
+"quasi" because the result still uses <code>_</code> for flats and <code>#</code> for sharps, whereas LilyPond itself uses <code>es</code> and <code>is</code> (mostly).
+This is the format used by <code>tabr</code> functions involved in communicating with LilyPond for music transcription, and they make these final conversions on the fly.
+This can be overridden with <code>exact = TRUE</code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>chord_arpeggiate</span>(<span class='st'>"ce_gb_"</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt; <span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
-#&gt;   Format: </span><span>vectorized time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>ce_gb_</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>e_gb_c</span><span style='color: #00BBBB;'>4</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>gb_c</span><span style='color: #00BBBB;'>4</span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>4</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>chord_arpeggiate</span>(<span class='st'>"ce_gb_"</span>, -<span class='fl'>2</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
-#&gt;   Format: </span><span>vectorized time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>ce_gb_</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>2</span><span style='color: #00BBBB;font-weight: bold;'>ce_g</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>2</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>2</span><span style='color: #00BBBB;font-weight: bold;'>ce_</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>chord_arpeggiate</span>(<span class='st'>"ce_gb_"</span>, <span class='fl'>2</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"chord"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
-#&gt;   Format: </span><span>vectorized time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>ce_gb_</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>4</span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>4</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>4</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>4</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>5</span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>5</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>5</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>5</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>chord_arpeggiate</span>(<span class='st'>"ce_gb_"</span>, <span class='fl'>1</span>, <span class='kw'>broken</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
-#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>g</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>g</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>4</span><span></div></span></pre>
+    <pre class="examples"><div class='input'><span class='fu'>lp_chord_id</span>(<span class='st'>"a a a"</span>, <span class='st'>"m M m7_5"</span>)</div><div class='output co'>#&gt; [1] "a:m"    "a:5"    "a:m7_5"</div><div class='input'><span class='fu'>lp_chord_mod</span>(<span class='st'>"a a a"</span>, <span class='st'>"m M m7_5"</span>)</div><div class='output co'>#&gt; [1] "m"    "5"    "m7_5"</div><div class='input'><span class='fu'>lp_chord_id</span>(<span class='st'>"a a a"</span>, <span class='st'>"m M m7_5"</span>, <span class='kw'>exact</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "a:m"     "a:5"     "a:m7es5"</div><div class='input'><span class='fu'>lp_chord_mod</span>(<span class='st'>"a a a"</span>, <span class='st'>"m M m7_5"</span>, <span class='kw'>exact</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "m"     "5"     "m7es5"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

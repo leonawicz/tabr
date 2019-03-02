@@ -202,13 +202,16 @@
 <ul>
 <li>Added functions for phrase validation, coercion and decomposition back to original character string inputs.</li>
 <li>Added functions for note, pitch, chord and octave equivalence checks.</li>
-<li>Added a collection of functions for constructing and working with common chords. The chord constructors are among the <code>chord_*</code>-named functions and also have shorter <code>x*</code>-named aliases.</li>
+<li>Added a collection of functions for constructing and working with common chords. The chord constructors are among the <code>chord_*</code>-named functions and also have shorter <code>x*</code>-named aliases. These are “piano chords,” i.e., based on the condensed, defining intervals.</li>
+<li>Added <code>guitarChords</code> dataset containing several thousand formations of guitar chord voicings.</li>
+<li>Added helper functions that use <code>guitarChords</code> for obtaining guitar chord information and mapping between different defining properties of a chord, most notably the addition of <code>gc_notes</code> and <code>gc_fretboard</code> for mapping chord names to noteworthy strings and fretboard diagram syntax.</li>
 <li>Added helper functions for working with basic note/pitch strings.</li>
 <li>Added helper functions for working with musical scales and modes.</li>
 <li>Added helper functions for working with musical intervals.</li>
 <li>Added <code>noteworthy</code> class, used internally, optional for users (includes custom print and summary methods).</li>
 <li>Added <code>mainIntervals</code> dataset.</li>
 <li>Added more internal checks of note and chord syntax validity across functions that work with string representations (pre-<code>phrase</code> object construction).</li>
+<li>Update older functions to utilize the new, more robust and stricter validation checks and offer more consistent <code>noteworthy</code> class output.</li>
 <li>updated <code>transpose</code> to handle additional edge cases, including a new style option, <code>strip</code>.</li>
 <li>Updated and added new unit tests.</li>
 <li>Bug fix for case where <code>NA</code>-valued no-chord rests (<code>s</code> or <code>r</code>) were unnamed in output of <code>chord_set</code>.</li>
