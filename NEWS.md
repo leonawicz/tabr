@@ -9,6 +9,7 @@
 * Added `noteworthy` class, used internally, optional for users (includes custom print and summary methods).
 * Added `mainIntervals` dataset.
 * Added more internal checks of note and chord syntax validity across functions that work with string representations (pre-`phrase` object construction).
+* Update older functions to utilize the new, more robust and stricter validation checks and offer more consistent `noteworthy` class output.
 * updated `transpose` to handle additional edge cases, including a new style option, `strip`.
 * Updated and added new unit tests.
 * Bug fix for case where `NA`-valued no-chord rests (`s` or `r`) were unnamed in output of `chord_set`.

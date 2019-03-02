@@ -18,4 +18,6 @@ test_that("interval helpers return as expected", {
   expect_equal(scale_interval("e,", "b"), "P12")
   expect_equal(scale_interval("e,", "b", ignore_octave = TRUE), "P5")
   expect_equal(scale_interval("e'", "c#'''"), "M13")
+
+  expect_equal(tuning_intervals(), c(0, 5, 10, 15, 19, 24))
 })

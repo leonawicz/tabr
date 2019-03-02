@@ -45,7 +45,7 @@ reference:
   - pct
   - volta
 - title: Chords
-  desc: "Functions for chord description."
+  desc: "Functions for chord transcription."
   contents:
   - chord_set
 - title: Phrase validation and coercion
@@ -81,6 +81,8 @@ reference:
   - scale_chords
   - dyad
   - chords
+  - chord_def
+  - lp_chord_id
 - title: Note and pitch helpers
   desc: "Functions for manipulating simple note and pitch strings"
   contents:
@@ -100,6 +102,7 @@ reference:
   - tabrSyntax
   - tunings
   - mainIntervals
+  - guitarChords
 
 navbar:
   title: "tabr"

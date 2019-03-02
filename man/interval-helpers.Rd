@@ -4,12 +4,15 @@
 \alias{interval-helpers}
 \alias{pitch_interval}
 \alias{scale_interval}
+\alias{tuning_intervals}
 \title{Interval helpers}
 \usage{
 pitch_interval(note1, note2, ignore_octave = FALSE)
 
 scale_interval(note1, note2, format = c("mmp_abb", "mmp", "ad_abb",
   "ad"), ignore_octave = FALSE)
+
+tuning_intervals(tuning = "standard")
 }
 \arguments{
 \item{note1}{character, first note. Must be a single note.}

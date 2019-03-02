@@ -24,3 +24,10 @@
 #'
 #' @format A data frame with 5 columns and 26 rows.
 "mainIntervals"
+
+#' Predefined guitar chords.
+#'
+#' A data frame containing information for many predefined guitar chords.
+#'
+#' @format A data frame with 13 columns.
+"guitarChords"

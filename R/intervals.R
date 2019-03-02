@@ -75,6 +75,13 @@ scale_interval <- function(note1, note2, format = c("mmp_abb", "mmp", "ad_abb", 
   x
 }
 
+#' @export
+#' @rdname interval-helpers
+tuning_intervals <- function(tuning = "standard"){
+  x <- strsplit(.map_tuning(tuning), " ")[[1]]
+  c(0, cumsum(sapply(1:(length(x) - 1), function(i) pitch_interval(x[i], x[i + 1]))))
+}
+
 .octave_interval <- function(x1, x2, ignore_octave = FALSE){
   if(ignore_octave){
     x1 <- gsub("\\d+|,|'", "", x1)
@@ -84,8 +91,8 @@ scale_interval <- function(note1, note2, format = c("mmp_abb", "mmp", "ad_abb", 
 }
 
 .pitch_to_octave <- function(x){
-  if(grepl("\\d", x)){
-    octave <- as.integer(gsub(".*(\\d+).*", "\\1", x))
+  if(grepl("\\d+", x)){
+    octave <- as.integer(gsub("[a-g#_~]+(\\d+).*", "\\1", x))
   } else if(grepl(",", x)){
     octave <- -length(gregexpr(",", x)[[1]]) + 3
   } else if(grepl("'", x)){
