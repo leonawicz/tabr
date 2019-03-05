@@ -115,10 +115,10 @@ print.phrase <- function(x, ...){
   info <- crayon::make_style("orange2")
   strings <- crayon::make_style("firebrick")
   octaves <- crayon::make_style("dodgerblue")
-  x <- gsub("(<| )([a-girs]+)([,'\\d]+|)(~|)(\\\\\\d|)( |>)",
-            paste0("\\1", notes("\\2"), octaves("\\3"), "\\4", strings("\\5"), "\\6\\7"), x)
-  x <- gsub("( )([a-girs]+)([,'\\d]+|)(~|)(\\\\\\d|)( )",
-            paste0("\\1", notes("\\2"), octaves("\\3"), "\\4", strings("\\5"), "\\6\\7"), x)
+  pat <- "(<| )([a-girs]+)([,'\\d]+|)(~|)(\\\\\\d|)( |>)"
+  repl <- paste0("\\1", notes("\\2"), octaves("\\3"), "\\4", strings("\\5"), "\\6\\7")
+  x <- gsub(pat, repl, x)
+  x <- gsub(pat, repl, x)
   x <- gsub(">(\\d)(\\.|\\(|\\))+( <)", paste0(">", info("\\1\\2"), " <"), x)
   x <- gsub(">(\\d)(\\.+|)(\\\\[a-zA-Z]+|)", paste0(">", info("\\1\\2\\3")), x)
   x <- gsub("(r|s)(\\d+)", paste0(notes("\\1"), info("\\2")), x)
