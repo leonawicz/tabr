@@ -123,7 +123,9 @@ note_rotate <- function(notes, n = 0){
   x <- .uncollapse(notes)
   n <- n %% length(x)
   if(n == 0) return(notes)
+  style <- if(any(grepl(",|'", notes))) "tick" else "integer"
   x <- x[c((n + 1):length(x), 1:n)]
+  if(style == "tick") x <- .octavesub(x)
   if(length(notes) == 1) x <- paste0(x, collapse = " ")
   .asnw(x)
 }
