@@ -264,7 +264,7 @@ trackbind(track1a, track1b, track2, tabstaff = c(1, 1, 2)) %>%
   tab(outfile, key = "em", time = "4/4", tempo = "4 = 120", header)
 ```
 
-THe sheet music is six pages. Here is a preview of page one.
+The sheet music is six pages. Here is a preview of page one.
 
 <p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex3-ezios-family-p1.png?raw=true" class="centerimg" width="100%"></p>
 
