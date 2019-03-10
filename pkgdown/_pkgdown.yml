@@ -95,9 +95,6 @@ reference:
   contents:
   - midily
   - miditab
-- title: Other functions
-  contents:
-  - starts_with("%")
 - title: Datasets
   contents:
   - tabrSyntax
