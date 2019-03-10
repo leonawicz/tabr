@@ -147,6 +147,8 @@ navbar:
           href: "articles/tabr-ex1.html"
         - text: "Multiple voices"
           href: "articles/tabr-ex2.html"
+        - text: "Ezio's family"
+          href: "articles/tabr-ex3.html"
     - text: "Reference"
       icon: fa-book
       href: "reference/index.html"
