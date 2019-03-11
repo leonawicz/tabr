@@ -238,17 +238,19 @@ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumen
 <h2 class="hasAnchor">
 <a href="#score-metadata-and-accessing-lilypond" class="anchor"></a>Score metadata and accessing LilyPond</h2>
 <p>Finally, specify some song metadata to reproduce the original staff: the key of D minor, common time, and the tempo.</p>
-<p>If LilyPond is installed on your system (and added to your system PATH variable on Windows systems), <code>tab</code> should call it successfully. Alternatively, on Windows, it can be added explicitly by calling <code>tabr_options</code>. This option to specify the LilyPond path is still available on other systems. An example of this is commented out below. However, <code>tabr</code> will do its best on package load to set these paths in <code>tabr_options</code> for you if it can successfully detect a LilyPond installation in a standard file system location, so you may not have to do anything. Just check <code><a href="reference/tabr_options.html">tabr_options()</a></code> after you load the package. If any of the paths are equal to the empty string <code>""</code>, then you need to set the paths. Otherwise you should be ready to run LilyPond from R.</p>
+<p>If LilyPond is installed on your system (and added to your system path variable on Windows systems), <code>tab</code> should call it successfully. Alternatively, on Windows, it can be added explicitly by calling <code>tabr_options</code>. This option to specify the LilyPond path is still available on other systems. An example of this is commented out below.</p>
+<p><code>tabr</code> will attempt on package load to set these paths in <code>tabr_options</code> for you if it can successfully detect a LilyPond installation in a standard file system location, but it is recommended for Windows users to simply add it to your system path. Check <code><a href="reference/tabr_options.html">tabr_options()</a></code> after you load the package. If any of the paths are equal to the empty string <code>""</code>, then you need to set the paths. Otherwise you should be ready to run LilyPond from R.</p>
+<p>As an example for Windows users, if the LilyPond executable is at <code>C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe</code>, then add <code>C:/Program Files (x86)/LilyPond/usr/bin</code> to the system path.</p>
 </div>
 <div id="r-code" class="section level2">
 <h2 class="hasAnchor">
 <a href="#r-code" class="anchor"></a>R code</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tabr)
 <span class="co"># path &lt;- "C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe"</span>
-<span class="co"># tabr_options(lilypond = path) # may not be necessary</span>
+<span class="co"># tabr_options(lilypond = path) # not necessary if on system path</span>
 
 <span class="kw"><a href="reference/phrase.html">p</a></span>(<span class="st">"r a2 c f d a f"</span>, <span class="st">"4 8*6"</span>, <span class="st">"x 5 5 4 4 3 4"</span>) <span class="op">%&gt;%</span><span class="st"> </span>track <span class="op">%&gt;%</span><span class="st"> </span>score <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="reference/tab.html">tab</a></span>(song, <span class="st">"phrase.pdf"</span>, <span class="dt">key =</span> <span class="st">"dm"</span>, <span class="dt">time =</span> <span class="st">"4/4"</span>, <span class="dt">tempo =</span> <span class="st">"4 = 120"</span>)</code></pre></div>
+<span class="st">  </span><span class="kw"><a href="reference/tab.html">tab</a></span>(<span class="st">"phrase.pdf"</span>, <span class="dt">key =</span> <span class="st">"dm"</span>, <span class="dt">time =</span> <span class="st">"4/4"</span>, <span class="dt">tempo =</span> <span class="st">"4 = 120"</span>)</code></pre></div>
 <pre><code>#&gt; #### Engraving score to phrase.pdf ####
 #&gt; GNU LilyPond 2.18.2
 #&gt; Processing `./phrase.ly'
