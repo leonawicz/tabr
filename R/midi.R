@@ -104,7 +104,9 @@ miditab <- function(midi_file, file, keep_ly = FALSE, path = NULL, details = TRU
   fp <- .adjust_file_path(file, path)
   if(details) cat("#### Engraving midi to", fp$tp, "####\n")
   do.call(midily, c(list(midi_file = midi_file, file = basename(fp$lp), path = dirname(fp$lp)), list(...)))
-  system(paste0("\"", tabr_options()$lilypond, "\" --", fp$ext, " -dstrip-output-dir=#f \"", fp$lp, "\""),
+  lp_path <- tabr_options()$lilypond
+  if(lp_path == "" && Sys.info()[["sysname"]] == "Windows") lp_path <- "lilypond.exe"
+  system(paste0("\"", lp_path, "\" --", fp$ext, " -dstrip-output-dir=#f \"", fp$lp, "\""),
          show.output.on.console = details)
   if(!keep_ly) unlink(fp$lp)
   invisible()
