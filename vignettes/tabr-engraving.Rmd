@@ -21,13 +21,7 @@ library(tabr)
 
 This section covers `lilypond` and `tab` for writing LilyPond files and engraving to sheet music with LilyPond, respectively. Examples of the various pieces of song metadata that can be passed to to these functions are provided.
 
-The examples focus on `tab` because this generates the tablature whereas `lilypond` only creates the LilyPond file that `tab` renders. `tab` is a wrapper around `lilypond`. The two functions have identical arguments, as `tab` merely passes them along to `lilypond` internally, except for one. `tab` has `keep_ly = FALSE` by default, which removes the `.ly` file created by `lilypond` following rendering of the file to pdf or png. To keep the LilyPond file, set this to `TRUE`. All other arguments are the same for both functions so they are really `lilypond` arguments.
-
-Here are the `lilypond` arguments:
-
-```{r args}
-args(lilypond)
-```
+The examples focus on `tab` because this function generates the tablature whereas `lilypond` only creates the LilyPond file that `tab` renders via LilyPond. `tab` is a wrapper around `lilypond`. The two functions have the same arguments. `tab` passes these along to `lilypond` internally, except for one. `tab` has `keep_ly = FALSE` by default, which removes the `.ly` file created by `lilypond` following rendering of the file to pdf or png. To keep the LilyPond file, set this to `TRUE`. See the function documentation for details.
 
 By now you have seen many calls to `tab` in order to show full examples in early tutorial sections. With sufficient coverage of phrases, tracks and scores, and the progression through them, now it is time to go into detail on all the render time arguments that can be supplied that apply to the entire piece of tablature and any metadata or general song information associated with it.
 

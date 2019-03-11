@@ -108,7 +108,11 @@ While explicit string numbers are not needed for this example, they are provided
 
 Finally, specify some song metadata to reproduce the original staff: the key of D minor, common time, and the tempo.
 
-If LilyPond is installed on your system (and added to your system PATH variable on Windows systems), `tab` should call it successfully. Alternatively, on Windows, it can be added explicitly by calling `tabr_options`. This option to specify the LilyPond path is still available on other systems. An example of this is commented out below. However, `tabr` will do its best on package load to set these paths in `tabr_options` for you if it can successfully detect a LilyPond installation in a standard file system location, so you may not have to do anything. Just check `tabr_options()` after you load the package. If any of the paths are equal to the empty string `""`, then you need to set the paths. Otherwise you should be ready to run LilyPond from R.
+If LilyPond is installed on your system (and added to your system path variable on Windows systems), `tab` should call it successfully. Alternatively, on Windows, it can be added explicitly by calling `tabr_options`. This option to specify the LilyPond path is still available on other systems. An example of this is commented out below.
+
+`tabr` will attempt on package load to set these paths in `tabr_options` for you if it can successfully detect a LilyPond installation in a standard file system location, but it is recommended for Windows users to simply add it to your system path. Check `tabr_options()` after you load the package. If any of the paths are equal to the empty string `""`, then you need to set the paths. Otherwise you should be ready to run LilyPond from R.
+
+As an example for Windows users, if the LilyPond executable is at `C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe`, then add `C:/Program Files (x86)/LilyPond/usr/bin` to the system path.
 
 ## R code
 
@@ -119,10 +123,10 @@ library(tabr)
 ```{r ex1, results="hide", eval=FALSE}
 library(tabr)
 # path <- "C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe"
-# tabr_options(lilypond = path) # may not be necessary
+# tabr_options(lilypond = path) # not necessary if on system path
 
 p("r a2 c f d a f", "4 8*6", "x 5 5 4 4 3 4") %>% track %>% score %>%
-  tab(song, "phrase.pdf", key = "dm", time = "4/4", tempo = "4 = 120")
+  tab("phrase.pdf", key = "dm", time = "4/4", tempo = "4 = 120")
 ```
 
 ```{r log, echo=FALSE}
