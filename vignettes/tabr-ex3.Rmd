@@ -164,10 +164,8 @@ i2 <- glue(i, i, "8*4", i)
 i3 <- glue(i, i, "8*4 8- 8*3")
 i4 <- glue(i, i, i, "8 8 4")
 
-s1 <- "5s*6 5321*3 5s*3"
-s2 <- "5s*13"
-s3 <- "5s*11 1 3s 3s"
-s4 <- "6s*6 64321*6"
+s1 <- "5s*13"
+s2 <- "6s*6 64321*6"
 ```
 
 Explicit chords require more typing than single notes so it is especially helpful to make use of the `*` in-string expansion operator where possible.
@@ -175,21 +173,21 @@ Explicit chords require more typing than single notes so it is especially helpfu
 As mentioned, for comparison, this guitar part is tabbed out using string-fret notation. This means for example that instead of specifying the pitch `e2` or `e,` along with the string number to play it on, `6`, you can specify string `6` and fret `2` (assuming the default `tuning = "standard"`). Instead of `phrase` or its alias `p`, use `sf_phrase` or `sfp`.
 
 ```{r g2_2}
-p1a <- sfp(s1, "75000*3 75080*3 7005*3 75007*3", i1)
-p1a2 <- sfp(s1, "75000*3 75080*3 7005*3 75080*3", i1)
-p0 <- volta(sfp(s1, "75000*3 75007*3 7005*3 75007*3", i1), 3, silent = TRUE)
+p1a <- sfp("5s*3 5432*3 5321*3 5s*3", "75000*3 7508*3 7005*3 75007*3", i1)
+p1a2 <- sfp("5s*3 5432*3 5321*3 5432*3", "75000*3 7508*3 7005*3 7508*3", i1)
+p0 <- volta(sfp("5s*6 5321*3 5s*3", "75000*3 75007*3 7005*3 75007*3", i1), 3, silent = TRUE)
 
-p1b <- sfp(s2, "55000*3 55003*3 55005*4 55003*3", i2)
-p1c <- sfp(s3, "35450*3 35453*3 35455*5 7 007*2", i3)
-p1d <- sfp(s4, "022000*3 022003*3 30005*3 20233*3", i4)
-p1d2 <- sfp(s4, "022000*3 022002*3 20233*3 30005*3", i1)
+p1b <- sfp(s1, "55000*3 55003*3 55005*4 55003*3", i2)
+p1c <- sfp("5s*11 1 3s 3s", "35450*3 35453*3 35455*5 7 007*2", i3)
+p1d <- sfp(s2, "022000*3 022003*3 30005*3 20233*3", i4)
+p1d2 <- sfp(s2, "022000*3 022002*3 20233*3 30005*3", i1)
 
 p2 <- glue(p1a, p1b, p1c, p1d)
 p3 <- volta(glue(p1a, p1b, p1c), 1, list(p1d, p1d2), TRUE)
 
-p4 <- glue(sfp("5s*12", "75000*12", i1), sfp(s2, "55000*13", i2), sfp(s2, "35450*13", i2), sfp(s4, "022000*6 30005*3 20233*3", i4))
+p4 <- glue(sfp("5s*12", "75000*12", i1), sfp(s1, "55000*13", i2), sfp(s1, "35450*13", i2), sfp(s2, "022000*6 30005*3 20233*3", i4))
 
-p5 <- sfp("6s~ 6s 5s*14", "022000~ 022000 75000*3 75080*3 75007 75000 75008 75000 75080 75000 75007 75000", "1 1 4 8 8 4 8*10")
+p5 <- sfp("6s~ 6s 5s*3 5432*3 5s*4 5432 5s*3", "022000~ 022000 75000*3 7508*3 75007 75000 75008 75000 7508 75000 75007 75000", "1 1 4 8 8 4 8*10")
 
 p6 <- dup(sfp("5s*12", "75000*12", i1), 3)
 p7 <- dup(sfp("6s*12", "022000*12", i1), 4)

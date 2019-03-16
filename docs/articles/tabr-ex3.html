@@ -277,27 +277,25 @@ i2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/append_p
 i3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/append_phrases.html">glue</a></span>(i, i, <span class="st">"8*4 8- 8*3"</span>)
 i4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/append_phrases.html">glue</a></span>(i, i, i, <span class="st">"8 8 4"</span>)
 
-s1 &lt;-<span class="st"> "5s*6 5321*3 5s*3"</span>
-s2 &lt;-<span class="st"> "5s*13"</span>
-s3 &lt;-<span class="st"> "5s*11 1 3s 3s"</span>
-s4 &lt;-<span class="st"> "6s*6 64321*6"</span></code></pre></div>
+s1 &lt;-<span class="st"> "5s*13"</span>
+s2 &lt;-<span class="st"> "6s*6 64321*6"</span></code></pre></div>
 <p>Explicit chords require more typing than single notes so it is especially helpful to make use of the <code>*</code> in-string expansion operator where possible.</p>
 <p>As mentioned, for comparison, this guitar part is tabbed out using string-fret notation. This means for example that instead of specifying the pitch <code>e2</code> or <code>e,</code> along with the string number to play it on, <code>6</code>, you can specify string <code>6</code> and fret <code>2</code> (assuming the default <code>tuning = "standard"</code>). Instead of <code>phrase</code> or its alias <code>p</code>, use <code>sf_phrase</code> or <code>sfp</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1a &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_phrase.html">sfp</a></span>(s1, <span class="st">"75000*3 75080*3 7005*3 75007*3"</span>, i1)
-p1a2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_phrase.html">sfp</a></span>(s1, <span class="st">"75000*3 75080*3 7005*3 75080*3"</span>, i1)
-p0 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/repeats.html">volta</a></span>(<span class="kw"><a href="../reference/sf_phrase.html">sfp</a></span>(s1, <span class="st">"75000*3 75007*3 7005*3 75007*3"</span>, i1), <span class="dv">3</span>, <span class="dt">silent =</span> <span class="ot">TRUE</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1a &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_phrase.html">sfp</a></span>(<span class="st">"5s*3 5432*3 5321*3 5s*3"</span>, <span class="st">"75000*3 7508*3 7005*3 75007*3"</span>, i1)
+p1a2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_phrase.html">sfp</a></span>(<span class="st">"5s*3 5432*3 5321*3 5432*3"</span>, <span class="st">"75000*3 7508*3 7005*3 7508*3"</span>, i1)
+p0 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/repeats.html">volta</a></span>(<span class="kw"><a href="../reference/sf_phrase.html">sfp</a></span>(<span class="st">"5s*6 5321*3 5s*3"</span>, <span class="st">"75000*3 75007*3 7005*3 75007*3"</span>, i1), <span class="dv">3</span>, <span class="dt">silent =</span> <span class="ot">TRUE</span>)
 
-p1b &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_phrase.html">sfp</a></span>(s2, <span class="st">"55000*3 55003*3 55005*4 55003*3"</span>, i2)
-p1c &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_phrase.html">sfp</a></span>(s3, <span class="st">"35450*3 35453*3 35455*5 7 007*2"</span>, i3)
-p1d &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_phrase.html">sfp</a></span>(s4, <span class="st">"022000*3 022003*3 30005*3 20233*3"</span>, i4)
-p1d2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_phrase.html">sfp</a></span>(s4, <span class="st">"022000*3 022002*3 20233*3 30005*3"</span>, i1)
+p1b &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_phrase.html">sfp</a></span>(s1, <span class="st">"55000*3 55003*3 55005*4 55003*3"</span>, i2)
+p1c &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_phrase.html">sfp</a></span>(<span class="st">"5s*11 1 3s 3s"</span>, <span class="st">"35450*3 35453*3 35455*5 7 007*2"</span>, i3)
+p1d &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_phrase.html">sfp</a></span>(s2, <span class="st">"022000*3 022003*3 30005*3 20233*3"</span>, i4)
+p1d2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_phrase.html">sfp</a></span>(s2, <span class="st">"022000*3 022002*3 20233*3 30005*3"</span>, i1)
 
 p2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/append_phrases.html">glue</a></span>(p1a, p1b, p1c, p1d)
 p3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/repeats.html">volta</a></span>(<span class="kw"><a href="../reference/append_phrases.html">glue</a></span>(p1a, p1b, p1c), <span class="dv">1</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(p1d, p1d2), <span class="ot">TRUE</span>)
 
-p4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/append_phrases.html">glue</a></span>(<span class="kw"><a href="../reference/sf_phrase.html">sfp</a></span>(<span class="st">"5s*12"</span>, <span class="st">"75000*12"</span>, i1), <span class="kw"><a href="../reference/sf_phrase.html">sfp</a></span>(s2, <span class="st">"55000*13"</span>, i2), <span class="kw"><a href="../reference/sf_phrase.html">sfp</a></span>(s2, <span class="st">"35450*13"</span>, i2), <span class="kw"><a href="../reference/sf_phrase.html">sfp</a></span>(s4, <span class="st">"022000*6 30005*3 20233*3"</span>, i4))
+p4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/append_phrases.html">glue</a></span>(<span class="kw"><a href="../reference/sf_phrase.html">sfp</a></span>(<span class="st">"5s*12"</span>, <span class="st">"75000*12"</span>, i1), <span class="kw"><a href="../reference/sf_phrase.html">sfp</a></span>(s1, <span class="st">"55000*13"</span>, i2), <span class="kw"><a href="../reference/sf_phrase.html">sfp</a></span>(s1, <span class="st">"35450*13"</span>, i2), <span class="kw"><a href="../reference/sf_phrase.html">sfp</a></span>(s2, <span class="st">"022000*6 30005*3 20233*3"</span>, i4))
 
-p5 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_phrase.html">sfp</a></span>(<span class="st">"6s~ 6s 5s*14"</span>, <span class="st">"022000~ 022000 75000*3 75080*3 75007 75000 75008 75000 75080 75000 75007 75000"</span>, <span class="st">"1 1 4 8 8 4 8*10"</span>)
+p5 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_phrase.html">sfp</a></span>(<span class="st">"6s~ 6s 5s*3 5432*3 5s*4 5432 5s*3"</span>, <span class="st">"022000~ 022000 75000*3 7508*3 75007 75000 75008 75000 7508 75000 75007 75000"</span>, <span class="st">"1 1 4 8 8 4 8*10"</span>)
 
 p6 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/append_phrases.html">dup</a></span>(<span class="kw"><a href="../reference/sf_phrase.html">sfp</a></span>(<span class="st">"5s*12"</span>, <span class="st">"75000*12"</span>, i1), <span class="dv">3</span>)
 p7 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/append_phrases.html">dup</a></span>(<span class="kw"><a href="../reference/sf_phrase.html">sfp</a></span>(<span class="st">"6s*12"</span>, <span class="st">"022000*12"</span>, i1), <span class="dv">4</span>)
