@@ -77,7 +77,7 @@ chord_invert <- function(chord, n = 0, limit = FALSE){
 #' chord_arpeggiate("ce_gb_", 2, by = "chord")
 #' chord_arpeggiate("ce_gb_", 1, broken = TRUE, collapse = TRUE)
 chord_arpeggiate <- function(chord, n = 0, by = c("note", "chord"), broken = FALSE, collapse = FALSE){
-  if(length(chord) != 1) stop("`chord` must be a single chord.")
+  if(length(chord) != 1) stop("`chord` must be a single chord.", call. = FALSE)
   .check_chord(chord)
   if(n == 0) return(chord)
   by <- match.arg(by)
@@ -169,14 +169,14 @@ chord_is_diatonic <- function(chord, key = "c"){
 #' dyad("c", x, reverse = TRUE)
 dyad <- function(notes, interval, reverse = FALSE, key = "c", collapse = FALSE){
   if(is.character(interval)) interval <- interval_semitones(interval)
-  if(any(is.na(interval))) stop("Invalid `interval`.")
+  if(any(is.na(interval))) stop("Invalid `interval`.", call. = FALSE)
   .check_note(notes)
   .keycheck(key)
   if(reverse) interval <- -interval
   nn <- length(notes)
   ni <- length(interval)
   if(nn != ni){
-    if(nn != 1 & ni != 1) stop("`notes` and `interval` have unequal lengths both > 1.")
+    if(nn != 1 & ni != 1) stop("`notes` and `interval` have unequal lengths both > 1.", call. = FALSE)
     if(nn == 1) notes <- rep(notes, ni)
     if(ni == 1) interval <- rep(interval, nn)
   }

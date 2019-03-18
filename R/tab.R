@@ -52,12 +52,13 @@
 #' lilypond(x, outfile)
 lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header = NULL,
                      string_names = NULL, paper = NULL, endbar = TRUE, midi = TRUE, path = NULL){
-  if(!"score" %in% class(score)) stop("`score` is not a score object.")
+  if(!"score" %in% class(score)) stop("`score` is not a score object.", call. = FALSE)
   major <- ifelse(utils::tail(strsplit(key, "")[[1]], 1) == "m", FALSE, TRUE)
   raw_key <- gsub("m", "", key)
   key <- .split_chord(.notesub(raw_key))
   mode <- ifelse(major, "\\major", "\\minor")
-  if((major && !key %in% .keys$major) || (!major && !key %in% .keys$minor)) stop("Invalid key.")
+  if((major && !key %in% .keys$major) || (!major && !key %in% .keys$minor))
+    stop("Invalid key.", call. = FALSE)
   paper_args <- .lp_paper_args(paper)
   paper <- do.call(.lp_paper, paper_args)
   chords <- attributes(score)$chords

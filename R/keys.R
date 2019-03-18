@@ -36,7 +36,7 @@ keys <- function(type = c("all", "sharp", "flat")){
   .keydata$key[!is.na(.keydata$sf) & .keydata$sf == type]
 }
 
-.keycheck <- function(key) if(any(!key %in% .keydata$key)) stop("Invalid `key`. See `keys`.")
+.keycheck <- function(key) if(any(!key %in% .keydata$key)) stop("Invalid `key`. See `keys`.", call. = FALSE)
 
 #' @export
 #' @rdname keys

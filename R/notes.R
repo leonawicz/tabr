@@ -174,7 +174,6 @@ note_arpeggiate <- function(notes, n = 0, ...){
   }
   nx <- length(x)
   style <- if(any(grepl(",|'", notes))) "tick" else "integer"
-  if(nx == 1) return(transpose(x, 12 * n, style = style))
   s <- sign(n) * seq(12, 12 * (abs(n) %/% nx + abs(n) %% nx), by = 12)
   if(n > 0){
     x <- c(x, sapply(s, function(i) transpose(paste(x, collapse = " "), i, ...)))

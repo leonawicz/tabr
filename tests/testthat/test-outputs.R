@@ -15,8 +15,14 @@ p3 <- p(tp(notes, -12), 8)
 x4 <- trackbind(track(p1, voice = 1),
                 track(p2, voice = 2), tabstaff = c(1, 1)) %>% score()
 
-chords <- chord_set(c("b_:m" = "x13321", "c/g" = "332o1o", "b:m/f#" = "(14)(12)(14)(14)(13)(12)"))
-chord_seq <- setNames(c(4, 4, 2), names(chords))
+chord_prep <- c("b_:m" = "x13321", "c/g" = "332o1o", "b:m/f#" = "(14)(12)(14)(14)(13)(12)", "r" = NA, "s" = NA)
+chords <- chord_set(chord_prep)
+
+test_that("chord_set returns as expected", {
+  expect_equal(names(chords), names(chord_prep))
+})
+
+chord_seq <- setNames(c(4, 4, 2), names(chords[1:3]))
 t1 <- trackbind(track(p1), track(p3, tuning = "bass", music_staff = "bass_8"))
 
 x5 <- score(t1)
@@ -57,7 +63,7 @@ test_that("tab and lilypond functions run without error", {
                   endbar = FALSE, midi = FALSE, keep_ly = FALSE, details = FALSE), cl))
 
     expect_is(tab(x8, out[2], "c#", "2/2", "4 = 110",
-                  header = header[c(1, 3, 4)], string_names = TRUE, paper = paper[1:5],
+                  header = c(header[c(1, 3, 4)], metre = "meter"), string_names = TRUE, paper = paper[1:5],
                   endbar = FALSE, midi = FALSE, keep_ly = FALSE, details = FALSE), cl)
     unlink(cleanup)
   }

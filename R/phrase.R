@@ -100,7 +100,7 @@ phrase <- function(notes, info, string = NULL, bar = FALSE){
 # nolint end
 
 .check_phrase_input <- function(x, y){
-  if(length(x) > 1) stop(paste0("`", y, "` must be length one."))
+  if(length(x) > 1) stop(paste0("`", y, "` must be length one."), call. = FALSE)
 }
 
 #' @export
@@ -194,8 +194,8 @@ print.phrase <- function(x, ...){
 as_phrase <- function(phrase){
   x <- phrase
   if(inherits(x, "phrase")) return(x)
-  if(!inherits(x, "character")) stop(paste("Cannot coerce", class(x)[1], "to phrase."))
-  if(!phrasey(x)) stop("`x` is not phrasey.")
+  if(!inherits(x, "character")) stop(paste("Cannot coerce", class(x)[1], "to phrase."), call. = FALSE)
+  if(!phrasey(x)) stop("`x` is not phrasey.", call. = FALSE)
   class(x) <- unique(c("phrase", class(x)))
   x
 }
@@ -218,7 +218,7 @@ phrasey <- function(phrase){
 #' @export
 #' @rdname phrase-checks
 notify <- function(phrase){
-  if(!phrasey(phrase)) stop("`phrase` is not phrasey.")
+  if(!phrasey(phrase)) stop("`phrase` is not phrasey.", call. = FALSE)
   x <- strsplit(phrase, " <")[[1]]
   x <- gsub("\\\\glissando", "-", x)
   x <- gsub("is", "#", x)

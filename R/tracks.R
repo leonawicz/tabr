@@ -74,7 +74,7 @@ chord_set <- function(x, id = NULL){
 #' track(x)
 track <- function(phrase, tuning = "standard", voice = 1L, music_staff = "treble_8",
                   ms_transpose = 0, ms_key = NA){
-  if(!"phrase" %in% class(phrase)) stop("`phrase` is not a phrase object.")
+  if(!"phrase" %in% class(phrase)) stop("`phrase` is not a phrase object.", call. = FALSE)
   x <- dplyr::tibble(phrase, tuning = .map_tuning(tuning), voice = as.integer(voice),
                           staff = as.character(music_staff),
                           ms_transpose = as.integer(ms_transpose),
@@ -113,12 +113,13 @@ track <- function(phrase, tuning = "standard", voice = 1L, music_staff = "treble
 #' trackbind(x1, x2, tabstaff = c(1, 1))
 trackbind <- function(..., tabstaff){
   x <- list(...)
-  if(!all(purrr::map_lgl(x, ~any(class(.x) == "track")))) stop("All arguments must be `track` tables.")
+  if(!all(purrr::map_lgl(x, ~any(class(.x) == "track"))))
+    stop("All arguments must be `track` tables.", call. = FALSE)
   y <- if(missing(tabstaff)) seq_along(x) else tabstaff
   x <- purrr::map2(x, y, ~dplyr::mutate(.x, tabstaff = as.integer(.y)))
   x <- suppressWarnings(dplyr::bind_rows(x))
   if(nrow(dplyr::distinct(x, .data[["voice"]], .data[["tabstaff"]])) < nrow(x))
-    stop("track `voice` and `tabstaff` ID combination must be unique across track rows.")
+    stop("track `voice` and `tabstaff` ID combination must be unique across track rows.", call. = FALSE)
   x$phrase <- purrr::map(x$phrase, ~as_phrase(.x))
   class(x) <- unique(c("track", class(x)))
   x
@@ -145,7 +146,7 @@ trackbind <- function(..., tabstaff){
 #' score(x)
 score <- function(track, chords = NULL, chord_seq = NULL){
   cl <- class(track)
-  if(!"track" %in% cl) stop("`track` is not a `track` table.")
+  if(!"track" %in% cl) stop("`track` is not a `track` table.", call. = FALSE)
   if(!"tabstaff" %in% names(track)) track <- dplyr::mutate(track, tabstaff = 1L)
   class(track) <- unique(c("score", cl))
   attr(track, "chords") <- chords

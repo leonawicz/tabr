@@ -55,7 +55,8 @@ is_mode <- function(notes, ignore_octave = FALSE){
 #' @export
 #' @rdname mode-helpers
 mode_rotate <- function(notes, n = 0, ignore_octave = FALSE){
-  if(!is_mode(notes, ignore_octave)) stop("`notes` does not define a valid mode.")
+  if(!is_mode(notes, ignore_octave))
+    stop("`notes` does not define a valid mode.", call. = FALSE)
   note_rotate(notes, n)
 }
 
