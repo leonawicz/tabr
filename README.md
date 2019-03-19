@@ -151,7 +151,18 @@ I was hopeful that the next version of `tabr` would be able to leverage a new, n
 
 Look forward to a separate collection of articles under a music programming heading that introduce many of the new functions. I just haven't had time to put these together yet.
 
-Reference
----------
+References and resources
+------------------------
 
-There is a rich collection of vignette tutorials available at the tabr website. [Complete package reference and function documentation](https://leonawicz.github.io/tabr/)
+There is a rich collection of vignette tutorials and examples as well as complete package documentation available at the `tabr` [website](https://leonawicz.github.io/tabr/).
+
+### R-Music <img src="https://raw.githubusercontent.com/r-music/site/master/img/logo.png" style="float:left;margin-right:20px;" width=120>
+
+<h4 style="padding:0px;margin:10px;">
+R for music data extraction and analysis
+</h4>
+See the [R-Music](https://github.com/r-music) organization on GitHub for more R packages related to music data extraction and analysis. The R-Music [blog](https://r-music.rbind.io/) provides package introductions and examples.
+
+### Other packages
+
+-   The [tuneR](https://CRAN.R-project.org/package=tuneR) package for analysis of music and speech by Uwe Ligges, Sebastian Krey, Olaf Mersmann, and Sarah Schnackenberg.
