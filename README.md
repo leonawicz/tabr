@@ -156,9 +156,11 @@ References and resources
 
 There is a rich collection of vignette tutorials and examples as well as complete package documentation available at the `tabr` [website](https://leonawicz.github.io/tabr/).
 
-### R-Music <img src="https://raw.githubusercontent.com/r-music/site/master/img/logo.png" style="float:left;margin-right:20px;" width=120>
-
-<h4 style="padding:0px;margin:10px;">
+<img src="https://raw.githubusercontent.com/r-music/site/master/img/logo.png" style="float:left;margin-right:20px;" width="120">
+<h3 style="margin-bottom:5px;">
+R-Music
+</h3>
+<h4 style="padding:0px;margin-top:5px;margin-bottom:5px;">
 R for music data extraction and analysis
 </h4>
 See the [R-Music](https://github.com/r-music) organization on GitHub for more R packages related to music data extraction and analysis. The R-Music [blog](https://r-music.rbind.io/) provides package introductions and examples.
