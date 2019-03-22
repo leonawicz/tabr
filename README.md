@@ -163,7 +163,7 @@ R-Music
 <h4 style="padding:0px;margin-top:5px;margin-bottom:5px;">
 R for music data extraction and analysis
 </h4>
-See the [R-Music](https://github.com/r-music) organization on GitHub for more R packages related to music data extraction and analysis. The R-Music [blog](https://r-music.rbind.io/) provides package introductions and examples.
+See the <a href="https://github.com/r-music">R-Music</a> organization on GitHub for more R packages related to music data extraction and analysis. The R-Music <a href="https://r-music.rbind.io/">blog</a> provides package introductions and examples.
 
 ### Other packages
 
