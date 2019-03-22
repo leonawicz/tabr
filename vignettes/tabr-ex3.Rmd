@@ -155,7 +155,7 @@ track1b <- track(glue(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10), voice = 2)
 
 ## Guitar 2
 
-The second guitar adds a strummed rhythm section. It has only one voice. Again, some additional note info and string number building blocks are helpful for avoiding some code duplication.
+The second guitar adds a strummed rhythm section. It has only one voice. Again, some additional note info building blocks are helpful for avoiding some code duplication.
 
 ```{r g2_1}
 i <- "4 8 8"
@@ -163,9 +163,6 @@ i1 <- dup(i, 4)
 i2 <- glue(i, i, "8*4", i)
 i3 <- glue(i, i, "8*4 8- 8*3")
 i4 <- glue(i, i, i, "8 8 4")
-
-s1 <- "5s*13"
-s2 <- "6s*6 64321*6"
 ```
 
 Explicit chords require more typing than single notes so it is especially helpful to make use of the `*` in-string expansion operator where possible.
@@ -177,33 +174,37 @@ p1a <- sfp("5s*3 5432*3 5321*3 5s*3", "75000*3 7508*3 7005*3 75007*3", i1)
 p1a2 <- sfp("5s*3 5432*3 5321*3 5432*3", "75000*3 7508*3 7005*3 7508*3", i1)
 p0 <- volta(sfp("5s*6 5321*3 5s*3", "75000*3 75007*3 7005*3 75007*3", i1), 3, silent = TRUE)
 
-p1b <- sfp(s1, "55000*3 55003*3 55005*4 55003*3", i2)
+p1b <- sfp("5s*13", "55000*3 55003*3 55005*4 55003*3", i2)
 p1c <- sfp("5s*11 1 3s 3s", "35450*3 35453*3 35455*5 7 007*2", i3)
-p1d <- sfp(s2, "022000*3 022003*3 30005*3 20233*3", i4)
-p1d2 <- sfp(s2, "022000*3 022002*3 20233*3 30005*3", i1)
+p1d <- sfp("6s*6 64321*6", "022000*3 022003*3 30005*3 20233*3", i4)
+p1d2 <- sfp("6s*6 64321*6", "022000*3 022002*3 30005*3 20233*3", i1)
+p1d3 <- sfp("5s*12", "02200*12", i1)
 
 p2 <- glue(p1a, p1b, p1c, p1d)
 p3 <- volta(glue(p1a, p1b, p1c), 1, list(p1d, p1d2), TRUE)
 
-p4 <- glue(sfp("5s*12", "75000*12", i1), sfp(s1, "55000*13", i2), sfp(s1, "35450*13", i2), sfp(s2, "022000*6 30005*3 20233*3", i4))
+p4a <- glue(sfp("5s*12", "75000*12", i1), sfp("5s*13", "55000*13", i2), sfp("5s*13", "35450*13", i2))
+p4b <- sfp("5s*6 64321*6", "02200*6 30005*3 20233*3", i4)
+p4c <- sfp("6s*6 64321*6", "022000*6 30005*3 20233*3", i4)
+p4 <- glue(p4a, p4b, p4a, p4c)
 
 p5 <- sfp("6s~ 6s 5s*3 5432*3 5s*4 5432 5s*3", "022000~ 022000 75000*3 7508*3 75007 75000 75008 75000 7508 75000 75007 75000", "1 1 4 8 8 4 8*10")
 
 p6 <- dup(sfp("5s*12", "75000*12", i1), 3)
 p7 <- dup(sfp("6s*12", "022000*12", i1), 4)
 p8 <- volta(glue(p1a, p1a2), silent = TRUE)
-p9 <- glue(p1a, p1b, p1c, p1d2)
+p9 <- glue(p1a, p1b, p1c, p1d3)
 
 p10 <- sfp("5s~ 5421", "75000~ 7500", "1 1") # hack around bug (double pitch full measure tie), again below (p11)
-p10a <- dup(p10, 4)
+p10a <- glue(sfp("6s~ 6s", "022000~ 022000", "1 1"), dup(p10, 3))
 p10b <- volta(dup(p10, 2), silent = TRUE)
-p11 <- sfp("5s~ 5421 5s~ 5421 5s~ 5432 5s 64321*2 6s", "75000~ 7500 55000~ 5500 35450~ 3545 75000 30005 20233 022000", "1*7 2 2 1")
+p11 <- sfp("5s~ 5421 5s~ 5421 5s~ 5432 5s 64321*2 6s", "75000~ 7500 55000~ 5500 35450~ 3545 75007 30005 20233 022000", "1*7 2 2 1")
 ```
 
 Create the track from a sequence of phrases.
 
 ```{r g2_3}
-track2 <- track(glue(p1a, p1a2, p0, p2, p3, p4, p4, p1a, p1a2, p5, p6, p7, p8, p9, p10a, p2, p2, p10b, p11))
+track2 <- track(glue(p1a, p1a2, p0, p2, p3, p4, p1a, p1a2, p5, p6, p7, p8, p9, p10a, p2, p2, p10b, p11))
 ```
 
 ## Chord chart and chords above staff
@@ -213,8 +214,8 @@ Placing chord names above the music staff and including a chord chart of fretboa
 The fretboard diagrams are relatively straightforward. You only need to create a named character vector defining the chords to include in the chord chart.
 
 ```{r chords1}
-chord_names <- c("e:m", "e:m7/d", "c:maj7", "c:maj9", "e:m", "g:5.9", "g:5.9/f#", "e:m5.9", "s")
-chord_positions <- c("x75ooo", "x55ooo", "x3545o", "x35435", "o22ooo", "3xooo5", "2xo233", "o22oo2", NA)
+chord_names <- c("e:m", "e:m7/d", "c:maj7", "c:maj9", "e:m", "g:5.9", "g:5.9/f#", "e:m5.9", "s", "a:sus2")
+chord_positions <- c("x75ooo", "x55ooo", "x3545o", "x35435", "o22ooo", "3xooo5", "2xo233", "o22oo2", NA, "xo22oo")
 chords <- chord_set(chord_positions, chord_names)
 ```
 
@@ -230,10 +231,10 @@ The silent rest `s` stored in `chord_names[9]` is used often to avoid excessivel
 
 ```{r chords2}
 x <- c(1, rep(9, 5), 1, 9, 2, 9, 3:7, 
-       1, 9, 2, 9, 3:7, 5, 8, 7, 6, 
-       1, 9, 2, 9, 3:7, 1, 9, 2, 9, 3, 9, 5:7, 
+       1, 9, 2, 9, 3:7, 5, 8, 6, 7, 
+       1, 9, 2, 9, 3, 9, 10, 6:7, 1, 9, 2, 9, 3, 9, 5:7, 
        1, rep(9, 25), 
-       1, 9, 2, 9, 3:5, 8, 7, 6, 
+       1, 9, 2, 9, 3:4, 10, 9, 
        1, rep(9, 7), 1, 9, 2, 9, 3:7, 
        1, 9, 2, 9, 3:7, 
        1, rep(9, 3), 1, 9, 2, 9, 3, 9, 1, 6, 7, 1)
@@ -243,7 +244,7 @@ chord_seq <- c(rep(1, 13), 2, 2,
                rep(1, 7), 2, 2, 
                rep(1, 7), 2, 2, 
                rep(1, 26), 
-               rep(1, 6), rep(2, 4), 
+               rep(1, 8), 
                rep(1, 8), 
                rep(1, 7), 2, 2, 
                rep(1, 7), 2, 2, 
