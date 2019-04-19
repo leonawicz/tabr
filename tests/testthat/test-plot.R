@@ -20,7 +20,7 @@ test_that("fretboard_plot runs successfully", {
   mute <- c(TRUE, rep(FALSE, 12))
   idx <- c(2, 2, 1, 1, 1, 2, rep(1, 6))
   lab_col <- c("white", "black")[idx]
-  pt_fill = c("firebrick1", "white")[idx]
+  pt_fill <- c("firebrick1", "white")[idx]
   expect_is(fretboard_plot(am_strings, am_frets, "notes", mute,
                  label_color = lab_col, point_fill = pt_fill), "ggplot")
 
@@ -29,7 +29,7 @@ test_that("fretboard_plot runs successfully", {
   grp <- rep(c("Open E", "Open Em"), each = 6)
   idx <- c(2, 1, 1, 1, 2, 2, 2, 1, 1, 2, 2, 2)
   lab_col <- c("white", "black")[idx]
-  pt_fill = c("firebrick1", "white")[idx]
+  pt_fill <- c("firebrick1", "white")[idx]
   expect_is(fretboard_plot(s, f, "notes", group = grp, fret_range = c(0, 4),
                  label_color = lab_col, point_fill = pt_fill), "ggplot")
   expect_is(fretboard_plot(string, fret, "notes", label_color = "white", point_fill = "dodgerblue",
