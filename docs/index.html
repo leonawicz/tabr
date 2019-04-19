@@ -130,6 +130,9 @@
     <li>
       <a href="articles/tabr-ex2.html">Multiple voices</a>
     </li>
+    <li>
+      <a href="articles/tabr-ex3.html">Ezio's family</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -238,17 +241,19 @@ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumen
 <h2 class="hasAnchor">
 <a href="#score-metadata-and-accessing-lilypond" class="anchor"></a>Score metadata and accessing LilyPond</h2>
 <p>Finally, specify some song metadata to reproduce the original staff: the key of D minor, common time, and the tempo.</p>
-<p>If LilyPond is installed on your system (and added to your system PATH variable on Windows systems), <code>tab</code> should call it successfully. Alternatively, on Windows, it can be added explicitly by calling <code>tabr_options</code>. This option to specify the LilyPond path is still available on other systems. An example of this is commented out below. However, <code>tabr</code> will do its best on package load to set these paths in <code>tabr_options</code> for you if it can successfully detect a LilyPond installation in a standard file system location, so you may not have to do anything. Just check <code><a href="reference/tabr_options.html">tabr_options()</a></code> after you load the package. If any of the paths are equal to the empty string <code>""</code>, then you need to set the paths. Otherwise you should be ready to run LilyPond from R.</p>
+<p>If LilyPond is installed on your system (and added to your system path variable on Windows systems), <code>tab</code> should call it successfully. Alternatively, on Windows, it can be added explicitly by calling <code>tabr_options</code>. This option to specify the LilyPond path is still available on other systems. An example of this is commented out below.</p>
+<p><code>tabr</code> will attempt on package load to set these paths in <code>tabr_options</code> for you if it can successfully detect a LilyPond installation in a standard file system location, but it is recommended for Windows users to simply add it to your system path. Check <code><a href="reference/tabr_options.html">tabr_options()</a></code> after you load the package. If any of the paths are equal to the empty string <code>""</code>, then you need to set the paths. Otherwise you should be ready to run LilyPond from R.</p>
+<p>As an example for Windows users, if the LilyPond executable is at <code>C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe</code>, then add <code>C:/Program Files (x86)/LilyPond/usr/bin</code> to the system path.</p>
 </div>
 <div id="r-code" class="section level2">
 <h2 class="hasAnchor">
 <a href="#r-code" class="anchor"></a>R code</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tabr)
 <span class="co"># path &lt;- "C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe"</span>
-<span class="co"># tabr_options(lilypond = path) # may not be necessary</span>
+<span class="co"># tabr_options(lilypond = path) # not necessary if on system path</span>
 
 <span class="kw"><a href="reference/phrase.html">p</a></span>(<span class="st">"r a2 c f d a f"</span>, <span class="st">"4 8*6"</span>, <span class="st">"x 5 5 4 4 3 4"</span>) <span class="op">%&gt;%</span><span class="st"> </span>track <span class="op">%&gt;%</span><span class="st"> </span>score <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="reference/tab.html">tab</a></span>(song, <span class="st">"phrase.pdf"</span>, <span class="dt">key =</span> <span class="st">"dm"</span>, <span class="dt">time =</span> <span class="st">"4/4"</span>, <span class="dt">tempo =</span> <span class="st">"4 = 120"</span>)</code></pre></div>
+<span class="st">  </span><span class="kw"><a href="reference/tab.html">tab</a></span>(<span class="st">"phrase.pdf"</span>, <span class="dt">key =</span> <span class="st">"dm"</span>, <span class="dt">time =</span> <span class="st">"4/4"</span>, <span class="dt">tempo =</span> <span class="st">"4 = 120"</span>)</code></pre></div>
 <pre><code>#&gt; #### Engraving score to phrase.pdf ####
 #&gt; GNU LilyPond 2.18.2
 #&gt; Processing `./phrase.ly'
@@ -284,6 +289,26 @@ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumen
 <p>All of the new functions are fully documented. See the reference pages for details. Some are still under development, but all work as currently implemented.</p>
 <p>I was hopeful that the next version of <code>tabr</code> would be able to leverage a new, native bend engraver in LilyPond, but it appears that on the LilyPond side this development has not progressed since I last checked.</p>
 <p>Look forward to a separate collection of articles under a music programming heading that introduce many of the new functions. I just haven’t had time to put these together yet.</p>
+</div>
+<div id="other-resources" class="section level2">
+<h2 class="hasAnchor">
+<a href="#other-resources" class="anchor"></a>Other resources</h2>
+<img src="https://raw.githubusercontent.com/r-music/site/master/img/logo.png" style="float:left;margin-right:20px;" width="120"><div>
+<h3 style="padding-top:50px;">
+R-Music
+</h3>
+<h4 style="padding:0px;margin-top:5px;margin-bottom:5px;">
+R for music data extraction and analysis
+</h4>
+See the <a href="https://github.com/r-music">R-Music</a> organization on GitHub for more R packages related to music data extraction and analysis.<br>The R-Music <a href="https://r-music.rbind.io/">blog</a> provides package introductions and examples.
+</div>
+<div id="other-packages" class="section level3">
+<h3 class="hasAnchor">
+<a href="#other-packages" class="anchor"></a>Other packages</h3>
+<ul>
+<li>The <a href="https://CRAN.R-project.org/package=tuneR">tuneR</a> package for analysis of music and speech by Uwe Ligges, Sebastian Krey, Olaf Mersmann, and Sarah Schnackenberg.</li>
+</ul>
+</div>
 </div>
 </div>
   </div>

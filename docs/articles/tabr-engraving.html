@@ -123,6 +123,9 @@
     <li>
       <a href="../articles/tabr-ex2.html">Multiple voices</a>
     </li>
+    <li>
+      <a href="../articles/tabr-ex3.html">Ezio's family</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -166,14 +169,7 @@
     
     
 <p>This section covers <code>lilypond</code> and <code>tab</code> for writing LilyPond files and engraving to sheet music with LilyPond, respectively. Examples of the various pieces of song metadata that can be passed to to these functions are provided.</p>
-<p>The examples focus on <code>tab</code> because this generates the tablature whereas <code>lilypond</code> only creates the LilyPond file that <code>tab</code> renders. <code>tab</code> is a wrapper around <code>lilypond</code>. The two functions have identical arguments, as <code>tab</code> merely passes them along to <code>lilypond</code> internally, except for one. <code>tab</code> has <code>keep_ly = FALSE</code> by default, which removes the <code>.ly</code> file created by <code>lilypond</code> following rendering of the file to pdf or png. To keep the LilyPond file, set this to <code>TRUE</code>. All other arguments are the same for both functions so they are really <code>lilypond</code> arguments.</p>
-<p>Here are the <code>lilypond</code> arguments:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/args">args</a></span>(lilypond)</code></pre></div>
-<pre class="r-output"><code>#&gt; function (score, file, key = "c", time = "4/4", tempo = "2 = 60", 
-#&gt;     header = NULL, string_names = NULL, paper = NULL, endbar = TRUE, 
-#&gt;     midi = TRUE, path = NULL) 
-#&gt; NULL
-</code></pre>
+<p>The examples focus on <code>tab</code> because this function generates the tablature whereas <code>lilypond</code> only creates the LilyPond file that <code>tab</code> renders via LilyPond. <code>tab</code> is a wrapper around <code>lilypond</code>. The two functions have the same arguments. <code>tab</code> passes these along to <code>lilypond</code> internally, except for one. <code>tab</code> has <code>keep_ly = FALSE</code> by default, which removes the <code>.ly</code> file created by <code>lilypond</code> following rendering of the file to pdf or png. To keep the LilyPond file, set this to <code>TRUE</code>. See the function documentation for details.</p>
 <p>By now you have seen many calls to <code>tab</code> in order to show full examples in early tutorial sections. With sufficient coverage of phrases, tracks and scores, and the progression through them, now it is time to go into detail on all the render time arguments that can be supplied that apply to the entire piece of tablature and any metadata or general song information associated with it.</p>
 <div id="score-metadata" class="section level2">
 <h2 class="hasAnchor">

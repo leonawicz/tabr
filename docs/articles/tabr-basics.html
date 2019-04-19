@@ -123,6 +123,9 @@
     <li>
       <a href="../articles/tabr-ex2.html">Multiple voices</a>
     </li>
+    <li>
+      <a href="../articles/tabr-ex3.html">Ezio's family</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -249,7 +252,7 @@ song</code></pre></div>
 <a href="#piping" class="anchor"></a>Piping</h2>
 <p>Note above that <code>tabr</code> also exports the pipe <code>%&gt;%</code> operator. Even given the hierarchy of objects involved in the series of steps to move from a phrase to a rendered pdf, a short example like this does not even require a single assignment. The same steps involved in building up the structure and rendering the output could be performed as follows.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"r a2 c f d a f"</span>, <span class="st">"4 8*6"</span>) <span class="op">%&gt;%</span><span class="st"> </span>track <span class="op">%&gt;%</span><span class="st"> </span>score <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(song, <span class="st">"phrase.pdf"</span>, <span class="dt">key =</span> <span class="st">"dm"</span>, <span class="dt">time =</span> <span class="st">"4/4"</span>, <span class="dt">tempo =</span> <span class="st">"4 = 120"</span>)</code></pre></div>
+<span class="st">  </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"phrase.pdf"</span>, <span class="dt">key =</span> <span class="st">"dm"</span>, <span class="dt">time =</span> <span class="st">"4/4"</span>, <span class="dt">tempo =</span> <span class="st">"4 = 120"</span>)</code></pre></div>
 <p>While music can be quite complex and a full score will be much longer, <code>tabr</code> strives to minimize the work while still forcing some sense of interpretable, organized structure. For long and complex music, it can require some effort and practice to ensure your approach to transcription in your R code is not opaque.</p>
 <p>To recap, the <code>phrase</code> is defined, added to a <code>track</code>, the track is added to a <code>score</code>, and the score is rendered to tablature in a pdf file with <code>tab</code>. The next tutorial section discusses phrases in more detail and provides an overview of the different notes and note metadata that can be specified when constructing a phrase.</p>
 </div>
