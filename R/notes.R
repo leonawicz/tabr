@@ -42,6 +42,7 @@
 #' naturalize(x, "sharp")
 #' sharpen_flat(x)
 #' flatten_sharp(x)
+#' pretty_notes(x)
 #'
 #' note_rotate(x, 1)
 #' note_shift("c e g", 1)
@@ -188,6 +189,14 @@ note_arpeggiate <- function(notes, n = 0, ...){
   if(style == "tick") x <- .octavesub(x)
   if(length(notes) == 1) x <- paste0(x, collapse = " ")
   .asnw(x)
+}
+
+#' @export
+#' @rdname note-helpers
+pretty_notes <- function(notes, ignore_octave = TRUE){
+  .check_noteworthy(notes)
+  if(ignore_octave) notes <- .pitch_to_note(notes)
+  gsub("_", "b", toupper(notes))
 }
 
 #' Check note and chord validity

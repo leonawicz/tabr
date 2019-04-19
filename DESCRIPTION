@@ -30,6 +30,7 @@ Imports:
     magrittr,
     dplyr,
     purrr,
-    crayon
+    crayon,
+    ggplot2
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1

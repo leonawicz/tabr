@@ -141,6 +141,8 @@ navbar:
           href: "articles/tabr-prog-notes.html"
         - text: "Chord functions"
           href: "articles/tabr-prog-chords.html"
+        - text: "Fretboard diagram plots"
+          href: "articles/tabr-fretboard.html"
     - text: "Examples"
       menu:
         - text: "Tuning and capo"

@@ -13,6 +13,7 @@
 \alias{note_rotate}
 \alias{note_shift}
 \alias{note_arpeggiate}
+\alias{pretty_notes}
 \title{Note and pitch helpers}
 \usage{
 note_is_natural(notes)
@@ -37,6 +38,8 @@ note_rotate(notes, n = 0)
 note_shift(notes, n = 0)
 
 note_arpeggiate(notes, n = 0, ...)
+
+pretty_notes(notes, ignore_octave = TRUE)
 }
 \arguments{
 \item{notes}{character, a noteworthy string, space-delimited or vector of individual entries.}
@@ -87,6 +90,7 @@ naturalize(x)
 naturalize(x, "sharp")
 sharpen_flat(x)
 flatten_sharp(x)
+pretty_notes(x)
 
 note_rotate(x, 1)
 note_shift("c e g", 1)

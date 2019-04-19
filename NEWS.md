@@ -1,5 +1,6 @@
 # tabr 0.3.0
 
+* Added `fretboard_plot` for making fretboard diagrams outside of the LilyPond tablature pipeline. This necessitates importing `ggplot2`.
 * Added functions for phrase validation, coercion and decomposition back to original character string inputs.
 * Added functions for note, pitch, chord and octave equivalence checks.
 * Added a collection of functions for constructing and working with common chords. The chord constructors are among the `chord_*`-named functions and also have shorter `x*`-named aliases. These are "piano chords," i.e., based on the condensed, defining intervals.

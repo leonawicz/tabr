@@ -7,6 +7,9 @@ test_that("note helpers return as expected", {
   expect_identical(note_rotate(notes, 0), notes)
   expect_identical(note_rotate(notes, 3), as_noteworthy("d# e_ f g a b c,e_g'"))
 
+  expect_identical(pretty_notes(notes), "A B CEbG D# Eb F G")
+  expect_identical(pretty_notes(notes, FALSE), "A B C,EbG' D# Eb F G")
+
   expect_identical(note_shift("c4 e' g'", 1), as_noteworthy("e' g' c''"))
   expect_identical(note_shift("c e_ g", -4) %>% as.character(), "g1 c2 e_2")
   expect_identical(note_shift("c4 e_4 g4", -3) %>% as.character(), "c e_ g")
