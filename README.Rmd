@@ -108,7 +108,11 @@ While explicit string numbers are not needed for this example, they are provided
 
 Finally, specify some song metadata to reproduce the original staff: the key of D minor, common time, and the tempo.
 
-If LilyPond is installed on your system (and added to your system PATH variable on Windows systems), `tab` should call it successfully. Alternatively, on Windows, it can be added explicitly by calling `tabr_options`. This option to specify the LilyPond path is still available on other systems. An example of this is commented out below. However, `tabr` will do its best on package load to set these paths in `tabr_options` for you if it can successfully detect a LilyPond installation in a standard file system location, so you may not have to do anything. Just check `tabr_options()` after you load the package. If any of the paths are equal to the empty string `""`, then you need to set the paths. Otherwise you should be ready to run LilyPond from R.
+If LilyPond is installed on your system (and added to your system path variable on Windows systems), `tab` should call it successfully. Alternatively, on Windows, it can be added explicitly by calling `tabr_options`. This option to specify the LilyPond path is still available on other systems. An example of this is commented out below.
+
+`tabr` will attempt on package load to set these paths in `tabr_options` for you if it can successfully detect a LilyPond installation in a standard file system location, but it is recommended for Windows users to simply add it to your system path. Check `tabr_options()` after you load the package. If any of the paths are equal to the empty string `""`, then you need to set the paths. Otherwise you should be ready to run LilyPond from R.
+
+As an example for Windows users, if the LilyPond executable is at `C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe`, then add `C:/Program Files (x86)/LilyPond/usr/bin` to the system path.
 
 ## R code
 
@@ -119,10 +123,10 @@ library(tabr)
 ```{r ex1, results="hide", eval=FALSE}
 library(tabr)
 # path <- "C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe"
-# tabr_options(lilypond = path) # may not be necessary
+# tabr_options(lilypond = path) # not necessary if on system path
 
 p("r a2 c f d a f", "4 8*6", "x 5 5 4 4 3 4") %>% track %>% score %>%
-  tab(song, "phrase.pdf", key = "dm", time = "4/4", tempo = "4 = 120")
+  tab("phrase.pdf", key = "dm", time = "4/4", tempo = "4 = 120")
 ```
 
 ```{r log, echo=FALSE}
@@ -175,8 +179,24 @@ I was hopeful that the next version of `tabr` would be able to leverage a new, n
 Look forward to a separate collection of articles under a music programming heading that introduce many of the new functions. I just haven't had time to put these together yet.
 
 ```{r md_pkg_ref, echo = FALSE, results = "asis", eval = is_md}
-cat('## Reference\n\nThere is a rich collection of vignette tutorials available at the tabr website.\n[Complete package reference and function documentation](https://leonawicz.github.io/tabr/)')
+cat('## References and resources\n\nThere is a rich collection of vignette tutorials and examples as well as complete package documentation available at the `tabr` [website](https://leonawicz.github.io/tabr/).')
 ```
+
+```{r html_pkg_ref, echo = FALSE, results = "asis", eval = !is_md}
+cat('## Other resources')
+```
+
+```{r md_pkg_ref2, echo = FALSE, results = "asis", eval = is_md}
+cat('<img src="https://raw.githubusercontent.com/r-music/site/master/img/logo.png" style="float:left;margin-right:20px;" width="120"><div><h3 style="margin-bottom:5px;">R-Music</h3>\n<h4 style="padding:0px;margin-top:5px;margin-bottom:5px;">R for music data extraction and analysis</h4>\n\nSee the <a href="https://github.com/r-music">R-Music</a> organization on GitHub for more R packages related to music data extraction and analysis. The R-Music <a href="https://r-music.rbind.io/">blog</a> provides package introductions and examples.</div>')
+```
+
+```{r html_pkg_ref2, echo = FALSE, results = "asis", eval = !is_md}
+cat('<img src="https://raw.githubusercontent.com/r-music/site/master/img/logo.png" style="float:left;margin-right:20px;" width="120"><div><h3 style="padding-top:50px;">R-Music</h3>\n<h4 style="padding:0px;margin-top:5px;margin-bottom:5px;">R for music data extraction and analysis</h4>\nSee the [R-Music](https://github.com/r-music) organization on GitHub for more R packages related to music data extraction and analysis.<br/>The R-Music [blog](https://r-music.rbind.io/) provides package introductions and examples.</div>')
+```
+
+### Other packages
+
+* The [tuneR](https://CRAN.R-project.org/package=tuneR) package for analysis of music and speech by Uwe Ligges, Sebastian Krey, Olaf Mersmann, and Sarah Schnackenberg.
 
 ```{r cleanup, echo=FALSE}
 unlink("phrase.mid")

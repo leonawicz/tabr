@@ -7,7 +7,8 @@
 
 .map_tuning <- function(x){
   if(x %in% tabr::tunings$id) return(tabr::tunings$value[x == tabr::tunings$id])
-  if(length(grep("[h-zA-Z]", x)) || length(grep("[a-z][a-z]", x))) stop("Invalid `tuning`.")
+  if(length(grep("[h-zA-Z]", x)) || length(grep("[a-z][a-z]", x)))
+    stop("Invalid `tuning`.", call. = FALSE)
   .octavesub(x)
 }
 
@@ -29,5 +30,5 @@
 #'
 #' A data frame containing information for many predefined guitar chords.
 #'
-#' @format A data frame with 12 columns and 4,030 rows.
+#' @format A data frame with 12 columns and 3,967 rows.
 "guitarChords"

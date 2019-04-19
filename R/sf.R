@@ -58,21 +58,21 @@ sf_phrase <- function(string, fret, info, key = "c", tuning = "standard", to_not
   notes <- purrr::map2(strsplit(string, " ")[[1]], fret, ~({
     string_tie <- grepl("~", .x)
     fret_tie <- grepl("~", .y)
-    if(!identical(string_tie, fret_tie)) stop("Tied note mismatch.")
+    if(!identical(string_tie, fret_tie)) stop("Tied note mismatch.", call. = FALSE)
     x <- if(any(string_tie)) gsub("~", "", .x) else .x
     y <- if(any(fret_tie)) gsub("~", "", .y) else .y
     rests <- c("r", "s")
     if(x %in% rests | y %in% rests){
-      if(x == y) return(x) else stop("Rest mismatch.")
+      if(x == y) return(x) else stop("Rest mismatch.", call. = FALSE)
     }
     x <- as.integer(strsplit(x, "")[[1]])
-    if(any(!x %in% str_num)) stop("String number outside range inferred by tuning.")
+    if(any(!x %in% str_num)) stop("String number outside range inferred by tuning.", call. = FALSE)
     y <- gsub(" $", "", gsub("(\\(\\d{2}\\))", "\\1 ", y))
     y <- strsplit(y, " ")[[1]]
     y <- lapply(y, function(x){
       if(substr(x, 1, 1) == "(") gsub("\\(|\\)", "", x) else strsplit(x, "")[[1]]
       }) %>% unlist %>% as.integer
-    if(length(x) != length(y)) stop("String/fret mismatch.")
+    if(length(x) != length(y)) stop("String/fret mismatch.", call. = FALSE)
     x <- sapply(seq_along(x), function(i, x, y) transpose(open_notes[x[i]], y[i], key, "tick"), x = x, y = y)
     if(any(string_tie)) x[string_tie] <- paste0(x[string_tie], "~")
     paste(x, collapse = "")

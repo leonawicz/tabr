@@ -44,6 +44,9 @@ Create sheet music/guitar tablature from a music score.
 \details{
 Generate a pdf or png of a music score using the LilyPond music engraving program.
 Output format is inferred from \code{file} extension. This function is a wrapper around \code{\link{lilypond}}, the function that creates the LilyPond (\code{.ly}) file.
+
+For Windows users, add the path to the LilyPond executable to the system path variable. For example, if the file is at \code{C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe},
+then add \code{C:/Program Files (x86)/LilyPond/usr/bin} to the system path.
 }
 \examples{
 if(tabr_options()$lilypond != ""){

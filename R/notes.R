@@ -124,7 +124,9 @@ note_rotate <- function(notes, n = 0){
   x <- .uncollapse(notes)
   n <- n %% length(x)
   if(n == 0) return(notes)
+  style <- if(any(grepl(",|'", notes))) "tick" else "integer"
   x <- x[c((n + 1):length(x), 1:n)]
+  if(style == "tick") x <- .octavesub(x)
   if(length(notes) == 1) x <- paste0(x, collapse = " ")
   .asnw(x)
 }
@@ -173,7 +175,6 @@ note_arpeggiate <- function(notes, n = 0, ...){
   }
   nx <- length(x)
   style <- if(any(grepl(",|'", notes))) "tick" else "integer"
-  if(nx == 1) return(transpose(x, 12 * n, style = style))
   s <- sign(n) * seq(12, 12 * (abs(n) %/% nx + abs(n) %% nx), by = 12)
   if(n > 0){
     x <- c(x, sapply(s, function(i) transpose(paste(x, collapse = " "), i, ...)))

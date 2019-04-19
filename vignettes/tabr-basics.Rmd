@@ -115,7 +115,7 @@ Note above that `tabr` also exports the pipe `%>%` operator. Even given the hier
 
 ```{r pipe, results="hide", eval=FALSE}
 p("r a2 c f d a f", "4 8*6") %>% track %>% score %>%
-  tab(song, "phrase.pdf", key = "dm", time = "4/4", tempo = "4 = 120")
+  tab("phrase.pdf", key = "dm", time = "4/4", tempo = "4 = 120")
 ```
 
 While music can be quite complex and a full score will be much longer, `tabr` strives to minimize the work while still forcing some sense of interpretable, organized structure. For long and complex music, it can require some effort and practice to ensure your approach to transcription in your R code is not opaque.

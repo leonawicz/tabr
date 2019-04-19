@@ -147,7 +147,7 @@ dup <- function(x, n = 1){
 #' hp("16 8 16", "8 16 8")
 hp <- function(...){
   x <- unlist(purrr::map(list(...), ~paste0(strsplit(as.character(paste0(.x, collapse = " ")), " ")[[1]])))
-  if(length(x) %% 2 == 1) stop("Even number of arguments required.")
+  if(length(x) %% 2 == 1) stop("Even number of arguments required.", call. = FALSE)
   idx <- seq_along(x) %% 2 == 0
   x[idx == TRUE] <- paste0(x[idx == TRUE], ")")
   x[idx == FALSE] <- paste0(x[idx == FALSE], "(")

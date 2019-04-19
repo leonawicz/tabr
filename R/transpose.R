@@ -39,12 +39,11 @@
 #' tp("a, b ceg", 2, key = "sharp")
 transpose <- function(notes, n = 0, key = NA, style = c("default", "tick", "integer", "strip")){
   if(inherits(notes, "phrase"))
-    stop("`notes` must be a valid character string of notes, not a phrase object.")
+    stop("`notes` must be a noteworthy string, not a phrase object.", call. = FALSE)
   .check_noteworthy(notes)
   n <- as.integer(n)
   if(n == 0 & is.na(key)) return(.asnw(notes))
   style <- match.arg(style)
-  if(gsub("[a-grs#_0-9,'~ ]", "", notes) != "") stop("`notes` is not a valid string of notes.")
   if(style == "default") style <- ifelse(length(grep("[,']", notes)), "tick", "integer")
   x <- purrr::map_chr(strsplit(notes, " ")[[1]], ~({
     .split_chord(.x) %>% sapply(.add_missing_3) %>% paste(collapse = "")
@@ -104,8 +103,7 @@ transpose <- function(notes, n = 0, key = NA, style = c("default", "tick", "inte
     } else {
       if(key == "sharp") key <- "c#"
       if(key == "flat") key <- "d_"
-      if(!key %in% .keydata$key)
-        stop(cat("Invalid `key`. Options are:\n", paste0(.keydata$key, collapse = ", "), ".\n"))
+      .keycheck(key)
       sf <- .keydata$sf[.keydata$key == key]
       if(is.na(sf) && n > 0){
         y <- sharp
@@ -147,7 +145,7 @@ transpose <- function(notes, n = 0, key = NA, style = c("default", "tick", "inte
   pass <- purrr::map_int(x1, cpass)
   x2 <- x2 + octaves + pass
   x2[x1 %in% c("r", "s")] <- ""
-  if(any(as.integer(x2[x2 != ""]) < 0)) stop("`Negative octave number not allowed in `tabr`.")
+  if(any(as.integer(x2[x2 != ""]) < 0)) stop("`Negative octave number not allowed in `tabr`.", call. = FALSE)
   if(length(idx) > 0) x2[idx] <- paste0(x2[idx], "~")
   x <- paste0(x1new, x2, collapse = " ")
   if(style == "tick") x <- .octavesub(x)

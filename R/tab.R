@@ -52,12 +52,13 @@
 #' lilypond(x, outfile)
 lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header = NULL,
                      string_names = NULL, paper = NULL, endbar = TRUE, midi = TRUE, path = NULL){
-  if(!"score" %in% class(score)) stop("`score` is not a score object.")
+  if(!"score" %in% class(score)) stop("`score` is not a score object.", call. = FALSE)
   major <- ifelse(utils::tail(strsplit(key, "")[[1]], 1) == "m", FALSE, TRUE)
   raw_key <- gsub("m", "", key)
   key <- .split_chord(.notesub(raw_key))
   mode <- ifelse(major, "\\major", "\\minor")
-  if((major && !key %in% .keys$major) || (!major && !key %in% .keys$minor)) stop("Invalid key.")
+  if((major && !key %in% .keys$major) || (!major && !key %in% .keys$minor))
+    stop("Invalid key.", call. = FALSE)
   paper_args <- .lp_paper_args(paper)
   paper <- do.call(.lp_paper, paper_args)
   chords <- attributes(score)$chords
@@ -125,6 +126,9 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", hea
 #' Generate a pdf or png of a music score using the LilyPond music engraving program.
 #' Output format is inferred from \code{file} extension. This function is a wrapper around \code{\link{lilypond}}, the function that creates the LilyPond (\code{.ly}) file.
 #'
+#' For Windows users, add the path to the LilyPond executable to the system path variable. For example, if the file is at \code{C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe},
+#' then add \code{C:/Program Files (x86)/LilyPond/usr/bin} to the system path.
+#'
 #' @param score a score object.
 #' @param file character, output file ending in .pdf or .png. May include an absolute or relative path.
 #' @param key character, key signature, e.g., \code{c}, \code{b_}, \code{f#m}, etc.
@@ -157,8 +161,9 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header =
   fp <- .adjust_file_path(file, path)
   if(details) cat("#### Engraving score to", fp$tp, "####\n")
   lilypond(score, basename(fp$lp), key, time, tempo, header, string_names, paper, endbar, midi, dirname(fp$lp))
-  system(paste0("\"", tabr_options()$lilypond, "\" --", fp$ext,
-                " -dstrip-output-dir=#f \"", fp$lp, "\""),
+  lp_path <- tabr_options()$lilypond
+  if(lp_path == "" && Sys.info()[["sysname"]] == "Windows") lp_path <- "lilypond.exe"
+  system(paste0("\"", lp_path, "\" --", fp$ext, " -dstrip-output-dir=#f \"", fp$lp, "\""),
          show.output.on.console = details)
   if(!keep_ly) unlink(fp$lp)
   invisible()

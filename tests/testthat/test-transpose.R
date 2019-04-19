@@ -44,6 +44,12 @@ test_that("transpose returns as expected.", {
   expect_equal(transpose(x, 3, style = "int"),
                as_noteworthy("c5 c#4 c# d4~ d4 d#ga# d#4g4a#4 d#ga# d#4g4a#4 d#2g2a#2 e2f# f#4"))
 
+  expect_equal(tp("r s", 1), as_noteworthy("r s"))
+  expect_equal(tp("r a#, a", 1), as_noteworthy("r b, a#"))
+
+  expect_error(tp("a", 1, "x"), "Invalid `key`. See `keys`.")
+  expect_error(tp("c0", -1), "`Negative octave number not allowed in `tabr`.")
   expect_error(tp("a.", 1), "Invalid notes or chords found.")
   expect_error(tp("a.. c", 1), "Invalid notes or chords found.")
+  expect_error(tp(p("a", 1)), "`notes` must be a noteworthy string, not a phrase object.")
 })

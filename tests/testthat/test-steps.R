@@ -39,3 +39,12 @@ test_that("track arguments accepted and scores returned", {
   expect_equal(nrow(score(x3)), nrow(x3))
   expect_equal(ncol(x3), ncol(x[[1]]) + 1)
 })
+
+test_that("errors thrown as expected", {
+  expect_error(track("a"), "`phrase` is not a phrase object.")
+  expect_error(trackbind("a"), "All arguments must be `track` tables.")
+  expect_error(trackbind(x[[1]], x[[1]], tabstaff = c(1, 1)),
+               "track `voice` and `tabstaff` ID combination must be unique across track rows.")
+  expect_error(score("a"), "`track` is not a `track` table.")
+  expect_error(tab("a", "a"), "`score` is not a score object.")
+})

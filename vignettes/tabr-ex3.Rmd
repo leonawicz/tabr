@@ -1,0 +1,280 @@
+---
+title: "Example: Ezio's family"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Example: Ezio's family}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+options(crayon.enabled = TRUE)
+sgr_wrap <- function(x, options){
+  paste0("<pre class=\"r-output\"><code>", fansi::sgr_to_html(x = htmltools::htmlEscape(x)), "</code></pre>")
+}
+knitr::knit_hooks$set(output = sgr_wrap)
+knitr::opts_chunk$set(
+  collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, out.width = "100%"
+)
+library(tabr)
+```
+
+## Overview
+
+This coding example demonstrates the creation of a complete, two-guitar acoustic arrangement of *Ezio's family*, the main theme from *Assassin's Creed 2*, for educational purposes. This arrangement combines a fingerstyle arrangement, which suffices on its own, with an optional additional supporting rhythm guitar track.
+
+In this example, the fingerstyle guitar would be easier to code as a single voice, but it is split into two voices because this is more accurate and commonly how it would be transcribed. This creates a bit more work and introduces more possibility for coding mistakes, but the purpose of this example is to demonstrate how to do these things.
+
+The track played by the first guitar is also coded using the standard approach in `tabr`, which is to type out explicit pitches. However, for contrast the second guitar track has its phrases typed out using the alternative string-fret approach. This is not what `tabr` is meant for. It is minimally supported because it is the most likely approach to be used by casual users. While this approach can be quite convenient, it is also a big part of what leads to a lot of lazy, incomplete, ambiguous, error-prone tabbing of songs littered across the internet. It is oddly inconsistent to use both approaches in one score, but this is for example purposes.
+
+First, enter some score metadata:
+
+```{r metadata}
+header <- list(
+  title = "Ezio's family",
+  composer = "Written by Jesper Kyd",
+  subtitle = "Theme from Assassin's Creed 2",
+  arranger = "Arranged by Matthew Leonawicz",
+  copyright = "2009 Ubisoft Entertainment",
+  tagline = paste("Arranged by Matthew Leonawicz", Sys.Date())
+)
+
+txt <- "Tune down full step: DGCFAD (Dm). Let guitar 1 ring."
+outfile <- "jesper_kyd-ezios_family-custom-arrangement.pdf"
+```
+
+## Guitar 1 voice 1
+
+The main fingerstyle guitar track is split into two voices. Voice 1 is the top melody played using the fingers and voice 2 is played using the thumb.
+
+First, define some string number sequences and note sequences that will be used often in this fairly repetitive track. There is no way to make the work short and easy, but the less you have to type the better.
+
+```{r g1v1_1}
+s1 <- "1 3 2 3 1 2 3 2"
+s2 <- "1 3 2 3 2 3 1 2"
+s3 <- "x 3 2 3 1 2 3 2"
+
+x1 <- "e4 g b g g4 b g b a4 g b g b4 b g b"
+x2 <- gsub("b4", "g4", x1)
+```
+
+The first few phrases are not too bad. They can be built largely with the building blocks set up above. And additional string of notes is introduced, along with and alternate ending `e2` to a `volta` repeat section.
+
+```{r g1v1_2}
+p1a <- p(glue(x1, x2), glue(notate("8", txt), "8*31"), dup(s1, 4))
+p1 <- p(glue(x1, x2), 8, dup(s1, 4))
+p2 <- volta(p("e4 g b g b4 b g b a4 g b g b4 b g b", 8, dup(s1, 2)), 3)
+
+e2 <- p("e5 g b g f#5 b g b g5 g b g a5 b g b", 8, dup(s1, 2))
+e <- list(p(x2, 8, dup(s1, 2)), e2)
+p3 <- glue(p1, p1, volta(p(glue(x1, x2, x1), 8, dup(s1, 6)), 1, e))
+
+```
+
+Things become more complex with the next phrases. These use longer sequences of notes. `p5` also relies on a helper function just to shorten the typing a bit. It is worth looking for opportunities to avoid typing anything highly redundant. You should also only type out phrases to a length you are comfortable working with. A misplaced note can ruin everything and if you make your phrases too long to troubleshoot easily, you will become unhappy with your decision.
+
+```{r g1v1_3}
+p4 <- glue(
+  p(glue(
+    "b5 g b g b4 b g b e5 g b g b g b4 b s g b g b4 b g b c5 g b g b g b4 b",
+    "s g b g a4 b g b b4 g b g b g a4 b s g b g b4 b g b s g g4 g a4 g b4 g"), 8,
+    glue(s1, s2, s3, s2, s3, s2, s3, "x 3 1 3 1 3 1 3")),
+  rp(p("c5 g b g b4 b g b", 8, s1)),
+  p("s g b g b4 b g b e5 g b g b4 b g b s g b g c5 b g b g5 g b g e5 b g b s g b g e5 b g b b4 g b g g4 g f#4 g", 8,
+    glue(s3, s1, s3, s1, s3, "1 3 2 3 1 3 1 3"))
+)
+
+f <- function(x) p(glue(x, "g b g", x, "b g b s g b g", x, "b g b"), 8, glue(s1, s3))
+p5 <- glue(
+  p1,
+  p("e4 g b g b4 b g b c5 g b g b4 b g b e4 g b g g4 b g b b4 g c5 b g4 g b4 b", 8, glue(s1, s1, s1, "1 3 1 2 1 3 1 2")),
+  p("e4 g b g b4 b g b4 c5 g b g c5 b g b b4 g b g b4 b g b a4 g b g b4 b g b", 8, glue("1 3 2 3 1 2 3 1", s1, s1, s1)),
+  p(x1, 8, dup(s1, 2)),
+  p("c5 g b g b4 b g b s g b g b4 b g b", 8, glue(s1, s3)),
+  f("c5"), f("e5"), f("g5")
+)
+```
+
+Phrases, or song parts, depending on what you want to call these slices of music notation, six through ten are built from more predefined component parts:
+
+```{r g1v1_4}
+p6 <- glue(volta(p1), p1, p(x1, 8, dup(s1, 2)), e2)
+p7 <- glue(
+  p(tp(glue(gsub("e4|g4", "b4", x1), x2), 12, "em"), 8, dup(s1, 8)),
+  p(tp(glue(x1, x2), 12, "em"), 8, dup(s1, 4))
+)
+p8 <- glue(p1, p1)
+
+x1 <- "e4 g b g bg4 g b g a4 g b g bb4 g b g"
+x2 <- gsub("b4", "g4", x1)
+x3 <- gsub("a4", "ba4", x2)
+p9 <- p(glue(x1, x2, x1, x3), 8, glue(dup("1 3 2 3 21 3 2 3", 7), "21 3 2 3 21 3 2 3"))
+p10 <- glue(volta(p1), dup(p1, 2), p("e4", 1, 1))
+```
+
+Finally, all of these phrases can be concatenated into one long phrase and passed to `track` to define the first voice for the first track. It's defined now and many of these temporary object names are reused for the subsequent voice and second track.
+
+```{r g1v1_5}
+track1a <- track(glue(p1a, p2, p3, p4, p5, p6, p7, p8, p9, p10))
+```
+
+## Guitar 1 voice 2
+
+The second voice is played only with the thumb. There is less to code. The hardest part, however, is having the discipline to ensure your two voices line up perfectly with one another as intended. You already take this care between notes, note info, and string numbers, when making phrases, but you must do the same between voices and tracks. An extra or a missing note in one or the other will lead to a mess. Your score may or may not run in LilyPond depending on the nature of the alignment issue, but even if it does, it will only reveal that two pieces of music are out of sync.
+
+```{r g1v2_1}
+p1 <- p("s*4", 1, "x")
+p2 <- volta(p("e*2", 1, 5), 3, silent = TRUE)
+x1 <- p("e e d d c c e2 g2 f#2", "1*7 2 2", "5 5 4 4 5 5 6*3")
+
+e <- list(p("e2 g2 f#2", "1 2 2", 6), p("e2 g3 f#3", "1 2 2", 6))
+x2 <- volta(p("e2 e2 d d c c", 1, "6 6 4 4 5 5"), 1, e, TRUE)
+p3 <- glue(x1, x2)
+p4 <- glue(
+  p("e2 e2 d d c c a2 g2 f#2", "1*7 2 2", "6 6 4 4 5*3 6 6"),
+  rp(p("e2", 1, 6)),
+  p("d d c c e2 g2 f#2", "1*5 2 2", "4 4 6*5")
+)
+p5 <- p("e2*4 s*4 e s*5 e2*8", 1, "6*4 x*4 5 x*5 6*8")
+p6 <- glue(volta(p("e2*4", 1, 6)), p("e e d d c c a2 a2", 1, "5 5 4 4 5*4"))
+p7 <- p("e2 s*7", 1, "6 x*7")
+
+x3 <- p("e2 e2 d d c c e2 g2 f#2", "1*7 2 2", "6 6 4 4 5 5 6*3")
+p8 <- x3
+p9 <- x3
+p10 <- glue(volta(p("e*4", 1, 5)), x1, p("e2", 1, 6))
+```
+
+Side note: Do not expect this example score to be easy to follow line by line. You may be highly familiar with your own transcriptions, but when looking at someone else's after it has been fully put together, it's likely too much abstraction to take in sensibly, especially when parts are split into multiple voices and tracks, which must visually separate code into disjoint pieces even though it pertains to music that is inherently paired.
+
+A second track is created from a sequences of these parts, but the second voice must be specified. When these two tracks are bound together, the two different voice IDs will be assigned the same staff ID to share.
+
+```{r g1v2_2}
+track1b <- track(glue(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10), voice = 2)
+```
+
+## Guitar 2
+
+The second guitar adds a strummed rhythm section. It has only one voice. Again, some additional note info building blocks are helpful for avoiding some code duplication.
+
+```{r g2_1}
+i <- "4 8 8"
+i1 <- dup(i, 4)
+i2 <- glue(i, i, "8*4", i)
+i3 <- glue(i, i, "8*4 8- 8*3")
+i4 <- glue(i, i, i, "8 8 4")
+```
+
+Explicit chords require more typing than single notes so it is especially helpful to make use of the `*` in-string expansion operator where possible.
+
+As mentioned, for comparison, this guitar part is tabbed out using string-fret notation. This means for example that instead of specifying the pitch `e2` or `e,` along with the string number to play it on, `6`, you can specify string `6` and fret `2` (assuming the default `tuning = "standard"`). Instead of `phrase` or its alias `p`, use `sf_phrase` or `sfp`.
+
+```{r g2_2}
+p1a <- sfp("5s*3 5432*3 5321*3 5s*3", "75000*3 7508*3 7005*3 75007*3", i1)
+p1a2 <- sfp("5s*3 5432*3 5321*3 5432*3", "75000*3 7508*3 7005*3 7508*3", i1)
+p0 <- volta(sfp("5s*6 5321*3 5s*3", "75000*3 75007*3 7005*3 75007*3", i1), 3, silent = TRUE)
+
+p1b <- sfp("5s*13", "55000*3 55003*3 55005*4 55003*3", i2)
+p1c <- sfp("5s*11 1 3s 3s", "35450*3 35453*3 35455*5 7 007*2", i3)
+p1d <- sfp("6s*6 64321*6", "022000*3 022003*3 30005*3 20233*3", i4)
+p1d2 <- sfp("6s*6 64321*6", "022000*3 022002*3 30005*3 20233*3", i1)
+p1d3 <- sfp("5s*12", "02200*12", i1)
+
+p2 <- glue(p1a, p1b, p1c, p1d)
+p3 <- volta(glue(p1a, p1b, p1c), 1, list(p1d, p1d2), TRUE)
+
+p4a <- glue(sfp("5s*12", "75000*12", i1), sfp("5s*13", "55000*13", i2), sfp("5s*13", "35450*13", i2))
+p4b <- sfp("5s*6 64321*6", "02200*6 30005*3 20233*3", i4)
+p4c <- sfp("6s*6 64321*6", "022000*6 30005*3 20233*3", i4)
+p4 <- glue(p4a, p4b, p4a, p4c)
+
+p5 <- sfp("6s~ 6s 5s*3 5432*3 5s*4 5432 5s*3", "022000~ 022000 75000*3 7508*3 75007 75000 75008 75000 7508 75000 75007 75000", "1 1 4 8 8 4 8*10")
+
+p6 <- dup(sfp("5s*12", "75000*12", i1), 3)
+p7 <- dup(sfp("6s*12", "022000*12", i1), 4)
+p8 <- volta(glue(p1a, p1a2), silent = TRUE)
+p9 <- glue(p1a, p1b, p1c, p1d3)
+
+p10 <- sfp("5s~ 5421", "75000~ 7500", "1 1") # hack around bug (double pitch full measure tie), again below (p11)
+p10a <- glue(sfp("6s~ 6s", "022000~ 022000", "1 1"), dup(p10, 3))
+p10b <- volta(dup(p10, 2), silent = TRUE)
+p11 <- sfp("5s~ 5421 5s~ 5421 5s~ 5432 5s 64321*2 6s", "75000~ 7500 55000~ 5500 35450~ 3545 75007 30005 20233 022000", "1*7 2 2 1")
+```
+
+Create the track from a sequence of phrases.
+
+```{r g2_3}
+track2 <- track(glue(p1a, p1a2, p0, p2, p3, p4, p1a, p1a2, p5, p6, p7, p8, p9, p10a, p2, p2, p10b, p11))
+```
+
+## Chord chart and chords above staff
+
+Placing chord names above the music staff and including a chord chart of fretboard diagrams at the top of the score goes a long way to improving the quality of the score. Unfortunately, there is no quick and painless way to do this for longer scores.
+
+The fretboard diagrams are relatively straightforward. You only need to create a named character vector defining the chords to include in the chord chart.
+
+```{r chords1}
+chord_names <- c("e:m", "e:m7/d", "c:maj7", "c:maj9", "e:m", "g:5.9", "g:5.9/f#", "e:m5.9", "s", "a:sus2")
+chord_positions <- c("x75ooo", "x55ooo", "x3545o", "x35435", "o22ooo", "3xooo5", "2xo233", "o22oo2", NA, "xo22oo")
+chords <- chord_set(chord_positions, chord_names)
+```
+
+That's all. The silent rest `s` is ignored when building the chord chart, but is included for the next part because it is used to specify where not to include chord names.
+
+For placing chords above the staff in time, however, you have to make a long vector of chord names and corresponding durations in order to insert each chord at the appropriate position in the sheet music. An important distinction here is that this pertains to the measures as they are engraved in the output. This means that the sequence is not necessarily the same number of measures as what you have coded. If there are repeat sections, you do not specify the chord names multiple times for each repeat. You strictly specify the chord name that goes above each measure (or part of a measure) as visible in the sheet music.
+
+Specifying the chord sequence for this transcription "briefly" is an arduous task and horrendous to look at. Just take my word for it that these chord names and durations line up with the music staff as drawn in the output.
+
+The indices below are used to index and extract the chords from `chord_names` without having to type them all out repeatedly. `chord_seq` below is a vector of corresponding durations. In this example, chords mostly last for a whole measure (actually for two). This is why this vector consists mostly of the value `1`. A `2` indicates the chord lasts a half measure, etc. 
+
+The silent rest `s` stored in `chord_names[9]` is used often to avoid excessively printing a chord name above two consecutive measures since in this score chords tend to span two measures.
+
+```{r chords2}
+x <- c(1, rep(9, 5), 1, 9, 2, 9, 3:7, 
+       1, 9, 2, 9, 3:7, 5, 8, 6, 7, 
+       1, 9, 2, 9, 3, 9, 10, 6:7, 1, 9, 2, 9, 3, 9, 5:7, 
+       1, rep(9, 25), 
+       1, 9, 2, 9, 3:4, 10, 9, 
+       1, rep(9, 7), 1, 9, 2, 9, 3:7, 
+       1, 9, 2, 9, 3:7, 
+       1, rep(9, 3), 1, 9, 2, 9, 3, 9, 1, 6, 7, 1)
+
+chord_seq <- c(rep(1, 13), 2, 2, 
+               rep(1, 7), rep(2, 6), 
+               rep(1, 7), 2, 2, 
+               rep(1, 7), 2, 2, 
+               rep(1, 26), 
+               rep(1, 8), 
+               rep(1, 8), 
+               rep(1, 7), 2, 2, 
+               rep(1, 7), 2, 2, 
+               rep(1, 11), 2, 2, 1)
+
+names(chord_seq) <- chord_names[x]
+```
+
+## Create tablature
+
+Finally, bind the three tracks together, specifying the two tab staves the two guitars are assigned to. Each guitar also has a music staff above its tab staff. The bound tracks are passed to `score`, where the chords and chord sequence are provided to include a chord chart and chord names above the staff. The score is passed to `tab` along with the metadata and the tablature is rendered by LilyPond.
+
+```{r score}
+trackbind(track1a, track1b, track2, tabstaff = c(1, 1, 2)) %>%
+  score(chords, chord_seq) %>%
+  tab(outfile, key = "em", time = "4/4", tempo = "4 = 120", header)
+```
+
+The sheet music is six pages. Here is a preview of page one.
+
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex3-ezios-family-p1.png?raw=true" class="centerimg" width="100%"></p>
+
+One thing to note is that this arrangement is written in Em because that is how to view the arrangement for guitar, but it is essentially a "reverse capo" where all six strings are tuned down equally by a full step. The sound is Dm, a full step below what is written. Rather than transpose the music staves and write the score more awkwardly, it is simply stated that the arrangement sounds lower than written, as often done when using a capo to transpose in the other direction and simply providing the capo fret.
+
+## Limitations
+
+This example arrangement highlights a few limitations of `tabr`.
+
+First, as you will see in the tablature output, when including a music staff above the tab staff, the music staff will show the same pitch twice if the chord played on the guitar includes the same pitch played on two different strings. This is an annoying imperfection, but not problematic. Above you can see how `p10` and `p11` drop a redundant note from the second of each tied chord pair. This hack does not solve the problem, but leads to output that is less frustrating than otherwise. To see the difference, add the notes back in and rerender the score.
+
+Another limitation can be seen in the slide on string one from the highest note in a strummed chord up to a higher single note on the same string. This is rendered by the LilyPond engraver as a slide from the bottom note of the chord instead of the top note.
+
+Currently it is also not straight forward to specify add 9 chords. You can see 9th chord names in the output, but these are supposed to be add 9 chords.
