@@ -90,6 +90,10 @@ reference:
   - note-helpers
   - valid-notes
   - note-equivalence
+- title: Plots (non-tablature visualizations)
+  desc: "Functions for musical plots and diagrams"
+  contents:
+  - fretboard_plot
 - title: MIDI conversion
   desc: "Functions for converting MIDI files with LilyPond"
   contents:

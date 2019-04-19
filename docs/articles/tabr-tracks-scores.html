@@ -105,6 +105,9 @@
     <li>
       <a href="../articles/tabr-prog-chords.html">Chord functions</a>
     </li>
+    <li>
+      <a href="../articles/tabr-fretboard.html">Fretboard diagram plots</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -337,8 +340,7 @@ t3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.ht
 <p>Finally, repeat every phrase two additional times by wrapping each phrase in <code>rp</code> with <code>n = 2</code> for two unfolded repeats or three plays. This is simply to provide a better sense of what a rendered score tends to look like by allowing these short phrases to actually extend across a full page width of sheet music. In this first example, there is still no chord chart or chord sequence.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(<span class="kw"><a href="../reference/repeats.html">rp</a></span>(p_all2, <span class="dv">2</span>), <span class="dt">voice =</span> <span class="dv">1</span>)
 t2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(<span class="kw"><a href="../reference/repeats.html">rp</a></span>(p_all, <span class="dv">2</span>), <span class="dt">voice =</span> <span class="dv">2</span>)
-t3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(<span class="kw"><a href="../reference/repeats.html">rp</a></span>(<span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"c2e2*4 g1*2 f1*2 c2e2*3"</span>, <span class="st">"4*10 2"</span>, <span class="st">"32*4 4*4 32*3"</span>), <span class="dv">2</span>), 
-    <span class="dt">tuning =</span> <span class="st">"bass"</span>, <span class="dt">music_staff =</span> <span class="st">"bass_8"</span>)
+t3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(<span class="kw"><a href="../reference/repeats.html">rp</a></span>(<span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"c2e2*4 g1*2 f1*2 c2e2*3"</span>, <span class="st">"4*10 2"</span>, <span class="st">"32*4 4*4 32*3"</span>), <span class="dv">2</span>), <span class="dt">tuning =</span> <span class="st">"bass"</span>, <span class="dt">music_staff =</span> <span class="st">"bass_8"</span>)
 t_all &lt;-<span class="st"> </span><span class="kw"><a href="../reference/trackbind.html">trackbind</a></span>(t1, t2, t3, <span class="dt">tabstaff =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>))
 t_all</code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 3 x 7</span><span>

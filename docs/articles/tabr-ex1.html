@@ -105,6 +105,9 @@
     <li>
       <a href="../articles/tabr-prog-chords.html">Chord functions</a>
     </li>
+    <li>
+      <a href="../articles/tabr-fretboard.html">Fretboard diagram plots</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -180,28 +183,33 @@
 <div id="r-code" class="section level2">
 <h2 class="hasAnchor">
 <a href="#r-code" class="anchor"></a>R code</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">header &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">title =</span> <span class="st">"Devil's got you beat"</span>, <span class="dt">composer =</span> <span class="st">"Words and music Blues Saraceno"</span>, 
-    <span class="dt">performer =</span> <span class="st">"Blues Saraceno"</span>, <span class="dt">album =</span> <span class="st">"Dark Country 4"</span>, <span class="dt">subtitle =</span> <span class="st">"From the album Dark Country 4 by Blues Saraceno"</span>, 
-    <span class="dt">arranger =</span> <span class="st">"Two picking patterns arranged by Matthew Leonawicz"</span>, <span class="dt">copyright =</span> <span class="st">"2016 Extreme Music"</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">header &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(
+  <span class="dt">title =</span> <span class="st">"Devil's got you beat"</span>,
+  <span class="dt">composer =</span> <span class="st">"Words and music Blues Saraceno"</span>,
+  <span class="dt">performer =</span> <span class="st">"Blues Saraceno"</span>,
+  <span class="dt">album =</span> <span class="st">"Dark Country 4"</span>,
+  <span class="dt">subtitle =</span> <span class="st">"From the album Dark Country 4 by Blues Saraceno"</span>,
+  <span class="dt">arranger =</span> <span class="st">"Two picking patterns arranged by Matthew Leonawicz"</span>,
+  <span class="dt">copyright =</span> <span class="st">"2016 Extreme Music"</span>
+)
 
 txt &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"DADGAD tuning with capo on 1st fret. Fingerpicking. Let ring."</span>)
 tuning &lt;-<span class="st"> "d2 a2 d3 g3 a3 d4"</span>
 
 <span class="co"># melody 1</span>
 notes &lt;-<span class="st"> </span><span class="kw"><a href="../reference/append_phrases.html">glue</a></span>(<span class="kw"><a href="../reference/append_phrases.html">dup</a></span>(<span class="st">"f3 d3 c3 d3 a3 d4"</span>, <span class="dv">2</span>), <span class="st">"f3 g3 a3 d4 f3 d3 c3 a2"</span>)
-info &lt;-<span class="st"> </span>purrr<span class="op">::</span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"16("</span>, <span class="kw"><a href="../reference/notate.html">notate</a></span>(<span class="st">"16("</span>, txt)), <span class="op">~</span><span class="kw"><a href="../reference/append_phrases.html">glue</a></span>(.x, <span class="st">"16) 8 8 16 16 16( 16) 8 8 16 16 16- 16*7"</span>))
+info &lt;-<span class="st"> </span>purrr<span class="op">::</span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"16("</span>, <span class="kw"><a href="../reference/notate.html">notate</a></span>(<span class="st">"16("</span>, txt)),
+                       <span class="op">~</span><span class="kw"><a href="../reference/append_phrases.html">glue</a></span>(.x, <span class="st">"16) 8 8 16 16 16( 16) 8 8 16 16 16- 16*7"</span>))
 strings &lt;-<span class="st"> "4 4 5 4 2 1 4 4 5 4 2 1 4 4 2 1 4 4 5 5"</span>
-p1 &lt;-<span class="st"> </span>purrr<span class="op">::</span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(info, <span class="op">~</span><span class="kw"><a href="../reference/phrase.html">p</a></span>(notes, .x, strings))
+p1 &lt;-purrr<span class="op">::</span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(info, <span class="op">~</span><span class="kw"><a href="../reference/phrase.html">p</a></span>(notes, .x, strings))
 e1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"d3 a3 d4 c3 a2 f2 d2"</span>, <span class="st">"8 16 16 16( 16) 16( 16)"</span>, <span class="st">"4 2 1 5 5 6 6"</span>)
 e2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"d3 a3 d4 c3 a2 f2 e2 d2"</span>, <span class="st">"8 16 16 16( 16) 16- 16( 1)"</span>, <span class="st">"4 2 1 5 5 6 6 6"</span>)
 
-<span class="co"># melody 2</span>
+<span class="co">#melody 2</span>
 p2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"d3 a3 d4 f3 d3 c3"</span>, <span class="st">"8 16 16 16 16 8"</span>, <span class="st">"4 2 1 4 4 5"</span>)
 
-p_all &lt;-<span class="st"> </span><span class="kw"><a href="../reference/append_phrases.html">glue</a></span>(<span class="kw"><a href="../reference/repeats.html">pct</a></span>(<span class="kw"><a href="../reference/append_phrases.html">glue</a></span>(p1[[<span class="dv">2</span>]], e1), <span class="dv">3</span>), <span class="kw"><a href="../reference/repeats.html">volta</a></span>(<span class="kw"><a href="../reference/repeats.html">pct</a></span>(p2, <span class="dv">3</span>), <span class="dv">1</span>), p1[[<span class="dv">1</span>]], e1, 
-    p1[[<span class="dv">1</span>]], e2)
-<span class="kw"><a href="../reference/track.html">track</a></span>(p_all, tuning) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/score.html">score</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"out.pdf"</span>, <span class="st">"dm"</span>, <span class="st">"4/4"</span>, <span class="st">"4 = 115"</span>, 
-    header)</code></pre></div>
+p_all &lt;-<span class="st"> </span><span class="kw"><a href="../reference/append_phrases.html">glue</a></span>(<span class="kw"><a href="../reference/repeats.html">pct</a></span>(<span class="kw"><a href="../reference/append_phrases.html">glue</a></span>(p1[[<span class="dv">2</span>]], e1), <span class="dv">3</span>), <span class="kw"><a href="../reference/repeats.html">volta</a></span>(<span class="kw"><a href="../reference/repeats.html">pct</a></span>(p2, <span class="dv">3</span>), <span class="dv">1</span>), p1[[<span class="dv">1</span>]], e1, p1[[<span class="dv">1</span>]], e2)
+<span class="kw"><a href="../reference/track.html">track</a></span>(p_all, tuning) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/score.html">score</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"out.pdf"</span>, <span class="st">"dm"</span>, <span class="st">"4/4"</span>, <span class="st">"4 = 115"</span>, header)</code></pre></div>
 <p>You can see above that <code>notate</code> can often obstruct otherwise convenient opportunities for code reduction. Avoiding repeating the annotation means avoiding repeating whatever it is bound to. This is not a problem for percent repeats because there is nothing to show, but would be for the repetitions of the melody at the end of the score. This is why <code>info</code> was mapped to a length 2 vector using an opening note with and without a bound text annotation, respectively.</p>
 <p>The <code>e1</code> and <code>e2</code> endings on the phrase <code>p1</code> were not used as default and alternate endings in a call to <code>volta</code>, respectively, because they would fail the bar check; <code>p1</code> alone does not end at the end of a measure, but rather lasts for a measure and a half. This example also shows how a single note difference at the very end of the second ending, <code>e2</code>, an ending that is only played once at the end of the arrangement, is enough to stop you from defining what would sensibly be the full phrase (<code>p1</code> through <code>e1</code>) as such. The slightest change forces you to split things up and expand the code, just like in a tab. And most music, at least the kind for which there is any point in transcribing, is going to change things up often even for repeated sections.</p>
 </div>

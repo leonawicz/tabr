@@ -143,6 +143,9 @@
     <li>
       <a href="../articles/tabr-prog-chords.html">Chord functions</a>
     </li>
+    <li>
+      <a href="../articles/tabr-fretboard.html">Fretboard diagram plots</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -200,6 +203,7 @@
 <a href="#tabr-0-3-0" class="anchor"></a>tabr 0.3.0<small> Unreleased </small>
 </h1>
 <ul>
+<li>Added <code>fretboard_plot</code> for making fretboard diagrams outside of the LilyPond tablature pipeline. This necessitates importing <code>ggplot2</code>.</li>
 <li>Added functions for phrase validation, coercion and decomposition back to original character string inputs.</li>
 <li>Added functions for note, pitch, chord and octave equivalence checks.</li>
 <li>Added a collection of functions for constructing and working with common chords. The chord constructors are among the <code>chord_*</code>-named functions and also have shorter <code>x*</code>-named aliases. These are “piano chords,” i.e., based on the condensed, defining intervals.</li>

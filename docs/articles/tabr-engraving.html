@@ -105,6 +105,9 @@
     <li>
       <a href="../articles/tabr-prog-chords.html">Chord functions</a>
     </li>
+    <li>
+      <a href="../articles/tabr-fretboard.html">Fretboard diagram plots</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -225,11 +228,18 @@ song</code></pre></div>
 <h2 class="hasAnchor">
 <a href="#song-information" class="anchor"></a>Song information</h2>
 <p>The next important argument to <code>lilypond</code> is <code>header</code>. <code>header</code> takes a named list of character strings that are used to fill in general song information such as the title and composer. All previous examples were blank above the tabs because none of this information was ever provided. Below an example is given that uses all available arguments. You can use any subset of these. There is no requirement to supply them all. This example just shows what is available. Several of these would likely not be used in most cases.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">header &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">title =</span> <span class="st">"Song title"</span>, <span class="dt">composer =</span> <span class="st">"Words and music by the composer"</span>, 
-    <span class="dt">performer =</span> <span class="st">"Song performer"</span>, <span class="dt">album =</span> <span class="st">"Album title"</span>, <span class="dt">subtitle =</span> <span class="st">"Subtitle"</span>, 
-    <span class="dt">arranger =</span> <span class="st">"Arranged by tab arranger"</span>, <span class="dt">copyright =</span> <span class="st">"2018 &lt;Record Label&gt;"</span>, 
-    <span class="dt">instrument =</span> <span class="st">"guitar and bass"</span>, <span class="dt">tagline =</span> <span class="st">"A tagline"</span>, <span class="dt">meter =</span> <span class="st">"meter tag"</span>, 
-    <span class="dt">opus =</span> <span class="st">"opus tag"</span>, <span class="dt">piece =</span> <span class="st">"piece tag"</span>, <span class="dt">poet =</span> <span class="st">"poet tag"</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">header &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(
+  <span class="dt">title =</span> <span class="st">"Song title"</span>,
+  <span class="dt">composer =</span> <span class="st">"Words and music by the composer"</span>,
+  <span class="dt">performer =</span> <span class="st">"Song performer"</span>,
+  <span class="dt">album =</span> <span class="st">"Album title"</span>,
+  <span class="dt">subtitle =</span> <span class="st">"Subtitle"</span>,
+  <span class="dt">arranger =</span> <span class="st">"Arranged by tab arranger"</span>,
+  <span class="dt">copyright =</span> <span class="st">"2018 &lt;Record Label&gt;"</span>,
+  <span class="dt">instrument =</span> <span class="st">"guitar and bass"</span>,
+  <span class="dt">tagline =</span> <span class="st">"A tagline"</span>,
+  <span class="dt">meter =</span> <span class="st">"meter tag"</span>, <span class="dt">opus =</span> <span class="st">"opus tag"</span>, <span class="dt">piece =</span> <span class="st">"piece tag"</span>, <span class="dt">poet =</span> <span class="st">"poet tag"</span>
+)
 
 <span class="kw"><a href="../reference/tab.html">tab</a></span>(song, <span class="st">"ex33.pdf"</span>, <span class="dt">header =</span> header)</code></pre></div>
 <p>

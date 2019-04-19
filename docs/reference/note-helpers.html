@@ -145,6 +145,9 @@
     <li>
       <a href="../articles/tabr-prog-chords.html">Chord functions</a>
     </li>
+    <li>
+      <a href="../articles/tabr-fretboard.html">Fretboard diagram plots</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -225,7 +228,9 @@
 
 <span class='fu'>note_shift</span>(<span class='no'>notes</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>0</span>)
 
-<span class='fu'>note_arpeggiate</span>(<span class='no'>notes</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>note_arpeggiate</span>(<span class='no'>notes</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>...</span>)
+
+<span class='fu'>pretty_notes</span>(<span class='no'>notes</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -291,7 +296,7 @@ it grows from the original set of notes by <code>n</code> in the direction of th
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>d#</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>g#</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c#f#a#</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>flatten_sharp</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>d_g_b_</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'>
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>d_g_b_</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>pretty_notes</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "Eb Ab C#F#A#"</div><div class='input'>
 <span class='fu'>note_rotate</span>(<span class='no'>x</span>, <span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c#f#a#</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>2</span><span></div><div class='input'><span class='fu'>note_shift</span>(<span class='st'>"c e g"</span>, <span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;

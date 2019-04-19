@@ -105,6 +105,9 @@
     <li>
       <a href="../articles/tabr-prog-chords.html">Chord functions</a>
     </li>
+    <li>
+      <a href="../articles/tabr-fretboard.html">Fretboard diagram plots</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -474,8 +477,9 @@ e,, a,, d, g,
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">guitar &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tuplet.html">tuplet</a></span>(<span class="st">"e, a, d g b e'"</span>, <span class="dv">4</span>)
 bass &lt;-<span class="st"> </span><span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"e,, a,, d, g,"</span>, <span class="dv">4</span>)
 one_string &lt;-<span class="st"> </span><span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"c' d' e' f'"</span>, <span class="dv">4</span>)
-tracks &lt;-<span class="st"> </span><span class="kw"><a href="../reference/trackbind.html">trackbind</a></span>(<span class="kw"><a href="../reference/track.html">track</a></span>(guitar, <span class="dt">music_staff =</span> <span class="ot">NA</span>), <span class="kw"><a href="../reference/track.html">track</a></span>(bass, <span class="st">"bass"</span>, <span class="dt">music_staff =</span> <span class="ot">NA</span>), 
-    <span class="kw"><a href="../reference/track.html">track</a></span>(one_string, <span class="st">"c'"</span>, <span class="dt">music_staff =</span> <span class="ot">NA</span>))
+tracks &lt;-<span class="st"> </span><span class="kw"><a href="../reference/trackbind.html">trackbind</a></span>(<span class="kw"><a href="../reference/track.html">track</a></span>(guitar, <span class="dt">music_staff =</span> <span class="ot">NA</span>), 
+                    <span class="kw"><a href="../reference/track.html">track</a></span>(bass, <span class="st">"bass"</span>, <span class="dt">music_staff =</span> <span class="ot">NA</span>), 
+                    <span class="kw"><a href="../reference/track.html">track</a></span>(one_string, <span class="st">"c'"</span>, <span class="dt">music_staff =</span> <span class="ot">NA</span>))
 tracks</code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 3 x 7</span><span>
 #&gt;   phrase       tuning         voice staff ms_transpose ms_key tabstaff
@@ -489,8 +493,9 @@ tracks</code></pre></div>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex34.png?raw=true" class="centerimg" width="40%"></p>
 <p>Notice that for tunings other than standard guitar, the default is to show the note each string is tuned to at the start of the tablature staff. These can be turning off in <code>score</code> using <code>string_names = FALSE</code>. For example, when making a pure bass tab in standard tuning, you might opt to exclude this. There must still be some familiarity with the instrument of course. In the case of the made up one string instrument, no one would know which octave the open C belongs to, but the person with such an instrument would surely know what to expect.</p>
 <p>Take another look at the same example, but this time including music staves. Because of the different octave ranges of the different instruments, it is best to use an appropriate clef. Recall the default (used for guitar) is <code>treble_8</code> because guitar is a transposing instrument. Compare this with <code>treble</code> used for the third instrument that is in a higher octave. These different notations help prevent difficult to read transcriptions where the notes go far above or below the staff lines.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tracks &lt;-<span class="st"> </span><span class="kw"><a href="../reference/trackbind.html">trackbind</a></span>(<span class="kw"><a href="../reference/track.html">track</a></span>(guitar), <span class="kw"><a href="../reference/track.html">track</a></span>(bass, <span class="st">"bass"</span>, <span class="dt">music_staff =</span> <span class="st">"bass_8"</span>), 
-    <span class="kw"><a href="../reference/track.html">track</a></span>(one_string, <span class="st">"c'"</span>, <span class="dt">music_staff =</span> <span class="st">"treble"</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tracks &lt;-<span class="st"> </span><span class="kw"><a href="../reference/trackbind.html">trackbind</a></span>(<span class="kw"><a href="../reference/track.html">track</a></span>(guitar), 
+                    <span class="kw"><a href="../reference/track.html">track</a></span>(bass, <span class="st">"bass"</span>, <span class="dt">music_staff =</span> <span class="st">"bass_8"</span>), 
+                    <span class="kw"><a href="../reference/track.html">track</a></span>(one_string, <span class="st">"c'"</span>, <span class="dt">music_staff =</span> <span class="st">"treble"</span>))
 tracks</code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 3 x 7</span><span>
 #&gt;   phrase       tuning         voice staff    ms_transpose ms_key tabstaff
