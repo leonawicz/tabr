@@ -121,6 +121,6 @@ fretboard_plot <- function(string, fret, labels = NULL, mute = FALSE, label_size
   } else {
     asp <- ((diff(fret_range) + 1) / n)
   }
-  if(!is.null(group)) g <- g + ggplot2::facet_wrap(stats::as.formula(paste("~group")), scales = "free")
+  if(!is.null(group)) g <- g + ggplot2::facet_wrap(stats::as.formula(paste("~group")), scales = "free") # nolint
   g + ggplot2::theme(axis.text.x = x, axis.text.y = y, aspect.ratio = asp)
 }
