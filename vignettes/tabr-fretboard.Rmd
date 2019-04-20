@@ -2,7 +2,7 @@
 title: "Fretboard diagram plots"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Fretboard diagrams plots}
+  %\VignetteIndexEntry{Fretboard diagram plots}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -24,7 +24,7 @@ library(tabr)
 
 While music visualization in `tabr` focuses on leveraging LilyPond to make tablature, some diagrams can also be drawn directly in R using ggplot without any need to involve LilyPond. The `fretboard_plot` function makes standalone fretboard diagrams in R, independent of the LilyPond sheet music pipeline.
 
-`fretboard_plot` is a highly specialized function that takes vector inputs for string numbers and fret numbers and maps the combination element-wise to produce a fretboard diagram. Note that `fretboard_diagram` is a developmental function and the interface and arguments it provides may change.
+`fretboard_plot` is a highly specialized function that takes vector inputs for string numbers and fret numbers and maps the combination element-wise to produce a fretboard diagram. Note that `fretboard_plot` is a developmental function and the interface and arguments it provides may change.
 
 The fretted notes are marked in the diagram using customary large circles.
 
