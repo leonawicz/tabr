@@ -77,7 +77,7 @@ The points (circles) can have border and fill color. The labels can also be colo
 ```{r fb7}
 am_frets <- c(c(0, 0, 2, 2, 1, 0), c(5, 7, 7, 5, 5, 5))
 am_strings <- c(6:1, 6:1)
-mute <- c(TRUE, rep(FALSE, 12))
+mute <- c(TRUE, rep(FALSE, 11))
 
 # colors
 idx <- c(2, 2, 1, 1, 1, 2, rep(1, 6))
