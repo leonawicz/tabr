@@ -50,6 +50,8 @@ a ggplot object
 Create a fretboard diagram.
 }
 \details{
+This function is under development and subject to change.
+
 Create a fretboard diagram ggplot object. Number of strings is dervied from \code{tuning}.
 See \code{\link{tunings}} for pre-defined tunings and examples of explicit tunings.
 \code{tuning} affects point labels when \code{labels = "notes"}.
@@ -69,6 +71,6 @@ fretboard_plot(6:1, am_frets, mute = mute, point_fill = fill, fret_range = c(0, 
 
 # scale shifting exercise
 string <- c(6, 6, 6, 5, 5, 5, 4, 4, 4, 4, 4, 3, 3, 3, 2, 2, 2, 1, 1, 1)
-fret <- c(2, 4, 5, 2, 4, 5, 2, 4, 6, 7, 9, 6, 7, 9, 7, 9, 10, 7, 9, 10)
+fret <- "2 4 5 2 4 5 2 4 6 7 9 6 7 9 7 9 10 7 9 10" # string input style accepted
 fretboard_plot(string, fret, labels = "notes")
 }
