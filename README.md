@@ -33,7 +33,7 @@ The `tabr` package offers the following:
 -   Support for arbitrary instrument tuning.
 -   Offers inclusion (or exclusion) of formal music staves above tab staves, such as treble and bass clef staves for complete rhythm and timing information.
 -   Track-specific setup for features like instrument type, tuning and supplemental music staves.
--   Provide common notation such as slide, bend, hammer on, pull off, slur, tie, staccato, dotted notes, visible and silent rests.
+-   Provides common notation such as slide, bend, hammer on, pull off, slur, tie, staccato, dotted notes, visible and silent rests.
 -   Allows arbitrary tuplet structure.
 -   Above-staff text annotation.
 -   Percent and volta repeat section notation.
@@ -42,10 +42,12 @@ The `tabr` package offers the following:
 -   Multiple voices per track and multiple tracks per score.
 -   Chord symbols above staff
 -   Chord fretboard diagrams and chord chart at top of score.
--   Rich set of layout control options covering settings from score attributions to font size.
+-   A variety of layout control options covering settings from score attributions to font size.
 -   Optional alternative input format allowing the user to provide string/fret combinations (along with key signature and instrument tuning) to map to pitch.
 
 Note that MIDI support and string/fret alternative input format support are not prioritized in ongoing `tabr` development. These are considered tangential extra features in `tabr` that fall outside the general scope and intent of the package.
+
+In additional to the R to LilyPond sheet music pipeline, `tabr` also offers a large collection of functions to support general music programming operations.
 
 Installation
 ------------
@@ -73,10 +75,12 @@ As a brief example, recreate the tablature shown in the image above (minus the R
 -   Add the track to a `score`.
 -   Render the score to pdf with `tab`.
 
+The code is shown below, but first some context.
+
 Constructing a musical phrase
 -----------------------------
 
-A phrase here does not require a strict definition. Think of it as the smallest piece of musical structure you intend to string together. The first argument to `phrase` is a string describing notes of a specific pitch (or rests: "r"), separated in time by spaces. For chords, just remove spaces to indicate simultaneous notes. Integers are appended to indicate the octave number so that the pitch is unique. For example, a rest followed by a sequence of notes might be given by `notes = "r a2 c3 f3 d3 a3 f3"`.
+A phrase here does not require a strict definition. Think of it as the smallest piece of musical structure you intend to string together. The first argument to `phrase` is a string describing notes of a specific pitch (or rests: "r"), separated in time by spaces. For chords, just remove spaces to indicate simultaneous notes. Integers are appended to indicate the octave number so that the pitch is unambiguous. For example, a rest followed by a sequence of notes might be given by `notes = "r a2 c3 f3 d3 a3 f3"`.
 
 The second argument is a similar string giving note metadata. In this example there is nothing to add but the time durations. Whole notes taking up an entire measure of music are given by 1, half notes by 2, quarter notes 4, eighth notes 8, and so on. To specify a quarter note rest followed by a sequence of eighth notes, use `info = "4 8 8 8 8 8 8"` (or shorten to just `info = "4 8*6"`). This basic example does not require specifying additional note information such as dotted notes for different fractions of time, staccato notes, ties/slurs, slides, bends, hammer ons and pull offs, etc. These specifications are currently available in `tabr` to varying degrees of development and are covered in the vignette tutorials.
 
@@ -91,19 +95,13 @@ Score metadata and accessing LilyPond
 
 Finally, specify some song metadata to reproduce the original staff: the key of D minor, common time, and the tempo.
 
-If LilyPond is installed on your system (and added to your system path variable on Windows systems), `tab` should call it successfully. Alternatively, on Windows, it can be added explicitly by calling `tabr_options`. This option to specify the LilyPond path is still available on other systems. An example of this is commented out below.
-
-`tabr` will attempt on package load to set these paths in `tabr_options` for you if it can successfully detect a LilyPond installation in a standard file system location, but it is recommended for Windows users to simply add it to your system path. Check `tabr_options()` after you load the package. If any of the paths are equal to the empty string `""`, then you need to set the paths. Otherwise you should be ready to run LilyPond from R.
-
-As an example for Windows users, if the LilyPond executable is at `C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe`, then add `C:/Program Files (x86)/LilyPond/usr/bin` to the system path.
+If LilyPond is installed on your system (and added to your system path variable on Windows systems), `tab` should call it successfully. Windows users are recommended to just add LilyPond's `bin` directory to the system path. This will take care of LilyPond as well as its bundled Python and MIDI support. As an example for Windows users, if the LilyPond executable is at `C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe`, then add `C:/Program Files (x86)/LilyPond/usr/bin` to the system path.
 
 R code
 ------
 
 ``` r
 library(tabr)
-# path <- "C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe"
-# tabr_options(lilypond = path) # not necessary if on system path
 
 p("r a2 c f d a f", "4 8*6", "x 5 5 4 4 3 4") %>% track %>% score %>%
   tab("phrase.pdf", key = "dm", time = "4/4", tempo = "4 = 120")
@@ -131,7 +129,15 @@ Note above that `tabr` also exports the pipe `%>%` operator. Even given the hier
 Additional context
 ------------------
 
-Why LilyPond? LilyPond is an exceptional sheet music engraving program. It produces professional, high quality output. It is open source. It offers an access point for a programmatic approach to music notation. It is developed and utilized by a large community. Most GUI-based applications are WYSIWYG and force a greater limitation on what you can do and what it will look like after you do it. On the other hand, I have zero interest in writing LilyPond files. `tabr` has made it more enjoyable, a bit less ugly, and enables me to stick with LilyPond for its quality as I try to shield myself from its native input structures. I'm sure there are far more LilyPond users who don't mind it at all and have never heard of R; to each their own.
+Why LilyPond? LilyPond is an exceptional sheet music engraving program.
+
+-   It produces professional, high quality output.
+-   It is open source.
+-   It offers a command line access point for a programmatic approach to music notation.
+-   It is developed and utilized by a large community.
+-   Most GUI-based applications are WYSIWYG and force a greater limitation on what you can do and what it will look like after you do it.
+
+However, I have no interest in writing verbose LilyPond files and I happen to love working in R. That's really all there is to it. `tabr` has made it more enjoyable and convenient for me, enabling me to stick with LilyPond for its quality as I shield myself from its native input structures. I'm sure there are far more LilyPond users who don't mind it at all because it's just something they already use happily and of course have never heard of R and have no reason to use it.
 
 Limitations
 -----------
@@ -141,15 +147,9 @@ There is far more that LilyPond can do that `tabr` does not tap into. Instead of
 New in v 0.3.0: more music programming support
 ----------------------------------------------
 
-Version 0.3.0 of `tabr` adds many new helper functions ranging from simple to complex. These functions do not directly impact the core functionality and purpose of `tabr`, which is leveraging LilyPond for engraving guitar tablature and other sheet music.
+Version 0.3.0 of `tabr` adds many new helper functions. These do not directly impact the `tabr`-LilyPond sheet music pipeline. They stay within the framework of `tabr`-LilyPond syntax, always with an view toward transcription-related tasks, but these functions expand music programming with `tabr` more generally and can be used without LilyPond installed. LilyPond is only required for sheet music engraving. So even if you do not need to create tabs from R code, there may be something more general in `tabr` for you.
 
-While indirectly supporting this core focus by keeping within the framework of `tabr`-LilyPond syntax, always with an eye toward transcription-related projects, the utility of these new functions is somewhat orthogonal to the music transcription side of `tabr`. Version 0.3.0 focuses on expanding music programming with `tabr` more generally.
-
-All of the new functions are fully documented. See the reference pages for details. Some are still under development, but all work as currently implemented.
-
-I was hopeful that the next version of `tabr` would be able to leverage a new, native bend engraver in LilyPond, but it appears that on the LilyPond side this development has not progressed since I last checked.
-
-Look forward to a separate collection of articles under a music programming heading that introduce many of the new functions. I just haven't had time to put these together yet.
+Note: I was hopeful that this version of `tabr` would be able to leverage a new, native bend engraver in LilyPond, but it appears that on the LilyPond side this development has not progressed since I last checked.
 
 References and resources
 ------------------------
