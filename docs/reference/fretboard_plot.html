@@ -291,7 +291,8 @@
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Create a fretboard diagram ggplot object. Number of strings is dervied from <code>tuning</code>.
+    <p>This function is under development and subject to change.</p>
+<p>Create a fretboard diagram ggplot object. Number of strings is dervied from <code>tuning</code>.
 See <code><a href='tunings.html'>tunings</a></code> for pre-defined tunings and examples of explicit tunings.
 <code>tuning</code> affects point labels when <code>labels = "notes"</code>.</p>
     
@@ -309,7 +310,7 @@ See <code><a href='tunings.html'>tunings</a></code> for pre-defined tunings and 
   <span class='kw'>horizontal</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>show_tuning</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='fretboard_plot-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># scale shifting exercise</span>
 <span class='no'>string</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>6</span>, <span class='fl'>6</span>, <span class='fl'>6</span>, <span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>4</span>, <span class='fl'>4</span>, <span class='fl'>4</span>, <span class='fl'>4</span>, <span class='fl'>4</span>, <span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>)
-<span class='no'>fret</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>4</span>, <span class='fl'>5</span>, <span class='fl'>2</span>, <span class='fl'>4</span>, <span class='fl'>5</span>, <span class='fl'>2</span>, <span class='fl'>4</span>, <span class='fl'>6</span>, <span class='fl'>7</span>, <span class='fl'>9</span>, <span class='fl'>6</span>, <span class='fl'>7</span>, <span class='fl'>9</span>, <span class='fl'>7</span>, <span class='fl'>9</span>, <span class='fl'>10</span>, <span class='fl'>7</span>, <span class='fl'>9</span>, <span class='fl'>10</span>)
+<span class='no'>fret</span> <span class='kw'>&lt;-</span> <span class='st'>"2 4 5 2 4 5 2 4 6 7 9 6 7 9 7 9 10 7 9 10"</span> <span class='co'># string input style accepted</span>
 <span class='fu'>fretboard_plot</span>(<span class='no'>string</span>, <span class='no'>fret</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='st'>"notes"</span>)</div><div class='img'><img src='fretboard_plot-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
