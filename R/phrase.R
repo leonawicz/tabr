@@ -63,7 +63,7 @@ phrase <- function(notes, info, string = NULL, bar = FALSE){
   .check_noteworthy(notes)
   if(length(notes) > 1) notes <- paste(notes, collapse = " ")
   .check_phrase_input(info, "info")
-  if(!is.null(string) && is.na(string)) string <- NULL
+  if(length(string) == 1 && is.na(string)) string <- NULL
   if(!is.null(string)) .check_phrase_input(string, "string")
   notes <- (strsplit(notes, " ")[[1]] %>% purrr::map_chr(.star_expand) %>%
     paste0(collapse = " ") %>% strsplit(" "))[[1]]
