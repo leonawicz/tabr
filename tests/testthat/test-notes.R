@@ -55,7 +55,7 @@ test_that("note helpers return as expected", {
   expect_is(summary(as_noteworthy("a_*2 a#*3")), "NULL")
   expect_is(print.noteworthy("a*1"), "NULL")
 
-  x <- x[1:6]
+  x <- paste(strsplit(x, " ")[[1]][1:6], collapse = " ")
   expect_equal(note_is_natural(x), c(F, F, T, T, T, F))
   expect_identical(note_is_natural(x), !note_is_accidental(x))
   expect_equal(note_is_flat(x), c(F, T, F, F, F, T))
