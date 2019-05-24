@@ -162,9 +162,14 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header =
   if(details) cat("#### Engraving score to", fp$tp, "####\n")
   lilypond(score, basename(fp$lp), key, time, tempo, header, string_names, paper, endbar, midi, dirname(fp$lp))
   lp_path <- tabr_options()$lilypond
-  if(lp_path == "" && Sys.info()[["sysname"]] == "Windows") lp_path <- "lilypond.exe"
-  system(paste0("\"", lp_path, "\" --", fp$ext, " -dstrip-output-dir=#f \"", fp$lp, "\""),
-         show.output.on.console = details)
+  is_windows <- Sys.info()[["sysname"]] == "Windows"
+  if(lp_path == "" && is_windows) lp_path <- "lilypond.exe"
+  call_string <- paste0("\"", lp_path, "\" --", fp$ext, " -dstrip-output-dir=#f \"", fp$lp, "\"")
+  if(is_windows){
+    system(call_string, show.output.on.console = details)
+  } else {
+    system(call_string)
+  }
   if(!keep_ly) unlink(fp$lp)
   invisible()
 }
