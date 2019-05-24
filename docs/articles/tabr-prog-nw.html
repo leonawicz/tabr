@@ -179,11 +179,11 @@
 <h3 class="hasAnchor">
 <a href="#checking-noteworthiness" class="anchor"></a>Checking noteworthiness</h3>
 <p>A string can be checked directly with <code>noteworthy</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> "a2 r b2*2 ce_g cd#g"</span>
-<span class="kw"><a href="../reference/valid-notes.html">noteworthy</a></span>(x)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">x &lt;-<span class="st"> "a2 r b2*2 ce_g cd#g"</span></a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw"><a href="../reference/valid-notes.html">noteworthy</a></span>(x)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; [1] TRUE
 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/valid-notes.html">noteworthy</a></span>(<span class="st">"h"</span>)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="../reference/valid-notes.html">noteworthy</a></span>(<span class="st">"h"</span>)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; [1] FALSE
 </code></pre>
 <p>This reports whether the entire string conforms to all requirements for it to be valid <code>tabr</code> syntax.</p>
@@ -194,15 +194,15 @@
 <p>Functions in <code>tabr</code> that take noteworthy strings as input perform internal checks of noteworthiness for you and will throw an error if you provide an unworthy string. These checks are skipped if the input already has the <code>noteworthy</code> class. If a function returns a noteworthy string, the class will also be <code>noteworthy</code>.</p>
 <p>This class is mostly used internally by a variety of functions, but otherwise this is an ephemeral class that is easily dropped when performing your own string manipulations. Users do not need to be directly concerned with the class. However, it is important to understand that the notion of noteworthy strings is implemented throughout <code>tabr</code> for the purpose of thorough and strict input validation. This leads to more robust function behavior and consistent user programming experience by rejecting problematic string input early.</p>
 <p><code>as_noteworthy</code> can be used to coerce to the <code>noteworthy</code> class. Coercion will fail if the string is not noteworthy. Using the <code>noteworthy</code> class is generally not needed by the user during an interactive session, but is available and offers its own <code>print</code> and <code>summary</code> methods for noteworthy strings.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> "a# b_*2 c, d'' e3*2 g_4 c2e_2g2*2"</span>
-x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/valid-notes.html">as_noteworthy</a></span>(x)
-x</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">x &lt;-<span class="st"> "a# b_*2 c, d'' e3*2 g_4 c2e_2g2*2"</span></a>
+<a class="sourceLine" id="cb3-2" title="2">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/valid-notes.html">as_noteworthy</a></span>(x)</a>
+<a class="sourceLine" id="cb3-3" title="3">x</a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">a#</span><span> </span><span style="color: #00BBBB;font-weight: bold;">b_</span><span> </span><span style="color: #00BBBB;font-weight: bold;">b_</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">,</span><span> </span><span style="color: #00BBBB;font-weight: bold;">d</span><span style="color: #00BBBB;">''</span><span> </span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">3</span><span> </span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">3</span><span> </span><span style="color: #00BBBB;font-weight: bold;">g_</span><span style="color: #00BBBB;">4</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">2</span><span style="color: #00BBBB;font-weight: bold;">e_</span><span style="color: #00BBBB;">2</span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #00BBBB;">2</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">2</span><span style="color: #00BBBB;font-weight: bold;">e_</span><span style="color: #00BBBB;">2</span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #00BBBB;">2</span><span style="color: #BBBB00;">&gt;</span><span>
 </span></code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(x)</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(x)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
 #&gt;   Timesteps: </span><span>10 (8 notes, 2 chords)</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Octaves: </span><span>ambiguous</span><span style="color: #555555;font-weight: bold;">
@@ -216,11 +216,11 @@ x</code></pre></div>
 <a href="#stricter-note-and-chord-validation" class="anchor"></a>Stricter note and chord validation</h3>
 <p><code>noteworthy</code> is built upon the more specific, vectorized functions <code>is_note</code> and <code>is_chord</code>, which provide more detailed information on the space-delimited entries in a string. <code>is_note</code> and <code>is_chord</code> return a logical vector reporting whether each entry contains a valid note or valid chord representation, respectively.</p>
 <p>Notice how the vectorized results account for the expansion operator in <code>b2*2</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> "a2 r b2*2 ce_g cd#g HELLO_WORLD"</span>
-<span class="kw"><a href="../reference/valid-notes.html">is_note</a></span>(x)</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">x &lt;-<span class="st"> "a2 r b2*2 ce_g cd#g HELLO_WORLD"</span></a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="kw"><a href="../reference/valid-notes.html">is_note</a></span>(x)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; [1]  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE
 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/valid-notes.html">is_chord</a></span>(x)</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw"><a href="../reference/valid-notes.html">is_chord</a></span>(x)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; [1] FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE
 </code></pre>
 <p>These functions serve simple enough purposes that you are unlikely to use them when writing tabs. However, these and many others can be highly useful when programming more complex musical manipulations.</p>
@@ -233,24 +233,24 @@ x</code></pre></div>
 <p><code>tabr</code> offers some ability to reverse direction and decompose phrases back into their component parts: <code>notes</code>, <code>info</code> and <code>string</code> character strings. This is done using <code>notify</code>, which returns a tibble data frame.</p>
 <p>For complex phrases, this can be challenging. There should be no expectation of true one to one functional transformation. For example, <code>notify</code> is not complex enough to handle unfolding repeat sections or text notations attached to notes inside phrases. Certainly, this will not work for LilyPond syntax that was originally created in LilyPond rather than with <code>tabr</code> because <code>tabr</code> only provides access to a tiny fraction of what LilyPond can do. But in many simpler cases, you can successfully invert a phrase previously created from strings in R. Such a phrase is considered <em>notable</em>.</p>
 <p><code>phrasey</code> can be used to check if a string at least loosely resembled the content of a valid phrase object. Additional related functions are shown below, which takes a phrase through a complete cycle of deconstruction and reconstruction.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/phrase.html">phrase</a></span>(<span class="st">"b, c d ec'g'~ ec'g'"</span>, <span class="st">"4( 4)- 2*3"</span>, <span class="st">"5*3 432*2"</span>)
-p1</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/phrase.html">phrase</a></span>(<span class="st">"b, c d ec'g'~ ec'g'"</span>, <span class="st">"4( 4)- 2*3"</span>, <span class="st">"5*3 432*2"</span>)</a>
+<a class="sourceLine" id="cb7-2" title="2">p1</a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;">&lt;</span><span style="color: #555555;font-weight: bold;">Musical phrase</span><span style="color: #555555;">&gt;</span><span>
 #&gt; </span><span style="color: #555555;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">b</span><span style="color: #00BBBB;">,</span><span style="color: #BB0000;">\5</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">4(</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #BB0000;">\5</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">4</span><span style="color: #555555;">)\glissando &lt;</span><span style="color: #00BBBB;font-weight: bold;">d</span><span style="color: #BB0000;">\5</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">2</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #555555;">~</span><span style="color: #BB0000;">\4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">'</span><span style="color: #555555;">~</span><span style="color: #BB0000;">\3</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #00BBBB;">'</span><span style="color: #555555;">~</span><span style="color: #BB0000;">\2</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">2</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #BB0000;">\4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">'</span><span style="color: #BB0000;">\3</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #00BBBB;">'</span><span style="color: #BB0000;">\2</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">2</span><span>
 </span></code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
-x &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/character">as.character</a></span>(p1)
-<span class="kw"><a href="../reference/phrase-checks.html">phrasey</a></span>(x)</code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"></a>
+<a class="sourceLine" id="cb8-2" title="2">x &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/character">as.character</a></span>(p1)</a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="kw"><a href="../reference/phrase-checks.html">phrasey</a></span>(x)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; [1] TRUE
 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/identical">identical</a></span>(<span class="kw"><a href="../reference/phrase-checks.html">as_phrase</a></span>(x), p1)</code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/identical">identical</a></span>(<span class="kw"><a href="../reference/phrase-checks.html">as_phrase</a></span>(x), p1)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; [1] TRUE
 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
-<span class="kw"><a href="../reference/phrase-checks.html">notable</a></span>(p1) <span class="co"># safe logical check</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"></a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="kw"><a href="../reference/phrase-checks.html">notable</a></span>(p1) <span class="co"># safe logical check</span></a></code></pre></div>
 <pre class="r-output"><code>#&gt; [1] TRUE
 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/phrase-checks.html">notify</a></span>(p1)</code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw"><a href="../reference/phrase-checks.html">notify</a></span>(p1)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 5 x 3</span><span>
 #&gt;   notes    info  string
 #&gt;   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> 
@@ -260,9 +260,9 @@ x &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumenta
 #&gt; </span><span style="color: #555555;">4</span><span> e~c'~g'~ 2     432   
 #&gt; </span><span style="color: #555555;">5</span><span> ec'g'    2     432
 </span></code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
-p2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="kw"><a href="../reference/phrase-checks.html">phrase_notes</a></span>(p1), <span class="kw"><a href="../reference/phrase-checks.html">phrase_info</a></span>(p1), <span class="kw"><a href="../reference/phrase-checks.html">phrase_strings</a></span>(p1))
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/identical">identical</a></span>(p1, p2)</code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"></a>
+<a class="sourceLine" id="cb12-2" title="2">p2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="kw"><a href="../reference/phrase-checks.html">phrase_notes</a></span>(p1), <span class="kw"><a href="../reference/phrase-checks.html">phrase_info</a></span>(p1), <span class="kw"><a href="../reference/phrase-checks.html">phrase_strings</a></span>(p1))</a>
+<a class="sourceLine" id="cb12-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/identical">identical</a></span>(p1, p2)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; [1] TRUE
 </code></pre>
 <p>With an understanding noteworthy strings, the next section covers a number of functions related to programming around musical scales.</p>

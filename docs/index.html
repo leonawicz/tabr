@@ -213,10 +213,10 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install tabr from CRAN with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"tabr"</span>)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"tabr"</span>)</a></code></pre></div>
 <p>You can install tabr from GitHub with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
-devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"leonawicz/tabr"</span>)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="co"># install.packages("devtools")</span></a>
+<a class="sourceLine" id="cb2-2" title="2">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"leonawicz/tabr"</span>)</a></code></pre></div>
 </div>
 <div id="basic-example" class="section level2">
 <h2 class="hasAnchor">
@@ -248,10 +248,10 @@ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumen
 <div id="r-code" class="section level2">
 <h2 class="hasAnchor">
 <a href="#r-code" class="anchor"></a>R code</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tabr)
-
-<span class="kw"><a href="reference/phrase.html">p</a></span>(<span class="st">"r a2 c f d a f"</span>, <span class="st">"4 8*6"</span>, <span class="st">"x 5 5 4 4 3 4"</span>) <span class="op">%&gt;%</span><span class="st"> </span>track <span class="op">%&gt;%</span><span class="st"> </span>score <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="reference/tab.html">tab</a></span>(<span class="st">"phrase.pdf"</span>, <span class="dt">key =</span> <span class="st">"dm"</span>, <span class="dt">time =</span> <span class="st">"4/4"</span>, <span class="dt">tempo =</span> <span class="st">"4 = 120"</span>)</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tabr)</a>
+<a class="sourceLine" id="cb3-2" title="2"></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="kw"><a href="reference/phrase.html">p</a></span>(<span class="st">"r a2 c f d a f"</span>, <span class="st">"4 8*6"</span>, <span class="st">"x 5 5 4 4 3 4"</span>) <span class="op">%&gt;%</span><span class="st"> </span>track <span class="op">%&gt;%</span><span class="st"> </span>score <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="st">  </span><span class="kw"><a href="reference/tab.html">tab</a></span>(<span class="st">"phrase.pdf"</span>, <span class="dt">key =</span> <span class="st">"dm"</span>, <span class="dt">time =</span> <span class="st">"4/4"</span>, <span class="dt">tempo =</span> <span class="st">"4 = 120"</span>)</a></code></pre></div>
 <pre><code>#&gt; #### Engraving score to phrase.pdf ####
 #&gt; GNU LilyPond 2.18.2
 #&gt; Processing `./phrase.ly'

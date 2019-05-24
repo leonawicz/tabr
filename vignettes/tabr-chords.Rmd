@@ -14,7 +14,7 @@ sgr_wrap <- function(x, options){
 }
 knitr::knit_hooks$set(output = sgr_wrap)
 knitr::opts_chunk$set(
-  collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, tidy = TRUE, out.width = "100%"
+  collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, tidy = FALSE, out.width = "100%"
 )
 library(tabr)
 ```

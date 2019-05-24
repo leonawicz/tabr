@@ -179,25 +179,25 @@
 <li>note_is_sharp</li>
 <li>is_diatonic</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> "c e_ g b_"</span>
-<span class="kw"><a href="../reference/note-helpers.html">note_is_natural</a></span>(x)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">x &lt;-<span class="st"> "c e_ g b_"</span></a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw"><a href="../reference/note-helpers.html">note_is_natural</a></span>(x)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; [1]  TRUE FALSE  TRUE FALSE
 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/note-helpers.html">note_is_accidental</a></span>(x)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="../reference/note-helpers.html">note_is_accidental</a></span>(x)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; [1] FALSE  TRUE FALSE  TRUE
 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/note-helpers.html">note_is_flat</a></span>(x)</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="../reference/note-helpers.html">note_is_flat</a></span>(x)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; [1] FALSE  TRUE FALSE  TRUE
 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/note-helpers.html">note_is_sharp</a></span>(x)</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="../reference/note-helpers.html">note_is_sharp</a></span>(x)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; [1] FALSE FALSE FALSE FALSE
 </code></pre>
 <p>These <code>note_is_*</code> functions strictly accept notes. There is also <code>is_diatonic</code>, which less strictly requires any noteworthy string. It can be applied to notes and chords alike. Given the name, it is slightly less basic than the prior functions. It takes a <code>key</code> signature for context.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> "c e_ g b_ cd#g"</span>
-<span class="kw"><a href="../reference/valid-notes.html">is_diatonic</a></span>(x, <span class="st">"c"</span>)</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">x &lt;-<span class="st"> "c e_ g b_ cd#g"</span></a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="kw"><a href="../reference/valid-notes.html">is_diatonic</a></span>(x, <span class="st">"c"</span>)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; [1]  TRUE FALSE  TRUE FALSE FALSE
 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/valid-notes.html">is_diatonic</a></span>(x, <span class="st">"b_"</span>)</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw"><a href="../reference/valid-notes.html">is_diatonic</a></span>(x, <span class="st">"b_"</span>)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; [1]  TRUE  TRUE  TRUE  TRUE FALSE
 </code></pre>
 </div>
@@ -206,35 +206,35 @@
 <a href="#coercion-of-accidentals" class="anchor"></a>Coercion of accidentals</h2>
 <p>Note that it is common for functions like this to treat notes as different if they sound the same but one is transcribed as a flat and the other as a sharp. <code>tabr</code> does focus on transcription and this is an important distinction to make wherever necessary. Other functions such as <code>transpose</code> of course handle pitch as pitch and therefore the style of representation does not affect computation.</p>
 <p>There are functions for enforcing a singular representation for accidentals in noteworthy strings since it is unusual to mix flats and sharps.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/note-helpers.html">flatten_sharp</a></span>(x)</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw"><a href="../reference/note-helpers.html">flatten_sharp</a></span>(x)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">c</span><span> </span><span style="color: #00BBBB;font-weight: bold;">e_</span><span> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span> </span><span style="color: #00BBBB;font-weight: bold;">b_</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ce_g</span><span style="color: #BBBB00;">&gt;</span><span>
 </span></code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/note-helpers.html">sharpen_flat</a></span>(x)</code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw"><a href="../reference/note-helpers.html">sharpen_flat</a></span>(x)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">c</span><span> </span><span style="color: #00BBBB;font-weight: bold;">d#</span><span> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span> </span><span style="color: #00BBBB;font-weight: bold;">a#</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">cd#g</span><span style="color: #BBBB00;">&gt;</span><span>
 </span></code></pre>
 <p>Do not be confused about the names of these functions. They are for enforcing a single type of accidental. To actually lower sharps by a half step or semitone as well as raise flats similarly, use <code>naturalize</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/note-helpers.html">naturalize</a></span>(x)</code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="../reference/note-helpers.html">naturalize</a></span>(x)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">c</span><span> </span><span style="color: #00BBBB;font-weight: bold;">e</span><span> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span> </span><span style="color: #00BBBB;font-weight: bold;">b</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">cdg</span><span style="color: #BBBB00;">&gt;</span><span>
 </span></code></pre>
 <p>These are helpful building blocks for music programming. A useful wrapper around <code>flatten_sharp</code> and <code>sharpen_flat</code> is <code>note_set_key</code>. Like <code>is_diatonic</code>, this function takes a <code>key</code> argument. Providing a key signature is often used in <code>tabr</code> functions for the purpose of enforcing the correct representation of accidentals intended by the user, which <code>tabr</code> cannot know until informed.</p>
 <p>Be aware that the default for functions that take a <code>key</code> argument is <code>c</code>, but <code>c</code> and <code>am</code> have no accidentals in their key signatures, so <code>note_set_key</code> will have no effect if you pass these values to <code>key</code>. It is also important to recognize that it does not matter for this function what key you choose specifically; it only matters that you choose a key that has the type of accidentals in its signature that you wish to force your noteworthy string to use. If you want flats, it makes no difference if you set <code>key = "f"</code> or <code>key = "b_"</code>. For this function, you can also literally enter <code>key = "flat"</code> or <code>key = "sharp"</code>, options that stress the extent to which <code>key</code> actually matters to <code>note_set_key</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/note-helpers.html">note_set_key</a></span>(x, <span class="st">"c"</span>) <span class="co"># no change possible</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw"><a href="../reference/note-helpers.html">note_set_key</a></span>(x, <span class="st">"c"</span>) <span class="co"># no change possible</span></a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">c</span><span> </span><span style="color: #00BBBB;font-weight: bold;">e_</span><span> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span> </span><span style="color: #00BBBB;font-weight: bold;">b_</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">cd#g</span><span style="color: #BBBB00;">&gt;</span><span>
 </span></code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/note-helpers.html">note_set_key</a></span>(x, <span class="st">"f"</span>) <span class="co"># key of F has a flat</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw"><a href="../reference/note-helpers.html">note_set_key</a></span>(x, <span class="st">"f"</span>) <span class="co"># key of F has a flat</span></a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">c</span><span> </span><span style="color: #00BBBB;font-weight: bold;">e_</span><span> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span> </span><span style="color: #00BBBB;font-weight: bold;">b_</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ce_g</span><span style="color: #BBBB00;">&gt;</span><span>
 </span></code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/note-helpers.html">note_set_key</a></span>(x, <span class="st">"g"</span>) <span class="co"># key of G has a sharp</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw"><a href="../reference/note-helpers.html">note_set_key</a></span>(x, <span class="st">"g"</span>) <span class="co"># key of G has a sharp</span></a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">c</span><span> </span><span style="color: #00BBBB;font-weight: bold;">d#</span><span> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span> </span><span style="color: #00BBBB;font-weight: bold;">a#</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">cd#g</span><span style="color: #BBBB00;">&gt;</span><span>
@@ -251,35 +251,35 @@
 <li>These functions come in <code>*_is_equal</code> and <code>*is_identical</code> pairs. Equality is more relaxed than identity.</li>
 <li>The <code>note_is_*</code> pairs below also offer the argument <code>ignore_octave</code>. This further weakens the requirements for passing both equality and identity comparisons of two notes.</li>
 <li>These functions perform a noteworthy check, but do not require anything stricter. This means these comparisons work on all notes, even those belonging to chords.</li>
-<li>The general distinction between notes being equal and notes being identical is sound vs. transcription/written notation. If two notes sound the same, e.g. <code>e_</code> and <code>d#</code>, they are equal, but not identical.</li>
+<li>The general distinction between notes being equal and notes being identical is sound vs. transcription/written notation. If two notes sound the same, e.g. <code>e_</code> and <code>d#</code>, they are equal, but not identical.</li>
 <li>There are additional nuances with octave comparisons using the <code>octave_is_*</code> pairs.</li>
 </ul>
 <p>First look at note and pitch comparisons. The main difference is that pitch is more complete than note in that the former implicitly carries the octave position. Setting <code>ignore_octave = FALSE</code> for note comparisons makes them equivalent to their pitch comparison counterparts.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> "b_2 ce_g"</span>
-y &lt;-<span class="st"> "b_ cd#g"</span>
-<span class="kw"><a href="../reference/note-equivalence.html">note_is_equal</a></span>(x, y)</code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">x &lt;-<span class="st"> "b_2 ce_g"</span></a>
+<a class="sourceLine" id="cb13-2" title="2">y &lt;-<span class="st"> "b_ cd#g"</span></a>
+<a class="sourceLine" id="cb13-3" title="3"><span class="kw"><a href="../reference/note-equivalence.html">note_is_equal</a></span>(x, y)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; [1] TRUE TRUE
 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/note-equivalence.html">note_is_identical</a></span>(x, y)</code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw"><a href="../reference/note-equivalence.html">note_is_identical</a></span>(x, y)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; [1]  TRUE FALSE
 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
-<span class="kw"><a href="../reference/note-equivalence.html">pitch_is_equal</a></span>(x, y)</code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"></a>
+<a class="sourceLine" id="cb15-2" title="2"><span class="kw"><a href="../reference/note-equivalence.html">pitch_is_equal</a></span>(x, y)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; [1] FALSE  TRUE
 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/note-equivalence.html">pitch_is_identical</a></span>(x, y)</code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw"><a href="../reference/note-equivalence.html">pitch_is_identical</a></span>(x, y)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; [1] FALSE FALSE
 </code></pre>
 <p>There are minimal requirements for equivalence that precede the forms and degrees of equivalence described and shown above. At a bare minimum, two noteworthy strings must have the same number of time steps available for pairwise comparison. Otherwise a simple <code>NA</code> is returned. In the following example, the strings <code>x</code> and <code>y</code> have the same number of notes, in the same order, but the first has three times steps and the second has two.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> "b_2 ce_g b_"</span>
-y &lt;-<span class="st"> "b_2 ce_gb_"</span>
-<span class="kw"><a href="../reference/note-equivalence.html">note_is_equal</a></span>(x, y)</code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">x &lt;-<span class="st"> "b_2 ce_g b_"</span></a>
+<a class="sourceLine" id="cb17-2" title="2">y &lt;-<span class="st"> "b_2 ce_gb_"</span></a>
+<a class="sourceLine" id="cb17-3" title="3"><span class="kw"><a href="../reference/note-equivalence.html">note_is_equal</a></span>(x, y)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; [1] NA
 </code></pre>
 <p>In the next example, <code>x</code> and <code>y</code> have the same number of of the same notes, again in the same order, and even have an equal number of timesteps. Having the same number of timesteps makes pairwise comparisons possible. They return <code>FALSE</code> where unequal.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> "b_2 ce_g b_"</span>
-y &lt;-<span class="st"> "b_2 ce_ gb_"</span>
-<span class="kw"><a href="../reference/note-equivalence.html">note_is_equal</a></span>(x, y)</code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1">x &lt;-<span class="st"> "b_2 ce_g b_"</span></a>
+<a class="sourceLine" id="cb18-2" title="2">y &lt;-<span class="st"> "b_2 ce_ gb_"</span></a>
+<a class="sourceLine" id="cb18-3" title="3"><span class="kw"><a href="../reference/note-equivalence.html">note_is_equal</a></span>(x, y)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; [1]  TRUE FALSE FALSE
 </code></pre>
 <p>Finally, there are octave comparisons, which must be defined and behave somewhat differently. <code>octave_is_equal</code> and <code>octave_is_identical</code> allow much weaker forms of equivalence in that they ignore notes completely. These functions are only concerned with comparing the octave numbers spanned by any pitches present at each timestep.</p>
@@ -291,15 +291,15 @@ y &lt;-<span class="st"> "b_2 ce_ gb_"</span>
 </ul>
 <p>Consider an example: <code>a1b2c3</code> is identical to <code>d1e1f2g3</code>. The notes are irrelevant. The number of notes is irrelevant. The fact that octave number one occurs a different number of times in each chord is irrelevant. What matters is that they both have the same set of unique octave positions <code>{1, 2, 3}</code>. To be equal, even less is required. In this case it only matters that the two chords begin with <code>x1</code>, where <code>x</code> is any note.</p>
 <p>One alternative, for <code>octave_is_identical</code> only, is to set <code>single_octave = TRUE</code>. This increases the requirement for identity to require that all notes from both chords being compared at a given timestep share a single octave.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> "a1 b_2 a1b2c3 a1b4 g1a1b1"</span>
-y &lt;-<span class="st"> "a_2 g#2 d1e1f2g3 a1b2b4 d1e1"</span>
-<span class="kw"><a href="../reference/note-equivalence.html">octave_is_equal</a></span>(x, y)</code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1">x &lt;-<span class="st"> "a1 b_2 a1b2c3 a1b4 g1a1b1"</span></a>
+<a class="sourceLine" id="cb19-2" title="2">y &lt;-<span class="st"> "a_2 g#2 d1e1f2g3 a1b2b4 d1e1"</span></a>
+<a class="sourceLine" id="cb19-3" title="3"><span class="kw"><a href="../reference/note-equivalence.html">octave_is_equal</a></span>(x, y)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; [1] FALSE  TRUE  TRUE  TRUE  TRUE
 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/note-equivalence.html">octave_is_identical</a></span>(x, y)</code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="kw"><a href="../reference/note-equivalence.html">octave_is_identical</a></span>(x, y)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; [1] FALSE  TRUE  TRUE FALSE  TRUE
 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/note-equivalence.html">octave_is_identical</a></span>(x, y, <span class="dt">single_octave =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="kw"><a href="../reference/note-equivalence.html">octave_is_identical</a></span>(x, y, <span class="dt">single_octave =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; [1] FALSE  TRUE FALSE FALSE  TRUE
 </code></pre>
 </div>
@@ -307,36 +307,36 @@ y &lt;-<span class="st"> "a_2 g#2 d1e1f2g3 a1b2b4 d1e1"</span>
 <h2 class="hasAnchor">
 <a href="#rotate-shift-arpeggiate" class="anchor"></a>Rotate, shift, arpeggiate</h2>
 <p>Rotating or cycling a sequence of notes and chords in a noteworthy string is done with <code>note_rotate</code>. This is a simple function. It only rotates the sequence left or right. It does not do any transposition. It does not break chords, but rather rotates them intact.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> "a b ceg"</span>
-<span class="kw"><a href="../reference/note-helpers.html">note_rotate</a></span>(x, <span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1">x &lt;-<span class="st"> "a b ceg"</span></a>
+<a class="sourceLine" id="cb22-2" title="2"><span class="kw"><a href="../reference/note-helpers.html">note_rotate</a></span>(x, <span class="dv">1</span>)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">b</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ceg</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #00BBBB;font-weight: bold;">a</span><span>
 </span></code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/note-helpers.html">note_rotate</a></span>(x, <span class="op">-</span><span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"><span class="kw"><a href="../reference/note-helpers.html">note_rotate</a></span>(x, <span class="dv">-1</span>)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Values: </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ceg</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #00BBBB;font-weight: bold;">a</span><span> </span><span style="color: #00BBBB;font-weight: bold;">b</span><span>
 </span></code></pre>
 <p><code>note_shft</code> only operates on notes, not chords, but is a more complex function. It also rotates notes, but it maintains a consistent direction of increasing or decreasing pitch. The direction is determined by <code>n</code> being negative or positive.</p>
 <p>This function is intended for use on strings of notes that are already ordered by increasing pitch. However, if applied to a sequence of unordered notes, the sequence will eventually become ordered if <code>n</code> is large enough, because each shift transposes the current lowest note by however many full octaves necessary to be above the current highest note and as close to it as possible.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/note-helpers.html">note_shift</a></span>(<span class="st">"c e g"</span>, <span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1"><span class="kw"><a href="../reference/note-helpers.html">note_shift</a></span>(<span class="st">"c e g"</span>, <span class="dv">1</span>)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">e</span><span> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">4</span><span>
 </span></code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/note-helpers.html">note_shift</a></span>(<span class="st">"c e g"</span>, <span class="op">-</span><span class="dv">4</span>)</code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"><span class="kw"><a href="../reference/note-helpers.html">note_shift</a></span>(<span class="st">"c e g"</span>, <span class="dv">-4</span>)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #00BBBB;">1</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">2</span><span> </span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">2</span><span>
 </span></code></pre>
 <p><code>note_arpeggiate</code> is like <code>note_shift</code> but it extends the original note sequence rather than shifting it and maintaining its fixed size. <code>n</code> refers to the number of additional notes to append to the sequence. The length of the final sequence is the length of the original sequence plus <code>n</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/note-helpers.html">note_arpeggiate</a></span>(<span class="st">"c e g"</span>, <span class="dv">5</span>)</code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="kw"><a href="../reference/note-helpers.html">note_arpeggiate</a></span>(<span class="st">"c e g"</span>, <span class="dv">5</span>)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">c</span><span> </span><span style="color: #00BBBB;font-weight: bold;">e</span><span> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">4</span><span> </span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">4</span><span> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #00BBBB;">4</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">5</span><span> </span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">5</span><span>
 </span></code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/note-helpers.html">note_arpeggiate</a></span>(<span class="st">"c e g"</span>, <span class="op">-</span><span class="dv">5</span>)</code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1"><span class="kw"><a href="../reference/note-helpers.html">note_arpeggiate</a></span>(<span class="st">"c e g"</span>, <span class="dv">-5</span>)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">1</span><span> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #00BBBB;">1</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">2</span><span> </span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">2</span><span> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #00BBBB;">2</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span> </span><span style="color: #00BBBB;font-weight: bold;">e</span><span> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span>

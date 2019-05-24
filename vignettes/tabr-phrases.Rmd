@@ -14,7 +14,7 @@ sgr_wrap <- function(x, options){
 }
 knitr::knit_hooks$set(output = sgr_wrap)
 knitr::opts_chunk$set(
-  collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, tidy = TRUE, out.width = "100%"
+  collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, tidy = FALSE, out.width = "100%"
 )
 library(tabr)
 ```
@@ -97,7 +97,7 @@ phrase("r d3 e3 r g3 r b3 r b3 r", "16 16 8 8 4 4 8 2 2 1") %>% track %>% score 
 
 <p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex02.png?raw=true" class="centerimg" width="100%"></p>
 
-At first glance, tied notes might seem like something that ought to be described via `info`, but even though the note is only played once initially and not played second time where the tie ends, a tied note is still distinct from the note to which it is tied *as far as notation is concerned*.
+At first glance, tied notes might seem like something that ought to be described via `info`. Even though the second note is not played, a tied note is still distinct from the note to which it is tied as far as notation is concerned.
 
 For example, when tying a note over to a new measure, it must be included twice in `notes`. The tie is annotated on the original note with a `~` as follows.
 
@@ -107,7 +107,7 @@ phrase("r a2 b2 c3~ c3", "2 8 8 4 1") %>% track %>% score %>% tab("ex03.pdf")
 
 <p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex03.png?raw=true" class="centerimg" width="55%"></p>
 
-The note is played once and last for one and a quarter measures, but is still annotated as one quarter note tied to one whole note.
+The note is played once and has a duration of one and a quarter measures, but is still annotated as one quarter note tied to one whole note.
 
 ## Explicit string-fret combinations
 
@@ -175,7 +175,8 @@ In this case, the example will work with `"8x]"` or `"8]x"`. In fact, even accid
 Slides are partially implemented. They work well in `tabr` when sliding from one note to another note. Slides to a note that do not begin from a previous note and slides from a note that do not terminate at subsequent note are not implemented. This is usually done with a bit of a hack in LilyPond by bending from or to a grace note and then making the grace note invisible. This hack or some another approach has not been ported to `tabr`.
 
 ```{r p8, results="hide", eval=FALSE}
-phrase("c3 b2 c3 d3 e3 e3 d3 c3 b2 c3 c3 c4", "8- 8- 4 8- 8 8- 8 8- 8- 8 4.- 4", "5*12") %>% track %>% score %>% tab("ex08.pdf")
+phrase("c3 b2 c3 d3 e3 e3 d3 c3 b2 c3 c3 c4", "8- 8- 4 8- 8 8- 8 8- 8- 8 4.- 4", "5*12") %>% 
+  track %>% score %>% tab("ex08.pdf")
 ```
 
 <p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex08.png?raw=true" class="centerimg" width="77%"></p>
