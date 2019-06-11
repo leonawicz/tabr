@@ -15,7 +15,7 @@ LazyData: true
 ByteCompile: true
 URL: https://github.com/leonawicz/tabr
 BugReports: https://github.com/leonawicz/tabr/issues
-Depends: R (>= 3.4.0)
+Depends: R (>= 2.10)
 SystemRequirements: LilyPond
 Suggests: 
     testthat,
