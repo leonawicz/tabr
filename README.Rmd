@@ -81,8 +81,8 @@ install.packages("tabr")
 You can install tabr from GitHub with:
 
 ```{r gh-installation, eval = FALSE}
-# install.packages("devtools")
-devtools::install_github("leonawicz/tabr")
+# install.packages("remotes")
+remotes::install_github("leonawicz/tabr")
 ```
 
 ## Basic example
@@ -166,15 +166,13 @@ Why LilyPond? LilyPond is an exceptional sheet music engraving program.
 * It is developed and utilized by a large community. 
 * Most GUI-based applications are WYSIWYG and force a greater limitation on what you can do and what it will look like after you do it.
 
-However, I have no interest in writing verbose LilyPond files and I happen to love working in R. That's really all there is to it. `tabr` has made it more enjoyable and convenient for me, enabling me to stick with LilyPond for its quality as I shield myself from its native input structures. I'm sure there are far more LilyPond users who don't mind it at all because it's just something they already use happily and of course have never heard of R and have no reason to use it.
-
 ## Limitations
 
-There is far more that LilyPond can do that `tabr` does not tap into. Instead of listing a million things, this is just to highlight an example of a critical feature that still has limited functionality in both `tabr` and in LilyPond itself: LilyPond's bend engraver. Rendering sheet music with quality string bend notation is quite difficult. This is an area that will benefit greatly from further development.
+This package is not intended to access all LilyPond functionality from R. If your transcription needs are that great, just use LilyPond directly. However, when working in R, `tabr` gives you programmatic access to LilyPond that is quite valuable. 
 
 ## New in v 0.3.0: more music programming support
 
-Version 0.3.0 of `tabr` adds many new helper functions. These do not directly impact the `tabr`-LilyPond sheet music pipeline. They stay within the framework of `tabr`-LilyPond syntax, always with an view toward transcription-related tasks, but these functions expand music programming with `tabr` more generally and can be used without LilyPond installed. LilyPond is only required for sheet music engraving. So even if you do not need to create tabs from R code, there may be something more general in `tabr` for you.
+Version 0.3.0 of `tabr` adds many new helper functions. These functions do not directly impact the `tabr`-LilyPond sheet music pipeline. They expand music programming with `tabr` more generally and can be used without LilyPond installed. LilyPond is only required for sheet music engraving. So even if you do not need to create tabs from R code, the broader suite of `tabr` functions may be useful to you.
 
 Note: I was hopeful that this version of `tabr` would be able to leverage a new, native bend engraver in LilyPond, but it appears that on the LilyPond side this development has not progressed since I last checked.
 

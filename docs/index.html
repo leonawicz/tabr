@@ -215,8 +215,8 @@
 <p>You can install tabr from CRAN with:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"tabr"</span>)</a></code></pre></div>
 <p>You can install tabr from GitHub with:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="co"># install.packages("devtools")</span></a>
-<a class="sourceLine" id="cb2-2" title="2">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"leonawicz/tabr"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="co"># install.packages("remotes")</span></a>
+<a class="sourceLine" id="cb2-2" title="2">remotes<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">install_github</a></span>(<span class="st">"leonawicz/tabr"</span>)</a></code></pre></div>
 </div>
 <div id="basic-example" class="section level2">
 <h2 class="hasAnchor">
@@ -280,17 +280,16 @@
 <li>It is developed and utilized by a large community.</li>
 <li>Most GUI-based applications are WYSIWYG and force a greater limitation on what you can do and what it will look like after you do it.</li>
 </ul>
-<p>However, I have no interest in writing verbose LilyPond files and I happen to love working in R. That’s really all there is to it. <code>tabr</code> has made it more enjoyable and convenient for me, enabling me to stick with LilyPond for its quality as I shield myself from its native input structures. I’m sure there are far more LilyPond users who don’t mind it at all because it’s just something they already use happily and of course have never heard of R and have no reason to use it.</p>
 </div>
 <div id="limitations" class="section level2">
 <h2 class="hasAnchor">
 <a href="#limitations" class="anchor"></a>Limitations</h2>
-<p>There is far more that LilyPond can do that <code>tabr</code> does not tap into. Instead of listing a million things, this is just to highlight an example of a critical feature that still has limited functionality in both <code>tabr</code> and in LilyPond itself: LilyPond’s bend engraver. Rendering sheet music with quality string bend notation is quite difficult. This is an area that will benefit greatly from further development.</p>
+<p>This package is not intended to access all LilyPond functionality from R. If your transcription needs are that great, just use LilyPond directly. However, when working in R, <code>tabr</code> gives you programmatic access to LilyPond that is quite valuable.</p>
 </div>
 <div id="new-in-v-0-3-0-more-music-programming-support" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-in-v-0-3-0-more-music-programming-support" class="anchor"></a>New in v 0.3.0: more music programming support</h2>
-<p>Version 0.3.0 of <code>tabr</code> adds many new helper functions. These do not directly impact the <code>tabr</code>-LilyPond sheet music pipeline. They stay within the framework of <code>tabr</code>-LilyPond syntax, always with an view toward transcription-related tasks, but these functions expand music programming with <code>tabr</code> more generally and can be used without LilyPond installed. LilyPond is only required for sheet music engraving. So even if you do not need to create tabs from R code, there may be something more general in <code>tabr</code> for you.</p>
+<p>Version 0.3.0 of <code>tabr</code> adds many new helper functions. These functions do not directly impact the <code>tabr</code>-LilyPond sheet music pipeline. They expand music programming with <code>tabr</code> more generally and can be used without LilyPond installed. LilyPond is only required for sheet music engraving. So even if you do not need to create tabs from R code, the broader suite of <code>tabr</code> functions may be useful to you.</p>
 <p>Note: I was hopeful that this version of <code>tabr</code> would be able to leverage a new, native bend engraver in LilyPond, but it appears that on the LilyPond side this development has not progressed since I last checked.</p>
 </div>
 <div id="other-resources" class="section level2">
