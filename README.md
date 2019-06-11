@@ -23,10 +23,17 @@ Status](https://img.shields.io/codecov/c/github/leonawicz/tabr/master.svg)](http
 
 ## Overview
 
+<p style="text-align:center;">
+
+<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/tabr_logo.png?raw=true" width="400px" align="center">
+
+</p>
+
+<br/>
+
 Create guitar tablature (“tabs”) from R code with `tabr`. The `tabr`
 package provides programmatic music notation and a wrapper around
-[LilyPond](http://lilypond.org/) for creating quality guitar
-tablature.<img src="tabr_logo_small.png" style="float:right;margin-left:10px;width:400px;">
+[LilyPond](http://lilypond.org/) for creating quality guitar tablature.
 
 `tabr` offers functions for describing and organizing musical structures
 and wraps around the LilyPond backend. LilyPond is an open source music
@@ -192,11 +199,8 @@ p("r a2 c f d a f", "4 8*6", "x 5 5 4 4 3 4") %>% track %>% score %>%
     #> Converting to `./phrase.pdf'...
     #> Success: compilation successfully completed
 
-<embed src="phrase.pdf?#zoom=175" width="100%" height="300">
-
-</embed>
-
-<br/>
+See the pdf result embedded at the [tabr
+website](https://leonawicz.github.io/tabr/).
 
 Note above that `tabr` also exports the pipe `%>%` operator. Even given
 the hierarchy of objects involved in the series of steps to move from a
@@ -241,13 +245,17 @@ leverage a new, native bend engraver in LilyPond, but it appears that on
 the LilyPond side this development has not progressed since I last
 checked.
 
-## Other resources
+## References and resources
+
+There is a rich collection of vignette tutorials and examples as well as
+complete package documentation available at the `tabr`
+[website](https://leonawicz.github.io/tabr/).
 
 <img src="https://raw.githubusercontent.com/r-music/site/master/img/logo.png" style="float:left;margin-right:20px;" width="120">
 
 <div>
 
-<h3 style="padding-top:50px;">
+<h3 style="margin-bottom:5px;">
 
 R-Music
 
@@ -259,10 +267,10 @@ R for music data extraction and analysis
 
 </h4>
 
-See the [R-Music](https://github.com/r-music) organization on GitHub for
-more R packages related to music data extraction and analysis.<br/>The
-R-Music [blog](https://r-music.rbind.io/) provides package introductions
-and examples.
+See the <a href="https://github.com/r-music">R-Music</a> organization on
+GitHub for more R packages related to music data extraction and
+analysis. The R-Music <a href="https://r-music.rbind.io/">blog</a>
+provides package introductions and examples.
 
 </div>
 

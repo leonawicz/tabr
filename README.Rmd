@@ -28,7 +28,7 @@ knitr::opts_chunk$set(
 ## Overview
 
 ```{r is_md, echo=FALSE}
-is_md <- knitr::opts_knit$get("rmarkdown.pandoc.to") == "markdown_github-ascii_identifiers"
+is_md <- knitr::opts_knit$get("rmarkdown.pandoc.to") %in% c("markdown_github-ascii_identifiers", "gfm-ascii_identifiers")
 ```
 
 ```{r md_doc1, echo=FALSE, results="asis", eval=is_md}
