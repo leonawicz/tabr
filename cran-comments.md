@@ -12,6 +12,7 @@
 ## This is an update release.
 
 * Several new functions added, including corresponding documentation, examples, vignettes and unit tests.
+* Now skipping one long-running (but successful) unit test that previously caused a CRAN auto-rejection and request for resubmission with fix.
 
 ## Downstream dependencies
 
