@@ -61,6 +61,8 @@ The `tabr` package offers the following:
   - Offers inclusion (or exclusion) of formal music staves above tab
     staves, such as treble and bass clef staves for complete rhythm and
     timing information.
+  - If music staff is included, the tab staff can be suppressed, e.g.,
+    for vocal tracks.
   - Track-specific setup for features like instrument type, tuning and
     supplemental music staves.
   - Provides common notation such as slide, bend, hammer on, pull off,

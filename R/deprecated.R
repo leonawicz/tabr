@@ -2,6 +2,10 @@
 #'
 #' Deprecated tabr functions.
 #'
+#' @param ... character, phrase or non-phrase string.
+#' @param x character, phrase or non-phrase string.
+#' @param n integer, number of repetitions.
+#'
 #' @export
 #' @name tabr_dep
 dup <- function(x, n = 1){

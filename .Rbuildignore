@@ -20,3 +20,4 @@
 ^vignettes/jesper.*
 ^CRAN-RELEASE$
 ^README\.html$
+^codemeta\.json$

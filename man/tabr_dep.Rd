@@ -10,6 +10,13 @@ dup(x, n = 1)
 
 glue(...)
 }
+\arguments{
+\item{x}{character, phrase or non-phrase string.}
+
+\item{n}{integer, number of repetitions.}
+
+\item{...}{character, phrase or non-phrase string.}
+}
 \description{
 Deprecated tabr functions.
 }

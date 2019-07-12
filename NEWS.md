@@ -1,3 +1,10 @@
+# tabr 0.3.1
+
+* Added `no_tab` argument to `track` allowing for suppression of tab staff when music staff is included, e.g., for vocal tracks.
+* `no_tab`-associated documentation and unit test updates.
+* Deprecated `dup` and `glue`. Now use `pn` for repeating phrases `n` times and `pc` for concatenating multiple phrases.
+* Updated documentation, examples, vignettes and unit tests.
+
 # tabr 0.3.0
 
 * Added `fretboard_plot` for making fretboard diagrams outside of the LilyPond tablature pipeline. This necessitates importing `ggplot2`.
