@@ -309,6 +309,7 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header =
     voice <- purrr::map(d, ~unique(.x$voice))
     ms_tp <- purrr::map_int(d, ~unique(.x$ms_transpose))
     ms_key <- purrr::map_chr(d, ~unique(.x$ms_key))
+    show_tab <- purrr::map_lgl(d, ~unique(.x$tab))
     x <- paste0(
       purrr::map_chr(seq_along(clef), ~({
         tp_wrap <- ms_tp[.x] != 0
@@ -329,12 +330,14 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header =
         }
         paste0(
           if(!is.na(clef[.x])) paste0("\\new Staff << \\clef \"", clef[.x], "\" ", x1, " >>\n  ", collapse = ""),
-          paste0("\\new TabStaff \\with { stringTunings = \\stringTuning <", .notesub(tuning[.x]), "> } <<\n    ",
-                 if((is.null(string_names) && tuning[.x] != "e, a, d g b e'") || (!is.null(string_names) && string_names))
-                   paste("\\set TabStaff.instrumentName = \\markup { \\hspace #7 \\override #'(baseline-skip . 1.5) \\column \\fontsize #-4.5 \\sans {",
-                         str_lab[.x], "} }\n    "),
-                 "\\override Stem #'transparent = ##t\n    \\override Beam #'transparent = ##t\n    ",
-                 x2, "\n  >>\n  ", collapse = "")
+          if(show_tab[.x]){
+            paste0("\\new TabStaff \\with { stringTunings = \\stringTuning <", .notesub(tuning[.x]), "> } <<\n    ",
+                   if((is.null(string_names) && tuning[.x] != "e, a, d g b e'") || (!is.null(string_names) && string_names))
+                       paste("\\set TabStaff.instrumentName = \\markup { \\hspace #7 \\override #'(baseline-skip . 1.5) \\column \\fontsize #-4.5 \\sans {",
+                             str_lab[.x], "} }\n    "),
+                   "\\override Stem #'transparent = ##t\n    \\override Beam #'transparent = ##t\n    ",
+                   x2, "\n  >>\n  ", collapse = "")
+          }
         )
       })), collapse = "")
   } else {
@@ -367,7 +370,7 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60", header =
 .star_expand <- function(x){
   if(length(grep("\\*", x)) == 0) return(x)
   x <- strsplit(x, "\\*")[[1]]
-  do.call(dup, list(x = x[1], n = as.integer(x[2])))
+  do.call(pn, list(x = x[1], n = as.integer(x[2])))
 }
 
 .split_chord <- function(x, strings = FALSE, abb = TRUE){
