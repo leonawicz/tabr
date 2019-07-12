@@ -2,13 +2,13 @@
 % Please edit documentation in R/helpers.R
 \name{append_phrases}
 \alias{append_phrases}
-\alias{glue}
-\alias{dup}
-\title{Append and duplicate}
+\alias{pc}
+\alias{pn}
+\title{Concatenate and repeat}
 \usage{
-glue(...)
+pc(...)
 
-dup(x, n = 1)
+pn(x, n = 1)
 }
 \arguments{
 \item{...}{character, phrase or non-phrase string.}
@@ -21,8 +21,8 @@ dup(x, n = 1)
 phrase on non-phrase character string, noteworthy string if applicable.
 }
 \description{
-Helper functions for appending or pasting musical phrases and other strings together as well as repetition.
-The functions \code{glue} and \code{dup} are based on base functions \code{paste} and\code{rep}, respectively, but are tailored for efficiency in creating musical phrases.
+Helper functions for concatenating musical phrases and other strings together as well as repetition.
+The functions \code{pc} and \code{pn} are based on base functions \code{paste} and\code{rep}, respectively, but are tailored for efficiency in creating musical phrases.
 }
 \details{
 These functions respect and retain the phrase class when applied to phrases. They are aggressive for phrases and secondarily for noteworthy strings.
@@ -34,16 +34,16 @@ This is especially useful for repeated instances. This function applies to gener
 Multiple input formats are allowed. Total number of note durations must be even because all slurs require start and stop points.
 }
 \examples{
-glue(8, "16-", "8^")
-dup(1, 2)
+pc(8, "16-", "8^")
+pn(1, 2)
 x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
 y <- phrase("a", 1, 5)
-glue(x, y)
-glue(x, dup(y, 2))
-glue(x, "r1") # add a simple rest instance
-class(glue(x, y))
-class(dup(y, 2))
-class(glue(x, "r1"))
-class(dup("r1", 2))
-class(glue("r1", "r4"))
+pc(x, y)
+pc(x, pn(y, 2))
+pc(x, "r1") # add a simple rest instance
+class(pc(x, y))
+class(pn(y, 2))
+class(pc(x, "r1"))
+class(pn("r1", 2))
+class(pc("r1", "r4"))
 }

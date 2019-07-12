@@ -52,7 +52,7 @@ Create a fretboard diagram.
 \details{
 This function is under development and subject to change.
 
-Create a fretboard diagram ggplot object. Number of strings is dervied from \code{tuning}.
+Create a fretboard diagram ggplot object. Number of strings is derived from \code{tuning}.
 See \code{\link{tunings}} for pre-defined tunings and examples of explicit tunings.
 \code{tuning} affects point labels when \code{labels = "notes"}.
 }

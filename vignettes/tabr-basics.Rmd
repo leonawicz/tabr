@@ -51,7 +51,7 @@ p1 <- p("r a2 c f d a f", "4 8*6")
 
 ## Tracks
 
-Track construction is as simple as wrapping a phrase object in `track`. This example uses a single phrase. Typically a track would consist of many phrases glued together. Tracks are just tibble data frames with an additional track class.
+Track construction is as simple as wrapping a phrase object in `track`. This example uses a single phrase. Typically a track would consist of many phrases concatenated together. Tracks are just tibble data frames with an additional track class.
 
 ```{r track}
 track1 <- track(p1)

@@ -54,16 +54,16 @@ This can be done by specifying `ms_transpose = 1` and `key = "e_m"` (or just `ke
 
 ## Final notes
 
-The last thing to note is that for the same reason there are a lot of octave `3` characters that can be omitted, there is no need to specify the `string` argument. The default chosen by LilyPond turns out to be exactly what is wanted. The creates even more room for code reduction compared to previous example. Some phrases are also conveniently listed using `paste` `c` and `rep`, which coerce these phrases to character strings, but this is okay as long as they are eventually combined with other phrase objects using `glue` or wrapped in other calls like `volta` or `pct` because `tabr` is aggressive for the phrase class and will convert them back.
+The last thing to note is that for the same reason there are a lot of octave `3` characters that can be omitted, there is no need to specify the `string` argument. The default chosen by LilyPond turns out to be exactly what is wanted. The creates even more room for code reduction compared to previous example. Some phrases are also conveniently listed using `paste` `c` and `rep`, which coerce these phrases to character strings, but this is okay as long as they are eventually combined with other phrase objects using `pc` or wrapped in other calls like `volta` or `pct` because `tabr` is aggressive for the phrase class and will convert them back.
 
 ```{r voices, eval=FALSE}
 # melody 1: voice 1
-p1 <- paste(p(glue(dup("s a d4", 3), "s"), "4. 16 16 4. 16 16 8 16 16 4"),
+p1 <- paste(p(pc(pn("s a d4", 3), "s"), "4. 16 16 4. 16 16 8 16 16 4"),
             c(p("s a d s", "8 16 16 4"), p("s a d4 s s", "8 16 16 4 1")))
 
 # melody 1: voice 2
-notes <- c(glue(dup("f d c d s", 2), "f g s f d c a2"), "d s c a2 f2 d2", "d s c a2 f2 e2 d2")
-info <- purrr::map_chr(c("16(", notate("16(", txt)), ~glue(.x, "16) 8*3 16( 16) 8*3 16- 16 8 16*4"))
+notes <- c(pc(pn("f d c d s", 2), "f g s f d c a2"), "d s c a2 f2 d2", "d s c a2 f2 e2 d2")
+info <- purrr::map_chr(c("16(", notate("16(", txt)), ~pc(.x, "16) 8*3 16( 16) 8*3 16- 16 8 16*4"))
 p2 <- paste(unlist(purrr::map(info[c(2, 1, 1)], ~p(notes[1], .x))),
             c(rep(p(notes[2], "8 8 16( 16) 16( 16)"), 2), 
               p(notes[3], "8 8 16( 16) 16- 16( 1)")))
@@ -73,8 +73,8 @@ p2 <- gsub("<g>", "<g\\\\4>", p2) # force string for one note
 p3 <- volta(pct(p("s a d4 s", "8 16 16 4"), 3))
 p4 <- volta(pct(p("d s f d c", "8 8 16 16 8"), 3))
 
-t1 <- glue(pct(p1[1], 3), p3, p1[1], p1[2]) %>% track(tuning, 1, ms_transpose = 1, ms_key = "e_m")
-t2 <- glue(pct(p2[1], 3), p4, p2[2], p2[3]) %>% track(tuning, 2, ms_transpose = 1, ms_key = "e_m")
+t1 <- pc(pct(p1[1], 3), p3, p1[1], p1[2]) %>% track(tuning, 1, ms_transpose = 1, ms_key = "e_m")
+t2 <- pc(pct(p2[1], 3), p4, p2[2], p2[3]) %>% track(tuning, 2, ms_transpose = 1, ms_key = "e_m")
 trackbind(t1, t2, tabstaff = c(1, 1)) %>% score() %>% tab("out.pdf", "dm", "4/4", "4 = 115", header)
 ```
 

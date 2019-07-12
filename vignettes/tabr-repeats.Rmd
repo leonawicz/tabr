@@ -27,25 +27,25 @@ The other two functions are `pct` and `volta`. These functions do shorten the ta
 
 ## Unfolded repeats
 
-You have already seen how `dup` is used to duplicate or repeat phrases and character strings `n` times. This helps keep R code shorter for repetitive music. However, this does nothing for the resulting LilyPond markup or the final sheet music output. It is strictly to limit repetitive typing and used more generally than for section repeats. `rp` achieves the same result. It does not shorten the music transcription. It is the simplest of the collection of repeat functions that apply LilyPond repeat tags around phrase objects.
+You have already seen how `pn` is used to repeat phrases and character strings `n` times. This helps keep R code shorter for repetitive music. However, this does nothing for the resulting LilyPond markup or the final sheet music output. It is strictly to limit repetitive typing and used more generally than for section repeats. `rp` achieves the same result. It does not shorten the music transcription. It is the simplest of the collection of repeat functions that apply LilyPond repeat tags around phrase objects.
 
 Take the following phrase as an example.
 
 ```{r rep1}
 p1 <- p("c e g c' e' c' g e", 8)
-dup(p1, 2) # repeat n = 2 times
+pn(p1, 2) # repeat n = 2 times
 rp(p1, 1) # repeat once (n = 1), or play twice (n + 1)
 ```
 
-Note the difference in `n` and the results of `dup` vs. `rp`. Usually an argument like `n` refers to the total number of times, as it does in `dup`. But for `tabr` repeat functions, `n` always refers to the *number of repeats* added to the initial play, or one less than the total number of plays. Therefore, `n` always begins counting from one (the default), since there is no reason to use these repeat functions when not repeating anything.
+Note the difference in `n` and the results of `pn` vs. `rp`. Usually an argument like `n` refers to the total number of times, as it does in `pn`. But for `tabr` repeat functions, `n` always refers to the *number of repeats* added to the initial play, or one less than the total number of plays. Therefore, `n` always begins counting from one (the default), since there is no reason to use these repeat functions when not repeating anything.
 
 ```{r rep1b, results="hide", eval=FALSE}
-glue(dup(p1, 2), rp(p1)) %>% track %>% score %>% tab("example17.pdf")
+pc(pn(p1, 2), rp(p1)) %>% track %>% score %>% tab("example17.pdf")
 ```
 
 <p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex17.png?raw=true" class="centerimg" width="100%"></p>
 
-In the tablature output above, the first two measures pertaining to the use of `dup` are identical to the last two resulting from `rp`. Unfolding a repeated section is no different than writing it out fully. `rp` represents a shortening of LilyPond markup by applying the `\repeat \unfold` tag around the music. The `2` shown in the LilyPond markup output is the total number of plays, `n + 1`. Think of `dup` as a more general purpose helper function in `tabr` for pasting copies of strings together whereas `rp` might be used when you are thinking more specifically about meaningful, discrete section of music.
+In the tablature output above, the first two measures pertaining to the use of `pn` are identical to the last two resulting from `rp`. Unfolding a repeated section is no different than writing it out fully. `rp` represents a shortening of LilyPond markup by applying the `\repeat \unfold` tag around the music. The `2` shown in the LilyPond markup output is the total number of plays, `n + 1`. Think of `pn` as a more general purpose helper function in `tabr` for pasting copies of strings together whereas `rp` might be used when you are thinking more specifically about meaningful, discrete section of music.
 
 ## Percent repeats
 
@@ -59,7 +59,7 @@ pct(p1, 3)
 
 ```{r rep2b, results="hide", eval=FALSE}
 p2 <- p("g,b,dgbg'*16", 16)
-glue(pct(p1, 3), pct(p2, 3)) %>% track %>% score %>% tab("example18.pdf")
+pc(pct(p1, 3), pct(p2, 3)) %>% track %>% score %>% tab("example18.pdf")
 ```
 
 <p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex18.png?raw=true" class="centerimg" width="100%"></p>
@@ -90,7 +90,7 @@ volta(p1, 2)
 For brevity, concatenate both of these. Note that the volta repeat bar at the beginning of a repeated section is omitted from the staff if it occurs at the start of the song.
 
 ```{r rep3c, results="hide", eval=FALSE}
-glue(volta(p1), volta(p1, 2)) %>% track %>% score %>% tab("example19.pdf")
+pc(volta(p1), volta(p1, 2)) %>% track %>% score %>% tab("example19.pdf")
 ```
 
 <p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex19.png?raw=true" class="centerimg" width="100%"></p>
@@ -112,7 +112,7 @@ As before, concatenate the above two examples. For the remaining examples using 
 
 ```{r rep3e, results="hide", eval=FALSE}
 c1 <- p("c", 1)
-glue(volta(p1, 1, e1), c1, volta(p1, 2, e1), c1) %>% track %>% score %>% tab("example20.pdf")
+pc(volta(p1, 1, e1), c1, volta(p1, 2, e1), c1) %>% track %>% score %>% tab("example20.pdf")
 ```
 
 <p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex20.png?raw=true" class="centerimg" width="100%"></p>
@@ -131,7 +131,7 @@ x3
 ```
 
 ```{r rep3g, results="hide", eval=FALSE}
-glue(x1, c1, x2, c1, x3, c1) %>% track %>% score %>% tab("example21.pdf")
+pc(x1, c1, x2, c1, x3, c1) %>% track %>% score %>% tab("example21.pdf")
 ```
 
 <p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex21.png?raw=true" class="centerimg" width="100%"></p>

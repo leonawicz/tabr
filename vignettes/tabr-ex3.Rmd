@@ -61,36 +61,36 @@ x2 <- gsub("b4", "g4", x1)
 The first few phrases are not too bad. They can be built largely with the building blocks set up above. And additional string of notes is introduced, along with and alternate ending `e2` to a `volta` repeat section.
 
 ```{r g1v1_2}
-p1a <- p(glue(x1, x2), glue(notate("8", txt), "8*31"), dup(s1, 4))
-p1 <- p(glue(x1, x2), 8, dup(s1, 4))
-p2 <- volta(p("e4 g b g b4 b g b a4 g b g b4 b g b", 8, dup(s1, 2)), 3)
+p1a <- p(pc(x1, x2), pc(notate("8", txt), "8*31"), pn(s1, 4))
+p1 <- p(pc(x1, x2), 8, pn(s1, 4))
+p2 <- volta(p("e4 g b g b4 b g b a4 g b g b4 b g b", 8, pn(s1, 2)), 3)
 
-e2 <- p("e5 g b g f#5 b g b g5 g b g a5 b g b", 8, dup(s1, 2))
-e <- list(p(x2, 8, dup(s1, 2)), e2)
-p3 <- glue(p1, p1, volta(p(glue(x1, x2, x1), 8, dup(s1, 6)), 1, e))
+e2 <- p("e5 g b g f#5 b g b g5 g b g a5 b g b", 8, pn(s1, 2))
+e <- list(p(x2, 8, pn(s1, 2)), e2)
+p3 <- pc(p1, p1, volta(p(pc(x1, x2, x1), 8, pn(s1, 6)), 1, e))
 
 ```
 
 Things become more complex with the next phrases. These use longer sequences of notes. `p5` also relies on a helper function just to shorten the typing a bit. It is worth looking for opportunities to avoid typing anything highly redundant. You should also only type out phrases to a length you are comfortable working with. A misplaced note can ruin everything and if you make your phrases too long to troubleshoot easily, you will become unhappy with your decision.
 
 ```{r g1v1_3}
-p4 <- glue(
-  p(glue(
+p4 <- pc(
+  p(pc(
     "b5 g b g b4 b g b e5 g b g b g b4 b s g b g b4 b g b c5 g b g b g b4 b",
     "s g b g a4 b g b b4 g b g b g a4 b s g b g b4 b g b s g g4 g a4 g b4 g"), 8,
-    glue(s1, s2, s3, s2, s3, s2, s3, "x 3 1 3 1 3 1 3")),
+    pc(s1, s2, s3, s2, s3, s2, s3, "x 3 1 3 1 3 1 3")),
   rp(p("c5 g b g b4 b g b", 8, s1)),
   p("s g b g b4 b g b e5 g b g b4 b g b s g b g c5 b g b g5 g b g e5 b g b s g b g e5 b g b b4 g b g g4 g f#4 g", 8,
-    glue(s3, s1, s3, s1, s3, "1 3 2 3 1 3 1 3"))
+    pc(s3, s1, s3, s1, s3, "1 3 2 3 1 3 1 3"))
 )
 
-f <- function(x) p(glue(x, "g b g", x, "b g b s g b g", x, "b g b"), 8, glue(s1, s3))
-p5 <- glue(
+f <- function(x) p(pc(x, "g b g", x, "b g b s g b g", x, "b g b"), 8, pc(s1, s3))
+p5 <- pc(
   p1,
-  p("e4 g b g b4 b g b c5 g b g b4 b g b e4 g b g g4 b g b b4 g c5 b g4 g b4 b", 8, glue(s1, s1, s1, "1 3 1 2 1 3 1 2")),
-  p("e4 g b g b4 b g b4 c5 g b g c5 b g b b4 g b g b4 b g b a4 g b g b4 b g b", 8, glue("1 3 2 3 1 2 3 1", s1, s1, s1)),
-  p(x1, 8, dup(s1, 2)),
-  p("c5 g b g b4 b g b s g b g b4 b g b", 8, glue(s1, s3)),
+  p("e4 g b g b4 b g b c5 g b g b4 b g b e4 g b g g4 b g b b4 g c5 b g4 g b4 b", 8, pc(s1, s1, s1, "1 3 1 2 1 3 1 2")),
+  p("e4 g b g b4 b g b4 c5 g b g c5 b g b b4 g b g b4 b g b a4 g b g b4 b g b", 8, pc("1 3 2 3 1 2 3 1", s1, s1, s1)),
+  p(x1, 8, pn(s1, 2)),
+  p("c5 g b g b4 b g b s g b g b4 b g b", 8, pc(s1, s3)),
   f("c5"), f("e5"), f("g5")
 )
 ```
@@ -98,24 +98,24 @@ p5 <- glue(
 Phrases, or song parts, depending on what you want to call these slices of music notation, six through ten are built from more predefined component parts:
 
 ```{r g1v1_4}
-p6 <- glue(volta(p1), p1, p(x1, 8, dup(s1, 2)), e2)
-p7 <- glue(
-  p(tp(glue(gsub("e4|g4", "b4", x1), x2), 12, "em"), 8, dup(s1, 8)),
-  p(tp(glue(x1, x2), 12, "em"), 8, dup(s1, 4))
+p6 <- pc(volta(p1), p1, p(x1, 8, pn(s1, 2)), e2)
+p7 <- pc(
+  p(tp(pc(gsub("e4|g4", "b4", x1), x2), 12, "em"), 8, pn(s1, 8)),
+  p(tp(pc(x1, x2), 12, "em"), 8, pn(s1, 4))
 )
-p8 <- glue(p1, p1)
+p8 <- pc(p1, p1)
 
 x1 <- "e4 g b g bg4 g b g a4 g b g bb4 g b g"
 x2 <- gsub("b4", "g4", x1)
 x3 <- gsub("a4", "ba4", x2)
-p9 <- p(glue(x1, x2, x1, x3), 8, glue(dup("1 3 2 3 21 3 2 3", 7), "21 3 2 3 21 3 2 3"))
-p10 <- glue(volta(p1), dup(p1, 2), p("e4", 1, 1))
+p9 <- p(pc(x1, x2, x1, x3), 8, pc(pn("1 3 2 3 21 3 2 3", 7), "21 3 2 3 21 3 2 3"))
+p10 <- pc(volta(p1), pn(p1, 2), p("e4", 1, 1))
 ```
 
 Finally, all of these phrases can be concatenated into one long phrase and passed to `track` to define the first voice for the first track. It's defined now and many of these temporary object names are reused for the subsequent voice and second track.
 
 ```{r g1v1_5}
-track1a <- track(glue(p1a, p2, p3, p4, p5, p6, p7, p8, p9, p10))
+track1a <- track(pc(p1a, p2, p3, p4, p5, p6, p7, p8, p9, p10))
 ```
 
 ## Guitar 1 voice 2
@@ -129,20 +129,20 @@ x1 <- p("e e d d c c e2 g2 f#2", "1*7 2 2", "5 5 4 4 5 5 6*3")
 
 e <- list(p("e2 g2 f#2", "1 2 2", 6), p("e2 g3 f#3", "1 2 2", 6))
 x2 <- volta(p("e2 e2 d d c c", 1, "6 6 4 4 5 5"), 1, e, TRUE)
-p3 <- glue(x1, x2)
-p4 <- glue(
+p3 <- pc(x1, x2)
+p4 <- pc(
   p("e2 e2 d d c c a2 g2 f#2", "1*7 2 2", "6 6 4 4 5*3 6 6"),
   rp(p("e2", 1, 6)),
   p("d d c c e2 g2 f#2", "1*5 2 2", "4 4 6*5")
 )
 p5 <- p("e2*4 s*4 e s*5 e2*8", 1, "6*4 x*4 5 x*5 6*8")
-p6 <- glue(volta(p("e2*4", 1, 6)), p("e e d d c c a2 a2", 1, "5 5 4 4 5*4"))
+p6 <- pc(volta(p("e2*4", 1, 6)), p("e e d d c c a2 a2", 1, "5 5 4 4 5*4"))
 p7 <- p("e2 s*7", 1, "6 x*7")
 
 x3 <- p("e2 e2 d d c c e2 g2 f#2", "1*7 2 2", "6 6 4 4 5 5 6*3")
 p8 <- x3
 p9 <- x3
-p10 <- glue(volta(p("e*4", 1, 5)), x1, p("e2", 1, 6))
+p10 <- pc(volta(p("e*4", 1, 5)), x1, p("e2", 1, 6))
 ```
 
 Side note: Do not expect this example score to be easy to follow line by line. You may be highly familiar with your own transcriptions, but when looking at someone else's after it has been fully put together, it's likely too much abstraction to take in sensibly, especially when parts are split into multiple voices and tracks, which must visually separate code into disjoint pieces even though it pertains to music that is inherently paired.
@@ -150,7 +150,7 @@ Side note: Do not expect this example score to be easy to follow line by line. Y
 A second track is created from a sequences of these parts, but the second voice must be specified. When these two tracks are bound together, the two different voice IDs will be assigned the same staff ID to share.
 
 ```{r g1v2_2}
-track1b <- track(glue(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10), voice = 2)
+track1b <- track(pc(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10), voice = 2)
 ```
 
 ## Guitar 2
@@ -159,10 +159,10 @@ The second guitar adds a strummed rhythm section. It has only one voice. Again, 
 
 ```{r g2_1}
 i <- "4 8 8"
-i1 <- dup(i, 4)
-i2 <- glue(i, i, "8*4", i)
-i3 <- glue(i, i, "8*4 8- 8*3")
-i4 <- glue(i, i, i, "8 8 4")
+i1 <- pn(i, 4)
+i2 <- pc(i, i, "8*4", i)
+i3 <- pc(i, i, "8*4 8- 8*3")
+i4 <- pc(i, i, i, "8 8 4")
 ```
 
 Explicit chords require more typing than single notes so it is especially helpful to make use of the `*` in-string expansion operator where possible.
@@ -180,31 +180,31 @@ p1d <- sfp("6s*6 64321*6", "022000*3 022003*3 30005*3 20233*3", i4)
 p1d2 <- sfp("6s*6 64321*6", "022000*3 022002*3 30005*3 20233*3", i1)
 p1d3 <- sfp("5s*12", "02200*12", i1)
 
-p2 <- glue(p1a, p1b, p1c, p1d)
-p3 <- volta(glue(p1a, p1b, p1c), 1, list(p1d, p1d2), TRUE)
+p2 <- pc(p1a, p1b, p1c, p1d)
+p3 <- volta(pc(p1a, p1b, p1c), 1, list(p1d, p1d2), TRUE)
 
-p4a <- glue(sfp("5s*12", "75000*12", i1), sfp("5s*13", "55000*13", i2), sfp("5s*13", "35450*13", i2))
+p4a <- pc(sfp("5s*12", "75000*12", i1), sfp("5s*13", "55000*13", i2), sfp("5s*13", "35450*13", i2))
 p4b <- sfp("5s*6 64321*6", "02200*6 30005*3 20233*3", i4)
 p4c <- sfp("6s*6 64321*6", "022000*6 30005*3 20233*3", i4)
-p4 <- glue(p4a, p4b, p4a, p4c)
+p4 <- pc(p4a, p4b, p4a, p4c)
 
 p5 <- sfp("6s~ 6s 5s*3 5432*3 5s*4 5432 5s*3", "022000~ 022000 75000*3 7508*3 75007 75000 75008 75000 7508 75000 75007 75000", "1 1 4 8 8 4 8*10")
 
-p6 <- dup(sfp("5s*12", "75000*12", i1), 3)
-p7 <- dup(sfp("6s*12", "022000*12", i1), 4)
-p8 <- volta(glue(p1a, p1a2), silent = TRUE)
-p9 <- glue(p1a, p1b, p1c, p1d3)
+p6 <- pn(sfp("5s*12", "75000*12", i1), 3)
+p7 <- pn(sfp("6s*12", "022000*12", i1), 4)
+p8 <- volta(pc(p1a, p1a2), silent = TRUE)
+p9 <- pc(p1a, p1b, p1c, p1d3)
 
 p10 <- sfp("5s~ 5421", "75000~ 7500", "1 1") # hack around bug (double pitch full measure tie), again below (p11)
-p10a <- glue(sfp("6s~ 6s", "022000~ 022000", "1 1"), dup(p10, 3))
-p10b <- volta(dup(p10, 2), silent = TRUE)
+p10a <- pc(sfp("6s~ 6s", "022000~ 022000", "1 1"), pn(p10, 3))
+p10b <- volta(pn(p10, 2), silent = TRUE)
 p11 <- sfp("5s~ 5421 5s~ 5421 5s~ 5432 5s 64321*2 6s", "75000~ 7500 55000~ 5500 35450~ 3545 75007 30005 20233 022000", "1*7 2 2 1")
 ```
 
 Create the track from a sequence of phrases.
 
 ```{r g2_3}
-track2 <- track(glue(p1a, p1a2, p0, p2, p3, p4, p1a, p1a2, p5, p6, p7, p8, p9, p10a, p2, p2, p10b, p11))
+track2 <- track(pc(p1a, p1a2, p0, p2, p3, p4, p1a, p1a2, p5, p6, p7, p8, p9, p10a, p2, p2, p10b, p11))
 ```
 
 ## Chord chart and chords above staff

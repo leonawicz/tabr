@@ -25,5 +25,5 @@ Technically, the syntax is a hybrid form, but is later updated safely and unambi
 }
 \examples{
 notate("8", "Solo")
-phrase("c'~ c' d' e'", glue(notate(8, "First solo"), "8 8 4."), "5 5 5 5")
+phrase("c'~ c' d' e'", pc(notate(8, "First solo"), "8 8 4."), "5 5 5 5")
 }

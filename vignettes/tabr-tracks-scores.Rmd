@@ -32,7 +32,7 @@ p1 <- p("c e g c' e' c' g e", 8, "5 4 3 2 1 2 3 4")
 p2 <- p("g b d' g'", 8, "4 3 2 1")
 p3 <- p("f a c' f'", 8, "4 3 2 1")
 p4 <- p("c e g e c", "8*4 2", "5 4 3 4 5")
-p_all <- glue(p1, p2, p3, p4)
+p_all <- pc(p1, p2, p3, p4)
 track(p_all) %>% score
 ```
 
@@ -174,6 +174,9 @@ track(p1, music_staff = "bass_8") %>% score %>% tab("ex27.pdf")
 
 <p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex27.png?raw=true" class="centerimg" width="42%"></p>
 
+
+Also note that while `tabr` on name alone clearly focuses on guitar tabs, you can suppress the tab staff in LilyPond output as long as you include a music staff. As long as `music_staff` is not `NA`, you can set `no_tab = TRUE` in `track`. This does not change any other information associated with the track; it is only used when engraving sheet music in order to drop the guitar tabs for specific tracks, e.g., for vocal tracks.
+
 ## Adding tracks to a score
 
 Music tracks are combined into a single score by passing a track table object to `score`. Like basic track usage, this has also been seen many times over by this point. There are only two other arguments that score can take, `chords` and `chord_seq` and you have seen these as well in the earlier section on chord usage in `tabr`. There is not much to add here other than to go over some details about how the three arguments to score behave.
@@ -213,7 +216,8 @@ Finally, repeat every phrase two additional times by wrapping each phrase in `rp
 ```{r track8}
 t1 <- track(rp(p_all2, 2), voice = 1)
 t2 <- track(rp(p_all, 2), voice = 2)
-t3 <- track(rp(p("c2e2*4 g1*2 f1*2 c2e2*3", "4*10 2", "32*4 4*4 32*3"), 2), tuning = "bass", music_staff = "bass_8")
+t3 <- track(rp(p("c2e2*4 g1*2 f1*2 c2e2*3", "4*10 2", "32*4 4*4 32*3"), 2), 
+            tuning = "bass", music_staff = "bass_8")
 t_all <- trackbind(t1, t2, t3, tabstaff = c(1, 1, 2))
 t_all
 ```

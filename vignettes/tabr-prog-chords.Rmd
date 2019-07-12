@@ -59,7 +59,7 @@ chord_break(x)
 `chord_invert` creates chord inversions. It also takes a single chord as input. It treats any chord as being in root position as provided. The example below applies the function over a series of inversion values to show how the output changes.
 
 ```{r chords4}
-glue(sapply((-3):3, function(i) chord_invert(x, i)))
+pc(sapply((-3):3, function(i) chord_invert(x, i)))
 ```
 
 While a chord with `n` notes has `n - 1` inversions, `chord_invert` allows inversions to continue, moving a chord further up or down in octaves. If you want to restrict the function to only allowing the defined number of inversions (excluding root position), set `limit = TRUE`. This enforces the rule that, for example, a chord with three notes has two inversions and `n` can only take values between `-2` and `2` or it will throw and error.

@@ -195,8 +195,8 @@ Editing the previous example, change some of the slides to hammer ons and pull o
 *    Finally, transpose up one octave by increasing the octave numbers attached to the pitches in `notes`. The reason for this is simply to demonstrate the placement of slurs above or below notes on the tablature staff depending on the string number. With this transposition, move from the fifth to the third string.
 
 ```{r p9, results="hide", eval=FALSE}
-notes <- glue("c3 b2 c3 d3 e3 e3 d3 c3 b2 c3 c3 c4", "c4 b3 c4 d4 e4 e4 d4 c4 b3 c4 c4 c5")
-info <- dup("8( 8)( 4) 8( 8) 8( 8) 8 8( 8) 4.- 4", 2)
+notes <- pc("c3 b2 c3 d3 e3 e3 d3 c3 b2 c3 c3 c4", "c4 b3 c4 d4 e4 e4 d4 c4 b3 c4 c4 c5")
+info <- pn("8( 8)( 4) 8( 8) 8( 8) 8 8( 8) 4.- 4", 2)
 strings <- "5*12 3*12"
 phrase(notes, info, strings) %>% track %>% score %>% tab("ex09.pdf")
 ```
@@ -205,7 +205,7 @@ phrase(notes, info, strings) %>% track %>% score %>% tab("ex09.pdf")
 
 Another brief aside: `tabr` has some helper functions that make your work a bit easier and your code a bit more legible, ideally both. Using meaningful separation helps keep the code relatively readable and easier to make changes to when you realize you made a mistake somewhere. Don't write one enormous string representing an entire song. Aside from the avoiding code duplication where there is musical repetition, even something that might not repeat such as a guitar solo still benefits greatly from being broken up in to manageable parts. 
 
-`glue` is used above to combine both parts fed to `notes` rather than write a single character string. `glue` is a convenient function for joining strings in `tabr`. It's a simple wrapper around `paste` that maintains space-delimitation as well as the `phrase` class when at least one element passed to `glue` is a phrase object. The string passed to `info` does not change between parts so it can be duplicated. Using the `*n` within-string operator from earlier does not apply here, but another function much like `glue` is `dup`. It is a wrapper around `rep` that is convenient in a `tabr` context. Like `glue`, it maintains the phrase class when applicable.
+`pc` is used above to combine both parts fed to `notes` rather than write a single character string. `pc` is a convenient function for joining strings in `tabr`. It maintains the `phrase` class when at least one element passed to `pc` is a phrase object. The string passed to `info` does not change between parts so it can be repeated. Using the `*n` within-string operator from earlier does not apply here, but another function similar to `pc` is `pn`. It repeats a phrase `n` times.
 
 ### String bending
 
@@ -215,9 +215,9 @@ Bends are specified with a `^`. Bend engraving does not look very good at the mo
 In the example below, a half step bend-release-bend is attempted over the three B notes shown at the end of the first phrase. Because the string is only plucked one time, the first two B notes are tied through to the third. Since a tied note is a note, this is done in `notes`. The two bends are indicated with `^` on the first and third notes via `info`. A similar approach is taken with the second phrase, although with full step bends from G to A. In both cases, the initial bend is not a pre-bend, but should be very quick. None of these fine details can be provided with the current version of `tabr`.
 
 ```{r p10, results="hide", eval=FALSE}
-notes <- glue("r a2 c3 f3 d3 a3 f3 b3~ b3~ b3", "r a3 c4 d4 a3 f4 d4 g4~ g4~ g4")
-info <- dup("4 8 8 8 8 8 8 16^ 16 2..^", 2)
-strings <- glue("x 5 5 4 4 3 4 3 3 3", "x 4 3 3 4 2 3 2 2 2")
+notes <- pc("r a2 c3 f3 d3 a3 f3 b3~ b3~ b3", "r a3 c4 d4 a3 f4 d4 g4~ g4~ g4")
+info <- pn("4 8 8 8 8 8 8 16^ 16 2..^", 2)
+strings <- pc("x 5 5 4 4 3 4 3 3 3", "x 4 3 3 4 2 3 2 2 2")
 phrase(notes, info, strings) %>% track %>% score %>% tab("ex10.pdf")
 ```
 

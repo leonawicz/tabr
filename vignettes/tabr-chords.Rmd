@@ -111,7 +111,7 @@ In order to place chord symbols in time above a music staff, it is necessary to 
 ```{r chord7, results="hide", eval=FALSE}
 notes <- "c e g c' e' c' g e g b d' g' f a c' f' c e g e c"
 info <- c("8*20 2", "4*20 1")
-strings <- glue(c(5:1, 2:4, 4:1, 4:1, 5:3, 4:5)) # almost not needed, but for 1st 2 notes of G chord
+strings <- pc(c(5:1, 2:4, 4:1, 4:1, 5:3, 4:5)) # almost not needed, but for 1st 2 notes of G chord
 p1 <- p(notes, info[1], strings)
 p2 <- p(notes, info[2], strings)
 chords <- chord_set(c(c = "x32o1o", f = "xx3211", g = "xx5433", r = NA, s = NA))

@@ -31,31 +31,31 @@ Briefly, there are some convenient aliases for `tabr` functions that are used of
 The most common conflicts to watch out for are using `tabr` with `shiny` where `p` is a function and if you use `purrr` to help wrangle some of your more complex tablature, it has its own `transpose` function. Pay attention to package load order and/or use explicit names spaces if working with these packages loaded.
 The recommended approach is to stick with `phrase` in apps where users will not see your code anyway and stick with `tp` for transposition in general.
 
-## Duplicate and glue
+## Repeat and concatenate
 
-The previous section on phrases presented an opportunity to introduce `dup` for duplicating or repeating strings and `glue` for joining them together. These were used on strings passed to `phrase` but work on any character string.
+The previous section on phrases presented an opportunity to introduce `pn` for repeating strings and `pc` for joining them together. These were used on strings passed to `phrase` but work on any character string.
 
-To recap, `dup`, short for duplicate, is a simple wrapper around `rep` that maintains the `phrase` class when passed a phrase object and space-delimitation when collapsing the repeated input.  `glue` is a simple wrapper around `paste` that similarly maintains space-delimitation. It can be passed an arbitrary number of input simple character strings or phrase objects. The `phrase` class is applied to the output as long as at least one input passed to `glue` is a phrase object. It is the responsibility of the user to ensure that in such a case a simple character string also represents valid phrase content so that the output phrase is valid.
+To recap, `pn`, is for repeating a phrase `n` times; is a simple wrapper around `rep` that maintains the `phrase` class when passed a phrase object and uses spaces when collapsing the repeated input.  `pc` is a similar wrapper around `paste`. It can be passed an arbitrary number of input simple character strings or phrase objects. The `phrase` class is applied to the output as long as at least one input passed to `pc` is a phrase object. It is the responsibility of the user to ensure that in such a case a simple character string also represents valid phrase content so that the output phrase is valid.
 
 ```{r join}
-glue("c3 d3 e3", "f3 g3 a3")
-dup("c3 d3 e3", 2)
+pc("c3 d3 e3", "f3 g3 a3")
+pn("c3 d3 e3", 2)
 ```
 
 ## Rests
 
-The `rest` function is a simple wrapper around `rep` much like `dup`. It is useful when you need to propagate a number of rests, perhaps not all of equal duration. It accepts two vectorized arguments. The first is the duration of the rest. The second is the number of times to repeat it.
+The `rest` function is a simple wrapper around `rep` much like `pn`. It is useful when you need to propagate a number of rests, perhaps not all of equal duration. It accepts two vectorized arguments. The first is the duration of the rest. The second is the number of times to repeat it.
 
 For example, say a score has multiple tracks. During a certain period in the score, one track goes silent and needs to be carried over with a sequence of rests. Perhaps the instrument dropped out in the middle of a measure and returns in the middle of another, with several full measures in between.
-This can easily be notated using `dup` and `glue`, but it could be more convenient with `rest`, or at least offer more interpretable code if you prefer.
+This can easily be notated using `pn` and `pc`, but it could be more convenient with `rest`, or at least offer more interpretable code if you prefer.
 
-In this example, using `rest` is compared with writing out the full `notes` string as well as using some combinations of `dup` and `glue`. It is a matter of preference which approach you take and dependent on the content being repeated and pasted together.
+In this example, using `rest` is compared with writing out the full `notes` string as well as using some combinations of `pn` and `pc`. It is a matter of preference which approach you take and dependent on the content being repeated and pasted together.
 Note that using the terminal in-string multiplicative expansion operator, `*`, in cases of many adjacent single-element repetitions, is by far the best option as far as shortening code is concerned.
 If this method is preferred, it essentially removes any edge case preference there may have been for `rest`.
 
 ```{r rest}
 "r8 r8 r8 r1 r1 r1 r1 r1 r1 r1 r1 r1 r1 r4."
-glue(dup("r8", 3), dup("r1", 10), "r4.")
+pc(pn("r8", 3), pn("r1", 10), "r4.")
 rest(c(8, 1, "4."), c(3, 10, 1))
 "r8*3 r1*10 r4."
 ```
@@ -84,7 +84,7 @@ hp(16, 16, 8, "2.")
 It is particularly useful for long runs of similar repeated hammer ons and/or pull offs that would be frustrating to type out directly.
 
 ```{r hp2}
-hp(dup("16 8", 8))
+hp(pn("16 8", 8))
 ```
 
 ## Transpose
@@ -133,18 +133,18 @@ An important feature is the tuplet. This will evenly fit a sequence of notes int
 x <- "c4 d4 e4"
 tuplet(x, 8)
 triplet(x, 8) # equivalent
-tuplet(dup(x, 2), 8, a = 6, b = 4) # 6 notes per 4 beats
-tuplet(dup(x, 4), 8) # multiple tuplets, one call
+tuplet(pn(x, 2), 8, a = 6, b = 4) # 6 notes per 4 beats
+tuplet(pn(x, 4), 8) # multiple tuplets, one call
 ```
 
 Like `phrase`, these functions accept a `string` number argument, which is critical as usual (try engraving the final phrase below without explicit string numbers and see the mess you get). This example includes some rests.
 
 ```{r tuplet2, results="hide", eval=FALSE}
-p1 <- glue(triplet("c4 r e4", 8, "4 3 3"), 
+p1 <- pc(triplet("c4 r e4", 8, "4 3 3"), 
            tuplet("f4 g4 a4 b4 c5 b4", 8, "3 2 2 1 1 1", 6, 4), 
            tuplet("a4 r f4 g4 r e4 f4 e4 d4 e4 d4 c4", 16, "2 2 3 2 3*7 4"),
            tuplet("b a g f e", 16, "4 4 5*3", 5, 4))
-track(glue(p1, p("d c", "8 4.", "6 6"))) %>% score %>% tab("ex12.pdf")
+track(pc(p1, p("d c", "8 4.", "6 6"))) %>% score %>% tab("ex12.pdf")
 ```
 
 <p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex12.png?raw=true" class="centerimg" width="100%"></p>

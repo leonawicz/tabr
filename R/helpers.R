@@ -59,16 +59,16 @@ rest <- function(x, n = 1){
 #'
 #' @examples
 #' notate("8", "Solo")
-#' phrase("c'~ c' d' e'", glue(notate(8, "First solo"), "8 8 4."), "5 5 5 5")
+#' phrase("c'~ c' d' e'", pc(notate(8, "First solo"), "8 8 4."), "5 5 5 5")
 notate <- function(x, text, position = "top"){
   pos <- switch(position, top = "^", bottom = "_")
   paste0(x, ";", pos, "\"", gsub(" ", "_", text), "\"", collapse = " ")
 }
 
-#' Append and duplicate
+#' Concatenate and repeat
 #'
-#' Helper functions for appending or pasting musical phrases and other strings together as well as repetition.
-#' The functions \code{glue} and \code{dup} are based on base functions \code{paste} and\code{rep}, respectively, but are tailored for efficiency in creating musical phrases.
+#' Helper functions for concatenating musical phrases and other strings together as well as repetition.
+#' The functions \code{pc} and \code{pn} are based on base functions \code{paste} and\code{rep}, respectively, but are tailored for efficiency in creating musical phrases.
 #'
 #' These functions respect and retain the phrase class when applied to phrases. They are aggressive for phrases and secondarily for noteworthy strings.
 #' Combining a phrase with a non-phrase string will assume compatibility and result in a new phrase object.
@@ -86,23 +86,23 @@ notate <- function(x, text, position = "top"){
 #' @return phrase on non-phrase character string, noteworthy string if applicable.
 #'
 #' @examples
-#' glue(8, "16-", "8^")
-#' dup(1, 2)
+#' pc(8, "16-", "8^")
+#' pn(1, 2)
 #' x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
 #' y <- phrase("a", 1, 5)
-#' glue(x, y)
-#' glue(x, dup(y, 2))
-#' glue(x, "r1") # add a simple rest instance
-#' class(glue(x, y))
-#' class(dup(y, 2))
-#' class(glue(x, "r1"))
-#' class(dup("r1", 2))
-#' class(glue("r1", "r4"))
+#' pc(x, y)
+#' pc(x, pn(y, 2))
+#' pc(x, "r1") # add a simple rest instance
+#' class(pc(x, y))
+#' class(pn(y, 2))
+#' class(pc(x, "r1"))
+#' class(pn("r1", 2))
+#' class(pc("r1", "r4"))
 NULL
 
 #' @export
 #' @rdname append_phrases
-glue <- function(...){
+pc <- function(...){
   x <- list(...)
   classes <- unlist(lapply(x, class))
   any_phrase <- any(classes == "phrase")
@@ -116,9 +116,10 @@ glue <- function(...){
   x
 }
 
+
 #' @export
 #' @rdname append_phrases
-dup <- function(x, n = 1){
+pn <- function(x, n = 1){
   if(n == 0) return(x)
   y <- paste(rep(x, n), collapse = " ")
   if("phrase" %in% class(x)){

@@ -29,8 +29,8 @@ reference:
 - title: Phrase construction
   desc: "Functions for describing, assembling and connecting musical phrases."
   contents:
-  - glue
-  - dup
+  - pc
+  - pn
   - rest
   - tie
   - notate
