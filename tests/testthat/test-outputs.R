@@ -2,11 +2,11 @@ context("outputs")
 
 notes <- "r s a2~ a2 c3 c f4 f' d a f ce_g ceg#"
 info <- "4. 4. 8*9 2. 4."
-p1 <- glue(pct(p("a", 1)), rp(p(notes, info)))
+p1 <- pc(pct(p("a", 1)), rp(p(notes, info)))
 p2 <- volta(p("r s a~ a c' c4 f5 f'' d4 a4 f' c'e_'g' c'e'g#'", info))
 x1 <- track(p1) %>% score()
 x2 <- track(p2, tuning = "DADGAD", ms_transpose = 1, ms_key = "flat") %>% score()
-x3 <- track(glue(p1, p2), music_staff = NA) %>% score()
+x3 <- track(pc(p1, p2), music_staff = NA) %>% score()
 
 notes <- "a, b, c d e f g a"
 p1 <- p(notes, 8)
@@ -29,7 +29,14 @@ x5 <- score(t1)
 x6 <- score(t1, chords)
 x7 <- score(t1, chord_seq = chord_seq)
 x8 <- score(t1, chords, chord_seq)
-x <- list(x1, x2, x3, x4, x5, x6, x7, x8)
+
+x9 <- trackbind(track(p1, voice = 1, no_tab = TRUE),
+                track(p2, voice = 2, no_tab = TRUE),
+                track(p3, tuning = "bass", music_staff = NA),
+                track(p3, tuning = "bass", music_staff = "bass_8", no_tab = TRUE),
+                tabstaff = c(1, 1, 2, 3)) %>% score()
+
+x <- list(x1, x2, x3, x4, x5, x6, x7, x8, x9)
 
 header <- list(
   title = "my title", subtitle = "subtitle", composer = "composer", album = "album", arranger = "arranger",

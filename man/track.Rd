@@ -5,7 +5,8 @@
 \title{Create a music track}
 \usage{
 track(phrase, tuning = "standard", voice = 1L,
-  music_staff = "treble_8", ms_transpose = 0, ms_key = NA)
+  music_staff = "treble_8", ms_transpose = 0, ms_key = NA,
+  no_tab = FALSE)
 }
 \arguments{
 \item{phrase}{a phrase object.}
@@ -19,6 +20,8 @@ track(phrase, tuning = "standard", voice = 1L,
 \item{ms_transpose}{integer, positive or negative number of semitones to transpose an included music staff relative to the tablature staff. See details.}
 
 \item{ms_key}{character, specify the new key signature for a transposed music staff. See details.}
+
+\item{no_tab}{logical, suppress the default guitar tablature so that only a standard music staff is associated with the track. Ignored if \code{music_staff = NA}.}
 }
 \value{
 a track table.

@@ -65,6 +65,7 @@ chord_set <- function(x, id = NULL){
 #' @param music_staff add a standard sheet music staff above the tablature staff. See details.
 #' @param ms_transpose integer, positive or negative number of semitones to transpose an included music staff relative to the tablature staff. See details.
 #' @param ms_key character, specify the new key signature for a transposed music staff. See details.
+#' @param no_tab logical, suppress the default guitar tablature so that only a standard music staff is associated with the track. Ignored if \code{music_staff = NA}.
 #'
 #' @return a track table.
 #' @export
@@ -73,12 +74,15 @@ chord_set <- function(x, id = NULL){
 #' x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
 #' track(x)
 track <- function(phrase, tuning = "standard", voice = 1L, music_staff = "treble_8",
-                  ms_transpose = 0, ms_key = NA){
+                  ms_transpose = 0, ms_key = NA, no_tab = FALSE){
   if(!"phrase" %in% class(phrase)) stop("`phrase` is not a phrase object.", call. = FALSE)
+  if(is.na(music_staff) & no_tab)
+    stop("Cannot have both `music_staff` = NA and `no_tab` = TRUE.", call. = FALSE)
   x <- dplyr::tibble(phrase, tuning = .map_tuning(tuning), voice = as.integer(voice),
                           staff = as.character(music_staff),
                           ms_transpose = as.integer(ms_transpose),
-                          ms_key = as.character(ms_key))
+                          ms_key = as.character(ms_key),
+                          tab = !no_tab)
   x$phrase <- purrr::map(x$phrase, ~as_phrase(.x))
   class(x) <- unique(c("track", class(x)))
   x
