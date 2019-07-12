@@ -1,5 +1,8 @@
 {
-  "@context": ["https://doi.org/10.5063/schema/codemeta-2.0", "http://schema.org"],
+  "@context": [
+    "https://doi.org/10.5063/schema/codemeta-2.0",
+    "http://schema.org"
+  ],
   "@type": "SoftwareSourceCode",
   "identifier": "tabr",
   "description": "Creates guitar tablature from R code by providing functions for describing and organizing musical structures and wrapping around the 'LilyPond' backend (<http://lilypond.org>).\n    'LilyPond' is open source music engraving software for generating high quality sheet music based on markup language. 'tabr' provides a wrapper around this\n    software and generates files following the 'LilyPond' markup syntax to be subsequently processed by 'LilyPond' into sheet music pdf files.\n    A standalone 'LilyPond' file can be created or the package can make a system call to 'LilyPond' directly to render the guitar tablature output.\n    While 'LilyPond' caters to sheet music in general, 'tabr' is focused on leveraging it specifically for creating quality guitar tablature.\n    'tabr' offers nominal MIDI file support in addition to its focus on tablature transcription. See the 'tuneR' package for more general use of MIDI files in R.\n    'tabr' also provides a collection of helper functions for manipulating and transforming strings of musical notes, pitches, chords, keys, scales and modes.",
@@ -208,8 +211,20 @@
   ],
   "releaseNotes": "https://github.com/leonawicz/tabr/blob/master/NEWS.md",
   "readme": "https://github.com/leonawicz/tabr/blob/master/README.md",
-  "fileSize": "266.827KB",
-  "contIntegration": ["https://travis-ci.org/leonawicz/tabr", "https://ci.appveyor.com/project/leonawicz/tabr", "https://codecov.io/github/leonawicz/tabr?branch=master"],
-  "keywords": ["r-package", "guitar-tablature", "sheet-music", "lilypond", "music-analysis", "music-transcription", "music-notation"],
+  "fileSize": "266.826KB",
+  "contIntegration": [
+    "https://travis-ci.org/leonawicz/tabr",
+    "https://ci.appveyor.com/project/leonawicz/tabr",
+    "https://codecov.io/github/leonawicz/tabr?branch=master"
+  ],
+  "keywords": [
+    "r-package",
+    "guitar-tablature",
+    "sheet-music",
+    "lilypond",
+    "music-analysis",
+    "music-transcription",
+    "music-notation"
+  ],
   "relatedLink": "https://CRAN.R-project.org/package=tabr"
 }
