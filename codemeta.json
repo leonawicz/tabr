@@ -106,18 +106,6 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "lintr",
-      "name": "lintr",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=lintr"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "htmltools",
       "name": "htmltools",
       "provider": {
@@ -211,7 +199,6 @@
   ],
   "releaseNotes": "https://github.com/leonawicz/tabr/blob/master/NEWS.md",
   "readme": "https://github.com/leonawicz/tabr/blob/master/README.md",
-  "fileSize": "266.826KB",
   "contIntegration": [
     "https://travis-ci.org/leonawicz/tabr",
     "https://ci.appveyor.com/project/leonawicz/tabr",
@@ -226,5 +213,6 @@
     "music-transcription",
     "music-notation"
   ],
-  "relatedLink": "https://CRAN.R-project.org/package=tabr"
+  "relatedLink": "https://CRAN.R-project.org/package=tabr",
+  "fileSize": "266.822KB"
 }

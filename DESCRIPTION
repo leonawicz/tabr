@@ -24,7 +24,6 @@ Suggests:
     rmarkdown,
     covr,
     kableExtra,
-    lintr,
     htmltools,
     fansi
 Imports: 
