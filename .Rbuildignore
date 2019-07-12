@@ -6,7 +6,6 @@
 ^README\.Rmd$
 ^revdep$
 ^\.lintr$
-^inst/\.lintr$
 ^docs$
 ^pkgdown$
 ^clone_notes\.md$
@@ -20,3 +19,4 @@
 ^vignettes/tabr-ex.*
 ^vignettes/jesper.*
 ^CRAN-RELEASE$
+^README\.html$
