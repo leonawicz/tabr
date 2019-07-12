@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
       </span>
     </div>
 
@@ -201,12 +201,12 @@
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"></a>
 <a class="sourceLine" id="cb3-2" title="2">song &lt;-<span class="st"> </span><span class="kw"><a href="../reference/trackbind.html">trackbind</a></span>(t1, t2, t3, <span class="dt">tabstaff =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/score.html">score</a></span>(chords, chord_seq)</a>
 <a class="sourceLine" id="cb3-3" title="3">song</a></code></pre></div>
-<pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 3 x 7</span><span>
-#&gt;   phrase   tuning         voice staff    ms_transpose ms_key tabstaff
-#&gt;   </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>          </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>           </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span>
-#&gt; </span><span style="color: #555555;">1</span><span> </span><span style="color: #555555;">&lt;phrase&gt;</span><span> e, a, d g b e'     1 treble_8            0 </span><span style="color: #BB0000;">NA</span><span>            1
-#&gt; </span><span style="color: #555555;">2</span><span> </span><span style="color: #555555;">&lt;phrase&gt;</span><span> e, a, d g b e'     2 treble_8            0 </span><span style="color: #BB0000;">NA</span><span>            1
-#&gt; </span><span style="color: #555555;">3</span><span> </span><span style="color: #555555;">&lt;phrase&gt;</span><span> e,, a,, d, g,      1 bass_8              0 </span><span style="color: #BB0000;">NA</span><span>            2
+<pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 3 x 8</span><span>
+#&gt;   phrase   tuning         voice staff    ms_transpose ms_key tab   tabstaff
+#&gt;   </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>          </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>           </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span>
+#&gt; </span><span style="color: #555555;">1</span><span> </span><span style="color: #555555;">&lt;phrase&gt;</span><span> e, a, d g b e'     1 treble_8            0 </span><span style="color: #BB0000;">NA</span><span>     TRUE         1
+#&gt; </span><span style="color: #555555;">2</span><span> </span><span style="color: #555555;">&lt;phrase&gt;</span><span> e, a, d g b e'     2 treble_8            0 </span><span style="color: #BB0000;">NA</span><span>     TRUE         1
+#&gt; </span><span style="color: #555555;">3</span><span> </span><span style="color: #555555;">&lt;phrase&gt;</span><span> e,, a,, d, g,      1 bass_8              0 </span><span style="color: #BB0000;">NA</span><span>     TRUE         2
 </span></code></pre>
 <p>This time, when rendering the song, use settings for the three arguments discussed above. Given what is written, it doesn’t make sense to change them all. For example, this won’t fit well as a waltz (time = “3/4”). But for illustration purposes, pretend the song is actually in the key of D minor (F major). This key has one flat, B, so this will force the B note in the G chord to be annotated as an accidental. Change the time to <code>2/2</code> just for the sake of changing it, which won’t really be any different from <code>4/4</code> except you will see a line through the common time symbol. Finally, change the tempo to <code>4 = 120</code>, which is also equivalent to the default, but will show up in the output slightly differently as well.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="../reference/lilypond.html">lilypond</a></span>(song, <span class="st">"ex32.ly"</span>, <span class="st">"dm"</span>, <span class="st">"2/2"</span>, <span class="st">"4 = 120"</span>)</a>

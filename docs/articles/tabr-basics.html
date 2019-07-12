@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
       </span>
     </div>
 
@@ -194,13 +194,13 @@
 <div id="tracks" class="section level2">
 <h2 class="hasAnchor">
 <a href="#tracks" class="anchor"></a>Tracks</h2>
-<p>Track construction is as simple as wrapping a phrase object in <code>track</code>. This example uses a single phrase. Typically a track would consist of many phrases glued together. Tracks are just tibble data frames with an additional track class.</p>
+<p>Track construction is as simple as wrapping a phrase object in <code>track</code>. This example uses a single phrase. Typically a track would consist of many phrases concatenated together. Tracks are just tibble data frames with an additional track class.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">track1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(p1)</a>
 <a class="sourceLine" id="cb3-2" title="2">track1</a></code></pre></div>
-<pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 1 x 6</span><span>
-#&gt;   phrase   tuning         voice staff    ms_transpose ms_key
-#&gt;   </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>          </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>           </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> 
-#&gt; </span><span style="color: #555555;">1</span><span> </span><span style="color: #555555;">&lt;phrase&gt;</span><span> e, a, d g b e'     1 treble_8            0 </span><span style="color: #BB0000;">NA</span><span>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 1 x 7</span><span>
+#&gt;   phrase   tuning         voice staff    ms_transpose ms_key tab  
+#&gt;   </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>          </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>           </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>
+#&gt; </span><span style="color: #555555;">1</span><span> </span><span style="color: #555555;">&lt;phrase&gt;</span><span> e, a, d g b e'     1 treble_8            0 </span><span style="color: #BB0000;">NA</span><span>     TRUE
 </span></code></pre>
 </div>
 <div id="scores" class="section level2">
@@ -209,10 +209,10 @@
 <p>The complete score is composed of one or more tracks. This example has only a single track. Just as the track constructor takes phrases, the score constructor takes tracks as inputs. Score objects are tibble data frames with an additional score class.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">song &lt;-<span class="st"> </span><span class="kw"><a href="../reference/score.html">score</a></span>(track1)</a>
 <a class="sourceLine" id="cb4-2" title="2">song</a></code></pre></div>
-<pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 1 x 7</span><span>
-#&gt;   phrase   tuning         voice staff    ms_transpose ms_key tabstaff
-#&gt;   </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>          </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>           </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span>
-#&gt; </span><span style="color: #555555;">1</span><span> </span><span style="color: #555555;">&lt;phrase&gt;</span><span> e, a, d g b e'     1 treble_8            0 </span><span style="color: #BB0000;">NA</span><span>            1
+<pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 1 x 8</span><span>
+#&gt;   phrase   tuning         voice staff    ms_transpose ms_key tab   tabstaff
+#&gt;   </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>          </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>           </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span>
+#&gt; </span><span style="color: #555555;">1</span><span> </span><span style="color: #555555;">&lt;phrase&gt;</span><span> e, a, d g b e'     1 treble_8            0 </span><span style="color: #BB0000;">NA</span><span>     TRUE         1
 </span></code></pre>
 </div>
 <div id="calling-lilypond-from-r" class="section level2">

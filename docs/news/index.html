@@ -82,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
       </span>
     </div>
 
@@ -201,9 +201,21 @@
       <small>Source: <a href='https://github.com/leonawicz/tabr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="tabr-031" class="section level1">
+<h1 class="page-header">
+<a href="#tabr-031" class="anchor"></a>tabr 0.3.1<small> Unreleased </small>
+</h1>
+<ul>
+<li>Added <code>no_tab</code> argument to <code>track</code> allowing for suppression of tab staff when music staff is included, e.g., for vocal tracks.</li>
+<li>
+<code>no_tab</code>-associated documentation and unit test updates.</li>
+<li>Deprecated <code>dup</code> and <code>glue</code>. Now use <code>pn</code> for repeating phrases <code>n</code> times and <code>pc</code> for concatenating multiple phrases.</li>
+<li>Updated documentation, examples, vignettes and unit tests.</li>
+</ul>
+</div>
     <div id="tabr-030" class="section level1">
 <h1 class="page-header">
-<a href="#tabr-030" class="anchor"></a>tabr 0.3.0<small> Unreleased </small>
+<a href="#tabr-030" class="anchor"></a>tabr 0.3.0<small> 2019-06-23 </small>
 </h1>
 <ul>
 <li>Added <code>fretboard_plot</code> for making fretboard diagrams outside of the LilyPond tablature pipeline. This necessitates importing <code>ggplot2</code>.</li>
@@ -291,6 +303,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#tabr-031">0.3.1</a></li>
         <li><a href="#tabr-030">0.3.0</a></li>
         <li><a href="#tabr-020">0.2.0</a></li>
         <li><a href="#tabr-012">0.1.2</a></li>

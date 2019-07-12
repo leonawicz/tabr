@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Deprecated — depfun • tabr</title>
+<title>Deprecated — tabr_dep • tabr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -39,9 +39,9 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Deprecated — depfun" />
+<meta property="og:title" content="Deprecated — tabr_dep" />
 
-<meta property="og:description" content="These functions will be removed in the next package version." />
+<meta property="og:description" content="Deprecated tabr functions." />
 
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -84,7 +84,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
       </span>
     </div>
 
@@ -106,6 +106,7 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Transcription</li>
     <li>
       <a href="../articles/tabr-basics.html">Basic example</a>
     </li>
@@ -131,12 +132,39 @@
       <a href="../articles/tabr-tunings.html">Strings and tunings</a>
     </li>
     <li class="divider"></li>
-    <li class="dropdown-header">Examples</li>
+    <li class="dropdown-header">Programming</li>
+    <li>
+      <a href="../articles/tabr-prog-nw.html">Noteworthiness</a>
+    </li>
+    <li>
+      <a href="../articles/tabr-prog-scales.html">Musical scales</a>
+    </li>
+    <li>
+      <a href="../articles/tabr-prog-notes.html">Note functions</a>
+    </li>
+    <li>
+      <a href="../articles/tabr-prog-chords.html">Chord functions</a>
+    </li>
+    <li>
+      <a href="../articles/tabr-fretboard.html">Fretboard diagram plots</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Examples
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/tabr-ex1.html">Tuning and capo</a>
     </li>
     <li>
       <a href="../articles/tabr-ex2.html">Multiple voices</a>
+    </li>
+    <li>
+      <a href="../articles/tabr-ex3.html">Ezio's family</a>
     </li>
   </ul>
 </li>
@@ -146,6 +174,9 @@
      
     Reference
   </a>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -170,35 +201,33 @@
     <div class="page-header">
     <h1>Deprecated</h1>
     <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/deprecated.R'><code>R/deprecated.R</code></a></small>
-    <div class="hidden name"><code>depfun.Rd</code></div>
+    <div class="hidden name"><code>tabr_dep.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>These functions will be removed in the next package version.</p>
+    <p>Deprecated tabr functions.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>is_natural</span>(<span class='no'>key</span>)
+    <pre class="usage"><span class='fu'>dup</span>(<span class='no'>x</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1</span>)
 
-<span class='fu'>is_sharp</span>(<span class='no'>key</span>)
-
-<span class='fu'>is_flat</span>(<span class='no'>key</span>)
-
-<span class='fu'>n_sharps</span>(<span class='no'>key</span>)
-
-<span class='fu'>n_flats</span>(<span class='no'>key</span>)
-
-<span class='fu'>is_major</span>(<span class='no'>key</span>)
-
-<span class='fu'>is_minor</span>(<span class='no'>key</span>)</pre>
+<span class='fu'>glue</span>(<span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>key</th>
-      <td><p>character, key signature.</p></td>
+      <th>x</th>
+      <td><p>character, phrase or non-phrase string.</p></td>
+    </tr>
+    <tr>
+      <th>n</th>
+      <td><p>integer, number of repetitions.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>character, phrase or non-phrase string.</p></td>
     </tr>
     </table>
     
