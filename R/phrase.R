@@ -206,7 +206,11 @@ phrasey <- function(phrase){
   if(!inherits(phrase, "phrase") & !inherits(phrase, "character")) return(FALSE)
   i1 <- sum(attr(gregexpr("<", phrase)[[1]], "match.length"))
   if(i1 < 1){
-    if(gsub(" |r\\d+|s\\d+", "", phrase) == "") return(TRUE) else return(FALSE)
+    if(gsub(" |r\\d+(\\.|)(\\.|)|s\\d+(\\.|)(\\.|)", "", phrase) == ""){
+      return(TRUE)
+    } else {
+      return(FALSE)
+    }
   }
   i2 <- sum(attr(gregexpr(">", phrase)[[1]], "match.length"))
   if(i1 != i2) return(FALSE)
