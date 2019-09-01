@@ -206,7 +206,7 @@ phrasey <- function(phrase){
   if(!inherits(phrase, "phrase") & !inherits(phrase, "character")) return(FALSE)
   i1 <- sum(attr(gregexpr("<", phrase)[[1]], "match.length"))
   if(i1 < 1){
-    if(gsub(" |r\\d+(\\.|)(\\.|)|s\\d+(\\.|)(\\.|)", "", phrase) == ""){
+    if(gsub(" |(r|s)\\d+(\\.|)(\\.|)", "", phrase) == ""){
       return(TRUE)
     } else {
       return(FALSE)
@@ -223,7 +223,8 @@ phrasey <- function(phrase){
 #' @rdname phrase-checks
 notify <- function(phrase){
   if(!phrasey(phrase)) stop("`phrase` is not phrasey.", call. = FALSE)
-  x <- strsplit(phrase, " <")[[1]]
+  x <- .tag_rests(phrase)
+  x <- strsplit(x, " <")[[1]]
   x <- gsub("\\\\glissando", "-", x)
   x <- gsub("is", "#", x)
   x <- gsub("(^|<)([a|e])s", "\\2_", x)
@@ -253,6 +254,10 @@ notify <- function(phrase){
 }
 
 # nolint end
+
+.tag_rests <- function(x){
+  gsub("(| )(r|s)(\\d)", "\\1<\\2>\\3", x)
+}
 
 #' @export
 #' @rdname phrase-checks

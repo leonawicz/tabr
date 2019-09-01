@@ -4,6 +4,7 @@
 * `no_tab`-associated documentation and unit test updates.
 * Deprecated `dup` and `glue`. Now use `pn` for repeating phrases `n` times and `pc` for concatenating multiple phrases.
 * Updated documentation, examples, vignettes and unit tests.
+* Minor bug fixes.
 
 # tabr 0.3.0
 

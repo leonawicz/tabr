@@ -40,7 +40,8 @@ p2 <- phrase("c ec4g4 ec4g4", "4 4 2") # same as above
 p3 <- phrase("c b, c", "4. 8( 8)", "5 5 5") # direction implies hammer on
 p4 <- phrase("b2 c d", "4( 4)- 2", "5 5 5") # hammer and slide
 p5 <- phrase("c ec'g'~ ec'g'", 1, "5 432 432") # tied chord
-x <- list(p1, p2, p3, p4, p5)
+p6 <- phrase("s r c ec'g'~ ec'g' r", 1, "5 x x 432 432 x") # add rests
+x <- list(p1, p2, p3, p4, p5, p6)
 
 y <- lapply(as.character(x), as_phrase)
 
@@ -74,7 +75,7 @@ test_that("notable returns as expected", {
 test_that("notification works as expected", {
   d <- do.call(rbind, lapply(x, notify))
   expect_is(d, "tbl_df")
-  expect_equal(dim(d), c(15, 3))
+  expect_equal(dim(d), c(21, 3))
   expect_true(all(is.na(d$string[1:6])))
 
   x2 <- lapply(x, function(x) p(phrase_notes(x), phrase_info(x), phrase_strings(x)))
