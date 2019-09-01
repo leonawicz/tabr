@@ -287,11 +287,13 @@ If this is not where LilyPond is installed, then LilyPond and Python need to be 
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span>(<span class='fu'><a href='tabr_options.html'>tabr_options</a></span>()$<span class='no'>midi2ly</span> <span class='kw'>!=</span> <span class='st'>""</span>){
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='kw'>if</span>(<span class='fu'><a href='tabr_options.html'>tabr_options</a></span>()$<span class='no'>midi2ly</span> <span class='kw'>!=</span> <span class='st'>""</span>){
   <span class='no'>midi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"example.mid"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"tabr"</span>)
   <span class='no'>outfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/file.path'>file.path</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempdir</a></span>(), <span class='st'>"out.ly"</span>)
   <span class='fu'>midily</span>(<span class='no'>midi</span>, <span class='no'>outfile</span>) <span class='co'># requires LilyPond installation</span>
-}</div></pre>
+}
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

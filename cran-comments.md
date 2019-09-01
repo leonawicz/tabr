@@ -1,6 +1,6 @@
 ## Test environments
 * local Windows 10 install, R 3.6.1
-* ubuntu 14.04 (on travis-ci), R 3.6.0
+* ubuntu 14.04 (on travis-ci), R 3.6.1
 * win-builder (devel and release)
 
 ## R CMD check results
@@ -9,9 +9,8 @@
 
 ## This is an update release.
 
-* Two functions deprecated and replaced with new functions.
-* Other minor function updates.
-* Related updates to documentation and unit tests.
+* Previously suggested by CRAN maintainter that functions that create MIDI files via LilyPond should be turned off with `\dontrun{}` because they take too long to execute. These are now turned off.
+* Other minor bug fixes.
 
 ## Downstream dependencies
 
