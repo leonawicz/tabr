@@ -67,7 +67,7 @@ sf_phrase <- function(string, fret, info, key = "c", tuning = "standard", to_not
     }
     x <- as.integer(strsplit(x, "")[[1]])
     if(any(!x %in% str_num)) stop("String number outside range inferred by tuning.", call. = FALSE)
-    y <- gsub(" $", "", gsub("(\\(\\d{2}\\))", "\\1 ", y))
+    y <- trimws(gsub("(\\(\\d{2}\\))", " \\1 ", y))
     y <- strsplit(y, " ")[[1]]
     y <- lapply(y, function(x){
       if(substr(x, 1, 1) == "(") gsub("\\(|\\)", "", x) else strsplit(x, "")[[1]]
