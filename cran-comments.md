@@ -10,7 +10,7 @@
 ## This is an update release.
 
 * Previously suggested by CRAN maintainter that functions that create MIDI files via LilyPond should be turned off with `\dontrun{}` because they take too long to execute. These are now turned off.
-* Other minor bug fixes.
+* Other bug fixes and updates.
 
 ## Downstream dependencies
 

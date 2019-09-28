@@ -15,21 +15,25 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -39,12 +43,12 @@
 
   <link href="../extra.css" rel="stylesheet">
   
+
 <meta property="og:title" content="Key signatures — keys" />
-
 <meta property="og:description" content="Helper functions for key signature information." />
-
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -68,6 +72,7 @@
   gtag('config', 'UA-46129458-3');
 </script>
 
+
   </head>
 
   <body>
@@ -84,7 +89,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
       </span>
     </div>
 
@@ -179,7 +184,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/leonawicz/tabr">
@@ -194,6 +198,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -205,12 +210,10 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Helper functions for key signature information.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>keys</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"all"</span>, <span class='st'>"sharp"</span>, <span class='st'>"flat"</span>))
+    <pre class="usage"><span class='fu'>keys</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"all"</span>, <span class='st'>"sharp"</span>, <span class='st'>"flat"</span>))
 
 <span class='fu'>key_is_natural</span>(<span class='no'>key</span>)
 
@@ -225,7 +228,7 @@
 <span class='fu'>key_is_major</span>(<span class='no'>key</span>)
 
 <span class='fu'>key_is_minor</span>(<span class='no'>key</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -238,38 +241,34 @@
       <td><p>character, key signature.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>character vector.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The <code>keys</code> function returns a vector of valid key signature IDs. These IDs are how key signatures are specified throughout <code>tabr</code>, including in the other helper functions here via <code>key</code>.
 Like the other functions here, <code>key_is_sharp</code> and <code>key_is_flat</code> are for <em>key signatures</em>, not single pitches whose sharp or flat status is always self-evident from their notation.
 Major and minor keys are also self-evident from their notation, but <code>key_is_major</code> and <code>key_is_minor</code> can still be useful when programming.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>keys</span>()</div><div class='output co'>#&gt;  [1] "c"   "g"   "d"   "a"   "e"   "b"   "f#"  "c#"  "f"   "b_"  "e_"  "a_" 
 #&gt; [13] "d_"  "g_"  "c_"  "am"  "em"  "bm"  "f#m" "c#m" "g#m" "d#m" "a#m" "dm" 
-#&gt; [25] "gm"  "cm"  "fm"  "b_m" "e_m" "a_m"</div><div class='input'><span class='fu'>key_is_natural</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"c"</span>, <span class='st'>"am"</span>, <span class='st'>"c#"</span>))</div><div class='output co'>#&gt; [1]  TRUE  TRUE FALSE</div><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"e_"</span>)
+#&gt; [25] "gm"  "cm"  "fm"  "b_m" "e_m" "a_m"</div><div class='input'><span class='fu'>key_is_natural</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"c"</span>, <span class='st'>"am"</span>, <span class='st'>"c#"</span>))</div><div class='output co'>#&gt; [1]  TRUE  TRUE FALSE</div><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"e_"</span>)
 <span class='fu'>key_is_sharp</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1]  TRUE FALSE</div><div class='input'><span class='fu'>key_is_flat</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] FALSE  TRUE</div><div class='input'><span class='fu'>key_n_sharps</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 3 0</div><div class='input'><span class='fu'>key_n_flats</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 0 3</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -277,13 +276,16 @@ Major and minor keys are also self-evident from their notation, but <code>key_is
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

@@ -13,8 +13,9 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Fretboard diagram plots">
 <meta property="og:description" content="">
@@ -44,7 +45,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
       </span>
     </div>
 
@@ -155,6 +156,7 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -174,18 +176,18 @@
 <p>While music visualization in <code>tabr</code> focuses on leveraging LilyPond to make tablature, some diagrams can also be drawn directly in R using ggplot without any need to involve LilyPond. The <code>fretboard_plot</code> function makes standalone fretboard diagrams in R, independent of the LilyPond sheet music pipeline.</p>
 <p><code>fretboard_plot</code> is a highly specialized function that takes vector inputs for string numbers and fret numbers and maps the combination element-wise to produce a fretboard diagram. Note that <code>fretboard_plot</code> is a developmental function and the interface and arguments it provides may change.</p>
 <p>The fretted notes are marked in the diagram using customary large circles.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="../reference/fretboard_plot.html">fretboard_plot</a></span>(<span class="dt">string =</span> <span class="dv">6</span><span class="op">:</span><span class="dv">1</span>, <span class="dt">fret =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="../reference/fretboard_plot.html">fretboard_plot</a></span>(<span class="dt">string =</span> <span class="dv">6</span><span class="op">:</span><span class="dv">1</span>, <span class="dt">fret =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>))</a></code></pre></div>
 <p><img src="tabr-fretboard_files/figure-html/fb1-1.png" width="100%"></p>
 </div>
 <div id="labels-and-tuning" class="section level2">
 <h2 class="hasAnchor">
 <a href="#labels-and-tuning" class="anchor"></a>Labels and tuning</h2>
 <p>The fretted notes can be labeled. <code>labels</code> can be an arbitrary vector corresponding to the string and fret numbers. For example, you can label each circle with the fingerings used to play chords or scales.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="../reference/fretboard_plot.html">fretboard_plot</a></span>(<span class="dv">6</span><span class="op">:</span><span class="dv">1</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"G"</span>, <span class="st">"U"</span>, <span class="st">"I"</span>, <span class="st">"T"</span>, <span class="st">"A"</span>, <span class="st">"R"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="../reference/fretboard_plot.html">fretboard_plot</a></span>(<span class="dv">6</span><span class="op">:</span><span class="dv">1</span>, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"G"</span>, <span class="st">"U"</span>, <span class="st">"I"</span>, <span class="st">"T"</span>, <span class="st">"A"</span>, <span class="st">"R"</span>))</a></code></pre></div>
 <p><img src="tabr-fretboard_files/figure-html/fb2-1.png" width="100%"></p>
 <p>If you set <code>labels = "notes"</code>, this is a special setting that will label all points with their note names. This can be done automatically because providing string and fret numbers in conjunction with the <code>tuning</code> argument gives full information about the notes along the guitar neck. <code>fretboard_plot</code> transposes these internally. This means it will work automatically no matter what arbitrary <code>tuning</code> you set. Here is an example that also displays the tuning.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">string &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb3-2" title="2">fret &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">10</span>)</a>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">string &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb3-2" title="2">fret &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">10</span>)</a>
 <a class="sourceLine" id="cb3-3" title="3"><span class="kw"><a href="../reference/fretboard_plot.html">fretboard_plot</a></span>(string, fret, <span class="st">"notes"</span>, <span class="dt">show_tuning =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="tabr-fretboard_files/figure-html/fb3-1.png" width="100%"></p>
 <p>How accidentals are displayed when <code>labels = "notes"</code>, as sharps or flats, can be controlled by setting the <code>key</code> to a specific key or simply to <code>sharp</code> or <code>flat</code>. Here, the key of F contains a flat, which alters the labeling from the previous diagram.</p>
@@ -196,11 +198,11 @@
 <h2 class="hasAnchor">
 <a href="#limits" class="anchor"></a>Limits</h2>
 <p>X and Y limits are expressed in terms of the number of instrument strings and the span of frets. You can override the fret range that is derived from <code>fret</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="../reference/fretboard_plot.html">fretboard_plot</a></span>(string, fret, <span class="st">"notes"</span>, <span class="dt">fret_range =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="dt">show_tuning =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="../reference/fretboard_plot.html">fretboard_plot</a></span>(string, fret, <span class="st">"notes"</span>, <span class="dt">fret_range =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="dt">show_tuning =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="tabr-fretboard_files/figure-html/fb5-1.png" width="100%"></p>
 <p>The number of strings an instrument has is derived from <code>tuning</code> and this generalizes the fretboard diagram possibilities further. The tuning now specifies a seven-string guitar. One note has been added on string seven:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">tuning &lt;-<span class="st"> "b1 e2 a2 d3 g3 b3 e4"</span></a>
-<a class="sourceLine" id="cb6-2" title="2"><span class="kw"><a href="../reference/fretboard_plot.html">fretboard_plot</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">7</span>, string), <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>, fret), <span class="st">"notes"</span>, <span class="dt">fret_range =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">10</span>), </a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="kw"><a href="../reference/fretboard_plot.html">fretboard_plot</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">7</span>, string), <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, fret), <span class="st">"notes"</span>, <span class="dt">fret_range =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">10</span>), </a>
 <a class="sourceLine" id="cb6-3" title="3">               <span class="dt">tuning =</span> tuning, <span class="dt">show_tuning =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="tabr-fretboard_files/figure-html/fb6-1.png" width="100%"></p>
 </div>
@@ -208,14 +210,14 @@
 <h2 class="hasAnchor">
 <a href="#color-and-faceting" class="anchor"></a>Color and faceting</h2>
 <p>The points (circles) can have border and fill color. The labels can also be colored separately. These arguments can be vectorized. Notice the open Am chord does not really have an open sixth string; it is muted. The zero is still given in order to specify where to notate, but the <code>mute</code> argument is given with a logical vector that indicates this entry is muted.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">am_frets &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>))</a>
-<a class="sourceLine" id="cb7-2" title="2">am_strings &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">6</span><span class="op">:</span><span class="dv">1</span>, <span class="dv">6</span><span class="op">:</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb7-3" title="3">mute &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="ot">TRUE</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="ot">FALSE</span>, <span class="dv">11</span>))</a>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">am_frets &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb7-2" title="2">am_strings &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">6</span><span class="op">:</span><span class="dv">1</span>, <span class="dv">6</span><span class="op">:</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb7-3" title="3">mute &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="ot">TRUE</span>, <span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="ot">FALSE</span>, <span class="dv">11</span>))</a>
 <a class="sourceLine" id="cb7-4" title="4"></a>
 <a class="sourceLine" id="cb7-5" title="5"><span class="co"># colors</span></a>
-<a class="sourceLine" id="cb7-6" title="6">idx &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="dv">1</span>, <span class="dv">6</span>))</a>
-<a class="sourceLine" id="cb7-7" title="7">lab_col &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"white"</span>, <span class="st">"black"</span>)[idx]</a>
-<a class="sourceLine" id="cb7-8" title="8">pt_fill &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"firebrick1"</span>, <span class="st">"white"</span>)[idx]</a>
+<a class="sourceLine" id="cb7-6" title="6">idx &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="dv">1</span>, <span class="dv">6</span>))</a>
+<a class="sourceLine" id="cb7-7" title="7">lab_col &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"white"</span>, <span class="st">"black"</span>)[idx]</a>
+<a class="sourceLine" id="cb7-8" title="8">pt_fill &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"firebrick1"</span>, <span class="st">"white"</span>)[idx]</a>
 <a class="sourceLine" id="cb7-9" title="9"></a>
 <a class="sourceLine" id="cb7-10" title="10"><span class="kw"><a href="../reference/fretboard_plot.html">fretboard_plot</a></span>(am_strings, am_frets, <span class="st">"notes"</span>, mute, </a>
 <a class="sourceLine" id="cb7-11" title="11">               <span class="dt">label_color =</span> lab_col, <span class="dt">point_fill =</span> pt_fill)</a></code></pre></div>
@@ -223,15 +225,15 @@
 <p><code>group</code> can also be used for faceting. However, faceting is still a problematic feature. It may work well enough in cases where the different diagrams span similar frets. The presence of muted notes can also cause issues when faceting. <code>fretboard_plot</code> works best for single-panel plots. Since the function returns a ggplot object, you can always make them separate plots and arrange in a grid layout rather than rely on within-plot faceting.</p>
 <p>Note that <code>fretboard_plot</code> accepts character inputs like those used throughout <code>tabr</code>:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">f &lt;-<span class="st"> "0 2 2 1 0 0 0 2 2 0 0 0"</span></a>
-<a class="sourceLine" id="cb8-2" title="2">s &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">6</span><span class="op">:</span><span class="dv">1</span>, <span class="dv">6</span><span class="op">:</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb8-3" title="3">grp &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Open E"</span>, <span class="st">"Open Em"</span>), <span class="dt">each =</span> <span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb8-2" title="2">s &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">6</span><span class="op">:</span><span class="dv">1</span>, <span class="dv">6</span><span class="op">:</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb8-3" title="3">grp &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Open E"</span>, <span class="st">"Open Em"</span>), <span class="dt">each =</span> <span class="dv">6</span>)</a>
 <a class="sourceLine" id="cb8-4" title="4"></a>
 <a class="sourceLine" id="cb8-5" title="5"><span class="co"># colors</span></a>
-<a class="sourceLine" id="cb8-6" title="6">idx &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb8-7" title="7">lab_col &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"white"</span>, <span class="st">"black"</span>)[idx]</a>
-<a class="sourceLine" id="cb8-8" title="8">pt_fill &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"firebrick1"</span>, <span class="st">"white"</span>)[idx]</a>
+<a class="sourceLine" id="cb8-6" title="6">idx &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb8-7" title="7">lab_col &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"white"</span>, <span class="st">"black"</span>)[idx]</a>
+<a class="sourceLine" id="cb8-8" title="8">pt_fill &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"firebrick1"</span>, <span class="st">"white"</span>)[idx]</a>
 <a class="sourceLine" id="cb8-9" title="9"></a>
-<a class="sourceLine" id="cb8-10" title="10"><span class="kw"><a href="../reference/fretboard_plot.html">fretboard_plot</a></span>(s, f, <span class="st">"notes"</span>, <span class="dt">group =</span> grp, <span class="dt">fret_range =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">4</span>),</a>
+<a class="sourceLine" id="cb8-10" title="10"><span class="kw"><a href="../reference/fretboard_plot.html">fretboard_plot</a></span>(s, f, <span class="st">"notes"</span>, <span class="dt">group =</span> grp, <span class="dt">fret_range =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">4</span>),</a>
 <a class="sourceLine" id="cb8-11" title="11">               <span class="dt">label_color =</span> lab_col, <span class="dt">point_fill =</span> pt_fill)</a></code></pre></div>
 <p><img src="tabr-fretboard_files/figure-html/fb7b-1.png" width="100%"></p>
 </div>
@@ -240,20 +242,21 @@
 <a href="#orientation" class="anchor"></a>Orientation</h2>
 <p>The direction and handedness can also be changed. Diagrams can be vertical or horizontal as well as left- or right-handed.</p>
 <p>Here, titles are added to the ggplot objects with <code>ggtitle</code>. Of course you can add onto ggplot objects returned by <code>fretboard_plot</code>, but you are limited in what you can add on and must be careful to avoid overriding properties of layers <code>fretboard_plot</code> has already specified.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</a>
 <a class="sourceLine" id="cb9-2" title="2"><span class="kw"><a href="../reference/fretboard_plot.html">fretboard_plot</a></span>(string, fret, <span class="st">"notes"</span>, <span class="dt">label_color =</span> <span class="st">"white"</span>, <span class="dt">point_fill =</span> <span class="st">"dodgerblue"</span>,</a>
-<a class="sourceLine" id="cb9-3" title="3">               <span class="dt">fret_range =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="dt">show_tuning =</span> <span class="ot">TRUE</span>, <span class="dt">horizontal =</span> <span class="ot">TRUE</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb9-3" title="3">               <span class="dt">fret_range =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="dt">show_tuning =</span> <span class="ot">TRUE</span>, <span class="dt">horizontal =</span> <span class="ot">TRUE</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb9-4" title="4"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">"Horizontal"</span>)</a></code></pre></div>
 <p><img src="tabr-fretboard_files/figure-html/fb8-1.png" width="100%"></p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"></a>
 <a class="sourceLine" id="cb10-2" title="2"><span class="kw"><a href="../reference/fretboard_plot.html">fretboard_plot</a></span>(string, fret, <span class="st">"notes"</span>, <span class="dt">label_color =</span> <span class="st">"white"</span>, <span class="dt">point_fill =</span> <span class="st">"dodgerblue"</span>,</a>
-<a class="sourceLine" id="cb10-3" title="3">               <span class="dt">fret_range =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="dt">show_tuning =</span> <span class="ot">TRUE</span>, <span class="dt">horizontal =</span> <span class="ot">TRUE</span>, <span class="dt">left_handed =</span> <span class="ot">TRUE</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb10-3" title="3">               <span class="dt">fret_range =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="dt">show_tuning =</span> <span class="ot">TRUE</span>, <span class="dt">horizontal =</span> <span class="ot">TRUE</span>, <span class="dt">left_handed =</span> <span class="ot">TRUE</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb10-4" title="4"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">"Horizontal and left-handed"</span>)</a></code></pre></div>
 <p><img src="tabr-fretboard_files/figure-html/fb8-2.png" width="100%"></p>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -270,17 +273,20 @@
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by <a href="http://leonawicz.github.io/">Matthew Leonawicz</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

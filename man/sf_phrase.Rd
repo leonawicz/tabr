@@ -7,18 +7,18 @@
 \alias{sfn}
 \title{Create a musical phrase from string/fret combinations}
 \usage{
-sf_phrase(string, fret, info, key = "c", tuning = "standard",
-  to_notes = FALSE, bar = FALSE)
+sf_phrase(string, fret = NULL, info = NULL, key = "c",
+  tuning = "standard", to_notes = FALSE, bar = FALSE)
 
-sfp(string, fret, info, key = "c", tuning = "standard",
-  to_notes = FALSE, bar = FALSE)
+sfp(string, fret = NULL, info = NULL, key = "c",
+  tuning = "standard", to_notes = FALSE, bar = FALSE)
 
 sf_note(...)
 
 sfn(...)
 }
 \arguments{
-\item{string}{character, string numbers associated with notes.}
+\item{string}{character, string numbers associated with notes, or provide all information here and ignore \code{fret} and \code{info}. See details.}
 
 \item{fret}{character, fret numbers associated with notes.}
 
@@ -41,35 +41,81 @@ a phrase.
 Create a musical phrase from character strings that define string numbers, fret numbers and note metadata. This function is a wrapper around \code{\link{phrase}}.
 It allows for specifying string/fret combinations instead of unambiguous pitch as is used by \code{phrase}.
 In order to remove ambiguity, it is critical to specify the instrument string tuning and key signature.
-It essentially uses \code{string} and \code{fret} in combination with a known tuning and key signature in order to generate \code{notes} for \code{\link{phrase}}.
-\code{info} is passed straight through to \code{phrase}, as is \code{string} once it is done being used to help inform \code{notes}.
+It essentially uses \code{string} and \code{fret} in combination with a known tuning and key signature to generate \code{notes} for \code{\link{phrase}}.
+\code{info} is passed straight through to \code{phrase}, as is \code{string} once it is done being used to help derive \code{notes}.
 }
 \details{
-See the main function \code{phrase} for more details. If you landed here first and are not familiar with \code{phrase}, be aware that \code{sf_phrase} is a tangential extra feature wrapper function in \code{tabr} and for a variety of reasons (see below) the approach it uses is discouraged in general.
-If this is your only option, take note of the details and limitations below.
+See the main function \code{phrase} for general details on phrase construction.
+}
+\section{Comparison with \code{phrase}}{
 
-This function is a crutch for users not working with musical notes (what to play), but rather just position on the guitar neck (where to play). This method has its conveniences, but it is inherently limiting.
-In order to remove ambiguity, it is necessary to specify the instrument tuning and the key signature (or at least whether accidentals in the output should be sharps or flats).
+This function is a wrapper function for users not working with musical notes (what to play), but rather just position on the guitar neck (where to play).
+This approach has conveniences, but is more limiting.
+In order to remove ambiguity, it is necessary to specify the instrument \code{tuning} and the \code{key} signature.
 
-In the standard approach where you specify what to play, specifying exactly where to play is optional, but highly recommended (by providing \code{string}). Here \code{string} is of course required along with \code{fret}.
-But any time the tuning changes, this "where to play" method breaks down and must be redone. It is much more robust to provide the string and pitch rather than the string and fret.
-The key is always important because it is the only way to indicate if accidentals are sharps or flats.
+In the standard approach with \code{phrase} you specify what to play; specifying exactly where to play is optional, but highly recommended (by providing \code{string}).
+With \code{sf_phrase}, the \code{string} argument is of course required along with \code{fret}.
+But any time the tuning changes, this "where to play" method breaks down and must be redone. It is more robust to provide the string and pitch rather than the string and fret.
+The \code{key} is additionally important because it is the only way to indicate if accidentals should be notated as sharps or flats.
 
-This crutch method also increases redundancy and typing. In order to specify rests \code{r}, silent rests \code{s}, and tied notes \code{~}, these must now be providing in parallel in both the \code{string} and \code{fret} arguments,
+This wrapper also increases redundancy and typing. In order to specify rests \code{r}, silent rests \code{s}, and tied notes \code{~}, these must now be providing in parallel in both the \code{string} and \code{fret} arguments,
 whereas in the standard method using \code{phrase}, they need only be provided once to \code{notes}.
-A mismatch will throw an error. Despite the redundancy, this is helpful for ensuring proper match up between \code{string} and \code{fret}, which is essentially a dual entry method that aims to reduce itself inside \code{sf_phrase} to a single \code{notes} string that is passed internally to \code{phrase}.
+A mismatch will throw an error. Despite the redundancy, this is helpful for ensuring proper match up between \code{string} and \code{fret},
+which is essentially a dual entry method that aims to reduce itself inside \code{sf_phrase} to a single \code{notes} string that is passed internally to \code{phrase}.
 
 The important thing to keep in mind is that by its nature, this method of writing out music does not lend itself well to high detail.
 Tabs that are informed by nothing but string and fret number remove a lot of important information, and those that attempt to compensate with additional symbols in say, an ascii tab, are difficult to read.
-This wrapper function providing this alternative input method does its job of allowing users to create phrase objects that are equivalent to standard \code{phrase}-generated objects, including rests and ties, but practice and comfort with working with \code{phrase} and not this wrapper is highly recommended,
-not just for eventual ease of use but for not preventing yourself from learning your way around the guitar neck and where all the different pitches are located.
+This wrapper function providing this alternative input method to \code{phrase} does its job of allowing users to create phrase objects that are equivalent to standard \code{phrase}-generated objects, including rests and ties.
+But practice and comfort working with \code{phrase} is is highly recommended for greater control of development support.
 
 The function \code{sfp} is a convenient shorthand wrapper for \code{sf_phrase}. \code{sf_note} and the alias \code{sfn} are wrappers around \code{sf_phrase} that force \code{to_notes = TRUE}.
 }
+
+\section{Single-string input}{
+
+Another way to use \code{sf_phrase} is to provide all musical input to \code{string} and ignore \code{fret} and \code{info} as explicit arguments.
+Providing all three explicit arguments more closely mimics the inputs of \code{phrase} and is useful when you have this information as three independent sources.
+However, in some cases the single-argument input method can reduce typing, though this depends on the phrase.
+More importantly, it allow you to reason about your musical inputs by time step rather than by argument.
+If you provide all three components as a single character string to the \code{string} argument, leaving both \code{fret} and \code{info} as \code{NULL},
+then \code{sf_phrase} will decompose \code{string} into its three component parts internally.
+
+There are some rules for single-argument input. The three components are separated by semicolons as \code{"string;fret;info"}.
+For example, \code{"3;7x7;4"} means begin on the third string (infer higher number strings muted)
+The frets are 7th and 7th, meaning two notes are played. When an \code{x} is present in the second entry it means a string is not played.
+This is how it is inferred that the string numbers starting from the third string are strings 3 and 1 rather than 3 and 2 in this example.
+The 4 indicates a quarter note since it is part of the third entry where the additional \code{info} is specified (an \code{x} here would still indicate a dead note, rather than an unplayed string in the second entry, so this is contextual).
+
+A bonus when using this input method is that explicit \code{string} and \code{info} values persist from one time step to the next.
+Neither needs to be provided again until there is a change in value.
+For example, \code{"3;7x7;4 7x7 ;7x7;1"} repeats the string and info values from time step one for time step two.
+In time step three, string numbers repeat again, but the duration changes from quarter note to whole note.
+
+Note that except when both are repeating and only fret numbers are provided (see time step two),
+two semicolons must be present so that it is unambiguous whether the sole missing component is a \code{string} or \code{info} (see time step three).
+Ambiguity would arise from a case like \code{"4;4"} without the second semicolon. This type of indexing was chosen over using two different delimiters.
+
+If a rest, \code{r} or \code{s}, is provided for the \code{fret} entry, then the \code{string} entry is ignored.
+When using this input method, ties \code{~} are given in the info entry.
+
+See the examples for a comparison of two identical phrases specified using both input methods for \code{sf_phrase}.
+}
+
 \examples{
 sf_phrase("5 4 3 2 1", "1 3 3 3 1", "8*4 1", key = "b_")
 sf_phrase("654321 6s 12 1 21", "133211 355333 11 (13) (13)(13)", "4 4 8 8 4", key = "f")
 sfp("6s*2 1*4", "000232*2 2*4", "4 4 8*4", tuning = "dropD", key = "d")
+
+# compare with single-argument input
+s <- "3s*5 53~*3 543*2 643"
+f <- "987*2 775 553 335 77~*3 545 325 210"
+i <- "2*3 4. 16 4.*3 4*3"
+p1 <- sfp(s, f, i)
+
+# Nominally shorter syntax, but potentially much easier to reason about
+p2 <- sfp("3;987;2*2 775 ;553;4. ;335;16 5;7x7;4.~*3 ;545;4 325 6;2x10;")
+
+identical(p1, p2)
 }
 \seealso{
 \code{\link{phrase}}

@@ -15,21 +15,25 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -39,12 +43,12 @@
 
   <link href="../extra.css" rel="stylesheet">
   
+
 <meta property="og:title" content="Bind track tables — trackbind" />
-
 <meta property="og:description" content="Bind together track tables by row." />
-
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -68,6 +72,7 @@
   gtag('config', 'UA-46129458-3');
 </script>
 
+
   </head>
 
   <body>
@@ -84,7 +89,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
       </span>
     </div>
 
@@ -179,7 +184,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/leonawicz/tabr">
@@ -194,6 +198,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -205,13 +210,11 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Bind together track tables by row.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>trackbind</span>(<span class='no'>...</span>, <span class='no'>tabstaff</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -224,11 +227,10 @@
       <td><p>integer, ID vector indicating the tablature staff for each track. See details.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a track table.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function appends multiple track tables into a single track table for preparation of generating a multi-track score.
@@ -238,7 +240,6 @@ This is the typical use case where each single <code>track</code> object being b
 <p>However, some tracks represent different voices that share the same staff. These should be assigned the same staff ID value, in which case you must provide the <code>tabstaff</code> argument.
 An error will be thrown if any two tracks have both the same <code>voice</code> and the same <code>tabstaff</code>. The pair must be unique. E.g., provide <code>tabstaff = c(1, 1)</code> when you have two tracks with <code>voice</code> equal to 1 and 2. See examples.</p>
 <p>Note that the actual ID values assigned to each track do not matter; only the order in which tracks are bound, first to last.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='st'>"c ec'g' ec'g'"</span>, <span class='st'>"4 4 2"</span>, <span class='st'>"5 432 432"</span>)
@@ -248,7 +249,7 @@ An error will be thrown if any two tracks have both the same <code>voice</code> 
 #&gt;   phrase   tuning         voice staff    ms_transpose ms_key tab   tabstaff
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>&lt;phrase&gt;</span><span> e, a, d g b e'     1 treble_8            0 </span><span style='color: #BB0000;'>NA</span><span>     TRUE         1
-#&gt; </span><span style='color: #555555;'>2</span><span> </span><span style='color: #555555;'>&lt;phrase&gt;</span><span> e, a, d g b e'     1 treble_8            0 </span><span style='color: #BB0000;'>NA</span><span>     TRUE         2</div><div class='input'><span class='fu'>trackbind</span>(<span class='no'>x1</span>, <span class='no'>x2</span>, <span class='kw'>tabstaff</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 8</span><span>
+#&gt; </span><span style='color: #555555;'>2</span><span> </span><span style='color: #555555;'>&lt;phrase&gt;</span><span> e, a, d g b e'     1 treble_8            0 </span><span style='color: #BB0000;'>NA</span><span>     TRUE         2</div><div class='input'><span class='fu'>trackbind</span>(<span class='no'>x1</span>, <span class='no'>x2</span>, <span class='kw'>tabstaff</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 8</span><span>
 #&gt;   phrase   tuning         voice staff    ms_transpose ms_key tab   tabstaff
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>&lt;phrase&gt;</span><span> e, a, d g b e'     1 treble_8            0 </span><span style='color: #BB0000;'>NA</span><span>     TRUE         1
@@ -258,16 +259,14 @@ An error will be thrown if any two tracks have both the same <code>voice</code> 
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -275,13 +274,16 @@ An error will be thrown if any two tracks have both the same <code>voice</code> 
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

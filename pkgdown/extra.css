@@ -6,6 +6,10 @@ td p {
   text-align: left !important;
 }
 
+body, p, h1, h2, h3, h4, h5, h6{
+  font-family: Helvetica, Arial, sans-serif;
+}
+
 .centerimg {
   display: block;
   margin-left: auto;
@@ -17,3 +21,91 @@ td p {
   float: right;
   margin-left: 10px;
 }
+
+.navbar-default {
+  background-color: #ff3030;
+  border-color: #ff3030;
+}
+
+.navbar-default .navbar-link, .navbar-default .navbar-nav > li > a{
+  background-color: #ff3030;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover{
+  background-color: #cd2626;
+  color: #ffffff;
+}
+
+.navbar-default .navbar-link, .navbar-default .navbar-nav > li > a:focus, .navbar-default .navbar-link, .navbar-default .navbar-nav > li > a:hover{
+  background-color: #ff3030;
+  color: #eeeeee;
+}
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover{
+  background-color: #cd2626;
+  color: #ffffff;
+}
+
+.navbar-brand .navbar-link{
+  background-color: #ff3030;
+  color: #ffffff;
+}
+
+.navbar-brand .navbar-link:hover{
+  background-color: #ff3030;
+  color: #eeeeee;
+}
+
+.navbar-brand .label-default{
+  background-color: #ffffff;
+  color: #ff3030;
+  border-radius: 3.375px;
+}
+
+.navbar-brand .label-default{
+  background-color: #ffffff;
+  color: #ff3030;
+}
+
+.dropdown-menu li:not(.dropdown-header) :hover{
+  background-color: #ff3030;
+  color: #ffffff;
+}
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus{
+  background-color: #ff3030;
+  color: #ffffff;
+}
+
+.btn-primary {
+  color: #ffffff;
+  background-color: #ff3030;
+  border-color: #ff3030;
+}
+
+a{
+  color: #ff3030;
+}
+
+a:hover{
+  color: #cd2626;
+}
+
+code a:hover{
+  color: #375f84;
+}
+
+.ref-index tbody tr td p code a:hover{
+  color: #375f84;
+}
+
+.ref-index tbody tr td p code a{
+  color: #ff3030;
+}
+
+.ref-index tbody tr td p code a:hover{
+  color: #cd2626;
+}
+

@@ -10,7 +10,7 @@
   "codeRepository": "https://github.com/leonawicz/tabr",
   "issueTracker": "https://github.com/leonawicz/tabr/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.3.1",
+  "version": "0.3.5",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -174,6 +174,18 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "tidyr",
+      "name": "tidyr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=tidyr"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "crayon",
       "name": "crayon",
       "provider": {
@@ -214,5 +226,6 @@
     "music-notation"
   ],
   "relatedLink": "https://CRAN.R-project.org/package=tabr",
-  "fileSize": "266.822KB"
+  "fileSize": "270.671KB",
+  "developmentStatus": "http://www.repostatus.org/#active"
 }

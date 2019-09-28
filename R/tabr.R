@@ -2,7 +2,24 @@ globalVariables(".data")
 
 #' tabr: Guitar tablature and sheet music engraving.
 #'
-#' The \code{tabr} package provides programmatic music notation and wraps around the open source music engraving program, LilyPond, for creating quality guitar tablature.
+#' The \code{tabr} package provides a collection of music programming functions for generating, manipulating and organizing musical structures and information.
+#' You can create guitar tablature ("tabs") from R code with \code{tabr}.
+#' The package provides programmatic music notation and a wrapper around LilyPond <http://lilypond.org/> for creating quality guitar tablature.
+#'
+#' LilyPond is an open source music engraving program for generating high quality sheet music based on markup syntax.
+#' \code{tabr} generates files following the LilyPond markup syntax to be subsequently processed by LilyPond into sheet music.
+#' A standalone LilyPond (.ly) file can be created or the package can make a system call to LilyPond directly to render the guitar tablature output (pdf or png).
+#' While LilyPond caters to sheet music in general, \code{tabr} is focused on leveraging it specifically for creating quality guitar tablature.
+#'
+#' \code{tabr} offers a useful but limited LilyPond API and is not intended to access all LilyPond functionality from R,
+#' nor is transcription via the API the entire scope of \code{tabr}.
+#' If you are only creating sheet music on a case by case basis, write your own LilyPond files manually.
+#' There is no need to use \code{tabr} or limit yourself to its existing LilyPond API.
+#' If you are generating music notation programmatically,
+#' \code{tabr} provides the ability to do so in R and has the added benefit of converting what you write in R code to the LilyPond file format to be rendered as printable guitar tablature.
+#'
+#' While LilyPond is listed as a system requirement for \code{tabr}, you can use many of its functions without installing LilyPond if you do not intend to render tabs.
+#'
 #'
 #' @docType package
 #' @name tabr

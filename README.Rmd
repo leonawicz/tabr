@@ -18,30 +18,24 @@ knitr::opts_chunk$set(
 <br/>
 **License:** [MIT](https://opensource.org/licenses/MIT)<br/>
 
-[![CRAN status](http://www.r-pkg.org/badges/version/tabr)](https://cran.r-project.org/package=tabr)
-[![CRAN downloads](http://cranlogs.r-pkg.org/badges/grand-total/tabr)](https://cran.r-project.org/package=tabr) 
-[![Rdoc](http://www.rdocumentation.org/badges/version/tabr)](http://www.rdocumentation.org/packages/tabr)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![Travis-CI Build Status](https://travis-ci.org/leonawicz/tabr.svg?branch=master)](https://travis-ci.org/leonawicz/tabr)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/leonawicz/tabr?branch=master&svg=true)](https://ci.appveyor.com/project/leonawicz/tabr)
 [![Coverage Status](https://img.shields.io/codecov/c/github/leonawicz/tabr/master.svg)](https://codecov.io/github/leonawicz/tabr?branch=master)
 
-## Overview
+[![CRAN status](http://www.r-pkg.org/badges/version/tabr)](https://cran.r-project.org/package=tabr)
+[![CRAN downloads](http://cranlogs.r-pkg.org/badges/grand-total/tabr)](https://cran.r-project.org/package=tabr) 
+[![Github Stars](https://img.shields.io/github/stars/leonawicz/tabr.svg?style=social&label=Github)](https://github.com/leonawicz/tabr)
 
-```{r is_md, echo=FALSE}
-is_md <- knitr::opts_knit$get("rmarkdown.pandoc.to") %in% c("markdown_github-ascii_identifiers", "gfm-ascii_identifiers")
-```
+## Overview <img src="tabr_logo_small.png" style="float:right;margin-left:10px;width:320px;">
 
-```{r md_doc1, echo=FALSE, results="asis", eval=is_md}
-cat('<p style="text-align:center;"><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/tabr_logo.png?raw=true" width="400px" align="center"></p><br/>\n\nCreate guitar tablature ("tabs") from R code with `tabr`. The `tabr` package provides programmatic music notation and a wrapper around [LilyPond](http://lilypond.org/) for creating quality guitar tablature.')
-```
+The `tabr` package provides a collection of music programming functions for generating, manipulating and organizing musical structures and information. You can create guitar tablature ("tabs") from R code with `tabr`. The package provides programmatic music notation and a wrapper around [LilyPond](http://lilypond.org/) for creating quality guitar tablature.
 
-```{r html_doc1, echo=FALSE, results="asis", eval=!is_md}
-cat('Create guitar tablature ("tabs") from R code with `tabr`. The `tabr` package provides programmatic music notation and a wrapper around [LilyPond](http://lilypond.org/) for creating quality guitar tablature.<img src="tabr_logo_small.png" style="float:right;margin-left:10px;width:400px;">')
-```
+LilyPond is an open source music engraving program for generating high quality sheet music based on markup syntax. `tabr` generates files following the LilyPond markup syntax to be subsequently processed by LilyPond into sheet music. A standalone LilyPond (.ly) file can be created or the package can make a system call to LilyPond directly to render the guitar tablature output (pdf or png). While LilyPond caters to sheet music in general, `tabr` is focused on leveraging it specifically for creating quality guitar tablature.
 
-`tabr` offers functions for describing and organizing musical structures and wraps around the LilyPond backend. LilyPond is an open source music engraving program for generating high quality sheet music based on markup syntax. `tabr` generates files following the LilyPond markup syntax to be subsequently processed by LilyPond into sheet music.
+`tabr` offers a useful but limited LilyPond API and is not intended to access all LilyPond functionality from R, nor is transcription via the API the entire scope of `tabr`. If you are only creating sheet music on a case by case basis, write your own LilyPond files manually. There is no need to use `tabr` or limit yourself to its existing LilyPond API. If you are generating music notation programmatically, `tabr` provides the ability to do so in R and has the added benefit of converting what you write in R code to the LilyPond file format to be rendered as printable guitar tablature.
 
-A standalone LilyPond (.ly) file can be created or the package can make a system call to LilyPond directly to render the guitar tablature output (pdf or png). While LilyPond caters to sheet music in general, `tabr` is focused on leveraging it specifically for creating quality guitar tablature.
+While LilyPond is listed as a system requirement for `tabr`, you can use many of its functions without installing LilyPond if you do not intend to render tabs.
 
 ## Functionality and support
 
@@ -67,9 +61,7 @@ The `tabr` package offers the following:
 * A variety of layout control options covering settings from score attributions to font size.
 * Optional alternative input format allowing the user to provide string/fret combinations (along with key signature and instrument tuning) to map to pitch.
 
-Note that MIDI support and string/fret alternative input format support are not prioritized in ongoing `tabr` development. These are considered tangential extra features in `tabr` that fall outside the general scope and intent of the package.
-
-In additional to the R to LilyPond sheet music pipeline, `tabr` also offers a large collection of functions to support general music programming operations.
+Note that MIDI support and string/fret alternative input format support are not prioritized in ongoing `tabr` development. These are considered tangential extras in `tabr` that fall outside the general scope and intent of the package. However, if you are looking to do quick, easy and basic tabbing, you may want to consider using the single-argument input method of the `sf_phrase` function. See the function documentation for details. The package vignettes focus on general use cases using the `phrase` function rather than `sf_phrase`.
 
 ## Installation
 
@@ -147,19 +139,21 @@ cat(
 )
 ```
 
-```{r md_doc2, echo=FALSE, results="asis", eval=is_md}
-cat('See the pdf result embedded at the [tabr website](https://leonawicz.github.io/tabr/).')
+<embed src="phrase.pdf?#zoom=175" width="100%" height="300"></embed><br/>
+
+For comparison, if you were using string-fret specification to construct the above phrase, one way to do so is the following:
+
+```{r sfp}
+sfp("r;r;4 5;0;8 3 4;3; 0 3;2; 4;3;")
 ```
 
-```{r html_doc2, echo=FALSE, results="asis", eval=!is_md}
-cat('<embed src="phrase.pdf?#zoom=175" width="100%" height="300"></embed><br/>')
-```
+It may not look particularly beneficial here, but for more complex music it can be easier to reason about the phrase under construction when using this format to bind information by time step rather. See `?sf_phrase` for a comparison with `phrase` and the various ways you can do phrase construction in `tabr` for equivalent results.
 
 Note above that `tabr` also exports the pipe `%>%` operator. Even given the hierarchy of objects involved in the series of steps to move from a phrase to a rendered pdf, a short example like this does not even require a single assignment. While music can be quite complex and a full score will be much longer, `tabr` strives to minimize the work while still forcing some sense of interpretable, organized structure. For long and complex music, it can require some effort and practice to ensure your approach to transcription in your R code is not opaque.
 
-## Additional context
+## Why LilyPond for transcription?
 
-Why LilyPond? LilyPond is an exceptional sheet music engraving program.
+LilyPond is an exceptional sheet music engraving program.
 
 * It produces professional, high quality output. 
 * It is open source.
@@ -167,31 +161,17 @@ Why LilyPond? LilyPond is an exceptional sheet music engraving program.
 * It is developed and utilized by a large community. 
 * Most GUI-based applications are WYSIWYG and force a greater limitation on what you can do and what it will look like after you do it.
 
-## Limitations
+## References and resources
 
-This package is not intended to access all LilyPond functionality from R. If your transcription needs are that great, just use LilyPond directly. However, when working in R, `tabr` gives you programmatic access to LilyPond that is quite valuable. 
+There are several vignette tutorials and examples at the `tabr` [website](https://leonawicz.github.io/tabr/).
 
-## New in v 0.3.0: more music programming support
-
-Version 0.3.0 of `tabr` adds many new helper functions. These functions do not directly impact the `tabr`-LilyPond sheet music pipeline. They expand music programming with `tabr` more generally and can be used without LilyPond installed. LilyPond is only required for sheet music engraving. So even if you do not need to create tabs from R code, the broader suite of `tabr` functions may be useful to you.
-
-Note: I was hopeful that this version of `tabr` would be able to leverage a new, native bend engraver in LilyPond, but it appears that on the LilyPond side this development has not progressed since I last checked.
-
-```{r md_pkg_ref, echo = FALSE, results = "asis", eval = is_md}
-cat('## References and resources\n\nThere is a rich collection of vignette tutorials and examples as well as complete package documentation available at the `tabr` [website](https://leonawicz.github.io/tabr/).')
-```
-
-```{r html_pkg_ref, echo = FALSE, results = "asis", eval = !is_md}
-cat('## Other resources')
-```
-
-```{r md_pkg_ref2, echo = FALSE, results = "asis", eval = is_md}
-cat('<img src="https://raw.githubusercontent.com/r-music/site/master/img/logo.png" style="float:left;margin-right:20px;" width="120"><div><h3 style="margin-bottom:5px;">R-Music</h3>\n<h4 style="padding:0px;margin-top:5px;margin-bottom:5px;">R for music data extraction and analysis</h4>\n\nSee the <a href="https://github.com/r-music">R-Music</a> organization on GitHub for more R packages related to music data extraction and analysis. The R-Music <a href="https://r-music.rbind.io/">blog</a> provides package introductions and examples.</div>')
-```
-
-```{r html_pkg_ref2, echo = FALSE, results = "asis", eval = !is_md}
-cat('<img src="https://raw.githubusercontent.com/r-music/site/master/img/logo.png" style="float:left;margin-right:20px;" width="120"><div><h3 style="padding-top:50px;">R-Music</h3>\n<h4 style="padding:0px;margin-top:5px;margin-bottom:5px;">R for music data extraction and analysis</h4>\nSee the [R-Music](https://github.com/r-music) organization on GitHub for more R packages related to music data extraction and analysis.<br/>The R-Music [blog](https://r-music.rbind.io/) provides package introductions and examples.</div>')
-```
+<img src="https://raw.githubusercontent.com/r-music/site/master/img/logo.png" style="float:left;margin-right:20px;" width="120">
+<div>
+<h3 style="padding-top:50px;">R-Music</h3>
+<h4 style="padding:0px;margin-top:5px;margin-bottom:5px;">R for music data extraction and analysis</h4>
+See the <a href="https://github.com/r-music">R-Music</a> organization on GitHub for more R packages related to music data extraction and analysis.<br/>
+The R-Music <a href="https://r-music.rbind.io/">blog</a> provides package introductions and examples.
+</div>
 
 ### Other packages
 

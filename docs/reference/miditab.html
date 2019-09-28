@@ -15,21 +15,25 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -39,12 +43,12 @@
 
   <link href="../extra.css" rel="stylesheet">
   
+
 <meta property="og:title" content="Convert MIDI to tablature — miditab" />
-
 <meta property="og:description" content="Convert a MIDI file to  sheet music/guitar tablature." />
-
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -68,6 +72,7 @@
   gtag('config', 'UA-46129458-3');
 </script>
 
+
   </head>
 
   <body>
@@ -84,7 +89,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
       </span>
     </div>
 
@@ -179,7 +184,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/leonawicz/tabr">
@@ -194,6 +198,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -205,14 +210,12 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Convert a MIDI file to  sheet music/guitar tablature.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>miditab</span>(<span class='no'>midi_file</span>, <span class='no'>file</span>, <span class='kw'>keep_ly</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>details</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -241,11 +244,10 @@
       <td><p>additional arguments passed to <code><a href='midily.html'>midily</a></code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>nothing returned; a file is written.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Under development/testing. See warning and details below.</p>
@@ -257,37 +259,32 @@ The next version of this function will add an default argument <code>midi_out = 
 <p>On Windows systems, it may be necessary to specify a path in tabr_options to both <code>midi2ly</code> and <code>python</code> if they are not already successfully set as follows.
 On package load, <code>tabr</code> will attempt to check for <code>midi2ly.exe</code> at <code>C:/Program Files (x86)/LilyPond/usr/bin/midi2ly.py</code> and similarly for the <code>python.exe</code> that ships with LilyPond at <code>C:/Program Files (x86)/LilyPond/usr/bin/python.exe</code>.
 If this is not where LilyPond is installed, then LilyPond and Python need to be provided to <code>tabr_options</code> or added to the system PATH variable.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='midily.html'>midily</a></code>, <code><a href='tab.html'>tab</a></code>, <code><a href='lilypond.html'>lilypond</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='kw'>if</span>(<span class='fu'><a href='tabr_options.html'>tabr_options</a></span>()$<span class='no'>midi2ly</span> <span class='kw'>!=</span> <span class='st'>""</span>){
-  <span class='no'>midi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"example.mid"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"tabr"</span>)
-  <span class='no'>outfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/file.path'>file.path</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempdir</a></span>(), <span class='st'>"out.pdf"</span>)
+  <span class='no'>midi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"example.mid"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"tabr"</span>)
+  <span class='no'>outfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='st'>"out.pdf"</span>)
   <span class='fu'>miditab</span>(<span class='no'>midi</span>, <span class='no'>outfile</span>, <span class='kw'>details</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>) <span class='co'># requires LilyPond installation</span>
 }
-<span class='co'># }</span></pre>
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -295,13 +292,16 @@ If this is not where LilyPond is installed, then LilyPond and Python need to be 
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

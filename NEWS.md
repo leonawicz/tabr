@@ -1,3 +1,8 @@
+# tabr 0.3.5
+
+* Added alternate input specification for `sf_phrase`. Instead of providing the first three function arguments, `string`, `fret` and `info`, separately, you can now provide everything to the first input `string` as a single character string containing all three components separated by semicolons. This makes it easier to reason about the input by time step rather than by argument.
+* Updated documentation and unit tests.
+
 # tabr 0.3.1
 
 * Added `no_tab` argument to `track` allowing for suppression of tab staff when music staff is included, e.g., for vocal tracks.

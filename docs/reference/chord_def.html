@@ -15,21 +15,25 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -39,12 +43,12 @@
 
   <link href="../extra.css" rel="stylesheet">
   
+
 <meta property="og:title" content="Define chords — chord_def" />
-
 <meta property="og:description" content="Function for creating new chord definition tables." />
-
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -68,6 +72,7 @@
   gtag('config', 'UA-46129458-3');
 </script>
 
+
   </head>
 
   <body>
@@ -84,7 +89,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
       </span>
     </div>
 
@@ -179,7 +184,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/leonawicz/tabr">
@@ -194,6 +198,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -205,13 +210,11 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Function for creating new chord definition tables.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>chord_def</span>(<span class='no'>fret</span>, <span class='no'>id</span>, <span class='kw'>optional</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -236,11 +239,10 @@
       <td><p>additional arguments passed to <code>transpose</code>. See examples.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a data frame</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function creates a tibble data frame containing information defining various attributes of chords.
@@ -250,10 +252,9 @@ The user can decide which arguments to vectorize over when creating a chord coll
 <p>This function uses a vector of fret integers (<code>NA</code> for muted string) to define a chord, in conjunction with a string <code>tuning</code> (defaults to standard tuning, six-string guitar).
 <code>fret</code> is from lowest to highest pitch strings, e.g., strings six through one.</p>
 <p>The <code>id</code> is passed directly to the output. It represents the type of chord and should conform to accepted <code>tabr</code> notation. See <code>id</code> column in <code>guitar Chords</code> for examples.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>frets</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>NA</span>, <span class='fl'>0</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>0</span>)
+    <pre class="examples"><div class='input'><span class='no'>frets</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>NA</span>, <span class='fl'>0</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>0</span>)
 <span class='fu'>chord_def</span>(<span class='no'>frets</span>, <span class='st'>"m"</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1 x 13</span><span>
 #&gt;   id    lp_name root  octave root_fret min_fret bass_string notes frets
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>
@@ -265,7 +266,7 @@ The user can decide which arguments to vectorize over when creating a chord coll
 #&gt; </span><span style='color: #555555;'>1</span><span> m     a,:m    a          2         0        0           5 a,ea~ xo22~
 #&gt; </span><span style='color: #555555;'># ... with 4 more variables: semitones </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span style='color: #555555;'>, optional </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, fretboard </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,
 #&gt; #   open </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span></div><div class='input'>
-<span class='kw pkg'>purrr</span><span class='kw ns'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map_dfr</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>2</span>, <span class='fl'>3</span>), ~<span class='fu'>chord_def</span>(<span class='no'>frets</span> + <span class='no'>.x</span>, <span class='st'>"m"</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 13</span><span>
+<span class='kw pkg'>purrr</span><span class='kw ns'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map_dfr</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>2</span>, <span class='fl'>3</span>), ~<span class='fu'>chord_def</span>(<span class='no'>frets</span> + <span class='no'>.x</span>, <span class='st'>"m"</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 13</span><span>
 #&gt;   id    lp_name root  octave root_fret min_fret bass_string notes frets
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> m     a,:m    a          2         0        0           5 a,ea~ xo22~
@@ -278,16 +279,14 @@ The user can decide which arguments to vectorize over when creating a chord coll
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -295,13 +294,16 @@ The user can decide which arguments to vectorize over when creating a chord coll
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
