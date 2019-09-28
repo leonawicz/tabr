@@ -26,7 +26,7 @@ downloads](http://cranlogs.r-pkg.org/badges/grand-total/tabr)](https://cran.r-pr
 [![Github
 Stars](https://img.shields.io/github/stars/leonawicz/tabr.svg?style=social&label=Github)](https://github.com/leonawicz/tabr)
 
-## Overview <img src="tabr_logo_small.png" style="float:right;margin-left:10px;width:320px;">
+## Overview <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/tabr_logo.png?raw=true" style="float:right;margin-left:10px;width:320px;">
 
 The `tabr` package provides a collection of music programming functions
 for generating, manipulating and organizing musical structures and
