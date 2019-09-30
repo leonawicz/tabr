@@ -149,7 +149,7 @@ chord_is_diatonic <- function(chord, key = "c"){
 #' @param interval integer or character vector; semitones or interval ID, respectively. See details.
 #' @param reverse logical, reverse the transposition direction. Useful when \code{interval} is character.
 #' @param key character, key signature.
-#' @param collapse logical, collapse result into a single string ready for phrase construction.
+#' @param collapse logical, collapse result into a single string.
 #'
 #' @return character
 #' @export
@@ -245,6 +245,143 @@ chord_sort <- function(chords, pitch = c("min", "mean", "max"), decreasing = FAL
     y <- sapply(.split_chord(y), function(i) pitch_interval("c", i))
     switch(pitch, "min" = min(y), "mean" = mean(y), "max" = max(y))
   }, USE.NAMES = FALSE)
+}
+
+#' Extract notes from chords
+#'
+#' Filter or slice chords to extract individual notes.
+#'
+#' These functions extract notes from chords such as the root note, the highest pitch, specific position among the notes by pitch, or trim chords to simplify them.
+#' They operate based only on ordered pitches.
+#'
+#' For \code{chord_slice}, any entry that is empty after slicing is dropped. An error is thrown is \code{index} is completely out of bounds for all chords.
+#'
+#' @param chords character, a noteworthy string, may include individual notes and chords.
+#' @param index integer, the order of a note in a chord by pitch (not scale degrees).
+#'
+#' @return a noteworthy string
+#' @export
+#' @name chord-filter
+#'
+#' @examples
+#' x <- "a2 ceg e_gc egc,cc'"
+#' chord_root(x)
+#' chord_top(x)
+#' identical(chord_slice(x, 1), chord_root(x))
+#' chord_slice(x, 2)
+#' chord_slice(x, 4)
+#' chord_slice(x, 3:5)
+#'
+#' chord_order(x)
+#' chord_order(x, "mean")
+#' chord_sort(x, "mean")
+chord_root <- function(chords){
+  .check_noteworthy(chords)
+  x <- .uncollapse(chords)
+  x <- sapply(x, function(y){
+    y <- .split_chord(y)
+    idx <- which.min(sapply(y, function(i) pitch_interval("c", i)))
+    y[idx]
+  }, USE.NAMES = FALSE)
+  if(length(chords) == 1) x <- paste0(x, collapse = " ")
+  .asnw(x)
+}
+
+#' @export
+#' @rdname chord-filter
+chord_top <- function(chords){
+  .check_noteworthy(chords)
+  x <- .uncollapse(chords)
+  x <- sapply(x, function(y){
+    y <- .split_chord(y)
+    idx <- which.max(sapply(y, function(i) pitch_interval("c", i)))
+    y[idx]
+  }, USE.NAMES = FALSE)
+  if(length(chords) == 1) x <- paste0(x, collapse = " ")
+  .asnw(x)
+}
+
+#' @export
+#' @rdname chord-filter
+chord_slice <- function(chords, index){
+  .check_noteworthy(chords)
+  x <- .uncollapse(chords)
+  x <- sapply(x, function(y){
+    y <- .split_chord(y)
+    ord <- order(sapply(y, function(i) pitch_interval("c", i)))
+    y <- y[ord][index]
+    y <- y[!is.na(y)]
+    if(length(y)) paste(y, collapse = "") else NA_character_
+  }, USE.NAMES = FALSE)
+  x <- x[!is.na(x)]
+  if(!length(x)) stop("Index out of bounds for all chords.", call. = FALSE)
+  if(length(chords) == 1) x <- paste0(x, collapse = " ")
+  .asnw(x)
+}
+
+#' Check if a chord is diatonic
+#'
+#' Check whether a chord is diatonic in a given key.
+#'
+#' These functions operate based only on ordered pitches.
+#' They do not recognize what a human might interpret and name an inverted chord with a root other than the lowest pitch.
+#' This imposes limitations on the utility of these functions,
+#' which scan the intervals for a minor or major third in a chord whose notes are sorted by pitch.
+#'
+#' In several cases including single notes or no major or minor interval present, \code{NA} is returned.
+#' \code{TRUE} or \code{FALSE} is only returned if such an interval is present. If more than one is present, it is based on the lowest in pitch.
+#' It prioritizes major/minor and minor/major adjacent intervals. If these do not occur adjacent, it select the lowest third.
+#' This is still imperfect, but a useful method. Second and higher unknown chord inversions are problematic.
+#'
+#' @param chords character, a noteworthy string.
+#'
+#' @return logical vector
+#' @export
+#'
+#' @examples
+#' x <- "c cg, ce ce_ ceg ce_gb g,ce g,ce_ e_,g,c e_,g,ce_ e_,g,c"
+#' chord_is_major(x)
+#' identical(chord_is_major(x), !chord_is_minor(x))
+chord_is_major <- function(chords){
+  .check_noteworthy(chords)
+  x <- .uncollapse(chords)
+  sapply(x, function(y){
+    y <- .split_chord(y)
+    int <- diff(sapply(y, function(i) pitch_interval("c", i)))
+    if(!length(int)) return(NA)
+    if(length(int) == 1){
+      if(int == 3) return(FALSE)
+      if(int == 4) return(TRUE)
+      return(NA)
+    }
+    if(!length(intersect(3:4, int))) return(NA)
+    if(3 %in% int & !4 %in% int) return(FALSE)
+    if(4 %in% int & !3 %in% int) return(TRUE)
+    idx3 <- which(int == 3)
+    idx4 <- which(int == 4)
+    if(any((idx3 - 1) %in% idx4)){
+      major <- idx4[(idx3 - 1) %in% idx4][1]
+    } else {
+      major <- NA
+    }
+    if(any((idx4 - 1) %in% idx3)){
+      minor <- idx3[(idx4 - 1) %in% idx3][1]
+    } else {
+      minor <- NA
+    }
+    if(!is.na(major) & !is.na(minor)){
+      if(major < minor) return(TRUE) else return(FALSE)
+    }
+    if(is.na(minor) & !is.na(major)) return(TRUE)
+    if(is.na(major) & !is.na(minor)) return(FALSE)
+    if(min(idx4) < min(idx3)) return(TRUE) else return(FALSE)
+  }, USE.NAMES = FALSE)
+}
+
+#' @export
+#' @rdname chord_is_major
+chord_is_minor <- function(chords){
+  !chord_is_major(chords)
 }
 
 #nolint end
