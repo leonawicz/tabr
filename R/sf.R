@@ -163,8 +163,8 @@ sfn <- sf_note
   x <- lapply(strsplit(x, ";"), function(x) ifelse(x %in% c("", " "), NA_character_, x))
   if(is.na(x[[1]][1]) | is.na(x[[1]][2]))
     stop("First time step must include all three values as `string;fret;info`.", call. = FALSE)
-  x <- dplyr::as_tibble(do.call(rbind, x), .names_repair = "minimal") %>%
-    stats::setNames(c("string", "fret", "info")) %>%
+  x <- do.call(rbind, x) %>% as.data.frame(stringsAsFactors = FALSE) %>%
+    stats::setNames(c("string", "fret", "info")) %>% dplyr::as_tibble() %>%
     tidyr::fill(.data[["string"]], .data[["info"]]) %>%
     dplyr::mutate(
       string = .infer_strings(.data[["string"]], .data[["fret"]]),

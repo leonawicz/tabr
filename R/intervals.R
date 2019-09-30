@@ -62,7 +62,7 @@ pitch_interval <- function(note1, note2, ignore_octave = FALSE){
   sharp <- grepl("#", paste(note1, note2))
   x <- scale_chromatic(note1, sharp = sharp, ignore_octave = TRUE)
   ngap <- match(note2, x) - match(note1, x)
-  12 * (ogap - .cpass(note1, note2, x)) + ngap
+  as.integer(12 * (ogap - .cpass(note1, note2, x)) + ngap)
 }
 
 #' @export
@@ -80,7 +80,7 @@ scale_interval <- function(note1, note2, format = c("mmp_abb", "mmp", "ad_abb", 
 #' @rdname interval-helpers
 tuning_intervals <- function(tuning = "standard"){
   x <- strsplit(.map_tuning(tuning), " ")[[1]]
-  c(0, cumsum(sapply(1:(length(x) - 1), function(i) pitch_interval(x[i], x[i + 1]))))
+  as.integer(c(0, cumsum(sapply(1:(length(x) - 1), function(i) pitch_interval(x[i], x[i + 1])))))
 }
 
 .octave_interval <- function(x1, x2, ignore_octave = FALSE){
@@ -95,9 +95,9 @@ tuning_intervals <- function(tuning = "standard"){
   if(grepl("\\d+", x)){
     octave <- as.integer(gsub("[a-g#_~]+(\\d+).*", "\\1", x))
   } else if(grepl(",", x)){
-    octave <- -length(gregexpr(",", x)[[1]]) + 3
+    octave <- -length(gregexpr(",", x)[[1]]) + 3L
   } else if(grepl("'", x)){
-    octave <- length(gregexpr("'", x)[[1]]) + 3
+    octave <- length(gregexpr("'", x)[[1]]) + 3L
   } else {
     octave <- 3L
   }
