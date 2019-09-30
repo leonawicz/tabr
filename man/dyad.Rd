@@ -15,7 +15,7 @@ dyad(notes, interval, reverse = FALSE, key = "c", collapse = FALSE)
 
 \item{key}{character, key signature.}
 
-\item{collapse}{logical, collapse result into a single string ready for phrase construction.}
+\item{collapse}{logical, collapse result into a single string.}
 }
 \value{
 character

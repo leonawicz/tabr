@@ -77,7 +77,9 @@ reference:
   - chord_break
   - chord_invert
   - chord_arpeggiate
+  - chord-filter
   - chord_is_diatonic
+  - chord_is_major
   - scale_chords
   - dyad
   - chords
@@ -85,11 +87,14 @@ reference:
   - lp_chord_id
   - chord-mapping
 - title: Note and pitch helpers
-  desc: "Functions for manipulating simple note and pitch strings"
+  desc: "Functions for manipulating noteworthy strings"
   contents:
-  - note-helpers
+  - note_is_natural
+  - note-metadata
+  - note_rotate
   - valid-notes
   - note-equivalence
+  - pitch_freq
 - title: Plots (non-tablature visualizations)
   desc: "Functions for musical plots and diagrams"
   contents:

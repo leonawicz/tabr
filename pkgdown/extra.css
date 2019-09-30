@@ -74,7 +74,12 @@ body, p, h1, h2, h3, h4, h5, h6{
   color: #ffffff;
 }
 
-.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus{
+.dropdown-menu > .active > a{
+  background-color: #ff3030;
+  color: #ffffff;
+}
+
+.nav-pills > li.active > a{
   background-color: #ff3030;
   color: #ffffff;
 }
@@ -108,4 +113,3 @@ code a:hover{
 .ref-index tbody tr td p code a:hover{
   color: #cd2626;
 }
-

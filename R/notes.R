@@ -1,32 +1,163 @@
-#' Note and pitch helpers
+#' Noteworthy string metadata
 #'
-#' Helper functions for manipulating individual note and pitch strings.
+#' Inspect metadata for noteworthy strings.
+#'
+#' @param notes character, a noteworthy string, space-delimited or vector of individual entries.
+#'
+#' @return integer or character
+#' @export
+#' @name note-metadata
+#'
+#' @examples
+#' x <- "e_2 a_, c#f#a#"
+#' n_steps(x)
+#' n_notes(x)
+#' n_chords(x)
+#' n_octaves(x)
+#'
+#' tally_notes(x)
+#' tally_pitches(x)
+#' tally_octaves(x)
+#' distinct_notes(x)
+#' distinct_pitches(x)
+#' distinct_octaves(x)
+#'
+#' pitch_range(x)
+#' semitone_range(x)
+#' octave_range(x)
+#'
+#' octave_type(x)
+#' accidental_type(x)
+#' time_format(x)
+n_steps <- function(notes){
+  attr(as_noteworthy(notes), "steps")
+}
+
+#' @export
+#' @rdname note-metadata
+n_notes <- function(notes){
+  attr(as_noteworthy(notes), "n_note")
+}
+
+#' @export
+#' @rdname note-metadata
+n_chords <- function(notes){
+  attr(as_noteworthy(notes), "n_chord")
+}
+
+#' @export
+#' @rdname note-metadata
+n_octaves <- function(notes){
+  length(distinct_octaves(notes))
+}
+
+#' @export
+#' @rdname note-metadata
+tally_notes <- function(notes){
+  .check_noteworthy(notes)
+  x <- unlist(lapply(.uncollapse(notes), .split_chord))
+  x <- sapply(x, .pitch_to_note, USE.NAMES = FALSE)
+  x <- as.data.frame(table(x), stringsAsFactors = FALSE) %>%
+    dplyr::as_tibble() %>% stats::setNames(c("note", "n"))
+  ord <- order(sapply(x$note, function(x) pitch_interval("c", x, ignore_octave = TRUE)))
+  x[ord, ]
+}
+
+#' @export
+#' @rdname note-metadata
+tally_pitches <- function(notes){
+  .check_noteworthy(notes)
+  x <- unlist(lapply(.uncollapse(notes), .split_chord))
+  x <- as.data.frame(table(x), stringsAsFactors = FALSE) %>%
+    dplyr::as_tibble() %>% stats::setNames(c("pitch", "n"))
+  ord <- order(sapply(x$pitch, function(x) pitch_interval("c", x)))
+  x[ord, ]
+}
+
+#' @export
+#' @rdname note-metadata
+tally_octaves <- function(notes){
+  .check_noteworthy(notes)
+  x <- unlist(lapply(.uncollapse(notes), .split_chord))
+  x <- sapply(x, .pitch_to_octave, USE.NAMES = FALSE)
+  as.data.frame(table(x), stringsAsFactors = FALSE) %>%
+    dplyr::as_tibble() %>% stats::setNames(c("octave", "n")) %>%
+    dplyr::mutate(octave = as.integer(.data[["octave"]]))
+}
+
+#' @export
+#' @rdname note-metadata
+distinct_notes <- function(notes){
+  tally_notes(notes)$note
+}
+
+#' @export
+#' @rdname note-metadata
+distinct_pitches <- function(notes){
+  tally_pitches(notes)$pitch
+}
+
+#' @export
+#' @rdname note-metadata
+distinct_octaves <- function(notes){
+  tally_octaves(notes)$octave
+}
+
+#' @export
+#' @rdname note-metadata
+pitch_range <- function(notes){
+  x <- distinct_pitches(notes)
+  if(length(x) == 1) c(x, x) else c(x[1], utils::tail(x, 1))
+}
+
+#' @export
+#' @rdname note-metadata
+semitone_range <- function(notes){
+  x <- pitch_range(notes)
+  pitch_interval(x[1], x[2])
+}
+
+#' @export
+#' @rdname note-metadata
+octave_range <- function(notes){
+  as.integer(range(distinct_octaves(notes)))
+}
+
+#' @export
+#' @rdname note-metadata
+octave_type <- function(notes){
+  attr(as_noteworthy(notes), "octave")
+}
+
+#' @export
+#' @rdname note-metadata
+accidental_type <- function(notes){
+  attr(as_noteworthy(notes), "accidentals")
+}
+
+#' @export
+#' @rdname note-metadata
+time_format <- function(notes){
+  attr(as_noteworthy(notes), "format")
+}
+
+#' Note naturalness and keys
+#'
+#' Helper functions for inspecting and manipulating accidentals in noteworthy strings.
 #'
 #' In this context, sharpening flats and flattening sharps refers to inverting their notation, not raising and lowering a flatted or sharped note by one semitone.
 #' For the latter, use \code{naturalize}, which removes flat and/or sharp notation from a string.
 #'
-#' Due to its simplicity, for \code{note_rotate} the strings may include chords. It simply rotates anything space-delimited or vectorized in place.
-#' Octave numbering is ignored if present.
-#'
-#' By contrast, for \code{note_shift} the entire sequence is shifted up or down, as if inverting a broken chord.
-#' In this case \code{notes} is strictly interpreted and may not include chords.
-#' Octave numbering applies, though large, multi-octave gaps will be condensed in the process.
-#' Given the context of \code{note_shift}, the \code{notes} sequence should be ordered by increasing pitch.
-#' If it is not, ordering will be forced with each inversion during the \code{n} shifts.
-#'
-#' \code{note_arpeggiate} also allows notes only. It is similar to \code{note_shift}, except that instead of a moving window,
-#' it grows from the original set of notes by \code{n} in the direction of the sign of \code{n}.
+#' The \code{note_is_*} functions strictly allow individual notes, not chords.
+#' The other functions listed here accept any noteworthy string including those containing chords.
 #'
 #' @param notes character, a noteworthy string, space-delimited or vector of individual entries.
 #' @param type character, type of note to naturalize.
 #' @param ignore_octave logical, strip any octave notation that may be present, returning only the basic notes without explicit pitch.
-#' @param n integer, degree of rotation.
 #' @param key character, key signature to coerce any accidentals to the appropriate form for the key. May also specify \code{"sharp"} or \code{"flat"}.
-#' @param ... additional arguments to \code{transpose}, specifically \code{key} and \code{style}.
 #'
 #' @return character
 #' @export
-#' @name note-helpers
 #'
 #' @examples
 #' x <- "a_ a a#"
@@ -42,41 +173,34 @@
 #' naturalize(x, "sharp")
 #' sharpen_flat(x)
 #' flatten_sharp(x)
-#' pretty_notes(x)
-#'
-#' note_rotate(x, 1)
-#' note_shift("c e g", 1)
-#' note_shift("c e g", -4)
-#' note_arpeggiate("c e g", 5)
-#' note_arpeggiate("c e g", -5)
 note_is_natural <- function(notes){
   .check_note(notes)
   sapply(.uncollapse(notes), .pitch_natural, USE.NAMES = FALSE)
 }
 
 #' @export
-#' @rdname note-helpers
+#' @rdname note_is_natural
 note_is_accidental <- function(notes){
   .check_note(notes)
   sapply(.uncollapse(notes), .pitch_accidental, USE.NAMES = FALSE)
 }
 
 #' @export
-#' @rdname note-helpers
+#' @rdname note_is_natural
 note_is_flat <- function(notes){
   .check_note(notes)
   sapply(.uncollapse(notes), .pitch_flat, USE.NAMES = FALSE)
 }
 
 #' @export
-#' @rdname note-helpers
+#' @rdname note_is_natural
 note_is_sharp <- function(notes){
   .check_note(notes)
   sapply(.uncollapse(notes), .pitch_sharp, USE.NAMES = FALSE)
 }
 
 #' @export
-#' @rdname note-helpers
+#' @rdname note_is_natural
 naturalize <- function(notes, type = c("both", "flat", "sharp"), ignore_octave = FALSE){
   .check_noteworthy(notes)
   type <- match.arg(type)
@@ -87,7 +211,7 @@ naturalize <- function(notes, type = c("both", "flat", "sharp"), ignore_octave =
 }
 
 #' @export
-#' @rdname note-helpers
+#' @rdname note_is_natural
 sharpen_flat <- function(notes, ignore_octave = FALSE){
   .check_noteworthy(notes)
   x <- if(length(notes) > 1) paste0(notes, collapse = " ") else notes
@@ -97,7 +221,7 @@ sharpen_flat <- function(notes, ignore_octave = FALSE){
 }
 
 #' @export
-#' @rdname note-helpers
+#' @rdname note_is_natural
 flatten_sharp <- function(notes, ignore_octave = FALSE){
   .check_noteworthy(notes)
   x <- if(length(notes) > 1) paste0(notes, collapse = " ") else notes
@@ -107,7 +231,7 @@ flatten_sharp <- function(notes, ignore_octave = FALSE){
 }
 
 #' @export
-#' @rdname note-helpers
+#' @rdname note_is_natural
 note_set_key <- function(notes, key = "c"){
   notes <- as_noteworthy(notes)
   if(key == "flat") return(flatten_sharp(notes))
@@ -117,8 +241,35 @@ note_set_key <- function(notes, key = "c"){
   Recall(notes, .keydata$sf[.keydata$key == key])
 }
 
+#' Rotate, shift and arpeggiate notes
+#'
+#' Helper functions for moving notes within noteworthy strings.
+#'
+#' \code{note_rotate} simply rotates anything space-delimited or vectorized in place. It allows chords. Octave numbering is ignored if present.
+#'
+#' For \code{note_shift} the entire sequence is shifted up or down, as if inverting a broken chord.
+#' In this case \code{notes} is strictly interpreted and may not include chords.
+#' Octave numbering applies, though large multi-octave gaps will be condensed in the process.
+#' Given the context of \code{note_shift}, the \code{notes} sequence should be ordered by increasing pitch.
+#' If it is not, ordering will be forced with each inversion during the \code{n} shifts.
+#'
+#' \code{note_arpeggiate} also allows notes only. It is similar to \code{note_shift}, except that instead of a moving window,
+#' it grows from the original set of notes by \code{n} in the direction of the sign of \code{n}.
+#'
+#' @param notes character, a noteworthy string, space-delimited or vector of individual entries.
+#' @param n integer, degree of rotation.
+#' @param ... additional arguments to \code{transpose}, specifically \code{key} and \code{style}.
+#'
+#' @return character
 #' @export
-#' @rdname note-helpers
+#'
+#' @examples
+#' x <- "e_2 a_, c#f#a#"
+#' note_rotate(x, 1)
+#' note_shift("c e g", 1)
+#' note_shift("c e g", -4)
+#' note_arpeggiate("c e g", 5)
+#' note_arpeggiate("c e g", -5)
 note_rotate <- function(notes, n = 0){
   .check_noteworthy(notes)
   x <- .uncollapse(notes)
@@ -132,7 +283,7 @@ note_rotate <- function(notes, n = 0){
 }
 
 #' @export
-#' @rdname note-helpers
+#' @rdname note_rotate
 note_shift <- function(notes, n = 0){
   .check_note(notes)
   if(n == 0) return(notes)
@@ -163,7 +314,7 @@ note_shift <- function(notes, n = 0){
 }
 
 #' @export
-#' @rdname note-helpers
+#' @rdname note_rotate
 note_arpeggiate <- function(notes, n = 0, ...){
   .check_note(notes)
   if(n == 0) return(notes)
@@ -190,14 +341,6 @@ note_arpeggiate <- function(notes, n = 0, ...){
   if(style == "tick") x <- .octavesub(x)
   if(length(notes) == 1) x <- paste0(x, collapse = " ")
   .asnw(x)
-}
-
-#' @export
-#' @rdname note-helpers
-pretty_notes <- function(notes, ignore_octave = TRUE){
-  .check_noteworthy(notes)
-  if(ignore_octave) notes <- .pitch_to_note(notes)
-  gsub("_", "b", toupper(notes))
 }
 
 #' Check note and chord validity
@@ -236,6 +379,7 @@ pretty_notes <- function(notes, ignore_octave = TRUE){
 #' x
 #'
 #' summary(x)
+#' pretty_notes(x)
 is_note <- function(x){
   x <- .uncollapse(x)
   y1 <- grepl("[a-grs]", x) & !grepl("[h-qt-zA-Z]", x)
@@ -277,6 +421,39 @@ is_diatonic <- function(x, key = "c"){
 .check_noteworthy <- function(x) if(!noteworthy(x)) stop("Invalid notes or chords found.", call. = FALSE)
 
 .asnw <- function(x){
+  n <- length(x)
+  format <- if(n == 1) "space-delimited time" else "vectorized time"
+  y <- .uncollapse(x)
+  steps <- length(y)
+  nnote <- as.integer(sum(is_note(y)))
+  nchord <- as.integer(sum(is_chord(y)))
+
+  flat <- any(.pitch_flat(x))
+  sharp <- any(.pitch_sharp(x))
+  if(flat & sharp){
+    a <- "both/ambiguous"
+  } else if(flat){
+    a <- "flat"
+  } else if(sharp){
+    a <- "sharp"
+  } else {
+    a <- "none/unknown"
+  }
+
+  tick <- any(grepl(",|'", x))
+  int <- any(grepl("\\d", x))
+  if(tick & int){
+    o <- "ambiguous"
+  } else if(tick){
+    o <- "tick"
+  } else if(int){
+    o <- "integer"
+  } else {
+    o <- "unknown"
+  }
+
+  attributes(x) <- list(steps = steps, n_note = nnote, n_chord = nchord,
+                        octave = o, accidentals = a, format = format)
   class(x) <- unique(c("noteworthy", class(x)))
   x
 }
@@ -286,8 +463,7 @@ is_diatonic <- function(x, key = "c"){
 as_noteworthy <- function(x){
   if("noteworthy" %in% class(x)) return(x)
   .check_noteworthy(x)
-  class(x) <- c("noteworthy", class(x))
-  x
+  .asnw(x)
 }
 
 #' @export
@@ -304,51 +480,30 @@ print.noteworthy <- function(x, ...){
 
 #' @export
 summary.noteworthy <- function(object, ...){
+  a <- attributes(object)
   col1 <- crayon::make_style("gray50")$bold
-  n <- length(object)
-  format <- if(n == 1) "space-delimited time" else "vectorized time"
-  x <- .uncollapse(object)
-  steps <- length(x)
-  nnote <- sum(is_note(x))
-  nchord <- sum(is_chord(x))
+  cat(col1("<Noteworthy string>\n  Timesteps: "), a$steps, " (",
+      a$n_note, " ", paste0("note", ifelse(a$n_note == 1, "", "s")), ", ",
+      a$n_chord, " ", paste0("chord", ifelse(a$n_chord == 1, "", "s"), ")"),
+      col1("\n  Octaves: "), a$octave,
+      col1("\n  Accidentals: "), a$accidentals,
+      col1("\n  Format: "), a$format, col1("\n  Values: "),
+      .tabr_print(.uncollapse(as.character(object)), col1), sep = "")
+}
 
-  flat <- any(.pitch_flat(object))
-  sharp <- any(.pitch_sharp(object))
-  if(flat & sharp){
-    a <- "both/ambiguous"
-  } else if(flat){
-    a <- "flat"
-  } else if(sharp){
-    a <- "sharp"
-  } else {
-    a <- "none/unknown"
-  }
 
-  tick <- any(grepl(",|'", object))
-  int <- any(grepl("\\d", object))
-  if(tick & int){
-    o <- "ambiguous"
-  } else if(tick){
-    o <- "tick"
-  } else if(int){
-    o <- "integer"
-  } else {
-    o <- "unknown"
-  }
-
-  cat(col1("<Noteworthy string>\n  Timesteps: "), steps, " (",
-      nnote, " ", paste0("note", ifelse(nnote == 1, "", "s")), ", ",
-      nchord, " ", paste0("chord", ifelse(nchord == 1, "", "s"), ")"),
-      col1("\n  Octaves: "), o,
-      col1("\n  Accidentals: "), a,
-      col1("\n  Format: "), format, col1("\n  Values: "), .tabr_print(x, col1), sep = "")
+#' @export
+#' @rdname valid-notes
+pretty_notes <- function(notes, ignore_octave = TRUE){
+  .check_noteworthy(notes)
+  if(ignore_octave) notes <- .pitch_to_note(notes)
+  gsub("_", "b", toupper(notes))
 }
 
 .tabr_print <- function(x, col1){
   notes <- crayon::make_style("dodgerblue")$bold
   oct <- crayon::make_style("dodgerblue")
   other <- crayon::make_style("orange2")
-
   idx <- is_chord(x)
   if(any(idx)) x[idx] <- paste0("<", x[idx], ">")
   x <- paste(x, collapse = " ")

@@ -7,6 +7,7 @@
 \alias{noteworthy}
 \alias{is_diatonic}
 \alias{as_noteworthy}
+\alias{pretty_notes}
 \title{Check note and chord validity}
 \usage{
 is_note(x)
@@ -18,6 +19,8 @@ noteworthy(x)
 is_diatonic(x, key = "c")
 
 as_noteworthy(x)
+
+pretty_notes(notes, ignore_octave = TRUE)
 }
 \arguments{
 \item{x}{character, space-delimited entries or a vector of single, non-delimited entries.}
@@ -55,6 +58,7 @@ x <- as_noteworthy(x)
 x
 
 summary(x)
+pretty_notes(x)
 }
 \seealso{
 \code{\link{note_in_scale}}, \code{\link{chord_is_diatonic}}
