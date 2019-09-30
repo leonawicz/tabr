@@ -486,7 +486,19 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="chord-filter.html">chord_root()</a></code> <code><a href="chord-filter.html">chord_top()</a></code> <code><a href="chord-filter.html">chord_slice()</a></code> </p>
+        </td>
+        <td><p>Extract notes from chords</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="chord_is_diatonic.html">chord_is_diatonic()</a></code> </p>
+        </td>
+        <td><p>Check if a chord is diatonic</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="chord_is_major.html">chord_is_major()</a></code> <code><a href="chord_is_major.html">chord_is_minor()</a></code> </p>
         </td>
         <td><p>Check if a chord is diatonic</p></td>
       </tr><tr>
@@ -530,19 +542,31 @@
       <tr>
         <th colspan="2">
           <h2 id="section-note-and-pitch-helpers" class="hasAnchor"><a href="#section-note-and-pitch-helpers" class="anchor"></a>Note and pitch helpers</h2>
-          <p class="section-desc"><p>Functions for manipulating simple note and pitch strings</p></p>
+          <p class="section-desc"><p>Functions for manipulating noteworthy strings</p></p>
         </th>
       </tr>
       <tr>
         
         <td>
-          <p><code><a href="note-helpers.html">note_is_natural()</a></code> <code><a href="note-helpers.html">note_is_accidental()</a></code> <code><a href="note-helpers.html">note_is_flat()</a></code> <code><a href="note-helpers.html">note_is_sharp()</a></code> <code><a href="note-helpers.html">naturalize()</a></code> <code><a href="note-helpers.html">sharpen_flat()</a></code> <code><a href="note-helpers.html">flatten_sharp()</a></code> <code><a href="note-helpers.html">note_set_key()</a></code> <code><a href="note-helpers.html">note_rotate()</a></code> <code><a href="note-helpers.html">note_shift()</a></code> <code><a href="note-helpers.html">note_arpeggiate()</a></code> <code><a href="note-helpers.html">pretty_notes()</a></code> </p>
+          <p><code><a href="note_is_natural.html">note_is_natural()</a></code> <code><a href="note_is_natural.html">note_is_accidental()</a></code> <code><a href="note_is_natural.html">note_is_flat()</a></code> <code><a href="note_is_natural.html">note_is_sharp()</a></code> <code><a href="note_is_natural.html">naturalize()</a></code> <code><a href="note_is_natural.html">sharpen_flat()</a></code> <code><a href="note_is_natural.html">flatten_sharp()</a></code> <code><a href="note_is_natural.html">note_set_key()</a></code> </p>
         </td>
-        <td><p>Note and pitch helpers</p></td>
+        <td><p>Note naturalness and keys</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="valid-notes.html">is_note()</a></code> <code><a href="valid-notes.html">is_chord()</a></code> <code><a href="valid-notes.html">noteworthy()</a></code> <code><a href="valid-notes.html">is_diatonic()</a></code> <code><a href="valid-notes.html">as_noteworthy()</a></code> </p>
+          <p><code><a href="note-metadata.html">n_steps()</a></code> <code><a href="note-metadata.html">n_notes()</a></code> <code><a href="note-metadata.html">n_chords()</a></code> <code><a href="note-metadata.html">n_octaves()</a></code> <code><a href="note-metadata.html">tally_notes()</a></code> <code><a href="note-metadata.html">tally_pitches()</a></code> <code><a href="note-metadata.html">tally_octaves()</a></code> <code><a href="note-metadata.html">distinct_notes()</a></code> <code><a href="note-metadata.html">distinct_pitches()</a></code> <code><a href="note-metadata.html">distinct_octaves()</a></code> <code><a href="note-metadata.html">pitch_range()</a></code> <code><a href="note-metadata.html">semitone_range()</a></code> <code><a href="note-metadata.html">octave_range()</a></code> <code><a href="note-metadata.html">octave_type()</a></code> <code><a href="note-metadata.html">accidental_type()</a></code> <code><a href="note-metadata.html">time_format()</a></code> </p>
+        </td>
+        <td><p>Noteworthy string metadata</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="note_rotate.html">note_rotate()</a></code> <code><a href="note_rotate.html">note_shift()</a></code> <code><a href="note_rotate.html">note_arpeggiate()</a></code> </p>
+        </td>
+        <td><p>Rotate, shift and arpeggiate notes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="valid-notes.html">is_note()</a></code> <code><a href="valid-notes.html">is_chord()</a></code> <code><a href="valid-notes.html">noteworthy()</a></code> <code><a href="valid-notes.html">is_diatonic()</a></code> <code><a href="valid-notes.html">as_noteworthy()</a></code> <code><a href="valid-notes.html">pretty_notes()</a></code> </p>
         </td>
         <td><p>Check note and chord validity</p></td>
       </tr><tr>
@@ -551,6 +575,12 @@
           <p><code><a href="note-equivalence.html">note_is_equal()</a></code> <code><a href="note-equivalence.html">note_is_identical()</a></code> <code><a href="note-equivalence.html">pitch_is_equal()</a></code> <code><a href="note-equivalence.html">pitch_is_identical()</a></code> <code><a href="note-equivalence.html">octave_is_equal()</a></code> <code><a href="note-equivalence.html">octave_is_identical()</a></code> </p>
         </td>
         <td><p>Note, pitch and chord equivalence</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="pitch_freq.html">pitch_freq()</a></code> <code><a href="pitch_freq.html">freq_pitch()</a></code> </p>
+        </td>
+        <td><p>Pitch-frequency conversion</p></td>
       </tr>
     </tbody><tbody>
       <tr>

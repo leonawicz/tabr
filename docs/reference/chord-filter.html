@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Check note and chord validity — valid-notes • tabr</title>
+<title>Extract notes from chords — chord-filter • tabr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -44,10 +44,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Check note and chord validity — valid-notes" />
-<meta property="og:description" content="Check whether a string is comprised exclusively of valid note and/or chord substring syntax.
-is_note and is_chord are vectorized and their positive results are mutually exclusive.
-noteworthy is also vectorized and performs both checks, but it returns a scalar logical result indicating whether the entire set contains exclusively valid entries." />
+<meta property="og:title" content="Extract notes from chords — chord-filter" />
+<meta property="og:description" content="Filter or slice chords to extract individual notes." />
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -206,87 +204,59 @@ noteworthy is also vectorized and performs both checks, but it returns a scalar 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Check note and chord validity</h1>
-    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/notes.R'><code>R/notes.R</code></a></small>
-    <div class="hidden name"><code>valid-notes.Rd</code></div>
+    <h1>Extract notes from chords</h1>
+    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/chords.R'><code>R/chords.R</code></a></small>
+    <div class="hidden name"><code>chord-filter.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Check whether a string is comprised exclusively of valid note and/or chord substring syntax.
-<code>is_note</code> and <code>is_chord</code> are vectorized and their positive results are mutually exclusive.
-<code>noteworthy</code> is also vectorized and performs both checks, but it returns a scalar logical result indicating whether the entire set contains exclusively valid entries.</p>
+    <p>Filter or slice chords to extract individual notes.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>is_note</span>(<span class='no'>x</span>)
+    <pre class="usage"><span class='fu'>chord_root</span>(<span class='no'>chords</span>)
 
-<span class='fu'>is_chord</span>(<span class='no'>x</span>)
+<span class='fu'>chord_top</span>(<span class='no'>chords</span>)
 
-<span class='fu'>noteworthy</span>(<span class='no'>x</span>)
-
-<span class='fu'>is_diatonic</span>(<span class='no'>x</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>)
-
-<span class='fu'>as_noteworthy</span>(<span class='no'>x</span>)
-
-<span class='fu'>pretty_notes</span>(<span class='no'>notes</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+<span class='fu'>chord_slice</span>(<span class='no'>chords</span>, <span class='no'>index</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>character, space-delimited entries or a vector of single, non-delimited entries.</p></td>
+      <th>chords</th>
+      <td><p>character, a noteworthy string, may include individual notes and chords.</p></td>
     </tr>
     <tr>
-      <th>key</th>
-      <td><p>character, key signature.</p></td>
+      <th>index</th>
+      <td><p>integer, the order of a note in a chord by pitch (not scale degrees).</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>logical</p>
+    <p>a noteworthy string</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>as_noteworthy</code> can be used to coerce to the <code>noteworthy</code> class. Coercion will fail if the string is not noteworthy.
-Using the <code>noteworthy</code> class is generally not needed by the user during an interactive session, but is available and offers its own <code>print</code> and <code>summary</code> methods for noteworthy strings.
-It is more likely to be used by other functions and functions that output a noteworthy string generally attach the noteworthy class.</p>
-<p><code>is_diatonic</code> performs a vectorized logical check on a <code>noteworthy</code> string for all notes and chords.
-To check strictly notes or chords, see <code><a href='scale-deg.html'>note_in_scale</a></code> and <code><a href='chord_is_diatonic.html'>chord_is_diatonic</a></code>.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='scale-deg.html'>note_in_scale</a></code>, <code><a href='chord_is_diatonic.html'>chord_is_diatonic</a></code></p></div>
+    <p>These functions extract notes from chords such as the root note, the highest pitch, specific position among the notes by pitch, or trim chords to simplify them.
+They operate based only on ordered pitches.</p>
+<p>For <code>chord_slice</code>, any entry that is empty after slicing is dropped. An error is thrown is <code>index</code> is completely out of bounds for all chords.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"a# b_ c, d'' e3 g_4 A m c2e_2g2 cegh"</span>
-<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/strsplit.html'>strsplit</a></span>(<span class='no'>x</span>, <span class='st'>" "</span>)<span class='kw'>[[</span><span class='fl'>1</span>]],
-  <span class='kw'>note</span> <span class='kw'>=</span> <span class='fu'>is_note</span>(<span class='no'>x</span>),
-  <span class='kw'>chord</span> <span class='kw'>=</span> <span class='fu'>is_chord</span>(<span class='no'>x</span>),
-  <span class='kw'>either</span> <span class='kw'>=</span> <span class='fu'>noteworthy</span>(<span class='no'>x</span>))</div><div class='output co'>#&gt;          x  note chord either
-#&gt; 1       a#  TRUE FALSE  FALSE
-#&gt; 2       b_  TRUE FALSE  FALSE
-#&gt; 3       c,  TRUE FALSE  FALSE
-#&gt; 4      d''  TRUE FALSE  FALSE
-#&gt; 5       e3  TRUE FALSE  FALSE
-#&gt; 6      g_4  TRUE FALSE  FALSE
-#&gt; 7        A FALSE FALSE  FALSE
-#&gt; 8        m FALSE FALSE  FALSE
-#&gt; 9  c2e_2g2 FALSE  TRUE  FALSE
-#&gt; 10    cegh FALSE FALSE  FALSE</div><div class='input'>
-<span class='fu'>is_diatonic</span>(<span class='st'>"ace ac#e d e_"</span>, <span class='st'>"c"</span>)</div><div class='output co'>#&gt; [1]  TRUE FALSE  TRUE FALSE</div><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"a# b_ c,~ c, d'' e3 g_4 c2e_2g2"</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as_noteworthy</span>(<span class='no'>x</span>)
-<span class='no'>x</span></div><div class='output co'>#&gt; <span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"a2 ceg e_gc egc,cc'"</span>
+<span class='fu'>chord_root</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>a#</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>,</span><span style='color: #BBBB00;'>~</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #00BBBB;'>''</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e</span><span style='color: #00BBBB;'>3</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>g_</span><span style='color: #00BBBB;'>4</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>2</span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>2</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>2</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
-#&gt;   Timesteps: </span><span>8 (7 notes, 1 chord)</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Octaves: </span><span>ambiguous</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Accidentals: </span><span>both/ambiguous</span><span style='color: #555555;font-weight: bold;'>
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #00BBBB;'>2</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>,</span><span></div><div class='input'><span class='fu'>chord_top</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>a#</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>,</span><span style='color: #BBBB00;'>~</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #00BBBB;'>''</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e</span><span style='color: #00BBBB;'>3</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>g_</span><span style='color: #00BBBB;'>4</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>2</span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>2</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>2</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>pretty_notes</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #00BBBB;'>2</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>g</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>g</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>'</span><span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='fu'>chord_slice</span>(<span class='no'>x</span>, <span class='fl'>1</span>), <span class='fu'>chord_root</span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>chord_slice</span>(<span class='no'>x</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span>A</span><span style='color: #00BBBB;font-weight: bold;'>#</span><span> B</span><span style='color: #00BBBB;font-weight: bold;'>b</span><span> C</span><span style='color: #BBBB00;'>~</span><span> C D E G</span><span style='color: #00BBBB;font-weight: bold;'>b</span><span> CE</span><span style='color: #00BBBB;font-weight: bold;'>b</span><span>G</div></span></pre>
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>e</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span></div><div class='input'><span class='fu'>chord_slice</span>(<span class='no'>x</span>, <span class='fl'>4</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>g</span><span></div><div class='input'><span class='fu'>chord_slice</span>(<span class='no'>x</span>, <span class='fl'>3</span>:<span class='fl'>5</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>g</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>g</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>egc</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'>
+<span class='fu'><a href='chord-compare.html'>chord_order</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 4 1 2 3</div><div class='input'><span class='fu'><a href='chord-compare.html'>chord_order</a></span>(<span class='no'>x</span>, <span class='st'>"mean"</span>)</div><div class='output co'>#&gt; [1] 1 4 3 2</div><div class='input'><span class='fu'><a href='chord-compare.html'>chord_sort</a></span>(<span class='no'>x</span>, <span class='st'>"mean"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #00BBBB;'>2</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>egc</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>cc</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>e_gc</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>ceg</span><span style='color: #BBBB00;'>&gt;</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -294,7 +264,6 @@ To check strictly notes or chords, see <code><a href='scale-deg.html'>note_in_sc
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#details">Details</a></li>
-      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
