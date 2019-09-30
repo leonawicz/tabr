@@ -9,6 +9,7 @@
 \alias{sharpen_flat}
 \alias{flatten_sharp}
 \alias{note_set_key}
+\alias{pretty_notes}
 \title{Note naturalness and keys}
 \usage{
 note_is_natural(notes)
@@ -27,6 +28,8 @@ sharpen_flat(notes, ignore_octave = FALSE)
 flatten_sharp(notes, ignore_octave = FALSE)
 
 note_set_key(notes, key = "c")
+
+pretty_notes(notes, ignore_octave = TRUE)
 }
 \arguments{
 \item{notes}{character, a noteworthy string, space-delimited or vector of individual entries.}
@@ -64,4 +67,5 @@ naturalize(x)
 naturalize(x, "sharp")
 sharpen_flat(x)
 flatten_sharp(x)
+pretty_notes(x)
 }

@@ -173,6 +173,7 @@ time_format <- function(notes){
 #' naturalize(x, "sharp")
 #' sharpen_flat(x)
 #' flatten_sharp(x)
+#' pretty_notes(x)
 note_is_natural <- function(notes){
   .check_note(notes)
   sapply(.uncollapse(notes), .pitch_natural, USE.NAMES = FALSE)
@@ -239,6 +240,14 @@ note_set_key <- function(notes, key = "c"){
   .keycheck(key)
   if(key_is_natural(key)) return(notes)
   Recall(notes, .keydata$sf[.keydata$key == key])
+}
+
+#' @export
+#' @rdname note_is_natural
+pretty_notes <- function(notes, ignore_octave = TRUE){
+  .check_noteworthy(notes)
+  if(ignore_octave) notes <- .pitch_to_note(notes)
+  gsub("_", "b", toupper(notes))
 }
 
 #' Rotate, shift and arpeggiate notes
@@ -379,7 +388,6 @@ note_arpeggiate <- function(notes, n = 0, ...){
 #' x
 #'
 #' summary(x)
-#' pretty_notes(x)
 is_note <- function(x){
   x <- .uncollapse(x)
   y1 <- grepl("[a-grs]", x) & !grepl("[h-qt-zA-Z]", x)
@@ -489,15 +497,6 @@ summary.noteworthy <- function(object, ...){
       col1("\n  Accidentals: "), a$accidentals,
       col1("\n  Format: "), a$format, col1("\n  Values: "),
       .tabr_print(.uncollapse(as.character(object)), col1), sep = "")
-}
-
-
-#' @export
-#' @rdname valid-notes
-pretty_notes <- function(notes, ignore_octave = TRUE){
-  .check_noteworthy(notes)
-  if(ignore_octave) notes <- .pitch_to_note(notes)
-  gsub("_", "b", toupper(notes))
 }
 
 .tabr_print <- function(x, col1){
