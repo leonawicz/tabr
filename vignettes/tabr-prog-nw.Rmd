@@ -19,13 +19,13 @@ knitr::opts_chunk$set(
 library(tabr)
 ```
 
-The central focus of `tabr` is the creation of guitar tablature and sheet music, but the package also provides a number of functions to support music programming more generally. Like the more focused music transcription-related functions, these functions also use `tabr` syntax so that they can still be leveraged for music transcription support, but their utility is not specific to transcription.
+`tabr` provides a music notation syntax system represented in R code and a collection of music programming functions for generating, manipulating, organizing and analyzing musical information structures in R. While other packages focus on working with acoustic data more generally, `tabr` provides a framework for creating and working with musical data in a common music notation format. The package offers functions for mapping between pitch and other quantities like frequency and wavelength, but the main purpose is to manipulate musical information in notation form. Music programming in the notation syntax provided by `tabr` can be used for a variety of purposes, but it also integrates cohesively with the package's transcription functions.
 
 ## Noteworthy strings
 
-Before exploring these functions, it is worth introducing an important concept that is expressed throughout `tabr`: noteworthiness. Prior to construction of `phrase` class objects that can be passed to LilyPond for sheet music engraving, you start out with simple character strings. These strings contain letters representing musical notes, and possibly some other characters that indicate such things as sharps and flats, octave number, and rests.
+Before exploring many of the music programming functions in the package, it is worth introducing an important concept that is expressed throughout `tabr`: noteworthiness. Prior to construction of `phrase` class objects that can be passed to LilyPond for sheet music engraving, you start out with simple character strings. These strings contain letters representing musical notes, and possibly some other characters that indicate such things as sharps and flats, octave number, and rests.
 
-There are a number of requirements strings must meet to have valid `tabr` syntax that can be transformed meaningfully and unambiguously into LilyPond syntax. In `tabr` parlance, a string is considered *noteworthy* if it meets all of these requirements that differentiate from arbitrary character strings.
+There are a number of requirements strings must meet to have valid `tabr` music notation syntax that can be transformed meaningfully and unambiguously into LilyPond syntax. A string is considered *noteworthy* if it meets all of these requirements that differentiate it from arbitrary character strings.
 
 There is no need to attach a special class to a character string to explicitly differentiate noteworthy strings from ordinary strings in R, though such a class exists (see below). It is fine to work with strings as usual and ignore this class. However, it is important to be familiar with the requirements of a noteworthy string so that you can construct them properly.
 
