@@ -1,8 +1,8 @@
 ---
-title: "Basic example"
+title: "Transcription overview"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Basic example}
+  %\VignetteIndexEntry{Transcription overview}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -18,6 +18,8 @@ knitr::opts_chunk$set(
 )
 library(tabr)
 ```
+
+Rendering sheet music is based on building up pieces of musical information culminating in a score. The fundamental object to consider in the transcription context is a phrase. A phrase is created from a noteworthy string and incorporates additional information, most importantly time and rhythm. It can also include positional information such as the instrument string on which a note is played. Outside of rendering tabs, there is no reason to construct phrase objects. Everything from the phrase object on up is about using the R to LilyPond pipeline to render some kind of sheet music document.
 
 A good place to start is with a simple, reproducible example that outlines the basic flow from small, succinct musical phrases, which combine to form tracks, in turn combined into a score, and ending with engraving the score to familiar sheet music. The brief example below recreates the single measure of guitar tablature shown in the `tabr` logo. Here are the steps as a list.
 

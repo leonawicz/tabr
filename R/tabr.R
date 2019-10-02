@@ -1,15 +1,16 @@
 globalVariables(".data")
 
-#' tabr: Guitar tablature and sheet music engraving.
+#' tabr: Music notation syntax, manipulation, analysis and transcription in R.
 #'
-#' The \code{tabr} package provides a collection of music programming functions for generating, manipulating and organizing musical structures and information.
-#' You can create guitar tablature ("tabs") from R code with \code{tabr}.
-#' The package provides programmatic music notation and a wrapper around LilyPond <http://lilypond.org/> for creating quality guitar tablature.
+#' The \code{tabr} package provides a music notation syntax system represented in R code and a collection of music programming functions for
+#' generating, manipulating, organizing and analyzing musical information structures in R.
+#' The package also provides API wrapper functions for transcribing musical representations in R into guitar tablature ("tabs") using the 'LilyPond' backend <http://lilypond.org>.
 #'
 #' LilyPond is an open source music engraving program for generating high quality sheet music based on markup syntax.
-#' \code{tabr} generates files following the LilyPond markup syntax to be subsequently processed by LilyPond into sheet music.
-#' A standalone LilyPond (.ly) file can be created or the package can make a system call to LilyPond directly to render the guitar tablature output (pdf or png).
-#' While LilyPond caters to sheet music in general, \code{tabr} is focused on leveraging it specifically for creating quality guitar tablature.
+#' \code{tabr} generates LilyPond files from R code and can pass them to LilyPond to be rendered into sheet music pdf files from R.
+#'
+#' While LilyPond caters to sheet music in general and \code{tabr} can be used to create basic sheet music,
+#' the transcription functions focus on leveraging LilyPond specifically for creating quality guitar tablature.
 #'
 #' \code{tabr} offers a useful but limited LilyPond API and is not intended to access all LilyPond functionality from R,
 #' nor is transcription via the API the entire scope of \code{tabr}.
@@ -19,7 +20,6 @@ globalVariables(".data")
 #' \code{tabr} provides the ability to do so in R and has the added benefit of converting what you write in R code to the LilyPond file format to be rendered as printable guitar tablature.
 #'
 #' While LilyPond is listed as a system requirement for \code{tabr}, you can use many of its functions without installing LilyPond if you do not intend to render tabs.
-#'
 #'
 #' @docType package
 #' @name tabr

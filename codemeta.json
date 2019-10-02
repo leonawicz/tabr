@@ -5,8 +5,8 @@
   ],
   "@type": "SoftwareSourceCode",
   "identifier": "tabr",
-  "description": "Creates guitar tablature from R code by providing functions for describing and organizing musical structures and wrapping around the 'LilyPond' backend (<http://lilypond.org>).\n    'LilyPond' is open source music engraving software for generating high quality sheet music based on markup language. 'tabr' provides a wrapper around this\n    software and generates files following the 'LilyPond' markup syntax to be subsequently processed by 'LilyPond' into sheet music pdf files.\n    A standalone 'LilyPond' file can be created or the package can make a system call to 'LilyPond' directly to render the guitar tablature output.\n    While 'LilyPond' caters to sheet music in general, 'tabr' is focused on leveraging it specifically for creating quality guitar tablature.\n    'tabr' offers nominal MIDI file support in addition to its focus on tablature transcription. See the 'tuneR' package for more general use of MIDI files in R.\n    'tabr' also provides a collection of helper functions for manipulating and transforming strings of musical notes, pitches, chords, keys, scales and modes.",
-  "name": "tabr: Create Guitar Tablature",
+  "description": "Provides a music notation syntax system represented in R code and a collection of music programming functions for \n    generating, manipulating, organizing and analyzing musical information structures in R.\n    The package also provides API wrapper functions for transcribing musical representations in R into guitar tablature (\"tabs\") using the 'LilyPond' backend (<http://lilypond.org>).\n    'LilyPond' is open source music engraving software for generating high quality sheet music based on markup syntax. \n    'tabr' generates 'LilyPond' files from R code and can pass them to 'LilyPond' to be rendered into sheet music pdf files from R.\n    While 'LilyPond' caters to sheet music in general and 'tabr' can be used to create basic sheet music, \n    the transcription functions focus on leveraging 'LilyPond' specifically for creating quality guitar tablature.\n    The package offers nominal MIDI file output support in conjunction with rendering tablature output. See the 'tuneR' package for more general use of MIDI files in R.",
+  "name": "tabr: Music Notation Syntax, Manipulation, Analysis and Transcription in R",
   "codeRepository": "https://github.com/leonawicz/tabr",
   "issueTracker": "https://github.com/leonawicz/tabr/issues",
   "license": "https://spdx.org/licenses/MIT",
@@ -226,6 +226,6 @@
     "music-notation"
   ],
   "relatedLink": "https://CRAN.R-project.org/package=tabr",
-  "fileSize": "274.382KB",
+  "fileSize": "275.419KB",
   "developmentStatus": "http://www.repostatus.org/#active"
 }

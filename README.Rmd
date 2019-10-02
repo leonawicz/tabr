@@ -29,15 +29,31 @@ knitr::opts_chunk$set(
 
 ## Overview <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/tabr_logo.png?raw=true" width=320 style="float:right;margin-left:10px;width:320px;">
 
-The `tabr` package provides a collection of music programming functions for generating, manipulating and organizing musical structures and information. You can create guitar tablature ("tabs") from R code with `tabr`. The package provides programmatic music notation and a wrapper around [LilyPond](http://lilypond.org/) for creating quality guitar tablature.
+The `tabr` package provides a music notation syntax system represented in R code and a collection of music programming functions for generating, manipulating, organizing and analyzing musical information structures in R. The package also provides API wrapper functions for transcribing musical representations in R into guitar tablature ("tabs") using [LilyPond](http://lilypond.org/).
 
-LilyPond is an open source music engraving program for generating high quality sheet music based on markup syntax. `tabr` generates files following the LilyPond markup syntax to be subsequently processed by LilyPond into sheet music. A standalone LilyPond (.ly) file can be created or the package can make a system call to LilyPond directly to render the guitar tablature output (pdf or png). While LilyPond caters to sheet music in general, `tabr` is focused on leveraging it specifically for creating quality guitar tablature.
-
-`tabr` offers a useful but limited LilyPond API and is not intended to access all LilyPond functionality from R, nor is transcription via the API the entire scope of `tabr`. If you are only creating sheet music on a case by case basis, write your own LilyPond files manually. There is no need to use `tabr` or limit yourself to its existing LilyPond API. If you are generating music notation programmatically, `tabr` provides the ability to do so in R and has the added benefit of converting what you write in R code to the LilyPond file format to be rendered as printable guitar tablature.
+LilyPond is an open source music engraving program for generating high quality sheet music based on markup syntax. `tabr` generates LilyPond files from R code and can pass them to LilyPond to be rendered into sheet music pdf files from R. While LilyPond caters to sheet music in general and `tabr` can be used to create basic sheet music, the transcription functions focus on leveraging LilyPond specifically for creating quality guitar tablature.
 
 While LilyPond is listed as a system requirement for `tabr`, you can use many of its functions without installing LilyPond if you do not intend to render tabs.
 
-## Functionality and support
+### Use case considerations
+
+`tabr` offers a useful but limited LilyPond API and is not intended to access all LilyPond functionality from R, nor is transcription via the API the entire scope of `tabr`. If you are only creating sheet music on a case by case basis, write your own LilyPond files manually. There is no need to use `tabr` or limit yourself to its existing LilyPond API or it's guitar tablature focus.
+
+However, if you are generating music notation programmatically, `tabr` provides the ability to do so in R and offers the added benefit of converting what you write in R code to the LilyPond file format to be rendered as printable sheet music.
+
+With ongoing development, the music programming side of `tabr` will likely continue to grow much more than the transcription functionality.
+
+### Why LilyPond for transcription?
+
+LilyPond is an exceptional sheet music engraving program.
+
+* It produces professional, high quality output. 
+* It is open source.
+* It offers a command line access point for a programmatic approach to music notation. 
+* It is developed and utilized by a large community. 
+* Most GUI-based applications are WYSIWYG and force a greater limitation on what you can do and what it will look like after you do it. It is only for the better that `tabr` is the bottleneck in transcription limitations rather than the music engraving software it wraps around.
+
+### Functionality and support
 
 The `tabr` package offers the following:
 
@@ -78,7 +94,36 @@ You can install tabr from GitHub with:
 remotes::install_github("leonawicz/tabr")
 ```
 
-## Basic example
+## Noteworthy strings
+
+As a quick introduction and to get oriented to the music notation syntax offered by `tabr`, consider the concept of a noteworthy string. This is like any other character string, except that what makes a string noteworthy is that its content consists strictly of valid `tabr` music notation syntax. It can be parsed unambiguously and meaningfully into a musical phrase (see next section) and can be processed as input to the various package functions that inspect and manipulate musical information.
+
+A simple character string like `"c e g"`, or alternatively as a vector, `c("c", "e", "g")`, is a noteworthy string. Even `"a"` is noteworthy. So are `"a#"` and `"a_"` (sharp and flat). However, `"A"` is not, nor is `"Z"`. There are other pieces of valid syntax than just the lowercase letters `a` through `g` and sharp and flat notation. See the package vignettes for details.
+
+Noteworthiness can be checked and applies to any simple character string. No supplemental class is required. When defining noteworthy strings you can define them like any other character vector. However, you will notice that package functions which operate on noteworthy strings and whose output is another noteworthy string will yield a string with the supplemental `noteworthy` class. This has its own print and summary methods. If you remove the class with a common R operation like `as.character()`, it does not impact any subsequent musical manipulation beyond the need to reperform a noteworthy check.
+
+```{r nw}
+x <- "g#4 c5 d#5 g#4c5d#5"
+as_noteworthy(x)
+
+is_note(x)
+is_chord(x)
+chord_is_major(x)
+(x <- transpose(x, 1))
+
+summary(x)
+
+distinct_pitches(x)
+distinct_pitches(x) %>% pitch_freq() # in Hz
+```
+
+`tabr` offers many functions for manipulating musical structures defined in music notation. See the vignettes for more information on music programming.
+
+## Basic transcription example
+
+Rendering sheet music is based on building up pieces of musical information culminating in a score. The fundamental object to consider in the transcription context is a phrase. A phrase is created from a noteworthy string and incorporates additional information, most importantly time and rhythm. It can also include positional information such as the instrument string on which a note is played. Outside of rendering tabs, there is no reason to construct phrase objects. Everything from the phrase object on up is about using the R to LilyPond pipeline to render some kind of sheet music document.
+
+If you doing music analysis on noteworthy strings and are combining the note, pitch or chord information with time, that can be done with a corresponding variable; using a phrase object is not the way to do that because phrase objects are intended for the construction of LilyPond markup syntax.
 
 As a brief example, recreate the tablature shown in the image above (minus the R logo). Here are the steps.
 
@@ -89,7 +134,7 @@ As a brief example, recreate the tablature shown in the image above (minus the R
 
 The code is shown below, but first some context.
 
-## Constructing a musical phrase
+### Constructing a musical phrase
 
 A phrase here does not require a strict definition. Think of it as the smallest piece of musical structure you intend to string together. The first argument to `phrase` is a string describing notes of a specific pitch (or rests: "r"), separated in time by spaces. For chords, just remove spaces to indicate simultaneous notes. Integers are appended to indicate the octave number so that the pitch is unambiguous. For example, a rest followed by a sequence of notes might be given by `notes = "r a2 c3 f3 d3 a3 f3"`.
 
@@ -101,13 +146,13 @@ The example below employs a couple shortcuts to further reduce typing. The first
 
 While explicit string numbers are not needed for this example, they are provided anyway for full context. Dropping the `string` argument would further reduce typing.
 
-## Score metadata and accessing LilyPond
+### Score metadata and accessing LilyPond
 
 Finally, specify some song metadata to reproduce the original staff: the key of D minor, common time, and the tempo.
 
 If LilyPond is installed on your system (and added to your system path variable on Windows systems), `tab` should call it successfully. Windows users are recommended to just add LilyPond's `bin` directory to the system path. This will take care of LilyPond as well as its bundled Python and MIDI support. As an example for Windows users, if the LilyPond executable is at `C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe`, then add `C:/Program Files (x86)/LilyPond/usr/bin` to the system path.
 
-## R code
+### R code
 
 ```{r opts, echo=FALSE}
 library(tabr)
@@ -150,16 +195,6 @@ sfp("r;r;4 5;0;8 3 4;3; 0 3;2; 4;3;")
 It may not look particularly beneficial here, but for more complex music it can be easier to reason about the phrase under construction when using this format to bind information by time step rather. See `?sf_phrase` for a comparison with `phrase` and the various ways you can do phrase construction in `tabr` for equivalent results.
 
 Note above that `tabr` also exports the pipe `%>%` operator. Even given the hierarchy of objects involved in the series of steps to move from a phrase to a rendered pdf, a short example like this does not even require a single assignment. While music can be quite complex and a full score will be much longer, `tabr` strives to minimize the work while still forcing some sense of interpretable, organized structure. For long and complex music, it can require some effort and practice to ensure your approach to transcription in your R code is not opaque.
-
-## Why LilyPond for transcription?
-
-LilyPond is an exceptional sheet music engraving program.
-
-* It produces professional, high quality output. 
-* It is open source.
-* It offers a command line access point for a programmatic approach to music notation. 
-* It is developed and utilized by a large community. 
-* Most GUI-based applications are WYSIWYG and force a greater limitation on what you can do and what it will look like after you do it.
 
 ## References and resources
 
