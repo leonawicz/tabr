@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Check if a chord is diatonic — chord_is_major • tabr</title>
+<title>Check if a chord is major or minor — chord_is_major • tabr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -44,8 +44,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Check if a chord is diatonic — chord_is_major" />
-<meta property="og:description" content="Check whether a chord is diatonic in a given key." />
+<meta property="og:title" content="Check if a chord is major or minor — chord_is_major" />
+<meta property="og:description" content="Check if a chord is major or minor where possible." />
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -204,13 +204,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Check if a chord is diatonic</h1>
+    <h1>Check if a chord is major or minor</h1>
     <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/chords.R'><code>R/chords.R</code></a></small>
     <div class="hidden name"><code>chord_is_major.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Check whether a chord is diatonic in a given key.</p>
+    <p>Check if a chord is major or minor where possible.</p>
     </div>
 
     <pre class="usage"><span class='fu'>chord_is_major</span>(<span class='no'>chords</span>)
@@ -235,9 +235,9 @@
 They do not recognize what a human might interpret and name an inverted chord with a root other than the lowest pitch.
 This imposes limitations on the utility of these functions,
 which scan the intervals for a minor or major third in a chord whose notes are sorted by pitch.</p>
-<p>In several cases including single notes or no major or minor interval present, <code>NA</code> is returned.
+<p>In several cases including single notes or no major or minor third interval present, <code>NA</code> is returned.
 <code>TRUE</code> or <code>FALSE</code> is only returned if such an interval is present. If more than one is present, it is based on the lowest in pitch.
-It prioritizes major/minor and minor/major adjacent intervals. If these do not occur adjacent, it select the lowest third.
+It prioritizes major/minor and minor/major adjacent intervals (recognizing a common triad). If these do not occur adjacent, the lowest third is selected.
 This is still imperfect, but a useful method. Second and higher unknown chord inversions are problematic.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

@@ -250,9 +250,11 @@ pretty_notes <- function(notes, ignore_octave = TRUE){
   gsub("_", "b", toupper(notes))
 }
 
-#' Rotate, shift and arpeggiate notes
+#' Slice, rotate, shift and arpeggiate notes
 #'
-#' Helper functions for moving notes within noteworthy strings.
+#' Helper functions for indexing and moving notes within noteworthy strings.
+#'
+#' \code{note_slice} subsets the time steps of a noteworthy string by integer index or logical vector of length equal to the number of time steps.
 #'
 #' \code{note_rotate} simply rotates anything space-delimited or vectorized in place. It allows chords. Octave numbering is ignored if present.
 #'
@@ -267,18 +269,42 @@ pretty_notes <- function(notes, ignore_octave = TRUE){
 #'
 #' @param notes character, a noteworthy string, space-delimited or vector of individual entries.
 #' @param n integer, degree of rotation.
-#' @param ... additional arguments to \code{transpose}, specifically \code{key} and \code{style}.
+#' @param ... For \code{note_slice}, an integer or logical vector. See details. For \code{note_arpeggiate}, additional arguments to \code{transpose}, specifically \code{key} and \code{style}.
 #'
 #' @return character
 #' @export
 #'
 #' @examples
 #' x <- "e_2 a_, c#f#a#"
+#' note_slice(x, 2:3)
+#' note_slice(x, c(FALSE, TRUE, TRUE))
+#'
 #' note_rotate(x, 1)
+#'
 #' note_shift("c e g", 1)
 #' note_shift("c e g", -4)
+#'
 #' note_arpeggiate("c e g", 5)
 #' note_arpeggiate("c e g", -5)
+note_slice <- function(notes, ...){
+  .check_noteworthy(notes)
+  x <- .uncollapse(notes)
+  idx <- c(...)
+  if(!is.logical(idx) & !is.numeric(idx))
+    stop("Must provide integer or logical vector index to slice `notes`.", call. = FALSE)
+  if(is.logical(idx) & length(idx) != length(x))
+    stop("Logical vector must be same length as the number of time steps in `notes`.",
+         call. = FALSE)
+  if(is.numeric(idx)) idx <- as.integer(idx)
+  x <- x[idx]
+  x <- x[!is.na(x)]
+  if(!length(x)) stop("Index out of bounds.", call. = FALSE)
+  if(length(notes) == 1) x <- paste0(x, collapse = " ")
+  .asnw(x)
+}
+
+#' @export
+#' @rdname note_slice
 note_rotate <- function(notes, n = 0){
   .check_noteworthy(notes)
   x <- .uncollapse(notes)
@@ -292,7 +318,7 @@ note_rotate <- function(notes, n = 0){
 }
 
 #' @export
-#' @rdname note_rotate
+#' @rdname note_slice
 note_shift <- function(notes, n = 0){
   .check_note(notes)
   if(n == 0) return(notes)
@@ -323,7 +349,7 @@ note_shift <- function(notes, n = 0){
 }
 
 #' @export
-#' @rdname note_rotate
+#' @rdname note_slice
 note_arpeggiate <- function(notes, n = 0, ...){
   .check_note(notes)
   if(n == 0) return(notes)
@@ -483,7 +509,7 @@ print.noteworthy <- function(x, ...){
   } else {
     format <- "vectorized time"
   }
-  cat(col1("<Noteworthy string>\n  Format: "), format, col1("\n  Values: "), .tabr_print(x, col1), sep = "")
+  cat(col1("<Noteworthy string>\n  Format: "), format, col1("\n  Values: "), .tabr_print(x, col1), "\n", sep = "")
 }
 
 #' @export

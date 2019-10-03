@@ -23,11 +23,12 @@ library(tabr)
 
 There are a number of functions that assist with music programming around note and pitch validation, comparison, equivalence checking, and various manipulations and transformations. In a previous section, you saw `is_note` and `is_chord`. Other identity functions include:
 
-* note_is_natural
-* note_is_accidental
-* note_is_flat
-* note_is_sharp
-* is_diatonic
+* `note_is_natural`
+* `note_is_accidental`
+* `note_is_flat`
+* `note_is_sharp`
+* `is_diatonic`
+* `chord_is_major`, `chord_is_minor`
 
 ```{r notes1}
 x <- "c e_ g b_"
@@ -47,7 +48,7 @@ is_diatonic(x, "b_")
 
 ## Coercion of accidentals
 
-Note that it is common for functions like this to treat notes as different if they sound the same but one is transcribed as a flat and the other as a sharp. `tabr` does focus on transcription and this is an important distinction to make wherever necessary. Other functions such as `transpose` of course handle pitch as pitch and therefore the style of representation does not affect computation. 
+Note that it is common for functions to treat notes as different if they sound the same but one is transcribed as a flat and the other as a sharp. `tabr` makes the distinction for notation purposes; same pitch, different notes. This also supports transcription. Functions like `transpose` of course handle pitch as pitch and therefore the style of representation does not affect computation.
 
 There are functions for enforcing a singular representation for accidentals in noteworthy strings since it is unusual to mix flats and sharps.
 
@@ -74,7 +75,7 @@ note_set_key(x, "g") # key of G has a sharp
 
 The intent is not to force notes which may not be diatonic to the key signature to fit that signature. All pitches remain exactly what they are. It does not matter if they are not in the key. But they are forced to conform to a key's representation of accidentals.
 
-Of course, for many other functions in `tabr`, `key` arguments utilize the specific key signature in a more complete manner, and the options `flat` and `sharp` are not relevant or allowed.
+For other functions in `tabr`, `key` arguments utilize the specific key signature in a more complete manner, and the options `flat` and `sharp` are not relevant or allowed.
 
 ## Comparative equivalence
 
@@ -139,12 +140,27 @@ octave_is_identical(x, y)
 octave_is_identical(x, y, single_octave = TRUE)
 ```
 
-## Rotate, shift, arpeggiate
+## Slice, rotate, shift, arpeggiate
 
-Rotating or cycling a sequence of notes and chords in a noteworthy string is done with `note_rotate`. This is a simple function. It only rotates the sequence left or right. It does not do any transposition. It does not break chords, but rather rotates them intact.
+A noteworthy string can be subset by index. This can with specific integers or with a logical vector with the same length as the number of time steps.
 
 ```{r notes10}
 x <- "a b ceg"
+note_slice(x, 2:3)
+note_slice(x, c(FALSE, TRUE, TRUE))
+```
+
+Vectorized time is more trivial but is of course handled the same way and still applies the noteworthiness check and class assignment.
+
+```{r notes11}
+x <- c("a", "b", "ceg")
+note_slice(x, 2:3)
+note_slice(x, c(FALSE, TRUE, TRUE))
+```
+
+Rotating or cycling a sequence of notes and chords in a noteworthy string is done with `note_rotate`. This is a simple function. It only rotates the sequence left or right. It does not do any transposition. It does not break chords, but rather rotates them intact.
+
+```{r notes12}
 note_rotate(x, 1)
 note_rotate(x, -1)
 ```
@@ -153,14 +169,14 @@ note_rotate(x, -1)
 
 This function is intended for use on strings of notes that are already ordered by increasing pitch. However, if applied to a sequence of unordered notes, the sequence will eventually become ordered if `n` is large enough, because each shift transposes the current lowest note by however many full octaves necessary to be above the current highest note and as close to it as possible.
 
-```{r notes11}
+```{r notes13}
 note_shift("c e g", 1)
 note_shift("c e g", -4)
 ```
 
 `note_arpeggiate` is like `note_shift` but it extends the original note sequence rather than shifting it and maintaining its fixed size. `n` refers to the number of additional notes to append to the sequence. The length of the final sequence is the length of the original sequence plus `n`.
 
-```{r notes12}
+```{r notes14}
 note_arpeggiate("c e g", 5)
 note_arpeggiate("c e g", -5)
 ```

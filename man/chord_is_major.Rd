@@ -3,7 +3,7 @@
 \name{chord_is_major}
 \alias{chord_is_major}
 \alias{chord_is_minor}
-\title{Check if a chord is diatonic}
+\title{Check if a chord is major or minor}
 \usage{
 chord_is_major(chords)
 
@@ -16,7 +16,7 @@ chord_is_minor(chords)
 logical vector
 }
 \description{
-Check whether a chord is diatonic in a given key.
+Check if a chord is major or minor where possible.
 }
 \details{
 These functions operate based only on ordered pitches.
@@ -24,9 +24,9 @@ They do not recognize what a human might interpret and name an inverted chord wi
 This imposes limitations on the utility of these functions,
 which scan the intervals for a minor or major third in a chord whose notes are sorted by pitch.
 
-In several cases including single notes or no major or minor interval present, \code{NA} is returned.
+In several cases including single notes or no major or minor third interval present, \code{NA} is returned.
 \code{TRUE} or \code{FALSE} is only returned if such an interval is present. If more than one is present, it is based on the lowest in pitch.
-It prioritizes major/minor and minor/major adjacent intervals. If these do not occur adjacent, it select the lowest third.
+It prioritizes major/minor and minor/major adjacent intervals (recognizing a common triad). If these do not occur adjacent, the lowest third is selected.
 This is still imperfect, but a useful method. Second and higher unknown chord inversions are problematic.
 }
 \examples{

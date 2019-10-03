@@ -91,7 +91,7 @@ reference:
   contents:
   - note_is_natural
   - note-metadata
-  - note_rotate
+  - note_slice
   - valid-notes
   - note-equivalence
   - pitch_freq

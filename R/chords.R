@@ -271,10 +271,6 @@ chord_sort <- function(chords, pitch = c("min", "mean", "max"), decreasing = FAL
 #' chord_slice(x, 2)
 #' chord_slice(x, 4)
 #' chord_slice(x, 3:5)
-#'
-#' chord_order(x)
-#' chord_order(x, "mean")
-#' chord_sort(x, "mean")
 chord_root <- function(chords){
   .check_noteworthy(chords)
   x <- .uncollapse(chords)
@@ -319,18 +315,18 @@ chord_slice <- function(chords, index){
   .asnw(x)
 }
 
-#' Check if a chord is diatonic
+#' Check if a chord is major or minor
 #'
-#' Check whether a chord is diatonic in a given key.
+#' Check if a chord is major or minor where possible.
 #'
 #' These functions operate based only on ordered pitches.
 #' They do not recognize what a human might interpret and name an inverted chord with a root other than the lowest pitch.
 #' This imposes limitations on the utility of these functions,
 #' which scan the intervals for a minor or major third in a chord whose notes are sorted by pitch.
 #'
-#' In several cases including single notes or no major or minor interval present, \code{NA} is returned.
+#' In several cases including single notes or no major or minor third interval present, \code{NA} is returned.
 #' \code{TRUE} or \code{FALSE} is only returned if such an interval is present. If more than one is present, it is based on the lowest in pitch.
-#' It prioritizes major/minor and minor/major adjacent intervals. If these do not occur adjacent, it select the lowest third.
+#' It prioritizes major/minor and minor/major adjacent intervals (recognizing a common triad). If these do not occur adjacent, the lowest third is selected.
 #' This is still imperfect, but a useful method. Second and higher unknown chord inversions are problematic.
 #'
 #' @param chords character, a noteworthy string.

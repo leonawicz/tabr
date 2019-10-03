@@ -26,6 +26,10 @@ test_that("chord helpers return as expected", {
   expect_equal(chord_arpeggiate("ce_gb_", -2), as_noteworthy(c("ce_gb_", "b_2ce_g", "g2b_2ce_")))
   expect_equal(chord_arpeggiate("ce_gb_", 2, by = "chord"), as_noteworthy(c("ce_gb_", "c4e_4g4b_4", "c5e_5g5b_5")))
   expect_equal(chord_arpeggiate("ce_gb_", 1, broken = TRUE, collapse = TRUE), as_noteworthy("c e_ g b_ e_ g b_ c4"))
+
+  x <- "c cg, ce ce_ ceg ce_gb g,ce g,ce_ e_,g,c e_,g,ce_ e_,g,c"
+  expect_equal(chord_is_major(x), c(NA, NA, T, F, T, F, T, F, T, T, T))
+  expect_identical(chord_is_major(x), !chord_is_minor(x))
 })
 
 test_that("interval_semitones returns as expected", {
@@ -66,6 +70,27 @@ test_that("chord rank, order and sort work as expected", {
   expect_equal(chord_order(x), c(1, 3, 2, 4, 5, 6))
   expect_equal(chord_order(x, "mean"), c(1, 3, 2, 5, 4, 6))
   expect_equal(chord_sort(x, "mean") %>% as.character(), "a2 a2 c ce_g ceg cea")
+})
+
+test_that("chord root, topr and general slice work as expected", {
+  x <- "a2 ceg e_gc egc,cc'"
+  y <- strsplit(x, " ")[[1]]
+  a <- c("a2 c c c,", "a2 g g c'", "e e_ c", "g", "g g egc'")
+  b <- strsplit(a, " ")
+
+  expect_identical(chord_root(x), as_noteworthy(a[1]))
+  expect_identical(chord_top(x), as_noteworthy(a[2]))
+  expect_identical(chord_slice(x, 1), chord_root(x))
+  expect_identical(chord_slice(x, 2), as_noteworthy(a[3]))
+  expect_identical(chord_slice(x, 4), as_noteworthy(a[4]))
+  expect_identical(chord_slice(x, 3:5), as_noteworthy(a[5]))
+
+  expect_identical(chord_root(y), as_noteworthy(b[[1]]))
+  expect_identical(chord_top(y), as_noteworthy(b[[2]]))
+  expect_identical(chord_slice(y, 1), chord_root(y))
+  expect_identical(chord_slice(y, 2), as_noteworthy(b[[3]]))
+  expect_identical(chord_slice(y, 4), as_noteworthy(b[[4]]))
+  expect_identical(chord_slice(y, 3:5), as_noteworthy(b[[5]]))
 })
 
 test_that("chord constructors return as expected", {

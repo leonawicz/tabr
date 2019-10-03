@@ -38,8 +38,4 @@ identical(chord_slice(x, 1), chord_root(x))
 chord_slice(x, 2)
 chord_slice(x, 4)
 chord_slice(x, 3:5)
-
-chord_order(x)
-chord_order(x, "mean")
-chord_sort(x, "mean")
 }

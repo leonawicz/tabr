@@ -4,6 +4,17 @@ library(dplyr)
 
 test_that("note helpers return as expected", {
   notes <- "a b c,e_g' d# e_ f g"
+  expect_identical(note_slice(notes, c(2:3, 6)), as_noteworthy("b c,e_g' f"))
+  expect_identical(note_slice(notes, c(F, T, T, F, F, T, F)), as_noteworthy("b c,e_g' f"))
+  expect_identical(note_slice(notes, 6:8), as_noteworthy("f g"))
+  expect_identical(note_slice(strsplit(notes, " ")[[1]], 6:8), as_noteworthy(c("f", "g")))
+  expect_error(note_slice(notes, "a"),
+               "Must provide integer or logical vector index to slice `notes`.")
+  expect_error(note_slice(notes, F),
+               "Logical vector must be same length as the number of time steps in `notes`.")
+  expect_error(note_slice(notes, 8), "Index out of bounds.")
+
+  expect_identical(note_rotate(notes, 3), as_noteworthy("d# e_ f g a b c,e_g'"))
   expect_identical(note_rotate(notes, 0), notes)
   expect_identical(note_rotate(notes, 3), as_noteworthy("d# e_ f g a b c,e_g'"))
 
