@@ -80,29 +80,32 @@ test_that("note helpers return as expected", {
 
 test_that("Note metadata inspection works", {
   x <- "e_2 a_, c#f#a#"
-  expect_equal(n_steps(x), 3)
-  expect_equal(n_notes(x), 2)
-  expect_equal(n_chords(x), 1)
+  expect_identical(n_steps(x), 3L)
+  expect_identical(n_notes(x), 2L)
+  expect_identical(n_chords(x), 1L)
   expect_equal(octave_type(x), "ambiguous")
   expect_equal(accidental_type(x), "both/ambiguous")
   expect_equal(time_format(x), "space-delimited time")
 
   x <- "e_2 a_, b2 c c' c''g'' c''g'' c#f#a#"
-  expect_equal(n_steps(x), 8)
-  expect_equal(n_notes(x), 5)
-  expect_equal(n_chords(x), 3)
-  expect_equal(n_octaves(x), 4)
+  expect_identical(n_steps(x), 8L)
+  expect_identical(n_notes(x), 5L)
+  expect_identical(n_chords(x), 3L)
+  expect_identical(n_octaves(x), 4L)
 
   expect_equal(nrow(tally_notes(x)), 8)
   expect_equal(nrow(tally_pitches(x)), 10)
   expect_equal(nrow(tally_octaves(x)), 4)
-  expect_equal(length(distinct_notes(x)), 8)
-  expect_equal(length(distinct_pitches(x)), 10)
-  expect_equal(distinct_octaves(x), 2:5)
 
-  expect_equal(pitch_range(x), c("e_2", "g''"))
-  expect_equal(semitone_range(x), 40)
-  expect_equal(octave_range(x), c(2, 5))
+  expect_identical(n_notes(distinct_notes(x)), 8L)
+  expect_identical(n_notes(distinct_pitches(x)), 10L)
+  expect_identical(distinct_octaves(x), 2:5)
+
+  expect_identical(pitch_range(x), c("e_2", "g''"))
+  expect_identical(semitone_range(x), c(39L, 79L))
+  expect_identical(semitone_span(x), 40L)
+  expect_identical(octave_range(x), c(2L, 5L))
+  expect_identical(octave_span(x),3L)
 })
 
 test_that("note equivalence functions return as expected", {

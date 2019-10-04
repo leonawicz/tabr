@@ -43,9 +43,8 @@ modes <- function(mode = c("all", "major", "minor")){
 #' @export
 #' @rdname mode-helpers
 is_mode <- function(notes, ignore_octave = FALSE){
-  n <- length(notes)
-  if(!n %in% c(1, 7)) return(FALSE)
-  if(n == 1) notes <- strsplit(notes, " ")[[1]]
+  notes <- .uncollapse(notes)
+  if(length(notes) != 7) return(FALSE)
   key <- .pitch_to_note(notes[1])
   y <- sapply(modes(), mode_modern, key = key, ignore_octave = ignore_octave)
   for(i in 1:ncol(y)) if(identical(as.character(notes), y[, i])) return(TRUE)

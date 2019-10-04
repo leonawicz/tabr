@@ -2,6 +2,16 @@
 #'
 #' Inspect metadata for noteworthy strings.
 #'
+#' Returned object depends on the nature of the function. It can be integers, logical, character. Results can be a vector of equal length of a single value summary.
+#' \code{distinct_notes} and \code{distinct_pitches} filter a noteworthy string to its unique elements, respectively. These functions return another noteworthy string.
+#'
+#' The \code{n_*} functions give summary totals of the number of time steps, number of individual note (non-chord) time steps, number of chord time steps, and the number of distinct octaves present across time steps.
+#' Use the \code{tally_*} and \code{distinct_*} functions specifically for summaries of unique elements.
+#'
+#' \code{*_span} functions are just the size of a range, e.g., \code{semitone_range} and \code{semitone_span}.
+#'
+#' Functions pertaining to type or format of a noteworthy string provide information on how a particular string is defined, e.g. \code{time_format}.
+#'
 #' @param notes character, a noteworthy string, space-delimited or vector of individual entries.
 #'
 #' @return integer or character
@@ -24,7 +34,9 @@
 #'
 #' pitch_range(x)
 #' semitone_range(x)
+#' semitone_span(x)
 #' octave_range(x)
+#' octave_span(x)
 #'
 #' octave_type(x)
 #' accidental_type(x)
@@ -88,13 +100,17 @@ tally_octaves <- function(notes){
 #' @export
 #' @rdname note-metadata
 distinct_notes <- function(notes){
-  tally_notes(notes)$note
+  x <- tally_notes(notes)$note
+  if(time_format(notes) == "space-delimited time") x <- paste(x, collapse = " ")
+  .asnw(x)
 }
 
 #' @export
 #' @rdname note-metadata
 distinct_pitches <- function(notes){
-  tally_pitches(notes)$pitch
+  x <- tally_pitches(notes)$pitch
+  if(time_format(notes) == "space-delimited time") x <- paste(x, collapse = " ")
+  .asnw(x)
 }
 
 #' @export
@@ -106,21 +122,32 @@ distinct_octaves <- function(notes){
 #' @export
 #' @rdname note-metadata
 pitch_range <- function(notes){
-  x <- distinct_pitches(notes)
+  x <- .uncollapse(distinct_pitches(notes))
   if(length(x) == 1) c(x, x) else c(x[1], utils::tail(x, 1))
 }
 
 #' @export
 #' @rdname note-metadata
 semitone_range <- function(notes){
-  x <- pitch_range(notes)
-  pitch_interval(x[1], x[2])
+  pitch_semitones(pitch_range(notes))
+}
+
+#' @export
+#' @rdname note-metadata
+semitone_span <- function(notes){
+  diff(semitone_range(notes))
 }
 
 #' @export
 #' @rdname note-metadata
 octave_range <- function(notes){
   as.integer(range(distinct_octaves(notes)))
+}
+
+#' @export
+#' @rdname note-metadata
+octave_span <- function(notes){
+  diff(octave_range(notes))
 }
 
 #' @export

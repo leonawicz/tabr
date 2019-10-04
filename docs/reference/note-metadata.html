@@ -237,7 +237,11 @@
 
 <span class='fu'>semitone_range</span>(<span class='no'>notes</span>)
 
+<span class='fu'>semitone_span</span>(<span class='no'>notes</span>)
+
 <span class='fu'>octave_range</span>(<span class='no'>notes</span>)
+
+<span class='fu'>octave_span</span>(<span class='no'>notes</span>)
 
 <span class='fu'>octave_type</span>(<span class='no'>notes</span>)
 
@@ -257,6 +261,14 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>integer or character</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Returned object depends on the nature of the function. It can be integers, logical, character. Results can be a vector of equal length of a single value summary.
+<code>distinct_notes</code> and <code>distinct_pitches</code> filter a noteworthy string to its unique elements, respectively. These functions return another noteworthy string.</p>
+<p>The <code>n_*</code> functions give summary totals of the number of time steps, number of individual note (non-chord) time steps, number of chord time steps, and the number of distinct octaves present across time steps.
+Use the <code>tally_*</code> and <code>distinct_*</code> functions specifically for summaries of unique elements.</p>
+<p><code>*_span</code> functions are just the size of a range, e.g., <code>semitone_range</code> and <code>semitone_span</code>.</p>
+<p>Functions pertaining to type or format of a noteworthy string provide information on how a particular string is defined, e.g. <code>time_format</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"e_2 a_, c#f#a#"</span>
@@ -279,8 +291,12 @@
 #&gt;   octave     n
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span>      2     2
-#&gt; </span><span style='color: #555555;'>2</span><span>      3     3</div><div class='input'><span class='fu'>distinct_notes</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "c#" "e_" "f#" "a_" "a#"</div><div class='input'><span class='fu'>distinct_pitches</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "e_2" "a_," "c#"  "f#"  "a#" </div><div class='input'><span class='fu'>distinct_octaves</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 2 3</div><div class='input'>
-<span class='fu'>pitch_range</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "e_2" "a#" </div><div class='input'><span class='fu'>semitone_range</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 19</div><div class='input'><span class='fu'>octave_range</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 2 3</div><div class='input'>
+#&gt; </span><span style='color: #555555;'>2</span><span>      3     3</div><div class='input'><span class='fu'>distinct_notes</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>c#</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>f#</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a#</span><span></div><div class='input'><span class='fu'>distinct_pitches</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>2</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c#</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>f#</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a#</span><span></div><div class='input'><span class='fu'>distinct_octaves</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 2 3</div><div class='input'>
+<span class='fu'>pitch_range</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "e_2" "a#" </div><div class='input'><span class='fu'>semitone_range</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 39 58</div><div class='input'><span class='fu'>semitone_span</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 19</div><div class='input'><span class='fu'>octave_range</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 2 3</div><div class='input'><span class='fu'>octave_span</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 1</div><div class='input'>
 <span class='fu'>octave_type</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "ambiguous"</div><div class='input'><span class='fu'>accidental_type</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "both/ambiguous"</div><div class='input'><span class='fu'>time_format</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "space-delimited time"</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -288,6 +304,7 @@
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

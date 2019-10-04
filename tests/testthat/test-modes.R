@@ -9,8 +9,27 @@ test_that("mode helpers return as expected", {
   expect_equal(mode_aeolian("c#"), mode_modern("aeolian", "c#"))
   expect_equal(mode_locrian(), mode_modern("locrian"))
 
+  expect_equal(mode_ionian(collapse = TRUE),
+               mode_modern(collapse = TRUE))
+  expect_equal(mode_dorian(collapse = TRUE),
+               mode_modern("dorian", collapse = TRUE))
+  expect_equal(mode_phrygian(collapse = TRUE),
+               mode_modern("phrygian", collapse = TRUE))
+  expect_equal(mode_lydian(collapse = TRUE),
+               mode_modern("lydian", collapse = TRUE))
+  expect_equal(mode_mixolydian("b_", collapse = TRUE),
+               mode_modern("mixolydian", "b_", collapse = TRUE))
+  expect_equal(mode_aeolian("c#", collapse = TRUE),
+               mode_modern("aeolian", "c#", collapse = TRUE))
+  expect_equal(mode_locrian(collapse = TRUE), collapse = TRUE,
+               mode_modern("locrian", collapse = TRUE))
+
+  expect_false(is_mode("c d"))
+  expect_false(is_mode(c("c", "d")))
   expect_true(is_mode(mode_aeolian("b_")))
-  expect_true(is_mode(transpose(mode_ionian(collapse = T), 17, "f", style = "strip"), ignore_octave = TRUE))
+  expect_true(is_mode(transpose(
+    mode_ionian(collapse = T), 17, "f", style = "strip"
+    ), ignore_octave = TRUE))
   expect_true(!is_mode(transpose(mode_ionian(collapse = T), 17, style = "strip")))
 
   expect_error(mode_rotate("a"), "`notes` does not define a valid mode.")

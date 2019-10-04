@@ -5,6 +5,21 @@ test_that("frequency conversions return as expected", {
   y <- pitch_freq(x)
   expect_true(all(y - c(220, 329.6276, 440, 659.2551, 880) < 1e-4))
   expect_identical(as_noteworthy(x), freq_pitch(y, collapse = TRUE))
-  expect_error(pitch_freq(x, "h"), "Invalid `fixed_note`.")
-  expect_error(pitch_freq(x, fixed_freq = 0), "Invalid `fixed_freq`.")
+  expect_identical(pitch_semitones(x), c(57, 64, 69, 76, 81))
+  expect_true(all(abs(freq_semitones(y) - c(57, 64, 69, 76, 81)) < 0.0001))
+  expect_error(pitch_freq(x, 0), "Invalid `a4`.")
+
+  x <- c("a,, c, e, c,e_,g, ce_gb_ a'")
+  expect_error(pitch_freq(x), "Invalid note found.")
+
+  y <- chord_freq(x)
+  expect_is(y, "list")
+  expect_equal(as.numeric(sapply(y, length)), c(1, 1, 1, 3, 4, 1))
+
+  expect_equal(names(y), strsplit(x, " ")[[1]])
+
+  y <- chord_semitones(x)
+  expect_is(y, "list")
+  expect_equal(length(y), 6)
+  expect_equal(as.numeric(sapply(y, length)), c(1, 1, 1, 3, 4, 1))
 })

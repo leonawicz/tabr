@@ -14,7 +14,9 @@
 \alias{distinct_octaves}
 \alias{pitch_range}
 \alias{semitone_range}
+\alias{semitone_span}
 \alias{octave_range}
+\alias{octave_span}
 \alias{octave_type}
 \alias{accidental_type}
 \alias{time_format}
@@ -44,7 +46,11 @@ pitch_range(notes)
 
 semitone_range(notes)
 
+semitone_span(notes)
+
 octave_range(notes)
+
+octave_span(notes)
 
 octave_type(notes)
 
@@ -60,6 +66,17 @@ integer or character
 }
 \description{
 Inspect metadata for noteworthy strings.
+}
+\details{
+Returned object depends on the nature of the function. It can be integers, logical, character. Results can be a vector of equal length of a single value summary.
+\code{distinct_notes} and \code{distinct_pitches} filter a noteworthy string to its unique elements, respectively. These functions return another noteworthy string.
+
+The \code{n_*} functions give summary totals of the number of time steps, number of individual note (non-chord) time steps, number of chord time steps, and the number of distinct octaves present across time steps.
+Use the \code{tally_*} and \code{distinct_*} functions specifically for summaries of unique elements.
+
+\code{*_span} functions are just the size of a range, e.g., \code{semitone_range} and \code{semitone_span}.
+
+Functions pertaining to type or format of a noteworthy string provide information on how a particular string is defined, e.g. \code{time_format}.
 }
 \examples{
 x <- "e_2 a_, c#f#a#"
@@ -77,7 +94,9 @@ distinct_octaves(x)
 
 pitch_range(x)
 semitone_range(x)
+semitone_span(x)
 octave_range(x)
+octave_span(x)
 
 octave_type(x)
 accidental_type(x)
