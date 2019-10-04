@@ -24,7 +24,7 @@
 #'
 #' identical(as_noteworthy(x), freq_pitch(y, collapse = TRUE))
 pitch_freq <- function(notes, a4 = 440){
-  a4 * (2 ^ (1 / 12)) ^ pitch_semitones(notes)
+  a4 * (2 ^ (1 / 12)) ^ (pitch_semitones(notes) - 69)
 }
 
 #' @export
@@ -37,7 +37,7 @@ pitch_semitones <- function(notes){
 #' @export
 #' @name pitch_freq
 chord_freq <- function(notes, a4 = 440){
-  x <- lapply(chord_semitones(notes), function(x) a4 * (2 ^ (1 / 12)) ^ x)
+  x <- lapply(chord_semitones(notes), function(x) a4 * (2 ^ (1 / 12)) ^ (x - 69))
   stats::setNames(x, .uncollapse(notes))
 }
 
@@ -53,7 +53,7 @@ chord_semitones <- function(notes){
 #' @export
 #' @name pitch_freq
 freq_pitch <- function(freq, a4 = 440, collapse = FALSE, ...){
-  n <- round(freq_semitones(freq, a4))
+  n <- round(freq_semitones(freq, a4) - 69)
   x <- sapply(n, function(x, ...) transpose("a4", x, ...))
   if(collapse) x <- paste(x, collapse = " ")
   .asnw(x)
