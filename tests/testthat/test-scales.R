@@ -11,6 +11,8 @@ test_that("scales return as expected", {
   expect_equal(scale_minor(key = "dm", TRUE, TRUE) %>% as.character(), "d e f g a b_ c")
   expect_equal(scale_major(key = "d", TRUE) %>% as.character(), "d e f# g a b c#4")
 
+  expect_equal(scale_chromatic(root = "a", collapse = TRUE) %>% as.character(),
+               c("a2 a#2 b2 c c# d d# e f f# g g#"))
   expect_equal(scale_chromatic(root = "a", ignore_octave = TRUE) %>% as.character(),
                c("a",  "a#", "b",  "c",  "c#", "d",  "d#", "e",  "f",  "f#", "g",  "g#"))
 
@@ -24,6 +26,13 @@ test_that("scales return as expected", {
   expect_equal(length(modes()), 7)
   expect_equal(length(modes("major")), 3)
   expect_equal(length(modes("minor")), 4)
+
+  expect_error(scale_major("a#"), "`key` does not indicate a valid major key.")
+  expect_error(scale_minor("g_"), "`key` does not indicate a valid minor key.")
+  expect_error(scale_chromatic ("a_"),
+               "`root` is not one of: c c# d d# e f f# g g# a a# b")
+  expect_error(scale_chromatic ("c#", sharp = FALSE),
+               "`root` is not one of: c d_ d e_ e f g_ g a_ a b_ b")
 })
 
 test_that("other scale helpers return as expected", {
@@ -48,6 +57,10 @@ test_that("other scale helpers return as expected", {
   expect_error(scale_note(1, scale = "a"), err)
   expect_error(scale_note(0), "`deg` should be >= 1.")
   expect_error(chord_is_diatonic("ceg x"), "Invalid chord found.")
+
+  expect_error(note_in_scale(x), "Invalid note found.")
+  expect_identical(note_in_scale("c e_ g"), c(TRUE, FALSE, TRUE))
+  expect_identical(note_in_scale("c e_ g", "cm", "minor"), c(TRUE, TRUE, TRUE))
 })
 
 test_that("scale_chords returns as expected", {

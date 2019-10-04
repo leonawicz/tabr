@@ -51,19 +51,21 @@ cl <- "NULL"
 
 test_that("tab and lilypond functions run without error", {
   skip_on_appveyor()
+  include_midi <- if(!identical(Sys.getenv("NOT_CRAN"), "true")) FALSE else TRUE
+
   if(tabr_options()$lilypond != ""){
     expect_is(lilypond(x1, out[1]), cl)
     expect_is(lilypond(x1, basename(out[1]), path = tempdir()), cl)
-    expect_is(tab(x1, out[2]), cl)
-    expect_is(tab(x1, basename(out[2]), path = tempdir()), cl)
-    expect_is(tab(x1, out[3]), cl)
-    expect_is(tab(x1, basename(out[3]), path = tempdir()), cl)
+    expect_is(tab(x1, out[2], midi = include_midi), cl)
+    expect_is(tab(x1, basename(out[2]), midi = include_midi, path = tempdir()), cl)
+    expect_is(tab(x1, out[3], midi = include_midi), cl)
+    expect_is(tab(x1, basename(out[3]), midi = include_midi, path = tempdir()), cl)
 
     purrr::walk(x, ~expect_is(lilypond(.x, out[1]), cl))
-    purrr::walk(x, ~expect_is(tab(.x, out[2], details = FALSE), cl))
-    purrr::walk(x, ~expect_is(tab(.x, out[3], details = FALSE), cl))
+    purrr::walk(x, ~expect_is(tab(.x, out[2], midi = include_midi, details = FALSE), cl))
+    purrr::walk(x, ~expect_is(tab(.x, out[3], midi = include_midi, details = FALSE), cl))
 
-    expect_error(tab(x8, out[2], "d_m", details = FALSE), "Invalid key.")
+    expect_error(tab(x8, out[2], "d_m", midi = include_midi, details = FALSE), "Invalid key.")
 
     purrr::walk(keys(), ~expect_is(tab(x8, out[2], .x, "2/2", "4 = 110",
                   header = header, string_names = FALSE, paper = paper,
@@ -82,6 +84,9 @@ test_that("miditab and midily functions run without error", {
   if(tabr_options()$midi2ly != "" || identical(Sys.getenv("TRAVIS"), "true")){
     midi <- system.file("example.mid", package = "tabr")
     expect_is(midily(midi, out[1]), cl)
+    expect_is(midily(midi, out[1], key = "b_", absolute = TRUE, quantize = 8,
+                     explicit = TRUE, start_quant = 8, allow_tuplet = "8*2/3",
+                     details = TRUE, lyric = TRUE, path = "."), cl)
     expect_is(miditab(midi, out[2]), cl)
     expect_is(miditab(midi, out[3], details = FALSE), cl)
     unlink(cleanup)
