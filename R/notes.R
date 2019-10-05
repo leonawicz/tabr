@@ -297,13 +297,13 @@ note_set_key <- function(notes, key = "c"){
 #' @export
 #' @rdname note_is_natural
 as_tick_octaves <- function(notes){
-  as_noteworthy(notes, octave = "tick")
+  as_noteworthy(notes, octaves = "tick")
 }
 
 #' @export
 #' @rdname note_is_natural
 as_integer_octaves <- function(notes){
-  as_noteworthy(notes, octave = "integer")
+  as_noteworthy(notes, octaves = "integer")
 }
 
 #' @export
