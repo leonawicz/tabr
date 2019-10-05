@@ -45,7 +45,8 @@
   
 
 <meta property="og:title" content="Save score to LilyPond file — lilypond" />
-<meta property="og:description" content="Write a score to a LilyPond format (.ly) text file for later use by LilyPond or subsequent editing outside of R." />
+<meta property="og:description" content="Write a score to a LilyPond format (.ly) text file for later use by
+LilyPond or subsequent editing outside of R." />
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -210,7 +211,8 @@
     </div>
 
     <div class="ref-description">
-    <p>Write a score to a LilyPond format (<code>.ly</code>) text file for later use by LilyPond or subsequent editing outside of R.</p>
+    <p>Write a score to a LilyPond format (<code>.ly</code>) text file for later use by
+LilyPond or subsequent editing outside of R.</p>
     </div>
 
     <pre class="usage"><span class='fu'>lilypond</span>(<span class='no'>score</span>, <span class='no'>file</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>time</span> <span class='kw'>=</span> <span class='st'>"4/4"</span>, <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='st'>"2 = 60"</span>,
@@ -226,11 +228,13 @@
     </tr>
     <tr>
       <th>file</th>
-      <td><p>character, LilyPond output file ending in <code>.ly</code>. May include an absolute or relative path.</p></td>
+      <td><p>character, LilyPond output file ending in <code>.ly</code>. May
+include an absolute or relative path.</p></td>
     </tr>
     <tr>
       <th>key</th>
-      <td><p>character, key signature, e.g., <code>c</code>, <code>b_</code>, <code>f#m</code>, etc.</p></td>
+      <td><p>character, key signature, e.g., <code>c</code>, <code>b_</code>, <code>f#m</code>,
+etc.</p></td>
     </tr>
     <tr>
       <th>time</th>
@@ -242,15 +246,19 @@
     </tr>
     <tr>
       <th>header</th>
-      <td><p>a named list of arguments passed to the header of the LilyPond file. See details.</p></td>
+      <td><p>a named list of arguments passed to the header of the
+LilyPond file. See details.</p></td>
     </tr>
     <tr>
       <th>string_names</th>
-      <td><p>label strings at beginning of tab staff. <code>NULL</code> (default) for non-standard tunings only, <code>TRUE</code> or <code>FALSE</code> for force on or off completely.</p></td>
+      <td><p>label strings at beginning of tab staff. <code>NULL</code>
+(default) for non-standard tunings only, <code>TRUE</code> or <code>FALSE</code> for
+force on or off completely.</p></td>
     </tr>
     <tr>
       <th>paper</th>
-      <td><p>a named list of arguments for the LilyPond file page layout. See details.</p></td>
+      <td><p>a named list of arguments for the LilyPond file page layout.
+See details.</p></td>
     </tr>
     <tr>
       <th>endbar</th>
@@ -262,7 +270,9 @@
     </tr>
     <tr>
       <th>path</th>
-      <td><p>character, optional output directory prefixed to <code>file</code>, may be an absolute or relative path. If <code>NULL</code> (default), only <code>file</code> is used.</p></td>
+      <td><p>character, optional output directory prefixed to <code>file</code>,
+may be an absolute or relative path. If <code>NULL</code> (default), only
+<code>file</code> is used.</p></td>
     </tr>
     </table>
 
@@ -271,7 +281,8 @@
     <p>nothing returned; a file is written.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>All <code>header</code> list elements are character strings. The options for <code>header</code> include:</p><ul>
+    <p>All <code>header</code> list elements are character strings. The options for
+<code>header</code> include:</p><ul>
 <li><p><code>title</code></p></li>
 <li><p><code>subtitle</code></p></li>
 <li><p><code>composer</code></p></li>
@@ -286,7 +297,8 @@
 <li><p><code>tagline</code></p></li>
 </ul>
 
-<p>All <code>paper</code> list elements are numeric except <code>page_numbers</code>, which is logical. The options for <code>paper</code> include:</p><ul>
+<p>All <code>paper</code> list elements are numeric except <code>page_numbers</code>,
+which is logical. The options for <code>paper</code> include:</p><ul>
 <li><p><code>textheight</code></p></li>
 <li><p><code>linewidth</code></p></li>
 <li><p><code>indent</code></p></li>

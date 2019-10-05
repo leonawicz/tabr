@@ -224,7 +224,8 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>string</th>
-      <td><p>integer or as <code>tabr</code>-style character string, string numbers.</p></td>
+      <td><p>integer or as <code>tabr</code>-style character string, string
+numbers.</p></td>
     </tr>
     <tr>
       <th>fret</th>
@@ -236,7 +237,8 @@
     </tr>
     <tr>
       <th>mute</th>
-      <td><p>logical, whether to mute notes, typically a vector corresponding to <code>string</code> and <code>fret</code>.</p></td>
+      <td><p>logical, whether to mute notes, typically a vector corresponding
+to <code>string</code> and <code>fret</code>.</p></td>
     </tr>
     <tr>
       <th>label_size</th>
@@ -272,15 +274,18 @@
     </tr>
     <tr>
       <th>fret_range</th>
-      <td><p>fret limits, if not <code>NULL</code>, overrides limits derived from <code>fret</code>.</p></td>
+      <td><p>fret limits, if not <code>NULL</code>, overrides limits derived
+from <code>fret</code>.</p></td>
     </tr>
     <tr>
       <th>key</th>
-      <td><p>character, key signature, used to enforce type of accidentals when <code>labels = "notes"</code>.</p></td>
+      <td><p>character, key signature, used to enforce type of accidentals
+when <code>labels = "notes"</code>.</p></td>
     </tr>
     <tr>
       <th>tuning</th>
-      <td><p>explicit tuning, e.g., <code>"e, a, d g b e'"</code>, or a pre-defined tuning. See details.</p></td>
+      <td><p>explicit tuning, e.g., <code>"e, a, d g b e'"</code>, or a
+pre-defined tuning. See details.</p></td>
     </tr>
     <tr>
       <th>show_tuning</th>
@@ -294,8 +299,10 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function is under development and subject to change.</p>
-<p>Create a fretboard diagram ggplot object. Number of strings is derived from <code>tuning</code>.
-See <code><a href='tunings.html'>tunings</a></code> for pre-defined tunings and examples of explicit tunings.
+<p>Create a fretboard diagram ggplot object. Number of strings is derived from
+<code>tuning</code>.
+See <code><a href='tunings.html'>tunings</a></code> for pre-defined tunings and examples of explicit
+tunings.
 <code>tuning</code> affects point labels when <code>labels = "notes"</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -305,13 +312,14 @@ See <code><a href='tunings.html'>tunings</a></code> for pre-defined tunings and 
 <span class='no'>fill</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"white"</span>, <span class='st'>"black"</span>)[<span class='no'>idx</span>]
 <span class='no'>lab_col</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"black"</span>, <span class='st'>"white"</span>)[<span class='no'>idx</span>]
 <span class='no'>mute</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>TRUE</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>FALSE</span>, <span class='fl'>5</span>))
-<span class='fu'>fretboard_plot</span>(<span class='fl'>6</span>:<span class='fl'>1</span>, <span class='no'>am_frets</span>, <span class='st'>"notes"</span>, <span class='no'>mute</span>, <span class='kw'>label_color</span> <span class='kw'>=</span> <span class='no'>lab_col</span>, <span class='kw'>point_fill</span> <span class='kw'>=</span> <span class='no'>fill</span>)</div><div class='img'><img src='fretboard_plot-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>fretboard_plot</span>(<span class='fl'>6</span>:<span class='fl'>1</span>, <span class='no'>am_frets</span>, <span class='st'>"notes"</span>, <span class='no'>mute</span>, <span class='kw'>label_color</span> <span class='kw'>=</span> <span class='no'>lab_col</span>,
+               <span class='kw'>point_fill</span> <span class='kw'>=</span> <span class='no'>fill</span>)</div><div class='img'><img src='fretboard_plot-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># moveable chord</span>
-<span class='fu'>fretboard_plot</span>(<span class='fl'>6</span>:<span class='fl'>1</span>, <span class='no'>am_frets</span>, <span class='kw'>mute</span> <span class='kw'>=</span> <span class='no'>mute</span>, <span class='kw'>point_fill</span> <span class='kw'>=</span> <span class='no'>fill</span>, <span class='kw'>fret_range</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>4</span>),
-  <span class='kw'>horizontal</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>show_tuning</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='fretboard_plot-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>fretboard_plot</span>(<span class='fl'>6</span>:<span class='fl'>1</span>, <span class='no'>am_frets</span>, <span class='kw'>mute</span> <span class='kw'>=</span> <span class='no'>mute</span>, <span class='kw'>point_fill</span> <span class='kw'>=</span> <span class='no'>fill</span>,
+               <span class='kw'>fret_range</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>4</span>), <span class='kw'>horizontal</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>show_tuning</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='fretboard_plot-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># scale shifting exercise</span>
 <span class='no'>string</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>6</span>, <span class='fl'>6</span>, <span class='fl'>6</span>, <span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>4</span>, <span class='fl'>4</span>, <span class='fl'>4</span>, <span class='fl'>4</span>, <span class='fl'>4</span>, <span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>)
-<span class='no'>fret</span> <span class='kw'>&lt;-</span> <span class='st'>"2 4 5 2 4 5 2 4 6 7 9 6 7 9 7 9 10 7 9 10"</span> <span class='co'># string input style accepted</span>
+<span class='no'>fret</span> <span class='kw'>&lt;-</span> <span class='st'>"2 4 5 2 4 5 2 4 6 7 9 6 7 9 7 9 10 7 9 10"</span> <span class='co'># string input accepted</span>
 <span class='fu'>fretboard_plot</span>(<span class='no'>string</span>, <span class='no'>fret</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='st'>"notes"</span>)</div><div class='img'><img src='fretboard_plot-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

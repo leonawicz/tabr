@@ -11,13 +11,15 @@ fretboard_plot(string, fret, labels = NULL, mute = FALSE,
   key = "c", tuning = "standard", show_tuning = FALSE)
 }
 \arguments{
-\item{string}{integer or as \code{tabr}-style character string, string numbers.}
+\item{string}{integer or as \code{tabr}-style character string, string
+numbers.}
 
 \item{fret}{integer or as \code{tabr}-style character string, fret numbers.}
 
 \item{labels}{character, optional text labels, must be one for every point.}
 
-\item{mute}{logical, whether to mute notes, typically a vector corresponding to \code{string} and \code{fret}.}
+\item{mute}{logical, whether to mute notes, typically a vector corresponding
+to \code{string} and \code{fret}.}
 
 \item{label_size}{numeric, size of fretted note labels.}
 
@@ -35,11 +37,14 @@ fretboard_plot(string, fret, labels = NULL, mute = FALSE,
 
 \item{left_handed}{logical, handedness orientation.}
 
-\item{fret_range}{fret limits, if not \code{NULL}, overrides limits derived from \code{fret}.}
+\item{fret_range}{fret limits, if not \code{NULL}, overrides limits derived
+from \code{fret}.}
 
-\item{key}{character, key signature, used to enforce type of accidentals when \code{labels = "notes"}.}
+\item{key}{character, key signature, used to enforce type of accidentals
+when \code{labels = "notes"}.}
 
-\item{tuning}{explicit tuning, e.g., \code{"e, a, d g b e'"}, or a pre-defined tuning. See details.}
+\item{tuning}{explicit tuning, e.g., \code{"e, a, d g b e'"}, or a
+pre-defined tuning. See details.}
 
 \item{show_tuning}{logical, show tuning of each string.}
 }
@@ -52,8 +57,10 @@ Create a fretboard diagram.
 \details{
 This function is under development and subject to change.
 
-Create a fretboard diagram ggplot object. Number of strings is derived from \code{tuning}.
-See \code{\link{tunings}} for pre-defined tunings and examples of explicit tunings.
+Create a fretboard diagram ggplot object. Number of strings is derived from
+\code{tuning}.
+See \code{\link{tunings}} for pre-defined tunings and examples of explicit
+tunings.
 \code{tuning} affects point labels when \code{labels = "notes"}.
 }
 \examples{
@@ -63,14 +70,15 @@ idx <- c(1, 1, 2, 2, 2, 1)
 fill <- c("white", "black")[idx]
 lab_col <- c("black", "white")[idx]
 mute <- c(TRUE, rep(FALSE, 5))
-fretboard_plot(6:1, am_frets, "notes", mute, label_color = lab_col, point_fill = fill)
+fretboard_plot(6:1, am_frets, "notes", mute, label_color = lab_col,
+               point_fill = fill)
 
 # moveable chord
-fretboard_plot(6:1, am_frets, mute = mute, point_fill = fill, fret_range = c(0, 4),
-  horizontal = TRUE, show_tuning = TRUE)
+fretboard_plot(6:1, am_frets, mute = mute, point_fill = fill,
+               fret_range = c(0, 4), horizontal = TRUE, show_tuning = TRUE)
 
 # scale shifting exercise
 string <- c(6, 6, 6, 5, 5, 5, 4, 4, 4, 4, 4, 3, 3, 3, 2, 2, 2, 1, 1, 1)
-fret <- "2 4 5 2 4 5 2 4 6 7 9 6 7 9 7 9 10 7 9 10" # string input style accepted
+fret <- "2 4 5 2 4 5 2 4 6 7 9 6 7 9 7 9 10 7 9 10" # string input accepted
 fretboard_plot(string, fret, labels = "notes")
 }

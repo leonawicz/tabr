@@ -39,9 +39,15 @@ character vector.
 Helper functions for key signature information.
 }
 \details{
-The \code{keys} function returns a vector of valid key signature IDs. These IDs are how key signatures are specified throughout \code{tabr}, including in the other helper functions here via \code{key}.
-Like the other functions here, \code{key_is_sharp} and \code{key_is_flat} are for \emph{key signatures}, not single pitches whose sharp or flat status is always self-evident from their notation.
-Major and minor keys are also self-evident from their notation, but \code{key_is_major} and \code{key_is_minor} can still be useful when programming.
+The \code{keys} function returns a vector of valid key signature IDs. These
+IDs are how key signatures are specified throughout \code{tabr}, including
+in the other helper functions here via \code{key}.
+Like the other functions here, \code{key_is_sharp} and \code{key_is_flat}
+are for \emph{key signatures}, not single pitches whose sharp or flat status
+is always self-evident from their notation.
+Major and minor keys are also self-evident from their notation, but
+\code{key_is_major} and \code{key_is_minor} can still be useful when
+programming.
 }
 \examples{
 keys()

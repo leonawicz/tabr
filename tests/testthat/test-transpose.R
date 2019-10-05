@@ -18,17 +18,23 @@ test_that("transpose returns as expected.", {
   expect_equal(tp(x[[2]], 13) %>% as.character(), "b4 c6 d6")
   expect_equal(tp(x[[3]], 2, key = "f") %>% as.character(), "b d_5 d5")
   expect_equal(tp(x[[3]], 2, key = "g") %>% as.character(), "b c#5 d5")
-  expect_equal(tp(x[[3]], 2, key = "g", style = "strip") %>% as.character(), "b c# d")
+  expect_equal(tp(x[[3]], 2, key = "g", style = "strip") %>%
+                 as.character(), "b c# d")
 
   expect_equal(tp("a b' c''", 2, key = "f") %>% as.character(), "b d_'' d''")
   expect_equal(tp("a b' c''", 2, key = "flat") %>% as.character(), "b d_'' d''")
   expect_equal(tp("a, b3 c'", 2, key = "g") %>% as.character(), "b, c#' d'")
-  expect_equal(tp("a2 b c4", 2, key = "sharp", style = "tick") %>% as.character(), "b, c#' d'")
+  expect_equal(tp("a2 b c4", 2, key = "sharp", style = "tick") %>%
+                 as.character(), "b, c#' d'")
 
-  expect_equal(tp("a b' c''", 2, key = "f", style = "integer") %>% as.character(), "b d_5 d5")
-  expect_equal(tp("a b' c''", 2, key = "flat", style = "integer") %>% as.character(), "b d_5 d5")
-  expect_equal(tp("a, b c'", 2, key = "g", style = "integer") %>% as.character(), "b2 c#4 d4")
-  expect_equal(tp("a, b c'", 2, key = "sharp", style = "integer") %>% as.character(), "b2 c#4 d4")
+  expect_equal(tp("a b' c''", 2, key = "f", style = "integer") %>%
+                 as.character(), "b d_5 d5")
+  expect_equal(tp("a b' c''", 2, key = "flat", style = "integer") %>%
+                 as.character(), "b d_5 d5")
+  expect_equal(tp("a, b c'", 2, key = "g", style = "integer") %>%
+                 as.character(), "b2 c#4 d4")
+  expect_equal(tp("a, b c'", 2, key = "sharp", style = "integer") %>%
+                 as.character(), "b2 c#4 d4")
 
   x <- as_noteworthy("r b2 c#4 s d4")
   y <- as_noteworthy("r b, c#' s d'")
@@ -36,13 +42,14 @@ test_that("transpose returns as expected.", {
   expect_equal(tp("r a, b s c4", 2, key = "sharp"), y)
   expect_equal(tp("r a, b s c'", 2, key = "g", "integer"), x)
   expect_equal(tp("r a, b s c4", 2, key = "sharp"), y)
-  expect_equal(tp("s a,~ a, b r c'~", 2, key = "g", "integer"), as_noteworthy("s b2~ b2 c#4 r d4~"))
+  expect_equal(tp("s a,~ a, b r c'~", 2, key = "g", "integer"),
+               as_noteworthy("s b2~ b2 c#4 r d4~"))
 
   x <- as_noteworthy("a' a# b_2 b~ b ceg c'e'g' ce3g c4e4g4 c,e2g, d_,e_ e_'")
-  expect_equal(transpose(x, 3, "flat"),
-               as_noteworthy("c'' d_' d_ d'~ d' e_gb_ e_'g'b_' e_gb_ e_'g'b_' e_,g,b_, e,g_ g_'"))
-  expect_equal(transpose(x, 3, style = "int"),
-               as_noteworthy("c5 c#4 c# d4~ d4 d#ga# d#4g4a#4 d#ga# d#4g4a#4 d#2g2a#2 e2f# f#4"))
+  y1 <- "c'' d_' d_ d'~ d' e_gb_ e_'g'b_' e_gb_ e_'g'b_' e_,g,b_, e,g_ g_'"
+  y2 <- "c5 c#4 c# d4~ d4 d#ga# d#4g4a#4 d#ga# d#4g4a#4 d#2g2a#2 e2f# f#4"
+  expect_equal(transpose(x, 3, "flat"), as_noteworthy(y1))
+  expect_equal(transpose(x, 3, style = "int"), as_noteworthy(y2))
 
   expect_equal(tp("r s", 1), as_noteworthy("r s"))
   expect_equal(tp("r a#, a", 1), as_noteworthy("r b, a#"))
@@ -51,5 +58,6 @@ test_that("transpose returns as expected.", {
   expect_error(tp("c0", -1), "`Negative octave number not allowed in `tabr`.")
   expect_error(tp("a.", 1), "Invalid notes or chords found.")
   expect_error(tp("a.. c", 1), "Invalid notes or chords found.")
-  expect_error(tp(p("a", 1)), "`notes` must be a noteworthy string, not a phrase object.")
+  expect_error(tp(p("a", 1)),
+               "`notes` must be a noteworthy string, not a phrase object.")
 })

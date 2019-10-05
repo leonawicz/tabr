@@ -1,8 +1,10 @@
 context("keys")
 
 test_that("key helpers return as expected", {
-  sharps <- c("g", "d", "a", "e", "b", "f#", "c#", "em", "bm", "f#m", "c#m", "g#m", "d#m", "a#m")
-  flats <- c("f", "b_", "e_", "a_", "d_", "g_", "c_", "dm", "gm", "cm", "fm", "b_m", "e_m", "a_m")
+  sharps <- c("g", "d", "a", "e", "b", "f#", "c#", "em", "bm", "f#m", "c#m",
+              "g#m", "d#m", "a#m")
+  flats <- c("f", "b_", "e_", "a_", "d_", "g_", "c_", "dm", "gm", "cm", "fm",
+             "b_m", "e_m", "a_m")
   expect_equal(keys(), .keydata$key)
   expect_equal(keys("sharp"), sharps)
   expect_equal(keys("flat"), flats)

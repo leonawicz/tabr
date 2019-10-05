@@ -224,7 +224,8 @@
     </tr>
     <tr>
       <th>tabstaff</th>
-      <td><p>integer, ID vector indicating the tablature staff for each track. See details.</p></td>
+      <td><p>integer, ID vector indicating the tablature staff for each
+track. See details.</p></td>
     </tr>
     </table>
 
@@ -233,13 +234,26 @@
     <p>a track table.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function appends multiple track tables into a single track table for preparation of generating a multi-track score.
-<code>tabstaff</code> is used to separate music staves in the sheet music/tablature output. A track's <code>voice</code> is used to separate distinct voices within a common music staff.</p>
-<p>If not provided, the <code>tabstaff</code> ID automatically propagates <code>1:n</code> for <code>n</code> tracks passed to <code>...</code> when binding these tracks together. This expresses the default assumption of one tab staff per track.
-This is the typical use case where each single <code>track</code> object being bound into a multi-<code>track</code> object is a fully separated track on its own staff.</p>
-<p>However, some tracks represent different voices that share the same staff. These should be assigned the same staff ID value, in which case you must provide the <code>tabstaff</code> argument.
-An error will be thrown if any two tracks have both the same <code>voice</code> and the same <code>tabstaff</code>. The pair must be unique. E.g., provide <code>tabstaff = c(1, 1)</code> when you have two tracks with <code>voice</code> equal to 1 and 2. See examples.</p>
-<p>Note that the actual ID values assigned to each track do not matter; only the order in which tracks are bound, first to last.</p>
+    <p>This function appends multiple track tables into a single track table for
+preparation of generating a multi-track score.
+<code>tabstaff</code> is used to separate music staves in the sheet
+music/tablature output. A track's <code>voice</code> is used to separate distinct
+voices within a common music staff.</p>
+<p>If not provided, the <code>tabstaff</code> ID automatically propagates <code>1:n</code>
+for <code>n</code> tracks passed to <code>...</code> when binding these tracks together.
+This expresses the default assumption of one tab staff per track.
+This is the typical use case where each single <code>track</code> object being
+bound into a multi-<code>track</code> object is a fully separated track on its own
+staff.</p>
+<p>However, some tracks represent different voices that share the same staff.
+These should be assigned the same staff ID value, in which case you must
+provide the <code>tabstaff</code> argument.
+An error will be thrown if any two tracks have both the same <code>voice</code>
+and the same <code>tabstaff</code>. The pair must be unique. E.g.,
+provide <code>tabstaff = c(1, 1)</code> when you have two tracks with <code>voice</code>
+equal to 1 and 2. See examples.</p>
+<p>Note that the actual ID values assigned to each track do not matter;
+only the order in which tracks are bound, first to last.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='st'>"c ec'g' ec'g'"</span>, <span class='st'>"4 4 2"</span>, <span class='st'>"5 432 432"</span>)

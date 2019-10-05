@@ -1,7 +1,8 @@
 #' Interval semitones
 #'
 #' Convert named intervals to numbers of semitones.
-#' For a complete list of valid interval names and abbreviations see \code{\link{mainIntervals}}.
+#' For a complete list of valid interval names and abbreviations see
+#' \code{\link{mainIntervals}}.
 #' \code{interval} may be a vector.
 #'
 #' @param interval character, interval ID. See details.
@@ -28,14 +29,21 @@ interval_semitones <- function(interval){
 #'
 #' Helper functions for musical intervals defined by two notes.
 #'
-#' Intervals are directional. \code{pitch_interval} returns the number of semitones defining the distance between two notes. The interval is negative if \code{note1} has higher pitch than \code{note2}.
-#' For \code{scale_interval}, a character string is returned that provides the named main interval, simple or compound, defined by  the two notes.
-#' This function will return \code{NA} for any uncommon interval not listed in \code{\link{mainIntervals}}.
+#' Intervals are directional. \code{pitch_interval} returns the number of
+#' semitones defining the distance between two notes. The interval is negative
+#' if \code{note1} has higher pitch than \code{note2}.
+#' For \code{scale_interval}, a character string is returned that provides the
+#' named main interval, simple or compound, defined by  the two notes.
+#' This function will return \code{NA} for any uncommon interval not listed in
+#' \code{\link{mainIntervals}}.
 #'
 #' @param note1 character, first note. Must be a single note.
 #' @param note2 character, second note.
-#' @param format character, format of the scale notation: major/minor/perfect, augmented/diminished, and respective abbreviations. See argument options in defaults.
-#' @param ignore_octave logical, reduce the interval to that defined by notes within a single octave.
+#' @param format character, format of the scale notation: major/minor/perfect,
+#' augmented/diminished, and respective abbreviations. See argument options in
+#' defaults.
+#' @param ignore_octave logical, reduce the interval to that defined by notes
+#' within a single octave.
 #' @param tuning character, string tuning.
 #'
 #' @return a musical interval, integer or character depending on the function.
@@ -67,7 +75,9 @@ pitch_interval <- function(note1, note2, ignore_octave = FALSE){
 
 #' @export
 #' @rdname interval-helpers
-scale_interval <- function(note1, note2, format = c("mmp_abb", "mmp", "ad_abb", "ad"), ignore_octave = FALSE){
+scale_interval <- function(note1, note2,
+                           format = c("mmp_abb", "mmp", "ad_abb", "ad"),
+                           ignore_octave = FALSE){
   format <- match.arg(format)
   semitones <- abs(pitch_interval(note1, note2, ignore_octave))
   d <- tabr::mainIntervals
@@ -80,7 +90,8 @@ scale_interval <- function(note1, note2, format = c("mmp_abb", "mmp", "ad_abb", 
 #' @rdname interval-helpers
 tuning_intervals <- function(tuning = "standard"){
   x <- strsplit(.map_tuning(tuning), " ")[[1]]
-  as.integer(c(0, cumsum(sapply(1:(length(x) - 1), function(i) pitch_interval(x[i], x[i + 1])))))
+  as.integer(c(0, cumsum(sapply(1:(length(x) - 1),
+                                function(i) pitch_interval(x[i], x[i + 1])))))
 }
 
 .octave_interval <- function(x1, x2, ignore_octave = FALSE){

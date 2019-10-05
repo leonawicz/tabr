@@ -258,7 +258,8 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>notes</th>
-      <td><p>character, a noteworthy string, space-delimited or vector of individual entries.</p></td>
+      <td><p>character, a noteworthy string, space-delimited or vector of
+individual entries.</p></td>
     </tr>
     </table>
 
@@ -267,12 +268,21 @@
     <p>integer or character</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Returned object depends on the nature of the function. It can be integers, logical, character. Results can be a vector of equal length of a single value summary.
-<code>distinct_notes</code> and <code>distinct_pitches</code> filter a noteworthy string to its unique elements, respectively. These functions return another noteworthy string.</p>
-<p>The <code>n_*</code> functions give summary totals of the number of time steps, number of individual note (non-chord) time steps, number of chord time steps, and the number of distinct octaves present across time steps.
-Use the <code>tally_*</code> and <code>distinct_*</code> functions specifically for summaries of unique elements.</p>
-<p><code>*_span</code> functions are just the size of a range, e.g., <code>semitone_range</code> and <code>semitone_span</code>.</p>
-<p>Functions pertaining to type or format of a noteworthy string provide information on how a particular string is defined, e.g. <code>time_format</code>.</p>
+    <p>Returned object depends on the nature of the function. It can be integers,
+logical, character. Results can be a vector of equal length of a single
+value summary.
+<code>distinct_notes</code> and <code>distinct_pitches</code> filter a noteworthy string
+to its unique elements, respectively. These functions return another
+noteworthy string.</p>
+<p>The <code>n_*</code> functions give summary totals of the number of time steps,
+number of individual note (non-chord) time steps, number of chord time
+steps, and the number of distinct octaves present across time steps.
+Use the <code>tally_*</code> and <code>distinct_*</code> functions specifically for
+summaries of unique elements.</p>
+<p><code>*_span</code> functions are just the size of a range, e.g.,
+<code>semitone_range</code> and <code>semitone_span</code>.</p>
+<p>Functions pertaining to type or format of a noteworthy string provide
+information on how a particular string is defined, e.g. <code>time_format</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"e_2 a_, c#f#a#"</span>

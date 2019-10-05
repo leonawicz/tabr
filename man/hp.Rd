@@ -7,7 +7,8 @@
 hp(...)
 }
 \arguments{
-\item{...}{character, note durations. Numeric is allowed for lists of single inputs. See examples.}
+\item{...}{character, note durations. Numeric is allowed for lists of single
+inputs. See examples.}
 }
 \value{
 character.
@@ -16,8 +17,10 @@ character.
 Helper function for generating hammer on and pull off syntax.
 }
 \details{
-This is especially useful for repeated instances. This function applies to general slur notation as well.
-Multiple input formats are allowed. Total number of note durations must be even because all slurs require start and stop points.
+This is especially useful for repeated instances. This function applies to
+general slur notation as well.
+Multiple input formats are allowed. Total number of note durations must be
+even because all slurs require start and stop points.
 }
 \examples{
 hp(16, 16)

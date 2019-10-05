@@ -28,37 +28,51 @@ notable(phrase)
 \arguments{
 \item{phrase}{phrase object or character string (candidate phrase).}
 
-\item{collapse}{logical, collapse result into a single string ready for phrase construction.}
+\item{collapse}{logical, collapse result into a single string ready for
+phrase construction.}
 }
 \value{
 see details for each function's purpose and return value.
 }
 \description{
-These helper functions add some validation checks for phrase and candidate phrase objects.
+These helper functions add some validation checks for phrase and candidate
+phrase objects.
 }
 \details{
-Use these functions with some caution. They are not intended for strictness and perfection.
-\code{phrasey} checks whether an object is weakly phrase-like and returns \code{TRUE} or \code{FALSE}.
-It can be used to safeguard against the most obvious cases of \code{phrase} not containing valid phrase syntax when programming.
+Use these functions with some caution. They are not intended for strictness
+and perfection.
+\code{phrasey} checks whether an object is weakly phrase-like and returns
+\code{TRUE} or \code{FALSE}.
+It can be used to safeguard against the most obvious cases of \code{phrase}
+not containing valid phrase syntax when programming.
 However, it may also be limiting. Use wear sensible.
 
-\code{as_phrase} coerces an object to a phrase object if possible. This function performs an internal \code{phrasey} check.
+\code{as_phrase} coerces an object to a phrase object if possible.
+This function performs an internal \code{phrasey} check.
 
-\code{notify} attempts to decompose a phrase object back to its original input vectors consisting of notes, note info, and optionally, instrument string numbering.
-If successful, it returns a tibble data frame with columns: \code{notes}, \code{info}, \code{string}.
+\code{notify} attempts to decompose a phrase object back to its original
+input vectors consisting of notes, note info, and optionally, instrument
+string numbering.
+If successful, it returns a tibble data frame with columns: \code{notes},
+\code{info}, \code{string}.
 
-Unless decomposing very simple phrases, this function is likely to reveal limitations.
-Complex phrase objects constructed originally with \code{phrase} can be challenging to deconstruct in a one to one manner.
+Unless decomposing very simple phrases, this function is likely to reveal
+limitations.
+Complex phrase objects constructed originally with \code{phrase} can be
+challenging to deconstruct in a one to one manner.
 Information may be lost, garbled, or the function may fail.
-For example, this function is not advanced enough to unravel repeat notation or handle arbitrary text notations attached to notes.
+For example, this function is not advanced enough to unravel repeat notation
+or handle arbitrary text notations attached to notes.
 
-\code{notable} returns \code{TRUE} or \code{FALSE} regarding whether a phrase can be converted back to character string inputs,
+\code{notable} returns \code{TRUE} or \code{FALSE} regarding whether a
+ phrase can be converted back to character string inputs,
  not necessarily with complete correctness, but without simple failure.
- It checks for phrasiness. Then it tries to call \code{notify} and returns \code{FALSE} gracefully if that call throws an exception.
+ It checks for phrasiness. Then it tries to call \code{notify} and returns
+ \code{FALSE} gracefully if that call throws an exception.
 }
 \examples{
 # Create a list of phrase objects
-p1 <- phrase("c ec'g' ec'g'", "4 4 2") # no explicit string specification (not recommended)
+p1 <- phrase("c ec'g' ec'g'", "4 4 2") # no string numbers (not recommended)
 p2 <- phrase("c ec4g4 ec4g4", "4 4 2") # same as above
 p3 <- phrase("c b, c", "4. 8( 8)", "5 5 5") # direction implies hammer on
 p4 <- phrase("b2 c d", "4( 4)- 2", "5 5 5") # hammer and slide
@@ -82,12 +96,14 @@ notable("a b x") # note: not constructible as a phrase in the first place
 d <- do.call(rbind, lapply(x, notify))
 d
 
-# Wrappers around notify that extract each component, default to collapsed strings
+# Wrappers around notify extract components, default to collapsed strings
 phrase_notes(p5)
 phrase_info(p5)
 phrase_strings(p5)
 
 # If phrase decomposition works well, coercion is one to one
-x2 <- lapply(x, function(x) p(phrase_notes(x), phrase_info(x), phrase_strings(x)))
+x2 <- lapply(x,
+  function(x) p(phrase_notes(x), phrase_info(x), phrase_strings(x))
+)
 identical(x, x2)
 }

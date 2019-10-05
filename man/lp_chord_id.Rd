@@ -25,9 +25,13 @@ character
 Obtain LilyPond quasi-chord notation.
 }
 \details{
-These functions take a \code{tabr} syntax representation of a chord name and convert it to quasi-LilyPond syntax;
-"quasi" because the result still uses \code{_} for flats and \code{#} for sharps, whereas LilyPond itself uses \code{es} and \code{is} (mostly).
-This is the format used by \code{tabr} functions involved in communicating with LilyPond for music transcription, and they make these final conversions on the fly.
+These functions take a \code{tabr} syntax representation of a chord name and
+convert it to quasi-LilyPond syntax;
+"quasi" because the result still uses \code{_} for flats and \code{#} for
+sharps, whereas LilyPond itself uses \code{es} and \code{is} (mostly).
+This is the format used by \code{tabr} functions involved in communicating
+with LilyPond for music transcription, and they make these final conversions
+on the fly.
 This can be overridden with \code{exact = TRUE}.
 }
 \examples{

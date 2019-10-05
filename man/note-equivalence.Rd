@@ -23,47 +23,74 @@ octave_is_equal(notes1, notes2)
 octave_is_identical(notes1, notes2, single_octave = FALSE)
 }
 \arguments{
-\item{notes1}{character, note string, space-delimited or vector of individual entries.}
+\item{notes1}{character, note string, space-delimited or vector of
+individual entries.}
 
-\item{notes2}{character, note string, space-delimited or vector of individual entries.}
+\item{notes2}{character, note string, space-delimited or vector of
+individual entries.}
 
-\item{ignore_octave}{logical, ignore octave position when considering equivalence.}
+\item{ignore_octave}{logical, ignore octave position when considering
+equivalence.}
 
-\item{single_octave}{logical, for octave equality, require all notes share the same octave. See details.}
+\item{single_octave}{logical, for octave equality, require all notes share
+the same octave. See details.}
 }
 \value{
 logical
 }
 \description{
-Helper functions to check the equivalence of two noteworthy strings, and other related functions.
+Helper functions to check the equivalence of two noteworthy strings, and
+other related functions.
 }
 \details{
-Noteworthy strings may contain notes, pitches and chords. Noteworthy strings are equal if they sound the same.
-This means that if one string contains Eb (\code{e_}) and the other contains D# (\code{d#}) then the two strings may be equal, but they are not identical.
+Noteworthy strings may contain notes, pitches and chords. Noteworthy strings
+are equal if they sound the same.
+This means that if one string contains Eb (\code{e_}) and the other contains
+D# (\code{d#}) then the two strings may be equal, but they are not identical.
 
-\code{pitch_is_equal} and \code{pitch_is_identical} perform these respective tests of equivalence on both notes and chords.
-These are the strictest functions in terms of equivalent sound because pitch includes the octave number.
+\code{pitch_is_equal} and \code{pitch_is_identical} perform these respective
+tests of equivalence on both notes and chords.
+These are the strictest functions in terms of equivalent sound because pitch
+includes the octave number.
 
-\code{note_is_equal} and \code{note_is_identical} are similar but include a default argument \code{ignore_octave = TRUE}, focusing only on the notes and chords.
-This allows an even more relaxed definition of equivalence. Setting this argument to \code{FALSE} is the same as calling the \code{pitch_is_*} variant.
+\code{note_is_equal} and \code{note_is_identical} are similar but include a
+default argument \code{ignore_octave = TRUE}, focusing only on the notes and
+chords.
+This allows an even more relaxed definition of equivalence. Setting this
+argument to \code{FALSE} is the same as calling the \code{pitch_is_*}
+variant.
 
-Chords can be checked the same as notes. Every timestep in the sequence is checked pairwise between \code{note1} and \code{note2}.
+Chords can be checked the same as notes. Every timestep in the sequence is
+checked pairwise between \code{note1} and \code{note2}.
 
-These functions will return \code{TRUE} or \code{FALSE} for every timestep in a sequence.
-If the two noteworthy strings do not contain the same number of notes at a specific step, such as a single note compared to a chord, this yields a \code{FALSE} value,
+These functions will return \code{TRUE} or \code{FALSE} for every timestep
+in a sequence.
+If the two noteworthy strings do not contain the same number of notes at a
+specific step, such as a single note compared to a chord, this yields a
+\code{FALSE} value,
 even in a case of an octave dyad with octave number ignored.
 If the two sequences have unequal length \code{NA} is returned.
 These are bare minimum requirements for equivalence. See examples.
 
-\code{octave_is_equal} and \code{octave_is_identical} allow much weaker forms of equivalence in that they ignore notes completely.
-These functions are only concerned with comparing the octave numbers spanned by any pitches present at each timestep.
-When checking for equality, \code{octave_is_equal} only looks at the octave number associated with the first note at each step, e.g., only the root note of a chord.
+\code{octave_is_equal} and \code{octave_is_identical} allow much weaker
+forms of equivalence in that they ignore notes completely.
+These functions are only concerned with comparing the octave numbers spanned
+by any pitches present at each timestep.
+When checking for equality, \code{octave_is_equal} only looks at the octave
+number associated with the first note at each step, e.g., only the root note
+of a chord.
 \code{octave_is_identical} compares all octaves spanned at a given timestep.
 
-It does not matter when comparing two chords that they may be comprised of a different numbers of notes.
-If the set of unique octaves spanned by one chord is identical to the set spanned by the other, they are considered to have identical octave coverage.
-For example, \code{a1b2c3} is identical to \code{d1e1f2g3}. To be equal, it only matters that the two chords begin with \code{x1}, where \code{x} is any note.
-Alternatively, for \code{octave_is_identical} only, setting \code{single_octave = TRUE} additionally requires that all notes from both chords being compared at a given timestep share a single octave.
+It does not matter when comparing two chords that they may be comprised of a
+different numbers of notes.
+If the set of unique octaves spanned by one chord is identical to the set
+spanned by the other, they are considered to have identical octave coverage.
+For example, \code{a1b2c3} is identical to \code{d1e1f2g3}. To be equal, it
+only matters that the two chords begin with \code{x1}, where \code{x} is any
+note.
+Alternatively, for \code{octave_is_identical} only, setting
+\code{single_octave = TRUE} additionally requires that all notes from both
+chords being compared at a given timestep share a single octave.
 }
 \examples{
 x <- "b_2 ce_g"
@@ -81,7 +108,7 @@ x <- "b_2 ce_g b_"
 y <- "b_2 ce_gb_"
 note_is_equal(x, y)
 
-# same number of same notes, same order, equal length: unequal number per timestep
+# same number of same notes, order, equal length: unequal number per timestep
 x <- "b_2 ce_g b_"
 y <- "b_2 ce_ gb_"
 note_is_equal(x, y)

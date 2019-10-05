@@ -226,11 +226,14 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>notes</th>
-      <td><p>character, a noteworthy string, space-delimited or vector of individual entries.</p></td>
+      <td><p>character, a noteworthy string, space-delimited or vector of
+individual entries.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>For <code>note_slice</code>, an integer or logical vector. See details. For <code>note_arpeggiate</code>, additional arguments to <code>transpose</code>, specifically <code>key</code> and <code>style</code>.</p></td>
+      <td><p>For <code>note_slice</code>, an integer or logical vector. See details.
+For <code>note_arpeggiate</code>, additional arguments to <code>transpose</code>,
+specifically <code>key</code> and <code>style</code>.</p></td>
     </tr>
     <tr>
       <th>n</th>
@@ -243,15 +246,23 @@
     <p>character</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>note_slice</code> subsets the time steps of a noteworthy string by integer index or logical vector of length equal to the number of time steps.</p>
-<p><code>note_rotate</code> simply rotates anything space-delimited or vectorized in place. It allows chords. Octave numbering is ignored if present.</p>
-<p>For <code>note_shift</code> the entire sequence is shifted up or down, as if inverting a broken chord.
+    <p><code>note_slice</code> subsets the time steps of a noteworthy string by integer
+index or logical vector of length equal to the number of time steps.</p>
+<p><code>note_rotate</code> simply rotates anything space-delimited or vectorized in
+place. It allows chords. Octave numbering is ignored if present.</p>
+<p>For <code>note_shift</code> the entire sequence is shifted up or down, as if
+inverting a broken chord.
 In this case <code>notes</code> is strictly interpreted and may not include chords.
-Octave numbering applies, though large multi-octave gaps will be condensed in the process.
-Given the context of <code>note_shift</code>, the <code>notes</code> sequence should be ordered by increasing pitch.
-If it is not, ordering will be forced with each inversion during the <code>n</code> shifts.</p>
-<p><code>note_arpeggiate</code> also allows notes only. It is similar to <code>note_shift</code>, except that instead of a moving window,
-it grows from the original set of notes by <code>n</code> in the direction of the sign of <code>n</code>.</p>
+Octave numbering applies, though large multi-octave gaps will be condensed
+in the process.
+Given the context of <code>note_shift</code>, the <code>notes</code> sequence should be
+ordered by increasing pitch.
+If it is not, ordering will be forced with each inversion during the
+<code>n</code> shifts.</p>
+<p><code>note_arpeggiate</code> also allows notes only. It is similar to
+<code>note_shift</code>, except that instead of a moving window,
+it grows from the original set of notes by <code>n</code> in the direction of the
+sign of <code>n</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"e_2 a_, c#f#a#"</span>

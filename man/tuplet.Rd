@@ -14,7 +14,8 @@ triplet(x, n, string = NULL)
 
 \item{n}{integer, duration of each tuplet note, e.g., 8 for 8th note tuplet.}
 
-\item{string, }{character, optional string that specifies which guitar strings to play for each specific note.}
+\item{string, }{character, optional string that specifies which guitar
+strings to play for each specific note.}
 
 \item{a}{integer, notes per tuplet.}
 
@@ -27,11 +28,19 @@ phrase
 Helper function for generating tuplet syntax.
 }
 \details{
-This function gives control over tuplet construction. The default arguments \code{a = 3} and \code{b = 2} generates a triplet where three triplet notes, each lasting for two thirds of a beat, take up two beats.
-\code{n} is used to describe the beat duration with the same fraction-of-measure denominator notation used for notes in \code{tabr} phrases, e.g., 16th note triplet, 8th note triplet, etc.
+This function gives control over tuplet construction. The default arguments
+\code{a = 3} and \code{b = 2} generates a triplet where three triplet notes,
+each lasting for two thirds of a beat, take up two beats.
+\code{n} is used to describe the beat duration with the same
+fraction-of-measure denominator notation used for notes in \code{tabr}
+phrases, e.g., 16th note triplet, 8th note triplet, etc.
 
-If you provide a note sequence for multiple tuplets in a row of the same type, they will be connected automatically. It is not necessary to call \code{tuplet} each time when the pattern is constant.
-If you provide a complete phrase object, it will simply be wrapped in the tuplet tag, so take care to ensure the phrase contents make sense as part of a tuplet.
+If you provide a note sequence for multiple tuplets in a row of the same
+type, they will be connected automatically. It is not necessary to call
+\code{tuplet} each time when the pattern is constant.
+If you provide a complete phrase object, it will simply be wrapped in the
+tuplet tag, so take care to ensure the phrase contents make sense as part of
+a tuplet.
 }
 \examples{
 tuplet("c c# d", 8)

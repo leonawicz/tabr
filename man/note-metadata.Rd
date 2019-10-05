@@ -65,7 +65,8 @@ is_space_time(notes)
 is_vector_time(notes)
 }
 \arguments{
-\item{notes}{character, a noteworthy string, space-delimited or vector of individual entries.}
+\item{notes}{character, a noteworthy string, space-delimited or vector of
+individual entries.}
 }
 \value{
 integer or character
@@ -74,15 +75,24 @@ integer or character
 Inspect metadata for noteworthy strings.
 }
 \details{
-Returned object depends on the nature of the function. It can be integers, logical, character. Results can be a vector of equal length of a single value summary.
-\code{distinct_notes} and \code{distinct_pitches} filter a noteworthy string to its unique elements, respectively. These functions return another noteworthy string.
+Returned object depends on the nature of the function. It can be integers,
+logical, character. Results can be a vector of equal length of a single
+value summary.
+\code{distinct_notes} and \code{distinct_pitches} filter a noteworthy string
+to its unique elements, respectively. These functions return another
+noteworthy string.
 
-The \code{n_*} functions give summary totals of the number of time steps, number of individual note (non-chord) time steps, number of chord time steps, and the number of distinct octaves present across time steps.
-Use the \code{tally_*} and \code{distinct_*} functions specifically for summaries of unique elements.
+The \code{n_*} functions give summary totals of the number of time steps,
+number of individual note (non-chord) time steps, number of chord time
+steps, and the number of distinct octaves present across time steps.
+Use the \code{tally_*} and \code{distinct_*} functions specifically for
+summaries of unique elements.
 
-\code{*_span} functions are just the size of a range, e.g., \code{semitone_range} and \code{semitone_span}.
+\code{*_span} functions are just the size of a range, e.g.,
+\code{semitone_range} and \code{semitone_span}.
 
-Functions pertaining to type or format of a noteworthy string provide information on how a particular string is defined, e.g. \code{time_format}.
+Functions pertaining to type or format of a noteworthy string provide
+information on how a particular string is defined, e.g. \code{time_format}.
 }
 \examples{
 x <- "e_2 a_, c#f#a#"

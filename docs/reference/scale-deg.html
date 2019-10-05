@@ -229,7 +229,8 @@
     </tr>
     <tr>
       <th>key</th>
-      <td><p>character, key signature (or root note) for scale, depending on the type of <code>scale</code>.</p></td>
+      <td><p>character, key signature (or root note) for scale, depending on
+the type of <code>scale</code>.</p></td>
     </tr>
     <tr>
       <th>scale</th>
@@ -237,7 +238,8 @@
     </tr>
     <tr>
       <th>naturalize</th>
-      <td><p>logical, whether to naturalize any sharps or flats before obtaiuning the scale degree.</p></td>
+      <td><p>logical, whether to naturalize any sharps or flats before
+obtaiuning the scale degree.</p></td>
     </tr>
     <tr>
       <th>roman</th>
@@ -245,7 +247,8 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>additional arguments passed to the scale function, e.g., <code>sharp = FALSE</code> for <code>scale_chromatic</code>.</p></td>
+      <td><p>additional arguments passed to the scale function, e.g.,
+<code>sharp = FALSE</code> for <code>scale_chromatic</code>.</p></td>
     </tr>
     <tr>
       <th>deg</th>
@@ -253,26 +256,39 @@
     </tr>
     <tr>
       <th>collapse</th>
-      <td><p>logical, collapse result into a single string ready for phrase construction.</p></td>
+      <td><p>logical, collapse result into a single string ready for
+phrase construction.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>integer, or roman class if <code>roman = TRUE</code> for <code>scale_degree</code>. character for <code>scale_note</code>.</p>
+    <p>integer, or roman class if <code>roman = TRUE</code> for
+<code>scale_degree</code>. character for <code>scale_note</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Obtain the scale degree of a note in a supported scale with <code>scale_degree</code>.
-This function also works with chords inside note strings. It only considers the first note in each space-delimited entry.
-<code>notes</code> may be a vector of single entries (non-delimited). Notes return <code>NA</code> if not explicitly in the scale.
-This includes cases where the note is in the scale but is notated as sharp or flat when the <code>scale</code> and/or <code>key</code> provide the opposite.</p>
-<p>The inverse of <code>scale_degree</code> is <code>scale_note</code>, for obtaining the note associated with a scale degree.
-This could be done simply by calling a <code>scale_*</code> function and indexing its output directly, but this wrapper is provided to complement <code>scale_degree</code>.
-Additionally, it accepts the common Roman numeral input for the degree. This can be with the <code>roman</code> class or as a character string.
+    <p>Obtain the scale degree of a note in a supported scale with
+<code>scale_degree</code>.
+This function also works with chords inside note strings.
+It only considers the first note in each space-delimited entry.
+<code>notes</code> may be a vector of single entries (non-delimited).
+Notes return <code>NA</code> if not explicitly in the scale.
+This includes cases where the note is in the scale but is notated as sharp
+or flat when the <code>scale</code> and/or <code>key</code> provide the opposite.</p>
+<p>The inverse of <code>scale_degree</code> is <code>scale_note</code>, for obtaining the
+note associated with a scale degree.
+This could be done simply by calling a <code>scale_*</code> function and indexing
+its output directly, but this wrapper is provided to complement
+<code>scale_degree</code>.
+Additionally, it accepts the common Roman numeral input for the degree.
+This can be with the <code>roman</code> class or as a character string.
 Degrees return <code>NA</code> if outside the scale degree range.</p>
-<p><code>note_in_scale</code> performs a vectorized logical check if each note is in a given scale.
+<p><code>note_in_scale</code> performs a vectorized logical check if each note is in
+a given scale.
 This function strictly accepts note strings.
-To check if chords are diatonic to the scale, see <code><a href='chord_is_diatonic.html'>chord_is_diatonic</a></code>. To check generally if a <code>noteworthy</code> string is fully diatonic, see <code><a href='valid-notes.html'>is_diatonic</a></code>.</p>
+To check if chords are diatonic to the scale,
+see <code><a href='chord_is_diatonic.html'>chord_is_diatonic</a></code>. To check generally if a
+<code>noteworthy</code> string is fully diatonic, see <code><a href='valid-notes.html'>is_diatonic</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='scale-helpers.html'>scale-helpers</a></code></p></div>

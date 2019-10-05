@@ -1,23 +1,36 @@
 #' Chord inversion
 #'
-#' This function inverts a single chord given as a character string. If \code{n = 0}, \code{chord} is returned immediately.
-#' Otherwise, the notes of the chord are inverted. If \code{abs(n)} is greater than the number of inversions (excluding root position), an error is thrown.
+#' This function inverts a single chord given as a character string.
+#' If \code{n = 0}, \code{chord} is returned immediately.
+#' Otherwise, the notes of the chord are inverted. If \code{abs(n)} is greater
+#' than the number of inversions (excluding root position), an error is thrown.
 #'
-#' Note that \code{chord_invert} has no knowledge of whether a chord might be considered as in root position or some inversion already, as informed by a key signature, chord name or user's intent.
-#' This function simply inverts what it receives, treating any defined chord string as in root position.
+#' Note that \code{chord_invert} has no knowledge of whether a chord might be
+#' considered as in root position or some inversion already, as informed by a
+#' key signature, chord name or user's intent.
+#' This function simply inverts what it receives, treating any defined chord
+#' string as in root position.
 #'
-#' Octave number applies to this function. Chords should always be defined by notes of increasing pitch. Remember that an unspecified octave number on a note is octave 3.
+#' Octave number applies to this function. Chords should always be defined by
+#' notes of increasing pitch. Remember that an unspecified octave number on a
+#' note is octave 3.
 #' When the chord is inverted, it moves up the scale.
-#' The lowest note is moved to the top of the chord, increasing its octave if necessary, to ensure that the note takes the lowest octave number while having the highest pitch.
+#' The lowest note is moved to the top of the chord, increasing its octave if
+#' necessary, to ensure that the note takes the lowest octave number while
+#' having the highest pitch.
 #' The second lowest note becomes the lowest. It's octave does not change.
-#' This pattern is repeated for higher order inversions. The opposite happens if \code{n} is negative.
+#' This pattern is repeated for higher order inversions. The opposite happens
+#' if \code{n} is negative.
 #'
-#' The procedure ensures that the resulting inverted chord is still defined by notes of increasing pitch.
-#' However, if you construct an unusual chord that spans multiple octaves, the extra space will be condensed by inversion.
+#' The procedure ensures that the resulting inverted chord is still defined by
+#' notes of increasing pitch.
+#' However, if you construct an unusual chord that spans multiple octaves, the
+#' extra space will be condensed by inversion.
 #'
 #' @param chord character, a single chord.
 #' @param n inversion.
-#' @param limit logical, limit inversions in either direction to one less than the number of notes in the chord.
+#' @param limit logical, limit inversions in either direction to one less than
+#' the number of notes in the chord.
 #'
 #' @return character
 #' @export
@@ -26,27 +39,31 @@
 #' chord_invert("ce_gb_", 3)
 chord_invert <- function(chord, n = 0, limit = FALSE){
   .check_chord(chord)
-  if(grepl(" ", chord)) stop("`x` must be a single chord, not space-delimited chords.", call. = FALSE)
+  if(grepl(" ", chord))
+    stop("`x` must be a single chord, not space-delimited chords.",
+         call. = FALSE)
   if(n == 0) return(chord)
   x <- .split_chord(chord)
   nx <- length(x)
   if(abs(n) > nx - 1 & limit == TRUE)
-    stop(paste0("Chord has ", nx, " notes. `n` must be in -", nx - 1, ":", nx - 1,
-                ". Set `limit = FALSE` to override."), call. = FALSE)
+    stop(paste0("Chord has ", nx, " notes. `n` must be in -", nx - 1, ":",
+                nx - 1, ". Set `limit = FALSE` to override."), call. = FALSE)
   idx <- (0:n)[-1]
   f <- function(x) if(x == 3) "" else x
   if(n > 0){
     for(i in idx){
       o <- .pitch_to_octave(x[nx])
       x[1] <- paste0(.pitch_to_note(x[1]), f(o))
-      if(pitch_interval(x[1], x[nx]) > 0) x[1] <- paste0(.pitch_to_note(x[1]), f(o + 1))
+      if(pitch_interval(x[1], x[nx]) > 0)
+        x[1] <- paste0(.pitch_to_note(x[1]), f(o + 1))
       x <- x[c(2:nx, 1)]
     }
   } else {
     for(i in idx){
       o <- .pitch_to_octave(x[1])
       x[nx] <- paste0(.pitch_to_note(x[nx]), f(o))
-      if(pitch_interval(x[nx], x[1]) < 0) x[nx] <- paste0(.pitch_to_note(x[nx]), f(o - 1))
+      if(pitch_interval(x[nx], x[1]) < 0)
+        x[nx] <- paste0(.pitch_to_note(x[nx]), f(o - 1))
       x <- x[c(nx, 1:(nx - 1))]
     }
   }
@@ -59,13 +76,18 @@ chord_invert <- function(chord, n = 0, limit = FALSE){
 #'
 #' Create an arpeggio from a chord.
 #'
-#' This function is based on \code{chord_invert}. If \code{n = 0} then \code{chord} is returned immediately; other arguments are ignored.
+#' This function is based on \code{chord_invert}. If \code{n = 0} then
+#' \code{chord} is returned immediately; other arguments are ignored.
 #'
 #' @param chord character, a single chord.
-#' @param n integer, number of steps, negative indicates reverse direction (decreasing pitch).
-#' @param by whether each of the \code{n} steps refers to individual notes in the chord (an inversion) or raising the entire chord in its given position by one octave.
+#' @param n integer, number of steps, negative indicates reverse direction
+#' (decreasing pitch).
+#' @param by whether each of the \code{n} steps refers to individual notes in
+#' the chord (an inversion) or raising the entire chord in its given position
+#' by one octave.
 #' @param broken logical, return result as an arpeggio of broken chords.
-#' @param collapse logical, collapse result into a single string ready for phrase construction.
+#' @param collapse logical, collapse result into a single string ready for
+#' phrase construction.
 #'
 #' @return character
 #' @export
@@ -75,7 +97,8 @@ chord_invert <- function(chord, n = 0, limit = FALSE){
 #' chord_arpeggiate("ce_gb_", -2)
 #' chord_arpeggiate("ce_gb_", 2, by = "chord")
 #' chord_arpeggiate("ce_gb_", 1, broken = TRUE, collapse = TRUE)
-chord_arpeggiate <- function(chord, n = 0, by = c("note", "chord"), broken = FALSE, collapse = FALSE){
+chord_arpeggiate <- function(chord, n = 0, by = c("note", "chord"),
+                             broken = FALSE, collapse = FALSE){
   if(length(chord) != 1) stop("`chord` must be a single chord.", call. = FALSE)
   .check_chord(chord)
   if(n == 0) return(chord)
@@ -107,16 +130,19 @@ chord_arpeggiate <- function(chord, n = 0, by = c("note", "chord"), broken = FAL
 chord_break <- function(notes){
   .check_noteworthy(notes)
   x <- .uncollapse(notes)
-  x <- sapply(x, function(x) paste0(.split_chord(x), collapse = " "), USE.NAMES = FALSE)
+  x <- sapply(x, function(x) paste0(.split_chord(x), collapse = " "),
+              USE.NAMES = FALSE)
   if(length(notes) == 1) x <- paste0(x, collapse = " ")
   .asnw(x)
 }
 
-#' Check if a chord is diatonic
+#' Check if chords are diatonic
 #'
-#' Check whether a chord is diatonic in a given key.
+#' Check whether chords are diatonic in a given key.
 #'
-#' This function strictly accepts chord strings. To check if notes are in a scale, see \code{\link{note_in_scale}}. To check generally if a \code{noteworthy} string is fully diatonic, see \code{\link{is_diatonic}}.
+#' This function strictly accepts chord strings. To check if notes are in a
+#' scale, see \code{\link{note_in_scale}}. To check generally if a
+#' \code{noteworthy} string is fully diatonic, see \code{\link{is_diatonic}}.
 #'
 #' @param chord character, a chord string. May be a vector.
 #' @param key character, key signature.
@@ -132,21 +158,29 @@ chord_is_diatonic <- function(chord, key = "c"){
   .check_chord(chord)
   s <- scale_diatonic(key, ignore_octave = TRUE)
   x <- .uncollapse(chord)
-  sapply(x, function(x) all(.pitch_to_note(.split_chord(x)) %in% s), USE.NAMES = FALSE)
+  sapply(x, function(x) all(.pitch_to_note(.split_chord(x)) %in% s),
+         USE.NAMES = FALSE)
 }
 
 #' Construct a dyad
 #'
 #' Construct a dyad given one note, an interval, and a direction.
 #'
-#' The \code{interval} may be specified by semitones of by common interval name or abbreviation. See examples.
-#' For a complete list of valid interval names and abbreviations see \code{\link{mainIntervals}}.
-#' \code{key} enforces the use of sharps or flats. This function is based on \code{transpose}.
-#' \code{notes} and \code{interval} may be vectors, but must be equal length. Recycling occurs only if one argument is scalar.
+#' The \code{interval} may be specified by semitones of by common interval name
+#' or abbreviation. See examples.
+#' For a complete list of valid interval names and abbreviations see
+#' \code{\link{mainIntervals}}.
+#' \code{key} enforces the use of sharps or flats. This function is based on
+#' \code{transpose}.
+#' \code{notes} and \code{interval} may be vectors, but must be equal length.
+#' Recycling occurs only if one argument is scalar.
 #'
-#' @param notes character, vector of single notes (not a single space-delimited string).
-#' @param interval integer or character vector; semitones or interval ID, respectively. See details.
-#' @param reverse logical, reverse the transposition direction. Useful when \code{interval} is character.
+#' @param notes character, vector of single notes (not a single space-delimited
+#' string).
+#' @param interval integer or character vector; semitones or interval ID,
+#' respectively. See details.
+#' @param reverse logical, reverse the transposition direction. Useful when
+#' \code{interval} is character.
 #' @param key character, key signature.
 #' @param collapse logical, collapse result into a single string.
 #'
@@ -175,7 +209,9 @@ dyad <- function(notes, interval, reverse = FALSE, key = "c", collapse = FALSE){
   nn <- length(notes)
   ni <- length(interval)
   if(nn != ni){
-    if(nn != 1 & ni != 1) stop("`notes` and `interval` have unequal lengths both > 1.", call. = FALSE)
+    if(nn != 1 & ni != 1)
+      stop("`notes` and `interval` have unequal lengths both > 1.",
+           call. = FALSE)
     if(nn == 1) notes <- rep(notes, ni)
     if(ni == 1) interval <- rep(interval, nn)
   }
@@ -183,7 +219,8 @@ dyad <- function(notes, interval, reverse = FALSE, key = "c", collapse = FALSE){
     n1 <- n1[i]
     int <- int[i]
     n2 <- transpose(n1, int, key)
-    paste(if(int == 0) n1 else if(int > 0) c(n1, n2) else c(n2, n1), collapse = "")
+    paste(if(int == 0) n1 else if(int > 0) c(n1, n2) else c(n2, n1),
+          collapse = "")
   }
   x <- sapply(seq_along(notes), f, notes, interval)
   if(collapse) x <- paste(x, collapse = " ")
@@ -194,10 +231,14 @@ dyad <- function(notes, interval, reverse = FALSE, key = "c", collapse = FALSE){
 #'
 #' Rank, order and sort chords and notes by various definitions.
 #'
-#' There are three options for comparing the relative pitch position of chords provided: comparison of the lowest or root note of each chord, the highest pitch note, or taking the mean of all notes in a chord.
+#' There are three options for comparing the relative pitch position of chords
+#' provided: comparison of the lowest or root note of each chord, the highest
+#' pitch note, or taking the mean of all notes in a chord.
 #'
-#' @param chords character, a noteworthy string, may include individual notes and chords.
-#' @param pitch character, how ranking of chords is determined; lowest pitch, mean pitch, or highest pitch.
+#' @param chords character, a noteworthy string, may include individual notes
+#' and chords.
+#' @param pitch character, how ranking of chords is determined; lowest pitch,
+#' mean pitch, or highest pitch.
 #' @param decreasing logical, sort in decreasing order.
 #' @param ... additional arguments passed to \code{rank} or \code{order}.
 #'
@@ -226,15 +267,14 @@ chord_order <- function(chords, pitch = c("min", "mean", "max"), ...){
 
 #' @export
 #' @rdname chord-compare
-chord_sort <- function(chords, pitch = c("min", "mean", "max"), decreasing = FALSE, ...){
+chord_sort <- function(chords, pitch = c("min", "mean", "max"),
+                       decreasing = FALSE, ...){
   ord <- chord_order(chords, pitch, ...)
   x <- .uncollapse(chords)[ord]
   if(decreasing) x <- rev(x)
   if(length(chords) == 1) x <- paste0(x, collapse = " ")
   .asnw(x)
 }
-
-# nolint start
 
 .chord_rank <- function(x, pitch = c("min", "mean", "max")){
   .check_noteworthy(x)
@@ -250,13 +290,19 @@ chord_sort <- function(chords, pitch = c("min", "mean", "max"), decreasing = FAL
 #'
 #' Filter or slice chords to extract individual notes.
 #'
-#' These functions extract notes from chords such as the root note, the highest pitch, specific position among the notes by pitch, or trim chords to simplify them.
+#' These functions extract notes from chords such as the root note, the highest
+#' pitch, specific position among the notes by pitch, or trim chords to
+#' simplify them.
 #' They operate based only on ordered pitches.
 #'
-#' For \code{chord_slice}, any entry that is empty after slicing is dropped. An error is thrown is \code{index} is completely out of bounds for all chords.
+#' For \code{chord_slice}, any entry that is empty after slicing is dropped.
+#' An error is thrown is \code{index} is completely out of bounds for all
+#' chords.
 #'
-#' @param chords character, a noteworthy string, may include individual notes and chords.
-#' @param index integer, the order of a note in a chord by pitch (not scale degrees).
+#' @param chords character, a noteworthy string, may include individual notes
+#' and chords.
+#' @param index integer, the order of a note in a chord by pitch (not scale
+#' degrees).
 #'
 #' @return a noteworthy string
 #' @export
@@ -314,19 +360,25 @@ chord_slice <- function(chords, index){
   .asnw(x)
 }
 
-#' Check if a chord is major or minor
+#' Check if chords are major or minor
 #'
-#' Check if a chord is major or minor where possible.
+#' Check if chords are major or minor where possible.
 #'
 #' These functions operate based only on ordered pitches.
-#' They do not recognize what a human might interpret and name an inverted chord with a root other than the lowest pitch.
+#' They do not recognize what a human might interpret and name an inverted
+#' chord with a root other than the lowest pitch.
 #' This imposes limitations on the utility of these functions,
-#' which scan the intervals for a minor or major third in a chord whose notes are sorted by pitch.
+#' which scan the intervals for a minor or major third in a chord whose notes
+#' are sorted by pitch.
 #'
-#' In several cases including single notes or no major or minor third interval present, \code{NA} is returned.
-#' \code{TRUE} or \code{FALSE} is only returned if such an interval is present. If more than one is present, it is based on the lowest in pitch.
-#' It prioritizes major/minor and minor/major adjacent intervals (recognizing a common triad). If these do not occur adjacent, the lowest third is selected.
-#' This is still imperfect, but a useful method. Second and higher unknown chord inversions are problematic.
+#' In several cases including single notes or no major or minor third interval
+#' present, \code{NA} is returned.
+#' \code{TRUE} or \code{FALSE} is only returned if such an interval is present.
+#' If more than one is present, it is based on the lowest in pitch.
+#' It prioritizes major/minor and minor/major adjacent intervals (recognizing a
+#' common triad). If these do not occur adjacent, the lowest third is selected.
+#' This is still imperfect, but a useful method. Second and higher unknown
+#' chord inversions are problematic.
 #'
 #' @param chords character, a noteworthy string.
 #'
@@ -340,37 +392,7 @@ chord_slice <- function(chords, index){
 chord_is_major <- function(chords){
   .check_noteworthy(chords)
   x <- .uncollapse(chords)
-  sapply(x, function(y){
-    y <- .split_chord(y)
-    int <- diff(sapply(y, function(i) pitch_interval("c", i)))
-    if(!length(int)) return(NA)
-    if(length(int) == 1){
-      if(int == 3) return(FALSE)
-      if(int == 4) return(TRUE)
-      return(NA)
-    }
-    if(!length(intersect(3:4, int))) return(NA)
-    if(3 %in% int & !4 %in% int) return(FALSE)
-    if(4 %in% int & !3 %in% int) return(TRUE)
-    idx3 <- which(int == 3)
-    idx4 <- which(int == 4)
-    if(any((idx3 - 1) %in% idx4)){
-      major <- idx4[(idx3 - 1) %in% idx4][1]
-    } else {
-      major <- NA
-    }
-    if(any((idx4 - 1) %in% idx3)){
-      minor <- idx3[(idx4 - 1) %in% idx3][1]
-    } else {
-      minor <- NA
-    }
-    if(!is.na(major) & !is.na(minor)){
-      if(major < minor) return(TRUE) else return(FALSE)
-    }
-    if(is.na(minor) & !is.na(major)) return(TRUE)
-    if(is.na(major) & !is.na(minor)) return(FALSE)
-    if(min(idx4) < min(idx3)) return(TRUE) else return(FALSE)
-  }, USE.NAMES = FALSE)
+  sapply(x, .chord_is_major, USE.NAMES = FALSE)
 }
 
 #' @export
@@ -379,21 +401,58 @@ chord_is_minor <- function(chords){
   !chord_is_major(chords)
 }
 
-#nolint end
+.chord_is_major <- function(x){
+  x <- .split_chord(x)
+  f <- function(i) pitch_interval("c", i)
+  int <- diff(sapply(x, f))
+  if(!length(int)) return(NA)
+  if(length(int) == 1){
+    if(int == 3) return(FALSE)
+    if(int == 4) return(TRUE)
+    return(NA)
+  }
+  if(!length(intersect(3:4, int))) return(NA)
+  if(3 %in% int & !4 %in% int) return(FALSE)
+  if(4 %in% int & !3 %in% int) return(TRUE)
+  idx3 <- which(int == 3)
+  idx4 <- which(int == 4)
+  if(any((idx3 - 1) %in% idx4)){
+    major <- idx4[(idx3 - 1) %in% idx4][1]
+  } else {
+    major <- NA
+  }
+  if(any((idx4 - 1) %in% idx3)){
+    minor <- idx3[(idx4 - 1) %in% idx3][1]
+  } else {
+    minor <- NA
+  }
+  if(!is.na(major) & !is.na(minor)){
+    if(major < minor) return(TRUE) else return(FALSE)
+  }
+  if(is.na(minor) & !is.na(major)) return(TRUE)
+  if(is.na(major) & !is.na(minor)) return(FALSE)
+  if(min(idx4) < min(idx3)) return(TRUE) else return(FALSE)
+}
 
 #' Chord constructors
 #'
 #' These functions construct basic chord string notation from root \code{notes}.
 #'
-#' Providing a \code{key} signature is used only to ensure flats or sharps for accidentals.
-#' An additional set of aliases with efficient names, of the form \code{x*} where \code{*} is a chord modifier abbreviation, is provided to complement the set of \code{chord_*} functions.
+#' Providing a \code{key} signature is used only to ensure flats or sharps for
+#' accidentals.
+#' An additional set of aliases with efficient names, of the
+#' form \code{x*} where \code{*} is a chord modifier abbreviation, is provided
+#' to complement the set of \code{chord_*} functions.
 #'
-#' These functions create standard chords, not the multi-octave spanning types of chords commonly played on guitar.
+#' These functions create standard chords, not the multi-octave spanning types
+#' of chords commonly played on guitar.
 #'
-#' @param notes character, chord root notes, space-delimited or a vector of individual notes.
+#' @param notes character, chord root notes, space-delimited or a vector of
+#' individual notes.
 #' @param key key signature. See details.
 #' @param style character, passed to \code{transpose}.
-#' @param collapse logical, collapse result into a single string ready for phrase construction.
+#' @param collapse logical, collapse result into a single string ready for
+#' phrase construction.
 #'
 #' @return character
 #' @export
@@ -567,7 +626,8 @@ chord_7s11 <- function(notes, key = "c", collapse = FALSE, style = "default"){
 
 #' @export
 #' @rdname chords
-chord_maj7s11 <- function(notes, key = "c", collapse = FALSE, style = "default"){
+chord_maj7s11 <- function(notes, key = "c", collapse = FALSE,
+                          style = "default"){
   semitones <- c(0, 4, 7, 11, 14, 18)
   .chord_prep(notes, semitones, key, collapse, style)
 }
@@ -607,21 +667,20 @@ chord_maj13 <- function(notes, key = "c", collapse = FALSE, style = "default"){
   .chord_prep(notes, semitones, key, collapse, style)
 }
 
-# nolint start
-
 .chord_prep <- function(notes, semitones, key, collapse, style){
   .check_note(notes)
   .keycheck(key)
   x <- sapply(.uncollapse(notes), function(note){
-    paste0(sapply(semitones, function(s) transpose(note, s, key = key, style = style)), collapse = "")
+    paste0(
+      sapply(semitones,
+             function(s) transpose(note, s, key = key, style = style)),
+      collapse = "")
   }, USE.NAMES = FALSE)
   if(collapse) x <- paste0(x, collapse = " ")
   .asnw(x)
 }
 
-# nolint end
-
-.dot_arg <- function(dots, .x, default) if(is.null(dots[[.x]])) default else dots[[.x]]
+# lintr will catch function name casing violation # nolint start
 
 #' @export
 #' @rdname chords
@@ -738,3 +797,5 @@ xm13 <- chord_min13
 #' @export
 #' @rdname chords
 xM13 <- chord_maj13
+
+# nolint end

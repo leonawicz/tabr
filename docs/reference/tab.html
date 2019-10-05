@@ -226,11 +226,13 @@
     </tr>
     <tr>
       <th>file</th>
-      <td><p>character, output file ending in .pdf or .png. May include an absolute or relative path.</p></td>
+      <td><p>character, output file ending in .pdf or .png. May include an
+absolute or relative path.</p></td>
     </tr>
     <tr>
       <th>key</th>
-      <td><p>character, key signature, e.g., <code>c</code>, <code>b_</code>, <code>f#m</code>, etc.</p></td>
+      <td><p>character, key signature, e.g., <code>c</code>, <code>b_</code>, <code>f#m</code>,
+etc.</p></td>
     </tr>
     <tr>
       <th>time</th>
@@ -242,15 +244,19 @@
     </tr>
     <tr>
       <th>header</th>
-      <td><p>a named list of arguments passed to the header of the LilyPond file. See details.</p></td>
+      <td><p>a named list of arguments passed to the header of the
+LilyPond file. See details.</p></td>
     </tr>
     <tr>
       <th>string_names</th>
-      <td><p>label strings at beginning of tab staff. <code>NULL</code> (default) for non-standard tunings only, <code>TRUE</code> or <code>FALSE</code> for force on or off completely.</p></td>
+      <td><p>label strings at beginning of tab staff. <code>NULL</code>
+(default) for non-standard tunings only, <code>TRUE</code> or <code>FALSE</code> for
+force on or off completely.</p></td>
     </tr>
     <tr>
       <th>paper</th>
-      <td><p>a named list of arguments for the LilyPond file page layout. See details.</p></td>
+      <td><p>a named list of arguments for the LilyPond file page layout.
+See details.</p></td>
     </tr>
     <tr>
       <th>endbar</th>
@@ -266,11 +272,14 @@
     </tr>
     <tr>
       <th>path</th>
-      <td><p>character, optional output directory prefixed to <code>file</code>, may be an absolute or relative path. If <code>NULL</code> (default), only <code>file</code> is used.</p></td>
+      <td><p>character, optional output directory prefixed to <code>file</code>,
+may be an absolute or relative path. If <code>NULL</code> (default), only
+<code>file</code> is used.</p></td>
     </tr>
     <tr>
       <th>details</th>
-      <td><p>logical, set to <code>FALSE</code> to disable printing of log output to console.</p></td>
+      <td><p>logical, set to <code>FALSE</code> to disable printing of log
+output to console.</p></td>
     </tr>
     </table>
 
@@ -279,9 +288,14 @@
     <p>nothing returned; a file is written.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Generate a pdf or png of a music score using the LilyPond music engraving program.
-Output format is inferred from <code>file</code> extension. This function is a wrapper around <code><a href='lilypond.html'>lilypond</a></code>, the function that creates the LilyPond (<code>.ly</code>) file.</p>
-<p>For Windows users, add the path to the LilyPond executable to the system path variable. For example, if the file is at <code>C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe</code>,
+    <p>Generate a pdf or png of a music score using the LilyPond music engraving
+program.
+Output format is inferred from <code>file</code> extension. This function is a
+wrapper around <code><a href='lilypond.html'>lilypond</a></code>, the function that creates the
+LilyPond (<code>.ly</code>) file.</p>
+<p>For Windows users, add the path to the LilyPond executable to the system
+path variable. For example, if the file is at
+<code>C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe</code>,
 then add <code>C:/Program Files (x86)/LilyPond/usr/bin</code> to the system path.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

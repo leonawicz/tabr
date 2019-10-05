@@ -4,11 +4,13 @@
 \name{tabrSyntax}
 \alias{tabrSyntax}
 \title{tabr syntax.}
-\format{A data frame with 3 columns for syntax description, operators and examples.}
+\format{A data frame with 3 columns for syntax description, operators and
+examples.}
 \usage{
 tabrSyntax
 }
 \description{
-A data frame containing descriptions of syntax used in phrase construction in tabr.
+A data frame containing descriptions of syntax used in phrase construction
+in tabr.
 }
 \keyword{datasets}

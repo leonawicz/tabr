@@ -16,17 +16,25 @@ volta(phrase, n = 1, endings = NULL, silent = FALSE)
 \arguments{
 \item{phrase}{a phrase or basic string to be repeated.}
 
-\item{n}{integer, number of repeats of \code{phrase} (one less than the total number of plays).}
+\item{n}{integer, number of repeats of \code{phrase} (one less than the
+total number of plays).}
 
-\item{counter}{logical, if \code{TRUE}, print the percent repeat counter above the staff, applies only to \emph{measure} repeats of more than two repeats (\code{n} > 2).}
+\item{counter}{logical, if \code{TRUE}, print the percent repeat counter
+above the staff, applies only to \emph{measure} repeats of more than two
+repeats (\code{n} > 2).}
 
-\item{step}{integer, print the \emph{measure} percent repeat counter above the staff only at every \code{step} measures when \code{counter = TRUE}.}
+\item{step}{integer, print the \emph{measure} percent repeat counter above
+the staff only at every \code{step} measures when \code{counter = TRUE}.}
 
-\item{reset}{logical, percent repeat \code{counter} and \code{step} settings are only applied to the single \code{pct} call and are reset afterward. If \code{reset = FALSE}, the settings are left open to apply to any subsequent percent repeat sections in a track.}
+\item{reset}{logical, percent repeat \code{counter} and \code{step} settings
+are only applied to the single \code{pct} call and are reset afterward.
+If \code{reset = FALSE}, the settings are left open to apply to any
+subsequent percent repeat sections in a track.}
 
 \item{endings}{list of phrases or basic strings, alternate endings.}
 
-\item{silent}{if \code{TRUE}, no text will be printed above the staff at the beginning of a volta section.See details.}
+\item{silent}{if \code{TRUE}, no text will be printed above the staff at the
+beginning of a volta section.See details.}
 }
 \value{
 a phrase.
@@ -35,19 +43,40 @@ a phrase.
 Create a repeat section in LilyPond readable format.
 }
 \details{
-These functions wraps a phrase object or a character string in LilyPond repeat syntax. The most basic is \code{rp} for basic wrapping a LilyPond \code{unfold} repeat tag around a phrase.
-This repeats the phrase \code{n} times, but it is displayed in the engraved sheet music fully written out as a literal propagation of the phrase with no repeat notation used to reduce redundant presentation.
-The next is \code{pct}, which wraps a \code{percent} repeat tag around a phrase. This is displayed in sheet music as percent repeat notation whose specific notation changes based on the length of the repeated section of music, used for beats or whole measures.
-\code{volta} wraps a phrase in a \code{volta} repeat tag, used for long repeats of one or more full measures or bars of music, optionally with alternate endings.
+These functions wraps a phrase object or a character string in LilyPond
+repeat syntax. The most basic is \code{rp} for basic wrapping a LilyPond
+\code{unfold} repeat tag around a phrase.
+This repeats the phrase \code{n} times, but it is displayed in the engraved
+sheet music fully written out as a literal propagation of the phrase with no
+repeat notation used to reduce redundant presentation.
+The next is \code{pct}, which wraps a \code{percent} repeat tag around a
+phrase. This is displayed in sheet music as percent repeat notation whose
+specific notation changes based on the length of the repeated section of
+music, used for beats or whole measures.
+\code{volta} wraps a phrase in a \code{volta} repeat tag, used for long
+repeats of one or more full measures or bars of music, optionally with
+alternate endings.
 
-Note that basic strings should still be interpretable as a valid musical phrase by LilyPond and such strings will be coerced to the phrase class by these functions.
-For example, a one-measure rest, \code{"r1"}, does not need to be a phrase object to work with these functions, nor does any other character string explicitly written out in valid LilyPond syntax.
-As always, see the LilyPond documentation if you are not familiar with LilyPond syntax.
+Note that basic strings should still be interpretable as a valid musical
+phrase by LilyPond and such strings will be coerced to the phrase class by
+these functions.
+For example, a one-measure rest, \code{"r1"}, does not need to be a phrase
+object to work with these functions, nor does any other character string
+explicitly written out in valid LilyPond syntax.
+As always, see the LilyPond documentation if you are not familiar with
+LilyPond syntax.
 
-VOLTA REPEAT: When \code{silent = TRUE} there is no indication of the number of plays above the staff at the start of the volta section. This otherwise happens automatically when the number of repeats is greater than one and no alternate endings are included (which are already numbered).
-This override creates ambiguity on its own, but is important to use multiple staves are present and another staff already displays the text regarding the number or plays. This prevents printing the same text above every staff.
+VOLTA REPEAT: When \code{silent = TRUE} there is no indication of the number
+of plays above the staff at the start of the volta section. This otherwise
+happens automatically when the number of repeats is greater than one and no
+alternate endings are included (which are already numbered).
+This override creates ambiguity on its own, but is important to use multiple
+staves are present and another staff already displays the text regarding the
+number or plays. This prevents printing the same text above every staff.
 
-PERCENT REPEAT: As indicated in the parameter descriptions, the arguments \code{counter} and \code{step} only apply to full measures or bars of music. It does not apply to shorter beats that are repeated using \code{pct}.
+PERCENT REPEAT: As indicated in the parameter descriptions, the arguments
+\code{counter} and \code{step} only apply to full measures or bars of music.
+It does not apply to shorter beats that are repeated using \code{pct}.
 }
 \examples{
 x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
@@ -63,7 +92,7 @@ pct(x, 9, TRUE, 5, FALSE) # as above, but do not reset counter settings
 
 volta(x) # one repeat or two plays
 volta(x, 1, list(e1, e2)) # one repeat with alternate ending
-volta(x, 4, list(e1, e2)) # multiple repeats but with only one alternate ending
+volta(x, 4, list(e1, e2)) # multiple repeats with only one alternate ending
 volta(x, 4) # no alternates, more than one repeat
 }
 \seealso{

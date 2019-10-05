@@ -8,15 +8,19 @@ miditab(midi_file, file, keep_ly = FALSE, path = NULL,
   details = TRUE, ...)
 }
 \arguments{
-\item{midi_file}{character, MIDI file (\code{.mid}). May include an absolute or relative path.}
+\item{midi_file}{character, MIDI file (\code{.mid}). May include an absolute
+or relative path.}
 
 \item{file}{character, output file ending in .pdf or .png.}
 
 \item{keep_ly}{logical, keep LilyPond file.}
 
-\item{path}{character, optional output directory prefixed to \code{file}, may be an absolute or relative path. If \code{NULL} (default), only \code{file} is used.}
+\item{path}{character, optional output directory prefixed to \code{file},
+may be an absolute or relative path. If \code{NULL} (default), only
+\code{file} is used.}
 
-\item{details}{logical, set to \code{FALSE} to disable printing of log output to console.}
+\item{details}{logical, set to \code{FALSE} to disable printing of log
+output to console.}
 
 \item{...}{additional arguments passed to \code{\link{midily}}.}
 }
@@ -29,16 +33,34 @@ Convert a MIDI file to  sheet music/guitar tablature.
 \details{
 Under development/testing. See warning and details below.
 
-Convert a MIDI file to a pdf or png music score using the LilyPond music engraving program.
-Output format is inferred from \code{file} extension. This function is a wrapper around \code{\link{midily}}, the function that converts the MIDI file to a LilyPond (\code{.ly}) file using a LilyPond command line utility.
+Convert a MIDI file to a pdf or png music score using the LilyPond music
+engraving program.
+Output format is inferred from \code{file} extension. This function is a
+wrapper around \code{\link{midily}}, the function that converts the MIDI
+file to a LilyPond (\code{.ly}) file using a LilyPond command line utility.
 
-WARNING: Even though the purpose of the command line utility is to convert an existing MIDI file to a LilyPond file, it nevertheless generates a LilyPond file that \emph{specifies inclusion of MIDI output}.
-This means when you subsequently process the LilyPond file with LilyPond or if you use \code{miditab} to go straight from your MIDI file to pdf output, the command line tool will also produce a MIDI file output. It will overwrite your original MIDI file if it has the same file name and location!
-The next version of this function will add an default argument \code{midi_out = FALSE} to remove this from the generated LilyPond file. If \code{TRUE} and the basename of \code{midi_file} matches the basename of \code{file}, then \code{file} will be renamed, the basename appended with a \code{-1}.
+WARNING: Even though the purpose of the command line utility is to convert
+an existing MIDI file to a LilyPond file, it nevertheless generates a
+LilyPond file that \emph{specifies inclusion of MIDI output}.
+This means when you subsequently process the LilyPond file with LilyPond or
+if you use \code{miditab} to go straight from your MIDI file to pdf output,
+the command line tool will also produce a MIDI file output. It will
+overwrite your original MIDI file if it has the same file name and location!
+The next version of this function will add an default argument
+\code{midi_out = FALSE} to remove this from the generated LilyPond file.
+If \code{TRUE} and the basename of \code{midi_file} matches the basename of
+\code{file}, then \code{file} will be renamed, the basename appended with a
+\code{-1}.
 
-On Windows systems, it may be necessary to specify a path in tabr_options to both \code{midi2ly} and \code{python} if they are not already successfully set as follows.
-On package load, \code{tabr} will attempt to check for \code{midi2ly.exe} at \code{C:/Program Files (x86)/LilyPond/usr/bin/midi2ly.py} and similarly for the \code{python.exe} that ships with LilyPond at \code{C:/Program Files (x86)/LilyPond/usr/bin/python.exe}.
-If this is not where LilyPond is installed, then LilyPond and Python need to be provided to \code{tabr_options} or added to the system PATH variable.
+On Windows systems, it may be necessary to specify a path in tabr_options to
+both \code{midi2ly} and \code{python} if they are not already successfully
+set as follows.
+On package load, \code{tabr} will attempt to check for \code{midi2ly.exe} at
+\code{C:/Program Files (x86)/LilyPond/usr/bin/midi2ly.py} and similarly for
+the \code{python.exe} that ships with LilyPond at
+\code{C:/Program Files (x86)/LilyPond/usr/bin/python.exe}.
+If this is not where LilyPond is installed, then LilyPond and Python need to
+be provided to \code{tabr_options} or added to the system PATH variable.
 }
 \examples{
 \dontrun{

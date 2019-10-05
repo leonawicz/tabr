@@ -35,15 +35,20 @@ scale_chromatic(root = "c", collapse = FALSE, sharp = TRUE,
 \arguments{
 \item{key}{character, key signature.}
 
-\item{collapse}{logical, collapse result into a single string ready for phrase construction.}
+\item{collapse}{logical, collapse result into a single string ready for
+phrase construction.}
 
-\item{ignore_octave}{logical, strip octave numbering from scales not rooted on C.}
+\item{ignore_octave}{logical, strip octave numbering from scales not rooted
+on C.}
 
-\item{descending}{logical, return the descending scale, available as a built-in argument for the melodic minor scale, which is different in each direction.}
+\item{descending}{logical, return the descending scale, available as a
+built-in argument for the melodic minor scale, which is different in each
+direction.}
 
 \item{root}{character, root note.}
 
-\item{sharp}{logical, accidentals in arbitrary scale output should be sharp rather than flat.}
+\item{sharp}{logical, accidentals in arbitrary scale output should be sharp
+rather than flat.}
 }
 \value{
 character

@@ -16,9 +16,12 @@ note_shift(notes, n = 0)
 note_arpeggiate(notes, n = 0, ...)
 }
 \arguments{
-\item{notes}{character, a noteworthy string, space-delimited or vector of individual entries.}
+\item{notes}{character, a noteworthy string, space-delimited or vector of
+individual entries.}
 
-\item{...}{For \code{note_slice}, an integer or logical vector. See details. For \code{note_arpeggiate}, additional arguments to \code{transpose}, specifically \code{key} and \code{style}.}
+\item{...}{For \code{note_slice}, an integer or logical vector. See details.
+For \code{note_arpeggiate}, additional arguments to \code{transpose},
+specifically \code{key} and \code{style}.}
 
 \item{n}{integer, degree of rotation.}
 }
@@ -29,18 +32,26 @@ character
 Helper functions for indexing and moving notes within noteworthy strings.
 }
 \details{
-\code{note_slice} subsets the time steps of a noteworthy string by integer index or logical vector of length equal to the number of time steps.
+\code{note_slice} subsets the time steps of a noteworthy string by integer
+index or logical vector of length equal to the number of time steps.
 
-\code{note_rotate} simply rotates anything space-delimited or vectorized in place. It allows chords. Octave numbering is ignored if present.
+\code{note_rotate} simply rotates anything space-delimited or vectorized in
+place. It allows chords. Octave numbering is ignored if present.
 
-For \code{note_shift} the entire sequence is shifted up or down, as if inverting a broken chord.
+For \code{note_shift} the entire sequence is shifted up or down, as if
+inverting a broken chord.
 In this case \code{notes} is strictly interpreted and may not include chords.
-Octave numbering applies, though large multi-octave gaps will be condensed in the process.
-Given the context of \code{note_shift}, the \code{notes} sequence should be ordered by increasing pitch.
-If it is not, ordering will be forced with each inversion during the \code{n} shifts.
+Octave numbering applies, though large multi-octave gaps will be condensed
+in the process.
+Given the context of \code{note_shift}, the \code{notes} sequence should be
+ordered by increasing pitch.
+If it is not, ordering will be forced with each inversion during the
+\code{n} shifts.
 
-\code{note_arpeggiate} also allows notes only. It is similar to \code{note_shift}, except that instead of a moving window,
-it grows from the original set of notes by \code{n} in the direction of the sign of \code{n}.
+\code{note_arpeggiate} also allows notes only. It is similar to
+\code{note_shift}, except that instead of a moving window,
+it grows from the original set of notes by \code{n} in the direction of the
+sign of \code{n}.
 }
 \examples{
 x <- "e_2 a_, c#f#a#"

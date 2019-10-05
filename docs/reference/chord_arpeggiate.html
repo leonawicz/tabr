@@ -225,11 +225,14 @@
     </tr>
     <tr>
       <th>n</th>
-      <td><p>integer, number of steps, negative indicates reverse direction (decreasing pitch).</p></td>
+      <td><p>integer, number of steps, negative indicates reverse direction
+(decreasing pitch).</p></td>
     </tr>
     <tr>
       <th>by</th>
-      <td><p>whether each of the <code>n</code> steps refers to individual notes in the chord (an inversion) or raising the entire chord in its given position by one octave.</p></td>
+      <td><p>whether each of the <code>n</code> steps refers to individual notes in
+the chord (an inversion) or raising the entire chord in its given position
+by one octave.</p></td>
     </tr>
     <tr>
       <th>broken</th>
@@ -237,7 +240,8 @@
     </tr>
     <tr>
       <th>collapse</th>
-      <td><p>logical, collapse result into a single string ready for phrase construction.</p></td>
+      <td><p>logical, collapse result into a single string ready for
+phrase construction.</p></td>
     </tr>
     </table>
 
@@ -246,7 +250,8 @@
     <p>character</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function is based on <code>chord_invert</code>. If <code>n = 0</code> then <code>chord</code> is returned immediately; other arguments are ignored.</p>
+    <p>This function is based on <code>chord_invert</code>. If <code>n = 0</code> then
+<code>chord</code> is returned immediately; other arguments are ignored.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>chord_arpeggiate</span>(<span class='st'>"ce_gb_"</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt; <span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;

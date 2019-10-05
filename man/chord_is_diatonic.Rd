@@ -2,7 +2,7 @@
 % Please edit documentation in R/chords.R
 \name{chord_is_diatonic}
 \alias{chord_is_diatonic}
-\title{Check if a chord is diatonic}
+\title{Check if chords are diatonic}
 \usage{
 chord_is_diatonic(chord, key = "c")
 }
@@ -15,10 +15,12 @@ chord_is_diatonic(chord, key = "c")
 logical
 }
 \description{
-Check whether a chord is diatonic in a given key.
+Check whether chords are diatonic in a given key.
 }
 \details{
-This function strictly accepts chord strings. To check if notes are in a scale, see \code{\link{note_in_scale}}. To check generally if a \code{noteworthy} string is fully diatonic, see \code{\link{is_diatonic}}.
+This function strictly accepts chord strings. To check if notes are in a
+scale, see \code{\link{note_in_scale}}. To check generally if a
+\code{noteworthy} string is fully diatonic, see \code{\link{is_diatonic}}.
 }
 \examples{
 chord_is_diatonic("ceg ace ce_g", "c")

@@ -19,9 +19,12 @@ tuning_intervals(tuning = "standard")
 
 \item{note2}{character, second note.}
 
-\item{ignore_octave}{logical, reduce the interval to that defined by notes within a single octave.}
+\item{ignore_octave}{logical, reduce the interval to that defined by notes
+within a single octave.}
 
-\item{format}{character, format of the scale notation: major/minor/perfect, augmented/diminished, and respective abbreviations. See argument options in defaults.}
+\item{format}{character, format of the scale notation: major/minor/perfect,
+augmented/diminished, and respective abbreviations. See argument options in
+defaults.}
 
 \item{tuning}{character, string tuning.}
 }
@@ -32,9 +35,13 @@ a musical interval, integer or character depending on the function.
 Helper functions for musical intervals defined by two notes.
 }
 \details{
-Intervals are directional. \code{pitch_interval} returns the number of semitones defining the distance between two notes. The interval is negative if \code{note1} has higher pitch than \code{note2}.
-For \code{scale_interval}, a character string is returned that provides the named main interval, simple or compound, defined by  the two notes.
-This function will return \code{NA} for any uncommon interval not listed in \code{\link{mainIntervals}}.
+Intervals are directional. \code{pitch_interval} returns the number of
+semitones defining the distance between two notes. The interval is negative
+if \code{note1} has higher pitch than \code{note2}.
+For \code{scale_interval}, a character string is returned that provides the
+named main interval, simple or compound, defined by  the two notes.
+This function will return \code{NA} for any uncommon interval not listed in
+\code{\link{mainIntervals}}.
 }
 \examples{
 pitch_interval("b", "c4")

@@ -16,9 +16,11 @@ tp(notes, n = 0, key = NA, style = c("default", "tick", "integer",
 
 \item{n}{integer, positive or negative number of semitones to transpose.}
 
-\item{key}{character, the new key signature after transposing \code{notes}. See details.}
+\item{key}{character, the new key signature after transposing \code{notes}.
+See details.}
 
-\item{style}{character, specify tick or integer style octave numbering in result. See details.}
+\item{style}{character, specify tick or integer style octave numbering in
+result. See details.}
 }
 \value{
 character
@@ -27,19 +29,35 @@ character
 Transpose pitch by a number of semitones.
 }
 \details{
-This function transposes the pitch of notes in a valid character string. The string must be of the form passed to the \code{info} argument to \code{\link{phrase}}.
+This function transposes the pitch of notes in a valid character string.
+The string must be of the form passed to the \code{info} argument to
+\code{\link{phrase}}.
 
-Transposing is not done on a phrase object. The notes in a phrase object have already been transformed to LilyPond syntax and mixed with other potentially complex and variable information.
-Transposing is intended to be done on a string of notes prior to passing it to \code{phrase}. It will work on strings that use either integer or tick mark octave numbering formats.
+Transposing is not done on a phrase object. The notes in a phrase object
+have already been transformed to LilyPond syntax and mixed with other
+potentially complex and variable information.
+Transposing is intended to be done on a string of notes prior to passing it
+to \code{phrase}. It will work on strings that use either integer or tick
+mark octave numbering formats.
 The transposed result will be a string with integer octave numbering.
 
-If \code{key} is provided, this helps ensure proper use of sharps vs. flats. Alternatively, you can simply provide \code{key = "sharp"} or \code{key = "flat"}. The exact key signature is not required, just more clear and informative for the user.
-If not provided (\code{key = NA}), transposition lacks full information and simply defaults to sharping any resulting accidentals for positive \code{n} and flattening for negative \code{n}.
+If \code{key} is provided, this helps ensure proper use of sharps vs. flats.
+Alternatively, you can simply provide \code{key = "sharp"} or
+\code{key = "flat"}. The exact key signature is not required, just more
+clear and informative for the user.
+If not provided (\code{key = NA}), transposition lacks full information and
+simply defaults to sharping any resulting accidentals for positive \code{n}
+and flattening for negative \code{n}.
 \code{n = 0} returns the input without any modification.
 
-The only element other pitch that occurs in a valid notes string is a rest, \code{"r"} or \code{"s"} (silent rest). Rests are ignored by transpose.
+The only element other pitch that occurs in a valid notes string is a rest,
+\code{"r"} or \code{"s"} (silent rest). Rests are ignored by transpose.
 
-The default \code{style} is to use tick style if no integers occur in \code{notes}. The \code{"tick"} and \code{"integer"} options force the respective styles. When integer style is returned, all \code{3}s are dropped since the third octave is the implicit center in LilyPond. \code{style = "strip"} removes any explicit octave information.
+The default \code{style} is to use tick style if no integers occur in
+\code{notes}. The \code{"tick"} and \code{"integer"} options force the
+respective styles. When integer style is returned, all \code{3}s are dropped
+since the third octave is the implicit center in LilyPond.
+\code{style = "strip"} removes any explicit octave information.
 }
 \examples{
 transpose("a_3 b_4 c5", 0)

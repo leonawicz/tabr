@@ -45,8 +45,11 @@
   
 
 <meta property="og:title" content="Concatenate and repeat — append_phrases" />
-<meta property="og:description" content="Helper functions for concatenating musical phrases and other strings together as well as repetition.
-The functions pc and pn are based on base functions paste andrep, respectively, but are tailored for efficiency in creating musical phrases." />
+<meta property="og:description" content="Helper functions for concatenating musical phrases and other strings
+together as well as repetition.
+The functions pc and pn are based on base functions
+paste andrep, respectively, but are tailored for efficiency in
+creating musical phrases." />
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -211,8 +214,11 @@ The functions pc and pn are based on base functions paste andrep, respectively, 
     </div>
 
     <div class="ref-description">
-    <p>Helper functions for concatenating musical phrases and other strings together as well as repetition.
-The functions <code>pc</code> and <code>pn</code> are based on base functions <code>paste</code> and<code>rep</code>, respectively, but are tailored for efficiency in creating musical phrases.</p>
+    <p>Helper functions for concatenating musical phrases and other strings
+together as well as repetition.
+The functions <code>pc</code> and <code>pn</code> are based on base functions
+<code>paste</code> and<code>rep</code>, respectively, but are tailored for efficiency in
+creating musical phrases.</p>
     </div>
 
     <pre class="usage"><span class='fu'>pc</span>(<span class='no'>...</span>)
@@ -238,15 +244,23 @@ The functions <code>pc</code> and <code>pn</code> are based on base functions <c
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>phrase on non-phrase character string, noteworthy string if applicable.</p>
+    <p>phrase on non-phrase character string, noteworthy string if
+applicable.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>These functions respect and retain the phrase class when applied to phrases. They are aggressive for phrases and secondarily for noteworthy strings.
-Combining a phrase with a non-phrase string will assume compatibility and result in a new phrase object.
-If no phrase objects are present, the presence of any noteworthy string will in turn attempt to force conversion of all strings to noteworthy strings.
-The aggressiveness provides convenience, but is counter to expected coercion rules. It is up to the user to ensure all inputs can be forced into the more specific child class.</p>
-<p>This is especially useful for repeated instances. This function applies to general slur notation as well.
-Multiple input formats are allowed. Total number of note durations must be even because all slurs require start and stop points.</p>
+    <p>These functions respect and retain the phrase class when applied to phrases.
+They are aggressive for phrases and secondarily for noteworthy strings.
+Combining a phrase with a non-phrase string will assume compatibility and
+result in a new phrase object.
+If no phrase objects are present, the presence of any noteworthy string will
+in turn attempt to force conversion of all strings to noteworthy strings.
+The aggressiveness provides convenience, but is counter to expected coercion
+rules. It is up to the user to ensure all inputs can be forced into the more
+specific child class.</p>
+<p>This is especially useful for repeated instances. This function applies to
+general slur notation as well.
+Multiple input formats are allowed. Total number of note durations must be
+even because all slurs require start and stop points.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>pc</span>(<span class='fl'>8</span>, <span class='st'>"16-"</span>, <span class='st'>"8^"</span>)</div><div class='output co'>#&gt; [1] "8 16- 8^"</div><div class='input'><span class='fu'>pn</span>(<span class='fl'>1</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] "1 1"</div><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='st'>"c ec'g' ec'g'"</span>, <span class='st'>"4 4 2"</span>, <span class='st'>"5 432 432"</span>)

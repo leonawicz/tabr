@@ -14,9 +14,11 @@ chord_top(chords)
 chord_slice(chords, index)
 }
 \arguments{
-\item{chords}{character, a noteworthy string, may include individual notes and chords.}
+\item{chords}{character, a noteworthy string, may include individual notes
+and chords.}
 
-\item{index}{integer, the order of a note in a chord by pitch (not scale degrees).}
+\item{index}{integer, the order of a note in a chord by pitch (not scale
+degrees).}
 }
 \value{
 a noteworthy string
@@ -25,10 +27,14 @@ a noteworthy string
 Filter or slice chords to extract individual notes.
 }
 \details{
-These functions extract notes from chords such as the root note, the highest pitch, specific position among the notes by pitch, or trim chords to simplify them.
+These functions extract notes from chords such as the root note, the highest
+pitch, specific position among the notes by pitch, or trim chords to
+simplify them.
 They operate based only on ordered pitches.
 
-For \code{chord_slice}, any entry that is empty after slicing is dropped. An error is thrown is \code{index} is completely out of bounds for all chords.
+For \code{chord_slice}, any entry that is empty after slicing is dropped.
+An error is thrown is \code{index} is completely out of bounds for all
+chords.
 }
 \examples{
 x <- "a2 ceg e_gc egc,cc'"

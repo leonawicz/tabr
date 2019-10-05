@@ -228,11 +228,14 @@
     </tr>
     <tr>
       <th>optional</th>
-      <td><p><code>NA</code> when all notes required. Otherwise an integer vector giving the indices of<code>fret</code> that are considered optional notes for the chord.</p></td>
+      <td><p><code>NA</code> when all notes required. Otherwise an integer
+vector giving the indices of<code>fret</code> that are considered optional notes
+for the chord.</p></td>
     </tr>
     <tr>
       <th>tuning</th>
-      <td><p>character, string tuning. See <code>tunings</code> for predefined tunings. Custom tunings are specified with a similar <code>value</code> string.</p></td>
+      <td><p>character, string tuning. See <code>tunings</code> for predefined
+tunings. Custom tunings are specified with a similar <code>value</code> string.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -245,13 +248,21 @@
     <p>a data frame</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function creates a tibble data frame containing information defining various attributes of chords.
-It is used to create the <code>guitarChords</code> dataset, but can be used to create other pre-defined chord collections.
+    <p>This function creates a tibble data frame containing information defining
+various attributes of chords.
+It is used to create the <code>guitarChords</code> dataset, but can be used to
+create other pre-defined chord collections.
 The tibble has only one row, providing all information for the defined chord.
-The user can decide which arguments to vectorize over when creating a chord collection. See examples.</p>
-<p>This function uses a vector of fret integers (<code>NA</code> for muted string) to define a chord, in conjunction with a string <code>tuning</code> (defaults to standard tuning, six-string guitar).
-<code>fret</code> is from lowest to highest pitch strings, e.g., strings six through one.</p>
-<p>The <code>id</code> is passed directly to the output. It represents the type of chord and should conform to accepted <code>tabr</code> notation. See <code>id</code> column in <code>guitar Chords</code> for examples.</p>
+The user can decide which arguments to vectorize over when creating a chord
+collection. See examples.</p>
+<p>This function uses a vector of fret integers (<code>NA</code> for muted string) to
+define a chord, in conjunction with a string <code>tuning</code> (defaults to
+standard tuning, six-string guitar).
+<code>fret</code> is from lowest to highest pitch strings, e.g., strings six
+through one.</p>
+<p>The <code>id</code> is passed directly to the output. It represents the type of
+chord and should conform to accepted <code>tabr</code> notation. See <code>id</code>
+column in <code>guitar Chords</code> for examples.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>frets</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>NA</span>, <span class='fl'>0</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>0</span>)

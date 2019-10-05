@@ -6,10 +6,15 @@
 #'
 #' @param key character, key signature.
 #' @param root character, root note.
-#' @param collapse logical, collapse result into a single string ready for phrase construction.
-#' @param sharp logical, accidentals in arbitrary scale output should be sharp rather than flat.
-#' @param descending logical, return the descending scale, available as a built-in argument for the melodic minor scale, which is different in each direction.
-#' @param ignore_octave logical, strip octave numbering from scales not rooted on C.
+#' @param collapse logical, collapse result into a single string ready for
+#' phrase construction.
+#' @param sharp logical, accidentals in arbitrary scale output should be sharp
+#' rather than flat.
+#' @param descending logical, return the descending scale, available as a
+#' built-in argument for the melodic minor scale, which is different in each
+#' direction.
+#' @param ignore_octave logical, strip octave numbering from scales not rooted
+#' on C.
 #'
 #' @return character
 #' @export
@@ -49,7 +54,8 @@ scale_major <- function(key = "c", collapse = FALSE, ignore_octave = FALSE){
 
 #' @export
 #' @rdname scale-helpers
-scale_minor <- function(key = "am", collapse = FALSE, ignore_octave = FALSE){
+scale_minor <- function(key = "am", collapse = FALSE,
+                        ignore_octave = FALSE){
   if(!key %in% .keydata$key[!.keydata$major])
     stop("`key` does not indicate a valid minor key.", call. = FALSE)
   scale_diatonic(key, collapse, ignore_octave)
@@ -57,7 +63,8 @@ scale_minor <- function(key = "am", collapse = FALSE, ignore_octave = FALSE){
 
 #' @export
 #' @rdname scale-helpers
-scale_harmonic_minor <- function(key = "am", collapse = FALSE, ignore_octave = FALSE){
+scale_harmonic_minor <- function(key = "am", collapse = FALSE,
+                                 ignore_octave = FALSE){
   x <- scale_minor(key, ignore_octave = ignore_octave)
   x[7] <- transpose(x[7], 1, key)
   if(collapse) x <- paste0(x, collapse = " ")
@@ -66,7 +73,8 @@ scale_harmonic_minor <- function(key = "am", collapse = FALSE, ignore_octave = F
 
 #' @export
 #' @rdname scale-helpers
-scale_hungarian_minor <- function(key = "am", collapse = FALSE, ignore_octave = FALSE){
+scale_hungarian_minor <- function(key = "am", collapse = FALSE,
+                                  ignore_octave = FALSE){
   x <- scale_minor(key, ignore_octave = ignore_octave)
   x[4] <- transpose(x[4], 1, key)
   x[7] <- transpose(x[7], 1, key)
@@ -77,7 +85,8 @@ scale_hungarian_minor <- function(key = "am", collapse = FALSE, ignore_octave = 
 # TODO # need to update scale_chords; add unit tests for these
 #' @export
 #' @rdname scale-helpers
-scale_melodic_minor <- function(key = "am", descending = FALSE, collapse = FALSE, ignore_octave = FALSE){
+scale_melodic_minor <- function(key = "am", descending = FALSE,
+                                collapse = FALSE, ignore_octave = FALSE){
   x <- scale_minor(key, ignore_octave = ignore_octave)
   if(descending){
     x <- rev(x)
@@ -90,14 +99,17 @@ scale_melodic_minor <- function(key = "am", descending = FALSE, collapse = FALSE
 
 #' @export
 #' @rdname scale-helpers
-scale_jazz_minor <- function(key = "am", collapse = FALSE, ignore_octave = FALSE){
+scale_jazz_minor <- function(key = "am", collapse = FALSE,
+                             ignore_octave = FALSE){
   scale_melodic_minor(key, FALSE, collapse, ignore_octave)
 }
 
 #' @export
 #' @rdname scale-helpers
-scale_chromatic <- function(root = "c", collapse = FALSE, sharp = TRUE, ignore_octave = FALSE){
-  x <- ifelse(sharp, "c c# d d# e f f# g g# a a# b", "c d_ d e_ e f g_ g a_ a b_ b")
+scale_chromatic <- function(root = "c", collapse = FALSE, sharp = TRUE,
+                            ignore_octave = FALSE){
+  x <- ifelse(sharp, "c c# d d# e f f# g g# a a# b",
+              "c d_ d e_ e f g_ g a_ a b_ b")
   y <- strsplit(x, " ")[[1]]
   if(!root %in% y) stop(paste("`root` is not one of:", x), call. = FALSE)
   idx <- match(root, y)
@@ -111,12 +123,15 @@ scale_chromatic <- function(root = "c", collapse = FALSE, sharp = TRUE, ignore_o
 
 #' Diatonic chords
 #'
-#' Obtain an ordered sequence of the diatonic chords for a given scale, as triads or sevenths.
+#' Obtain an ordered sequence of the diatonic chords for a given scale, as
+#' triads or sevenths.
 #'
 #' @param root character, root note or starting position of scale.
-#' @param scale character, a valid named scale, referring to one of the existing \code{scale_*} functions.
+#' @param scale character, a valid named scale, referring to one of the
+#' existing \code{scale_*} functions.
 #' @param type character, type of chord, triad or seventh.
-#' @param collapse logical, collapse result into a single string ready for phrase construction.
+#' @param collapse logical, collapse result into a single string ready for
+#' phrase construction.
 #'
 #' @return character
 #' @export
@@ -131,7 +146,8 @@ scale_chromatic <- function(root = "c", collapse = FALSE, sharp = TRUE, ignore_o
 #'
 #' scale_chords("c", "major", "seventh", collapse = TRUE)
 #' scale_chords("a", "minor", "seventh", collapse = TRUE)
-scale_chords <- function(root = "c", scale = "major", type = c("triad", "seventh"), collapse = FALSE){
+scale_chords <- function(root = "c", scale = "major",
+                         type = c("triad", "seventh"), collapse = FALSE){
   type <- match.arg(type)
   s <- paste0("scale_", gsub(" ", "_", scale))
   .check_scale_fun(s)
@@ -160,36 +176,50 @@ scale_chords <- function(root = "c", scale = "major", type = c("triad", "seventh
   x
 }
 
-# nolint start
-
 #' Scale degrees and mappings
 #'
 #' These functions assist with mapping between scale degrees, notes and chords.
 #'
-#' Obtain the scale degree of a note in a supported scale with \code{scale_degree}.
-#' This function also works with chords inside note strings. It only considers the first note in each space-delimited entry.
-#' \code{notes} may be a vector of single entries (non-delimited). Notes return \code{NA} if not explicitly in the scale.
-#' This includes cases where the note is in the scale but is notated as sharp or flat when the \code{scale} and/or \code{key} provide the opposite.
+#' Obtain the scale degree of a note in a supported scale with
+#' \code{scale_degree}.
+#' This function also works with chords inside note strings.
+#' It only considers the first note in each space-delimited entry.
+#' \code{notes} may be a vector of single entries (non-delimited).
+#' Notes return \code{NA} if not explicitly in the scale.
+#' This includes cases where the note is in the scale but is notated as sharp
+#' or flat when the \code{scale} and/or \code{key} provide the opposite.
 #'
-#' The inverse of \code{scale_degree} is \code{scale_note}, for obtaining the note associated with a scale degree.
-#' This could be done simply by calling a \code{scale_*} function and indexing its output directly, but this wrapper is provided to complement \code{scale_degree}.
-#' Additionally, it accepts the common Roman numeral input for the degree. This can be with the \code{roman} class or as a character string.
+#' The inverse of \code{scale_degree} is \code{scale_note}, for obtaining the
+#' note associated with a scale degree.
+#' This could be done simply by calling a \code{scale_*} function and indexing
+#' its output directly, but this wrapper is provided to complement
+#' \code{scale_degree}.
+#' Additionally, it accepts the common Roman numeral input for the degree.
+#' This can be with the \code{roman} class or as a character string.
 #' Degrees return \code{NA} if outside the scale degree range.
 #'
-#' \code{note_in_scale} performs a vectorized logical check if each note is in a given scale.
+#' \code{note_in_scale} performs a vectorized logical check if each note is in
+#' a given scale.
 #' This function strictly accepts note strings.
-#' To check if chords are diatonic to the scale, see \code{\link{chord_is_diatonic}}. To check generally if a \code{noteworthy} string is fully diatonic, see \code{\link{is_diatonic}}.
+#' To check if chords are diatonic to the scale,
+#' see \code{\link{chord_is_diatonic}}. To check generally if a
+#' \code{noteworthy} string is fully diatonic, see \code{\link{is_diatonic}}.
 #'
 #' @param notes character, a string of notes.
 #' @param deg integer, roman class, or character roman, the scale degree.
-#' @param key character, key signature (or root note) for scale, depending on the type of \code{scale}.
+#' @param key character, key signature (or root note) for scale, depending on
+#' the type of \code{scale}.
 #' @param scale character, the suffix of a supported \code{scale_*} function.
-#' @param naturalize logical, whether to naturalize any sharps or flats before obtaiuning the scale degree.
+#' @param naturalize logical, whether to naturalize any sharps or flats before
+#' obtaiuning the scale degree.
 #' @param roman logical, return integer scale degrees as Roman numerals.
-#' @param collapse logical, collapse result into a single string ready for phrase construction.
-#' @param ... additional arguments passed to the scale function, e.g., \code{sharp = FALSE} for \code{scale_chromatic}.
+#' @param collapse logical, collapse result into a single string ready for
+#' phrase construction.
+#' @param ... additional arguments passed to the scale function, e.g.,
+#' \code{sharp = FALSE} for \code{scale_chromatic}.
 #'
-#' @return integer, or roman class if \code{roman = TRUE} for \code{scale_degree}. character for \code{scale_note}.
+#' @return integer, or roman class if \code{roman = TRUE} for
+#' \code{scale_degree}. character for \code{scale_note}.
 #' @export
 #' @name scale-deg
 #' @seealso \code{\link{scale-helpers}}
@@ -206,7 +236,8 @@ scale_chords <- function(root = "c", scale = "major", type = c("triad", "seventh
 #' scale_note(1:3)
 #' scale_note(c(1, 3, 8), "d", collapse = TRUE)
 #' all(sapply(list(4, "IV", as.roman(4)), scale_note) == "f")
-scale_degree <- function(notes, key = "c", scale = "diatonic", naturalize = FALSE, roman = FALSE, ...){
+scale_degree <- function(notes, key = "c", scale = "diatonic",
+                         naturalize = FALSE, roman = FALSE, ...){
   .check_noteworthy(notes)
   s <- paste0("scale_", gsub(" ", "_", scale))
   .check_scale_fun(s)
@@ -221,15 +252,18 @@ scale_degree <- function(notes, key = "c", scale = "diatonic", naturalize = FALS
   x
 }
 
-# nolint end
-
 #' @export
 #' @rdname scale-deg
-scale_note <- function(deg, key = "c", scale = "diatonic", collapse = FALSE, ...){
+scale_note <- function(deg, key = "c", scale = "diatonic", collapse = FALSE,
+                       ...){
   s <- paste0("scale_", gsub(" ", "_", scale))
   .check_scale_fun(s)
   x <- do.call(s, c(list(key), list(...)))
-  deg <- if(is.character(deg)) as.integer(utils::as.roman(strsplit(deg, " ")[[1]])) else as.integer(deg)
+  deg <- if(is.character(deg)){
+    as.integer(utils::as.roman(strsplit(deg, " ")[[1]]))
+  } else {
+    as.integer(deg)
+  }
   if(any(deg < 1)) stop("`deg` should be >= 1.", call. = FALSE)
   x <- x[deg]
   if(collapse) x <- paste0(x, collapse = " ")

@@ -45,7 +45,9 @@
   
 
 <meta property="og:title" content="Inspect or coerce noteworthy string formats — note_is_natural" />
-<meta property="og:description" content="Helper functions for inspecting and setting formatting attributes of noteworthy strings including representation of timesteps, octaves and accidentals." />
+<meta property="og:description" content="Helper functions for inspecting and setting formatting attributes of
+noteworthy strings including representation of timesteps, octaves and
+accidentals." />
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -210,7 +212,9 @@
     </div>
 
     <div class="ref-description">
-    <p>Helper functions for inspecting and setting formatting attributes of noteworthy strings including representation of timesteps, octaves and accidentals.</p>
+    <p>Helper functions for inspecting and setting formatting attributes of
+noteworthy strings including representation of timesteps, octaves and
+accidentals.</p>
     </div>
 
     <pre class="usage"><span class='fu'>note_is_natural</span>(<span class='no'>notes</span>)
@@ -245,7 +249,8 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>notes</th>
-      <td><p>character, a noteworthy string, space-delimited or vector of individual entries.</p></td>
+      <td><p>character, a noteworthy string, space-delimited or vector of
+individual entries.</p></td>
     </tr>
     <tr>
       <th>type</th>
@@ -253,11 +258,14 @@
     </tr>
     <tr>
       <th>ignore_octave</th>
-      <td><p>logical, strip any octave notation that may be present, returning only the basic notes without explicit pitch.</p></td>
+      <td><p>logical, strip any octave notation that may be present,
+returning only the basic notes without explicit pitch.</p></td>
     </tr>
     <tr>
       <th>key</th>
-      <td><p>character, key signature to coerce any accidentals to the appropriate form for the key. May also specify <code>"sharp"</code> or <code>"flat"</code>.</p></td>
+      <td><p>character, key signature to coerce any accidentals to the
+appropriate form for the key. May also specify <code>"sharp"</code> or
+<code>"flat"</code>.</p></td>
     </tr>
     </table>
 
@@ -267,14 +275,21 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The <code>note_is_*</code> functions strictly allow individual notes, not chords.
-The other functions listed here accept any noteworthy string including those containing chords.</p>
-<p>For <code>sharpen_flat</code> and <code>flatten_sharp</code>, sharpening flats and flattening sharps refer to inverting their respective notation,
+The other functions listed here accept any noteworthy string including those
+containing chords.</p>
+<p>For <code>sharpen_flat</code> and <code>flatten_sharp</code>, sharpening flats and
+flattening sharps refer to inverting their respective notation,
 not to raising or lowering a flatted or sharped note by one semitone.
-For the latter, use <code>naturalize</code>, which removes flat and/or sharp notation from a string.
-<code>note_set_key</code> is used for coercing a noteworthy string to a specific and consistent notation for accidentals based on a key signature.
+For the latter, use <code>naturalize</code>, which removes flat and/or sharp
+notation from a string.
+<code>note_set_key</code> is used for coercing a noteworthy string to a specific
+and consistent notation for accidentals based on a key signature.
 This is a wrapper around <code>sharpen_flat</code> and <code>flatten_sharp</code>.
-<code>as_tick_octaves</code>, <code>as_integer_octaves</code>, <code>as_space_time</code> and <code>as_vector_time</code> similarly affect octave and timestep format.
-For simultaneous control over the representation of timesteps, octave numbering and accidentals, all three are available as arguments to <code><a href='valid-notes.html'>as_noteworthy</a></code>.</p>
+<code>as_tick_octaves</code>, <code>as_integer_octaves</code>, <code>as_space_time</code> and
+<code>as_vector_time</code> similarly affect octave and timestep format.
+For simultaneous control over the representation of timesteps, octave
+numbering and accidentals, all three are available as arguments to
+<code><a href='valid-notes.html'>as_noteworthy</a></code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"a_2 a a#'"</span>

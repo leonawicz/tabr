@@ -11,9 +11,12 @@ chord_def(fret, id, optional = NA, tuning = "standard", ...)
 
 \item{id}{character, the chord type. See details.}
 
-\item{optional}{\code{NA} when all notes required. Otherwise an integer vector giving the indices of\code{fret} that are considered optional notes for the chord.}
+\item{optional}{\code{NA} when all notes required. Otherwise an integer
+vector giving the indices of\code{fret} that are considered optional notes
+for the chord.}
 
-\item{tuning}{character, string tuning. See \code{tunings} for predefined tunings. Custom tunings are specified with a similar \code{value} string.}
+\item{tuning}{character, string tuning. See \code{tunings} for predefined
+tunings. Custom tunings are specified with a similar \code{value} string.}
 
 \item{...}{additional arguments passed to \code{transpose}. See examples.}
 }
@@ -24,15 +27,23 @@ a data frame
 Function for creating new chord definition tables.
 }
 \details{
-This function creates a tibble data frame containing information defining various attributes of chords.
-It is used to create the \code{guitarChords} dataset, but can be used to create other pre-defined chord collections.
+This function creates a tibble data frame containing information defining
+various attributes of chords.
+It is used to create the \code{guitarChords} dataset, but can be used to
+create other pre-defined chord collections.
 The tibble has only one row, providing all information for the defined chord.
-The user can decide which arguments to vectorize over when creating a chord collection. See examples.
+The user can decide which arguments to vectorize over when creating a chord
+collection. See examples.
 
-This function uses a vector of fret integers (\code{NA} for muted string) to define a chord, in conjunction with a string \code{tuning} (defaults to standard tuning, six-string guitar).
-\code{fret} is from lowest to highest pitch strings, e.g., strings six through one.
+This function uses a vector of fret integers (\code{NA} for muted string) to
+define a chord, in conjunction with a string \code{tuning} (defaults to
+standard tuning, six-string guitar).
+\code{fret} is from lowest to highest pitch strings, e.g., strings six
+through one.
 
-The \code{id} is passed directly to the output. It represents the type of chord and should conform to accepted \code{tabr} notation. See \code{id} column in \code{guitar Chords} for examples.
+The \code{id} is passed directly to the output. It represents the type of
+chord and should conform to accepted \code{tabr} notation. See \code{id}
+column in \code{guitar Chords} for examples.
 }
 \examples{
 frets <- c(NA, 0, 2, 2, 1, 0)

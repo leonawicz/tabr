@@ -230,7 +230,8 @@
     </tr>
     <tr>
       <th>string, </th>
-      <td><p>character, optional string that specifies which guitar strings to play for each specific note.</p></td>
+      <td><p>character, optional string that specifies which guitar
+strings to play for each specific note.</p></td>
     </tr>
     <tr>
       <th>a</th>
@@ -247,10 +248,18 @@
     <p>phrase</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function gives control over tuplet construction. The default arguments <code>a = 3</code> and <code>b = 2</code> generates a triplet where three triplet notes, each lasting for two thirds of a beat, take up two beats.
-<code>n</code> is used to describe the beat duration with the same fraction-of-measure denominator notation used for notes in <code>tabr</code> phrases, e.g., 16th note triplet, 8th note triplet, etc.</p>
-<p>If you provide a note sequence for multiple tuplets in a row of the same type, they will be connected automatically. It is not necessary to call <code>tuplet</code> each time when the pattern is constant.
-If you provide a complete phrase object, it will simply be wrapped in the tuplet tag, so take care to ensure the phrase contents make sense as part of a tuplet.</p>
+    <p>This function gives control over tuplet construction. The default arguments
+<code>a = 3</code> and <code>b = 2</code> generates a triplet where three triplet notes,
+each lasting for two thirds of a beat, take up two beats.
+<code>n</code> is used to describe the beat duration with the same
+fraction-of-measure denominator notation used for notes in <code>tabr</code>
+phrases, e.g., 16th note triplet, 8th note triplet, etc.</p>
+<p>If you provide a note sequence for multiple tuplets in a row of the same
+type, they will be connected automatically. It is not necessary to call
+<code>tuplet</code> each time when the pattern is constant.
+If you provide a complete phrase object, it will simply be wrapped in the
+tuplet tag, so take care to ensure the phrase contents make sense as part of
+a tuplet.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>tuplet</span>(<span class='st'>"c c# d"</span>, <span class='fl'>8</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'>&lt;</span><span style='color: #555555;font-weight: bold;'>Musical phrase</span><span style='color: #555555;'>&gt;</span><span>

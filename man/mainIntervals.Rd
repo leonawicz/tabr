@@ -9,6 +9,7 @@
 mainIntervals
 }
 \description{
-A data frame containing descriptions of the main intervals, simple and compound.
+A data frame containing descriptions of the main intervals, simple and
+compound.
 }
 \keyword{datasets}

@@ -45,7 +45,8 @@
   
 
 <meta property="og:title" content="Convert MIDI to LilyPond file — midily" />
-<meta property="og:description" content="Convert a MIDI file (.mid) to a LilyPond format (.ly) text file." />
+<meta property="og:description" content="Convert a MIDI file (.mid) to a LilyPond format (.ly) text
+file." />
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -210,7 +211,8 @@
     </div>
 
     <div class="ref-description">
-    <p>Convert a MIDI file (<code>.mid</code>) to a LilyPond format (<code>.ly</code>) text file.</p>
+    <p>Convert a MIDI file (<code>.mid</code>) to a LilyPond format (<code>.ly</code>) text
+file.</p>
     </div>
 
     <pre class="usage"><span class='fu'>midily</span>(<span class='no'>midi_file</span>, <span class='no'>file</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>absolute</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>quantize</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -222,7 +224,8 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>midi_file</th>
-      <td><p>character, MIDI file (<code>.mid</code>). May include an absolute or relative path.</p></td>
+      <td><p>character, MIDI file (<code>.mid</code>). May include an absolute
+or relative path.</p></td>
     </tr>
     <tr>
       <th>file</th>
@@ -262,7 +265,9 @@
     </tr>
     <tr>
       <th>path</th>
-      <td><p>character, optional output directory prefixed to <code>file</code>, may be an absolute or relative path. If <code>NULL</code> (default), only <code>file</code> is used.</p></td>
+      <td><p>character, optional output directory prefixed to <code>file</code>,
+may be an absolute or relative path. If <code>NULL</code> (default), only
+<code>file</code> is used.</p></td>
     </tr>
     </table>
 
@@ -272,16 +277,38 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Under development/testing. See warning and details below.</p>
-<p>This function is a wrapper around the <code>midi2ly</code> command line utility provided by LilyPond. It inherits all the limitations thereof. LilyPond is not intended to be used to produce meaningful sheet music from arbitrary MIDI files.
-<em>A future version will offer additional arguments that use <code>tabr</code> to subsequently edit the generated LilyPond file as a second step, allowing the user to make some nominal substitutions or additions to the default output.</em>
-While <code><a href='lilypond.html'>lilypond</a></code> converts R code <code>score</code> objects to LilyPond markup directly, MIDI conversion to LilyPond markup by <code>midily</code> requires LilyPond.</p>
-<p>WARNING: Even though the purpose of the command line utility is to convert an existing MIDI file to a LilyPond file, it nevertheless generates a LilyPond file that <em>specifies inclusion of MIDI output</em>.
-This means when you subsequently process the LilyPond file with LilyPond or if you use <code>miditab</code> to go straight from your MIDI file to pdf output, the command line tool will also produce a MIDI file output. It will overwrite your original MIDI file if it has the same file name and location!
-The next version of this function will add an default argument <code>midi_out = FALSE</code> to remove this from the generated LilyPond file. If <code>TRUE</code> and the basename of <code>midi_file</code> matches the basename of <code>file</code>, then <code>file</code> will be renamed, the basename appended with a <code>-1</code>.</p>
-<p><code>allow_tuplets = NULL</code> to disallow all tuplets. Fourth, eighth and sixteenth note triplets are allowed. The format is a character vector where each element is <code>duration*numerator/denominator</code>, no spaces. See default argument.</p>
-<p>On Windows systems, it may be necessary to specify a path in tabr_options to both <code>midi2ly</code> and <code>python</code> if they are not already successfully set as follows.
-On package load, <code>tabr</code> will attempt to check for <code>midi2ly.exe</code> at <code>C:/Program Files (x86)/LilyPond/usr/bin/midi2ly.py</code> and similarly for the <code>python.exe</code> that ships with LilyPond at <code>C:/Program Files (x86)/LilyPond/usr/bin/python.exe</code>.
-If this is not where LilyPond is installed, then LilyPond and Python need to be provided to <code>tabr_options</code> or added to the system PATH variable.</p>
+<p>This function is a wrapper around the <code>midi2ly</code> command line utility
+provided by LilyPond. It inherits all the limitations thereof.
+LilyPond is not intended to be used to produce meaningful sheet music from
+arbitrary MIDI files.
+While <code><a href='lilypond.html'>lilypond</a></code> converts R code <code>score</code> objects to
+LilyPond markup directly, MIDI conversion to LilyPond markup by
+<code>midily</code> requires LilyPond.</p>
+<p>WARNING: Even though the purpose of the command line utility is to convert
+an existing MIDI file to a LilyPond file, it nevertheless generates a
+LilyPond file that <em>specifies inclusion of MIDI output</em>.
+This means when you subsequently process the LilyPond file with LilyPond or
+if you use <code>miditab</code> to go straight from your MIDI file to pdf output,
+the command line tool will also produce a MIDI file output. It will
+overwrite your original MIDI file if it has the same file name and location!
+The next version of this function will add an default argument
+<code>midi_out = FALSE</code> to remove this from the generated LilyPond file.
+If <code>TRUE</code> and the basename of <code>midi_file</code> matches the basename of
+<code>file</code>, then <code>file</code> will be renamed, the basename appended with a
+<code>-1</code>.</p>
+<p><code>allow_tuplets = NULL</code> to disallow all tuplets. Fourth, eighth and
+sixteenth note triplets are allowed. The format is a character vector where
+each element is <code>duration*numerator/denominator</code>, no spaces.
+See default argument.</p>
+<p>On Windows systems, it may be necessary to specify a path in tabr_options to
+both <code>midi2ly</code> and <code>python</code> if they are not already successfully
+set as follows.
+On package load, <code>tabr</code> will attempt to check for <code>midi2ly.exe</code> at
+<code>C:/Program Files (x86)/LilyPond/usr/bin/midi2ly.py</code> and similarly for
+the <code>python.exe</code> that ships with LilyPond at
+<code>C:/Program Files (x86)/LilyPond/usr/bin/python.exe</code>.
+If this is not where LilyPond is installed, then LilyPond and Python need to
+be provided to <code>tabr_options</code> or added to the system PATH variable.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='miditab.html'>miditab</a></code>, <code><a href='tab.html'>tab</a></code>, <code><a href='lilypond.html'>lilypond</a></code></p></div>

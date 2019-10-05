@@ -231,105 +231,11 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-create-tablature" class="hasAnchor"><a href="#section-create-tablature" class="anchor"></a>Create tablature</h2>
-          <p class="section-desc"><p>Functions for writing and rendering LilyPond files.</p></p>
+          <h2 id="section-working-with-noteworthy-strings" class="hasAnchor"><a href="#section-working-with-noteworthy-strings" class="anchor"></a>Working with noteworthy strings</h2>
+          <p class="section-desc"><p>Functions for inspecting and manipulating noteworthy strings</p></p>
         </th>
       </tr>
       <tr>
-        
-        <td>
-          <p><code><a href="tab.html">tab()</a></code> </p>
-        </td>
-        <td><p>Create tablature</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="lilypond.html">lilypond()</a></code> </p>
-        </td>
-        <td><p>Save score to LilyPond file</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="tabr_options.html">tabr_options()</a></code> </p>
-        </td>
-        <td><p>Options</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-organizing-music" class="hasAnchor"><a href="#section-organizing-music" class="anchor"></a>Organizing music</h2>
-          <p class="section-desc"><p>Functions for hierarchical music notation organization.</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="phrase.html">phrase()</a></code> <code><a href="phrase.html">p()</a></code> </p>
-        </td>
-        <td><p>Create a musical phrase</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="track.html">track()</a></code> </p>
-        </td>
-        <td><p>Create a music track</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="trackbind.html">trackbind()</a></code> </p>
-        </td>
-        <td><p>Bind track tables</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="score.html">score()</a></code> </p>
-        </td>
-        <td><p>Create a music score</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-phrase-construction" class="hasAnchor"><a href="#section-phrase-construction" class="anchor"></a>Phrase construction</h2>
-          <p class="section-desc"><p>Functions for describing, assembling and connecting musical phrases.</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="append_phrases.html">pc()</a></code> <code><a href="append_phrases.html">pn()</a></code> </p>
-        </td>
-        <td><p>Concatenate and repeat</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rest.html">rest()</a></code> </p>
-        </td>
-        <td><p>Create rests</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="tie.html">tie()</a></code> <code><a href="tie.html">untie()</a></code> </p>
-        </td>
-        <td><p>Tied notes</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="notate.html">notate()</a></code> </p>
-        </td>
-        <td><p>Add text to music staff</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="hp.html">hp()</a></code> </p>
-        </td>
-        <td><p>Hammer ons and pull offs</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="tuplet.html">tuplet()</a></code> <code><a href="tuplet.html">triplet()</a></code> </p>
-        </td>
-        <td><p>Tuplets</p></td>
-      </tr><tr>
         
         <td>
           <p><code><a href="transpose.html">transpose()</a></code> <code><a href="transpose.html">tp()</a></code> </p>
@@ -338,125 +244,39 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="sf_phrase.html">sf_phrase()</a></code> <code><a href="sf_phrase.html">sfp()</a></code> <code><a href="sf_phrase.html">sf_note()</a></code> <code><a href="sf_phrase.html">sfn()</a></code> </p>
+          <p><code><a href="note_is_natural.html">note_is_natural()</a></code> <code><a href="note_is_natural.html">note_is_accidental()</a></code> <code><a href="note_is_natural.html">note_is_flat()</a></code> <code><a href="note_is_natural.html">note_is_sharp()</a></code> <code><a href="note_is_natural.html">naturalize()</a></code> <code><a href="note_is_natural.html">sharpen_flat()</a></code> <code><a href="note_is_natural.html">flatten_sharp()</a></code> <code><a href="note_is_natural.html">note_set_key()</a></code> <code><a href="note_is_natural.html">as_tick_octaves()</a></code> <code><a href="note_is_natural.html">as_integer_octaves()</a></code> <code><a href="note_is_natural.html">as_space_time()</a></code> <code><a href="note_is_natural.html">as_vector_time()</a></code> <code><a href="note_is_natural.html">pretty_notes()</a></code> </p>
         </td>
-        <td><p>Create a musical phrase from string/fret combinations</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-repeats" class="hasAnchor"><a href="#section-repeats" class="anchor"></a>Repeats</h2>
-          <p class="section-desc"><p>Functions to assist with repeated sections of music.</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="repeats.html">rp()</a></code> <code><a href="repeats.html">pct()</a></code> <code><a href="repeats.html">volta()</a></code> </p>
-        </td>
-        <td><p>Repeat phrases</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-chords" class="hasAnchor"><a href="#section-chords" class="anchor"></a>Chords</h2>
-          <p class="section-desc"><p>Functions for chord transcription.</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="chord_set.html">chord_set()</a></code> </p>
-        </td>
-        <td><p>Generate a chord set</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-phrase-validation-and-coercion" class="hasAnchor"><a href="#section-phrase-validation-and-coercion" class="anchor"></a>Phrase validation and coercion</h2>
-          <p class="section-desc"><p>Functions for checking and decomposing phrases objects.</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="phrase-checks.html">as_phrase()</a></code> <code><a href="phrase-checks.html">phrasey()</a></code> <code><a href="phrase-checks.html">notify()</a></code> <code><a href="phrase-checks.html">phrase_notes()</a></code> <code><a href="phrase-checks.html">phrase_info()</a></code> <code><a href="phrase-checks.html">phrase_strings()</a></code> <code><a href="phrase-checks.html">notable()</a></code> </p>
-        </td>
-        <td><p>Phrase validation and coercion</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-key-signature-helpers" class="hasAnchor"><a href="#section-key-signature-helpers" class="anchor"></a>Key signature helpers</h2>
-          <p class="section-desc"><p>Functions providing key information and specification</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="keys.html">keys()</a></code> <code><a href="keys.html">key_is_natural()</a></code> <code><a href="keys.html">key_is_sharp()</a></code> <code><a href="keys.html">key_is_flat()</a></code> <code><a href="keys.html">key_n_sharps()</a></code> <code><a href="keys.html">key_n_flats()</a></code> <code><a href="keys.html">key_is_major()</a></code> <code><a href="keys.html">key_is_minor()</a></code> </p>
-        </td>
-        <td><p>Key signatures</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-scale-helpers" class="hasAnchor"><a href="#section-scale-helpers" class="anchor"></a>Scale helpers</h2>
-          <p class="section-desc"><p>Functions for working with musical scales</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="scale-deg.html">scale_degree()</a></code> <code><a href="scale-deg.html">scale_note()</a></code> <code><a href="scale-deg.html">note_in_scale()</a></code> </p>
-        </td>
-        <td><p>Scale degrees and mappings</p></td>
+        <td><p>Inspect or coerce noteworthy string formats</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="scale-helpers.html">scale_diatonic()</a></code> <code><a href="scale-helpers.html">scale_major()</a></code> <code><a href="scale-helpers.html">scale_minor()</a></code> <code><a href="scale-helpers.html">scale_harmonic_minor()</a></code> <code><a href="scale-helpers.html">scale_hungarian_minor()</a></code> <code><a href="scale-helpers.html">scale_melodic_minor()</a></code> <code><a href="scale-helpers.html">scale_jazz_minor()</a></code> <code><a href="scale-helpers.html">scale_chromatic()</a></code> </p>
+          <p><code><a href="note-metadata.html">n_steps()</a></code> <code><a href="note-metadata.html">n_notes()</a></code> <code><a href="note-metadata.html">n_chords()</a></code> <code><a href="note-metadata.html">n_octaves()</a></code> <code><a href="note-metadata.html">tally_notes()</a></code> <code><a href="note-metadata.html">tally_pitches()</a></code> <code><a href="note-metadata.html">tally_octaves()</a></code> <code><a href="note-metadata.html">distinct_notes()</a></code> <code><a href="note-metadata.html">distinct_pitches()</a></code> <code><a href="note-metadata.html">distinct_octaves()</a></code> <code><a href="note-metadata.html">pitch_range()</a></code> <code><a href="note-metadata.html">semitone_range()</a></code> <code><a href="note-metadata.html">semitone_span()</a></code> <code><a href="note-metadata.html">octave_range()</a></code> <code><a href="note-metadata.html">octave_span()</a></code> <code><a href="note-metadata.html">octave_type()</a></code> <code><a href="note-metadata.html">accidental_type()</a></code> <code><a href="note-metadata.html">time_format()</a></code> <code><a href="note-metadata.html">is_space_time()</a></code> <code><a href="note-metadata.html">is_vector_time()</a></code> </p>
         </td>
-        <td><p>Scale helpers</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-mode-helpers" class="hasAnchor"><a href="#section-mode-helpers" class="anchor"></a>Mode helpers</h2>
-          <p class="section-desc"><p>Functions for working with musical modes</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="mode-helpers.html">modes()</a></code> <code><a href="mode-helpers.html">is_mode()</a></code> <code><a href="mode-helpers.html">mode_rotate()</a></code> <code><a href="mode-helpers.html">mode_modern()</a></code> <code><a href="mode-helpers.html">mode_ionian()</a></code> <code><a href="mode-helpers.html">mode_dorian()</a></code> <code><a href="mode-helpers.html">mode_phrygian()</a></code> <code><a href="mode-helpers.html">mode_lydian()</a></code> <code><a href="mode-helpers.html">mode_mixolydian()</a></code> <code><a href="mode-helpers.html">mode_aeolian()</a></code> <code><a href="mode-helpers.html">mode_locrian()</a></code> </p>
-        </td>
-        <td><p>Mode helpers</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-interval-helpers" class="hasAnchor"><a href="#section-interval-helpers" class="anchor"></a>Interval helpers</h2>
-          <p class="section-desc"><p>Functions for calculating musical intervals</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="interval-helpers.html">pitch_interval()</a></code> <code><a href="interval-helpers.html">scale_interval()</a></code> <code><a href="interval-helpers.html">tuning_intervals()</a></code> </p>
-        </td>
-        <td><p>Interval helpers</p></td>
+        <td><p>Noteworthy string metadata</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="interval_semitones.html">interval_semitones()</a></code> </p>
+          <p><code><a href="note_slice.html">note_slice()</a></code> <code><a href="note_slice.html">note_rotate()</a></code> <code><a href="note_slice.html">note_shift()</a></code> <code><a href="note_slice.html">note_arpeggiate()</a></code> </p>
         </td>
-        <td><p>Interval semitones</p></td>
+        <td><p>Slice, rotate, shift and arpeggiate notes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="valid-notes.html">is_note()</a></code> <code><a href="valid-notes.html">is_chord()</a></code> <code><a href="valid-notes.html">noteworthy()</a></code> <code><a href="valid-notes.html">is_diatonic()</a></code> <code><a href="valid-notes.html">as_noteworthy()</a></code> </p>
+        </td>
+        <td><p>Check note and chord validity</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="note-equivalence.html">note_is_equal()</a></code> <code><a href="note-equivalence.html">note_is_identical()</a></code> <code><a href="note-equivalence.html">pitch_is_equal()</a></code> <code><a href="note-equivalence.html">pitch_is_identical()</a></code> <code><a href="note-equivalence.html">octave_is_equal()</a></code> <code><a href="note-equivalence.html">octave_is_identical()</a></code> </p>
+        </td>
+        <td><p>Note, pitch and chord equivalence</p></td>
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-chord-helpers" class="hasAnchor"><a href="#section-chord-helpers" class="anchor"></a>Chord helpers</h2>
-          <p class="section-desc"><p>Functions for constructing and manipulating chord strings</p></p>
+          <h2 id="section-chords-in-noteworthy-strings" class="hasAnchor"><a href="#section-chords-in-noteworthy-strings" class="anchor"></a>Chords in noteworthy strings</h2>
+          <p class="section-desc"><p>Functions for constructing and manipulating chords</p></p>
         </th>
       </tr>
       <tr>
@@ -494,13 +314,13 @@
         <td>
           <p><code><a href="chord_is_diatonic.html">chord_is_diatonic()</a></code> </p>
         </td>
-        <td><p>Check if a chord is diatonic</p></td>
+        <td><p>Check if chords are diatonic</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="chord_is_major.html">chord_is_major()</a></code> <code><a href="chord_is_major.html">chord_is_minor()</a></code> </p>
         </td>
-        <td><p>Check if a chord is major or minor</p></td>
+        <td><p>Check if chords are major or minor</p></td>
       </tr><tr>
         
         <td>
@@ -541,41 +361,63 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-note-and-pitch-helpers" class="hasAnchor"><a href="#section-note-and-pitch-helpers" class="anchor"></a>Note and pitch helpers</h2>
-          <p class="section-desc"><p>Functions for manipulating noteworthy strings</p></p>
+          <h2 id="section-key-signatures-scales-and-modes" class="hasAnchor"><a href="#section-key-signatures-scales-and-modes" class="anchor"></a>Key signatures, scales and modes</h2>
+          <p class="section-desc"><p>Functions relating to key signatures, scale and modes</p></p>
         </th>
       </tr>
       <tr>
         
         <td>
-          <p><code><a href="note_is_natural.html">note_is_natural()</a></code> <code><a href="note_is_natural.html">note_is_accidental()</a></code> <code><a href="note_is_natural.html">note_is_flat()</a></code> <code><a href="note_is_natural.html">note_is_sharp()</a></code> <code><a href="note_is_natural.html">naturalize()</a></code> <code><a href="note_is_natural.html">sharpen_flat()</a></code> <code><a href="note_is_natural.html">flatten_sharp()</a></code> <code><a href="note_is_natural.html">note_set_key()</a></code> <code><a href="note_is_natural.html">as_tick_octaves()</a></code> <code><a href="note_is_natural.html">as_integer_octaves()</a></code> <code><a href="note_is_natural.html">as_space_time()</a></code> <code><a href="note_is_natural.html">as_vector_time()</a></code> <code><a href="note_is_natural.html">pretty_notes()</a></code> </p>
+          <p><code><a href="keys.html">keys()</a></code> <code><a href="keys.html">key_is_natural()</a></code> <code><a href="keys.html">key_is_sharp()</a></code> <code><a href="keys.html">key_is_flat()</a></code> <code><a href="keys.html">key_n_sharps()</a></code> <code><a href="keys.html">key_n_flats()</a></code> <code><a href="keys.html">key_is_major()</a></code> <code><a href="keys.html">key_is_minor()</a></code> </p>
         </td>
-        <td><p>Inspect or coerce noteworthy string formats</p></td>
+        <td><p>Key signatures</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="note-metadata.html">n_steps()</a></code> <code><a href="note-metadata.html">n_notes()</a></code> <code><a href="note-metadata.html">n_chords()</a></code> <code><a href="note-metadata.html">n_octaves()</a></code> <code><a href="note-metadata.html">tally_notes()</a></code> <code><a href="note-metadata.html">tally_pitches()</a></code> <code><a href="note-metadata.html">tally_octaves()</a></code> <code><a href="note-metadata.html">distinct_notes()</a></code> <code><a href="note-metadata.html">distinct_pitches()</a></code> <code><a href="note-metadata.html">distinct_octaves()</a></code> <code><a href="note-metadata.html">pitch_range()</a></code> <code><a href="note-metadata.html">semitone_range()</a></code> <code><a href="note-metadata.html">semitone_span()</a></code> <code><a href="note-metadata.html">octave_range()</a></code> <code><a href="note-metadata.html">octave_span()</a></code> <code><a href="note-metadata.html">octave_type()</a></code> <code><a href="note-metadata.html">accidental_type()</a></code> <code><a href="note-metadata.html">time_format()</a></code> <code><a href="note-metadata.html">is_space_time()</a></code> <code><a href="note-metadata.html">is_vector_time()</a></code> </p>
+          <p><code><a href="scale-deg.html">scale_degree()</a></code> <code><a href="scale-deg.html">scale_note()</a></code> <code><a href="scale-deg.html">note_in_scale()</a></code> </p>
         </td>
-        <td><p>Noteworthy string metadata</p></td>
+        <td><p>Scale degrees and mappings</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="note_slice.html">note_slice()</a></code> <code><a href="note_slice.html">note_rotate()</a></code> <code><a href="note_slice.html">note_shift()</a></code> <code><a href="note_slice.html">note_arpeggiate()</a></code> </p>
+          <p><code><a href="scale-helpers.html">scale_diatonic()</a></code> <code><a href="scale-helpers.html">scale_major()</a></code> <code><a href="scale-helpers.html">scale_minor()</a></code> <code><a href="scale-helpers.html">scale_harmonic_minor()</a></code> <code><a href="scale-helpers.html">scale_hungarian_minor()</a></code> <code><a href="scale-helpers.html">scale_melodic_minor()</a></code> <code><a href="scale-helpers.html">scale_jazz_minor()</a></code> <code><a href="scale-helpers.html">scale_chromatic()</a></code> </p>
         </td>
-        <td><p>Slice, rotate, shift and arpeggiate notes</p></td>
+        <td><p>Scale helpers</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="valid-notes.html">is_note()</a></code> <code><a href="valid-notes.html">is_chord()</a></code> <code><a href="valid-notes.html">noteworthy()</a></code> <code><a href="valid-notes.html">is_diatonic()</a></code> <code><a href="valid-notes.html">as_noteworthy()</a></code> </p>
+          <p><code><a href="mode-helpers.html">modes()</a></code> <code><a href="mode-helpers.html">is_mode()</a></code> <code><a href="mode-helpers.html">mode_rotate()</a></code> <code><a href="mode-helpers.html">mode_modern()</a></code> <code><a href="mode-helpers.html">mode_ionian()</a></code> <code><a href="mode-helpers.html">mode_dorian()</a></code> <code><a href="mode-helpers.html">mode_phrygian()</a></code> <code><a href="mode-helpers.html">mode_lydian()</a></code> <code><a href="mode-helpers.html">mode_mixolydian()</a></code> <code><a href="mode-helpers.html">mode_aeolian()</a></code> <code><a href="mode-helpers.html">mode_locrian()</a></code> </p>
         </td>
-        <td><p>Check note and chord validity</p></td>
+        <td><p>Mode helpers</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-interval-helpers" class="hasAnchor"><a href="#section-interval-helpers" class="anchor"></a>Interval helpers</h2>
+          <p class="section-desc"><p>Functions for calculating musical intervals</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="interval-helpers.html">pitch_interval()</a></code> <code><a href="interval-helpers.html">scale_interval()</a></code> <code><a href="interval-helpers.html">tuning_intervals()</a></code> </p>
+        </td>
+        <td><p>Interval helpers</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="note-equivalence.html">note_is_equal()</a></code> <code><a href="note-equivalence.html">note_is_identical()</a></code> <code><a href="note-equivalence.html">pitch_is_equal()</a></code> <code><a href="note-equivalence.html">pitch_is_identical()</a></code> <code><a href="note-equivalence.html">octave_is_equal()</a></code> <code><a href="note-equivalence.html">octave_is_identical()</a></code> </p>
+          <p><code><a href="interval_semitones.html">interval_semitones()</a></code> </p>
         </td>
-        <td><p>Note, pitch and chord equivalence</p></td>
-      </tr><tr>
+        <td><p>Interval semitones</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-notation-frequency-conversion" class="hasAnchor"><a href="#section-notation-frequency-conversion" class="anchor"></a>Notation-frequency conversion</h2>
+          <p class="section-desc"><p>Functions mapping music notation and other quantities like semitones and frequency</p></p>
+        </th>
+      </tr>
+      <tr>
         
         <td>
           <p><code><a href="pitch_freq.html">pitch_freq()</a></code> <code><a href="pitch_freq.html">pitch_semitones()</a></code> <code><a href="pitch_freq.html">chord_freq()</a></code> <code><a href="pitch_freq.html">chord_semitones()</a></code> <code><a href="pitch_freq.html">freq_pitch()</a></code> <code><a href="pitch_freq.html">freq_semitones()</a></code> </p>
@@ -599,7 +441,133 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-midi-conversion" class="hasAnchor"><a href="#section-midi-conversion" class="anchor"></a>MIDI conversion</h2>
+          <h2 id="section-phrase-validation-and-coercion" class="hasAnchor"><a href="#section-phrase-validation-and-coercion" class="anchor"></a>Phrase validation and coercion</h2>
+          <p class="section-desc"><p>Functions for checking and decomposing phrases objects</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="phrase-checks.html">as_phrase()</a></code> <code><a href="phrase-checks.html">phrasey()</a></code> <code><a href="phrase-checks.html">notify()</a></code> <code><a href="phrase-checks.html">phrase_notes()</a></code> <code><a href="phrase-checks.html">phrase_info()</a></code> <code><a href="phrase-checks.html">phrase_strings()</a></code> <code><a href="phrase-checks.html">notable()</a></code> </p>
+        </td>
+        <td><p>Phrase validation and coercion</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-transcription-phrase-construction" class="hasAnchor"><a href="#section-transcription-phrase-construction" class="anchor"></a>Transcription: Phrase construction</h2>
+          <p class="section-desc"><p>Functions for describing, assembling and connecting musical phrases</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="phrase.html">phrase()</a></code> <code><a href="phrase.html">p()</a></code> </p>
+        </td>
+        <td><p>Create a musical phrase</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sf_phrase.html">sf_phrase()</a></code> <code><a href="sf_phrase.html">sfp()</a></code> <code><a href="sf_phrase.html">sf_note()</a></code> <code><a href="sf_phrase.html">sfn()</a></code> </p>
+        </td>
+        <td><p>Create a musical phrase from string/fret combinations</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="append_phrases.html">pc()</a></code> <code><a href="append_phrases.html">pn()</a></code> </p>
+        </td>
+        <td><p>Concatenate and repeat</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="rest.html">rest()</a></code> </p>
+        </td>
+        <td><p>Create rests</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="tie.html">tie()</a></code> <code><a href="tie.html">untie()</a></code> </p>
+        </td>
+        <td><p>Tied notes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="notate.html">notate()</a></code> </p>
+        </td>
+        <td><p>Add text to music staff</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="hp.html">hp()</a></code> </p>
+        </td>
+        <td><p>Hammer ons and pull offs</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="tuplet.html">tuplet()</a></code> <code><a href="tuplet.html">triplet()</a></code> </p>
+        </td>
+        <td><p>Tuplets</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="repeats.html">rp()</a></code> <code><a href="repeats.html">pct()</a></code> <code><a href="repeats.html">volta()</a></code> </p>
+        </td>
+        <td><p>Repeat phrases</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-transcription-build-and-render-music-scores" class="hasAnchor"><a href="#section-transcription-build-and-render-music-scores" class="anchor"></a>Transcription: Build and render music scores</h2>
+          <p class="section-desc"><p>Functions for building and writing scores and rendering LilyPond files</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="track.html">track()</a></code> </p>
+        </td>
+        <td><p>Create a music track</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="trackbind.html">trackbind()</a></code> </p>
+        </td>
+        <td><p>Bind track tables</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score.html">score()</a></code> </p>
+        </td>
+        <td><p>Create a music score</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="tab.html">tab()</a></code> </p>
+        </td>
+        <td><p>Create tablature</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="lilypond.html">lilypond()</a></code> </p>
+        </td>
+        <td><p>Save score to LilyPond file</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="chord_set.html">chord_set()</a></code> </p>
+        </td>
+        <td><p>Generate a chord set</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="tabr_options.html">tabr_options()</a></code> </p>
+        </td>
+        <td><p>Options</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-transcription-midi-conversion" class="hasAnchor"><a href="#section-transcription-midi-conversion" class="anchor"></a>Transcription: MIDI conversion</h2>
           <p class="section-desc"><p>Functions for converting MIDI files with LilyPond</p></p>
         </th>
       </tr>
@@ -656,20 +624,16 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#section-package">Package</a></li>
-      <li><a href="#section-create-tablature">Create tablature</a></li>
-      <li><a href="#section-organizing-music">Organizing music</a></li>
-      <li><a href="#section-phrase-construction">Phrase construction</a></li>
-      <li><a href="#section-repeats">Repeats</a></li>
-      <li><a href="#section-chords">Chords</a></li>
-      <li><a href="#section-phrase-validation-and-coercion">Phrase validation and coercion</a></li>
-      <li><a href="#section-key-signature-helpers">Key signature helpers</a></li>
-      <li><a href="#section-scale-helpers">Scale helpers</a></li>
-      <li><a href="#section-mode-helpers">Mode helpers</a></li>
+      <li><a href="#section-working-with-noteworthy-strings">Working with noteworthy strings</a></li>
+      <li><a href="#section-chords-in-noteworthy-strings">Chords in noteworthy strings</a></li>
+      <li><a href="#section-key-signatures-scales-and-modes">Key signatures, scales and modes</a></li>
       <li><a href="#section-interval-helpers">Interval helpers</a></li>
-      <li><a href="#section-chord-helpers">Chord helpers</a></li>
-      <li><a href="#section-note-and-pitch-helpers">Note and pitch helpers</a></li>
+      <li><a href="#section-notation-frequency-conversion">Notation-frequency conversion</a></li>
       <li><a href="#section-plots-non-tablature-visualizations-">Plots (non-tablature visualizations)</a></li>
-      <li><a href="#section-midi-conversion">MIDI conversion</a></li>
+      <li><a href="#section-phrase-validation-and-coercion">Phrase validation and coercion</a></li>
+      <li><a href="#section-transcription-phrase-construction">Transcription: Phrase construction</a></li>
+      <li><a href="#section-transcription-build-and-render-music-scores">Transcription: Build and render music scores</a></li>
+      <li><a href="#section-transcription-midi-conversion">Transcription: MIDI conversion</a></li>
       <li><a href="#section-datasets">Datasets</a></li>
     </ul>
   </div>

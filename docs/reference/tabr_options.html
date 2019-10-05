@@ -226,10 +226,14 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The function prints all set options if called with no arguments. When setting options, nothing is returned.</p>
+    <p>The function prints all set options if called with no arguments.
+When setting options, nothing is returned.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Currently only <code>lilypond</code>, <code>midi2ly</code> and <code>python</code> are used. On Windows systems, if the system path for lilypond.exe, midi2ly.py and python.exe are not stored in the system PATH environmental variable, they must be provided by the user after loading the package.</p>
+    <p>Currently only <code>lilypond</code>, <code>midi2ly</code> and <code>python</code> are used.
+On Windows systems, if the system path for lilypond.exe, midi2ly.py and
+python.exe are not stored in the system PATH environmental variable, they
+must be provided by the user after loading the package.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>tabr_options</span>()</div><div class='output co'>#&gt; $dev
@@ -246,7 +250,8 @@
 #&gt; 
 #&gt; $python
 #&gt; [1] "C:\\PROGRA~2\\LilyPond\\usr\\bin\\python.exe"
-#&gt; </div><div class='input'><span class='fu'>tabr_options</span>(<span class='kw'>lilypond</span> <span class='kw'>=</span> <span class='st'>"C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe"</span>)</div></pre>
+#&gt; </div><div class='input'><span class='no'>lilypond_path</span> <span class='kw'>&lt;-</span> <span class='st'>"C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe"</span>
+<span class='fu'>tabr_options</span>(<span class='kw'>lilypond</span> <span class='kw'>=</span> <span class='no'>lilypond_path</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

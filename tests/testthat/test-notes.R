@@ -5,13 +5,18 @@ library(dplyr)
 test_that("note helpers return as expected", {
   notes <- "a b c,e_g' d# e_ f g"
   expect_identical(note_slice(notes, c(2:3, 6)), as_noteworthy("b c,e_g' f"))
-  expect_identical(note_slice(notes, c(F, T, T, F, F, T, F)), as_noteworthy("b c,e_g' f"))
+  expect_identical(note_slice(notes, c(F, T, T, F, F, T, F)),
+                   as_noteworthy("b c,e_g' f"))
   expect_identical(note_slice(notes, 6:8), as_noteworthy("f g"))
-  expect_identical(note_slice(strsplit(notes, " ")[[1]], 6:8), as_noteworthy(c("f", "g")))
-  expect_error(note_slice(notes, "a"),
-               "Must provide integer or logical vector index to slice `notes`.")
-  expect_error(note_slice(notes, F),
-               "Logical vector must be same length as the number of time steps in `notes`.")
+  expect_identical(note_slice(strsplit(notes, " ")[[1]], 6:8),
+                   as_noteworthy(c("f", "g")))
+  expect_error(
+    note_slice(notes, "a"),
+    "Must provide integer or logical vector index to slice `notes`.")
+  expect_error(
+    note_slice(notes, F),
+    "Logical vector must be same length as the number of time steps in `notes`."
+    )
   expect_error(note_slice(notes, 8), "Index out of bounds.")
 
   expect_identical(note_rotate(notes, 3), as_noteworthy("d# e_ f g a b c,e_g'"))
@@ -29,24 +34,35 @@ test_that("note helpers return as expected", {
   expect_equal(note_arpeggiate("c e g") %>% as.character(), "c e g")
   expect_equal(note_arpeggiate("c,,", 1) %>% as.character(), "c,, c,")
   expect_equal(note_arpeggiate("c,, d,,", 1) %>% as.character(), "c,, d,, c,")
-  expect_equal(note_arpeggiate("c e g", 5) %>% as.character(), "c e g c4 e4 g4 c5 e5")
-  expect_equal(note_arpeggiate("c e g", -5) %>% as.character(), "e1 g1 c2 e2 g2 c e g")
-  expect_equal(note_arpeggiate("c e g", 5, style = "tick") %>% as.character(), "c e g c' e' g' c'' e''")
-  expect_equal(note_arpeggiate("c e_ g", -5, key = "f") %>% as.character(), "e_1 g1 c2 e_2 g2 c e_ g")
-  expect_equal(note_arpeggiate("c e_ g", -5, key = "g") %>% as.character(), "d#1 g1 c2 d#2 g2 c d# g")
+  expect_equal(note_arpeggiate("c e g", 5) %>% as.character(),
+               "c e g c4 e4 g4 c5 e5")
+  expect_equal(note_arpeggiate("c e g", -5) %>% as.character(),
+               "e1 g1 c2 e2 g2 c e g")
+  expect_equal(note_arpeggiate("c e g", 5, style = "tick") %>% as.character(),
+               "c e g c' e' g' c'' e''")
+  expect_equal(note_arpeggiate("c e_ g", -5, key = "f") %>% as.character(),
+               "e_1 g1 c2 e_2 g2 c e_ g")
+  expect_equal(note_arpeggiate("c e_ g", -5, key = "g") %>% as.character(),
+               "d#1 g1 c2 d#2 g2 c d# g")
 
   expect_equal(sharpen_flat("a,") %>% as.character(), "a,")
   expect_equal(sharpen_flat("a_,") %>% as.character(), "g#,")
   expect_equal(flatten_sharp("a#2") %>% as.character(), "b_2")
   expect_equal(flatten_sharp("a#2", TRUE) %>% as.character(), "b_")
 
-  expect_equal(naturalize(notes) %>% as.character(), "a b c,eg' d e f g")
-  expect_equal(naturalize(notes, "flat") %>% as.character(), "a b c,eg' d# e f g")
-  expect_equal(naturalize(notes, "sharp") %>% as.character(), "a b c,e_g' d e_ f g")
-  expect_equal(naturalize(notes, ignore_octave = TRUE) %>% as.character(), "a b ceg d e f g")
+  expect_equal(naturalize(notes) %>% as.character(),
+               "a b c,eg' d e f g")
+  expect_equal(naturalize(notes, "flat") %>% as.character(),
+               "a b c,eg' d# e f g")
+  expect_equal(naturalize(notes, "sharp") %>% as.character(),
+               "a b c,e_g' d e_ f g")
+  expect_equal(naturalize(notes, ignore_octave = TRUE) %>% as.character(),
+               "a b ceg d e f g")
 
-  expect_equal(note_set_key(notes, "f") %>% as.character(), "a b c,e_g' e_ e_ f g")
-  expect_equal(note_set_key(notes, "g") %>% as.character(), "a b c,d#g' d# d# f g")
+  expect_equal(note_set_key(notes, "f") %>% as.character(),
+               "a b c,e_g' e_ e_ f g")
+  expect_equal(note_set_key(notes, "g") %>% as.character(),
+               "a b c,d#g' d# d# f g")
 
   x <- "a# b_ c, d'' e3 g_4 A m c2e_2g2 cegh"
   expect_equal(is_note(x), c(rep(TRUE, 6), rep(FALSE, 4)))
@@ -67,7 +83,8 @@ test_that("note helpers return as expected", {
   expect_is(print.noteworthy("a*1"), "NULL")
 
   y <- as_noteworthy(y, "vector", "tick", "sharp")
-  expect_identical(y, as_noteworthy(c("a#*2", "c,", "d''", "e", "f#'", "c,d#,g,")))
+  expect_identical(
+    y, as_noteworthy(c("a#*2", "c,", "d''", "e", "f#'", "c,d#,g,")))
 
   x <- x[1:6]
   expect_equal(note_is_natural(x), c(F, F, T, T, T, F))
@@ -118,7 +135,7 @@ test_that("Note metadata inspection works", {
   expect_identical(semitone_range(x), c(39L, 79L))
   expect_identical(semitone_span(x), 40L)
   expect_identical(octave_range(x), c(2L, 5L))
-  expect_identical(octave_span(x),3L)
+  expect_identical(octave_span(x), 3L)
 })
 
 test_that("note equivalence functions return as expected", {
@@ -149,8 +166,10 @@ test_that("note equivalence functions return as expected", {
   y <- "a_2 g#2 d1e1f2g3 a1b2b4 d1e1"
   expect_equal(octave_is_equal(x, y), c(F, T, T, T, T))
   expect_equal(octave_is_identical(x, y), c(F, T, T, F, T))
-  expect_equal(octave_is_identical(x, y, single_octave = TRUE), c(F, T, F, F, T))
-  expect_equal(octave_is_identical("a1 a1", "b1 b2", single_octave = TRUE), c(TRUE, FALSE))
+  expect_equal(octave_is_identical(x, y, single_octave = TRUE),
+               c(F, T, F, F, T))
+  expect_equal(octave_is_identical("a1 a1", "b1 b2", single_octave = TRUE),
+               c(TRUE, FALSE))
 
   expect_equal(octave_is_equal("a", "a a"), NA)
   expect_equal(octave_is_identical("a", "a a"), NA)
@@ -177,5 +196,6 @@ test_that("note equivalence functions return as expected", {
   y <- c("a_2", "g#2", "d1e1f2g3", "a1b2b4", "d1e1")
   expect_equal(octave_is_equal(x, y), c(F, T, T, T, T))
   expect_equal(octave_is_identical(x, y), c(F, T, T, F, T))
-  expect_equal(octave_is_identical(x, y, single_octave = TRUE), c(F, T, F, F, T))
+  expect_equal(octave_is_identical(x, y, single_octave = TRUE),
+               c(F, T, F, F, T))
 })

@@ -40,8 +40,6 @@
   x
 }
 
-# nolint start
-
 .tabsub <- function(x){
   x <- strsplit(x, ";")[[1]]
   x[1] <- gsub("-", "\\\\glissando", x[1])
@@ -56,16 +54,22 @@
 }
 
 .strsub <- function(x){
-  x <- strsplit(as.character(x), " ")[[1]] %>% purrr::map_chr(.star_expand) %>% paste0(collapse = " ")
+  x <- strsplit(as.character(x), " ")[[1]] %>%
+    purrr::map_chr(.star_expand) %>%
+    paste0(collapse = " ")
   x <- gsub("7s", "7654321", x)
   x <- gsub("6s", "654321", x)
   x <- gsub("5s", "54321", x)
   x <- gsub("4s", "4321", x)
   x <- gsub("3s", "321", x)
-  f <- function(x) strsplit(gsub("\\(", " \\(", gsub("\\)", " ", x)), " ")[[1]] %>%
-    purrr::map(~({
-      if(substr(.x, 1, 1) == "(") substring(.x, 2) else strsplit(.x, "")[[1]]
-    })) %>% unlist() %>% paste0(collapse = "_")
+  f <- function(x){
+    strsplit(gsub("\\(", " \\(", gsub("\\)", " ", x)), " ")[[1]] %>%
+      purrr::map(~({
+        if(substr(.x, 1, 1) == "(") substring(.x, 2) else strsplit(.x, "")[[1]]
+      })) %>%
+      unlist() %>%
+      paste0(collapse = "_")
+  }
   purrr::map_chr(strsplit(x, " ")[[1]], f)
 }
 
@@ -79,7 +83,6 @@
     x <- gsub("^ees|^es", "e_", x)
     x <- gsub("es", "_", x)
     paste(x, collapse = "")
-  })) %>% paste(collapse = " ")
+  })) %>%
+    paste(collapse = " ")
 }
-
-# nolint end

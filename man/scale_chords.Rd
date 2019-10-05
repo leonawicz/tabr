@@ -10,17 +10,20 @@ scale_chords(root = "c", scale = "major", type = c("triad",
 \arguments{
 \item{root}{character, root note or starting position of scale.}
 
-\item{scale}{character, a valid named scale, referring to one of the existing \code{scale_*} functions.}
+\item{scale}{character, a valid named scale, referring to one of the
+existing \code{scale_*} functions.}
 
 \item{type}{character, type of chord, triad or seventh.}
 
-\item{collapse}{logical, collapse result into a single string ready for phrase construction.}
+\item{collapse}{logical, collapse result into a single string ready for
+phrase construction.}
 }
 \value{
 character
 }
 \description{
-Obtain an ordered sequence of the diatonic chords for a given scale, as triads or sevenths.
+Obtain an ordered sequence of the diatonic chords for a given scale, as
+triads or sevenths.
 }
 \examples{
 scale_chords("c", "major")

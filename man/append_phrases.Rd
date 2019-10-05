@@ -18,20 +18,31 @@ pn(x, n = 1)
 \item{n}{integer, number of repetitions.}
 }
 \value{
-phrase on non-phrase character string, noteworthy string if applicable.
+phrase on non-phrase character string, noteworthy string if
+applicable.
 }
 \description{
-Helper functions for concatenating musical phrases and other strings together as well as repetition.
-The functions \code{pc} and \code{pn} are based on base functions \code{paste} and\code{rep}, respectively, but are tailored for efficiency in creating musical phrases.
+Helper functions for concatenating musical phrases and other strings
+together as well as repetition.
+The functions \code{pc} and \code{pn} are based on base functions
+\code{paste} and\code{rep}, respectively, but are tailored for efficiency in
+creating musical phrases.
 }
 \details{
-These functions respect and retain the phrase class when applied to phrases. They are aggressive for phrases and secondarily for noteworthy strings.
-Combining a phrase with a non-phrase string will assume compatibility and result in a new phrase object.
-If no phrase objects are present, the presence of any noteworthy string will in turn attempt to force conversion of all strings to noteworthy strings.
-The aggressiveness provides convenience, but is counter to expected coercion rules. It is up to the user to ensure all inputs can be forced into the more specific child class.
+These functions respect and retain the phrase class when applied to phrases.
+They are aggressive for phrases and secondarily for noteworthy strings.
+Combining a phrase with a non-phrase string will assume compatibility and
+result in a new phrase object.
+If no phrase objects are present, the presence of any noteworthy string will
+in turn attempt to force conversion of all strings to noteworthy strings.
+The aggressiveness provides convenience, but is counter to expected coercion
+rules. It is up to the user to ensure all inputs can be forced into the more
+specific child class.
 
-This is especially useful for repeated instances. This function applies to general slur notation as well.
-Multiple input formats are allowed. Total number of note durations must be even because all slurs require start and stop points.
+This is especially useful for repeated instances. This function applies to
+general slur notation as well.
+Multiple input formats are allowed. Total number of note durations must be
+even because all slurs require start and stop points.
 }
 \examples{
 pc(8, "16-", "8^")

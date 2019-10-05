@@ -179,11 +179,13 @@ xm13(notes, key = "c", collapse = FALSE, style = "default")
 xM13(notes, key = "c", collapse = FALSE, style = "default")
 }
 \arguments{
-\item{notes}{character, chord root notes, space-delimited or a vector of individual notes.}
+\item{notes}{character, chord root notes, space-delimited or a vector of
+individual notes.}
 
 \item{key}{key signature. See details.}
 
-\item{collapse}{logical, collapse result into a single string ready for phrase construction.}
+\item{collapse}{logical, collapse result into a single string ready for
+phrase construction.}
 
 \item{style}{character, passed to \code{transpose}.}
 }
@@ -194,10 +196,14 @@ character
 These functions construct basic chord string notation from root \code{notes}.
 }
 \details{
-Providing a \code{key} signature is used only to ensure flats or sharps for accidentals.
-An additional set of aliases with efficient names, of the form \code{x*} where \code{*} is a chord modifier abbreviation, is provided to complement the set of \code{chord_*} functions.
+Providing a \code{key} signature is used only to ensure flats or sharps for
+accidentals.
+An additional set of aliases with efficient names, of the
+form \code{x*} where \code{*} is a chord modifier abbreviation, is provided
+to complement the set of \code{chord_*} functions.
 
-These functions create standard chords, not the multi-octave spanning types of chords commonly played on guitar.
+These functions create standard chords, not the multi-octave spanning types
+of chords commonly played on guitar.
 }
 \examples{
 chord_min("d")

@@ -13,65 +13,17 @@ reference:
 - title: Package
   contents:
   - tabr
-- title: Create tablature
-  desc: "Functions for writing and rendering LilyPond files."
+- title: Working with noteworthy strings
+  desc: "Functions for inspecting and manipulating noteworthy strings"
   contents:
-  - tab
-  - lilypond
-  - tabr_options
-- title: Organizing music
-  desc: "Functions for hierarchical music notation organization."
-  contents:
-  - phrase
-  - track
-  - trackbind
-  - score
-- title: Phrase construction
-  desc: "Functions for describing, assembling and connecting musical phrases."
-  contents:
-  - pc
-  - pn
-  - rest
-  - tie
-  - notate
-  - hp
-  - tuplet
   - transpose
-  - sf_phrase
-- title: Repeats
-  desc: "Functions to assist with repeated sections of music."
-  contents:
-  - rp
-  - pct
-  - volta
-- title: Chords
-  desc: "Functions for chord transcription."
-  contents:
-  - chord_set
-- title: Phrase validation and coercion
-  desc: "Functions for checking and decomposing phrases objects."
-  contents:
-  - phrase-checks
-- title: Key signature helpers
-  desc: "Functions providing key information and specification"
-  contents:
-  - keys
-- title: Scale helpers
-  desc: "Functions for working with musical scales"
-  contents:
-  - scale-deg
-  - scale-helpers
-- title: Mode helpers
-  desc: "Functions for working with musical modes"
-  contents:
-  - mode-helpers
-- title: Interval helpers
-  desc: "Functions for calculating musical intervals"
-  contents:
-  - interval-helpers
-  - interval_semitones
-- title: Chord helpers
-  desc: "Functions for constructing and manipulating chord strings"
+  - note_is_natural
+  - note-metadata
+  - note_slice
+  - valid-notes
+  - note-equivalence
+- title: Chords in noteworthy strings
+  desc: "Functions for constructing and manipulating chords"
   contents:
   - chord-compare
   - chord_break
@@ -86,20 +38,54 @@ reference:
   - chord_def
   - lp_chord_id
   - chord-mapping
-- title: Note and pitch helpers
-  desc: "Functions for manipulating noteworthy strings"
+- title: Key signatures, scales and modes
+  desc: "Functions relating to key signatures, scale and modes"
   contents:
-  - note_is_natural
-  - note-metadata
-  - note_slice
-  - valid-notes
-  - note-equivalence
+  - keys
+  - scale-deg
+  - scale-helpers
+  - mode-helpers
+- title: Interval helpers
+  desc: "Functions for calculating musical intervals"
+  contents:
+  - interval-helpers
+  - interval_semitones
+- title: Notation-frequency conversion
+  desc: "Functions mapping music notation and other quantities like semitones and frequency"
+  contents:
   - pitch_freq
 - title: Plots (non-tablature visualizations)
   desc: "Functions for musical plots and diagrams"
   contents:
   - fretboard_plot
-- title: MIDI conversion
+- title: Phrase validation and coercion
+  desc: "Functions for checking and decomposing phrases objects"
+  contents:
+  - phrase-checks
+- title: "Transcription: Phrase construction"
+  desc: "Functions for describing, assembling and connecting musical phrases"
+  contents:
+  - phrase
+  - sf_phrase
+  - pc
+  - pn
+  - rest
+  - tie
+  - notate
+  - hp
+  - tuplet
+  - repeats
+- title: "Transcription: Build and render music scores"
+  desc: "Functions for building and writing scores and rendering LilyPond files"
+  contents:
+  - track
+  - trackbind
+  - score
+  - tab
+  - lilypond
+  - chord_set
+  - tabr_options
+- title: "Transcription: MIDI conversion"
   desc: "Functions for converting MIDI files with LilyPond"
   contents:
   - midily

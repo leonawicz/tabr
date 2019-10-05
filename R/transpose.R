@@ -1,27 +1,43 @@
-# nolint start
-
 #' Transpose pitch
 #'
 #' Transpose pitch by a number of semitones.
 #'
-#' This function transposes the pitch of notes in a valid character string. The string must be of the form passed to the \code{info} argument to \code{\link{phrase}}.
+#' This function transposes the pitch of notes in a valid character string.
+#' The string must be of the form passed to the \code{info} argument to
+#' \code{\link{phrase}}.
 #'
-#' Transposing is not done on a phrase object. The notes in a phrase object have already been transformed to LilyPond syntax and mixed with other potentially complex and variable information.
-#' Transposing is intended to be done on a string of notes prior to passing it to \code{phrase}. It will work on strings that use either integer or tick mark octave numbering formats.
+#' Transposing is not done on a phrase object. The notes in a phrase object
+#' have already been transformed to LilyPond syntax and mixed with other
+#' potentially complex and variable information.
+#' Transposing is intended to be done on a string of notes prior to passing it
+#' to \code{phrase}. It will work on strings that use either integer or tick
+#' mark octave numbering formats.
 #' The transposed result will be a string with integer octave numbering.
 #'
-#' If \code{key} is provided, this helps ensure proper use of sharps vs. flats. Alternatively, you can simply provide \code{key = "sharp"} or \code{key = "flat"}. The exact key signature is not required, just more clear and informative for the user.
-#' If not provided (\code{key = NA}), transposition lacks full information and simply defaults to sharping any resulting accidentals for positive \code{n} and flattening for negative \code{n}.
+#' If \code{key} is provided, this helps ensure proper use of sharps vs. flats.
+#' Alternatively, you can simply provide \code{key = "sharp"} or
+#' \code{key = "flat"}. The exact key signature is not required, just more
+#' clear and informative for the user.
+#' If not provided (\code{key = NA}), transposition lacks full information and
+#' simply defaults to sharping any resulting accidentals for positive \code{n}
+#' and flattening for negative \code{n}.
 #' \code{n = 0} returns the input without any modification.
 #'
-#' The only element other pitch that occurs in a valid notes string is a rest, \code{"r"} or \code{"s"} (silent rest). Rests are ignored by transpose.
+#' The only element other pitch that occurs in a valid notes string is a rest,
+#' \code{"r"} or \code{"s"} (silent rest). Rests are ignored by transpose.
 #'
-#' The default \code{style} is to use tick style if no integers occur in \code{notes}. The \code{"tick"} and \code{"integer"} options force the respective styles. When integer style is returned, all \code{3}s are dropped since the third octave is the implicit center in LilyPond. \code{style = "strip"} removes any explicit octave information.
+#' The default \code{style} is to use tick style if no integers occur in
+#' \code{notes}. The \code{"tick"} and \code{"integer"} options force the
+#' respective styles. When integer style is returned, all \code{3}s are dropped
+#' since the third octave is the implicit center in LilyPond.
+#' \code{style = "strip"} removes any explicit octave information.
 #'
 #' @param notes character, a noteworthy string.
 #' @param n integer, positive or negative number of semitones to transpose.
-#' @param key character, the new key signature after transposing \code{notes}. See details.
-#' @param style character, specify tick or integer style octave numbering in result. See details.
+#' @param key character, the new key signature after transposing \code{notes}.
+#' See details.
+#' @param style character, specify tick or integer style octave numbering in
+#' result. See details.
 #'
 #' @return character
 #' @export
@@ -37,14 +53,17 @@
 #' tp("a3 b4 c5", 2, key = "g")
 #' tp("a b' c''", 2, key = "flat")
 #' tp("a, b ceg", 2, key = "sharp")
-transpose <- function(notes, n = 0, key = NA, style = c("default", "tick", "integer", "strip")){
+transpose <- function(notes, n = 0, key = NA,
+                      style = c("default", "tick", "integer", "strip")){
   if(inherits(notes, "phrase"))
-    stop("`notes` must be a noteworthy string, not a phrase object.", call. = FALSE)
+    stop("`notes` must be a noteworthy string, not a phrase object.",
+         call. = FALSE)
   .check_noteworthy(notes)
   n <- as.integer(n)
   if(n == 0 & is.na(key)) return(.asnw(notes))
   style <- match.arg(style)
-  if(style == "default") style <- ifelse(length(grep("[,']", notes)), "tick", "integer")
+  if(style == "default")
+    style <- ifelse(length(grep("[,']", notes)), "tick", "integer")
   x <- purrr::map_chr(strsplit(notes, " ")[[1]], ~({
     .split_chord(.x) %>% sapply(.add_missing_3) %>% paste(collapse = "")
   }))
@@ -58,10 +77,10 @@ transpose <- function(notes, n = 0, key = NA, style = c("default", "tick", "inte
     if(length(.split_chord(.x)) == 1) return(.transpose(.x, n, key, style))
     x <- paste(.split_chord(.x), collapse = " ")
     gsub(" ", "", .transpose(x, n, key, style))
-  })) %>% paste(collapse = " ") %>% .asnw()
+  })) %>%
+    paste(collapse = " ") %>%
+    .asnw()
 }
-
-# nolint end
 
 .add_missing_3 <- function(x){
   if(x %in% c("r", "s") || length(grep("[,'0-9]", x))) x else paste0(x, 3)
@@ -99,7 +118,7 @@ transpose <- function(notes, n = 0, key = NA, style = c("default", "tick", "inte
 
   if(!(notes == 0 & is.na(key))){
     if(is.na(key)){
-      y <- if(n > 0) sharp else flat # nolint start
+      y <- if(n > 0) sharp else flat
     } else {
       if(key == "sharp") key <- "c#"
       if(key == "flat") key <- "d_"
@@ -114,7 +133,7 @@ transpose <- function(notes, n = 0, key = NA, style = c("default", "tick", "inte
       } else if(sf == "sharp"){
         y <- sharp
       } else {
-        y <- flat # nolint end
+        y <- flat
       }
     }
     x1new <- purrr::map_chr(x1, ~({
@@ -145,7 +164,8 @@ transpose <- function(notes, n = 0, key = NA, style = c("default", "tick", "inte
   pass <- purrr::map_int(x1, cpass)
   x2 <- x2 + octaves + pass
   x2[x1 %in% c("r", "s")] <- ""
-  if(any(as.integer(x2[x2 != ""]) < 0)) stop("`Negative octave number not allowed in `tabr`.", call. = FALSE)
+  if(any(as.integer(x2[x2 != ""]) < 0))
+    stop("`Negative octave number not allowed in `tabr`.", call. = FALSE)
   if(length(idx) > 0) x2[idx] <- paste0(x2[idx], "~")
   x <- paste0(x1new, x2, collapse = " ")
   if(style == "tick") x <- .octave_to_tick(x)

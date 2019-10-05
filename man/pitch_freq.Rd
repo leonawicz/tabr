@@ -22,7 +22,8 @@ freq_pitch(freq, a4 = 440, collapse = FALSE, ...)
 freq_semitones(freq, a4 = 440)
 }
 \arguments{
-\item{notes}{character, note string, space-delimited or vector of individual entries. See details.}
+\item{notes}{character, note string, space-delimited or vector of individual
+entries. See details.}
 
 \item{a4}{the fixed frequency of the A above middle C, typically 440 Hz.}
 
@@ -30,7 +31,8 @@ freq_semitones(freq, a4 = 440)
 
 \item{collapse}{logical, collapse result into a single string.}
 
-\item{...}{other arguments passed to \code{tranpose}, specifically \code{key} and \code{style}.}
+\item{...}{other arguments passed to \code{tranpose}, specifically
+\code{key} and \code{style}.}
 }
 \value{
 numeric vector
@@ -39,9 +41,14 @@ numeric vector
 Convert between pitch and frequency.
 }
 \details{
-Frequencies are in Hertz. Values are based on the 12-tone equal-tempered scale. When converting an arbitrary frequency to pitch, it is rounded to the nearest pitch.
-\code{pitch_freq} and \code{pitch_semitones} strictly accept single notes in noteworthy strings and return numeric vectors.
-\code{chord_freq} and \code{chord_semitones} accept any noteworthy string and always return a list. These are provided so that all functions are type-safe. See examples.
+Frequencies are in Hertz. Values are based on the 12-tone equal-tempered
+scale. When converting an arbitrary frequency to pitch, it is rounded to the
+nearest pitch.
+\code{pitch_freq} and \code{pitch_semitones} strictly accept single notes in
+noteworthy strings and return numeric vectors.
+\code{chord_freq} and \code{chord_semitones} accept any noteworthy string
+and always return a list. These are provided so that all functions are
+type-safe. See examples.
 }
 \examples{
 x <- "a e4 a4 e5 a5"

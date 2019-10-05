@@ -20,31 +20,45 @@ is_diatonic(x, key = "c")
 as_noteworthy(x, format = NULL, octaves = NULL, accidentals = NULL)
 }
 \arguments{
-\item{x}{character, space-delimited entries or a vector of single, non-delimited entries.}
+\item{x}{character, space-delimited entries or a vector of single,
+non-delimited entries.}
 
 \item{key}{character, key signature.}
 
-\item{format}{\code{NULL} or character (\code{"space"} or \code{"vector"}), the timestep delimiter format.}
+\item{format}{\code{NULL} or character (\code{"space"} or \code{"vector"}),
+the timestep delimiter format.}
 
-\item{octaves}{\code{NULL} or character (\code{"tick"} or \code{"integer"}), the octave representation.}
+\item{octaves}{\code{NULL} or character (\code{"tick"} or \code{"integer"}),
+the octave representation.}
 
-\item{accidentals}{\code{NULL} or character (\code{"flat"} or \code{"sharp"}), the accidentals representation.}
+\item{accidentals}{\code{NULL} or character (\code{"flat"} or
+\code{"sharp"}), the accidentals representation.}
 }
 \value{
 logical
 }
 \description{
-Check whether a string is comprised exclusively of valid note and/or chord substring syntax.
-\code{is_note} and \code{is_chord} are vectorized and their positive results are mutually exclusive.
-\code{noteworthy} is also vectorized and performs both checks, but it returns a scalar logical result indicating whether the entire set contains exclusively valid entries.
+Check whether a string is comprised exclusively of valid note and/or chord
+substring syntax.
+\code{is_note} and \code{is_chord} are vectorized and their positive results
+are mutually exclusive.
+\code{noteworthy} is also vectorized and performs both checks, but it
+returns a scalar logical result indicating whether the entire set contains
+exclusively valid entries.
 }
 \details{
-\code{as_noteworthy} can be used to coerce to the \code{noteworthy} class. Coercion will fail if the string is not noteworthy.
-Using the \code{noteworthy} class is generally not needed by the user during an interactive session, but is available and offers its own \code{print} and \code{summary} methods for noteworthy strings.
-It is more likely to be used by other functions and functions that output a noteworthy string generally attach the noteworthy class.
+\code{as_noteworthy} can be used to coerce to the \code{noteworthy} class.
+Coercion will fail if the string is not noteworthy.
+Using the \code{noteworthy} class is generally not needed by the user during
+an interactive session, but is available and offers its own \code{print} and
+\code{summary} methods for noteworthy strings.
+It is more likely to be used by other functions and functions that output a
+noteworthy string generally attach the noteworthy class.
 
-\code{is_diatonic} performs a vectorized logical check on a \code{noteworthy} string for all notes and chords.
-To check strictly notes or chords, see \code{\link{note_in_scale}} and \code{\link{chord_is_diatonic}}.
+\code{is_diatonic} performs a vectorized logical check on a
+\code{noteworthy} string for all notes and chords.
+To check strictly notes or chords, see \code{\link{note_in_scale}} and
+\code{\link{chord_is_diatonic}}.
 }
 \examples{
 x <- "a# b_ c, d'' e3 g_4 A m c2e_2g2 cegh"
@@ -62,7 +76,8 @@ x
 
 summary(x)
 
-x <- as_noteworthy(x, format = "vector", octaves = "integer", accidentals = "flat")
+x <- as_noteworthy(x, format = "vector", octaves = "integer",
+                   accidentals = "flat")
 x
 
 summary(x)

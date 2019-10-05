@@ -30,10 +30,13 @@ test_that("chord mapping returns as expected", {
 test_that("lp_chord_name and lp_chord_mod return as expected", {
   expect_equal(lp_chord_id("a a a", "m M m7_5"), c("a:m", "a:5", "a:m7_5"))
   expect_equal(lp_chord_mod("a a a", "m M m7_5"), c("m", "5", "m7_5"))
-  expect_equal(lp_chord_id("a a a", "m M m7_5", exact = TRUE), c("a:m", "a:5", "a:m7es5"))
-  expect_equal(lp_chord_mod("a a a", "m M m7_5", exact = TRUE), c("m", "5", "m7es5"))
+  expect_equal(lp_chord_id("a a a", "m M m7_5", exact = TRUE),
+               c("a:m", "a:5", "a:m7es5"))
+  expect_equal(lp_chord_mod("a a a", "m M m7_5", exact = TRUE),
+               c("m", "5", "m7es5"))
 
-  expect_equal(lp_chord_id("a a a a", "mb5 m7b5 m#5 m7#5"), c("a:m5-", "a:m7.5-", "a:m5+", "a:m7.5+"))
+  expect_equal(lp_chord_id("a a a a", "mb5 m7b5 m#5 m7#5"),
+               c("a:m5-", "a:m7.5-", "a:m5+", "a:m7.5+"))
   expect_equal(lp_chord_id("a", "M/2"), "a:maj/b")
   expect_equal(lp_chord_id("a", "mM7"), "a:m7+")
 })

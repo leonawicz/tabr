@@ -4,15 +4,22 @@
 #'
 #' For valid key signatures, see \code{\link{keys}}.
 #'
-#' Modern modes based on major scales are available by key signature using the \code{mode_*} functions. The seven modes can be listed with \code{modes}. Note strings of proper length can be checked to match against a mode with \code{is_mode}.
-#' Modes can be rotated with \code{mode_rotate}, a wrapper around \code{note_rotate}.
+#' Modern modes based on major scales are available by key signature using the
+#' \code{mode_*} functions. The seven modes can be listed with \code{modes}.
+#' Note strings of proper length can be checked to match against a mode with
+#' \code{is_mode}.
+#' Modes can be rotated with \code{mode_rotate}, a wrapper around
+#' \code{note_rotate}.
 #'
 #' @param key character, key signature.
-#' @param collapse logical, collapse result into a single string ready for phrase construction.
+#' @param collapse logical, collapse result into a single string ready for
+#' phrase construction.
 #' @param mode character, which mode.
-#' @param notes character, for mode, may be a string of seven notes or a vector or seven one-note strings.
+#' @param notes character, for mode, may be a string of seven notes or a vector
+#' or seven one-note strings.
 #' @param n integer, degree of rotation.
-#' @param ignore_octave logical, strip octave numbering from modes not rooted on C.
+#' @param ignore_octave logical, strip octave numbering from modes not rooted
+#' on C.
 #'
 #' @return character
 #' @export
@@ -31,10 +38,12 @@
 #'   mode_dorian("d", ignore_octave = TRUE)
 #' )
 #'
-#' setNames(data.frame(t(sapply(modes(), mode_modern, ignore_octave = TRUE))), as.roman(1:7))
+#' x <- sapply(modes(), mode_modern, ignore_octave = TRUE)
+#' setNames(data.frame(t(x)), as.roman(1:7))
 modes <- function(mode = c("all", "major", "minor")){
   mode <- match.arg(mode)
-  x <- c("ionian", "dorian", "phrygian", "lydian", "mixolydian", "aeolian", "locrian")
+  x <- c("ionian", "dorian", "phrygian", "lydian", "mixolydian", "aeolian",
+         "locrian")
   if(mode == "all") return(x)
   if(mode == "major") return(x[c(1, 4, 5)])
   x[c(2, 3, 6, 7)]
@@ -47,7 +56,8 @@ is_mode <- function(notes, ignore_octave = FALSE){
   if(length(notes) != 7) return(FALSE)
   key <- .pitch_to_note(notes[1])
   y <- sapply(modes(), mode_modern, key = key, ignore_octave = ignore_octave)
-  for(i in 1:ncol(y)) if(identical(as.character(notes), y[, i])) return(TRUE)
+  for(i in seq_len(ncol(y)))
+    if(identical(as.character(notes), y[, i])) return(TRUE)
   FALSE
 }
 
@@ -61,11 +71,13 @@ mode_rotate <- function(notes, n = 0, ignore_octave = FALSE){
 
 #' @export
 #' @rdname mode-helpers
-mode_modern <- function(mode = "ionian", key = "c", collapse = FALSE, ignore_octave = FALSE){
+mode_modern <- function(mode = "ionian", key = "c", collapse = FALSE,
+                        ignore_octave = FALSE){
   f <- switch(mode,
-              ionian = mode_ionian, dorian = mode_dorian, phrygian = mode_phrygian,
-              lydian = mode_lydian, mixolydian = mode_mixolydian,
-              aeolian = mode_aeolian, locrian = mode_locrian)
+              ionian = mode_ionian, dorian = mode_dorian,
+              phrygian = mode_phrygian, lydian = mode_lydian,
+              mixolydian = mode_mixolydian, aeolian = mode_aeolian,
+              locrian = mode_locrian)
   f(key, collapse, ignore_octave)
 }
 

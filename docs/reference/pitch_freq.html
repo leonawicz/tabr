@@ -230,7 +230,8 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>notes</th>
-      <td><p>character, note string, space-delimited or vector of individual entries. See details.</p></td>
+      <td><p>character, note string, space-delimited or vector of individual
+entries. See details.</p></td>
     </tr>
     <tr>
       <th>a4</th>
@@ -246,7 +247,8 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>other arguments passed to <code>tranpose</code>, specifically <code>key</code> and <code>style</code>.</p></td>
+      <td><p>other arguments passed to <code>tranpose</code>, specifically
+<code>key</code> and <code>style</code>.</p></td>
     </tr>
     </table>
 
@@ -255,9 +257,14 @@
     <p>numeric vector</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Frequencies are in Hertz. Values are based on the 12-tone equal-tempered scale. When converting an arbitrary frequency to pitch, it is rounded to the nearest pitch.
-<code>pitch_freq</code> and <code>pitch_semitones</code> strictly accept single notes in noteworthy strings and return numeric vectors.
-<code>chord_freq</code> and <code>chord_semitones</code> accept any noteworthy string and always return a list. These are provided so that all functions are type-safe. See examples.</p>
+    <p>Frequencies are in Hertz. Values are based on the 12-tone equal-tempered
+scale. When converting an arbitrary frequency to pitch, it is rounded to the
+nearest pitch.
+<code>pitch_freq</code> and <code>pitch_semitones</code> strictly accept single notes in
+noteworthy strings and return numeric vectors.
+<code>chord_freq</code> and <code>chord_semitones</code> accept any noteworthy string
+and always return a list. These are provided so that all functions are
+type-safe. See examples.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"a e4 a4 e5 a5"</span>

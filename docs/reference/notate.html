@@ -45,7 +45,8 @@
   
 
 <meta property="og:title" content="Add text to music staff — notate" />
-<meta property="og:description" content="Annotate a music staff, vertically aligned above or below the music staff at a specific note/time." />
+<meta property="og:description" content="Annotate a music staff, vertically aligned above or below the music staff at
+a specific note/time." />
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -210,7 +211,8 @@
     </div>
 
     <div class="ref-description">
-    <p>Annotate a music staff, vertically aligned above or below the music staff at a specific note/time.</p>
+    <p>Annotate a music staff, vertically aligned above or below the music staff at
+a specific note/time.</p>
     </div>
 
     <pre class="usage"><span class='fu'>notate</span>(<span class='no'>x</span>, <span class='no'>text</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"top"</span>)</pre>
@@ -237,8 +239,11 @@
     <p>a character string.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function binds text annotation in LilyPond syntax to a note's associated <code>info</code> entry.
-Technically, the syntax is a hybrid form, but is later updated safely and unambiguously to LilyPond syntax with respect to the rest of the note info substring when it is fed to <code>phrase</code> for musical phrase assembly.</p>
+    <p>This function binds text annotation in LilyPond syntax to a note's
+associated <code>info</code> entry.
+Technically, the syntax is a hybrid form, but is later updated safely and
+unambiguously to LilyPond syntax with respect to the rest of the note info
+substring when it is fed to <code>phrase</code> for musical phrase assembly.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>notate</span>(<span class='st'>"8"</span>, <span class='st'>"Solo"</span>)</div><div class='output co'>#&gt; [1] "8;^\"Solo\""</div><div class='input'><span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='st'>"c'~ c' d' e'"</span>, <span class='fu'><a href='append_phrases.html'>pc</a></span>(<span class='fu'>notate</span>(<span class='fl'>8</span>, <span class='st'>"First solo"</span>), <span class='st'>"8 8 4."</span>), <span class='st'>"5 5 5 5"</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'>&lt;</span><span style='color: #555555;font-weight: bold;'>Musical phrase</span><span style='color: #555555;'>&gt;</span><span>

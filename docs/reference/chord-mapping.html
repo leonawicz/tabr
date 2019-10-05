@@ -235,23 +235,28 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>name</th>
-      <td><p>character, chord name in <code>tabr</code> format, e.g., <code>"bM b_m b_m7#5"</code>, etc.</p></td>
+      <td><p>character, chord name in <code>tabr</code> format, e.g.,
+<code>"bM b_m b_m7#5"</code>, etc.</p></td>
     </tr>
     <tr>
       <th>root_fret</th>
-      <td><p>integer, optional filter for chords whose root note matches a specific fret. May be a vector.</p></td>
+      <td><p>integer, optional filter for chords whose root note matches
+a specific fret. May be a vector.</p></td>
     </tr>
     <tr>
       <th>min_fret</th>
-      <td><p>integer, optional filter for chords whose notes are all at or above a specific fret. May be a vector.</p></td>
+      <td><p>integer, optional filter for chords whose notes are all at
+or above a specific fret. May be a vector.</p></td>
     </tr>
     <tr>
       <th>bass_string</th>
-      <td><p>integer, optional filter for chords whose lowest pitch string matches a specific string, 6, 5, or 4. May be a vector.</p></td>
+      <td><p>integer, optional filter for chords whose lowest pitch
+string matches a specific string, 6, 5, or 4. May be a vector.</p></td>
     </tr>
     <tr>
       <th>open</th>
-      <td><p>logical, optional filter for open and movable chords. <code>NA</code> retains both types.</p></td>
+      <td><p>logical, optional filter for open and movable chords. <code>NA</code>
+retains both types.</p></td>
     </tr>
     <tr>
       <th>key</th>
@@ -259,7 +264,8 @@
     </tr>
     <tr>
       <th>ignore_octave</th>
-      <td><p>logical, if <code>TRUE</code>, functions like <code>gc_info</code> and <code>gc_fretboard</code> return more results.</p></td>
+      <td><p>logical, if <code>TRUE</code>, functions like <code>gc_info</code>
+and <code>gc_fretboard</code> return more results.</p></td>
     </tr>
     <tr>
       <th>notes</th>
@@ -272,16 +278,30 @@
     <p>various, see details regarding each function.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>These functions assist with mapping between different information that define chords.</p>
-<p>For <code>chord_is_known</code>, a check is done against chords in the <code>guitarChords</code> dataset.
-A simple noteworthy string is permitted, but any single-note entry will automatically yield a <code>FALSE</code> result.</p>
-<p><code>gc_info</code> returns a tibble data frame containing complete information for the subset of predefined guitar chords specified by <code>name</code> and <code>key</code>.
-Any accidentals present in the chord root of <code>name</code> (but not in the chord modifier, e.g., <code>m7_5</code> or <code>m7#5</code>) are converted according to <code>key</code> if necessary.
-<code>gc_notes</code> and <code>gc_fretboard</code> are wrappers around <code>gc_info</code>, which return noteworthy strings of chord notes and a named vector of LilyPond fretboard diagram data, respectively.
-Note that although the input to these functions can contain multiple chord names, whether as a vector or as a single space-delimited string, the result is not intended to be of equal length.
-These functions filter <code>guitarChords</code>. The result is the set of all chords matched by the supplied input filters.</p>
-<p><code>chord_name_split</code> splits a vector or space-delimited set of chord names into a tibble data frame containing separate chord root and chord modifier columns.
-<code>chord_name_root</code> and <code>chord_name_mod</code> are simple wrappers around this.</p>
+    <p>These functions assist with mapping between different information that
+define chords.</p>
+<p>For <code>chord_is_known</code>, a check is done against chords in the
+<code>guitarChords</code> dataset.
+A simple noteworthy string is permitted, but any single-note entry will
+automatically yield a <code>FALSE</code> result.</p>
+<p><code>gc_info</code> returns a tibble data frame containing complete information
+for the subset of predefined guitar chords specified by <code>name</code> and
+<code>key</code>.
+Any accidentals present in the chord root of <code>name</code> (but not in the
+chord modifier, e.g., <code>m7_5</code> or <code>m7#5</code>) are converted according to
+<code>key</code> if necessary.
+<code>gc_notes</code> and <code>gc_fretboard</code> are wrappers around <code>gc_info</code>,
+which return noteworthy strings of chord notes and a named vector of
+LilyPond fretboard diagram data, respectively.
+Note that although the input to these functions can contain multiple chord
+names, whether as a vector or as a single space-delimited string, the result
+is not intended to be of equal length.
+These functions filter <code>guitarChords</code>. The result is the set of all
+chords matched by the supplied input filters.</p>
+<p><code>chord_name_split</code> splits a vector or space-delimited set of chord
+names into a tibble data frame containing separate chord root and chord
+modifier columns.
+<code>chord_name_root</code> and <code>chord_name_mod</code> are wrappers around this.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>chord_is_known</span>(<span class='st'>"a b_,fb_d'f'"</span>)</div><div class='output co'>#&gt; [1] FALSE  TRUE</div><div class='input'>

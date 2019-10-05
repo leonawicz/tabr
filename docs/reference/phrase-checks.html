@@ -45,7 +45,8 @@
   
 
 <meta property="og:title" content="Phrase validation and coercion — phrase-checks" />
-<meta property="og:description" content="These helper functions add some validation checks for phrase and candidate phrase objects." />
+<meta property="og:description" content="These helper functions add some validation checks for phrase and candidate
+phrase objects." />
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -210,7 +211,8 @@
     </div>
 
     <div class="ref-description">
-    <p>These helper functions add some validation checks for phrase and candidate phrase objects.</p>
+    <p>These helper functions add some validation checks for phrase and candidate
+phrase objects.</p>
     </div>
 
     <pre class="usage"><span class='fu'>as_phrase</span>(<span class='no'>phrase</span>)
@@ -236,7 +238,8 @@
     </tr>
     <tr>
       <th>collapse</th>
-      <td><p>logical, collapse result into a single string ready for phrase construction.</p></td>
+      <td><p>logical, collapse result into a single string ready for
+phrase construction.</p></td>
     </tr>
     </table>
 
@@ -245,24 +248,36 @@
     <p>see details for each function's purpose and return value.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Use these functions with some caution. They are not intended for strictness and perfection.
-<code>phrasey</code> checks whether an object is weakly phrase-like and returns <code>TRUE</code> or <code>FALSE</code>.
-It can be used to safeguard against the most obvious cases of <code>phrase</code> not containing valid phrase syntax when programming.
+    <p>Use these functions with some caution. They are not intended for strictness
+and perfection.
+<code>phrasey</code> checks whether an object is weakly phrase-like and returns
+<code>TRUE</code> or <code>FALSE</code>.
+It can be used to safeguard against the most obvious cases of <code>phrase</code>
+not containing valid phrase syntax when programming.
 However, it may also be limiting. Use wear sensible.</p>
-<p><code>as_phrase</code> coerces an object to a phrase object if possible. This function performs an internal <code>phrasey</code> check.</p>
-<p><code>notify</code> attempts to decompose a phrase object back to its original input vectors consisting of notes, note info, and optionally, instrument string numbering.
-If successful, it returns a tibble data frame with columns: <code>notes</code>, <code>info</code>, <code>string</code>.</p>
-<p>Unless decomposing very simple phrases, this function is likely to reveal limitations.
-Complex phrase objects constructed originally with <code>phrase</code> can be challenging to deconstruct in a one to one manner.
+<p><code>as_phrase</code> coerces an object to a phrase object if possible.
+This function performs an internal <code>phrasey</code> check.</p>
+<p><code>notify</code> attempts to decompose a phrase object back to its original
+input vectors consisting of notes, note info, and optionally, instrument
+string numbering.
+If successful, it returns a tibble data frame with columns: <code>notes</code>,
+<code>info</code>, <code>string</code>.</p>
+<p>Unless decomposing very simple phrases, this function is likely to reveal
+limitations.
+Complex phrase objects constructed originally with <code>phrase</code> can be
+challenging to deconstruct in a one to one manner.
 Information may be lost, garbled, or the function may fail.
-For example, this function is not advanced enough to unravel repeat notation or handle arbitrary text notations attached to notes.</p>
-<p><code>notable</code> returns <code>TRUE</code> or <code>FALSE</code> regarding whether a phrase can be converted back to character string inputs,
+For example, this function is not advanced enough to unravel repeat notation
+or handle arbitrary text notations attached to notes.</p>
+<p><code>notable</code> returns <code>TRUE</code> or <code>FALSE</code> regarding whether a
+ phrase can be converted back to character string inputs,
  not necessarily with complete correctness, but without simple failure.
- It checks for phrasiness. Then it tries to call <code>notify</code> and returns <code>FALSE</code> gracefully if that call throws an exception.</p>
+ It checks for phrasiness. Then it tries to call <code>notify</code> and returns
+ <code>FALSE</code> gracefully if that call throws an exception.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Create a list of phrase objects</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='st'>"c ec'g' ec'g'"</span>, <span class='st'>"4 4 2"</span>) <span class='co'># no explicit string specification (not recommended)</span>
+<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='st'>"c ec'g' ec'g'"</span>, <span class='st'>"4 4 2"</span>) <span class='co'># no string numbers (not recommended)</span>
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='st'>"c ec4g4 ec4g4"</span>, <span class='st'>"4 4 2"</span>) <span class='co'># same as above</span>
 <span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='st'>"c b, c"</span>, <span class='st'>"4. 8( 8)"</span>, <span class='st'>"5 5 5"</span>) <span class='co'># direction implies hammer on</span>
 <span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='st'>"b2 c d"</span>, <span class='st'>"4( 4)- 2"</span>, <span class='st'>"5 5 5"</span>) <span class='co'># hammer and slide</span>
@@ -296,12 +311,14 @@ For example, this function is not advanced enough to unravel repeat notation or 
 #&gt; </span><span style='color: #555555;'>13</span><span> c        1     5     
 #&gt; </span><span style='color: #555555;'>14</span><span> e~c'~g'~ 1     432   
 #&gt; </span><span style='color: #555555;'>15</span><span> ec'g'    1     432   </div><div class='input'>
-<span class='co'># Wrappers around notify that extract each component, default to collapsed strings</span>
+<span class='co'># Wrappers around notify extract components, default to collapsed strings</span>
 <span class='fu'>phrase_notes</span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>e</span><span style='color: #BBBB00;'>~</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>~</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>~&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>ec</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>phrase_info</span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; [1] "1 1 1"</div><div class='input'><span class='fu'>phrase_strings</span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; [1] "5 432 432"</div><div class='input'>
 <span class='co'># If phrase decomposition works well, coercion is one to one</span>
-<span class='no'>x2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>x</span>, <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='phrase.html'>p</a></span>(<span class='fu'>phrase_notes</span>(<span class='no'>x</span>), <span class='fu'>phrase_info</span>(<span class='no'>x</span>), <span class='fu'>phrase_strings</span>(<span class='no'>x</span>)))
+<span class='no'>x2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>x</span>,
+  <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='phrase.html'>p</a></span>(<span class='fu'>phrase_notes</span>(<span class='no'>x</span>), <span class='fu'>phrase_info</span>(<span class='no'>x</span>), <span class='fu'>phrase_strings</span>(<span class='no'>x</span>))
+)
 <span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='no'>x</span>, <span class='no'>x2</span>)</div><div class='output co'>#&gt; [1] TRUE</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

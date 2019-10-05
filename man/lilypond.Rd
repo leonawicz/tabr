@@ -11,34 +11,44 @@ lilypond(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 \arguments{
 \item{score}{a score object.}
 
-\item{file}{character, LilyPond output file ending in \code{.ly}. May include an absolute or relative path.}
+\item{file}{character, LilyPond output file ending in \code{.ly}. May
+include an absolute or relative path.}
 
-\item{key}{character, key signature, e.g., \code{c}, \code{b_}, \code{f#m}, etc.}
+\item{key}{character, key signature, e.g., \code{c}, \code{b_}, \code{f#m},
+etc.}
 
 \item{time}{character, defaults to \code{"4/4"}.}
 
 \item{tempo}{character, defaults to \code{"2 = 60"}.}
 
-\item{header}{a named list of arguments passed to the header of the LilyPond file. See details.}
+\item{header}{a named list of arguments passed to the header of the
+LilyPond file. See details.}
 
-\item{string_names}{label strings at beginning of tab staff. \code{NULL} (default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for force on or off completely.}
+\item{string_names}{label strings at beginning of tab staff. \code{NULL}
+(default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for
+force on or off completely.}
 
-\item{paper}{a named list of arguments for the LilyPond file page layout. See details.}
+\item{paper}{a named list of arguments for the LilyPond file page layout.
+See details.}
 
 \item{endbar}{character, the end bar.}
 
 \item{midi}{logical, add midi inclusion specification to LilyPond file.}
 
-\item{path}{character, optional output directory prefixed to \code{file}, may be an absolute or relative path. If \code{NULL} (default), only \code{file} is used.}
+\item{path}{character, optional output directory prefixed to \code{file},
+may be an absolute or relative path. If \code{NULL} (default), only
+\code{file} is used.}
 }
 \value{
 nothing returned; a file is written.
 }
 \description{
-Write a score to a LilyPond format (\code{.ly}) text file for later use by LilyPond or subsequent editing outside of R.
+Write a score to a LilyPond format (\code{.ly}) text file for later use by
+LilyPond or subsequent editing outside of R.
 }
 \details{
-All \code{header} list elements are character strings. The options for \code{header} include:
+All \code{header} list elements are character strings. The options for
+\code{header} include:
 \itemize{
   \item \code{title}
   \item \code{subtitle}
@@ -54,7 +64,8 @@ All \code{header} list elements are character strings. The options for \code{hea
   \item \code{tagline}
 }
 
-All \code{paper} list elements are numeric except \code{page_numbers}, which is logical. The options for \code{paper} include:
+All \code{paper} list elements are numeric except \code{page_numbers},
+which is logical. The options for \code{paper} include:
 \itemize{
   \item \code{textheight}
   \item \code{linewidth}

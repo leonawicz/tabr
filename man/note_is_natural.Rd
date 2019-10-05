@@ -44,31 +44,44 @@ as_vector_time(notes)
 pretty_notes(notes, ignore_octave = TRUE)
 }
 \arguments{
-\item{notes}{character, a noteworthy string, space-delimited or vector of individual entries.}
+\item{notes}{character, a noteworthy string, space-delimited or vector of
+individual entries.}
 
 \item{type}{character, type of note to naturalize.}
 
-\item{ignore_octave}{logical, strip any octave notation that may be present, returning only the basic notes without explicit pitch.}
+\item{ignore_octave}{logical, strip any octave notation that may be present,
+returning only the basic notes without explicit pitch.}
 
-\item{key}{character, key signature to coerce any accidentals to the appropriate form for the key. May also specify \code{"sharp"} or \code{"flat"}.}
+\item{key}{character, key signature to coerce any accidentals to the
+appropriate form for the key. May also specify \code{"sharp"} or
+\code{"flat"}.}
 }
 \value{
 character
 }
 \description{
-Helper functions for inspecting and setting formatting attributes of noteworthy strings including representation of timesteps, octaves and accidentals.
+Helper functions for inspecting and setting formatting attributes of
+noteworthy strings including representation of timesteps, octaves and
+accidentals.
 }
 \details{
 The \code{note_is_*} functions strictly allow individual notes, not chords.
-The other functions listed here accept any noteworthy string including those containing chords.
+The other functions listed here accept any noteworthy string including those
+containing chords.
 
-For \code{sharpen_flat} and \code{flatten_sharp}, sharpening flats and flattening sharps refer to inverting their respective notation,
+For \code{sharpen_flat} and \code{flatten_sharp}, sharpening flats and
+flattening sharps refer to inverting their respective notation,
 not to raising or lowering a flatted or sharped note by one semitone.
-For the latter, use \code{naturalize}, which removes flat and/or sharp notation from a string.
-\code{note_set_key} is used for coercing a noteworthy string to a specific and consistent notation for accidentals based on a key signature.
+For the latter, use \code{naturalize}, which removes flat and/or sharp
+notation from a string.
+\code{note_set_key} is used for coercing a noteworthy string to a specific
+and consistent notation for accidentals based on a key signature.
 This is a wrapper around \code{sharpen_flat} and \code{flatten_sharp}.
-\code{as_tick_octaves}, \code{as_integer_octaves}, \code{as_space_time} and \code{as_vector_time} similarly affect octave and timestep format.
-For simultaneous control over the representation of timesteps, octave numbering and accidentals, all three are available as arguments to \code{\link{as_noteworthy}}.
+\code{as_tick_octaves}, \code{as_integer_octaves}, \code{as_space_time} and
+\code{as_vector_time} similarly affect octave and timestep format.
+For simultaneous control over the representation of timesteps, octave
+numbering and accidentals, all three are available as arguments to
+\code{\link{as_noteworthy}}.
 }
 \examples{
 x <- "a_2 a a#'"

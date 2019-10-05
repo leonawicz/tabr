@@ -11,19 +11,25 @@ tab(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 \arguments{
 \item{score}{a score object.}
 
-\item{file}{character, output file ending in .pdf or .png. May include an absolute or relative path.}
+\item{file}{character, output file ending in .pdf or .png. May include an
+absolute or relative path.}
 
-\item{key}{character, key signature, e.g., \code{c}, \code{b_}, \code{f#m}, etc.}
+\item{key}{character, key signature, e.g., \code{c}, \code{b_}, \code{f#m},
+etc.}
 
 \item{time}{character, defaults to \code{"4/4"}.}
 
 \item{tempo}{character, defaults to \code{"2 = 60"}.}
 
-\item{header}{a named list of arguments passed to the header of the LilyPond file. See details.}
+\item{header}{a named list of arguments passed to the header of the
+LilyPond file. See details.}
 
-\item{string_names}{label strings at beginning of tab staff. \code{NULL} (default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for force on or off completely.}
+\item{string_names}{label strings at beginning of tab staff. \code{NULL}
+(default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for
+force on or off completely.}
 
-\item{paper}{a named list of arguments for the LilyPond file page layout. See details.}
+\item{paper}{a named list of arguments for the LilyPond file page layout.
+See details.}
 
 \item{endbar}{character, the end bar.}
 
@@ -31,9 +37,12 @@ tab(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 
 \item{keep_ly}{logical, keep LilyPond file.}
 
-\item{path}{character, optional output directory prefixed to \code{file}, may be an absolute or relative path. If \code{NULL} (default), only \code{file} is used.}
+\item{path}{character, optional output directory prefixed to \code{file},
+may be an absolute or relative path. If \code{NULL} (default), only
+\code{file} is used.}
 
-\item{details}{logical, set to \code{FALSE} to disable printing of log output to console.}
+\item{details}{logical, set to \code{FALSE} to disable printing of log
+output to console.}
 }
 \value{
 nothing returned; a file is written.
@@ -42,10 +51,15 @@ nothing returned; a file is written.
 Create sheet music/guitar tablature from a music score.
 }
 \details{
-Generate a pdf or png of a music score using the LilyPond music engraving program.
-Output format is inferred from \code{file} extension. This function is a wrapper around \code{\link{lilypond}}, the function that creates the LilyPond (\code{.ly}) file.
+Generate a pdf or png of a music score using the LilyPond music engraving
+program.
+Output format is inferred from \code{file} extension. This function is a
+wrapper around \code{\link{lilypond}}, the function that creates the
+LilyPond (\code{.ly}) file.
 
-For Windows users, add the path to the LilyPond executable to the system path variable. For example, if the file is at \code{C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe},
+For Windows users, add the path to the LilyPond executable to the system
+path variable. For example, if the file is at
+\code{C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe},
 then add \code{C:/Program Files (x86)/LilyPond/usr/bin} to the system path.
 }
 \examples{

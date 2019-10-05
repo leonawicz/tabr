@@ -29,19 +29,25 @@ chord_name_root(name)
 chord_name_mod(name)
 }
 \arguments{
-\item{name}{character, chord name in \code{tabr} format, e.g., \code{"bM b_m b_m7#5"}, etc.}
+\item{name}{character, chord name in \code{tabr} format, e.g.,
+\code{"bM b_m b_m7#5"}, etc.}
 
-\item{root_fret}{integer, optional filter for chords whose root note matches a specific fret. May be a vector.}
+\item{root_fret}{integer, optional filter for chords whose root note matches
+a specific fret. May be a vector.}
 
-\item{min_fret}{integer, optional filter for chords whose notes are all at or above a specific fret. May be a vector.}
+\item{min_fret}{integer, optional filter for chords whose notes are all at
+or above a specific fret. May be a vector.}
 
-\item{bass_string}{integer, optional filter for chords whose lowest pitch string matches a specific string, 6, 5, or 4. May be a vector.}
+\item{bass_string}{integer, optional filter for chords whose lowest pitch
+string matches a specific string, 6, 5, or 4. May be a vector.}
 
-\item{open}{logical, optional filter for open and movable chords. \code{NA} retains both types.}
+\item{open}{logical, optional filter for open and movable chords. \code{NA}
+retains both types.}
 
 \item{key}{character, key signature, used to enforce type of accidentals.}
 
-\item{ignore_octave}{logical, if \code{TRUE}, functions like \code{gc_info} and \code{gc_fretboard} return more results.}
+\item{ignore_octave}{logical, if \code{TRUE}, functions like \code{gc_info}
+and \code{gc_fretboard} return more results.}
 
 \item{notes}{character, a noteworthy string.}
 }
@@ -52,19 +58,33 @@ various, see details regarding each function.
 Helper functions for chord mapping.
 }
 \details{
-These functions assist with mapping between different information that define chords.
+These functions assist with mapping between different information that
+define chords.
 
-For \code{chord_is_known}, a check is done against chords in the \code{guitarChords} dataset.
-A simple noteworthy string is permitted, but any single-note entry will automatically yield a \code{FALSE} result.
+For \code{chord_is_known}, a check is done against chords in the
+\code{guitarChords} dataset.
+A simple noteworthy string is permitted, but any single-note entry will
+automatically yield a \code{FALSE} result.
 
-\code{gc_info} returns a tibble data frame containing complete information for the subset of predefined guitar chords specified by \code{name} and \code{key}.
-Any accidentals present in the chord root of \code{name} (but not in the chord modifier, e.g., \code{m7_5} or \code{m7#5}) are converted according to \code{key} if necessary.
-\code{gc_notes} and \code{gc_fretboard} are wrappers around \code{gc_info}, which return noteworthy strings of chord notes and a named vector of LilyPond fretboard diagram data, respectively.
-Note that although the input to these functions can contain multiple chord names, whether as a vector or as a single space-delimited string, the result is not intended to be of equal length.
-These functions filter \code{guitarChords}. The result is the set of all chords matched by the supplied input filters.
+\code{gc_info} returns a tibble data frame containing complete information
+for the subset of predefined guitar chords specified by \code{name} and
+\code{key}.
+Any accidentals present in the chord root of \code{name} (but not in the
+chord modifier, e.g., \code{m7_5} or \code{m7#5}) are converted according to
+\code{key} if necessary.
+\code{gc_notes} and \code{gc_fretboard} are wrappers around \code{gc_info},
+which return noteworthy strings of chord notes and a named vector of
+LilyPond fretboard diagram data, respectively.
+Note that although the input to these functions can contain multiple chord
+names, whether as a vector or as a single space-delimited string, the result
+is not intended to be of equal length.
+These functions filter \code{guitarChords}. The result is the set of all
+chords matched by the supplied input filters.
 
-\code{chord_name_split} splits a vector or space-delimited set of chord names into a tibble data frame containing separate chord root and chord modifier columns.
-\code{chord_name_root} and \code{chord_name_mod} are simple wrappers around this.
+\code{chord_name_split} splits a vector or space-delimited set of chord
+names into a tibble data frame containing separate chord root and chord
+modifier columns.
+\code{chord_name_root} and \code{chord_name_mod} are wrappers around this.
 }
 \examples{
 chord_is_known("a b_,fb_d'f'")

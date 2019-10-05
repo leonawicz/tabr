@@ -15,9 +15,11 @@ chord_sort(chords, pitch = c("min", "mean", "max"), decreasing = FALSE,
   ...)
 }
 \arguments{
-\item{chords}{character, a noteworthy string, may include individual notes and chords.}
+\item{chords}{character, a noteworthy string, may include individual notes
+and chords.}
 
-\item{pitch}{character, how ranking of chords is determined; lowest pitch, mean pitch, or highest pitch.}
+\item{pitch}{character, how ranking of chords is determined; lowest pitch,
+mean pitch, or highest pitch.}
 
 \item{...}{additional arguments passed to \code{rank} or \code{order}.}
 
@@ -30,7 +32,9 @@ integer for rank and order, character for sort
 Rank, order and sort chords and notes by various definitions.
 }
 \details{
-There are three options for comparing the relative pitch position of chords provided: comparison of the lowest or root note of each chord, the highest pitch note, or taking the mean of all notes in a chord.
+There are three options for comparing the relative pitch position of chords
+provided: comparison of the lowest or root note of each chord, the highest
+pitch note, or taking the mean of all notes in a chord.
 }
 \examples{
 x <- "a2 c a2 ceg ce_g cea"
