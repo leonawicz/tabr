@@ -9,8 +9,12 @@
 \alias{sharpen_flat}
 \alias{flatten_sharp}
 \alias{note_set_key}
+\alias{as_tick_octaves}
+\alias{as_integer_octaves}
+\alias{as_space_time}
+\alias{as_vector_time}
 \alias{pretty_notes}
-\title{Note naturalness and keys}
+\title{Inspect or coerce noteworthy string formats}
 \usage{
 note_is_natural(notes)
 
@@ -29,6 +33,14 @@ flatten_sharp(notes, ignore_octave = FALSE)
 
 note_set_key(notes, key = "c")
 
+as_tick_octaves(notes)
+
+as_integer_octaves(notes)
+
+as_space_time(notes)
+
+as_vector_time(notes)
+
 pretty_notes(notes, ignore_octave = TRUE)
 }
 \arguments{
@@ -44,25 +56,36 @@ pretty_notes(notes, ignore_octave = TRUE)
 character
 }
 \description{
-Helper functions for inspecting and manipulating accidentals in noteworthy strings.
+Helper functions for inspecting and setting formatting attributes of noteworthy strings including representation of timesteps, octaves and accidentals.
 }
 \details{
-In this context, sharpening flats and flattening sharps refers to inverting their notation, not raising and lowering a flatted or sharped note by one semitone.
-For the latter, use \code{naturalize}, which removes flat and/or sharp notation from a string.
-
 The \code{note_is_*} functions strictly allow individual notes, not chords.
 The other functions listed here accept any noteworthy string including those containing chords.
+
+For \code{sharpen_flat} and \code{flatten_sharp}, sharpening flats and flattening sharps refer to inverting their respective notation,
+not to raising or lowering a flatted or sharped note by one semitone.
+For the latter, use \code{naturalize}, which removes flat and/or sharp notation from a string.
+\code{note_set_key} is used for coercing a noteworthy string to a specific and consistent notation for accidentals based on a key signature.
+This is a wrapper around \code{sharpen_flat} and \code{flatten_sharp}.
+\code{as_tick_octaves}, \code{as_integer_octaves}, \code{as_space_time} and \code{as_vector_time} similarly affect octave and timestep format.
+For simultaneous control over the representation of timesteps, octave numbering and accidentals, all three are available as arguments to \code{\link{as_noteworthy}}.
 }
 \examples{
-x <- "a_ a a#"
+x <- "a_2 a a#'"
 note_is_natural(x)
 note_is_accidental(x)
 note_is_flat(x)
 note_is_sharp(x)
+
+x <- "e_2 a_, b_, c#f#a# c#'f#'a#''"
 note_set_key(x, "f")
 note_set_key(x, "g")
+as_tick_octaves(x)
+as_integer_octaves(x)
+y <- as_vector_time(x)
+is_vector_time(y)
+is_space_time(as_space_time(y))
 
-x <- "e_2 a_, c#f#a#"
 naturalize(x)
 naturalize(x, "sharp")
 sharpen_flat(x)

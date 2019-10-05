@@ -262,11 +262,11 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"a e4 a4 e5 a5"</span>
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'>pitch_freq</span>(<span class='no'>x</span>)
-<span class='no'>y</span></div><div class='output co'>#&gt; [1] 11839.82 17739.69 23679.64 35479.38 47359.29</div><div class='input'>
+<span class='no'>y</span></div><div class='output co'>#&gt; [1] 220.0000 329.6276 440.0000 659.2551 880.0000</div><div class='input'>
 <span class='fu'>freq_pitch</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; <span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>vectorized time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>d#</span><span style='color: #00BBBB;'>15</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a#</span><span style='color: #00BBBB;'>15</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>d#</span><span style='color: #00BBBB;'>16</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a#</span><span style='color: #00BBBB;'>16</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>d#</span><span style='color: #00BBBB;'>17</span><span></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='fu'><a href='valid-notes.html'>as_noteworthy</a></span>(<span class='no'>x</span>), <span class='fu'>freq_pitch</span>(<span class='no'>y</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; [1] FALSE</div></span></pre>
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e</span><span style='color: #00BBBB;'>4</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #00BBBB;'>4</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e</span><span style='color: #00BBBB;'>5</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #00BBBB;'>5</span><span></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='fu'><a href='valid-notes.html'>as_noteworthy</a></span>(<span class='no'>x</span>), <span class='fu'>freq_pitch</span>(<span class='no'>y</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; [1] TRUE</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

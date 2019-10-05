@@ -28,7 +28,6 @@ There are a number of functions that assist with music programming around note a
 * `note_is_flat`
 * `note_is_sharp`
 * `is_diatonic`
-* `chord_is_major`, `chord_is_minor`
 
 ```{r notes1}
 x <- "c e_ g b_"
@@ -46,7 +45,46 @@ is_diatonic(x, "c")
 is_diatonic(x, "b_")
 ```
 
-## Coercion of accidentals
+## Noteworthy string summaries
+
+There are a number of functions that summarize the data in noteworthy strings. Here are several examples.
+
+* `n_steps`
+* `n_notes`
+* `n_chords`
+* `n_octaves`
+* `tally_notes`
+* `tally_pitches`
+* `tally_octaves`
+* `distinct_notes`
+* `distinct_pitches`
+* `distinct_octaves`
+* `pitch_range`
+* `semitone_range`
+* `semitone_span`
+* `octave_range`
+* `octave_span`
+* `octave_type`
+* `accidental_type`
+* `time_format`
+* `is_space_time`
+* `is_vector_time`
+
+See `?note-metadata` for details. A few examples are shown here:
+ 
+```{r notes2b}
+x <- "e_2 a_, b_, c#f#a# c#'f#'a#''"
+tally_notes(x)
+tally_pitches(x)
+distinct_notes(x)
+distinct_pitches(x)
+pitch_range(x)
+semitone_range(x)
+```
+
+## Coercion functions
+
+### Accidentals
 
 Note that it is common for functions to treat notes as different if they sound the same but one is transcribed as a flat and the other as a sharp. `tabr` makes the distinction for notation purposes; same pitch, different notes. This also supports transcription. Functions like `transpose` of course handle pitch as pitch and therefore the style of representation does not affect computation.
 
@@ -76,6 +114,28 @@ note_set_key(x, "g") # key of G has a sharp
 The intent is not to force notes which may not be diatonic to the key signature to fit that signature. All pitches remain exactly what they are. It does not matter if they are not in the key. But they are forced to conform to a key's representation of accidentals.
 
 For other functions in `tabr`, `key` arguments utilize the specific key signature in a more complete manner, and the options `flat` and `sharp` are not relevant or allowed.
+
+### Octave numbering
+
+Octave numbering can be ambiguous, including both tick and integer numbering format. You can coerce a noteworthy string strictly to one of the other:
+
+```{r notes5b}
+x <- "c, c c' c2 c c4"
+as_integer_octaves(x)
+as_tick_octaves(x)
+```
+
+### Timestep format
+
+Similarly, you can coerce the time format of a noteworthy string between space-delimited time and vectorized time:
+
+```{r notes5c}
+(x <- as_space_time(c("c", "e", "g", "ceg")))
+(y <- as_vector_time("c e g ceg"))
+
+as.character(x)
+as.character(y)
+```
 
 ## Comparative equivalence
 

@@ -20,6 +20,8 @@
 \alias{octave_type}
 \alias{accidental_type}
 \alias{time_format}
+\alias{is_space_time}
+\alias{is_vector_time}
 \title{Noteworthy string metadata}
 \usage{
 n_steps(notes)
@@ -57,6 +59,10 @@ octave_type(notes)
 accidental_type(notes)
 
 time_format(notes)
+
+is_space_time(notes)
+
+is_vector_time(notes)
 }
 \arguments{
 \item{notes}{character, a noteworthy string, space-delimited or vector of individual entries.}
@@ -101,4 +107,6 @@ octave_span(x)
 octave_type(x)
 accidental_type(x)
 time_format(x)
+is_space_time(x)
+is_vector_time(x)
 }

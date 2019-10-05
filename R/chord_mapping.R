@@ -81,7 +81,7 @@ chord_def <- function(fret, id, optional = NA, tuning = "standard", ...){
 #' lp_chord_id("a a a", "m M m7_5", exact = TRUE)
 #' lp_chord_mod("a a a", "m M m7_5", exact = TRUE)
 lp_chord_id <- function(root, chord, exact = FALSE, ...){
-  root <- .uncollapse(.octavesub(root))
+  root <- .uncollapse(.octave_to_tick(root))
   chord <- .uncollapse(chord)
   x <- paste0(root, ":", sapply(chord, function(y){
     if(y == "M") return("5")
@@ -229,7 +229,7 @@ gc_notes <- function(name, root_fret = NA, min_fret = NA, bass_string = NA, open
 #' @rdname chord-mapping
 chord_is_known <- function(notes){
   .check_noteworthy(notes)
-  .octavesub(.uncollapse(untie(notes))) %in% tabr::guitarChords$notes
+  .octave_to_tick(.uncollapse(untie(notes))) %in% tabr::guitarChords$notes
 }
 
 #' @export

@@ -67,7 +67,7 @@ phrase <- function(notes, info, string = NULL, bar = FALSE){
   if(!is.null(string)) .check_phrase_input(string, "string")
   notes <- (strsplit(notes, " ")[[1]] %>% purrr::map_chr(.star_expand) %>%
     paste0(collapse = " ") %>% strsplit(" "))[[1]]
-  notes <- .octavesub(notes)
+  notes <- .octave_to_tick(notes)
   info <- (strsplit(as.character(info), " ")[[1]] %>% purrr::map_chr(.star_expand) %>%
              paste0(collapse = " ") %>% strsplit(" "))[[1]]
   notes <- purrr::map_chr(notes, .tabsub)

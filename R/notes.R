@@ -41,6 +41,8 @@
 #' octave_type(x)
 #' accidental_type(x)
 #' time_format(x)
+#' is_space_time(x)
+#' is_vector_time(x)
 n_steps <- function(notes){
   attr(as_noteworthy(notes), "steps")
 }
@@ -168,15 +170,32 @@ time_format <- function(notes){
   attr(as_noteworthy(notes), "format")
 }
 
-#' Note naturalness and keys
+#' @export
+#' @rdname note-metadata
+is_space_time <- function(notes){
+  time_format(notes) == "space-delimited time"
+}
+
+#' @export
+#' @rdname note-metadata
+is_vector_time <- function(notes){
+  time_format(notes) == "vectorized time"
+}
+
+#' Inspect or coerce noteworthy string formats
 #'
-#' Helper functions for inspecting and manipulating accidentals in noteworthy strings.
-#'
-#' In this context, sharpening flats and flattening sharps refers to inverting their notation, not raising and lowering a flatted or sharped note by one semitone.
-#' For the latter, use \code{naturalize}, which removes flat and/or sharp notation from a string.
+#' Helper functions for inspecting and setting formatting attributes of noteworthy strings including representation of timesteps, octaves and accidentals.
 #'
 #' The \code{note_is_*} functions strictly allow individual notes, not chords.
 #' The other functions listed here accept any noteworthy string including those containing chords.
+#'
+#' For \code{sharpen_flat} and \code{flatten_sharp}, sharpening flats and flattening sharps refer to inverting their respective notation,
+#' not to raising or lowering a flatted or sharped note by one semitone.
+#' For the latter, use \code{naturalize}, which removes flat and/or sharp notation from a string.
+#' \code{note_set_key} is used for coercing a noteworthy string to a specific and consistent notation for accidentals based on a key signature.
+#' This is a wrapper around \code{sharpen_flat} and \code{flatten_sharp}.
+#' \code{as_tick_octaves}, \code{as_integer_octaves}, \code{as_space_time} and \code{as_vector_time} similarly affect octave and timestep format.
+#' For simultaneous control over the representation of timesteps, octave numbering and accidentals, all three are available as arguments to \code{\link{as_noteworthy}}.
 #'
 #' @param notes character, a noteworthy string, space-delimited or vector of individual entries.
 #' @param type character, type of note to naturalize.
@@ -187,15 +206,21 @@ time_format <- function(notes){
 #' @export
 #'
 #' @examples
-#' x <- "a_ a a#"
+#' x <- "a_2 a a#'"
 #' note_is_natural(x)
 #' note_is_accidental(x)
 #' note_is_flat(x)
 #' note_is_sharp(x)
+#'
+#' x <- "e_2 a_, b_, c#f#a# c#'f#'a#''"
 #' note_set_key(x, "f")
 #' note_set_key(x, "g")
+#' as_tick_octaves(x)
+#' as_integer_octaves(x)
+#' y <- as_vector_time(x)
+#' is_vector_time(y)
+#' is_space_time(as_space_time(y))
 #'
-#' x <- "e_2 a_, c#f#a#"
 #' naturalize(x)
 #' naturalize(x, "sharp")
 #' sharpen_flat(x)
@@ -271,6 +296,30 @@ note_set_key <- function(notes, key = "c"){
 
 #' @export
 #' @rdname note_is_natural
+as_tick_octaves <- function(notes){
+  as_noteworthy(notes, octave = "tick")
+}
+
+#' @export
+#' @rdname note_is_natural
+as_integer_octaves <- function(notes){
+  as_noteworthy(notes, octave = "integer")
+}
+
+#' @export
+#' @rdname note_is_natural
+as_space_time <- function(notes){
+  as_noteworthy(notes, format = "space")
+}
+
+#' @export
+#' @rdname note_is_natural
+as_vector_time <- function(notes){
+  as_noteworthy(notes, format = "vector")
+}
+
+#' @export
+#' @rdname note_is_natural
 pretty_notes <- function(notes, ignore_octave = TRUE){
   .check_noteworthy(notes)
   if(ignore_octave) notes <- .pitch_to_note(notes)
@@ -339,7 +388,7 @@ note_rotate <- function(notes, n = 0){
   if(n == 0) return(notes)
   style <- if(any(grepl(",|'", notes))) "tick" else "integer"
   x <- x[c((n + 1):length(x), 1:n)]
-  if(style == "tick") x <- .octavesub(x)
+  if(style == "tick") x <- .octave_to_tick(x)
   if(length(notes) == 1) x <- paste0(x, collapse = " ")
   .asnw(x)
 }
@@ -370,7 +419,7 @@ note_shift <- function(notes, n = 0){
       x <- x[c(nx, 1:(nx - 1))]
     }
   }
-  if(style == "tick") x <- .octavesub(x)
+  if(style == "tick") x <- .octave_to_tick(x)
   if(length(notes) == 1) x <- paste0(x, collapse = " ")
   .asnw(x)
 }
@@ -400,7 +449,7 @@ note_arpeggiate <- function(notes, n = 0, ...){
     x <- if(sharp) sharpen_flat(x) else flatten_sharp(x)
     x <- utils::tail(.uncollapse(x), nx - n)
   }
-  if(style == "tick") x <- .octavesub(x)
+  if(style == "tick") x <- .octave_to_tick(x)
   if(length(notes) == 1) x <- paste0(x, collapse = " ")
   .asnw(x)
 }
@@ -420,6 +469,9 @@ note_arpeggiate <- function(notes, n = 0, ...){
 #'
 #' @param x character, space-delimited entries or a vector of single, non-delimited entries.
 #' @param key character, key signature.
+#' @param format \code{NULL} or character (\code{"space"} or \code{"vector"}), the timestep delimiter format.
+#' @param octaves \code{NULL} or character (\code{"tick"} or \code{"integer"}), the octave representation.
+#' @param accidentals \code{NULL} or character (\code{"flat"} or \code{"sharp"}), the accidentals representation.
 #'
 #' @return logical
 #' @export
@@ -438,6 +490,11 @@ note_arpeggiate <- function(notes, n = 0, ...){
 #'
 #' x <- "a# b_ c,~ c, d'' e3 g_4 c2e_2g2"
 #' x <- as_noteworthy(x)
+#' x
+#'
+#' summary(x)
+#'
+#' x <- as_noteworthy(x, format = "vector", octaves = "integer", accidentals = "flat")
 #' x
 #'
 #' summary(x)
@@ -481,14 +538,15 @@ is_diatonic <- function(x, key = "c"){
 
 .check_noteworthy <- function(x) if(!noteworthy(x)) stop("Invalid notes or chords found.", call. = FALSE)
 
-.asnw <- function(x){
+.asnw <- function(x, format = NULL){
   n <- length(x)
-  format <- if(n == 1) "space-delimited time" else "vectorized time"
-  y <- .uncollapse(x)
-  steps <- length(y)
-  nnote <- as.integer(sum(is_note(y)))
-  nchord <- as.integer(sum(is_chord(y)))
-
+  if(is.null(format)){
+    format <- if(n == 1) "space-delimited time" else "vectorized time"
+  }
+  x <- .uncollapse(x)
+  steps <- length(x)
+  nnote <- as.integer(sum(is_note(x)))
+  nchord <- as.integer(sum(is_chord(x)))
   flat <- any(.pitch_flat(x))
   sharp <- any(.pitch_sharp(x))
   if(flat & sharp){
@@ -500,7 +558,6 @@ is_diatonic <- function(x, key = "c"){
   } else {
     a <- "none/unknown"
   }
-
   tick <- any(grepl(",|'", x))
   int <- any(grepl("\\d", x))
   if(tick & int){
@@ -512,7 +569,7 @@ is_diatonic <- function(x, key = "c"){
   } else {
     o <- "unknown"
   }
-
+  if(format == "space-delimited time") x <- paste(x, collapse = " ")
   attributes(x) <- list(steps = steps, n_note = nnote, n_chord = nchord,
                         octave = o, accidentals = a, format = format)
   class(x) <- unique(c("noteworthy", class(x)))
@@ -521,10 +578,30 @@ is_diatonic <- function(x, key = "c"){
 
 #' @export
 #' @rdname valid-notes
-as_noteworthy <- function(x){
-  if("noteworthy" %in% class(x)) return(x)
+as_noteworthy <- function(x, format = NULL, octaves = NULL, accidentals = NULL){
+  null_args <- all(sapply(list(format, octaves, accidentals), is.null))
+  if("noteworthy" %in% class(x) & null_args) return(x)
   .check_noteworthy(x)
-  .asnw(x)
+  if(!is.null(format)){
+    if(format %in% c("space", "vector")){
+      format <- switch(format, space = "space-delimited time", vector = "vectorized time")
+    } else {
+      stop("`format` must be 'space' or 'vector' if not NULL.", call. = FALSE)
+    }
+  }
+  if(!is.null(octaves)){
+    if(octaves %in% c("tick", "integer")){
+      x <- if(octaves == "tick") .octave_to_tick(x) else .octave_to_int(x)
+    } else {
+      stop("`octaves` must be 'tick' or 'integer' if not NULL.", call. = FALSE)
+    }
+  }
+  if(!is.null(accidentals)){
+    if(!accidentals %in% c("flat", "sharp"))
+      stop("`accidentals` must be 'flat' or 'sharp' if not NULL.", call. = FALSE)
+    x <- if(accidentals == "flat") flatten_sharp(x) else sharpen_flat(x)
+  }
+  .asnw(x, format)
 }
 
 #' @export

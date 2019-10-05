@@ -30,7 +30,6 @@ chord_invert <- function(chord, n = 0, limit = FALSE){
   if(n == 0) return(chord)
   x <- .split_chord(chord)
   nx <- length(x)
-  if(nx == 1) return(x)
   if(abs(n) > nx - 1 & limit == TRUE)
     stop(paste0("Chord has ", nx, " notes. `n` must be in -", nx - 1, ":", nx - 1,
                 ". Set `limit = FALSE` to override."), call. = FALSE)
@@ -52,7 +51,7 @@ chord_invert <- function(chord, n = 0, limit = FALSE){
     }
   }
   x <- paste(x, collapse = "")
-  if(grepl(",|'", x)) x <- .octavesub(x)
+  if(grepl(",|'", x)) x <- .octave_to_tick(x)
   .asnw(x)
 }
 
@@ -89,7 +88,7 @@ chord_arpeggiate <- function(chord, n = 0, by = c("note", "chord"), broken = FAL
   }
   x <- c(chord, sapply(sign(n) * s, function(i) chord_invert(chord, i)))
   if(broken) x <- unlist(lapply(x, .split_chord))
-  if(any(grepl(",|'", x))) x <- .octavesub(x)
+  if(any(grepl(",|'", x))) x <- .octave_to_tick(x)
   if(collapse) x <- paste0(x, collapse = " ")
   .asnw(x)
 }

@@ -148,7 +148,7 @@ transpose <- function(notes, n = 0, key = NA, style = c("default", "tick", "inte
   if(any(as.integer(x2[x2 != ""]) < 0)) stop("`Negative octave number not allowed in `tabr`.", call. = FALSE)
   if(length(idx) > 0) x2[idx] <- paste0(x2[idx], "~")
   x <- paste0(x1new, x2, collapse = " ")
-  if(style == "tick") x <- .octavesub(x)
+  if(style == "tick") x <- .octave_to_tick(x)
   x <- gsub("3", "", x)
   if(style == "strip") x <- gsub("\\d|,|'", "", x)
   x

@@ -189,7 +189,7 @@ tuplet <- function(x, n, string = NULL, a = 3, b = 2){
   } else {
     notes <- x
   }
-  notes <- .octavesub(.notesub(notes))
+  notes <- .octave_to_tick(.notesub(notes))
   notes <- strsplit(notes, " ")[[1]]
   s <- !is.null(string)
   if(s) string <- .strsub(string)

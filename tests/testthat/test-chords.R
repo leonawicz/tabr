@@ -10,6 +10,7 @@ test_that("chord helpers return as expected", {
   expect_equal(chord_invert("e_2g#3b_4", 1), as_noteworthy("g#3b_4e_5"))
   expect_equal(chord_invert("e_2g#3b_4", 4), as_noteworthy("g#5b_5e_6"))
   expect_equal(chord_invert("e_2g#3b_4", -4), as_noteworthy("b_0e_1g#1"))
+  expect_equal(chord_invert("e_,g#3b_4", -4), as_noteworthy("b_0e_1g#1"))
 
   err <- "`x` must be a single chord, not space-delimited chords."
   expect_error(chord_invert("ace ace"), err)

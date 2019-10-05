@@ -17,12 +17,18 @@ noteworthy(x)
 
 is_diatonic(x, key = "c")
 
-as_noteworthy(x)
+as_noteworthy(x, format = NULL, octaves = NULL, accidentals = NULL)
 }
 \arguments{
 \item{x}{character, space-delimited entries or a vector of single, non-delimited entries.}
 
 \item{key}{character, key signature.}
+
+\item{format}{\code{NULL} or character (\code{"space"} or \code{"vector"}), the timestep delimiter format.}
+
+\item{octaves}{\code{NULL} or character (\code{"tick"} or \code{"integer"}), the octave representation.}
+
+\item{accidentals}{\code{NULL} or character (\code{"flat"} or \code{"sharp"}), the accidentals representation.}
 }
 \value{
 logical
@@ -52,6 +58,11 @@ is_diatonic("ace ac#e d e_", "c")
 
 x <- "a# b_ c,~ c, d'' e3 g_4 c2e_2g2"
 x <- as_noteworthy(x)
+x
+
+summary(x)
+
+x <- as_noteworthy(x, format = "vector", octaves = "integer", accidentals = "flat")
 x
 
 summary(x)

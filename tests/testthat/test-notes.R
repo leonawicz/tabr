@@ -66,11 +66,24 @@ test_that("note helpers return as expected", {
   expect_is(summary(as_noteworthy("a_*2 a#*3")), "NULL")
   expect_is(print.noteworthy("a*1"), "NULL")
 
+  y <- as_noteworthy(y, "vector", "tick", "sharp")
+  expect_identical(y, as_noteworthy(c("a#*2", "c,", "d''", "e", "f#'", "c,d#,g,")))
+
   x <- x[1:6]
   expect_equal(note_is_natural(x), c(F, F, T, T, T, F))
   expect_identical(note_is_natural(x), !note_is_accidental(x))
   expect_equal(note_is_flat(x), c(F, T, F, F, F, T))
   expect_equal(note_is_sharp(x), c(T, rep(F, 5)))
+
+  x <- "e_2 a_, c#f#a#'"
+  expect_identical(note_set_key(x, "f"), note_set_key(x, "flat"))
+  expect_identical(note_set_key(x, "g"), as_noteworthy("d#, g#, c#f#a#'"))
+  expect_identical(as_tick_octaves(x), as_noteworthy("e_, a_, c#f#a#'"))
+  expect_identical(as_integer_octaves(x), as_noteworthy("e_2 a_2 c#f#a#4"))
+  y <- as_vector_time(x)
+  expect_equal(length(y), 3)
+  expect_identical(as_space_time(y), as_noteworthy(x))
+  expect_true(is_space_time(as_space_time(y)))
 
   err <- c("Invalid note found.", "Invalid notes or chords found.")
   expect_error(note_rotate("a b x"), err[2])

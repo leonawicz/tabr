@@ -6,7 +6,7 @@
   x
 }
 
-.octavesub <- function(x){
+.octave_to_tick <- function(x){
   x <- gsub("0", ",,,", x)
   x <- gsub("1", ",,", x)
   x <- gsub("2", ",", x)
@@ -15,6 +15,21 @@
   x <- gsub("5", "''", x)
   x <- gsub("6", "'''", x)
   x <- gsub("7", "''''", x)
+  x <- gsub("8", "'''''", x)
+  x <- gsub("9", "''''''", x)
+  x
+}
+
+.octave_to_int <- function(x){
+  x <- gsub(",,,", "0", x)
+  x <- gsub(",,", "1", x)
+  x <- gsub(",", "2", x)
+  x <- gsub("''''''", "9", x)
+  x <- gsub("'''''", "8", x)
+  x <- gsub("''''", "7", x)
+  x <- gsub("'''", "6", x)
+  x <- gsub("''", "5", x)
+  x <- gsub("'", "4", x)
   x
 }
 
