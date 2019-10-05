@@ -64,12 +64,11 @@ transpose <- function(notes, n = 0, key = NA,
   style <- match.arg(style)
   if(style == "default")
     style <- ifelse(length(grep("[,']", notes)), "tick", "integer")
-  x <- purrr::map_chr(strsplit(notes, " ")[[1]], ~({
+  x <- purrr::map_chr(.uncollapse(notes), ~({
     .split_chord(.x) %>% sapply(.add_missing_3) %>% paste(collapse = "")
   }))
   if(all(x %in% c("r", "s"))) return(.asnw(paste(x, collapse = " ")))
-  no_chords <- length(.split_chord(notes)) == length(x)
-  if(no_chords){
+  if(!any(is_chord(x))){
     return(.asnw(.transpose(paste(x, collapse = " "), n, key, style)))
   }
   purrr::map_chr(x, ~({
@@ -95,7 +94,7 @@ transpose <- function(notes, n = 0, key = NA,
   n_split <- purrr::map_int(x, ~({
     if(.x %in% c("r", "s")) return(2L)
     a <- which(!strsplit(.x, "")[[1]] %in% c(letters[1:7], "#", "_"))
-    if(length(a)) as.integer(min(a)) else 2L
+    min(as.integer(a))
     })
   )
   x1 <- substr(x, 1, n_split - 1)
@@ -104,7 +103,6 @@ transpose <- function(notes, n = 0, key = NA,
     type <- if(is.na(suppressWarnings(as.integer(.x)))) "tick" else "int"
     if(type == "tick"){
       n <- nchar(.x)
-      if(n == 0) return(3L)
       if(substr(.x, 1, 1) == ",") 3L - nchar(.x) else 3L + nchar(.x)
     } else {
       as.integer(.x)

@@ -354,28 +354,28 @@ If you provide all three components as a single character string to the
 three component parts internally.</p>
 <p>There are some rules for single-argument input. The three components are
 separated by semicolons as <code>"string;fret;info"</code>.
-For example, <code>"3;7x7;4"</code> means begin on the third string (infer higher
-number strings muted)
+For example, <code>"3;7x7;4"</code> means begin on the third string
+(infer higher number strings muted).
 The frets are 7th and 7th, meaning two notes are played. When an <code>x</code> is
 present in the second entry it means a string is not played.
 This is how it is inferred that the string numbers starting from the third
 string are strings 3 and 1 rather than 3 and 2 in this example.
 The 4 indicates a quarter note since it is part of the third entry where the
-additional <code>info</code> is specified (an <code>x</code> here would still indicate a
-dead note, rather than an unplayed string in the second entry, so this is
-contextual).</p>
+additional <code>info</code> is specified. This is contextual. For example, an
+<code>x</code> here would still indicate a dead note, rather than an unplayed
+string in the second entry, so this is contextual.</p>
 <p>A bonus when using this input method is that explicit <code>string</code> and
 <code>info</code> values persist from one time step to the next.
 Neither needs to be provided again until there is a change in value.
 For example, <code>"3;7x7;4 7x7 ;7x7;1"</code> repeats the string and info values
-from time step one for time step two.
-In time step three, string numbers repeat again, but the duration changes
+from timestep one for time step two.
+In timestep three, string numbers repeat again, but the duration changes
 from quarter note to whole note.</p>
-<p>Note that except when both are repeating and only fret numbers are provided
-(see time step two),
-two semicolons must be present so that it is unambiguous whether the sole
-missing component is a <code>string</code> or <code>info</code> (see time step three).
-Ambiguity would arise from a case like <code>"4;4"</code> without the second
+<p>Note that except when both <code>string</code> and <code>info</code> are repeating and
+only fret numbers are provided (see timestep two above), two semicolons
+must be present so that it is unambiguous whether the sole missing component
+is a <code>string</code> or <code>info</code> (see timestep three).</p>
+<p>Ambiguity would arise from a case like <code>"4;4"</code> without the second
 semicolon. This type of indexing was chosen over using two different
 delimiters.</p>
 <p>If a rest, <code>r</code> or <code>s</code>, is provided for the <code>fret</code> entry,

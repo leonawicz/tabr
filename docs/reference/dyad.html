@@ -213,15 +213,15 @@
     <p>Construct a dyad given one note, an interval, and a direction.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>dyad</span>(<span class='no'>notes</span>, <span class='no'>interval</span>, <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>dyad</span>(<span class='no'>notes</span>, <span class='no'>interval</span>, <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>notes</th>
-      <td><p>character, vector of single notes (not a single space-delimited
-string).</p></td>
+      <td><p>character, a noteworthy string, single notes only, no chords.
+Number of timesteps must equal the length of <code>interval</code>.</p></td>
     </tr>
     <tr>
       <th>interval</th>
@@ -236,10 +236,6 @@ respectively. See details.</p></td>
     <tr>
       <th>key</th>
       <td><p>character, key signature.</p></td>
-    </tr>
-    <tr>
-      <th>collapse</th>
-      <td><p>logical, collapse result into a single string.</p></td>
     </tr>
     </table>
 
@@ -273,10 +269,12 @@ Recycling occurs only if one argument is scalar.</p>
 #&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>ce</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>df</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>eg</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>fa</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>gb</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>ac</span><span style='color: #00BBBB;'>4</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>bd</span><span style='color: #00BBBB;'>4</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"P1"</span>, <span class='st'>"m3"</span>, <span class='st'>"M3"</span>, <span class='st'>"P4"</span>, <span class='st'>"P5"</span>, <span class='st'>"P8"</span>, <span class='st'>"M9"</span>)
 <span class='fu'>dyad</span>(<span class='st'>"c"</span>, <span class='no'>x</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
-#&gt;   Format: </span><span>vectorized time</span><span style='color: #555555;font-weight: bold;'>
+#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>cd#</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>ce</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>cf</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>cg</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>cc</span><span style='color: #00BBBB;'>4</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>cd</span><span style='color: #00BBBB;'>4</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>dyad</span>(<span class='st'>"c"</span>, <span class='no'>x</span>, <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
-#&gt;   Format: </span><span>vectorized time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #00BBBB;'>2</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span style='color: #00BBBB;'>2</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>2</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #00BBBB;'>2</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>2</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>1</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #BBBB00;'>&gt;</span><span></div></span></pre>
+#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #00BBBB;'>2</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span style='color: #00BBBB;'>2</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>2</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #00BBBB;'>2</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>2</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>1</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>dyad</span>(<span class='st'>"d e"</span>, <span class='st'>"m3"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
+#&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>df</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>eg</span><span style='color: #BBBB00;'>&gt;</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -4,11 +4,11 @@
 \alias{dyad}
 \title{Construct a dyad}
 \usage{
-dyad(notes, interval, reverse = FALSE, key = "c", collapse = FALSE)
+dyad(notes, interval, reverse = FALSE, key = "c")
 }
 \arguments{
-\item{notes}{character, vector of single notes (not a single space-delimited
-string).}
+\item{notes}{character, a noteworthy string, single notes only, no chords.
+Number of timesteps must equal the length of \code{interval}.}
 
 \item{interval}{integer or character vector; semitones or interval ID,
 respectively. See details.}
@@ -17,8 +17,6 @@ respectively. See details.}
 \code{interval} is character.}
 
 \item{key}{character, key signature.}
-
-\item{collapse}{logical, collapse result into a single string.}
 }
 \value{
 character
@@ -48,6 +46,7 @@ dyad(letters[c(3:7, 1, 2)], x)
 x <- c("P1", "m3", "M3", "P4", "P5", "P8", "M9")
 dyad("c", x)
 dyad("c", x, reverse = TRUE)
+dyad("d e", "m3")
 }
 \seealso{
 \code{\link{mainIntervals}}

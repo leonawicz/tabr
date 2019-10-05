@@ -95,4 +95,16 @@ test_that("sf_phrase and phrase calls are equivalanet", {
   p1 <- sfp(s, f, i)
   p2 <- sfp("3;987;2*2 775 ;553;4. ;335;16 5;7x7;4.~*3 ;545;4 325 6;2x10;")
   expect_identical(p1, p2)
+  expect_error(sfp("1;1;1", "x"),
+               "`fret` and `info` must both be provided or both be NULL.")
+  expect_error(sfp("7;1;1"),
+               "String number outside range inferred by tuning.")
+  expect_error(
+    sfp("1;1"),
+    "Must have 2 or 0 `;` present for a time step to avoid ambiguity.")
+  expect_error(sfp("1;;1"),
+               "Fret values cannot be missing from `string;fret;info`")
+  err <- "First timestep must include all three values as `string;fret;info`."
+  expect_error(sfp(";0;1"), err)
+  expect_error(sfp(";0;1"), err)
 })

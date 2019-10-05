@@ -213,138 +213,132 @@
     <p>These functions construct basic chord string notation from root <code>notes</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>chord_min</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+    <pre class="usage"><span class='fu'>chord_min</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>chord_maj</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>chord_maj</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>chord_min7</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>chord_min7</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>chord_dom7</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>chord_dom7</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>chord_7s5</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>chord_7s5</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>chord_maj7</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>chord_maj7</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>chord_min6</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>chord_min6</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>chord_maj6</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>chord_maj6</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>chord_dim</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>chord_dim</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>chord_dim7</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>chord_dim7</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>chord_m7b5</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>chord_m7b5</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>chord_aug</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>chord_aug</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>chord_5</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>chord_5</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>chord_sus2</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>chord_sus2</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>chord_sus4</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>chord_sus4</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>chord_dom9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>chord_dom9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>chord_7s9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>chord_7s9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>chord_maj9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>chord_maj9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>chord_add9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>chord_add9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>chord_min9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>chord_min9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>chord_madd9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>chord_madd9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>chord_min11</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>chord_min11</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>chord_7s11</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>chord_7s11</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>chord_maj7s11</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>chord_maj7s11</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>chord_11</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>chord_11</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>chord_maj11</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>chord_maj11</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>chord_13</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>chord_13</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>chord_min13</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>chord_min13</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>chord_maj13</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>chord_maj13</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>xm</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>xm</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>xM</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>xM</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>xm7</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>xm7</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>x7</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>x7</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>x7s5</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>x7s5</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>xM7</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>xM7</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>xm6</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>xm6</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>xM6</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>xM6</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>xdim</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>xdim</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>xdim7</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>xdim7</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>xm7b5</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>xm7b5</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>xaug</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>xaug</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>x5</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>x5</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>xs2</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>xs2</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>xs4</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>xs4</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>x9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>x9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>x7s9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>x7s9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>xM9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>xM9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>xadd9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>xadd9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>xm9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>xm9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>xma9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>xma9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>xm11</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>xm11</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>x7s11</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>x7s11</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>xM7s11</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>xM7s11</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>x_11</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>x_11</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>xM11</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>xM11</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>x_13</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>x_13</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>xm13</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
+<span class='fu'>xm13</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
-<span class='fu'>xM13</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)</pre>
+<span class='fu'>xM13</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"default"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>notes</th>
-      <td><p>character, chord root notes, space-delimited or a vector of
-individual notes.</p></td>
+      <td><p>character, a noteworthy string of chord root notes.</p></td>
     </tr>
     <tr>
       <th>key</th>
       <td><p>key signature. See details.</p></td>
-    </tr>
-    <tr>
-      <th>collapse</th>
-      <td><p>logical, collapse result into a single string ready for
-phrase construction.</p></td>
     </tr>
     <tr>
       <th>style</th>
@@ -376,8 +370,8 @@ of chords commonly played on guitar.</p>
 #&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>df#a</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>xM</span>(<span class='st'>"d"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>df#a</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>xm</span>(<span class='st'>"c f g"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
-#&gt;   Format: </span><span>vectorized time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>cd#g</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>fg#c</span><span style='color: #00BBBB;'>4</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>ga#d</span><span style='color: #00BBBB;'>4</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>xm</span>(<span class='st'>"c, f, g,"</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"e_"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
+#&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>cd#g</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>fg#c</span><span style='color: #00BBBB;'>4</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>ga#d</span><span style='color: #00BBBB;'>4</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>xm</span>(<span class='st'>"c, f, g,"</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"e_"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>,</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #BBBB00;'>&gt;</span><span></div></span></pre>
   </div>

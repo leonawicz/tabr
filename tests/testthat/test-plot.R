@@ -2,6 +2,10 @@ context("plots")
 
 test_that("fretboard_plot runs successfully", {
   expect_is(fretboard_plot(string = 6:1, fret = c(0, 2, 2, 0, 0, 0)), "ggplot")
+  expect_is(fretboard_plot(string = 6:1, fret = c(0, 2, 2, 0, 0, 0),
+                           horizontal = TRUE), "ggplot")
+  expect_is(fretboard_plot(string = 6:1, fret = c(0, 2, 2, 0, 0, 0),
+                           left_handed = TRUE), "ggplot")
   expect_is(
     fretboard_plot(6:1, c(0, 2, 2, 0, 0, 0), c("G", "U", "I", "T", "A", "R")),
     "ggplot")
@@ -50,4 +54,9 @@ test_that("fretboard_plot runs successfully", {
                    point_fill = "dodgerblue", fret_range = c(0, 10),
                    show_tuning = TRUE, horizontal = TRUE, left_handed = TRUE),
     "ggplot")
+
+  expect_error(fretboard_plot(string = c(1, 0), fret = 1:2),
+               "String numbers must be >= 1.")
+  expect_error(fretboard_plot(string = c(1, 2), fret = -1:0),
+               "Fret numbers must be >= 0.")
 })

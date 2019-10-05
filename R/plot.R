@@ -68,8 +68,8 @@ fretboard_plot <- function(string, fret, labels = NULL, mute = FALSE,
     if(!any(fret == 0, na.rm = TRUE))  fret_range <- fret_range - c(1, 0)
   }
   if(any(fret_range < 0) | any(fret < 0, na.rm = TRUE))
-    stop("Fret numbers must be >= 0.")
-  if(any(string < 1)) stop("String numbers must be >= 1.")
+    stop("Fret numbers must be >= 0.", call. = FALSE)
+  if(any(string < 1)) stop("String numbers must be >= 1.", call. = FALSE)
   n <- length(o)
   d <- data.frame(x = string, y = fret - 0.5, label_color = label_color,
                   point_color = point_color, point_fill = point_fill)

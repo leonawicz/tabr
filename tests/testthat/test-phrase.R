@@ -11,6 +11,9 @@ test_that("phrase returns as expected", {
   purrr::walk2(as.character(x), y, ~expect_equal(.x, .y))
 
   expect_is(print(x[[1]]), "NULL")
+  expect_identical(phrase(c("b_", "c"), 1), phrase("b_ c", 1))
+  expect_identical(as.character(p("c d", "8] 8^", 1)),
+                   "<c\\1>8\\staccato <d\\1>8^\\bendAfter #+6")
 
   expect_equal(as.character(p("de_' aa_,", 1)), "<d es'>1 <a as,>1")
   expect_equal(as.character(p("ee_' a_a#,", "2")), "<e es'>2 <as ais,>2")
@@ -57,6 +60,7 @@ test_that("phrasey returns as expected", {
 
   expect_false(phrasey(1))
   expect_false(phrasey("x"))
+  expect_false(phrasey("<a"))
   expect_true(phrasey("r1 s2"))
 })
 
@@ -86,4 +90,5 @@ test_that("notification works as expected", {
     p(phrase_notes(x), phrase_info(x), phrase_strings(x))
   })
   identical(x, x2)
+  expect_error(notify("a b>"), "`phrase` is not phrasey.")
 })

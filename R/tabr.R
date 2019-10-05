@@ -56,7 +56,7 @@ NULL
 NULL
 
 .uncollapse <- function(x){
-  if(length(x) == 1) x <- strsplit(x, " ")[[1]]
+  if(length(x) == 1) x <- strsplit(as.character(x), " ")[[1]]
   f <- function(x){
     if(!grepl("\\*\\d+", x)) return(x)
     x <- strsplit(x, "\\*")[[1]]

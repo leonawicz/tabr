@@ -11,6 +11,8 @@ test_that("chord helpers return as expected", {
   expect_equal(chord_invert("e_2g#3b_4", 4), as_noteworthy("g#5b_5e_6"))
   expect_equal(chord_invert("e_2g#3b_4", -4), as_noteworthy("b_0e_1g#1"))
   expect_equal(chord_invert("e_,g#3b_4", -4), as_noteworthy("b_0e_1g#1"))
+  expect_equal(chord_invert("a,b,", 0), "a,b,")
+  expect_equal(chord_invert("a'b'", 0), "a'b'")
 
   expect_error(chord_invert("ace ace"),
                "`x` must be a single chord, not space-delimited chords.")
@@ -32,10 +34,22 @@ test_that("chord helpers return as expected", {
                as_noteworthy(c("ce_gb_", "c4e_4g4b_4", "c5e_5g5b_5")))
   expect_equal(chord_arpeggiate("ce_gb_", 1, broken = TRUE, collapse = TRUE),
                as_noteworthy("c e_ g b_ e_ g b_ c4"))
+  expect_equal(chord_arpeggiate("ceg"), as_noteworthy("ceg"))
+  expect_equal(chord_arpeggiate("ceg'", 1),
+               as_noteworthy("ceg' eg'c''", "vector"))
+  expect_error(chord_arpeggiate("ceg ceg"), "`chord` must be a single chord.")
 
   x <- "c cg, ce ce_ ceg ce_gb g,ce g,ce_ e_,g,c e_,g,ce_ e_,g,c"
   expect_equal(chord_is_major(x), c(NA, NA, T, F, T, F, T, F, T, T, T))
   expect_identical(chord_is_major(x), !chord_is_minor(x))
+  expect_identical(chord_is_minor("a"), NA)
+  expect_identical(chord_is_minor("ab"), NA)
+  expect_true(chord_is_minor("ce_g"))
+  expect_false(chord_is_minor("ceg"))
+  expect_true(chord_is_minor("ce_gb_"))
+  expect_false(chord_is_minor("cegb"))
+  expect_true(chord_is_minor("ce_c'e'"))
+  expect_false(chord_is_minor("cec'e_'"))
 })
 
 test_that("interval_semitones returns as expected", {
@@ -59,9 +73,10 @@ test_that("dyad constructor returns as expected", {
   expect_equal(y, c("ce", "df", "eg", "fa", "gb", "ac4", "bd4"))
   x <- c("P1", "m3", "M3", "P4", "P5", "P8", "M9")
   expect_equal(dyad("c", x) %>% as.character(),
-               c("c", "cd#", "ce", "cf", "cg", "cc4", "cd4"))
+               c("c cd# ce cf cg cc4 cd4"))
   y <- dyad("c", x, reverse = TRUE) %>% as.character()
-  expect_equal(y, c("c", "a2c", "a_2c", "g2c", "f2c", "c2c", "b_1c"))
+  expect_equal(y, c("c a2c a_2c g2c f2c c2c b_1c"))
+  expect_equal(dyad("d e", "m3"), as_noteworthy("df eg"))
 
   err <- c("Invalid `interval`.",
            "`notes` and `interval` have unequal lengths both > 1.")
@@ -77,7 +92,9 @@ test_that("chord rank, order and sort work as expected", {
 
   expect_equal(chord_order(x), c(1, 3, 2, 4, 5, 6))
   expect_equal(chord_order(x, "mean"), c(1, 3, 2, 5, 4, 6))
-  expect_equal(chord_sort(x, "mean") %>% as.character(), "a2 a2 c ce_g ceg cea")
+  expect_equal(as.character(chord_sort(x, "mean")), "a2 a2 c ce_g ceg cea")
+  expect_equal(as.character(chord_sort(x, "mean", TRUE)),
+               "cea ceg ce_g c a2 a2")
 })
 
 test_that("chord root, topr and general slice work as expected", {
@@ -92,6 +109,7 @@ test_that("chord root, topr and general slice work as expected", {
   expect_identical(chord_slice(x, 2), as_noteworthy(a[3]))
   expect_identical(chord_slice(x, 4), as_noteworthy(a[4]))
   expect_identical(chord_slice(x, 3:5), as_noteworthy(a[5]))
+  expect_error(chord_slice(x, 0), "Index out of bounds for all chords.")
 
   expect_identical(chord_root(y), as_noteworthy(b[[1]]))
   expect_identical(chord_top(y), as_noteworthy(b[[2]]))
@@ -99,6 +117,7 @@ test_that("chord root, topr and general slice work as expected", {
   expect_identical(chord_slice(y, 2), as_noteworthy(b[[3]]))
   expect_identical(chord_slice(y, 4), as_noteworthy(b[[4]]))
   expect_identical(chord_slice(y, 3:5), as_noteworthy(b[[5]]))
+  expect_error(chord_slice(y, 6), "Index out of bounds for all chords.")
 })
 
 test_that("chord constructors return as expected", {
@@ -182,9 +201,9 @@ test_that("chord constructors return as expected", {
   test_chord_constructors("d#''", 27, "f", style = "integer")
   test_chord_constructors("d#''", 27, "f", style = "strip")
 
-  expect_equal(xm("c# f# g#") %>% as.character(),
+  expect_equal(xm(c("c#", "f#", "g#")) %>% as.character(),
                c("c#eg#", "f#ac#4", "g#bd#4"))
-  expect_equal(xm("b_2 f g"), xm(c("b_2", "f", "g")))
+  expect_equal(xm("b_2 f g"), as_space_time(xm(c("b_2", "f", "g"))))
 
 # nolint end
 })

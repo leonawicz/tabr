@@ -123,29 +123,30 @@ three component parts internally.
 
 There are some rules for single-argument input. The three components are
 separated by semicolons as \code{"string;fret;info"}.
-For example, \code{"3;7x7;4"} means begin on the third string (infer higher
-number strings muted)
+For example, \code{"3;7x7;4"} means begin on the third string
+(infer higher number strings muted).
 The frets are 7th and 7th, meaning two notes are played. When an \code{x} is
 present in the second entry it means a string is not played.
 This is how it is inferred that the string numbers starting from the third
 string are strings 3 and 1 rather than 3 and 2 in this example.
 The 4 indicates a quarter note since it is part of the third entry where the
-additional \code{info} is specified (an \code{x} here would still indicate a
-dead note, rather than an unplayed string in the second entry, so this is
-contextual).
+additional \code{info} is specified. This is contextual. For example, an
+\code{x} here would still indicate a dead note, rather than an unplayed
+string in the second entry, so this is contextual.
 
 A bonus when using this input method is that explicit \code{string} and
 \code{info} values persist from one time step to the next.
 Neither needs to be provided again until there is a change in value.
 For example, \code{"3;7x7;4 7x7 ;7x7;1"} repeats the string and info values
-from time step one for time step two.
-In time step three, string numbers repeat again, but the duration changes
+from timestep one for time step two.
+In timestep three, string numbers repeat again, but the duration changes
 from quarter note to whole note.
 
-Note that except when both are repeating and only fret numbers are provided
-(see time step two),
-two semicolons must be present so that it is unambiguous whether the sole
-missing component is a \code{string} or \code{info} (see time step three).
+Note that except when both \code{string} and \code{info} are repeating and
+only fret numbers are provided (see timestep two above), two semicolons
+must be present so that it is unambiguous whether the sole missing component
+is a \code{string} or \code{info} (see timestep three).
+
 Ambiguity would arise from a case like \code{"4;4"} without the second
 semicolon. This type of indexing was chosen over using two different
 delimiters.
