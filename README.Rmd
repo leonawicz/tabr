@@ -215,3 +215,7 @@ The R-Music <a href="https://r-music.rbind.io/">blog</a> provides package introd
 ```{r cleanup, echo=FALSE}
 unlink("phrase.mid")
 ```
+
+---
+
+Please note that this project is released with a [Contributor Code of Conduct](https://leonawicz.github.io/tabr/CODE_OF_CONDUCT.html). By participating in this project you agree to abide by its terms.

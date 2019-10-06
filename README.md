@@ -377,3 +377,9 @@ provides package introductions and examples.
   - The [tuneR](https://CRAN.R-project.org/package=tuneR) package for
     analysis of music and speech by Uwe Ligges, Sebastian Krey, Olaf
     Mersmann, and Sarah Schnackenberg.
+
+-----
+
+Please note that this project is released with a [Contributor Code of
+Conduct](https://leonawicz.github.io/tabr/CODE_OF_CONDUCT.html). By
+participating in this project you agree to abide by its terms.
