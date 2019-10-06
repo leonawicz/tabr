@@ -28,12 +28,16 @@ Stars](https://img.shields.io/github/stars/leonawicz/tabr.svg?style=social&label
 
 ## Overview <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/tabr_logo.png?raw=true" width=320 style="float:right;margin-left:10px;width:320px;">
 
-The `tabr` package provides a music notation syntax system represented
-in R code and a collection of music programming functions for
-generating, manipulating, organizing and analyzing musical information
-structures in R. The package also provides API wrapper functions for
-transcribing musical representations in R into guitar tablature (“tabs”)
-using [LilyPond](http://lilypond.org/).
+The `tabr` package provides a music notation syntax and a collection of
+music programming functions for generating, manipulating, organizing and
+analyzing musical information in R. The music notation framework
+facilitates creating and analyzing music data in notation form.
+
+Music programming in the notation syntax provided by `tabr` can be used
+for a variety of purposes, but it also integrates cohesively with the
+package’s transcription functions. The package also provides API wrapper
+functions for transcribing music notation in R into guitar tablature
+(“tabs”) using [LilyPond](http://lilypond.org/).
 
 LilyPond is an open source music engraving program for generating high
 quality sheet music based on markup syntax. `tabr` generates LilyPond
@@ -44,7 +48,7 @@ transcription functions focus on leveraging LilyPond specifically for
 creating quality guitar tablature.
 
 While LilyPond is listed as a system requirement for `tabr`, you can use
-many of its functions without installing LilyPond if you do not intend
+many package functions without installing LilyPond if you do not intend
 to render tabs.
 
 ### Use case considerations
@@ -113,15 +117,6 @@ The `tabr` package offers the following:
     string/fret combinations (along with key signature and instrument
     tuning) to map to pitch.
 
-Note that MIDI support and string/fret alternative input format support
-are not prioritized in ongoing `tabr` development. These are considered
-tangential extras in `tabr` that fall outside the general scope and
-intent of the package. However, if you are looking to do quick, easy and
-basic tabbing, you may want to consider using the single-argument input
-method of the `sf_phrase` function. See the function documentation for
-details. The package vignettes focus on general use cases using the
-`phrase` function rather than `sf_phrase`.
-
 ## Installation
 
 You can install tabr from CRAN with:
@@ -155,15 +150,15 @@ are `"a#"` and `"a_"` (sharp and flat). However, `"A"` is not, nor is
 letters `a` through `g` and sharp and flat notation. See the package
 vignettes for details.
 
-Noteworthiness can be checked and applies to any simple character
-string. No supplemental class is required. When defining noteworthy
-strings you can define them like any other character vector. However,
-you will notice that package functions which operate on noteworthy
-strings and whose output is another noteworthy string will yield a
-string with the supplemental `noteworthy` class. This has its own print
-and summary methods. If you remove the class with a common R operation
-like `as.character()`, it does not impact any subsequent musical
-manipulation beyond the need to reperform a noteworthy check.
+Noteworthiness can be checked on any character string. No supplemental
+class is required. When defining noteworthy strings you can define them
+like any other character vector. However, you will notice that package
+functions that operate on noteworthy strings and whose output is another
+noteworthy string will yield a string with the supplemental `noteworthy`
+class. This has its own print and summary methods. If you remove the
+class with a common R operation like `as.character()`, it does not
+impact any subsequent musical manipulation beyond the need to reperform
+a noteworthy check.
 
 ``` r
 x <- "g#4 c5 d#5 g#4c5d#5"
@@ -192,7 +187,9 @@ summary(x)
 #>   Values: a4 c#5 e5 <a4c#5e5>
 
 distinct_pitches(x)
-#> [1] "a4"  "c#5" "e5"
+#> <Noteworthy string>
+#>   Format: space-delimited time
+#>   Values: a4 c#5 e5
 distinct_pitches(x) %>% pitch_freq() # in Hz
 #> [1] 440.0000 554.3653 659.2551
 ```
@@ -332,7 +329,11 @@ It may not look particularly beneficial here, but for more complex music
 it can be easier to reason about the phrase under construction when
 using this format to bind information by time step rather. See
 `?sf_phrase` for a comparison with `phrase` and the various ways you can
-do phrase construction in `tabr` for equivalent results.
+do phrase construction in `tabr` for equivalent results. If you are
+looking to do quick, easy and basic tabbing, you may want to consider
+using the single-argument input method of the `sf_phrase` function. The
+package vignettes focus on general use cases using the `phrase` function
+rather than `sf_phrase`.
 
 Note above that `tabr` also exports the pipe `%>%` operator. Even given
 the hierarchy of objects involved in the series of steps to move from a

@@ -6,10 +6,9 @@
 \alias{tabr-package}
 \title{tabr: Music notation syntax, manipulation, analysis and transcription in R.}
 \description{
-The \code{tabr} package provides a music notation syntax system represented
-in R code and a collection of music programming functions for
-generating, manipulating, organizing and analyzing musical information
-structures in R.
+The \code{tabr} package provides a music notation syntax and a collection of
+music programming functions for generating, manipulating, organizing and
+analyzing musical information in R.
 The package also provides API wrapper functions for transcribing musical
 representations in R into guitar tablature ("tabs") using the 'LilyPond'
 backend <http://lilypond.org>.

@@ -1,8 +1,9 @@
 Package: tabr
 Version: 0.3.5
 Title: Music Notation Syntax, Manipulation, Analysis and Transcription in R
-Description: Provides a music notation syntax system represented in R code and a collection of music programming functions for 
-    generating, manipulating, organizing and analyzing musical information structures in R.
+Description: Provides a music notation syntax and a collection of music programming functions for 
+    generating, manipulating, organizing and analyzing musical information in R.
+    The music notation framework facilitates creating and analyzing music data in notation form.
     The package also provides API wrapper functions for transcribing musical representations in R into guitar tablature ("tabs") using the 'LilyPond' backend (<http://lilypond.org>).
     'LilyPond' is open source music engraving software for generating high quality sheet music based on markup syntax. 
     'tabr' generates 'LilyPond' files from R code and can pass them to 'LilyPond' to be rendered into sheet music pdf files from R.
