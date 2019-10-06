@@ -64,7 +64,7 @@ cl <- "NULL"
 
 test_that("lilypond wrapper runs without error", {
   skip_on_appveyor()
-  if(tabr_options()$lilypond != ""){
+  if(tabr_options()$lilypond != "" || identical(Sys.getenv("TRAVIS"), "true")){
     expect_is(lilypond(x1, out[1]), cl)
     expect_is(lilypond(x2, out[1]), cl)
     expect_is(lilypond(x1, basename(out[1]), path = tempdir()), cl)
@@ -80,7 +80,7 @@ test_that("tab wrapper runs without error", {
   skip_on_appveyor()
   skip_on_cran()
   include_midi <- TRUE
-  if(tabr_options()$lilypond != ""){
+  if(tabr_options()$lilypond != "" || identical(Sys.getenv("TRAVIS"), "true")){
     expect_is(tab(x1, out[2], midi = include_midi), cl)
     expect_is(
       tab(x1, basename(out[2]), midi = include_midi, path = tempdir()), cl)
