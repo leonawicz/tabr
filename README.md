@@ -310,10 +310,6 @@ p("r a2 c f d a f", "4 8*6", "x 5 5 4 4 3 4") %>% track %>% score %>%
     #> Converting to `./phrase.pdf'...
     #> Success: compilation successfully completed
 
-<embed src="phrase.pdf?#zoom=175" width="100%" height="300">
-
-</embed>
-
 <br/>
 
 For comparison, if you were using string-fret specification to construct
