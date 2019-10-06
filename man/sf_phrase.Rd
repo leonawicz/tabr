@@ -135,10 +135,10 @@ additional \code{info} is specified. This is contextual. For example, an
 string in the second entry, so this is contextual.
 
 A bonus when using this input method is that explicit \code{string} and
-\code{info} values persist from one time step to the next.
+\code{info} values persist from one timestep to the next.
 Neither needs to be provided again until there is a change in value.
 For example, \code{"3;7x7;4 7x7 ;7x7;1"} repeats the string and info values
-from timestep one for time step two.
+from timestep one for timestep two.
 In timestep three, string numbers repeat again, but the duration changes
 from quarter note to whole note.
 

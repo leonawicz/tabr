@@ -269,7 +269,7 @@ phrase construction.</p></td>
 
     <p>Obtain the scale degree of a note in a supported scale with
 <code>scale_degree</code>.
-This function also works with chords inside note strings.
+This function also works with chords inside noteworthy strings.
 It only considers the first note in each space-delimited entry.
 <code>notes</code> may be a vector of single entries (non-delimited).
 Notes return <code>NA</code> if not explicitly in the scale.
@@ -285,7 +285,7 @@ This can be with the <code>roman</code> class or as a character string.
 Degrees return <code>NA</code> if outside the scale degree range.</p>
 <p><code>note_in_scale</code> performs a vectorized logical check if each note is in
 a given scale.
-This function strictly accepts note strings.
+This function strictly accepts single notes in noteworthy strings.
 To check if chords are diatonic to the scale,
 see <code><a href='chord_is_diatonic.html'>chord_is_diatonic</a></code>. To check generally if a
 <code>noteworthy</code> string is fully diatonic, see <code><a href='valid-notes.html'>is_diatonic</a></code>.</p>

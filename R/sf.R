@@ -91,10 +91,10 @@
 #' string in the second entry, so this is contextual.
 #'
 #' A bonus when using this input method is that explicit \code{string} and
-#' \code{info} values persist from one time step to the next.
+#' \code{info} values persist from one timestep to the next.
 #' Neither needs to be provided again until there is a change in value.
 #' For example, \code{"3;7x7;4 7x7 ;7x7;1"} repeats the string and info values
-#' from timestep one for time step two.
+#' from timestep one for timestep two.
 #' In timestep three, string numbers repeat again, but the duration changes
 #' from quarter note to whole note.
 #'
@@ -227,7 +227,7 @@ sfn <- sf_note
   x <- sapply(x, .strip_mult, USE.NAMES = FALSE)
   if(any(!sapply(gregexpr(";", x), function(x) length(x[x != -1])) %in%
          c(0, 2)))
-    stop("Must have 2 or 0 `;` present for a time step to avoid ambiguity.",
+    stop("Must have 2 or 0 `;` present for a timestep to avoid ambiguity.",
          call. = FALSE)
   no_sep <- !grepl(";", x)
   if(any(no_sep)) x[no_sep] <- paste0(";", x[no_sep], ";")

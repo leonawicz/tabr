@@ -23,10 +23,10 @@ octave_is_equal(notes1, notes2)
 octave_is_identical(notes1, notes2, single_octave = FALSE)
 }
 \arguments{
-\item{notes1}{character, note string, space-delimited or vector of
+\item{notes1}{character, noteworthy string, space-delimited or vector of
 individual entries.}
 
-\item{notes2}{character, note string, space-delimited or vector of
+\item{notes2}{character, noteworthy string, space-delimited or vector of
 individual entries.}
 
 \item{ignore_octave}{logical, ignore octave position when considering

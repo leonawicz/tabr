@@ -101,7 +101,7 @@ test_that("sf_phrase and phrase calls are equivalanet", {
                "String number outside range inferred by tuning.")
   expect_error(
     sfp("1;1"),
-    "Must have 2 or 0 `;` present for a time step to avoid ambiguity.")
+    "Must have 2 or 0 `;` present for a timestep to avoid ambiguity.")
   expect_error(sfp("1;;1"),
                "Fret values cannot be missing from `string;fret;info`")
   err <- "First timestep must include all three values as `string;fret;info`."

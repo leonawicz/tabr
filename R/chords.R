@@ -121,7 +121,7 @@ chord_arpeggiate <- function(chord, n = 0, by = c("note", "chord"),
 #'
 #' Convert chords in a noteworthy string or vector to broken chords.
 #'
-#' @param notes character, note string that may contain chords.
+#' @param notes character, noteworthy string that may contain chords.
 #'
 #' @return character
 #' @export

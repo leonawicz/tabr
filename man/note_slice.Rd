@@ -32,8 +32,8 @@ character
 Helper functions for indexing and moving notes within noteworthy strings.
 }
 \details{
-\code{note_slice} subsets the time steps of a noteworthy string by integer
-index or logical vector of length equal to the number of time steps.
+\code{note_slice} subsets the timesteps of a noteworthy string by integer
+index or logical vector of length equal to the number of timesteps.
 
 \code{note_rotate} simply rotates anything space-delimited or vectorized in
 place. It allows chords. Octave numbering is ignored if present.

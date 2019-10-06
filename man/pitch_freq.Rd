@@ -22,8 +22,8 @@ freq_pitch(freq, a4 = 440, collapse = FALSE, ...)
 freq_semitones(freq, a4 = 440)
 }
 \arguments{
-\item{notes}{character, note string, space-delimited or vector of individual
-entries. See details.}
+\item{notes}{character, noteworthy string, space-delimited or vector of
+individual entries. See details.}
 
 \item{a4}{the fixed frequency of the A above middle C, typically 440 Hz.}
 

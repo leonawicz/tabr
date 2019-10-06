@@ -45,7 +45,7 @@ These functions assist with mapping between scale degrees, notes and chords.
 \details{
 Obtain the scale degree of a note in a supported scale with
 \code{scale_degree}.
-This function also works with chords inside note strings.
+This function also works with chords inside noteworthy strings.
 It only considers the first note in each space-delimited entry.
 \code{notes} may be a vector of single entries (non-delimited).
 Notes return \code{NA} if not explicitly in the scale.
@@ -63,7 +63,7 @@ Degrees return \code{NA} if outside the scale degree range.
 
 \code{note_in_scale} performs a vectorized logical check if each note is in
 a given scale.
-This function strictly accepts note strings.
+This function strictly accepts single notes in noteworthy strings.
 To check if chords are diatonic to the scale,
 see \code{\link{chord_is_diatonic}}. To check generally if a
 \code{noteworthy} string is fully diatonic, see \code{\link{is_diatonic}}.

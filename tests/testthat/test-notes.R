@@ -15,7 +15,7 @@ test_that("note helpers return as expected", {
     "Must provide integer or logical vector index to slice `notes`.")
   expect_error(
     note_slice(notes, F),
-    "Logical vector must be same length as the number of time steps in `notes`."
+    "Logical vector must be same length as the number of timesteps in `notes`."
     )
   expect_error(note_slice(notes, 8), "Index out of bounds.")
 

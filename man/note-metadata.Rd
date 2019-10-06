@@ -82,9 +82,9 @@ value summary.
 to its unique elements, respectively. These functions return another
 noteworthy string.
 
-The \code{n_*} functions give summary totals of the number of time steps,
-number of individual note (non-chord) time steps, number of chord time
-steps, and the number of distinct octaves present across time steps.
+The \code{n_*} functions give summary totals of the number of timesteps,
+number of individual note (non-chord) timesteps, number of chord time
+steps, and the number of distinct octaves present across timesteps.
 Use the \code{tally_*} and \code{distinct_*} functions specifically for
 summaries of unique elements.
 

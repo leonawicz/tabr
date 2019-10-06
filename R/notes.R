@@ -9,9 +9,9 @@
 #' to its unique elements, respectively. These functions return another
 #' noteworthy string.
 #'
-#' The \code{n_*} functions give summary totals of the number of time steps,
-#' number of individual note (non-chord) time steps, number of chord time
-#' steps, and the number of distinct octaves present across time steps.
+#' The \code{n_*} functions give summary totals of the number of timesteps,
+#' number of individual note (non-chord) timesteps, number of chord time
+#' steps, and the number of distinct octaves present across timesteps.
 #' Use the \code{tally_*} and \code{distinct_*} functions specifically for
 #' summaries of unique elements.
 #'
@@ -360,8 +360,8 @@ pretty_notes <- function(notes, ignore_octave = TRUE){
 #'
 #' Helper functions for indexing and moving notes within noteworthy strings.
 #'
-#' \code{note_slice} subsets the time steps of a noteworthy string by integer
-#' index or logical vector of length equal to the number of time steps.
+#' \code{note_slice} subsets the timesteps of a noteworthy string by integer
+#' index or logical vector of length equal to the number of timesteps.
 #'
 #' \code{note_rotate} simply rotates anything space-delimited or vectorized in
 #' place. It allows chords. Octave numbering is ignored if present.
@@ -411,7 +411,7 @@ note_slice <- function(notes, ...){
     stop("Must provide integer or logical vector index to slice `notes`.",
          call. = FALSE)
   if(is.logical(idx) & length(idx) != length(x))
-    stop(paste("Logical vector must be same length as the number of time steps",
+    stop(paste("Logical vector must be same length as the number of timesteps",
                "in `notes`."), call. = FALSE)
   if(is.numeric(idx)) idx <- as.integer(idx)
   x <- x[idx]
@@ -769,9 +769,9 @@ summary.noteworthy <- function(object, ...){
 #' \code{single_octave = TRUE} additionally requires that all notes from both
 #' chords being compared at a given timestep share a single octave.
 #'
-#' @param notes1 character, note string, space-delimited or vector of
+#' @param notes1 character, noteworthy string, space-delimited or vector of
 #' individual entries.
-#' @param notes2 character, note string, space-delimited or vector of
+#' @param notes2 character, noteworthy string, space-delimited or vector of
 #' individual entries.
 #' @param ignore_octave logical, ignore octave position when considering
 #' equivalence.

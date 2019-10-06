@@ -41,8 +41,8 @@ mode_locrian(key = "c", collapse = FALSE, ignore_octave = FALSE)
 \arguments{
 \item{mode}{character, which mode.}
 
-\item{notes}{character, for mode, may be a string of seven notes or a vector
-or seven one-note strings.}
+\item{notes}{character, for mode, may be a noteworthy string of seven notes,
+space- or vector-delimited.}
 
 \item{ignore_octave}{logical, strip octave numbering from modes not rooted
 on C.}
@@ -65,8 +65,8 @@ For valid key signatures, see \code{\link{keys}}.
 
 Modern modes based on major scales are available by key signature using the
 \code{mode_*} functions. The seven modes can be listed with \code{modes}.
-Note strings of proper length can be checked to match against a mode with
-\code{is_mode}.
+Noteworthy strings of proper length can be checked to match against a mode
+with \code{is_mode}.
 Modes can be rotated with \code{mode_rotate}, a wrapper around
 \code{note_rotate}.
 }

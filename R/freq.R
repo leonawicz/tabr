@@ -11,8 +11,8 @@
 #' and always return a list. These are provided so that all functions are
 #' type-safe. See examples.
 #'
-#' @param notes character, note string, space-delimited or vector of individual
-#' entries. See details.
+#' @param notes character, noteworthy string, space-delimited or vector of
+#' individual entries. See details.
 #' @param a4 the fixed frequency of the A above middle C, typically 440 Hz.
 #' @param freq numeric vector, frequencies in Hz.
 #' @param collapse logical, collapse result into a single string.

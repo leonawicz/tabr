@@ -7,7 +7,7 @@
 chord_break(notes)
 }
 \arguments{
-\item{notes}{character, note string that may contain chords.}
+\item{notes}{character, noteworthy string that may contain chords.}
 }
 \value{
 character
