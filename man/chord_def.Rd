@@ -44,6 +44,16 @@ through one.
 The \code{id} is passed directly to the output. It represents the type of
 chord and should conform to accepted \code{tabr} notation. See \code{id}
 column in \code{guitar Chords} for examples.
+
+Note that the \code{semitones} column gives semitone intervals between chord
+notes. These count from zero as the lowest pitch based on the tuning of the
+instrument, e.g., zero is E2 with standard guitar tuning. To convert these
+semitone intervals to standard semitone values assigned to pitches, use
+e.g., \code{pitch_semitones("e2")} (40) if that is the lowest pitch and add
+that value to the instrument semitone interval values.
+This is the explanation, but doing this is not necessary. You can use
+\code{\link{chord_semitones}} to compute semitones directly on pitches in a
+chord.
 }
 \examples{
 frets <- c(NA, 0, 2, 2, 1, 0)

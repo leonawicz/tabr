@@ -50,6 +50,7 @@ test_that("chord helpers return as expected", {
   expect_false(chord_is_minor("cegb"))
   expect_true(chord_is_minor("ce_c'e'"))
   expect_false(chord_is_minor("cec'e_'"))
+  expect_equal(chord_is_minor("cgd'"), NA)
 })
 
 test_that("interval_semitones returns as expected", {

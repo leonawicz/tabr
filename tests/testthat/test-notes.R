@@ -179,8 +179,9 @@ test_that("note equivalence functions return as expected", {
                c(F, T, F, F, T))
   expect_equal(octave_is_identical("a1 a1", "b1 b2", single_octave = TRUE),
                c(TRUE, FALSE))
-  expect_equal(octave_is_identical("a1 a2", "b1 b1", single_octave = TRUE),
-               c(TRUE, FALSE))
+  expect_equal(
+    octave_is_identical("a2c2 a2c2", "b2d2 b1d2", single_octave = TRUE),
+    c(TRUE, FALSE))
 
   expect_equal(octave_is_equal("a", "a a"), NA)
   expect_equal(octave_is_identical("a", "a a"), NA)

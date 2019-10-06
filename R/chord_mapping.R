@@ -20,6 +20,16 @@
 #' chord and should conform to accepted \code{tabr} notation. See \code{id}
 #' column in \code{guitar Chords} for examples.
 #'
+#' Note that the \code{semitones} column gives semitone intervals between chord
+#' notes. These count from zero as the lowest pitch based on the tuning of the
+#' instrument, e.g., zero is E2 with standard guitar tuning. To convert these
+#' semitone intervals to standard semitone values assigned to pitches, use
+#' e.g., \code{pitch_semitones("e2")} (40) if that is the lowest pitch and add
+#' that value to the instrument semitone interval values.
+#' This is the explanation, but doing this is not necessary. You can use
+#' \code{\link{chord_semitones}} to compute semitones directly on pitches in a
+#' chord.
+#'
 #' @param fret integer vector defining fretted chord. See details.
 #' @param id character, the chord type. See details.
 #' @param optional \code{NA} when all notes required. Otherwise an integer
