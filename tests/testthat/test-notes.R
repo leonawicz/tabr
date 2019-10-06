@@ -81,11 +81,17 @@ test_that("note helpers return as expected", {
   expect_is(summary(as_noteworthy("a#2*4")), "NULL")
   expect_is(summary(as_noteworthy("a_*2 a#*3")), "NULL")
   expect_is(print.noteworthy("a*1"), "NULL")
+  expect_is(print.noteworthy(c("a", "a")), "NULL")
 
   y <- as_noteworthy(y, "vector", "tick", "sharp")
   expect_identical(
     y, as_noteworthy(c("a#*2", "c,", "d''", "e", "f#'", "c,d#,g,")))
-
+  expect_error(as_noteworthy("a", "a"),
+               "`format` must be 'space' or 'vector' if not NULL.")
+  expect_error(as_noteworthy("a", octaves = "a"),
+               "`octaves` must be 'tick' or 'integer' if not NULL.")
+  expect_error(as_noteworthy("a", accidentals = "a"),
+               "`accidentals` must be 'flat' or 'sharp' if not NULL.")
   x <- x[1:6]
   expect_equal(note_is_natural(x), c(F, F, T, T, T, F))
   expect_identical(note_is_natural(x), !note_is_accidental(x))
@@ -132,10 +138,13 @@ test_that("Note metadata inspection works", {
   expect_identical(distinct_octaves(x), 2:5)
 
   expect_identical(pitch_range(x), c("e_2", "g''"))
+  expect_identical(pitch_range("e_2"), c("e_2", "e_2"))
   expect_identical(semitone_range(x), c(39L, 79L))
   expect_identical(semitone_span(x), 40L)
   expect_identical(octave_range(x), c(2L, 5L))
   expect_identical(octave_span(x), 3L)
+  expect_true(is_space_time("a"))
+  expect_true(is_vector_time(c("a", "a")))
 })
 
 test_that("note equivalence functions return as expected", {
@@ -169,6 +178,8 @@ test_that("note equivalence functions return as expected", {
   expect_equal(octave_is_identical(x, y, single_octave = TRUE),
                c(F, T, F, F, T))
   expect_equal(octave_is_identical("a1 a1", "b1 b2", single_octave = TRUE),
+               c(TRUE, FALSE))
+  expect_equal(octave_is_identical("a1 a2", "b1 b1", single_octave = TRUE),
                c(TRUE, FALSE))
 
   expect_equal(octave_is_equal("a", "a a"), NA)
