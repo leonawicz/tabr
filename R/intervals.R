@@ -124,12 +124,6 @@ tuning_intervals <- function(tuning = "standard"){
 .cpass <- function(x1, x2, scale){
   idx1 <- match(x1, scale)
   idx2 <- match(x2, scale)
-  if("c" %in% scale){
-    idxc <- match("c", scale)
-  } else if("c#" %in% scale){
-    idxc <- match("c#", scale)
-  } else {
-    idxc <- match("d_", scale)
-  }
+  idxc <- match("c", scale)
   (idx1 < idxc & idx2 >= idxc) | (idx1 >= idxc & idx2 < idxc)
 }
