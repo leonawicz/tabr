@@ -62,14 +62,25 @@ out <- file.path(tempdir(), c("out.ly", "out.pdf", "out.png"))
 cleanup <- file.path(tempdir(), c("out.mid", "out.pdf", "out.png", "out.log"))
 cl <- "NULL"
 
-test_that("tab and lilypond functions run without error", {
+test_that("lilypond wrapper runs without error", {
   skip_on_appveyor()
-  include_midi <- if(!identical(Sys.getenv("NOT_CRAN"), "true")) FALSE else TRUE
-
   if(tabr_options()$lilypond != ""){
     expect_is(lilypond(x1, out[1]), cl)
     expect_is(lilypond(x2, out[1]), cl)
     expect_is(lilypond(x1, basename(out[1]), path = tempdir()), cl)
+    purrr::walk(x, ~expect_is(lilypond(.x, out[1]), cl))
+    expect_warning(lilypond(x10, out[1]),
+                   paste("Multiple music staves with different transposed key",
+                         "signatures. MIDI output not transposed."))
+    unlink(cleanup)
+  }
+})
+
+test_that("tab wrapper runs without error", {
+  skip_on_appveyor()
+  skip_on_cran()
+  include_midi <- TRUE
+  if(tabr_options()$lilypond != ""){
     expect_is(tab(x1, out[2], midi = include_midi), cl)
     expect_is(
       tab(x1, basename(out[2]), midi = include_midi, path = tempdir()), cl)
@@ -77,7 +88,6 @@ test_that("tab and lilypond functions run without error", {
     expect_is(
       tab(x1, basename(out[3]), midi = include_midi, path = tempdir()), cl)
 
-    purrr::walk(x, ~expect_is(lilypond(.x, out[1]), cl))
     purrr::walk(x, ~expect_is(
       tab(.x, out[2], midi = include_midi, details = FALSE), cl))
     purrr::walk(x, ~expect_is(
@@ -86,19 +96,15 @@ test_that("tab and lilypond functions run without error", {
     expect_error(tab(x8, out[2], "d_m", midi = include_midi, details = FALSE),
                  "Invalid key.")
 
-    purrr::walk(keys(), ~expect_is(tab(x8, out[2], .x, "2/2", "4 = 110",
-                  header = header, string_names = FALSE, paper = paper,
-                  endbar = FALSE, midi = FALSE, keep_ly = FALSE,
-                  details = FALSE), cl))
+    purrr::walk(keys(), ~expect_is(
+      tab(x8, out[2], .x, "2/2", "4 = 110", header = header,
+          string_names = FALSE, paper = paper, endbar = FALSE, midi = FALSE,
+          keep_ly = FALSE, details = FALSE), cl))
 
     expect_is(tab(x8, out[2], "c#", "2/2", "4 = 110",
                   header = c(header[c(1, 3, 4)], metre = "meter"),
                   string_names = TRUE, paper = paper[1:5], endbar = FALSE,
                   midi = FALSE, keep_ly = FALSE, details = FALSE), cl)
-
-    expect_warning(lilypond(x10, out[1]),
-                   paste("Multiple music staves with different transposed key",
-                         "signatures. MIDI output not transposed."))
     unlink(cleanup)
   }
 })
