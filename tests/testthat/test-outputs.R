@@ -41,6 +41,13 @@ x9 <- trackbind(
   ) %>%
   score()
 
+x10 <- trackbind(
+  track(p3, tuning = "bass", ms_transpose = 1, ms_key = "sharp"),
+  track(p3, tuning = "bass", music_staff = "bass_8", ms_transpose = 2,
+        ms_key = "sharp", no_tab = TRUE)
+) %>%
+  score()
+
 x <- list(x1, x2, x3, x4, x5, x6, x7, x8, x9)
 
 header <- list(
@@ -61,6 +68,7 @@ test_that("tab and lilypond functions run without error", {
 
   if(tabr_options()$lilypond != ""){
     expect_is(lilypond(x1, out[1]), cl)
+    expect_is(lilypond(x2, out[1]), cl)
     expect_is(lilypond(x1, basename(out[1]), path = tempdir()), cl)
     expect_is(tab(x1, out[2], midi = include_midi), cl)
     expect_is(
@@ -87,6 +95,10 @@ test_that("tab and lilypond functions run without error", {
                   header = c(header[c(1, 3, 4)], metre = "meter"),
                   string_names = TRUE, paper = paper[1:5], endbar = FALSE,
                   midi = FALSE, keep_ly = FALSE, details = FALSE), cl)
+
+    expect_warning(lilypond(x10, out[1]),
+                   paste("Multiple music staves with different transposed key",
+                         "signatures. MIDI output not transposed."))
     unlink(cleanup)
   }
 })

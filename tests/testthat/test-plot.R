@@ -4,6 +4,8 @@ test_that("fretboard_plot runs successfully", {
   expect_is(fretboard_plot(string = 6:1, fret = c(0, 2, 2, 0, 0, 0)), "ggplot")
   expect_is(fretboard_plot(string = 6:1, fret = c(0, 2, 2, 0, 0, 0),
                            horizontal = TRUE), "ggplot")
+  expect_is(fretboard_plot(string = 6:1, fret = c(1, 3, 3, 1, 1, 1),
+                           horizontal = TRUE), "ggplot")
   expect_is(fretboard_plot(string = 6:1, fret = c(0, 2, 2, 0, 0, 0),
                            left_handed = TRUE), "ggplot")
   expect_is(

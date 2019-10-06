@@ -112,8 +112,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   midi_tag <- paste0("  \\midi{\n    \\tempo ", tempo, "\n  }\n", collapse = "")
   midi_melody <- NULL
   if(midi){
-    any_repeats <- any(purrr::map_int("repeat", ~length(grep(.x, melody))))
-    if(any_repeats){
+    if(any(grepl("\\\\repeat", melody))){
       melody_id2 <- paste0("midi", melody_id)
       midi_melody <- paste0(
         purrr::map_chr(seq_along(d), ~{
