@@ -44,6 +44,8 @@ test_that("transpose returns as expected.", {
   expect_equal(tp("r a, b s c4", 2, key = "sharp"), y)
   expect_equal(tp("s a,~ a, b r c'~", 2, key = "g", "integer"),
                as_noteworthy("s b2~ b2 c#4 r d4~"))
+  expect_equal(tp("r a, bd'f#' s c4", 2, key = "sharp"),
+               as_noteworthy("r b, c#'e'g#' s d'"))
 
   x <- as_noteworthy("a' a# b_2 b~ b ceg c'e'g' ce3g c4e4g4 c,e2g, d_,e_ e_'")
   y1 <- "c'' d_' d_ d'~ d' e_gb_ e_'g'b_' e_gb_ e_'g'b_' e_,g,b_, e,g_ g_'"
