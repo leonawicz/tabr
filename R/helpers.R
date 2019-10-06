@@ -14,7 +14,7 @@
 tie <- function(x){
   .check_noteworthy(x)
   y <- .uncollapse(x)
-  if(any(grepl("~", y))) stop("Tied notes already present.", call. = FALSE)
+  if(any(grepl("~", y))) y <- gsub("~", "", y)
   y <- sapply(y, function(x) paste0(.split_chord(x), "~", collapse = ""),
               USE.NAMES = FALSE)
   if(length(x) == 1) y <- paste(y, collapse = " ")
@@ -128,7 +128,7 @@ pc <- function(...){
   if(any_phrase){
     class(x) <- unique(c("phrase", class(x)))
   } else if(nw){
-    class(x) <- unique(c("noteworthy", class(x)))
+    x <- .asnw(x)
   }
   x
 }
@@ -137,7 +137,7 @@ pc <- function(...){
 #' @export
 #' @rdname append_phrases
 pn <- function(x, n = 1){
-  if(n == 0) return(x)
+  if(n == 0) n <- 1
   y <- paste(rep(x, n), collapse = " ")
   if("phrase" %in% class(x)){
     class(y) <- unique(c("phrase", class(y)))

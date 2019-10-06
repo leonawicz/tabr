@@ -2,6 +2,7 @@ context("helpers")
 
 test_that("helpers return as expected.", {
   expect_equal(tie("e,,d'"), as_noteworthy("e,,~d'~"))
+  expect_equal(tie("e,,d'~"), as_noteworthy("e,,~d'~"))
   expect_equal(tie("e,b,egbe'"), as_noteworthy("e,~b,~e~g~b~e'~"))
   p1 <- p("e,~b,~e~g~b~e'~ e,b,egbe'", 1)
   expect_equal(p(pc(tie("e,b,egbe'"), "e,b,egbe'"), 1), p1)
@@ -18,6 +19,8 @@ test_that("helpers return as expected.", {
 
   expect_equal(pc(8, "16-", "8^"), "8 16- 8^")
   expect_equal(pn(1, 2), "1 1")
+  expect_equal(pn("a", 1), pn("a", 0))
+  expect_equal(pc(pn("a", 1), pn("a", 0)), pn("a", 2))
   expect_equal(as.character(pc("r1", phrase("a", 1, 2))), "r1 <a\\2>1")
   expect_equal(as.character(pn(phrase("a", 1, 2), 2)), "<a\\2>1 <a\\2>1")
 
