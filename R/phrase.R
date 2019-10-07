@@ -160,8 +160,10 @@ print.phrase <- function(x, ...){
                  "\\6\\7")
   x <- gsub(pat, repl, x)
   x <- gsub(pat, repl, x)
-  x <- gsub(">(\\d)(\\.|\\(|\\))+( <)", paste0(">", info("\\1\\2"), " <"), x)
-  x <- gsub(">(\\d)(\\.+|)(\\\\[a-zA-Z]+|)", paste0(">", info("\\1\\2\\3")), x)
+  x <- gsub(">(\\d)([\\.\\(\\)]+)( <|\\^)", paste0(">", info("\\1\\2"), "\\3"), x)
+  x <- gsub(">(\\d|)(\\.+|)(\\\\[a-zA-Z]+|)", paste0(">", info("\\1\\2\\3")), x)
+  x <- gsub("(\\\\deadNote) ", info("\\1 "), x)
+  x <- gsub("(\\^\\\\bendAfter #\\+6)", info("\\1"), x)
   x <- gsub("(r|s)(\\d+)", paste0(notes("\\1"), info("\\2")), x)
   cat(col1("<"),
       col1$bold("Musical phrase"), col1(">"), "\n", col1(x), sep = "")
