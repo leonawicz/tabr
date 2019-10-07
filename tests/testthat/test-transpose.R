@@ -55,9 +55,9 @@ test_that("transpose returns as expected.", {
 
   expect_equal(tp("r s", 1), as_noteworthy("r s"))
   expect_equal(tp("r a#, a", 1), as_noteworthy("r b, a#"))
+  expect_equal(tp("c0", -1), as_noteworthy("b,,,,"))
 
   expect_error(tp("a", 1, "x"), "Invalid `key`. See `keys`.")
-  expect_error(tp("c0", -1), "`Negative octave number not allowed in `tabr`.")
   expect_error(tp("a.", 1), "Invalid notes or chords found.")
   expect_error(tp("a.. c", 1), "Invalid notes or chords found.")
   expect_error(tp(p("a", 1)),
