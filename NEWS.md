@@ -1,3 +1,9 @@
+# tabr 0.3.5.9000
+
+* Made improvements to print method for phrase objects.
+* Added `rests` argument to some note metadata functions.
+* Minor bug fixes.
+
 # tabr 0.3.5
 
 * Added alternate input specification for `sf_phrase`. Instead of providing the first three function arguments, `string`, `fret` and `info`, separately, you can now provide everything to the first input `string` as a single character string containing all three components separated by semicolons. This makes it easier to reason about the input by time step rather than by argument.

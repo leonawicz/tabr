@@ -10,7 +10,7 @@
   "codeRepository": "https://github.com/leonawicz/tabr",
   "issueTracker": "https://github.com/leonawicz/tabr/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.3.5",
+  "version": "0.3.5.9000",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -127,6 +127,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=fansi"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "tuneR",
+      "name": "tuneR",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=tuneR"
     }
   ],
   "softwareRequirements": [
@@ -226,6 +238,6 @@
     "music-notation"
   ],
   "relatedLink": "https://CRAN.R-project.org/package=tabr",
-  "fileSize": "283.59KB",
+  "fileSize": "285.841KB",
   "developmentStatus": "http://www.repostatus.org/#active"
 }

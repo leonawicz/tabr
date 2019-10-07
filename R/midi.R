@@ -178,3 +178,78 @@ miditab <- function(midi_file, file, keep_ly = FALSE, path = NULL,
   if(!keep_ly) unlink(fp$lp)
   invisible()
 }
+
+#' Read MIDI file
+#'
+#' Read MIDI file into a data frame.
+#'
+#' This function wraps around \code{tuneR::readMidi} by Uwe Ligges and Johanna
+#' Mielke.
+#'
+#' @param file character, path to MIDI file.
+#' @param x a data frame returned by \code{read_midi}.
+#' @param channel,track integer, filter rows on channel or track.
+#'
+#' @return a tibble data frame
+#' @export
+#'
+#' @examples
+#' file <- system.file("example.mid", package = "tabr")
+#' if(require("tuneR")){
+#'   x <- read_midi(file)
+#'   midi_metadata(x)
+#'   midi_time(x)
+#'   midi_key(x)
+#'   midi_notes(x, channel = 1)
+#' }
+read_midi <- function(file){
+  if(!requireNamespace("tuneR")){
+    message("Please install the `tuneR` package to read MIDI files.")
+    return(invisible())
+  } else {
+    x <- dplyr::as_tibble(tuneR::readMidi(file))
+    y <- tuneR::getMidiNotes(x)
+    bycols <- c("channel", "track", "time", parameter1 = "note")
+    dplyr::left_join(x, y, by = bycols) %>%
+      dplyr::select(-c("notename")) %>%
+      dplyr::mutate(
+        note = semitone_pitch(.data[["parameter1"]]),
+        note = ifelse(.data[["event"]] == "Note On", .data[["note"]], NA)) %>%
+      dplyr::select(c("time", "length", "event", "type", "channel",
+                      "parameter1", "parameter2",
+                      "parameterMetaSystem", "track", "note", "velocity"))
+  }
+}
+
+#' @export
+#' @rdname read_midi
+midi_metadata <- function(x){
+  dplyr::filter(x, !.data[["event"]] %in% c("Note On", "Note Off"))
+}
+
+#' @export
+#' @rdname read_midi
+midi_notes <- function(x, channel = NULL, track = NULL){
+  x <- dplyr::filter(x, .data[["event"]] == "Note On") %>%
+    dplyr::rename(semitone = .data[["parameter1"]]) %>%
+    dplyr::select(c("time", "length", "note", "semitone", "velocity",
+                    "channel", "track"))
+
+  if(!is.null(channel))
+    x <- dplyr::filter(x, .data[["channel"]] %in% !! channel)
+  if(!is.null(track))
+    x <- dplyr::filter(x, .data[["track"]] %in% !! track)
+  x
+}
+
+#' @export
+#' @rdname read_midi
+midi_time <- function(x){
+  unique(x$parameterMetaSystem[x$event == "Time Signature"])
+}
+
+#' @export
+#' @rdname read_midi
+midi_key <- function(x){
+  unique(x$parameterMetaSystem[x$event == "Key Signature"])
+}

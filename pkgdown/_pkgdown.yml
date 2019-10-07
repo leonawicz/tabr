@@ -90,6 +90,10 @@ reference:
   contents:
   - midily
   - miditab
+- title: "Other Input/Output"
+  desc: "More functions for reading and writing between various formats"
+  contents:
+  - read_midi
 - title: Datasets
   contents:
   - tabrSyntax

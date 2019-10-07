@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pitch conversions — pitch_freq • tabr</title>
+<title>Read MIDI file — read_midi • tabr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -44,8 +44,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Pitch conversions — pitch_freq" />
-<meta property="og:description" content="Convert between pitch and other quantities." />
+<meta property="og:title" content="Read MIDI file — read_midi" />
+<meta property="og:description" content="Read MIDI file into a data frame." />
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -204,87 +204,67 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Pitch conversions</h1>
-    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/freq.R'><code>R/freq.R</code></a></small>
-    <div class="hidden name"><code>pitch_freq.Rd</code></div>
+    <h1>Read MIDI file</h1>
+    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/midi.R'><code>R/midi.R</code></a></small>
+    <div class="hidden name"><code>read_midi.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Convert between pitch and other quantities.</p>
+    <p>Read MIDI file into a data frame.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>pitch_freq</span>(<span class='no'>notes</span>, <span class='kw'>a4</span> <span class='kw'>=</span> <span class='fl'>440</span>)
+    <pre class="usage"><span class='fu'>read_midi</span>(<span class='no'>file</span>)
 
-<span class='fu'>pitch_semitones</span>(<span class='no'>notes</span>)
+<span class='fu'>midi_metadata</span>(<span class='no'>x</span>)
 
-<span class='fu'>chord_freq</span>(<span class='no'>notes</span>, <span class='kw'>a4</span> <span class='kw'>=</span> <span class='fl'>440</span>)
+<span class='fu'>midi_notes</span>(<span class='no'>x</span>, <span class='kw'>channel</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>track</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>chord_semitones</span>(<span class='no'>notes</span>)
+<span class='fu'>midi_time</span>(<span class='no'>x</span>)
 
-<span class='fu'>freq_pitch</span>(<span class='no'>freq</span>, <span class='kw'>a4</span> <span class='kw'>=</span> <span class='fl'>440</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
-
-<span class='fu'>freq_semitones</span>(<span class='no'>freq</span>, <span class='kw'>a4</span> <span class='kw'>=</span> <span class='fl'>440</span>)
-
-<span class='fu'>semitone_pitch</span>(<span class='no'>semitones</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"tick"</span>, <span class='st'>"integer"</span>))</pre>
+<span class='fu'>midi_key</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>notes</th>
-      <td><p>character, noteworthy string, space-delimited or vector of
-individual entries. See details.</p></td>
+      <th>file</th>
+      <td><p>character, path to MIDI file.</p></td>
     </tr>
     <tr>
-      <th>a4</th>
-      <td><p>the fixed frequency of the A above middle C, typically 440 Hz.</p></td>
+      <th>x</th>
+      <td><p>a data frame returned by <code>read_midi</code>.</p></td>
     </tr>
     <tr>
-      <th>freq</th>
-      <td><p>numeric vector, frequencies in Hz.</p></td>
-    </tr>
-    <tr>
-      <th>collapse</th>
-      <td><p>logical, collapse result into a single string.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>other arguments passed to <code>tranpose</code>, specifically
-<code>key</code> and <code>style</code>.</p></td>
-    </tr>
-    <tr>
-      <th>semitones</th>
-      <td><p>integer values of pitches.</p></td>
-    </tr>
-    <tr>
-      <th>octaves, </th>
-      <td><p>character, octave number format, <code>"tick"</code> or
-<code>"integer"</code>.</p></td>
+      <th>channel, track</th>
+      <td><p>integer, filter rows on channel or track.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>numeric vector</p>
+    <p>a tibble data frame</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Frequencies are in Hertz. Values are based on the 12-tone equal-tempered
-scale. When converting an arbitrary frequency to pitch, it is rounded to the
-nearest pitch.
-<code>pitch_freq</code> and <code>pitch_semitones</code> strictly accept single notes in
-noteworthy strings and return numeric vectors.
-<code>chord_freq</code> and <code>chord_semitones</code> accept any noteworthy string
-and always return a list. These are provided so that all functions are
-type-safe. See examples.</p>
+    <p>This function wraps around <code><a href='https://rdrr.io/pkg/tuneR/man/readMidi.html'>tuneR::readMidi</a></code> by Uwe Ligges and Johanna
+Mielke.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"a e4 a4 e5 a5"</span>
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'>pitch_freq</span>(<span class='no'>x</span>)
-<span class='no'>y</span></div><div class='output co'>#&gt; [1] 220.0000 329.6276 440.0000 659.2551 880.0000</div><div class='input'>
-<span class='fu'>freq_pitch</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; <span style='color: #808080;font-weight: bold;'>&lt;Noteworthy string&gt;
-#&gt;   Format: </span><span>vectorized time</span><span style='color: #808080;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00AFFF;font-weight: bold;'>a</span><span> </span><span style='color: #00AFFF;font-weight: bold;'>e</span><span style='color: #00AFFF;'>4</span><span> </span><span style='color: #00AFFF;font-weight: bold;'>a</span><span style='color: #00AFFF;'>4</span><span> </span><span style='color: #00AFFF;font-weight: bold;'>e</span><span style='color: #00AFFF;'>5</span><span> </span><span style='color: #00AFFF;font-weight: bold;'>a</span><span style='color: #00AFFF;'>5</span><span></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='fu'><a href='valid-notes.html'>as_noteworthy</a></span>(<span class='no'>x</span>), <span class='fu'>freq_pitch</span>(<span class='no'>y</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; [1] TRUE</div></span></pre>
+    <pre class="examples"><div class='input'><span class='no'>file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"example.mid"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"tabr"</span>)
+<span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"tuneR"</span>)){
+  <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>read_midi</span>(<span class='no'>file</span>)
+  <span class='fu'>midi_metadata</span>(<span class='no'>x</span>)
+  <span class='fu'>midi_time</span>(<span class='no'>x</span>)
+  <span class='fu'>midi_key</span>(<span class='no'>x</span>)
+  <span class='fu'>midi_notes</span>(<span class='no'>x</span>, <span class='kw'>channel</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+}</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 x 7</span><span>
+#&gt;    time length note  semitone velocity channel track
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>   384    192 a,          45       90       1     3
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>   576    192 c           48       90       1     3
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>   768    192 f           53       90       1     3
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span>   960    192 d           50       90       1     3
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span>  </span><span style='text-decoration: underline;'>1</span><span>152    192 a           57       90       1     3
+#&gt; </span><span style='color: #BCBCBC;'>6</span><span>  </span><span style='text-decoration: underline;'>1</span><span>344    192 f           53       90       1     3</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
