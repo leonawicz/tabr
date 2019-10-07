@@ -55,3 +55,8 @@ mainIntervals <- data.frame(
 )
 
 usethis::use_data(tunings, tabrSyntax, mainIntervals)
+
+library(tabr)
+.all_pitches <- sapply(0:131, function(x) transpose("c,,,,", x, "flat", "tick"))
+
+usethis::use_data(.all_pitches, internal = TRUE)

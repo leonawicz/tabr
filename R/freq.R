@@ -1,6 +1,6 @@
-#' Pitch-frequency conversion
+#' Pitch conversions
 #'
-#' Convert between pitch and frequency.
+#' Convert between pitch and other quantities.
 #'
 #' Frequencies are in Hertz. Values are based on the 12-tone equal-tempered
 #' scale. When converting an arbitrary frequency to pitch, it is rounded to the
@@ -15,6 +15,9 @@
 #' individual entries. See details.
 #' @param a4 the fixed frequency of the A above middle C, typically 440 Hz.
 #' @param freq numeric vector, frequencies in Hz.
+#' @param semitones integer values of pitches.
+#' @param octaves, character, octave number format, \code{"tick"} or
+#' \code{"integer"}.
 #' @param collapse logical, collapse result into a single string.
 #' @param ... other arguments passed to \code{tranpose}, specifically
 #' \code{key} and \code{style}.
@@ -38,7 +41,8 @@ pitch_freq <- function(notes, a4 = 440){
 #' @name pitch_freq
 pitch_semitones <- function(notes){
   .check_note(notes)
-  69L + purrr::map_int(.uncollapse(notes), ~pitch_interval("a4", .x))
+  69L + purrr::map_int(gsub("~", "", .uncollapse(notes)),
+                       ~pitch_interval("a4", .x))
 }
 
 #' @export
@@ -53,7 +57,7 @@ chord_freq <- function(notes, a4 = 440){
 #' @name pitch_freq
 chord_semitones <- function(notes){
   .check_noteworthy(notes)
-  x <- .uncollapse(notes)
+  x <- gsub("~", "", .uncollapse(notes))
   f <- function(x){
     69L + purrr::map_int(.split_chord(x), ~pitch_interval("a4", .x))
   }
@@ -73,4 +77,18 @@ freq_pitch <- function(freq, a4 = 440, collapse = FALSE, ...){
 #' @name pitch_freq
 freq_semitones <- function(freq, a4 = 440){
   69 + 12 * log(freq / a4, 2)
+}
+
+#' @export
+#' @name pitch_freq
+semitone_pitch <- function(semitones, octaves = c("tick", "integer")){
+  .check_semitone(semitones)
+  octaves <- match.arg(octaves)
+  x <- .all_pitches[semitones + 1]
+  if(octaves == "tick") x else .octave_to_int(x)
+}
+
+.check_semitone <- function(x){
+  if(any(x < 0, na.rm = TRUE) | any(x > 131, na.rm = TRUE))
+    stop("Semitones must range from 0 to 131.", call. = FALSE)
 }
