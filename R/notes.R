@@ -23,6 +23,8 @@
 #'
 #' @param notes character, a noteworthy string, space-delimited or vector of
 #' individual entries.
+#' @param rests logical, include rests \code{r} and silent rests \code{s} in
+#' tally.
 #'
 #' @return integer or character
 #' @export
@@ -77,13 +79,15 @@ n_octaves <- function(notes){
 
 #' @export
 #' @rdname note-metadata
-tally_notes <- function(notes){
+tally_notes <- function(notes, rests = FALSE){
   .check_noteworthy(notes)
   x <- unlist(lapply(.uncollapse(notes), .split_chord))
   x <- sapply(x, .pitch_to_note, USE.NAMES = FALSE)
   x <- as.data.frame(table(x), stringsAsFactors = FALSE) %>%
     dplyr::as_tibble() %>%
     stats::setNames(c("note", "n"))
+  if(!rests) x <- x[!x$note %in% c("r", "s"), ]
+  x$note <- gsub("~", "", x$note)
   ord <- order(sapply(x$note,
                       function(x) pitch_interval("c", x, ignore_octave = TRUE)))
   x[ord, ]
@@ -91,12 +95,14 @@ tally_notes <- function(notes){
 
 #' @export
 #' @rdname note-metadata
-tally_pitches <- function(notes){
+tally_pitches <- function(notes, rests = FALSE){
   .check_noteworthy(notes)
   x <- unlist(lapply(.uncollapse(notes), .split_chord))
   x <- as.data.frame(table(x), stringsAsFactors = FALSE) %>%
     dplyr::as_tibble() %>%
     stats::setNames(c("pitch", "n"))
+  if(!rests) x <- x[!x$pitch %in% c("r", "s"), ]
+  x$pitch <- gsub("~", "", x$pitch)
   ord <- order(sapply(x$pitch, function(x) pitch_interval("c", x)))
   x[ord, ]
 }
@@ -115,16 +121,16 @@ tally_octaves <- function(notes){
 
 #' @export
 #' @rdname note-metadata
-distinct_notes <- function(notes){
-  x <- tally_notes(notes)$note
+distinct_notes <- function(notes, rests = FALSE){
+  x <- tally_notes(notes, rests)$note
   if(time_format(notes) == "space-delimited time") x <- paste(x, collapse = " ")
   .asnw(x)
 }
 
 #' @export
 #' @rdname note-metadata
-distinct_pitches <- function(notes){
-  x <- tally_pitches(notes)$pitch
+distinct_pitches <- function(notes, rests = FALSE){
+  x <- tally_pitches(notes, rests)$pitch
   if(time_format(notes) == "space-delimited time") x <- paste(x, collapse = " ")
   .asnw(x)
 }

@@ -32,15 +32,15 @@ n_chords(notes)
 
 n_octaves(notes)
 
-tally_notes(notes)
+tally_notes(notes, rests = FALSE)
 
-tally_pitches(notes)
+tally_pitches(notes, rests = FALSE)
 
 tally_octaves(notes)
 
-distinct_notes(notes)
+distinct_notes(notes, rests = FALSE)
 
-distinct_pitches(notes)
+distinct_pitches(notes, rests = FALSE)
 
 distinct_octaves(notes)
 
@@ -67,6 +67,9 @@ is_vector_time(notes)
 \arguments{
 \item{notes}{character, a noteworthy string, space-delimited or vector of
 individual entries.}
+
+\item{rests}{logical, include rests \code{r} and silent rests \code{s} in
+tally.}
 }
 \value{
 integer or character
