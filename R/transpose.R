@@ -162,8 +162,9 @@ transpose <- function(notes, n = 0, key = NA,
   pass <- purrr::map_int(x1, cpass)
   x2 <- x2 + octaves + pass
   x2[x1 %in% c("r", "s")] <- ""
-  if(any(as.integer(x2[x2 != ""]) < 0))
-    stop("`Negative octave number not allowed in `tabr`.", call. = FALSE)
+  negative_octave <- which(as.integer(x2[x2 != ""]) < 0)
+  if(length(negative_octave))
+    x2[x2 != ""][negative_octave] <- ",,,,"
   if(length(idx) > 0) x2[idx] <- paste0(x2[idx], "~")
   x <- paste0(x1new, x2, collapse = " ")
   if(style == "tick") x <- .octave_to_tick(x)

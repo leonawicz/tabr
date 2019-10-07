@@ -21,9 +21,11 @@
 }
 
 .octave_to_int <- function(x){
+  x <- gsub(",,,,", "_-1_", x)
   x <- gsub(",,,", "0", x)
   x <- gsub(",,", "1", x)
   x <- gsub(",", "2", x)
+  x <- gsub("_-1_", ",,,,", x)
   x <- gsub("''''''", "9", x)
   x <- gsub("'''''", "8", x)
   x <- gsub("''''", "7", x)
