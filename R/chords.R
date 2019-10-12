@@ -137,32 +137,6 @@ chord_break <- function(notes){
   .asnw(x)
 }
 
-#' Check if chords are diatonic
-#'
-#' Check whether chords are diatonic in a given key.
-#'
-#' This function strictly accepts chord strings. To check if notes are in a
-#' scale, see \code{\link{note_in_scale}}. To check generally if a
-#' \code{noteworthy} string is fully diatonic, see \code{\link{is_diatonic}}.
-#'
-#' @param chord character, a chord string. May be a vector.
-#' @param key character, key signature.
-#'
-#' @return logical
-#' @export
-#' @seealso \code{\link{note_in_scale}}, \code{\link{is_diatonic}}
-#'
-#' @examples
-#' chord_is_diatonic("ceg ace ce_g", "c")
-#' chord_is_diatonic(c("dfa", "df#a"), "d")
-chord_is_diatonic <- function(chord, key = "c"){
-  .check_chord(chord)
-  s <- scale_diatonic(key, ignore_octave = TRUE)
-  x <- .uncollapse(chord)
-  sapply(x, function(x) all(.pitch_to_note(.split_chord(x)) %in% s),
-         USE.NAMES = FALSE)
-}
-
 #' Construct a dyad
 #'
 #' Construct a dyad given one note, an interval, and a direction.
@@ -182,7 +156,7 @@ chord_is_diatonic <- function(chord, key = "c"){
 #' respectively. See details.
 #' @param reverse logical, reverse the transposition direction. Useful when
 #' \code{interval} is character.
-#' @param key character, key signature.
+#' @param octaves,accidentals,key See \code{\link{transpose}}.
 #'
 #' @return character
 #' @export
@@ -201,12 +175,15 @@ chord_is_diatonic <- function(chord, key = "c"){
 #' dyad("c", x)
 #' dyad("c", x, reverse = TRUE)
 #' dyad("d e", "m3")
-dyad <- function(notes, interval, reverse = FALSE, key = "c"){
+dyad <- function(notes, interval, reverse = FALSE,
+                 octaves = c("tick", "integer"),
+                 accidentals = c("flat", "sharp"), key = NULL){
   if(is.character(interval)) interval <- interval_semitones(interval)
   if(any(is.na(interval))) stop("Invalid `interval`.", call. = FALSE)
   .check_note(notes)
   x <- .uncollapse(notes)
-  .keycheck(key)
+  o <- match.arg(octaves)
+  a <- match.arg(accidentals)
   if(reverse) interval <- -interval
   nn <- length(x)
   ni <- length(interval)
@@ -220,7 +197,7 @@ dyad <- function(notes, interval, reverse = FALSE, key = "c"){
   f <- function(i, n1, int){
     n1 <- n1[i]
     int <- int[i]
-    n2 <- transpose(n1, int, key)
+    n2 <- transpose(n1, int, o, a, key)
     paste(if(int == 0) n1 else if(int > 0) c(n1, n2) else c(n2, n1),
           collapse = "")
   }
@@ -237,8 +214,7 @@ dyad <- function(notes, interval, reverse = FALSE, key = "c"){
 #' provided: comparison of the lowest or root note of each chord, the highest
 #' pitch note, or taking the mean of all notes in a chord.
 #'
-#' @param chords character, a noteworthy string, may include individual notes
-#' and chords.
+#' @param notes character, a noteworthy string.
 #' @param pitch character, how ranking of chords is determined; lowest pitch,
 #' mean pitch, or highest pitch.
 #' @param decreasing logical, sort in decreasing order.
@@ -257,24 +233,24 @@ dyad <- function(notes, interval, reverse = FALSE, key = "c"){
 #' chord_order(x)
 #' chord_order(x, "mean")
 #' chord_sort(x, "mean")
-chord_rank <- function(chords, pitch = c("min", "mean", "max"), ...){
-  rank(.chord_rank(chords, pitch), ...)
+chord_rank <- function(notes, pitch = c("min", "mean", "max"), ...){
+  rank(.chord_rank(notes, pitch), ...)
 }
 
 #' @export
 #' @rdname chord-compare
-chord_order <- function(chords, pitch = c("min", "mean", "max"), ...){
-  order(.chord_rank(chords, pitch), ...)
+chord_order <- function(notes, pitch = c("min", "mean", "max"), ...){
+  order(.chord_rank(notes, pitch), ...)
 }
 
 #' @export
 #' @rdname chord-compare
-chord_sort <- function(chords, pitch = c("min", "mean", "max"),
+chord_sort <- function(notes, pitch = c("min", "mean", "max"),
                        decreasing = FALSE, ...){
-  ord <- chord_order(chords, pitch, ...)
-  x <- .uncollapse(chords)[ord]
+  ord <- chord_order(notes, pitch, ...)
+  x <- .uncollapse(notes)[ord]
   if(decreasing) x <- rev(x)
-  if(length(chords) == 1) x <- paste0(x, collapse = " ")
+  if(length(notes) == 1) x <- paste0(x, collapse = " ")
   .asnw(x)
 }
 
@@ -301,8 +277,7 @@ chord_sort <- function(chords, pitch = c("min", "mean", "max"),
 #' An error is thrown is \code{index} is completely out of bounds for all
 #' chords.
 #'
-#' @param chords character, a noteworthy string, may include individual notes
-#' and chords.
+#' @param notes character, a noteworthy string.
 #' @param index integer, the order of a note in a chord by pitch (not scale
 #' degrees).
 #'
@@ -311,44 +286,36 @@ chord_sort <- function(chords, pitch = c("min", "mean", "max"),
 #' @name chord-filter
 #'
 #' @examples
-#' x <- "a2 ceg e_gc egc,cc'"
+#' x <- "a_2 c#eg# e_gc egc,cc'"
 #' chord_root(x)
 #' chord_top(x)
 #' identical(chord_slice(x, 1), chord_root(x))
 #' chord_slice(x, 2)
 #' chord_slice(x, 4)
 #' chord_slice(x, 3:5)
-chord_root <- function(chords){
-  .check_noteworthy(chords)
-  x <- .uncollapse(chords)
-  x <- sapply(x, function(y){
-    y <- .split_chord(y)
-    idx <- which.min(sapply(y, function(i) pitch_interval("c", i)))
-    y[idx]
-  }, USE.NAMES = FALSE)
-  if(length(chords) == 1) x <- paste0(x, collapse = " ")
+chord_root <- function(notes){
+  .check_noteworthy(notes)
+  z <- .infer_types(notes)
+  x <- .chord_root(.uncollapse(notes), z$o, z$a)
+  if(length(notes) == 1) x <- paste0(x, collapse = " ")
   .asnw(x)
 }
 
 #' @export
 #' @rdname chord-filter
-chord_top <- function(chords){
-  .check_noteworthy(chords)
-  x <- .uncollapse(chords)
-  x <- sapply(x, function(y){
-    y <- .split_chord(y)
-    idx <- which.max(sapply(y, function(i) pitch_interval("c", i)))
-    y[idx]
-  }, USE.NAMES = FALSE)
-  if(length(chords) == 1) x <- paste0(x, collapse = " ")
+chord_top <- function(notes){
+  .check_noteworthy(notes)
+  z <- .infer_types(notes)
+  x <- .chord_top(.uncollapse(notes), z$o, z$a)
+  if(length(notes) == 1) x <- paste0(x, collapse = " ")
   .asnw(x)
 }
 
 #' @export
 #' @rdname chord-filter
-chord_slice <- function(chords, index){
-  .check_noteworthy(chords)
-  x <- .uncollapse(chords)
+chord_slice <- function(notes, index){
+  .check_noteworthy(notes)
+  x <- .uncollapse(notes)
   x <- sapply(x, function(y){
     y <- .split_chord(y)
     ord <- order(sapply(y, function(i) pitch_interval("c", i)))
@@ -358,8 +325,16 @@ chord_slice <- function(chords, index){
   }, USE.NAMES = FALSE)
   x <- x[!is.na(x)]
   if(!length(x)) stop("Index out of bounds for all chords.", call. = FALSE)
-  if(length(chords) == 1) x <- paste0(x, collapse = " ")
+  if(length(notes) == 1) x <- paste0(x, collapse = " ")
   .asnw(x)
+}
+
+.chord_root <- function(x, octaves = "tick", accidentals = "flat"){
+  purrr::map_chr(x, ~.pitch_min(.split_chords(.x), octaves, accidentals))
+}
+
+.chord_top <- function(x, octaves = "tick", accidentals = "flat"){
+  purrr::map_chr(x, ~.pitch_max(.split_chords(.x), octaves, accidentals))
 }
 
 #' Check if chords are major or minor
@@ -382,7 +357,7 @@ chord_slice <- function(chords, index){
 #' This is still imperfect, but a useful method. Second and higher unknown
 #' chord inversions are problematic.
 #'
-#' @param chords character, a noteworthy string.
+#' @param notes character, a noteworthy string.
 #'
 #' @return logical vector
 #' @export
@@ -391,16 +366,16 @@ chord_slice <- function(chords, index){
 #' x <- "c cg, ce ce_ ceg ce_gb g,ce g,ce_ e_,g,c e_,g,ce_ e_,g,c"
 #' chord_is_major(x)
 #' identical(chord_is_major(x), !chord_is_minor(x))
-chord_is_major <- function(chords){
-  .check_noteworthy(chords)
-  x <- .uncollapse(chords)
+chord_is_major <- function(notes){
+  .check_noteworthy(notes)
+  x <- .uncollapse(notes)
   sapply(x, .chord_is_major, USE.NAMES = FALSE)
 }
 
 #' @export
 #' @rdname chord_is_major
-chord_is_minor <- function(chords){
-  !chord_is_major(chords)
+chord_is_minor <- function(notes){
+  !chord_is_major(notes)
 }
 
 .chord_is_major <- function(x){
@@ -451,7 +426,7 @@ chord_is_minor <- function(chords){
 #'
 #' @param notes character, a noteworthy string of chord root notes.
 #' @param key key signature. See details.
-#' @param style character, passed to \code{transpose}.
+#' @param octaves character, passed to \code{transpose}.
 #'
 #' @return character
 #' @export
@@ -464,214 +439,214 @@ chord_is_minor <- function(chords){
 #' xM("d")
 #' xm("c f g")
 #' xm("c, f, g,", key = "e_")
-chord_min <- function(notes, key = "c", style = "default"){
+chord_min <- function(notes, key = "c", octaves = "tick"){
   semitones <- c(0, 3, 7)
-  .chord_prep(notes, semitones, key, style)
+  .chord_prep(notes, semitones, key, octaves)
 }
 
 #' @export
 #' @rdname chords
-chord_maj <- function(notes, key = "c", style = "default"){
+chord_maj <- function(notes, key = "c", octaves = "tick"){
   semitones <- c(0, 4, 7)
-  .chord_prep(notes, semitones, key, style)
+  .chord_prep(notes, semitones, key, octaves)
 }
 
 #' @export
 #' @rdname chords
-chord_min7 <- function(notes, key = "c", style = "default"){
+chord_min7 <- function(notes, key = "c", octaves = "tick"){
   semitones <- c(0, 3, 7, 10)
-  .chord_prep(notes, semitones, key, style)
+  .chord_prep(notes, semitones, key, octaves)
 }
 
 #' @export
 #' @rdname chords
-chord_dom7 <- function(notes, key = "c", style = "default"){
+chord_dom7 <- function(notes, key = "c", octaves = "tick"){
   semitones <- c(0, 4, 7, 10)
-  .chord_prep(notes, semitones, key, style)
+  .chord_prep(notes, semitones, key, octaves)
 }
 
 #' @export
 #' @rdname chords
-chord_7s5 <- function(notes, key = "c", style = "default"){
+chord_7s5 <- function(notes, key = "c", octaves = "tick"){
   semitones <- c(0, 4, 8, 10)
-  .chord_prep(notes, semitones, key, style)
+  .chord_prep(notes, semitones, key, octaves)
 }
 
 #' @export
 #' @rdname chords
-chord_maj7 <- function(notes, key = "c", style = "default"){
+chord_maj7 <- function(notes, key = "c", octaves = "tick"){
   semitones <- c(0, 4, 7, 11)
-  .chord_prep(notes, semitones, key, style)
+  .chord_prep(notes, semitones, key, octaves)
 }
 
 #' @export
 #' @rdname chords
-chord_min6 <- function(notes, key = "c", style = "default"){
+chord_min6 <- function(notes, key = "c", octaves = "tick"){
   semitones <- c(0, 3, 7, 9)
-  .chord_prep(notes, semitones, key, style)
+  .chord_prep(notes, semitones, key, octaves)
 }
 
 #' @export
 #' @rdname chords
-chord_maj6 <- function(notes, key = "c", style = "default"){
+chord_maj6 <- function(notes, key = "c", octaves = "tick"){
   semitones <- c(0, 4, 7, 9)
-  .chord_prep(notes, semitones, key, style)
+  .chord_prep(notes, semitones, key, octaves)
 }
 
 #' @export
 #' @rdname chords
-chord_dim <- function(notes, key = "c", style = "default"){
+chord_dim <- function(notes, key = "c", octaves = "tick"){
   semitones <- c(0, 3, 6)
-  .chord_prep(notes, semitones, key, style)
+  .chord_prep(notes, semitones, key, octaves)
 }
 
 #' @export
 #' @rdname chords
-chord_dim7 <- function(notes, key = "c", style = "default"){
+chord_dim7 <- function(notes, key = "c", octaves = "tick"){
   semitones <- c(0, 3, 6, 9)
-  .chord_prep(notes, semitones, key, style)
+  .chord_prep(notes, semitones, key, octaves)
 }
 
 #' @export
 #' @rdname chords
-chord_m7b5 <- function(notes, key = "c", style = "default"){
+chord_m7b5 <- function(notes, key = "c", octaves = "tick"){
   semitones <- c(0, 3, 6, 10)
-  .chord_prep(notes, semitones, key, style)
+  .chord_prep(notes, semitones, key, octaves)
 }
 
 #' @export
 #' @rdname chords
-chord_aug <- function(notes, key = "c", style = "default"){
+chord_aug <- function(notes, key = "c", octaves = "tick"){
   semitones <- c(0, 4, 8)
-  .chord_prep(notes, semitones, key, style)
+  .chord_prep(notes, semitones, key, octaves)
 }
 
 #' @export
 #' @rdname chords
-chord_5 <- function(notes, key = "c", style = "default"){
+chord_5 <- function(notes, key = "c", octaves = "tick"){
   semitones <- c(0, 7)
-  .chord_prep(notes, semitones, key, style)
+  .chord_prep(notes, semitones, key, octaves)
 }
 
 #' @export
 #' @rdname chords
-chord_sus2 <- function(notes, key = "c", style = "default"){
+chord_sus2 <- function(notes, key = "c", octaves = "tick"){
   semitones <- c(0, 2, 7)
-  .chord_prep(notes, semitones, key, style)
+  .chord_prep(notes, semitones, key, octaves)
 }
 
 #' @export
 #' @rdname chords
-chord_sus4 <- function(notes, key = "c", style = "default"){
+chord_sus4 <- function(notes, key = "c", octaves = "tick"){
   semitones <- c(0, 5, 7)
-  .chord_prep(notes, semitones, key, style)
+  .chord_prep(notes, semitones, key, octaves)
 }
 
 #' @export
 #' @rdname chords
-chord_dom9 <- function(notes, key = "c", style = "default"){
+chord_dom9 <- function(notes, key = "c", octaves = "tick"){
   semitones <- c(0, 4, 7, 10, 14)
-  .chord_prep(notes, semitones, key, style)
+  .chord_prep(notes, semitones, key, octaves)
 }
 
 #' @export
 #' @rdname chords
-chord_7s9 <- function(notes, key = "c", style = "default"){
+chord_7s9 <- function(notes, key = "c", octaves = "tick"){
   semitones <- c(0, 4, 7, 10, 15)
-  .chord_prep(notes, semitones, key, style)
+  .chord_prep(notes, semitones, key, octaves)
 }
 
 #' @export
 #' @rdname chords
-chord_maj9 <- function(notes, key = "c", style = "default"){
+chord_maj9 <- function(notes, key = "c", octaves = "tick"){
   semitones <- c(0, 4, 7, 11, 14)
-  .chord_prep(notes, semitones, key, style)
+  .chord_prep(notes, semitones, key, octaves)
 }
 
 #' @export
 #' @rdname chords
-chord_add9 <- function(notes, key = "c", style = "default"){
+chord_add9 <- function(notes, key = "c", octaves = "tick"){
   semitones <- c(0, 4, 7, 14)
-  .chord_prep(notes, semitones, key, style)
+  .chord_prep(notes, semitones, key, octaves)
 }
 
 #' @export
 #' @rdname chords
-chord_min9 <- function(notes, key = "c", style = "default"){
+chord_min9 <- function(notes, key = "c", octaves = "tick"){
   semitones <- c(0, 3, 7, 10, 14)
-  .chord_prep(notes, semitones, key, style)
+  .chord_prep(notes, semitones, key, octaves)
 }
 
 #' @export
 #' @rdname chords
-chord_madd9 <- function(notes, key = "c", style = "default"){
+chord_madd9 <- function(notes, key = "c", octaves = "tick"){
   semitones <- c(0, 3, 7, 14)
-  .chord_prep(notes, semitones, key, style)
+  .chord_prep(notes, semitones, key, octaves)
 }
 
 #' @export
 #' @rdname chords
-chord_min11 <- function(notes, key = "c", style = "default"){
+chord_min11 <- function(notes, key = "c", octaves = "tick"){
   semitones <- c(0, 3, 7, 10, 14, 17)
-  .chord_prep(notes, semitones, key, style)
+  .chord_prep(notes, semitones, key, octaves)
 }
 
 #' @export
 #' @rdname chords
-chord_7s11 <- function(notes, key = "c", style = "default"){
+chord_7s11 <- function(notes, key = "c", octaves = "tick"){
   semitones <- c(0, 4, 7, 10, 18)
-  .chord_prep(notes, semitones, key, style)
+  .chord_prep(notes, semitones, key, octaves)
 }
 
 #' @export
 #' @rdname chords
-chord_maj7s11 <- function(notes, key = "c", style = "default"){
+chord_maj7s11 <- function(notes, key = "c", octaves = "tick"){
   semitones <- c(0, 4, 7, 11, 14, 18)
-  .chord_prep(notes, semitones, key, style)
+  .chord_prep(notes, semitones, key, octaves)
 }
 
 #' @export
 #' @rdname chords
-chord_11 <- function(notes, key = "c", style = "default"){
+chord_11 <- function(notes, key = "c", octaves = "tick"){
   semitones <- c(0, 7, 10, 14, 17)
-  .chord_prep(notes, semitones, key, style)
+  .chord_prep(notes, semitones, key, octaves)
 }
 
 #' @export
 #' @rdname chords
-chord_maj11 <- function(notes, key = "c", style = "default"){
+chord_maj11 <- function(notes, key = "c", octaves = "tick"){
   semitones <- c(0, 4, 7, 11, 14, 17)
-  .chord_prep(notes, semitones, key, style)
+  .chord_prep(notes, semitones, key, octaves)
 }
 
 #' @export
 #' @rdname chords
-chord_13 <- function(notes, key = "c", style = "default"){
+chord_13 <- function(notes, key = "c", octaves = "tick"){
   semitones <- c(0, 4, 7, 10, 14, 21)
-  .chord_prep(notes, semitones, key, style)
+  .chord_prep(notes, semitones, key, octaves)
 }
 
 #' @export
 #' @rdname chords
-chord_min13 <- function(notes, key = "c", style = "default"){
+chord_min13 <- function(notes, key = "c", octaves = "tick"){
   semitones <- c(0, 3, 7, 10, 14, 21)
-  .chord_prep(notes, semitones, key, style)
+  .chord_prep(notes, semitones, key, octaves)
 }
 
 #' @export
 #' @rdname chords
-chord_maj13 <- function(notes, key = "c", style = "default"){
+chord_maj13 <- function(notes, key = "c", octaves = "tick"){
   semitones <- c(0, 4, 7, 11, 14, 17, 21)
-  .chord_prep(notes, semitones, key, style)
+  .chord_prep(notes, semitones, key, octaves)
 }
 
-.chord_prep <- function(notes, semitones, key, style){
+.chord_prep <- function(notes, semitones, key, octaves){
   .check_note(notes)
   .keycheck(key)
   x <- sapply(.uncollapse(notes), function(note){
     paste0(
       sapply(semitones,
-             function(s) transpose(note, s, key = key, style = style)),
+             function(s) transpose(note, s, key = key, octaves = octaves)),
       collapse = "")
   }, USE.NAMES = FALSE)
   if(length(notes) == 1) x <- paste0(x, collapse = " ")

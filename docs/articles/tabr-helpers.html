@@ -45,7 +45,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9.9000</span>
       </span>
     </div>
 
@@ -222,7 +222,7 @@
 <h2 class="hasAnchor">
 <a href="#ties" class="anchor"></a>Ties</h2>
 <p>Tied notes were introduced momentarily in the previous section on phrases. The example given showed that ties are denoted by appending the pitch letter of the note with <code>~</code> and this will create a tie in the output from this note to the next one.</p>
-<p>This can be frustrating to type and to read when done for six-string chords for example. <code>tie</code> can make this more bearable. Chords receive further discussion in subsequent sections. They were only shown very briefly at the end of the last section so that space-delimited time and simultaneous notes could be demonstrated clearly. For now, this is enough to appreciate this example of <code>tie</code>.</p>
+<p>This can be frustrating to type and to read when done for six-string chords for example. <code>tie</code> can make this more bearable. Chords receive further discussion in subsequent sections. They were shown briefly at the end of the last section so that space-delimited time and simultaneous notes could be demonstrated clearly. For now, this is enough to demonstrate <code>tie</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">em &lt;-<span class="st"> "e,a,dgbe'"</span></a>
 <a class="sourceLine" id="cb7-2" title="2"><span class="kw"><a href="../reference/tie.html">tie</a></span>(em)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
@@ -261,7 +261,7 @@
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw"><a href="../reference/transpose.html">transpose</a></span>(<span class="st">"a_3 b_4 c5"</span>, <span class="dv">0</span>)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">a_</span><span style="color: #00BBBB;">3</span><span> </span><span style="color: #00BBBB;font-weight: bold;">b_</span><span style="color: #00BBBB;">4</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">5</span><span>
+#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">a_</span><span> </span><span style="color: #00BBBB;font-weight: bold;">b_</span><span style="color: #00BBBB;">4</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">5</span><span>
 </span></code></pre>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw"><a href="../reference/transpose.html">tp</a></span>(<span class="st">"a_3 b_4 c5"</span>, <span class="dv">-1</span>)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
@@ -271,7 +271,7 @@
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="kw"><a href="../reference/transpose.html">tp</a></span>(<span class="st">"a_3 b_4 c5"</span>, <span class="dv">1</span>)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">a</span><span> </span><span style="color: #00BBBB;font-weight: bold;">b</span><span style="color: #00BBBB;">4</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c#</span><span style="color: #00BBBB;">5</span><span>
+#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">a</span><span> </span><span style="color: #00BBBB;font-weight: bold;">b</span><span style="color: #00BBBB;">4</span><span> </span><span style="color: #00BBBB;font-weight: bold;">d_</span><span style="color: #00BBBB;">5</span><span>
 </span></code></pre>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw"><a href="../reference/transpose.html">tp</a></span>(<span class="st">"a#3 b4 c#5"</span>, <span class="dv">11</span>)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
@@ -295,17 +295,17 @@
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">b</span><span> </span><span style="color: #00BBBB;font-weight: bold;">d_</span><span style="color: #00BBBB;">5</span><span> </span><span style="color: #00BBBB;font-weight: bold;">d</span><span style="color: #00BBBB;">5</span><span>
 </span></code></pre>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="kw"><a href="../reference/transpose.html">tp</a></span>(<span class="st">"a3 b4 c5"</span>, <span class="dv">2</span>, <span class="dt">key =</span> <span class="st">"g"</span>, <span class="dt">style =</span> <span class="st">"tick"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="kw"><a href="../reference/transpose.html">tp</a></span>(<span class="st">"a3 b4 c5"</span>, <span class="dv">2</span>, <span class="dt">octaves =</span> <span class="st">"tick"</span>, <span class="dt">key =</span> <span class="st">"g"</span>)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">b</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c#</span><span style="color: #00BBBB;">''</span><span> </span><span style="color: #00BBBB;font-weight: bold;">d</span><span style="color: #00BBBB;">''</span><span>
 </span></code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="kw"><a href="../reference/transpose.html">tp</a></span>(<span class="st">"a b' c''"</span>, <span class="dv">2</span>, <span class="dt">key =</span> <span class="st">"flat"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="kw"><a href="../reference/transpose.html">tp</a></span>(<span class="st">"a b' c''"</span>, <span class="dv">2</span>, <span class="dt">accidentals =</span> <span class="st">"flat"</span>)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">b</span><span> </span><span style="color: #00BBBB;font-weight: bold;">d_</span><span style="color: #00BBBB;">''</span><span> </span><span style="color: #00BBBB;font-weight: bold;">d</span><span style="color: #00BBBB;">''</span><span>
 </span></code></pre>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1"><span class="kw"><a href="../reference/transpose.html">tp</a></span>(<span class="st">"a, b c'"</span>, <span class="dv">2</span>, <span class="dt">key =</span> <span class="st">"sharp"</span>, <span class="dt">style =</span> <span class="st">"integer"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1"><span class="kw"><a href="../reference/transpose.html">tp</a></span>(<span class="st">"a, b c'"</span>, <span class="dv">2</span>, <span class="dt">octaves =</span> <span class="st">"integer"</span>, <span class="dt">accidentals =</span> <span class="st">"sharp"</span>)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">b</span><span style="color: #00BBBB;">2</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c#</span><span style="color: #00BBBB;">4</span><span> </span><span style="color: #00BBBB;font-weight: bold;">d</span><span style="color: #00BBBB;">4</span><span>

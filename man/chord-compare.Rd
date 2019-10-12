@@ -7,16 +7,15 @@
 \alias{chord_sort}
 \title{Rank, order and sort chords and notes}
 \usage{
-chord_rank(chords, pitch = c("min", "mean", "max"), ...)
+chord_rank(notes, pitch = c("min", "mean", "max"), ...)
 
-chord_order(chords, pitch = c("min", "mean", "max"), ...)
+chord_order(notes, pitch = c("min", "mean", "max"), ...)
 
-chord_sort(chords, pitch = c("min", "mean", "max"), decreasing = FALSE,
+chord_sort(notes, pitch = c("min", "mean", "max"), decreasing = FALSE,
   ...)
 }
 \arguments{
-\item{chords}{character, a noteworthy string, may include individual notes
-and chords.}
+\item{notes}{character, a noteworthy string.}
 
 \item{pitch}{character, how ranking of chords is determined; lowest pitch,
 mean pitch, or highest pitch.}

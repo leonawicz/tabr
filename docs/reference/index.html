@@ -88,7 +88,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9.9000</span>
       </span>
     </div>
 
@@ -238,21 +238,33 @@
       <tr>
         
         <td>
-          <p><code><a href="transpose.html">transpose()</a></code> <code><a href="transpose.html">tp()</a></code> </p>
+          <p><code><a href="valid-notes.html">is_note()</a></code> <code><a href="valid-notes.html">is_chord()</a></code> <code><a href="valid-notes.html">noteworthy()</a></code> <code><a href="valid-notes.html">as_noteworthy()</a></code> <code><a href="valid-notes.html">is_noteworthy()</a></code> </p>
         </td>
-        <td><p>Transpose pitch</p></td>
+        <td><p>Check note and chord validity</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="note_is_natural.html">note_is_natural()</a></code> <code><a href="note_is_natural.html">note_is_accidental()</a></code> <code><a href="note_is_natural.html">note_is_flat()</a></code> <code><a href="note_is_natural.html">note_is_sharp()</a></code> <code><a href="note_is_natural.html">naturalize()</a></code> <code><a href="note_is_natural.html">sharpen_flat()</a></code> <code><a href="note_is_natural.html">flatten_sharp()</a></code> <code><a href="note_is_natural.html">note_set_key()</a></code> <code><a href="note_is_natural.html">as_tick_octaves()</a></code> <code><a href="note_is_natural.html">as_integer_octaves()</a></code> <code><a href="note_is_natural.html">as_space_time()</a></code> <code><a href="note_is_natural.html">as_vector_time()</a></code> <code><a href="note_is_natural.html">pretty_notes()</a></code> </p>
+          <p><code><a href="note-checks.html">note_is_accidental()</a></code> <code><a href="note-checks.html">note_is_natural()</a></code> <code><a href="note-checks.html">note_is_flat()</a></code> <code><a href="note-checks.html">note_is_sharp()</a></code> <code><a href="note-checks.html">note_has_accidental()</a></code> <code><a href="note-checks.html">note_has_natural()</a></code> <code><a href="note-checks.html">note_has_flat()</a></code> <code><a href="note-checks.html">note_has_sharp()</a></code> </p>
         </td>
-        <td><p>Inspect or coerce noteworthy string formats</p></td>
+        <td><p>Basic noteworthy string checks</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="note-metadata.html">n_steps()</a></code> <code><a href="note-metadata.html">n_notes()</a></code> <code><a href="note-metadata.html">n_chords()</a></code> <code><a href="note-metadata.html">n_octaves()</a></code> <code><a href="note-metadata.html">tally_notes()</a></code> <code><a href="note-metadata.html">tally_pitches()</a></code> <code><a href="note-metadata.html">tally_octaves()</a></code> <code><a href="note-metadata.html">distinct_notes()</a></code> <code><a href="note-metadata.html">distinct_pitches()</a></code> <code><a href="note-metadata.html">distinct_octaves()</a></code> <code><a href="note-metadata.html">pitch_range()</a></code> <code><a href="note-metadata.html">semitone_range()</a></code> <code><a href="note-metadata.html">semitone_span()</a></code> <code><a href="note-metadata.html">octave_range()</a></code> <code><a href="note-metadata.html">octave_span()</a></code> <code><a href="note-metadata.html">octave_type()</a></code> <code><a href="note-metadata.html">accidental_type()</a></code> <code><a href="note-metadata.html">time_format()</a></code> <code><a href="note-metadata.html">is_space_time()</a></code> <code><a href="note-metadata.html">is_vector_time()</a></code> </p>
+          <p><code><a href="note-metadata.html">n_steps()</a></code> <code><a href="note-metadata.html">n_notes()</a></code> <code><a href="note-metadata.html">n_chords()</a></code> <code><a href="note-metadata.html">n_octaves()</a></code> <code><a href="note-metadata.html">octave_type()</a></code> <code><a href="note-metadata.html">accidental_type()</a></code> <code><a href="note-metadata.html">time_format()</a></code> <code><a href="note-metadata.html">is_space_time()</a></code> <code><a href="note-metadata.html">is_vector_time()</a></code> <code><a href="note-metadata.html">note_is_tick()</a></code> <code><a href="note-metadata.html">note_is_integer()</a></code> <code><a href="note-metadata.html">note_has_tick()</a></code> <code><a href="note-metadata.html">note_has_integer()</a></code> </p>
         </td>
         <td><p>Noteworthy string metadata</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="note-summaries.html">tally_notes()</a></code> <code><a href="note-summaries.html">tally_pitches()</a></code> <code><a href="note-summaries.html">octaves()</a></code> <code><a href="note-summaries.html">tally_octaves()</a></code> <code><a href="note-summaries.html">distinct_notes()</a></code> <code><a href="note-summaries.html">distinct_pitches()</a></code> <code><a href="note-summaries.html">distinct_octaves()</a></code> <code><a href="note-summaries.html">pitch_range()</a></code> <code><a href="note-summaries.html">semitone_range()</a></code> <code><a href="note-summaries.html">semitone_span()</a></code> <code><a href="note-summaries.html">octave_range()</a></code> <code><a href="note-summaries.html">octave_span()</a></code> </p>
+        </td>
+        <td><p>Noteworthy string summaries</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="note-coerce.html">naturalize()</a></code> <code><a href="note-coerce.html">sharpen_flat()</a></code> <code><a href="note-coerce.html">flatten_sharp()</a></code> <code><a href="note-coerce.html">note_set_key()</a></code> <code><a href="note-coerce.html">as_tick_octaves()</a></code> <code><a href="note-coerce.html">as_integer_octaves()</a></code> <code><a href="note-coerce.html">as_space_time()</a></code> <code><a href="note-coerce.html">as_vector_time()</a></code> <code><a href="note-coerce.html">pretty_notes()</a></code> </p>
+        </td>
+        <td><p>Basic noteworthy strings formatting and coercion helpers</p></td>
       </tr><tr>
         
         <td>
@@ -262,15 +274,15 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="valid-notes.html">is_note()</a></code> <code><a href="valid-notes.html">is_chord()</a></code> <code><a href="valid-notes.html">noteworthy()</a></code> <code><a href="valid-notes.html">is_diatonic()</a></code> <code><a href="valid-notes.html">as_noteworthy()</a></code> </p>
-        </td>
-        <td><p>Check note and chord validity</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="note-equivalence.html">note_is_equal()</a></code> <code><a href="note-equivalence.html">note_is_identical()</a></code> <code><a href="note-equivalence.html">pitch_is_equal()</a></code> <code><a href="note-equivalence.html">pitch_is_identical()</a></code> <code><a href="note-equivalence.html">octave_is_equal()</a></code> <code><a href="note-equivalence.html">octave_is_identical()</a></code> </p>
         </td>
         <td><p>Note, pitch and chord equivalence</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="transpose.html">transpose()</a></code> <code><a href="transpose.html">tp()</a></code> </p>
+        </td>
+        <td><p>Transpose pitch</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -309,12 +321,6 @@
           <p><code><a href="chord-filter.html">chord_root()</a></code> <code><a href="chord-filter.html">chord_top()</a></code> <code><a href="chord-filter.html">chord_slice()</a></code> </p>
         </td>
         <td><p>Extract notes from chords</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="chord_is_diatonic.html">chord_is_diatonic()</a></code> </p>
-        </td>
-        <td><p>Check if chords are diatonic</p></td>
       </tr><tr>
         
         <td>
@@ -374,7 +380,7 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="scale-deg.html">scale_degree()</a></code> <code><a href="scale-deg.html">scale_note()</a></code> <code><a href="scale-deg.html">note_in_scale()</a></code> </p>
+          <p><code><a href="scale-deg.html">scale_degree()</a></code> <code><a href="scale-deg.html">scale_note()</a></code> <code><a href="scale-deg.html">note_in_scale()</a></code> <code><a href="scale-deg.html">chord_degree()</a></code> <code><a href="scale-deg.html">is_in_scale()</a></code> </p>
         </td>
         <td><p>Scale degrees and mappings</p></td>
       </tr><tr>
@@ -383,6 +389,12 @@
           <p><code><a href="scale-helpers.html">scale_diatonic()</a></code> <code><a href="scale-helpers.html">scale_major()</a></code> <code><a href="scale-helpers.html">scale_minor()</a></code> <code><a href="scale-helpers.html">scale_harmonic_minor()</a></code> <code><a href="scale-helpers.html">scale_hungarian_minor()</a></code> <code><a href="scale-helpers.html">scale_melodic_minor()</a></code> <code><a href="scale-helpers.html">scale_jazz_minor()</a></code> <code><a href="scale-helpers.html">scale_chromatic()</a></code> </p>
         </td>
         <td><p>Scale helpers</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="is_diatonic.html">is_diatonic()</a></code> </p>
+        </td>
+        <td><p>Check if notes and chords are diatonic</p></td>
       </tr><tr>
         
         <td>
@@ -400,7 +412,7 @@
       <tr>
         
         <td>
-          <p><code><a href="interval-helpers.html">pitch_interval()</a></code> <code><a href="interval-helpers.html">scale_interval()</a></code> <code><a href="interval-helpers.html">tuning_intervals()</a></code> </p>
+          <p><code><a href="intervals.html">pitch_interval()</a></code> <code><a href="intervals.html">pitch_diff()</a></code> <code><a href="intervals.html">scale_interval()</a></code> <code><a href="intervals.html">scale_diff()</a></code> <code><a href="intervals.html">tuning_intervals()</a></code> </p>
         </td>
         <td><p>Interval helpers</p></td>
       </tr><tr>
@@ -423,6 +435,20 @@
           <p><code><a href="pitch_freq.html">pitch_freq()</a></code> <code><a href="pitch_freq.html">pitch_semitones()</a></code> <code><a href="pitch_freq.html">chord_freq()</a></code> <code><a href="pitch_freq.html">chord_semitones()</a></code> <code><a href="pitch_freq.html">freq_pitch()</a></code> <code><a href="pitch_freq.html">freq_semitones()</a></code> <code><a href="pitch_freq.html">semitone_pitch()</a></code> </p>
         </td>
         <td><p>Pitch conversions</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-tidy-music-data-analysis" class="hasAnchor"><a href="#section-tidy-music-data-analysis" class="anchor"></a>Tidy music data analysis</h2>
+          <p class="section-desc"><p>Functions for converting to and from and manipulating music data frames</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="as_music_df.html">as_music_df()</a></code> </p>
+        </td>
+        <td><p>Noteworthy string to data frame</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -596,7 +622,7 @@
         <td>
           <p><code><a href="read_midi.html">read_midi()</a></code> <code><a href="read_midi.html">midi_metadata()</a></code> <code><a href="read_midi.html">midi_notes()</a></code> <code><a href="read_midi.html">midi_time()</a></code> <code><a href="read_midi.html">midi_key()</a></code> </p>
         </td>
-        <td><p>Read MIDI file</p></td>
+        <td><p>Read and inspect MIDI file contents</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -643,6 +669,7 @@
       <li><a href="#section-key-signatures-scales-and-modes">Key signatures, scales and modes</a></li>
       <li><a href="#section-interval-helpers">Interval helpers</a></li>
       <li><a href="#section-notation-frequency-conversion">Notation-frequency conversion</a></li>
+      <li><a href="#section-tidy-music-data-analysis">Tidy music data analysis</a></li>
       <li><a href="#section-plots-non-tablature-visualizations-">Plots (non-tablature visualizations)</a></li>
       <li><a href="#section-phrase-validation-and-coercion">Phrase validation and coercion</a></li>
       <li><a href="#section-transcription-phrase-construction">Transcription: Phrase construction</a></li>

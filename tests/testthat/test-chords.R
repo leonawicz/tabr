@@ -23,8 +23,8 @@ test_that("chord helpers return as expected", {
   expect_equal(chord_break("c e g ceg ceg"), as_noteworthy("c e g c e g c e g"))
   expect_equal(chord_break(c("c", "ceg")) %>% as.character(), c("c", "c e g"))
 
-  expect_equal(chord_is_diatonic("ceg ace ce_g", "c"), c(TRUE, TRUE, FALSE))
-  expect_equal(chord_is_diatonic(c("dfa", "df#a"), "d"), c(FALSE, TRUE))
+  expect_equal(is_diatonic("r ceg ace s ce_g", "c"), c(NA, T, T, NA, F))
+  expect_equal(is_diatonic(c("dfa", "df#a"), "d"), c(FALSE, TRUE))
 
   expect_equal(chord_arpeggiate("ce_gb_", 2),
                as_noteworthy(c("ce_gb_", "e_gb_c4", "gb_c4e_4")))
@@ -36,7 +36,7 @@ test_that("chord helpers return as expected", {
                as_noteworthy("c e_ g b_ e_ g b_ c4"))
   expect_equal(chord_arpeggiate("ceg"), as_noteworthy("ceg"))
   expect_equal(chord_arpeggiate("ceg'", 1),
-               as_noteworthy("ceg' eg'c''", "vector"))
+               as_noteworthy("ceg' eg'c''", format = "vector"))
   expect_error(chord_arpeggiate("ceg ceg"), "`chord` must be a single chord.")
 
   x <- "c cg, ce ce_ ceg ce_gb g,ce g,ce_ e_,g,c e_,g,ce_ e_,g,c"
@@ -63,19 +63,20 @@ test_that("interval_semitones returns as expected", {
 })
 
 test_that("dyad constructor returns as expected", {
-  expect_equal(dyad("a", 4) %>% as.character(), "ac#4")
+  expect_equal(dyad("a", 4) %>% as.character(), "ad_'")
   x <- c("minor third", "m3", "augmented second", "A2")
-  y <- sapply(x, function(x) dyad("a", x))
+  y <- sapply(x, function(x) dyad("a", x, octaves = "integer"))
   expect_equal(as.character(y), rep("ac4", 4))
-  y <- sapply(x, function(x) dyad("c'", x, reverse = TRUE))
+  y <- sapply(x, function(x) dyad("c'", x, reverse = TRUE, octaves = "integer"))
   expect_equal(as.character(y), rep("ac'", 4))
   x <- c("M3", "m3", "m3", "M3", "M3", "m3", "m3")
-  y <- dyad(letters[c(3:7, 1, 2)], x) %>% as.character()
+  y <- dyad(letters[c(3:7, 1, 2)], x, octaves = "integer") %>% as.character()
   expect_equal(y, c("ce", "df", "eg", "fa", "gb", "ac4", "bd4"))
   x <- c("P1", "m3", "M3", "P4", "P5", "P8", "M9")
-  expect_equal(dyad("c", x) %>% as.character(),
+  expect_equal(dyad("c", x, octaves = "integer", accidentals = "sharp") %>%
+                 as.character(),
                c("c cd# ce cf cg cc4 cd4"))
-  y <- dyad("c", x, reverse = TRUE) %>% as.character()
+  y <- dyad("c", x, reverse = TRUE, octaves = "integer") %>% as.character()
   expect_equal(y, c("c a2c a_2c g2c f2c c2c b_1c"))
   expect_equal(dyad("d e", "m3"), as_noteworthy("df eg"))
 
@@ -131,78 +132,114 @@ test_that("chord constructors return as expected", {
 # lintr gets confused thinking there are comment lines - # nolint start
 
   test_chord_constructors <- function(root, n, key, ...){
-    s <- list(...)$style
-    if(is.null(s)) s <- "default"
-    expect_equal(xm(root, key, style = s),
-                 transpose("cd#g", n, key, style = s))
-    expect_equal(xM(root, key, style = s),
-                 transpose("ceg", n, key, style = s))
-    expect_equal(xm7(root, key, style = s),
-                 transpose("cd#ga#", n, key, style = s))
-    expect_equal(x7(root, key, style = s),
-                 transpose("cega#", n, key, style = s))
-    expect_equal(x7s5(root, key, style = s),
-                 transpose("ceg#a#", n, key, style = s))
-    expect_equal(xM7(root, key, style = s),
-                 transpose("cegb", n, key, style = s))
-    expect_equal(xm6(root, key, style = s),
-                 transpose("cd#ga", n, key, style = s))
-    expect_equal(xM6(root, key, style = s),
-                 transpose("cega", n, key, style = s))
-    expect_equal(xdim(root, key, style = s),
-                 transpose("cd#f#", n, key, style = s))
-    expect_equal(xdim7(root, key, style = s),
-                 transpose("cd#f#a", n, key, style = s))
-    expect_equal(xm7b5(root, key, style = s),
-                 transpose("cd#f#a#", n, key, style = s))
-    expect_equal(xaug(root, key, style = s),
-                 transpose("ceg#", n, key, style = s))
-    expect_equal(x5(root, key, style = s),
-                 transpose("cg", n, key, style = s))
-    expect_equal(xs2(root, key, style = s),
-                 transpose("cdg", n, key, style = s))
-    expect_equal(xs4(root, key, style = s),
-                 transpose("cfg", n, key, style = s))
-    expect_equal(x9(root, key, style = s),
-                 transpose("cega#d4", n, key, style = s))
-    expect_equal(x7s9(root, key, style = s),
-                 transpose("cega#d#4", n, key, style = s))
-    expect_equal(xM9(root, key, style = s),
-                 transpose("cegbd4", n, key, style = s))
-    expect_equal(xadd9(root, key, style = s),
-                 transpose("cegd4", n, key, style = s))
-    expect_equal(xm9(root, key, style = s),
-                 transpose("cd#ga#d4", n, key, style = s))
-    expect_equal(xma9(root, key, style = s),
-                 transpose("cd#gd4", n, key, style = s))
-    expect_equal(xm11(root, key, style = s),
-                 transpose("cd#ga#d4f4", n, key, style = s))
-    expect_equal(x7s11(root, key, style = s),
-                 transpose("cega#f#4", n, key, style = s))
-    expect_equal(xM7s11(root, key, style = s),
-                 transpose("cegbd4f#4", n, key, style = s))
-    expect_equal(x_11(root, key, style = s),
-                 transpose("cga#d4f4", n, key, style = s))
-    expect_equal(xM11(root, key, style = s),
-                 transpose("cegbd4f4", n, key, style = s))
-    expect_equal(x_13(root, key, style = s),
-                 transpose("cega#d4a4", n, key, style = s))
-    expect_equal(xm13(root, key, style = s),
-                 transpose("cd#ga#d4a4", n, key, style = s))
-    expect_equal(xM13(root, key, style = s),
-                 transpose("cegbd4f4a4", n, key, style = s))
+    o <- list(...)$octaves
+    a <- list(...)$accidentals
+    expect_equal(
+      xm(root, octaves = o, key = key),
+      transpose("cd#g", n, octaves = o, accidentals = a, key = key))
+    expect_equal(
+      xM(root, octaves = o, key = key),
+      transpose("ceg", n, octaves = o, accidentals = a, key = key))
+    expect_equal(
+      xm7(root, octaves = o, key = key),
+      transpose("cd#ga#", n, octaves = o, accidentals = a, key = key))
+    expect_equal(
+      x7(root, octaves = o, key = key),
+      transpose("cega#", n, octaves = o, accidentals = a, key = key))
+    expect_equal(
+      x7s5(root, octaves = o, key = key),
+      transpose("ceg#a#", n, octaves = o, accidentals = a, key = key))
+    expect_equal(
+      xM7(root, octaves = o, key = key),
+      transpose("cegb", n, octaves = o, accidentals = a, key = key))
+    expect_equal(
+      xm6(root, octaves = o, key = key),
+      transpose("cd#ga", n, octaves = o, accidentals = a, key = key))
+    expect_equal(
+      xM6(root, octaves = o, key = key),
+      transpose("cega", n, octaves = o, accidentals = a, key = key))
+    expect_equal(
+      xdim(root, octaves = o, key = key),
+      transpose("cd#f#", n, octaves = o, accidentals = a, key = key))
+    expect_equal(
+      xdim7(root, octaves = o, key = key),
+      transpose("cd#f#a", n, octaves = o, accidentals = a, key = key))
+    expect_equal(
+      xm7b5(root, octaves = o, key = key),
+      transpose("cd#f#a#", n, octaves = o, accidentals = a, key = key))
+    expect_equal(
+      xaug(root, octaves = o, key = key),
+      transpose("ceg#", n, octaves = o, accidentals = a, key = key))
+    expect_equal(
+      x5(root, octaves = o, key = key),
+      transpose("cg", n, octaves = o, accidentals = a, key = key))
+    expect_equal(
+      xs2(root, octaves = o, key = key),
+      transpose("cdg", n, octaves = o, accidentals = a, key = key))
+    expect_equal(
+      xs4(root, octaves = o, key = key),
+      transpose("cfg", n, octaves = o, accidentals = a, key = key))
+    expect_equal(
+      x9(root, octaves = o, key = key),
+      transpose("cega#d4", n, octaves = o, accidentals = a, key = key))
+    expect_equal(
+      x7s9(root, octaves = o, key = key),
+      transpose("cega#d#4", n, octaves = o, accidentals = a, key = key))
+    expect_equal(
+      xM9(root, octaves = o, key = key),
+      transpose("cegbd4", n, octaves = o, accidentals = a, key = key))
+    expect_equal(
+      xadd9(root, octaves = o, key = key),
+      transpose("cegd4", n, octaves = o, accidentals = a, key = key))
+    expect_equal(
+      xm9(root, octaves = o, key = key),
+      transpose("cd#ga#d4", n, octaves = o, accidentals = a, key = key))
+    expect_equal(
+      xma9(root, octaves = o, key = key),
+      transpose("cd#gd4", n, octaves = o, accidentals = a, key = key))
+    expect_equal(
+      xm11(root, octaves = o, key = key),
+      transpose("cd#ga#d4f4", n, octaves = o, accidentals = a, key = key))
+    expect_equal(
+      x7s11(root, octaves = o, key = key),
+      transpose("cega#f#4", n, octaves = o, accidentals = a, key = key))
+    expect_equal(
+      xM7s11(root, octaves = o, key = key),
+      transpose("cegbd4f#4", n, octaves = o, accidentals = a, key = key))
+    expect_equal(
+      x_11(root, octaves = o, key = key),
+      transpose("cga#d4f4", n, octaves = o, accidentals = a, key = key))
+    expect_equal(
+      xM11(root, octaves = o, key = key),
+      transpose("cegbd4f4", n, octaves = o, accidentals = a, key = key))
+    expect_equal(
+      x_13(root, octaves = o, key = key),
+      transpose("cega#d4a4", n, octaves = o, accidentals = a, key = key))
+    expect_equal(
+      xm13(root, octaves = o, key = key),
+      transpose("cd#ga#d4a4", n, octaves = o, accidentals = a, key = key))
+    expect_equal(
+      xM13(root, octaves = o, key = key),
+      transpose("cegbd4f4a4", n, octaves = o, accidentals = a, key = key))
   }
 
-  test_chord_constructors("c", 0, "c")
-  test_chord_constructors("b_2", -2, "d")
-  test_chord_constructors("a#,", -2, "d", style = "tick")
-  test_chord_constructors("b_3", 10, "f")
-  test_chord_constructors("e_1", -21, "f")
-  test_chord_constructors("d#''", 27, "f", style = "tick")
-  test_chord_constructors("d#''", 27, "f", style = "integer")
-  test_chord_constructors("d#''", 27, "f", style = "strip")
+  test_chord_constructors("c", 0, "g", octaves = "integer",
+                          accidentals = "sharp")
+  test_chord_constructors("b_2", -2, "d", octaves = "integer",
+                          accidentals = "sharp")
+  test_chord_constructors("a#,", -2, "d", octaves = "integer",
+                          accidentals = "sharp")
+  test_chord_constructors("b_3", 10, "f", octaves = "integer",
+                          accidentals = "sharp")
+  test_chord_constructors("e_1", -21, "f", octaves = "integer",
+                          accidentals = "sharp")
+  test_chord_constructors("d#''", 27, "f", octaves = "integer",
+                          accidentals = "sharp")
+  test_chord_constructors("d#''", 27, "f", octaves = "integer",
+                          accidentals = "sharp")
 
-  expect_equal(xm(c("c#", "f#", "g#")) %>% as.character(),
+  expect_equal(xm(c("c#", "f#", "g#"), key = "b", octaves = "integer") %>%
+                 as.character(),
                c("c#eg#", "f#ac#4", "g#bd#4"))
   expect_equal(xm("b_2 f g"), as_space_time(xm(c("b_2", "f", "g"))))
 

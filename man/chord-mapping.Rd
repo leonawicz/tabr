@@ -93,7 +93,7 @@ chord_name_root("a aM b_,m7#5")
 chord_name_mod("a aM b_,m7#5")
 
 gc_info("a") # a major chord, not a single note
-gc_info("ceg a#m7_5") # only third entry is a guitar chord
+gc_info("ceg a#m7_5") # only second entry is a guitar chord
 gc_info("ceg a#m7_5", key = "f")
 
 gc_info("a,m c d f,")

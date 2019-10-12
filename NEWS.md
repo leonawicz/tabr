@@ -1,5 +1,12 @@
-# tabr 0.3.5.9000
+# tabr 0.3.9.9000
 
+* Refactored many package functions. Most behavior unchanged, but some breaking changes were made based on intentional shifts in perspective about what some functions should do and how the user should interact with them. This included changes to function arguments as well as some redefinition of what certain functions do.
+* Substantial code optimization was done, overhauling much of the package in the process.
+* Vectorized functions that previously only operated note by note.
+* Generalized functions that previously could accept notes but not chords, doing so on a case by case basis in ways that are meaningful and sensible for handling chords.
+* Added MIDI file read support (requires optional `tuneR` installation) and a set of functions for inspecting and manipulating the table of MIDI music data.
+* Added more functions for mapping between noteworthy strings, phrase objects, and data frames.
+* Updated vignettes, readme and other documentation.
 * Made improvements to print method for phrase objects.
 * Added `rests` argument to some note metadata functions.
 * Minor bug fixes.

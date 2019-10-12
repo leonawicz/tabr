@@ -89,7 +89,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9.9000</span>
       </span>
     </div>
 
@@ -221,11 +221,13 @@
 
 <span class='fu'>chord_semitones</span>(<span class='no'>notes</span>)
 
-<span class='fu'>freq_pitch</span>(<span class='no'>freq</span>, <span class='kw'>a4</span> <span class='kw'>=</span> <span class='fl'>440</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+<span class='fu'>freq_pitch</span>(<span class='no'>freq</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"tick"</span>, <span class='st'>"integer"</span>),
+  <span class='kw'>accidentals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"flat"</span>, <span class='st'>"sharp"</span>), <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>a4</span> <span class='kw'>=</span> <span class='fl'>440</span>)
 
 <span class='fu'>freq_semitones</span>(<span class='no'>freq</span>, <span class='kw'>a4</span> <span class='kw'>=</span> <span class='fl'>440</span>)
 
-<span class='fu'>semitone_pitch</span>(<span class='no'>semitones</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"tick"</span>, <span class='st'>"integer"</span>))</pre>
+<span class='fu'>semitone_pitch</span>(<span class='no'>semitones</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"tick"</span>, <span class='st'>"integer"</span>),
+  <span class='kw'>accidentals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"flat"</span>, <span class='st'>"sharp"</span>), <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -244,22 +246,27 @@ individual entries. See details.</p></td>
       <td><p>numeric vector, frequencies in Hz.</p></td>
     </tr>
     <tr>
-      <th>collapse</th>
-      <td><p>logical, collapse result into a single string.</p></td>
+      <th>octaves</th>
+      <td><p><code>NULL</code> or character, <code>"tick"</code> or <code>"integer"</code>
+octave numbering in result.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>other arguments passed to <code>tranpose</code>, specifically
-<code>key</code> and <code>style</code>.</p></td>
+      <th>accidentals</th>
+      <td><p><code>NULL</code> or character, represent accidentals,
+<code>"flat"</code> or <code>"sharp"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>collapse</th>
+      <td><p>logical, collapse result into a single string.</p></td>
     </tr>
     <tr>
       <th>semitones</th>
       <td><p>integer values of pitches.</p></td>
     </tr>
     <tr>
-      <th>octaves, </th>
-      <td><p>character, octave number format, <code>"tick"</code> or
-<code>"integer"</code>.</p></td>
+      <th>...</th>
+      <td><p>other arguments passed to <code>tranpose</code>, specifically
+<code>key</code> and <code>style</code>.</p></td>
     </tr>
     </table>
 
@@ -281,10 +288,26 @@ type-safe. See examples.</p>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"a e4 a4 e5 a5"</span>
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'>pitch_freq</span>(<span class='no'>x</span>)
 <span class='no'>y</span></div><div class='output co'>#&gt; [1] 220.0000 329.6276 440.0000 659.2551 880.0000</div><div class='input'>
-<span class='fu'>freq_pitch</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; <span style='color: #808080;font-weight: bold;'>&lt;Noteworthy string&gt;
-#&gt;   Format: </span><span>vectorized time</span><span style='color: #808080;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00AFFF;font-weight: bold;'>a</span><span> </span><span style='color: #00AFFF;font-weight: bold;'>e</span><span style='color: #00AFFF;'>4</span><span> </span><span style='color: #00AFFF;font-weight: bold;'>a</span><span style='color: #00AFFF;'>4</span><span> </span><span style='color: #00AFFF;font-weight: bold;'>e</span><span style='color: #00AFFF;'>5</span><span> </span><span style='color: #00AFFF;font-weight: bold;'>a</span><span style='color: #00AFFF;'>5</span><span></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='fu'><a href='valid-notes.html'>as_noteworthy</a></span>(<span class='no'>x</span>), <span class='fu'>freq_pitch</span>(<span class='no'>y</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; [1] TRUE</div></span></pre>
+<span class='fu'>freq_semitones</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; [1] 57 64 69 76 81</div><div class='input'><span class='fu'>freq_pitch</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; <span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>vectorized time</span><span style='color: #555555;font-weight: bold;'>
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e</span><span style='color: #00BBBB;'>'</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #00BBBB;'>'</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e</span><span style='color: #00BBBB;'>''</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #00BBBB;'>''</span><span></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='fu'><a href='valid-notes.html'>as_noteworthy</a></span>(<span class='no'>x</span>), <span class='fu'>freq_pitch</span>(<span class='no'>y</span>, <span class='st'>"integer"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>pitch_semitones</span>(<span class='no'>x</span>)
+<span class='no'>s</span></div><div class='output co'>#&gt; [1] 57 64 69 76 81</div><div class='input'><span class='fu'>semitone_pitch</span>(<span class='no'>s</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>vectorized time</span><span style='color: #555555;font-weight: bold;'>
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e</span><span style='color: #00BBBB;'>'</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #00BBBB;'>'</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e</span><span style='color: #00BBBB;'>''</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #00BBBB;'>''</span><span></div><div class='input'>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"a, a,c#e"</span>
+<span class='fu'>chord_semitones</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; $`a,`
+#&gt; [1] 45
+#&gt; 
+#&gt; $`a,c#e`
+#&gt; [1] 45 49 52
+#&gt; </div><div class='input'><span class='fu'>chord_freq</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; $`a,`
+#&gt; [1] 110
+#&gt; 
+#&gt; $`a,c#e`
+#&gt; [1] 110.0000 138.5913 164.8138
+#&gt; </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Interval helpers — interval-helpers • tabr</title>
+<title>Basic noteworthy string checks — note-checks • tabr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -44,8 +44,9 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Interval helpers — interval-helpers" />
-<meta property="og:description" content="Helper functions for musical intervals defined by two notes." />
+<meta property="og:title" content="Basic noteworthy string checks — note-checks" />
+<meta property="og:description" content="The simplest functions for inspecting noteworthy strings to see if their
+notes have certain properties." />
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -89,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9.9000</span>
       </span>
     </div>
 
@@ -204,68 +205,63 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Interval helpers</h1>
-    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/intervals.R'><code>R/intervals.R</code></a></small>
-    <div class="hidden name"><code>interval-helpers.Rd</code></div>
+    <h1>Basic noteworthy string checks</h1>
+    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/notes.R'><code>R/notes.R</code></a></small>
+    <div class="hidden name"><code>note-checks.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Helper functions for musical intervals defined by two notes.</p>
+    <p>The simplest functions for inspecting noteworthy strings to see if their
+notes have certain properties.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>pitch_interval</span>(<span class='no'>note1</span>, <span class='no'>note2</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>note_is_accidental</span>(<span class='no'>notes</span>)
 
-<span class='fu'>scale_interval</span>(<span class='no'>note1</span>, <span class='no'>note2</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mmp_abb"</span>, <span class='st'>"mmp"</span>, <span class='st'>"ad_abb"</span>,
-  <span class='st'>"ad"</span>), <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>note_is_natural</span>(<span class='no'>notes</span>)
 
-<span class='fu'>tuning_intervals</span>(<span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>)</pre>
+<span class='fu'>note_is_flat</span>(<span class='no'>notes</span>)
+
+<span class='fu'>note_is_sharp</span>(<span class='no'>notes</span>)
+
+<span class='fu'>note_has_accidental</span>(<span class='no'>notes</span>)
+
+<span class='fu'>note_has_natural</span>(<span class='no'>notes</span>)
+
+<span class='fu'>note_has_flat</span>(<span class='no'>notes</span>)
+
+<span class='fu'>note_has_sharp</span>(<span class='no'>notes</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>note1</th>
-      <td><p>character, first note. Must be a single note.</p></td>
-    </tr>
-    <tr>
-      <th>note2</th>
-      <td><p>character, second note.</p></td>
-    </tr>
-    <tr>
-      <th>ignore_octave</th>
-      <td><p>logical, reduce the interval to that defined by notes
-within a single octave.</p></td>
-    </tr>
-    <tr>
-      <th>format</th>
-      <td><p>character, format of the scale notation: major/minor/perfect,
-augmented/diminished, and respective abbreviations. See argument options in
-defaults.</p></td>
-    </tr>
-    <tr>
-      <th>tuning</th>
-      <td><p>character, string tuning.</p></td>
+      <th>notes</th>
+      <td><p>character, a noteworthy string.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a musical interval, integer or character depending on the function.</p>
+    <p>logical</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Intervals are directional. <code>pitch_interval</code> returns the number of
-semitones defining the distance between two notes. The interval is negative
-if <code>note1</code> has higher pitch than <code>note2</code>.
-For <code>scale_interval</code>, a character string is returned that provides the
-named main interval, simple or compound, defined by  the two notes.
-This function will return <code>NA</code> for any uncommon interval not listed in
-<code><a href='mainIntervals.html'>mainIntervals</a></code>.</p>
+    <p>Note that these functions are the weakest in terms of checking
+noteworthiness. They are simple regular expression-based wrappers. They are
+often used internally by more complex functions without wasting computational
+overhead on performing input validity checks, but they are exported from the
+package for user convenience. Their results will only make sense on strings
+that you define in accordance with noteworthy string rules.</p>
+<p>The <code>note_is_*</code> functions return a logical vector with length equal to
+the number of timesteps in <code>notes</code>.
+The <code>note_has_*</code> functions summarize these to a single logical value.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='mainIntervals.html'>mainIntervals</a></code></p></div>
+    <div class='dont-index'><p><code><a href='note-metadata.html'>note-metadata</a></code>, <code><a href='note-summaries.html'>note-summaries</a></code>,
+<code><a href='note-coerce.html'>note-coerce</a></code>, <code><a href='valid-notes.html'>valid-notes</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>pitch_interval</span>(<span class='st'>"b"</span>, <span class='st'>"c4"</span>)</div><div class='output co'>#&gt; [1] 1</div><div class='input'><span class='fu'>pitch_interval</span>(<span class='st'>"c,"</span>, <span class='st'>"d"</span>)</div><div class='output co'>#&gt; [1] 14</div><div class='input'><span class='fu'>scale_interval</span>(<span class='st'>"c"</span>, <span class='st'>"e_"</span>)</div><div class='output co'>#&gt; [1] "m3"</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"a_2 a a#'"</span>
+<span class='fu'>note_has_accidental</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>note_has_natural</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>note_has_flat</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>note_has_sharp</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>note_is_accidental</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1]  TRUE FALSE  TRUE</div><div class='input'><span class='fu'>note_is_natural</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] FALSE  TRUE FALSE</div><div class='input'><span class='fu'>note_is_flat</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1]  TRUE FALSE FALSE</div><div class='input'><span class='fu'>note_is_sharp</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] FALSE FALSE  TRUE</div><div class='input'><span class='fu'><a href='note-metadata.html'>note_has_tick</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'><a href='note-metadata.html'>note_has_integer</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

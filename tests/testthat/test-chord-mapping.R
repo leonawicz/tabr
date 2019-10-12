@@ -53,5 +53,5 @@ test_that("chord_def returns as expected", {
   x1 <- chord_def(frets, "M")
   x2 <- chord_def(frets, "M", 6)
   expect_true(is.na(x1$optional))
-  expect_equal(x2$optional, "c#''")
+  expect_equal(x2$optional, "d_''")
 })

@@ -89,7 +89,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9.9000</span>
       </span>
     </div>
 
@@ -213,20 +213,19 @@
     <p>Rank, order and sort chords and notes by various definitions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>chord_rank</span>(<span class='no'>chords</span>, <span class='kw'>pitch</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"min"</span>, <span class='st'>"mean"</span>, <span class='st'>"max"</span>), <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>chord_rank</span>(<span class='no'>notes</span>, <span class='kw'>pitch</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"min"</span>, <span class='st'>"mean"</span>, <span class='st'>"max"</span>), <span class='no'>...</span>)
 
-<span class='fu'>chord_order</span>(<span class='no'>chords</span>, <span class='kw'>pitch</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"min"</span>, <span class='st'>"mean"</span>, <span class='st'>"max"</span>), <span class='no'>...</span>)
+<span class='fu'>chord_order</span>(<span class='no'>notes</span>, <span class='kw'>pitch</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"min"</span>, <span class='st'>"mean"</span>, <span class='st'>"max"</span>), <span class='no'>...</span>)
 
-<span class='fu'>chord_sort</span>(<span class='no'>chords</span>, <span class='kw'>pitch</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"min"</span>, <span class='st'>"mean"</span>, <span class='st'>"max"</span>), <span class='kw'>decreasing</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+<span class='fu'>chord_sort</span>(<span class='no'>notes</span>, <span class='kw'>pitch</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"min"</span>, <span class='st'>"mean"</span>, <span class='st'>"max"</span>), <span class='kw'>decreasing</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>chords</th>
-      <td><p>character, a noteworthy string, may include individual notes
-and chords.</p></td>
+      <th>notes</th>
+      <td><p>character, a noteworthy string.</p></td>
     </tr>
     <tr>
       <th>pitch</th>

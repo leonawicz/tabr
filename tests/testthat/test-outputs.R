@@ -59,7 +59,8 @@ paper <- list(textheight = 230, linewidth = 160, indent = 20, fontsize = 16,
               first_page_number = 10, page_numbers = FALSE)
 
 out <- file.path(tempdir(), c("out.ly", "out.pdf", "out.png"))
-cleanup <- file.path(tempdir(), c("out.mid", "out.pdf", "out.png", "out.log"))
+cleanup <- file.path(tempdir(), c("out.mid", "out.pdf", "out.png", "out.log",
+                                  "out.ly"))
 cl <- "NULL"
 
 test_that("lilypond wrapper runs without error", {
@@ -91,7 +92,7 @@ test_that("tab wrapper runs without error", {
     tab(.x, out[3], midi = include_midi, details = FALSE), cl))
 
   expect_error(tab(x8, out[2], "d_m", midi = include_midi, details = FALSE),
-               "Invalid key.")
+               "Invalid `key`. See `keys\\(\\)`.")
 
   purrr::walk(keys(), ~expect_is(
     tab(x8, out[2], .x, "2/2", "4 = 110", header = header,

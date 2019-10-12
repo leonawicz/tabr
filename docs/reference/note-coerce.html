@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Inspect or coerce noteworthy string formats — note_is_natural • tabr</title>
+<title>Basic noteworthy strings formatting and coercion helpers — note-coerce • tabr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -44,8 +44,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Inspect or coerce noteworthy string formats — note_is_natural" />
-<meta property="og:description" content="Helper functions for inspecting and setting formatting attributes of
+<meta property="og:title" content="Basic noteworthy strings formatting and coercion helpers — note-coerce" />
+<meta property="og:description" content="Helper functions for setting formatting attributes of
 noteworthy strings including representation of timesteps, octaves and
 accidentals." />
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
@@ -91,7 +91,7 @@ accidentals." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9.9000</span>
       </span>
     </div>
 
@@ -206,31 +206,22 @@ accidentals." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Inspect or coerce noteworthy string formats</h1>
+    <h1>Basic noteworthy strings formatting and coercion helpers</h1>
     <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/notes.R'><code>R/notes.R</code></a></small>
-    <div class="hidden name"><code>note_is_natural.Rd</code></div>
+    <div class="hidden name"><code>note-coerce.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Helper functions for inspecting and setting formatting attributes of
+    <p>Helper functions for setting formatting attributes of
 noteworthy strings including representation of timesteps, octaves and
 accidentals.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>note_is_natural</span>(<span class='no'>notes</span>)
+    <pre class="usage"><span class='fu'>naturalize</span>(<span class='no'>notes</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"both"</span>, <span class='st'>"flat"</span>, <span class='st'>"sharp"</span>))
 
-<span class='fu'>note_is_accidental</span>(<span class='no'>notes</span>)
+<span class='fu'>sharpen_flat</span>(<span class='no'>notes</span>)
 
-<span class='fu'>note_is_flat</span>(<span class='no'>notes</span>)
-
-<span class='fu'>note_is_sharp</span>(<span class='no'>notes</span>)
-
-<span class='fu'>naturalize</span>(<span class='no'>notes</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"both"</span>, <span class='st'>"flat"</span>, <span class='st'>"sharp"</span>),
-  <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
-<span class='fu'>sharpen_flat</span>(<span class='no'>notes</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
-<span class='fu'>flatten_sharp</span>(<span class='no'>notes</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>flatten_sharp</span>(<span class='no'>notes</span>)
 
 <span class='fu'>note_set_key</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>)
 
@@ -257,15 +248,15 @@ individual entries.</p></td>
       <td><p>character, type of note to naturalize.</p></td>
     </tr>
     <tr>
-      <th>ignore_octave</th>
-      <td><p>logical, strip any octave notation that may be present,
-returning only the basic notes without explicit pitch.</p></td>
-    </tr>
-    <tr>
       <th>key</th>
       <td><p>character, key signature to coerce any accidentals to the
 appropriate form for the key. May also specify <code>"sharp"</code> or
 <code>"flat"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>ignore_octave</th>
+      <td><p>logical, strip any octave notation that may be present,
+returning only the basic notes without explicit pitch.</p></td>
     </tr>
     </table>
 
@@ -274,10 +265,7 @@ appropriate form for the key. May also specify <code>"sharp"</code> or
     <p>character</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The <code>note_is_*</code> functions strictly allow individual notes, not chords.
-The other functions listed here accept any noteworthy string including those
-containing chords.</p>
-<p>For <code>sharpen_flat</code> and <code>flatten_sharp</code>, sharpening flats and
+    <p>For <code>sharpen_flat</code> and <code>flatten_sharp</code>, sharpening flats and
 flattening sharps refer to inverting their respective notation,
 not to raising or lowering a flatted or sharped note by one semitone.
 For the latter, use <code>naturalize</code>, which removes flat and/or sharp
@@ -290,26 +278,28 @@ This is a wrapper around <code>sharpen_flat</code> and <code>flatten_sharp</code
 For simultaneous control over the representation of timesteps, octave
 numbering and accidentals, all three are available as arguments to
 <code><a href='valid-notes.html'>as_noteworthy</a></code>.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='note-checks.html'>note-checks</a></code>, <code><a href='note-metadata.html'>note-metadata</a></code>,
+<code><a href='note-summaries.html'>note-summaries</a></code>, <code><a href='valid-notes.html'>valid-notes</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"a_2 a a#'"</span>
-<span class='fu'>note_is_natural</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] FALSE  TRUE FALSE</div><div class='input'><span class='fu'>note_is_accidental</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1]  TRUE FALSE  TRUE</div><div class='input'><span class='fu'>note_is_flat</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1]  TRUE FALSE FALSE</div><div class='input'><span class='fu'>note_is_sharp</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] FALSE FALSE  TRUE</div><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"e_2 a_, b_, c#f#a# c#'f#'a#''"</span>
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"e_2 a_, b_, c#f#a# c#'f#'a#''"</span>
 <span class='fu'>note_set_key</span>(<span class='no'>x</span>, <span class='st'>"f"</span>)</div><div class='output co'>#&gt; <span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>d_g_b_</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>d_</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>g_</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>''</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>note_set_key</span>(<span class='no'>x</span>, <span class='st'>"g"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>d#</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>g#</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a#</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c#f#a#</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c#</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>f#</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>a#</span><span style='color: #00BBBB;'>''</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>as_tick_octaves</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c#f#a#</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c#</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>f#</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>a#</span><span style='color: #00BBBB;'>''</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>as_integer_octaves</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>d_g_b_</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>d_</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>g_</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>''</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>as_integer_octaves</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>2</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span style='color: #00BBBB;'>2</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>2</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c#f#a#</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c#</span><span style='color: #00BBBB;'>4</span><span style='color: #00BBBB;font-weight: bold;'>f#</span><span style='color: #00BBBB;'>4</span><span style='color: #00BBBB;font-weight: bold;'>a#</span><span style='color: #00BBBB;'>5</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'>as_vector_time</span>(<span class='no'>x</span>)
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>2</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span style='color: #00BBBB;'>2</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>2</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>d_g_b_</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>d_</span><span style='color: #00BBBB;'>4</span><span style='color: #00BBBB;font-weight: bold;'>g_</span><span style='color: #00BBBB;'>4</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>5</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'>as_vector_time</span>(<span class='no'>x</span>)
 <span class='fu'><a href='note-metadata.html'>is_vector_time</a></span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'><a href='note-metadata.html'>is_space_time</a></span>(<span class='fu'>as_space_time</span>(<span class='no'>y</span>))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 <span class='fu'>naturalize</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>e</span><span style='color: #00BBBB;'>2</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>cfa</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #00BBBB;'>''</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>naturalize</span>(<span class='no'>x</span>, <span class='st'>"sharp"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>e</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>cfa</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #00BBBB;'>''</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>naturalize</span>(<span class='no'>x</span>, <span class='st'>"sharp"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>2</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>cfa</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #00BBBB;'>''</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>sharpen_flat</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>cfa</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #00BBBB;'>''</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>sharpen_flat</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>d#</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>g#</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a#</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c#f#a#</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c#</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>f#</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>a#</span><span style='color: #00BBBB;'>''</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>flatten_sharp</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
@@ -321,6 +311,7 @@ numbering and accidentals, all three are available as arguments to
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#details">Details</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

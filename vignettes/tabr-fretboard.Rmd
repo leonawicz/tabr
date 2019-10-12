@@ -48,10 +48,10 @@ fret <- c(2, 4, 5, 2, 4, 5, 2, 4, 6, 7, 9, 6, 7, 9, 7, 9, 10, 7, 9, 10)
 fretboard_plot(string, fret, "notes", show_tuning = TRUE)
 ```
 
-How accidentals are displayed when `labels = "notes"`, as sharps or flats, can be controlled by setting the `key` to a specific key or simply to `sharp` or `flat`. Here, the key of F contains a flat, which alters the labeling from the previous diagram. 
+How accidentals are displayed when `labels = "notes"`, as sharps or flats, can be controlled by setting the `key` to a specific key or simply to `sharp` or `flat`. Here, the key of G contains a sharp, which alters the labeling from the previous diagram. 
 
 ```{r fb4}
-fretboard_plot(string, fret, "notes", show_tuning = TRUE, key = "f")
+fretboard_plot(string, fret, "notes", show_tuning = TRUE, key = "g")
 ```
 
 ## Limits

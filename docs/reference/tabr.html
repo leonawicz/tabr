@@ -47,10 +47,7 @@
 <meta property="og:title" content="tabr: Music notation syntax, manipulation, analysis and transcription in R. — tabr" />
 <meta property="og:description" content="The tabr package provides a music notation syntax and a collection of
 music programming functions for generating, manipulating, organizing and
-analyzing musical information in R.
-The package also provides API wrapper functions for transcribing musical
-representations in R into guitar tablature (&quot;tabs&quot;) using the 'LilyPond'
-backend &amp;lt;http://lilypond.org&amp;gt;." />
+analyzing musical information in R." />
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -94,7 +91,7 @@ backend &amp;lt;http://lilypond.org&amp;gt;." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9.9000</span>
       </span>
     </div>
 
@@ -217,24 +214,47 @@ backend &amp;lt;http://lilypond.org&amp;gt;." />
     <div class="ref-description">
     <p>The <code>tabr</code> package provides a music notation syntax and a collection of
 music programming functions for generating, manipulating, organizing and
-analyzing musical information in R.
-The package also provides API wrapper functions for transcribing musical
-representations in R into guitar tablature ("tabs") using the 'LilyPond'
-backend &lt;http://lilypond.org&gt;.</p>
+analyzing musical information in R.</p>
     </div>
 
 
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>LilyPond is an open source music engraving program for generating high
+    <p>The music notation framework facilitates creating and analyzing music data in
+ notation form.
+Music data can be viewed, manipulated and analyzed while in different
+forms of representation based around different data structures: strings and
+data frames.
+Each representation offers advantages over the other for different use cases.
+Music syntax can be entered directly and represented in character strings to
+minimize the formatting overhead of data entry by using simple data
+structures, for example when wanting to quickly enter and transcribe short
+pieces of music to sheet music or tablature.
+Functions exist for directly performing various mathematical and
+organizational operations on these strings by checking their music syntax
+validity and adding custom classes and methods to these strings.
+The same music data can also be organized in tidy data frames, allowing for
+a more familiar and powerful approach to the analysis of large amounts of
+structured music data.
+Functions are available for mapping seamlessly between these data structures
+and their representations of musical information.
+The package also provides API wrapper functions for transcribing musical
+representations in R into guitar tablature ("tabs") and basic sheet music
+using the LilyPond backend &lt;http://lilypond.org&gt;.</p>
+<p>LilyPond is an open source music engraving program for generating high
 quality sheet music based on markup syntax.
-<code>tabr</code> generates LilyPond files from R code and can pass them to
-LilyPond to be rendered into sheet music pdf files from R.</p>
+The package generates LilyPond files from R code and can pass them to
+LilyPond to be rendered into sheet music pdf files.</p>
 <p>While LilyPond caters to sheet music in general and <code>tabr</code> can be used
 to create basic sheet music,
 the transcription functions focus on leveraging LilyPond specifically for
 creating quality guitar tablature.</p>
+<p>The package offers nominal MIDI file output support in conjunction with
+rendering sheet music.
+The package can read MIDI files and attempts to structure the MIDI data to
+integrate as best as possible with the data structures and functionality
+found throughout the package.</p>
 <p><code>tabr</code> offers a useful but limited LilyPond API and is not intended to
 access all LilyPond functionality from R,
 nor is transcription via the API the entire scope of <code>tabr</code>.
@@ -247,8 +267,8 @@ If you are generating music notation programmatically,
 converting what you write in R code to the LilyPond file format to be
 rendered as printable guitar tablature.</p>
 <p>While LilyPond is listed as a system requirement for <code>tabr</code>, you can
-use many of its functions without installing LilyPond if you do not intend
-to render tabs.</p>
+use the package for music analysis without installing LilyPond if you do not
+intend to render tabs.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

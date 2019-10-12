@@ -13,17 +13,21 @@ note_rotate(notes, n = 0)
 
 note_shift(notes, n = 0)
 
-note_arpeggiate(notes, n = 0, ...)
+note_arpeggiate(notes, n = 0, step = 12)
 }
 \arguments{
 \item{notes}{character, a noteworthy string, space-delimited or vector of
 individual entries.}
 
-\item{...}{For \code{note_slice}, an integer or logical vector. See details.
-For \code{note_arpeggiate}, additional arguments to \code{transpose},
-specifically \code{key} and \code{style}.}
+\item{...}{For \code{note_slice}, an integer or logical vector. See details.}
 
-\item{n}{integer, degree of rotation.}
+\item{n}{integer, number of rotations or extensions of note sequence. See
+details.}
+
+\item{step}{integer, number of semitone steps from the first (or last) note
+in \code{notes} at which to begin repeating the shifted \code{notes}
+sequence as an arpeggio. See examples.
+arpeggio.}
 }
 \value{
 character
@@ -38,20 +42,17 @@ index or logical vector of length equal to the number of timesteps.
 \code{note_rotate} simply rotates anything space-delimited or vectorized in
 place. It allows chords. Octave numbering is ignored if present.
 
-For \code{note_shift} the entire sequence is shifted up or down, as if
-inverting a broken chord.
-In this case \code{notes} is strictly interpreted and may not include chords.
-Octave numbering applies, though large multi-octave gaps will be condensed
-in the process.
-Given the context of \code{note_shift}, the \code{notes} sequence should be
-ordered by increasing pitch.
-If it is not, ordering will be forced with each inversion during the
-\code{n} shifts.
+For \code{note_shift} the entire sequence is shifted up or down in pitch, as
+if inverting a broken chord.
+If \code{notes} contains chords, they are broken into successive notes. Then
+all notes are ordered by pitch. Finally shifting occurs.
 
-\code{note_arpeggiate} also allows notes only. It is similar to
-\code{note_shift}, except that instead of a moving window,
-it grows from the original set of notes by \code{n} in the direction of the
-sign of \code{n}.
+Instead of a moving window, \code{note_arpeggiate} grows its sequence from
+the original set of timesteps by repeating the entire sequence \code{n}
+times (\code{n} must be positive). Each repeated sequence contributing to
+the arpeggio is offset by \code{step} semitones from the original.
+\code{step} can be negative. It defaults to 12, increasing all \code{notes}
+by one octave.
 }
 \examples{
 x <- "e_2 a_, c#f#a#"
@@ -63,6 +64,9 @@ note_rotate(x, 1)
 note_shift("c e g", 1)
 note_shift("c e g", -4)
 
-note_arpeggiate("c e g", 5)
-note_arpeggiate("c e g", -5)
+note_arpeggiate("c e g ceg", 3)
+note_arpeggiate("c e g", 3, step = -12)
+note_arpeggiate("g e c", 3, step = -12)
+note_arpeggiate("c e_ g_ a", 3, step = 3)
+note_arpeggiate("c a g_ e_", 3, step = -3)
 }

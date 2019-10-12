@@ -5,12 +5,12 @@
   ],
   "@type": "SoftwareSourceCode",
   "identifier": "tabr",
-  "description": "Provides a music notation syntax and a collection of music programming functions for \n    generating, manipulating, organizing and analyzing musical information in R.\n    The music notation framework facilitates creating and analyzing music data in notation form.\n    The package also provides API wrapper functions for transcribing musical representations in R into guitar tablature (\"tabs\") using the 'LilyPond' backend (<http://lilypond.org>).\n    'LilyPond' is open source music engraving software for generating high quality sheet music based on markup syntax. \n    'tabr' generates 'LilyPond' files from R code and can pass them to 'LilyPond' to be rendered into sheet music pdf files from R.\n    While 'LilyPond' caters to sheet music in general and 'tabr' can be used to create basic sheet music, \n    the transcription functions focus on leveraging 'LilyPond' specifically for creating quality guitar tablature.\n    The package offers nominal MIDI file output support in conjunction with rendering tablature output. See the 'tuneR' package for more general use of MIDI files in R.",
+  "description": "Provides a music notation syntax and a collection of music programming functions for generating, manipulating, organizing and analyzing musical information in R. \n    The music notation framework facilitates creating and analyzing music data in notation form.\n    Music data can be viewed, manipulated and analyzed while in different forms of representation based around different data structures: strings and data frames.\n    Each representation offers advantages over the other for different use cases.\n    Music syntax can be entered directly and represented in character strings to minimize the formatting overhead of data entry by using simple data structures, for example when wanting to quickly enter and transcribe short pieces of music to sheet music or tablature.\n    Functions exist for directly performing various mathematical and organizational operations on these strings by checking their music syntax validity and adding custom classes and methods to these strings.\n    The same music data can also be organized in tidy data frames, allowing for a more familiar and powerful approach to the analysis of large amounts of structured music data.\n    Functions are available for mapping seamlessly between these data structures and their representations of musical information.\n    The package also provides API wrapper functions for transcribing musical representations in R into guitar tablature (\"tabs\") and basic sheet music using the 'LilyPond' backend (<http://lilypond.org>).\n    'LilyPond' is open source music engraving software for generating high quality sheet music based on markup syntax. \n    The package generates 'LilyPond' files from R code and can pass them to 'LilyPond' to be rendered into sheet music pdf files.\n    While 'LilyPond' caters to sheet music in general and 'tabr' can be used to create basic sheet music, \n    the transcription functions focus on leveraging 'LilyPond' specifically for creating quality guitar tablature.\n    The package offers nominal MIDI file output support in conjunction with rendering sheet music. \n    The package can read MIDI files and attempts to structure the MIDI data to integrate as best as possible with the data structures and functionality found throughout the package.",
   "name": "tabr: Music Notation Syntax, Manipulation, Analysis and Transcription in R",
   "codeRepository": "https://github.com/leonawicz/tabr",
   "issueTracker": "https://github.com/leonawicz/tabr/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.3.5.9000",
+  "version": "0.3.9.9000",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -162,6 +162,18 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "tibble",
+      "name": "tibble",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=tibble"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "dplyr",
       "name": "dplyr",
       "provider": {
@@ -238,6 +250,6 @@
     "music-notation"
   ],
   "relatedLink": "https://CRAN.R-project.org/package=tabr",
-  "fileSize": "285.841KB",
+  "fileSize": "294.759KB",
   "developmentStatus": "http://www.repostatus.org/#active"
 }

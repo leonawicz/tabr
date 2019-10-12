@@ -16,12 +16,14 @@ reference:
 - title: Working with noteworthy strings
   desc: "Functions for inspecting and manipulating noteworthy strings"
   contents:
-  - transpose
-  - note_is_natural
-  - note-metadata
-  - note_slice
   - valid-notes
+  - note-checks
+  - note-metadata
+  - note-summaries
+  - note-coerce
+  - note_slice
   - note-equivalence
+  - transpose
 - title: Chords in noteworthy strings
   desc: "Functions for constructing and manipulating chords"
   contents:
@@ -30,7 +32,6 @@ reference:
   - chord_invert
   - chord_arpeggiate
   - chord-filter
-  - chord_is_diatonic
   - chord_is_major
   - scale_chords
   - dyad
@@ -44,16 +45,21 @@ reference:
   - keys
   - scale-deg
   - scale-helpers
+  - is_diatonic
   - mode-helpers
 - title: Interval helpers
   desc: "Functions for calculating musical intervals"
   contents:
-  - interval-helpers
+  - intervals
   - interval_semitones
 - title: Notation-frequency conversion
   desc: "Functions mapping music notation and other quantities like semitones and frequency"
   contents:
   - pitch_freq
+- title: Tidy music data analysis
+  desc: "Functions for converting to and from and manipulating music data frames"
+  contents:
+  - as_music_df
 - title: Plots (non-tablature visualizations)
   desc: "Functions for musical plots and diagrams"
   contents:

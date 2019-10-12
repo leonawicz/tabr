@@ -89,7 +89,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9.9000</span>
       </span>
     </div>
 
@@ -213,12 +213,19 @@
     <p>These functions assist with mapping between scale degrees, notes and chords.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scale_degree</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"diatonic"</span>,
-  <span class='kw'>naturalize</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>roman</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>scale_degree</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"diatonic"</span>, <span class='kw'>use_root</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>strict_accidentals</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>naturalize</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>roman</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>scale_note</span>(<span class='no'>deg</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"diatonic"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
-<span class='fu'>note_in_scale</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"diatonic"</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>note_in_scale</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"diatonic"</span>, <span class='kw'>use_root</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>strict_accidentals</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='fu'>chord_degree</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"diatonic"</span>,
+  <span class='kw'>strict_accidentals</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>naturalize</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>roman</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='fu'>is_in_scale</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"diatonic"</span>,
+  <span class='kw'>strict_accidentals</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -237,6 +244,16 @@ the type of <code>scale</code>.</p></td>
       <td><p>character, the suffix of a supported <code>scale_*</code> function.</p></td>
     </tr>
     <tr>
+      <th>use_root</th>
+      <td><p>logical, use lowest pitch in chord. Otherwise yield an
+<code>NA</code> in output.</p></td>
+    </tr>
+    <tr>
+      <th>strict_accidentals</th>
+      <td><p>logical, whether representation must match key and
+scale. See details.</p></td>
+    </tr>
+    <tr>
       <th>naturalize</th>
       <td><p>logical, whether to naturalize any sharps or flats before
 obtaiuning the scale degree.</p></td>
@@ -246,11 +263,6 @@ obtaiuning the scale degree.</p></td>
       <td><p>logical, return integer scale degrees as Roman numerals.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>additional arguments passed to the scale function, e.g.,
-<code>sharp = FALSE</code> for <code>scale_chromatic</code>.</p></td>
-    </tr>
-    <tr>
       <th>deg</th>
       <td><p>integer, roman class, or character roman, the scale degree.</p></td>
     </tr>
@@ -258,6 +270,11 @@ obtaiuning the scale degree.</p></td>
       <th>collapse</th>
       <td><p>logical, collapse result into a single string ready for
 phrase construction.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>additional arguments passed to the scale function, e.g.,
+<code>sharp = FALSE</code> for <code>scale_chromatic</code>.</p></td>
     </tr>
     </table>
 
@@ -269,12 +286,21 @@ phrase construction.</p></td>
 
     <p>Obtain the scale degree of a note in a supported scale with
 <code>scale_degree</code>.
-This function also works with chords inside noteworthy strings.
-It only considers the first note in each space-delimited entry.
-<code>notes</code> may be a vector of single entries (non-delimited).
-Notes return <code>NA</code> if not explicitly in the scale.
-This includes cases where the note is in the scale but is notated as sharp
-or flat when the <code>scale</code> and/or <code>key</code> provide the opposite.</p>
+This function works on any noteworthy string. It ignores octave numbering.
+Rests and any note not explicitly in the scale return <code>NA</code>. If
+<code>deg</code> is greater than the number of degrees in the scale, it is
+recycled, e.g., in C major 8 starts over as C.</p>
+<p>By default, flats and sharps checked strictly against the scale. Setting
+<code>strict_accidentals = FALSE</code> will convert any flats or sharps present,
+if necessary based on the combination of <code>key</code> signature and
+<code>scale</code>. The chromatic scale is a special case where strict accidental
+is always ignored.</p>
+<p>Not any arbitrary combination of valid <code>key</code> and valid <code>scale</code> is
+valid. For example, <code>key = "am"</code> and <code>scale = "harmonic"</code> is
+valid, but not with <code>key = "a"</code>.</p>
+<p><code>note_in_scale</code> is a wrapper around <code>scale_degree</code>.
+To check if full chords are diatonic to the scale, see
+<code><a href='is_diatonic.html'>is_diatonic</a></code>.</p>
 <p>The inverse of <code>scale_degree</code> is <code>scale_note</code>, for obtaining the
 note associated with a scale degree.
 This could be done simply by calling a <code>scale_*</code> function and indexing
@@ -283,19 +309,30 @@ its output directly, but this wrapper is provided to complement
 Additionally, it accepts the common Roman numeral input for the degree.
 This can be with the <code>roman</code> class or as a character string.
 Degrees return <code>NA</code> if outside the scale degree range.</p>
-<p><code>note_in_scale</code> performs a vectorized logical check if each note is in
-a given scale.
-This function strictly accepts single notes in noteworthy strings.
-To check if chords are diatonic to the scale,
-see <code><a href='chord_is_diatonic.html'>chord_is_diatonic</a></code>. To check generally if a
-<code>noteworthy</code> string is fully diatonic, see <code><a href='valid-notes.html'>is_diatonic</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='scale-helpers.html'>scale-helpers</a></code></p></div>
+    <div class='dont-index'><p><code><a href='scale-helpers.html'>scale-helpers</a></code>, <code><a href='is_diatonic.html'>is_diatonic</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>scale_degree</span>(<span class='st'>"c e g"</span>)</div><div class='output co'>#&gt; [1] 1 3 5</div><div class='input'><span class='fu'>scale_degree</span>(<span class='st'>"c e g"</span>, <span class='kw'>roman</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] I   III V  </div><div class='input'><span class='fu'>scale_degree</span>(<span class='st'>"c e g"</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"d"</span>)</div><div class='output co'>#&gt; [1] NA  2  4</div><div class='input'><span class='fu'>scale_degree</span>(<span class='st'>"c, e_3 g' f#ac#"</span>)</div><div class='output co'>#&gt; [1]  1 NA  5 NA</div><div class='input'><span class='fu'>scale_degree</span>(<span class='st'>"c, e_3 g' f#ac#"</span>, <span class='kw'>naturalize</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] 1 3 5 4</div><div class='input'><span class='fu'>scale_degree</span>(<span class='st'>"c, e_3 g' f#ac#"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"chromatic"</span>)</div><div class='output co'>#&gt; [1]  1 NA  8  7</div><div class='input'><span class='fu'>scale_degree</span>(<span class='st'>"c, e_3 g' f#ac#"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"chromatic"</span>, <span class='kw'>sharp</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1]  1  4  8 NA</div><div class='input'>
-<span class='fu'>scale_note</span>(<span class='fl'>1</span>:<span class='fl'>3</span>)</div><div class='output co'>#&gt; [1] "c" "d" "e"</div><div class='input'><span class='fu'>scale_note</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>8</span>), <span class='st'>"d"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "d f# NA"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/all.html'>all</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>4</span>, <span class='st'>"IV"</span>, <span class='fu'><a href='https://rdrr.io/r/utils/roman.html'>as.roman</a></span>(<span class='fl'>4</span>)), <span class='no'>scale_note</span>) <span class='kw'>==</span> <span class='st'>"f"</span>)</div><div class='output co'>#&gt; [1] TRUE</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>scale_degree</span>(<span class='st'>"r c, e3 g~ g s g# ceg"</span>)</div><div class='output co'>#&gt; [1] NA  1  3  5  5 NA NA  1</div><div class='input'><span class='fu'>note_in_scale</span>(<span class='st'>"r c, e3 g~ g s g# ceg"</span>)</div><div class='output co'>#&gt; [1]    NA  TRUE  TRUE  TRUE  TRUE    NA FALSE  TRUE</div><div class='input'>
+<span class='fu'>scale_degree</span>(<span class='st'>"c e g"</span>, <span class='kw'>roman</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] I   III V  </div><div class='input'>
+<span class='fu'>scale_degree</span>(<span class='st'>"c c# d_ e"</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"d"</span>)</div><div class='output co'>#&gt; [1] NA  7 NA  2</div><div class='input'><span class='fu'>scale_degree</span>(<span class='st'>"c c# d_ e"</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"d"</span>, <span class='kw'>strict_accidentals</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] NA  7  7  2</div><div class='input'>
+<span class='fu'>scale_degree</span>(<span class='st'>"c, e_3 g' f#ac#"</span>, <span class='kw'>use_root</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1]  1 NA  5 NA</div><div class='input'><span class='fu'>scale_degree</span>(<span class='st'>"c, e_3 g' f#ac#"</span>, <span class='kw'>naturalize</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='co'># lowest chord pitch: c#</span></div><div class='output co'>#&gt; [1] 1 3 5 1</div><div class='input'>
+<span class='fu'>scale_degree</span>(<span class='st'>"c# d_ e_' e4 f f# g"</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c#"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"chromatic"</span>)</div><div class='output co'>#&gt; [1] 1 1 3 4 5 6 7</div><div class='input'>
+<span class='fu'>scale_note</span>(<span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"am"</span>)</div><div class='output co'>#&gt; [1] "a" "b" "c"</div><div class='input'><span class='fu'>scale_note</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>8</span>), <span class='st'>"d"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "d f# d"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/all.html'>all</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>4</span>, <span class='st'>"IV"</span>, <span class='fu'><a href='https://rdrr.io/r/utils/roman.html'>as.roman</a></span>(<span class='fl'>4</span>)), <span class='no'>scale_note</span>) <span class='kw'>==</span> <span class='st'>"f"</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"d dfa df#a f#ac#"</span>
+<span class='fu'>chord_degree</span>(<span class='no'>x</span>, <span class='st'>"d"</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] 1
+#&gt; 
+#&gt; [[2]]
+#&gt; [1]  1 NA  5
+#&gt; 
+#&gt; [[3]]
+#&gt; [1] 1 3 5
+#&gt; 
+#&gt; [[4]]
+#&gt; [1] 3 5 7
+#&gt; </div><div class='input'><span class='fu'>is_in_scale</span>(<span class='no'>x</span>, <span class='st'>"d"</span>)</div><div class='output co'>#&gt; [1]  TRUE FALSE  TRUE  TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

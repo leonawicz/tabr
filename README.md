@@ -31,25 +31,97 @@ Stars](https://img.shields.io/github/stars/leonawicz/tabr.svg?style=social&label
 The `tabr` package provides a music notation syntax and a collection of
 music programming functions for generating, manipulating, organizing and
 analyzing musical information in R. The music notation framework
-facilitates creating and analyzing music data in notation form.
+facilitates creating and analyzing music data in notation form; i.e,
+more from the perspective and in the language of a musician than, say,
+an audio engineer.
+
+### Music data structures
+
+Music data can be viewed, manipulated and analyzed while in different
+forms of representation based around different data structures: strings
+and data frames. Each representation offers advantages over the other
+for different use cases.
+
+Music syntax can be entered directly and represented in character
+strings to minimize the formatting overhead of data entry by using
+simple data structures, for example when wanting to quickly enter and
+transcribe short pieces of music syntax in R into sheet music or
+tablature files.
+
+``` r
+x <- "a, c e c a, g#, a ac'e'"
+x <- as_noteworthy(x)
+x
+#> <Noteworthy string>
+#>   Format: space-delimited time
+#>   Values: a, c e c a, g#, a <ac'e'>
+
+summary(x)
+#> <Noteworthy string>
+#>   Timesteps: 8 (7 notes, 1 chord)
+#>   Octaves: tick
+#>   Accidentals: sharp
+#>   Format: space-delimited time
+#>   Values: a, c e c a, g#, a <ac'e'>
+```
+
+Functions exist for directly performing various mathematical and
+organizational operations on strings like the one above by checking
+their music syntax validity and adding custom classes and methods to
+these strings (more on this below). Of course, none of this will work on
+character strings that are not noteworthy. Invalid, unworthy syntax is
+rejected early with an error, preventing corrupted music syntax from
+causing unexpected issues later on.
+
+The same music data can also be organized in tidy data frames, allowing
+for a more familiar and powerful approach to the analysis of large
+amounts of structured music data.
+
+``` r
+x <- "a, c e c a, g#, a ac'e'"
+as_music_df(x)
+#> # A tibble: 8 x 7
+#>   pitch note  semitone octave  freq pitch_int scale_int
+#>   <chr> <chr>    <int>  <int> <dbl>     <int> <chr>    
+#> 1 a,    a           57      2  110.        NA <NA>     
+#> 2 c     c           48      3  131.         3 m3       
+#> 3 e     e           52      3  165.         4 M3       
+#> 4 c     c           48      3  131.        -4 M3       
+#> 5 a,    a           57      2  110.        -3 m3       
+#> 6 g#,   g#          56      2  104.        -1 m2       
+#> 7 a     a           57      3  220.        13 m9       
+#> 8 ac'e' ace         57      3  220.         0 P1
+```
+
+Several functions are available for mapping seamlessly between and
+manipulating these data structures and their representations of musical
+information.
+
+### Transcription
 
 Music programming in the notation syntax provided by `tabr` can be used
 for a variety of purposes, but it also integrates cohesively with the
 package’s transcription functions. The package also provides API wrapper
 functions for transcribing music notation in R into guitar tablature
-(“tabs”) using [LilyPond](http://lilypond.org/).
+(“tabs”) and basic sheet music using [LilyPond](http://lilypond.org/).
 
 LilyPond is an open source music engraving program for generating high
 quality sheet music based on markup syntax. `tabr` generates LilyPond
 files from R code and can pass them to LilyPond to be rendered into
-sheet music pdf files from R. While LilyPond caters to sheet music in
-general and `tabr` can be used to create basic sheet music, the
-transcription functions focus on leveraging LilyPond specifically for
-creating quality guitar tablature.
+sheet music pdf files. While LilyPond caters to sheet music in general
+and `tabr` can be used to create basic sheet music, the transcription
+functions focus on leveraging LilyPond specifically for creating quality
+guitar tablature. You do not need to use it for guitar tablature, but
+for vocal or other instrument tracks, you can change settings, such as
+suppressing a tab staff from your sheet music.
 
 While LilyPond is listed as a system requirement for `tabr`, you can use
-many package functions without installing LilyPond if you do not intend
-to render tabs.
+the package for music analysis without installing LilyPond if you do not
+intend to render tabs. You can even use the `lilypond` function to write
+LilyPond files to disk without the software installed, since this is
+only a case of R writing plain text files in the proper format. The only
+functions in the package that require a LilyPond installation are `tab`,
+`midily` and `miditab`.
 
 ### Use case considerations
 
@@ -83,9 +155,9 @@ LilyPond is an exceptional sheet music engraving program.
     transcription limitations rather than the music engraving software
     it wraps around.
 
-### Functionality and support
+### Transcription functionality and support
 
-The `tabr` package offers the following:
+The `tabr` package offers the following for transcription:
 
   - Render guitar tablature and sheet music to pdf or png.
   - Write accompanying MIDI files that can respect repeat notation and
@@ -117,6 +189,23 @@ The `tabr` package offers the following:
     string/fret combinations (along with key signature and instrument
     tuning) to map to pitch.
 
+### MIDI support
+
+The package offers nominal MIDI file output support in conjunction with
+rendering sheet music. MIDI file writing is still handled by LilyPond,
+which means it must be based on a valid LilyPond file output created by
+`tabr`.
+
+You can read MIDI files into R. This support relies on the `tuneR`
+package to read MIDI files and attempts to structure the MIDI data to
+integrate as best as possible with the data structures and functionality
+found throughout `tabr`.
+
+An existing MIDI file can also be passed through directly to LilyPond to
+attempt to create sheet music from the MIDI file if possible, using one
+of LilyPond’s command line utilities for MIDI to LilyPond conversion
+followed by rendering the generated LilyPond file to sheet music.
+
 ## Installation
 
 You can install tabr from CRAN with:
@@ -144,11 +233,14 @@ various package functions that inspect and manipulate musical
 information.
 
 A simple character string like `"c e g"`, or alternatively as a vector,
-`c("c", "e", "g")`, is a noteworthy string. Even `"a"` is noteworthy. So
-are `"a#"` and `"a_"` (sharp and flat). However, `"A"` is not, nor is
-`"Z"`. There are other pieces of valid syntax than just the lowercase
-letters `a` through `g` and sharp and flat notation. See the package
-vignettes for details.
+`c("c", "e", "g")`, is a noteworthy string. The single lowercase letter
+`"a"` is noteworthy. So are `"a_"` and `"a#"` (flat and sharp). However,
+`"A"` is not, nor is `"z"`. There are other pieces of valid syntax than
+just the lowercase letters `a` through `g` and sharp and flat notation.
+The most important for specifying pitch is to indicate the octave
+number, either in tick (comma and single quote) or integer format. For
+all the available syntax specifications and related details see the
+package vignettes.
 
 Noteworthiness can be checked on any character string. No supplemental
 class is required. When defining noteworthy strings you can define them
@@ -161,11 +253,17 @@ impact any subsequent musical manipulation beyond the need to reperform
 a noteworthy check.
 
 ``` r
-x <- "g#4 c5 d#5 g#4c5d#5"
+x <- "g#, c d# g#c'd#'"
 as_noteworthy(x)
 #> <Noteworthy string>
 #>   Format: space-delimited time
-#>   Values: g#4 c5 d#5 <g#4c5d#5>
+#>   Values: g#, c d# <g#c'd#'>
+
+x <- "g#2 c d# g#c4d#4" # equivalent octave numbering
+as_noteworthy(x)
+#> <Noteworthy string>
+#>   Format: space-delimited time
+#>   Values: g#2 c d# <g#c4d#4>
 
 is_note(x)
 #> [1]  TRUE  TRUE  TRUE FALSE
@@ -176,7 +274,7 @@ chord_is_major(x)
 (x <- transpose(x, 1))
 #> <Noteworthy string>
 #>   Format: space-delimited time
-#>   Values: a4 c#5 e5 <a4c#5e5>
+#>   Values: a2 c# e <ac#4e4>
 
 summary(x)
 #> <Noteworthy string>
@@ -184,14 +282,14 @@ summary(x)
 #>   Octaves: integer
 #>   Accidentals: sharp
 #>   Format: space-delimited time
-#>   Values: a4 c#5 e5 <a4c#5e5>
+#>   Values: a2 c# e <ac#4e4>
 
 distinct_pitches(x)
 #> <Noteworthy string>
 #>   Format: space-delimited time
-#>   Values: a4 c#5 e5
+#>   Values: a2 c# e a c#4 e4
 distinct_pitches(x) %>% pitch_freq() # in Hz
-#> [1] 440.0000 554.3653 659.2551
+#> [1] 110.0000 138.5913 164.8138 220.0000 277.1826 329.6276
 ```
 
 `tabr` offers many functions for manipulating musical structures defined
@@ -246,31 +344,35 @@ rest followed by a sequence of eighth notes, use `info =
 example does not require specifying additional note information such as
 dotted notes for different fractions of time, staccato notes,
 ties/slurs, slides, bends, hammer ons and pull offs, etc. These
-specifications are currently available in `tabr` to varying degrees of
-development and are covered in the vignette tutorials.
+specifications are covered in the vignette tutorials.
 
-The third argument, `string`, is optional but generally important for
-guitar tablature. In similar format, it specifies the strings of the
-guitar on which notes are played. Providing this information fixes the
-fret-string combinations so that LilyPond does not have to guess what
-position on the neck of the guitar to play a specific note. An inability
-to specify this in various tablature notation software (or laziness by
-the user), is a common cause of inaccurate tabs scouring the internet,
-where even when the notes are correct they are written in the tab
-suggesting they be played in positions no one would sensibly use. Note
-that the `x` shown below is just a placeholder indicating no need to
-specify a string for the quarter note rest.
+The third argument, `string`, is optional but very important for
+accurate guitar tablature. For general sheet music, this argument can be
+ignored. In similar format, it specifies the strings of the guitar (or
+other stringed, fretted instrument) on which notes are played. Providing
+this information fixes the fret-string combinations so that LilyPond
+does not have to guess what position on the neck of the guitar to play a
+specific note. An inability to specify this in various tablature
+notation software (or laziness by the user), is a common cause of
+inaccurate tabs scouring the internet, where even when the notes are
+correct they are written in the tab suggesting they be played in
+positions no one would sensibly use. Note that the `x` shown below is
+just a placeholder indicating no need to specify a string for the
+quarter note rest.
 
 The example below employs a couple shortcuts to further reduce typing.
 The first is to use the `*` in-string expansion operator mentioned above
 to avoid typing a long series of eighth notes. Second, it drops explicit
-reference to octave number three since this central octave is the
-default octave in LilyPond. This applies to all but the first note
-below.
+reference to octave number three since octave 3 is the default octave in
+LilyPond where it similarly does not need to be written explicitly. This
+applies to all but the first note below.
 
 While explicit string numbers are not needed for this example, they are
 provided anyway for full context. Dropping the `string` argument would
 further reduce typing.
+
+This is the general approach, but there are multiple ways to create
+equivalent phrase objects in `tabr`.
 
 ### Score metadata and accessing LilyPond
 
@@ -286,7 +388,7 @@ LilyPond executable is at `C:/Program Files
 (x86)/LilyPond/usr/bin/lilypond.exe`, then add `C:/Program Files
 (x86)/LilyPond/usr/bin` to the system path.
 
-### R code
+### Minimal R code example
 
 ``` r
 library(tabr)

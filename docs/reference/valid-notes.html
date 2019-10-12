@@ -95,7 +95,7 @@ exclusively valid entries." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9.9000</span>
       </span>
     </div>
 
@@ -231,36 +231,31 @@ exclusively valid entries.</p>
 
 <span class='fu'>noteworthy</span>(<span class='no'>x</span>)
 
-<span class='fu'>is_diatonic</span>(<span class='no'>x</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>)
+<span class='fu'>as_noteworthy</span>(<span class='no'>x</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>accidentals</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>as_noteworthy</span>(<span class='no'>x</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>accidentals</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+<span class='fu'>is_noteworthy</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>character, space-delimited entries or a vector of single,
-non-delimited entries.</p></td>
-    </tr>
-    <tr>
-      <th>key</th>
-      <td><p>character, key signature.</p></td>
-    </tr>
-    <tr>
-      <th>format</th>
-      <td><p><code>NULL</code> or character (<code>"space"</code> or <code>"vector"</code>),
-the timestep delimiter format.</p></td>
+      <td><p>character, a noteworthy string.</p></td>
     </tr>
     <tr>
       <th>octaves</th>
-      <td><p><code>NULL</code> or character (<code>"tick"</code> or <code>"integer"</code>),
-the octave representation.</p></td>
+      <td><p><code>NULL</code> or character, <code>"tick"</code> or <code>"integer"</code>
+octave numbering in result.</p></td>
     </tr>
     <tr>
       <th>accidentals</th>
-      <td><p><code>NULL</code> or character (<code>"flat"</code> or
-<code>"sharp"</code>), the accidentals representation.</p></td>
+      <td><p><code>NULL</code> or character, represent accidentals,
+<code>"flat"</code> or <code>"sharp"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>format</th>
+      <td><p><code>NULL</code> or character, the timestep delimiter format,
+<code>"space"</code> or <code>"vector"</code>.</p></td>
     </tr>
     </table>
 
@@ -274,18 +269,24 @@ Coercion will fail if the string is not noteworthy.
 Using the <code>noteworthy</code> class is generally not needed by the user during
 an interactive session, but is available and offers its own <code>print</code> and
 <code>summary</code> methods for noteworthy strings.
-It is more likely to be used by other functions and functions that output a
+However, an added benefit to using <code>as_noteworthy</code> is to conform all
+notes in a noteworthy string to specific formatting for accidentals and
+octave numbering.
+It is often used by other functions, and functions that output a
 noteworthy string generally attach the noteworthy class.</p>
-<p><code>is_diatonic</code> performs a vectorized logical check on a
-<code>noteworthy</code> string for all notes and chords.
-To check strictly notes or chords, see <code><a href='scale-deg.html'>note_in_scale</a></code> and
-<code><a href='chord_is_diatonic.html'>chord_is_diatonic</a></code>.</p>
+<p>For <code>as_noteworthy</code> and in general for functions that accept
+<code>octaves</code>, <code>accidentals</code>, <code>format</code>, and sometimes <code>key</code>
+as arguments, when these arguments are <code>NULL</code>, formatting is inferred
+from the noteworthy string input. When mixed formats are present,
+tick format is the default for octave numbering and flats are the default
+for accidentals.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='scale-deg.html'>note_in_scale</a></code>, <code><a href='chord_is_diatonic.html'>chord_is_diatonic</a></code></p></div>
+    <div class='dont-index'><p><code><a href='note-checks.html'>note-checks</a></code>, <code><a href='note-metadata.html'>note-metadata</a></code>,
+<code><a href='note-summaries.html'>note-summaries</a></code>, <code><a href='note-coerce.html'>note-coerce</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"a# b_ c, d'' e3 g_4 A m c2e_2g2 cegh"</span>
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"a# b_ c, d'' e3 g_4 A m c2e_2g2 cegh"</span> <span class='co'># includes invalid syntax</span>
 <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
   <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/strsplit.html'>strsplit</a></span>(<span class='no'>x</span>, <span class='st'>" "</span>)<span class='kw'>[[</span><span class='fl'>1</span>]],
   <span class='kw'>note</span> <span class='kw'>=</span> <span class='fu'>is_note</span>(<span class='no'>x</span>),
@@ -301,18 +302,18 @@ To check strictly notes or chords, see <code><a href='scale-deg.html'>note_in_sc
 #&gt; 8        m FALSE FALSE  FALSE
 #&gt; 9  c2e_2g2 FALSE  TRUE  FALSE
 #&gt; 10    cegh FALSE FALSE  FALSE</div><div class='input'>
-<span class='fu'>is_diatonic</span>(<span class='st'>"ace ac#e d e_"</span>, <span class='st'>"c"</span>)</div><div class='output co'>#&gt; [1]  TRUE FALSE  TRUE FALSE</div><div class='input'>
+<span class='fu'><a href='is_diatonic.html'>is_diatonic</a></span>(<span class='st'>"ace ac#e d e_"</span>, <span class='st'>"c"</span>)</div><div class='output co'>#&gt; [1]  TRUE FALSE  TRUE FALSE</div><div class='input'>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"a# b_ c,~ c, d'' e3 g_4 c2e_2g2"</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as_noteworthy</span>(<span class='no'>x</span>)
-<span class='no'>x</span></div><div class='output co'>#&gt; <span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+<span class='fu'>noteworthy</span>(<span class='no'>x</span>) <span class='co'># is it noteworthy; a validity check for any string</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as_noteworthy</span>(<span class='no'>x</span>) <span class='co'># coerce to 'noteworthy' class, conform formatting</span>
+<span class='fu'>is_noteworthy</span>(<span class='no'>x</span>) <span class='co'># check for 'noteworthy' class</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='no'>x</span></div><div class='output co'>#&gt; <span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>a#</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>,</span><span style='color: #BBBB00;'>~</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #00BBBB;'>''</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e</span><span style='color: #00BBBB;'>3</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>g_</span><span style='color: #00BBBB;'>4</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>2</span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>2</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>2</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'>
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>,</span><span style='color: #BBBB00;'>~</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #00BBBB;'>''</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>g_</span><span style='color: #00BBBB;'>'</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>,</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Timesteps: </span><span>8 (7 notes, 1 chord)</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Octaves: </span><span>ambiguous</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Accidentals: </span><span>both/ambiguous</span><span style='color: #555555;font-weight: bold;'>
+#&gt;   Octaves: </span><span>tick</span><span style='color: #555555;font-weight: bold;'>
+#&gt;   Accidentals: </span><span>flat</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>a#</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>,</span><span style='color: #BBBB00;'>~</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #00BBBB;'>''</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e</span><span style='color: #00BBBB;'>3</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>g_</span><span style='color: #00BBBB;'>4</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>2</span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>2</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>2</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'>
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>,</span><span style='color: #BBBB00;'>~</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #00BBBB;'>''</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>g_</span><span style='color: #00BBBB;'>'</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>,</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as_noteworthy</span>(<span class='no'>x</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"vector"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"integer"</span>,
                    <span class='kw'>accidentals</span> <span class='kw'>=</span> <span class='st'>"flat"</span>)
 <span class='no'>x</span></div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;

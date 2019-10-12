@@ -7,6 +7,9 @@
     <loc>http://leonawicz.github.io/tabr/reference/append_phrases.html</loc>
   </url>
   <url>
+    <loc>http://leonawicz.github.io/tabr/reference/as_music_df.html</loc>
+  </url>
+  <url>
     <loc>http://leonawicz.github.io/tabr/reference/chord-compare.html</loc>
   </url>
   <url>
@@ -31,9 +34,6 @@
     <loc>http://leonawicz.github.io/tabr/reference/chord_invert.html</loc>
   </url>
   <url>
-    <loc>http://leonawicz.github.io/tabr/reference/chord_is_diatonic.html</loc>
-  </url>
-  <url>
     <loc>http://leonawicz.github.io/tabr/reference/chord_is_major.html</loc>
   </url>
   <url>
@@ -52,10 +52,13 @@
     <loc>http://leonawicz.github.io/tabr/reference/hp.html</loc>
   </url>
   <url>
-    <loc>http://leonawicz.github.io/tabr/reference/interval-helpers.html</loc>
+    <loc>http://leonawicz.github.io/tabr/reference/intervals.html</loc>
   </url>
   <url>
     <loc>http://leonawicz.github.io/tabr/reference/interval_semitones.html</loc>
+  </url>
+  <url>
+    <loc>http://leonawicz.github.io/tabr/reference/is_diatonic.html</loc>
   </url>
   <url>
     <loc>http://leonawicz.github.io/tabr/reference/keys.html</loc>
@@ -82,13 +85,19 @@
     <loc>http://leonawicz.github.io/tabr/reference/notate.html</loc>
   </url>
   <url>
+    <loc>http://leonawicz.github.io/tabr/reference/note-checks.html</loc>
+  </url>
+  <url>
+    <loc>http://leonawicz.github.io/tabr/reference/note-coerce.html</loc>
+  </url>
+  <url>
     <loc>http://leonawicz.github.io/tabr/reference/note-equivalence.html</loc>
   </url>
   <url>
     <loc>http://leonawicz.github.io/tabr/reference/note-metadata.html</loc>
   </url>
   <url>
-    <loc>http://leonawicz.github.io/tabr/reference/note_is_natural.html</loc>
+    <loc>http://leonawicz.github.io/tabr/reference/note-summaries.html</loc>
   </url>
   <url>
     <loc>http://leonawicz.github.io/tabr/reference/note_slice.html</loc>
@@ -104,6 +113,9 @@
   </url>
   <url>
     <loc>http://leonawicz.github.io/tabr/reference/pitch_freq.html</loc>
+  </url>
+  <url>
+    <loc>http://leonawicz.github.io/tabr/reference/read_midi.html</loc>
   </url>
   <url>
     <loc>http://leonawicz.github.io/tabr/reference/repeats.html</loc>

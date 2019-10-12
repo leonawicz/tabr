@@ -27,11 +27,10 @@ test_that("mode helpers return as expected", {
   expect_false(is_mode("c d"))
   expect_false(is_mode(c("c", "d")))
   expect_true(is_mode(mode_aeolian("b_")))
-  expect_true(is_mode(transpose(
-    mode_ionian(collapse = T), 17, "f", style = "strip"
-    ), ignore_octave = TRUE))
-  expect_true(
-    !is_mode(transpose(mode_ionian(collapse = T), 17, style = "strip")))
+  x <- gsub("[0-9,'~]", "", transpose(mode_ionian(collapse = T), 17, key = "f"))
+  expect_true(is_mode(x, ignore_octave = TRUE))
+  x <- gsub("[0-9,'~]", "", transpose(mode_ionian(collapse = T), 17, key = "f"))
+  expect_true(!is_mode(x))
 
   expect_error(mode_rotate("a"), "`notes` does not define a valid mode.")
   expect_identical(mode_rotate(mode_ionian(), 0), mode_ionian())

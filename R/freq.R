@@ -16,8 +16,10 @@
 #' @param a4 the fixed frequency of the A above middle C, typically 440 Hz.
 #' @param freq numeric vector, frequencies in Hz.
 #' @param semitones integer values of pitches.
-#' @param octaves, character, octave number format, \code{"tick"} or
-#' \code{"integer"}.
+#' @param octaves \code{NULL} or character, \code{"tick"} or \code{"integer"}
+#' octave numbering in result.
+#' @param accidentals \code{NULL} or character, represent accidentals,
+#' \code{"flat"} or \code{"sharp"}.
 #' @param collapse logical, collapse result into a single string.
 #' @param ... other arguments passed to \code{tranpose}, specifically
 #' \code{key} and \code{style}.
@@ -30,9 +32,18 @@
 #' y <- pitch_freq(x)
 #' y
 #'
+#' freq_semitones(y)
 #' freq_pitch(y)
 #'
-#' identical(as_noteworthy(x), freq_pitch(y, collapse = TRUE))
+#' identical(as_noteworthy(x), freq_pitch(y, "integer", collapse = TRUE))
+#'
+#' s <- pitch_semitones(x)
+#' s
+#' semitone_pitch(s)
+#'
+#' x <- "a, a,c#e"
+#' chord_semitones(x)
+#' chord_freq(x)
 pitch_freq <- function(notes, a4 = 440){
   a4 * (2 ^ (1 / 12)) ^ (pitch_semitones(notes) - 69)
 }
@@ -66,11 +77,13 @@ chord_semitones <- function(notes){
 
 #' @export
 #' @name pitch_freq
-freq_pitch <- function(freq, a4 = 440, collapse = FALSE, ...){
-  n <- round(freq_semitones(freq, a4) - 69)
-  x <- sapply(n, function(x, ...) transpose("a4", x, ...))
-  if(collapse) x <- paste(x, collapse = " ")
-  .asnw(x)
+freq_pitch <- function(freq, octaves = c("tick", "integer"),
+                       accidentals = c("flat", "sharp"), collapse = FALSE,
+                       a4 = 440){
+  o <- match.arg(octaves)
+  a <- match.arg(accidentals)
+  n <- round(freq_semitones(freq, a4))
+  semitone_pitch(n, o, a, collapse)
 }
 
 #' @export
@@ -81,11 +94,14 @@ freq_semitones <- function(freq, a4 = 440){
 
 #' @export
 #' @name pitch_freq
-semitone_pitch <- function(semitones, octaves = c("tick", "integer")){
+semitone_pitch <- function(semitones, octaves = c("tick", "integer"),
+                           accidentals = c("flat", "sharp"), collapse = FALSE){
   .check_semitone(semitones)
-  octaves <- match.arg(octaves)
-  x <- .all_pitches[semitones + 1]
-  if(octaves == "tick") x else .octave_to_int(x)
+  o <- match.arg(octaves)
+  a <- match.arg(accidentals)
+  x <- .all_pitches_tick[semitones + 1]
+  if(collapse) x <- paste(x, collapse = " ")
+  .asnw(x, o, a)
 }
 
 .check_semitone <- function(x){

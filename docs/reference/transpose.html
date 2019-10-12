@@ -89,7 +89,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9.9000</span>
       </span>
     </div>
 
@@ -213,11 +213,10 @@
     <p>Transpose pitch by a number of semitones.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>transpose</span>(<span class='no'>notes</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"default"</span>, <span class='st'>"tick"</span>,
-  <span class='st'>"integer"</span>, <span class='st'>"strip"</span>))
+    <pre class="usage"><span class='fu'>transpose</span>(<span class='no'>notes</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>accidentals</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>tp</span>(<span class='no'>notes</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"default"</span>, <span class='st'>"tick"</span>, <span class='st'>"integer"</span>,
-  <span class='st'>"strip"</span>))</pre>
+<span class='fu'>tp</span>(<span class='no'>notes</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>accidentals</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -231,14 +230,19 @@
       <td><p>integer, positive or negative number of semitones to transpose.</p></td>
     </tr>
     <tr>
-      <th>key</th>
-      <td><p>character, the new key signature after transposing <code>notes</code>.
-See details.</p></td>
+      <th>octaves</th>
+      <td><p><code>NULL</code> or character, <code>"tick"</code> or <code>"integer"</code>
+octave numbering in result.</p></td>
     </tr>
     <tr>
-      <th>style</th>
-      <td><p>character, specify tick or integer style octave numbering in
-result. See details.</p></td>
+      <th>accidentals</th>
+      <td><p><code>NULL</code> or character, represent accidentals,
+<code>"flat"</code> or <code>"sharp"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>key</th>
+      <td><p><code>NULL</code> or character, use a key signature to specify and
+override <code>accidentals</code>. Ignored if <code>c</code> or <code>am</code>.</p></td>
     </tr>
     </table>
 
@@ -247,52 +251,37 @@ result. See details.</p></td>
     <p>character</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function transposes the pitch of notes in a valid character string.
-The string must be of the form passed to the <code>info</code> argument to
-<code><a href='phrase.html'>phrase</a></code>.</p>
-<p>Transposing is not done on a phrase object. The notes in a phrase object
-have already been transformed to LilyPond syntax and mixed with other
-potentially complex and variable information.
+    <p>This function transposes the pitch of notes in a noteworthy string.</p>
+<p>Transposing is not currently supported on a phrase object.
+The notes in a phrase object have already been transformed to LilyPond
+syntax and mixed with other potentially complex information.
 Transposing is intended to be done on a string of notes prior to passing it
 to <code>phrase</code>. It will work on strings that use either integer or tick
-mark octave numbering formats.
-The transposed result will be a string with integer octave numbering.</p>
-<p>If <code>key</code> is provided, this helps ensure proper use of sharps vs. flats.
-Alternatively, you can simply provide <code>key = "sharp"</code> or
-<code>key = "flat"</code>. The exact key signature is not required, just more
-clear and informative for the user.
-If not provided (<code>key = NA</code>), transposition lacks full information and
-simply defaults to sharping any resulting accidentals for positive <code>n</code>
-and flattening for negative <code>n</code>.
-<code>n = 0</code> returns the input without any modification.</p>
-<p>The only element other pitch that occurs in a valid notes string is a rest,
-<code>"r"</code> or <code>"s"</code> (silent rest). Rests are ignored by transpose.</p>
-<p>The default <code>style</code> is to use tick style if no integers occur in
-<code>notes</code>. The <code>"tick"</code> and <code>"integer"</code> options force the
-respective styles. When integer style is returned, all <code>3</code>s are dropped
-since the third octave is the implicit center in LilyPond.
-<code>style = "strip"</code> removes any explicit octave information.</p>
+mark octave numbering formats and flats or sharps, in any combination.
+The transposed result conforms according to the function arguments.
+When integer octaves are returned, all <code>3</code>s are dropped
+since the third octave is implicit in LilyPond.</p>
+<p>When <code>octaves</code>, <code>accidentals</code> and <code>key</code> are <code>NULL</code>,
+formatting is inferred from <code>notes</code>. When mixed formats are present,
+tick format is the default for octave numbering and flats are the default
+for accidentals.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>transpose</span>(<span class='st'>"a_3 b_4 c5"</span>, <span class='fl'>0</span>)</div><div class='output co'>#&gt; <span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span style='color: #00BBBB;'>3</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>4</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>5</span><span></div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a_3 b_4 c5"</span>, -<span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>4</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>5</span><span></div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a_3 b_4 c5"</span>, -<span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>g</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #00BBBB;'>4</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b</span><span style='color: #00BBBB;'>4</span><span></div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a_3 b_4 c5"</span>, <span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b</span><span style='color: #00BBBB;'>4</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c#</span><span style='color: #00BBBB;'>5</span><span></div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a#3 b4 c#5"</span>, <span class='fl'>11</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b</span><span style='color: #00BBBB;'>4</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>d_</span><span style='color: #00BBBB;'>5</span><span></div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a#3 b4 c#5"</span>, <span class='fl'>11</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #00BBBB;'>4</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a#</span><span style='color: #00BBBB;'>5</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>6</span><span></div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a#3 b4 c#5"</span>, <span class='fl'>12</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>a#</span><span style='color: #00BBBB;'>4</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b</span><span style='color: #00BBBB;'>5</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c#</span><span style='color: #00BBBB;'>6</span><span></div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a#3 b4 c#5"</span>, <span class='fl'>13</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>a#</span><span style='color: #00BBBB;'>4</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b</span><span style='color: #00BBBB;'>5</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c#</span><span style='color: #00BBBB;'>6</span><span></div><div class='input'><span class='fu'>tp</span>(<span class='st'>"r s a#3 b4 c#5"</span>, <span class='fl'>13</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>b</span><span style='color: #00BBBB;'>4</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>6</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #00BBBB;'>6</span><span></div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a3 b4 c5"</span>, <span class='fl'>2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"f"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>r</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>s</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b</span><span style='color: #00BBBB;'>4</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>6</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #00BBBB;'>6</span><span></div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a b' c#''"</span>, <span class='fl'>2</span>, <span class='st'>"integer"</span>, <span class='st'>"flat"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>b</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>d_</span><span style='color: #00BBBB;'>5</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #00BBBB;'>5</span><span></div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a3 b4 c5"</span>, <span class='fl'>2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"g"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
-#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>b</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c#</span><span style='color: #00BBBB;'>5</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #00BBBB;'>5</span><span></div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a b' c''"</span>, <span class='fl'>2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"flat"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
-#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>b</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>d_</span><span style='color: #00BBBB;'>''</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #00BBBB;'>''</span><span></div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a, b ceg"</span>, <span class='fl'>2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"sharp"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>b</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>d_</span><span style='color: #00BBBB;'>5</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>5</span><span></div><div class='input'><span class='fu'>tp</span>(<span class='st'>"a, b ceg"</span>, <span class='fl'>2</span>, <span class='st'>"tick"</span>, <span class='st'>"sharp"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>b</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c#</span><span style='color: #00BBBB;'>'</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>df#a</span><span style='color: #BBBB00;'>&gt;</span><span></div></span></pre>
   </div>

@@ -6,7 +6,7 @@
 \alias{midi_notes}
 \alias{midi_time}
 \alias{midi_key}
-\title{Read MIDI file}
+\title{Read and inspect MIDI file contents}
 \usage{
 read_midi(file)
 
@@ -29,7 +29,8 @@ midi_key(x)
 a tibble data frame
 }
 \description{
-Read MIDI file into a data frame.
+Read MIDI file into a data frame and inspect the music data with supporting
+functions.
 }
 \details{
 This function wraps around \code{tuneR::readMidi} by Uwe Ligges and Johanna

@@ -111,8 +111,8 @@ Before introducing the chord constructors, here is a brief mention and example o
 ```{r chords8}
 dyad("a", 3)
 x <- c("minor third", "m3", "augmented second", "A2")
-sapply(x, function(x) dyad("a", x))
-sapply(x, function(x) dyad("c'", x, reverse = TRUE))
+dyad("a", x)
+dyad("c'", x, reverse = TRUE)
 ```
 
 ## Predefined chord constructors

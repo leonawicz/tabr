@@ -101,7 +101,7 @@ Do not be confused about the names of these functions. They are for enforcing a 
 naturalize(x)
 ```
 
-These are helpful building blocks for music programming. A useful wrapper around `flatten_sharp` and `sharpen_flat` is `note_set_key`. Like `is_diatonic`, this function takes a `key` argument. Providing a key signature is often used in `tabr` functions for the purpose of enforcing the correct representation of accidentals intended by the user, which `tabr` cannot know until informed.
+These are helpful building blocks for music programming. A useful wrapper around `flatten_sharp` and `sharpen_flat` is `note_set_key`. Like `is_diatonic`, this function takes a `key` argument. `key` was more meaningful for `is_diatonic`. However, providing a key signature here is helpful for the purpose of enforcing the correct representation of accidentals intended by the user, which `tabr` cannot know until informed.
 
 Be aware that the default for functions that take a `key` argument is `c`, but `c` and `am` have no accidentals in their key signatures, so `note_set_key` will have no effect if you pass these values to `key`. It is also important to recognize that it does not matter for this function what key you choose specifically; it only matters that you choose a key that has the type of accidentals in its signature that you wish to force your noteworthy string to use. If you want flats, it makes no difference if you set `key = "f"` or `key = "b_"`. For this function, you can also literally enter `key = "flat"` or `key = "sharp"`, options that stress the extent to which `key` actually matters to `note_set_key`.
 
@@ -225,20 +225,48 @@ note_rotate(x, 1)
 note_rotate(x, -1)
 ```
 
-`note_shft` only operates on notes, not chords, but is a more complex function. It also rotates notes, but it maintains a consistent direction of increasing or decreasing pitch. The direction is determined by `n` being negative or positive.
-
-This function is intended for use on strings of notes that are already ordered by increasing pitch. However, if applied to a sequence of unordered notes, the sequence will eventually become ordered if `n` is large enough, because each shift transposes the current lowest note by however many full octaves necessary to be above the current highest note and as close to it as possible.
+`note_shft` also rotates notes, but does so up or down in pitch like a moving window. It requires breaking any chords into separate notes, ordering all notes by pitch, and then shifting the sorted notes `n` times, negative or positive indicating the direction.
 
 ```{r notes13}
 note_shift("c e g", 1)
 note_shift("c e g", -4)
 ```
 
-`note_arpeggiate` is like `note_shift` but it extends the original note sequence rather than shifting it and maintaining its fixed size. `n` refers to the number of additional notes to append to the sequence. The length of the final sequence is the length of the original sequence plus `n`.
+`note_arpeggiate` is like `note_shift` but it repeats the entire sequence rather than shifting it a note at a time and maintaining its fixed size. `n` refers to the number of repeats and must be positive. `steps` refers to the semitone offset.
 
 ```{r notes14}
-note_arpeggiate("c e g", 5)
-note_arpeggiate("c e g", -5)
+note_arpeggiate("c e_ g_ a", 3)
+note_arpeggiate("c e_ g_ a", 3, -3)
 ```
 
-The next section on music programming covers various helper functions related to chords.
+## Transpose
+
+An important function in `tabr` for manipulating music notation is the `transpose` function, which also has the alias `tp`.
+
+```{r tp1}
+notes1 <- "c3 b2 c3 d3 e3 e3 d3 c3 b2 c3 c3 c4"
+notes2 <- "c4 b c4 d4 e4 e4 d4 c4 b c4 c4 c5"
+transpose(notes1, 12, octaves = "integer") == notes2
+```
+
+Transposing down is done with negative integers. 
+
+```{r tp2}
+transpose("a_3 b_4 c5", 0)
+tp("a_3 b_4 c5", -1)
+tp("a_3 b_4 c5", 1)
+tp("a#3 b4 c#5", 11)
+tp("a#3 b4 c#5", -12)
+tp("a#3 b4 c#5", 13)
+```
+
+`transpose` also offers the arguments found in `as_noteworthy` for direct control over the format of the transposed output. You can specify the key signature with `key` as an optional override to `accidentals`. It does not do anything more than enforce the desired format for accidentals.
+
+```{r tp3}
+tp("a3 b4 c5", 2, key = "f")
+tp("a3 b4 c5", 2, octaves = "tick", key = "g")
+tp("a b' c''", 2, accidentals = "flat")
+tp("a, b c'e'g'", 2, octaves = "integer", accidentals = "sharp")
+```
+
+`transpose` also works when chords are present. The next section on music programming covers various functions related to chords.

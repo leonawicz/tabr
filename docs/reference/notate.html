@@ -90,7 +90,7 @@ a specific note/time." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9.9000</span>
       </span>
     </div>
 
@@ -206,7 +206,7 @@ a specific note/time." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Add text to music staff</h1>
-    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/helpers.R'><code>R/helpers.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/phrase_helpers.R'><code>R/phrase_helpers.R</code></a></small>
     <div class="hidden name"><code>notate.Rd</code></div>
     </div>
 
@@ -247,7 +247,7 @@ substring when it is fed to <code>phrase</code> for musical phrase assembly.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>notate</span>(<span class='st'>"8"</span>, <span class='st'>"Solo"</span>)</div><div class='output co'>#&gt; [1] "8;^\"Solo\""</div><div class='input'><span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='st'>"c'~ c' d' e'"</span>, <span class='fu'><a href='append_phrases.html'>pc</a></span>(<span class='fu'>notate</span>(<span class='fl'>8</span>, <span class='st'>"First solo"</span>), <span class='st'>"8 8 4."</span>), <span class='st'>"5 5 5 5"</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'>&lt;</span><span style='color: #555555;font-weight: bold;'>Musical phrase</span><span style='color: #555555;'>&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>'</span><span style='color: #555555;'>~</span><span style='color: #BB0000;'>\5</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>8</span><span style='color: #555555;'>^"First solo" &lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>'</span><span style='color: #BB0000;'>\5</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>8</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #00BBBB;'>'</span><span style='color: #BB0000;'>\5</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>8</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>e</span><span style='color: #00BBBB;'>'</span><span style='color: #BB0000;'>\5</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>4.</span><span></div></span></pre>
+#&gt; </span><span style='color: #555555;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>~</span><span style='color: #BB0000;'>\5</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>8</span><span style='color: #555555;'>^"First solo" &lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>'</span><span style='color: #BB0000;'>\5</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>8</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #00BBBB;'>'</span><span style='color: #BB0000;'>\5</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>8</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>e</span><span style='color: #00BBBB;'>'</span><span style='color: #BB0000;'>\5</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>4.</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

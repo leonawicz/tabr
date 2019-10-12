@@ -88,7 +88,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9.9000</span>
       </span>
     </div>
 
@@ -207,9 +207,26 @@
       <small>Source: <a href='https://github.com/leonawicz/tabr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="tabr-0399000" class="section level1">
+<h1 class="page-header">
+<a href="#tabr-0399000" class="anchor"></a>tabr 0.3.9.9000<small> Unreleased </small>
+</h1>
+<ul>
+<li>Refactored many package functions. Most behavior unchanged, but some breaking changes were made based on intentional shifts in perspective about what some functions should do and how the user should interact with them. This included changes to function arguments as well as some redefinition of what certain functions do.</li>
+<li>Substantial code optimization was done, overhauling much of the package in the process.</li>
+<li>Vectorized functions that previously only operated note by note.</li>
+<li>Generalized functions that previously could accept notes but not chords, doing so on a case by case basis in ways that are meaningful and sensible for handling chords.</li>
+<li>Added MIDI file read support (requires optional <code>tuneR</code> installation) and a set of functions for inspecting and manipulating the table of MIDI music data.</li>
+<li>Added more functions for mapping between noteworthy strings, phrase objects, and data frames.</li>
+<li>Updated vignettes, readme and other documentation.</li>
+<li>Made improvements to print method for phrase objects.</li>
+<li>Added <code>rests</code> argument to some note metadata functions.</li>
+<li>Minor bug fixes.</li>
+</ul>
+</div>
     <div id="tabr-035" class="section level1">
 <h1 class="page-header">
-<a href="#tabr-035" class="anchor"></a>tabr 0.3.5<small> Unreleased </small>
+<a href="#tabr-035" class="anchor"></a>tabr 0.3.5<small> 2019-10-06 </small>
 </h1>
 <ul>
 <li>Added alternate input specification for <code>sf_phrase</code>. Instead of providing the first three function arguments, <code>string</code>, <code>fret</code> and <code>info</code>, separately, you can now provide everything to the first input <code>string</code> as a single character string containing all three components separated by semicolons. This makes it easier to reason about the input by time step rather than by argument.</li>
@@ -323,6 +340,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#tabr-0399000">0.3.9.9000</a></li>
         <li><a href="#tabr-035">0.3.5</a></li>
         <li><a href="#tabr-031">0.3.1</a></li>
         <li><a href="#tabr-030">0.3.0</a></li>

@@ -59,8 +59,6 @@ Several predefined musical scales are provided and accessible by calling various
 * scale_melodic_minor
 * scale_jazz_minor
 
-
-
 ```{r scales}
 scale_hungarian_minor(key = "am", collapse = TRUE)
 ```
@@ -104,9 +102,7 @@ scale_chords("f#", "minor", "triad", collapse = TRUE)
 
 ## Scale degrees
 
-The functions `scale_note` and `scale_degree` map between notes and degree in a given scale. For chords in a noteworthy string, only the root note is considered. For `scale_degree`, if a note is not diatonic to the scale, `NA` is returned. For `scale_note`, degrees outside the range of the scale return `NA`. 
-
-`note_in_scale` can be used to check whether a note is diatonic to a scale. Unlike the other two functions, it strictly accepts single notes. This is more strict that a noteworthy check, which permits chords.
+The functions `scale_note` and `scale_degree` map between notes and degree in a given scale. For chords in a noteworthy string, only the root note is considered. For `scale_degree`, if a note is not diatonic to the scale, `NA` is returned. `NA` is also used when rests occur. Octaves are ignored. For `scale_note`, degrees outside the range of the scale are recycled. See below. To see if chords are fully diatonic, use `is_diatonic` or the more general `is_in_scale`. `chord_degree` will return a list comparable to `scale_degree`.
 
 ```{r scale_degrees}
 x <- "c e gb'd'"
@@ -118,7 +114,12 @@ scale_degree(x, scale = "chromatic")
 scale_note(1:7, "d")
 scale_note(c(1:8), "dm", "harmonic minor")
 
-note_in_scale("a_ b c", "a_", ignore_octave = TRUE)
+note_in_scale("a_ g#", "a_", strict_accidentals = FALSE)
+
+x <- "r d dfa df#a f#ac#"
+chord_degree(x, "d")
+is_in_scale(x, "d")
+is_diatonic(x, "d")
 ```
 
 Other functions in `tabr` also work with scales and some build upon functions introduced here.
@@ -133,20 +134,33 @@ mainIntervals
 interval_semitones(c("m3", "M7"))
 ```
 
-Likely more useful for programming, the function `pitch_interval` provides the number of semitones between two input notes. This function does not relate to specific scales, but is worth mentioning on the topic of interval helpers. It provides both magnitude and direction. The result is negative if the first note is of higher pitch than the second.
+Likely more useful for programming, the function `pitch_interval` provides the number of semitones between two input notes. This function does not relate to specific scales, but is worth mentioning on the topic of interval helpers. It provides both magnitude and direction. The result is negative if the first note is of higher pitch than the second. It is vectorized and both inputs must have the same number of timesteps. 
+
+Chords can be reduced to their root note (lowest pitch) for comparison or forced to yield an `NA` interval with respect to its two adjacent timesteps (e.g., `c` to `ceg` is `NA` and so is `ceg` to `c`). Rests `r` and silent rests `s` also yield an `NA` for the interval from a prior note.
 
 ```{r intervals2}
-pitch_interval("c", "c,")
 pitch_interval("a2", "c")
+pitch_interval("c d e", "c c c")
+pitch_interval("r c ceg c e g s", "a c d d f# a e")
+pitch_interval("r c ceg c e g s", "a c d d f# a e", use_root = FALSE)
 ```
 
-`pitch_interval` accepts a single note for each both note inputs, not sequences, nor chords.
+A limitation is that the true interval is lost when a rest is in the noteworthy string between two notes in time. It is best to use without rests. Rests are unlikely to be present in this context for music analysis, but their presence is supported by `tabr` for transcription applications.
 
-Next is `scale_interval`. This function is similar to `pitch_interval` in that it takes a note for each of two arguments, which together define an interval. It is almost an inverse of `interval_semitones` except that you provide two distinct notes rather than the semitone distance they define. The function returns a main interval name or abbreviation from `mainIntervals`, depending on `format`.
+Next is `scale_interval`. This function is similar to `pitch_interval` in that it takes two noteworthy strings, which together define an intervals element-wise. It is almost an inverse of `interval_semitones` except that you provide notes rather than the semitone distance of their intervals. The function returns a main interval name or abbreviation from `mainIntervals`, depending on `format`. The results are name-only. They are not signed. Use `pitch_interval` to obtain direction.
 
 ```{r intervals3}
-scale_interval("c", "c,")
+scale_interval("c c c c", "c, e g b")
 scale_interval("a2", "c", format = "mmp")
+```
+
+There are also lagged difference versions of these functions. You can adjust the lag with `n`. You can also retain (convenient for data frames) or trim leading `NA`s.
+
+```{r intervals4}
+pitch_diff("c d e f g a b")
+pitch_diff("c d e f g a b", trim = TRUE)
+scale_diff("c d e f g a b")
+scale_diff("c d e f g a b", n = 2)
 ```
 
 There is not much else to these interval helper functions, but `pitch_interval` is leveraged extensively in support of more complex music programming.

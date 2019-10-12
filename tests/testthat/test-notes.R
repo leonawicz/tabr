@@ -27,28 +27,33 @@ test_that("note helpers return as expected", {
   expect_identical(pretty_notes(notes, FALSE), "A B C,EbG' D# Eb F G")
 
   expect_identical(note_shift("c4 e' g'", 1), as_noteworthy("e' g' c''"))
-  expect_identical(note_shift("c e_ g", -4) %>% as.character(), "g1 c2 e_2")
+  expect_identical(note_shift("c e_ g", -4) %>% as.character(), "g,, c, e_,")
   expect_identical(note_shift("c4 e_4 g4", -3) %>% as.character(), "c e_ g")
-  expect_identical(note_shift("a", 1), as_noteworthy("a4"))
+  expect_identical(note_shift("a", 1), as_noteworthy("a'"))
+  expect_identical(note_shift("a b ceg"), as_noteworthy("c e g a b"))
+  expect_identical(note_shift(c("a", "b", "ceg")),
+                   as_vector_time(as_noteworthy("c e g a b")))
 
   expect_equal(note_arpeggiate("c e g") %>% as.character(), "c e g")
   expect_equal(note_arpeggiate("c,,", 1) %>% as.character(), "c,, c,")
-  expect_equal(note_arpeggiate("c,, d,,", 1) %>% as.character(), "c,, d,, c,")
-  expect_equal(note_arpeggiate("c e g", 5) %>% as.character(),
-               "c e g c4 e4 g4 c5 e5")
-  expect_equal(note_arpeggiate("c e g", -5) %>% as.character(),
-               "e1 g1 c2 e2 g2 c e g")
-  expect_equal(note_arpeggiate("c e g", 5, style = "tick") %>% as.character(),
-               "c e g c' e' g' c'' e''")
-  expect_equal(note_arpeggiate("c e_ g", -5, key = "f") %>% as.character(),
-               "e_1 g1 c2 e_2 g2 c e_ g")
-  expect_equal(note_arpeggiate("c e_ g", -5, key = "g") %>% as.character(),
-               "d#1 g1 c2 d#2 g2 c d# g")
+  expect_equal(note_arpeggiate("c,, d,,", 1) %>% as.character(),
+               "c,, d,, c, d,")
+  expect_equal(note_arpeggiate("c e g ceg", 1) %>% as.character(),
+               "c e g ceg c' e' g' c'e'g'")
+  expect_equal(note_arpeggiate("c e g ceg", 1, -12) %>% as.character(),
+               "c e g ceg c, e, g, c,e,g,")
+  expect_equal(note_arpeggiate("gec", 2, -1) %>% as.character(),
+               "gec g_e_b, fdb_,")
+  expect_equal(note_arpeggiate("c# e g", 2, 1) %>% as.character(),
+               "c# e g d f g# d# f# a")
+  expect_equal(note_arpeggiate("c e g", 2) %>% as.character(),
+               "c e g c' e' g' c'' e'' g''")
+  expect_equal(note_arpeggiate("c2 d#2 g2", 1, -2) %>% as.character(),
+               "c2 d#2 g2 a#1 c#2 f2")
 
   expect_equal(sharpen_flat("a,") %>% as.character(), "a,")
   expect_equal(sharpen_flat("a_,") %>% as.character(), "g#,")
   expect_equal(flatten_sharp("a#2") %>% as.character(), "b_2")
-  expect_equal(flatten_sharp("a#2", TRUE) %>% as.character(), "b_")
 
   expect_equal(naturalize(notes) %>% as.character(),
                "a b c,eg' d e f g")
@@ -56,8 +61,6 @@ test_that("note helpers return as expected", {
                "a b c,eg' d# e f g")
   expect_equal(naturalize(notes, "sharp") %>% as.character(),
                "a b c,e_g' d e_ f g")
-  expect_equal(naturalize(notes, ignore_octave = TRUE) %>% as.character(),
-               "a b ceg d e f g")
 
   expect_equal(note_set_key(notes, "f") %>% as.character(),
                "a b c,e_g' e_ e_ f g")
@@ -83,10 +86,10 @@ test_that("note helpers return as expected", {
   expect_is(print.noteworthy("a*1"), "NULL")
   expect_is(print.noteworthy(c("a", "a")), "NULL")
 
-  y <- as_noteworthy(y, "vector", "tick", "sharp")
+  y <- as_noteworthy(y, "tick", "sharp", "vector")
   expect_identical(
     y, as_noteworthy(c("a#*2", "c,", "d''", "e", "f#'", "c,d#,g,")))
-  expect_error(as_noteworthy("a", "a"),
+  expect_error(as_noteworthy("a", format = "a"),
                "`format` must be 'space' or 'vector' if not NULL.")
   expect_error(as_noteworthy("a", octaves = "a"),
                "`octaves` must be 'tick' or 'integer' if not NULL.")
@@ -108,10 +111,7 @@ test_that("note helpers return as expected", {
   expect_identical(as_space_time(y), as_noteworthy(x))
   expect_true(is_space_time(as_space_time(y)))
 
-  err <- c("Invalid note found.", "Invalid notes or chords found.")
-  expect_error(note_rotate("a b x"), err[2])
-  expect_error(note_shift("a b ceg"), err[1])
-  expect_error(note_shift("a b ceg"), err[1])
+  expect_error(note_rotate("a b x"), "Invalid notes or chords found.")
 })
 
 test_that("Note metadata inspection works", {
@@ -119,8 +119,8 @@ test_that("Note metadata inspection works", {
   expect_identical(n_steps(x), 3L)
   expect_identical(n_notes(x), 2L)
   expect_identical(n_chords(x), 1L)
-  expect_equal(octave_type(x), "ambiguous")
-  expect_equal(accidental_type(x), "both/ambiguous")
+  expect_equal(octave_type(x), "tick")
+  expect_equal(accidental_type(x), "flat")
   expect_equal(time_format(x), "space-delimited time")
 
   x <- "e_2 a_, b2 c c' c''g'' c''g'' c#f#a#"
@@ -137,7 +137,7 @@ test_that("Note metadata inspection works", {
   expect_identical(n_notes(distinct_pitches(x)), 10L)
   expect_identical(distinct_octaves(x), 2:5)
 
-  expect_identical(pitch_range(x), c("e_2", "g''"))
+  expect_identical(pitch_range(x), c("e_,", "g''"))
   expect_identical(pitch_range("e_2"), c("e_2", "e_2"))
   expect_identical(semitone_range(x), c(39L, 79L))
   expect_identical(semitone_span(x), 40L)

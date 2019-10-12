@@ -179,9 +179,10 @@ miditab <- function(midi_file, file, keep_ly = FALSE, path = NULL,
   invisible()
 }
 
-#' Read MIDI file
+#' Read and inspect MIDI file contents
 #'
-#' Read MIDI file into a data frame.
+#' Read MIDI file into a data frame and inspect the music data with supporting
+#' functions.
 #'
 #' This function wraps around \code{tuneR::readMidi} by Uwe Ligges and Johanna
 #' Mielke.
@@ -207,15 +208,16 @@ read_midi <- function(file){
     message("Please install the `tuneR` package to read MIDI files.")
     return(invisible())
   } else {
-    x <- dplyr::as_tibble(tuneR::readMidi(file))
+    x <- tibble::as_tibble(tuneR::readMidi(file))
     y <- tuneR::getMidiNotes(x)
     bycols <- c("channel", "track", "time", parameter1 = "note")
     dplyr::left_join(x, y, by = bycols) %>%
       dplyr::select(-c("notename")) %>%
       dplyr::mutate(
         note = semitone_pitch(.data[["parameter1"]]),
-        note = ifelse(.data[["event"]] == "Note On", .data[["note"]], NA)) %>%
-      dplyr::select(c("time", "length", "event", "type", "channel",
+        note = ifelse(.data[["event"]] == "Note On", .data[["note"]], NA),
+        duration = 32 / round(.data[["length"]] / 48)) %>%
+      dplyr::select(c("time", "length", "duration", "event", "type", "channel",
                       "parameter1", "parameter2",
                       "parameterMetaSystem", "track", "note", "velocity"))
   }
@@ -232,7 +234,7 @@ midi_metadata <- function(x){
 midi_notes <- function(x, channel = NULL, track = NULL){
   x <- dplyr::filter(x, .data[["event"]] == "Note On") %>%
     dplyr::rename(semitone = .data[["parameter1"]]) %>%
-    dplyr::select(c("time", "length", "note", "semitone", "velocity",
+    dplyr::select(c("time", "duration", "note", "semitone", "velocity",
                     "channel", "track"))
 
   if(!is.null(channel))
@@ -253,3 +255,4 @@ midi_time <- function(x){
 midi_key <- function(x){
   unique(x$parameterMetaSystem[x$event == "Key Signature"])
 }
+

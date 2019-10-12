@@ -5,12 +5,12 @@
 \alias{chord_is_minor}
 \title{Check if chords are major or minor}
 \usage{
-chord_is_major(chords)
+chord_is_major(notes)
 
-chord_is_minor(chords)
+chord_is_minor(notes)
 }
 \arguments{
-\item{chords}{character, a noteworthy string.}
+\item{notes}{character, a noteworthy string.}
 }
 \value{
 logical vector

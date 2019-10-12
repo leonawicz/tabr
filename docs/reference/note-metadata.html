@@ -45,7 +45,7 @@
   
 
 <meta property="og:title" content="Noteworthy string metadata — note-metadata" />
-<meta property="og:description" content="Inspect metadata for noteworthy strings." />
+<meta property="og:description" content="Inspect basic metadata for noteworthy strings." />
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -89,7 +89,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9.9000</span>
       </span>
     </div>
 
@@ -210,7 +210,7 @@
     </div>
 
     <div class="ref-description">
-    <p>Inspect metadata for noteworthy strings.</p>
+    <p>Inspect basic metadata for noteworthy strings.</p>
     </div>
 
     <pre class="usage"><span class='fu'>n_steps</span>(<span class='no'>notes</span>)
@@ -221,28 +221,6 @@
 
 <span class='fu'>n_octaves</span>(<span class='no'>notes</span>)
 
-<span class='fu'>tally_notes</span>(<span class='no'>notes</span>, <span class='kw'>rests</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
-<span class='fu'>tally_pitches</span>(<span class='no'>notes</span>, <span class='kw'>rests</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
-<span class='fu'>tally_octaves</span>(<span class='no'>notes</span>)
-
-<span class='fu'>distinct_notes</span>(<span class='no'>notes</span>, <span class='kw'>rests</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
-<span class='fu'>distinct_pitches</span>(<span class='no'>notes</span>, <span class='kw'>rests</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
-<span class='fu'>distinct_octaves</span>(<span class='no'>notes</span>)
-
-<span class='fu'>pitch_range</span>(<span class='no'>notes</span>)
-
-<span class='fu'>semitone_range</span>(<span class='no'>notes</span>)
-
-<span class='fu'>semitone_span</span>(<span class='no'>notes</span>)
-
-<span class='fu'>octave_range</span>(<span class='no'>notes</span>)
-
-<span class='fu'>octave_span</span>(<span class='no'>notes</span>)
-
 <span class='fu'>octave_type</span>(<span class='no'>notes</span>)
 
 <span class='fu'>accidental_type</span>(<span class='no'>notes</span>)
@@ -251,7 +229,15 @@
 
 <span class='fu'>is_space_time</span>(<span class='no'>notes</span>)
 
-<span class='fu'>is_vector_time</span>(<span class='no'>notes</span>)</pre>
+<span class='fu'>is_vector_time</span>(<span class='no'>notes</span>)
+
+<span class='fu'>note_is_tick</span>(<span class='no'>notes</span>)
+
+<span class='fu'>note_is_integer</span>(<span class='no'>notes</span>)
+
+<span class='fu'>note_has_tick</span>(<span class='no'>notes</span>)
+
+<span class='fu'>note_has_integer</span>(<span class='no'>notes</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -261,62 +247,40 @@
       <td><p>character, a noteworthy string, space-delimited or vector of
 individual entries.</p></td>
     </tr>
-    <tr>
-      <th>rests</th>
-      <td><p>logical, include rests <code>r</code> and silent rests <code>s</code> in
-tally.</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>integer or character</p>
+    <p>varies by function</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Returned object depends on the nature of the function. It can be integers,
-logical, character. Results can be a vector of equal length of a single
-value summary.
-<code>distinct_notes</code> and <code>distinct_pitches</code> filter a noteworthy string
-to its unique elements, respectively. These functions return another
-noteworthy string.</p>
+    <p>These functions inspect the basic metadata of noteworthy strings.
+For functions that perform basic checks on strings, see
+<code><a href='note-checks.html'>note-checks</a></code>.</p>
 <p>The <code>n_*</code> functions give summary totals of the number of timesteps,
 number of individual note (non-chord) timesteps, number of chord time
-steps, and the number of distinct octaves present across timesteps.
-Use the <code>tally_*</code> and <code>distinct_*</code> functions specifically for
-summaries of unique elements.</p>
-<p><code>*_span</code> functions are just the size of a range, e.g.,
-<code>semitone_range</code> and <code>semitone_span</code>.</p>
+steps, and the number of distinct octaves present across timesteps.</p>
 <p>Functions pertaining to type or format of a noteworthy string provide
-information on how a particular string is defined, e.g. <code>time_format</code>.</p>
+information on how a particular string is defined, e.g. <code>time_format</code>.
+Note that the result pertains to true <code>noteworthy</code>-class objects. If
+inspecting a standard character string, the result pertains to
+post-conversion to the <code>noteworthy</code> class and does not necessarily
+reflect what is found in <code>notes</code> verbatim. See examples.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='note-checks.html'>note-checks</a></code>, <code><a href='note-summaries.html'>note-summaries</a></code>,
+<code><a href='note-coerce.html'>note-coerce</a></code>, <code><a href='valid-notes.html'>valid-notes</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"e_2 a_, c#f#a#"</span>
 <span class='fu'>n_steps</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 3</div><div class='input'><span class='fu'>n_notes</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 2</div><div class='input'><span class='fu'>n_chords</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 1</div><div class='input'><span class='fu'>n_octaves</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 2</div><div class='input'>
-<span class='fu'>tally_notes</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 2</span><span>
-#&gt;   note      n
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> c#        1
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> e_        1
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> f#        1
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> a_        1
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> a#        1</div><div class='input'><span class='fu'>tally_pitches</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 5 x 2</span><span>
-#&gt;   pitch     n
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> e_2       1
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> a_,       1
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> c#        1
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> f#        1
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> a#        1</div><div class='input'><span class='fu'>tally_octaves</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 2 x 2</span><span>
-#&gt;   octave     n
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>      2     2
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>      3     3</div><div class='input'><span class='fu'>distinct_notes</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; </span><span style='color: #808080;font-weight: bold;'>&lt;Noteworthy string&gt;
-#&gt;   Format: </span><span>space-delimited time</span><span style='color: #808080;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00AFFF;font-weight: bold;'>c#</span><span> </span><span style='color: #00AFFF;font-weight: bold;'>e_</span><span> </span><span style='color: #00AFFF;font-weight: bold;'>f#</span><span> </span><span style='color: #00AFFF;font-weight: bold;'>a_</span><span> </span><span style='color: #00AFFF;font-weight: bold;'>a#</span><span></div><div class='input'><span class='fu'>distinct_pitches</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; </span><span style='color: #808080;font-weight: bold;'>&lt;Noteworthy string&gt;
-#&gt;   Format: </span><span>space-delimited time</span><span style='color: #808080;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00AFFF;font-weight: bold;'>e_</span><span style='color: #00AFFF;'>2</span><span> </span><span style='color: #00AFFF;font-weight: bold;'>a_</span><span style='color: #00AFFF;'>,</span><span> </span><span style='color: #00AFFF;font-weight: bold;'>c#</span><span> </span><span style='color: #00AFFF;font-weight: bold;'>f#</span><span> </span><span style='color: #00AFFF;font-weight: bold;'>a#</span><span></div><div class='input'><span class='fu'>distinct_octaves</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 2 3</div><div class='input'>
-<span class='fu'>pitch_range</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "e_2" "a#" </div><div class='input'><span class='fu'>semitone_range</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 39 58</div><div class='input'><span class='fu'>semitone_span</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 19</div><div class='input'><span class='fu'>octave_range</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 2 3</div><div class='input'><span class='fu'>octave_span</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 1</div><div class='input'>
-<span class='fu'>octave_type</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "ambiguous"</div><div class='input'><span class='fu'>accidental_type</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "both/ambiguous"</div><div class='input'><span class='fu'>time_format</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "space-delimited time"</div><div class='input'><span class='fu'>is_space_time</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is_vector_time</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] FALSE</div></span></pre>
+<span class='co'># Type is mixed in \code{x} but is inferred under default conversion rules.</span>
+<span class='co'># These check \code{x} once validated and coerced to 'noteworthy' class.</span>
+<span class='fu'>octave_type</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "tick"</div><div class='input'><span class='fu'>accidental_type</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "flat"</div><div class='input'><span class='co'># The default is tick octaves and flats</span>
+<span class='fu'><a href='valid-notes.html'>as_noteworthy</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>d_g_b_</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'>
+<span class='fu'>time_format</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "space-delimited time"</div><div class='input'><span class='fu'>is_space_time</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is_vector_time</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] FALSE</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -324,6 +288,7 @@ information on how a particular string is defined, e.g. <code>time_format</code>
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#details">Details</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

@@ -6,22 +6,15 @@
 \alias{n_notes}
 \alias{n_chords}
 \alias{n_octaves}
-\alias{tally_notes}
-\alias{tally_pitches}
-\alias{tally_octaves}
-\alias{distinct_notes}
-\alias{distinct_pitches}
-\alias{distinct_octaves}
-\alias{pitch_range}
-\alias{semitone_range}
-\alias{semitone_span}
-\alias{octave_range}
-\alias{octave_span}
 \alias{octave_type}
 \alias{accidental_type}
 \alias{time_format}
 \alias{is_space_time}
 \alias{is_vector_time}
+\alias{note_is_tick}
+\alias{note_is_integer}
+\alias{note_has_tick}
+\alias{note_has_integer}
 \title{Noteworthy string metadata}
 \usage{
 n_steps(notes)
@@ -32,28 +25,6 @@ n_chords(notes)
 
 n_octaves(notes)
 
-tally_notes(notes, rests = FALSE)
-
-tally_pitches(notes, rests = FALSE)
-
-tally_octaves(notes)
-
-distinct_notes(notes, rests = FALSE)
-
-distinct_pitches(notes, rests = FALSE)
-
-distinct_octaves(notes)
-
-pitch_range(notes)
-
-semitone_range(notes)
-
-semitone_span(notes)
-
-octave_range(notes)
-
-octave_span(notes)
-
 octave_type(notes)
 
 accidental_type(notes)
@@ -63,39 +34,40 @@ time_format(notes)
 is_space_time(notes)
 
 is_vector_time(notes)
+
+note_is_tick(notes)
+
+note_is_integer(notes)
+
+note_has_tick(notes)
+
+note_has_integer(notes)
 }
 \arguments{
 \item{notes}{character, a noteworthy string, space-delimited or vector of
 individual entries.}
-
-\item{rests}{logical, include rests \code{r} and silent rests \code{s} in
-tally.}
 }
 \value{
-integer or character
+varies by function
 }
 \description{
-Inspect metadata for noteworthy strings.
+Inspect basic metadata for noteworthy strings.
 }
 \details{
-Returned object depends on the nature of the function. It can be integers,
-logical, character. Results can be a vector of equal length of a single
-value summary.
-\code{distinct_notes} and \code{distinct_pitches} filter a noteworthy string
-to its unique elements, respectively. These functions return another
-noteworthy string.
+These functions inspect the basic metadata of noteworthy strings.
+For functions that perform basic checks on strings, see
+\code{\link{note-checks}}.
 
 The \code{n_*} functions give summary totals of the number of timesteps,
 number of individual note (non-chord) timesteps, number of chord time
 steps, and the number of distinct octaves present across timesteps.
-Use the \code{tally_*} and \code{distinct_*} functions specifically for
-summaries of unique elements.
-
-\code{*_span} functions are just the size of a range, e.g.,
-\code{semitone_range} and \code{semitone_span}.
 
 Functions pertaining to type or format of a noteworthy string provide
 information on how a particular string is defined, e.g. \code{time_format}.
+Note that the result pertains to true \code{noteworthy}-class objects. If
+inspecting a standard character string, the result pertains to
+post-conversion to the \code{noteworthy} class and does not necessarily
+reflect what is found in \code{notes} verbatim. See examples.
 }
 \examples{
 x <- "e_2 a_, c#f#a#"
@@ -104,22 +76,18 @@ n_notes(x)
 n_chords(x)
 n_octaves(x)
 
-tally_notes(x)
-tally_pitches(x)
-tally_octaves(x)
-distinct_notes(x)
-distinct_pitches(x)
-distinct_octaves(x)
-
-pitch_range(x)
-semitone_range(x)
-semitone_span(x)
-octave_range(x)
-octave_span(x)
-
+# Type is mixed in \\code{x} but is inferred under default conversion rules.
+# These check \\code{x} once validated and coerced to 'noteworthy' class.
 octave_type(x)
 accidental_type(x)
+# The default is tick octaves and flats
+as_noteworthy(x)
+
 time_format(x)
 is_space_time(x)
 is_vector_time(x)
+}
+\seealso{
+\code{\link{note-checks}}, \code{\link{note-summaries}},
+\code{\link{note-coerce}}, \code{\link{valid-notes}}
 }

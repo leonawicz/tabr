@@ -18,7 +18,7 @@ for the chord.}
 \item{tuning}{character, string tuning. See \code{tunings} for predefined
 tunings. Custom tunings are specified with a similar \code{value} string.}
 
-\item{...}{additional arguments passed to \code{transpose}. See examples.}
+\item{...}{additional arguments passed to \code{transpose}.}
 }
 \value{
 a data frame

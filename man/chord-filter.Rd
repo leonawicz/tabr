@@ -7,15 +7,14 @@
 \alias{chord_slice}
 \title{Extract notes from chords}
 \usage{
-chord_root(chords)
+chord_root(notes)
 
-chord_top(chords)
+chord_top(notes)
 
-chord_slice(chords, index)
+chord_slice(notes, index)
 }
 \arguments{
-\item{chords}{character, a noteworthy string, may include individual notes
-and chords.}
+\item{notes}{character, a noteworthy string.}
 
 \item{index}{integer, the order of a note in a chord by pitch (not scale
 degrees).}
@@ -37,7 +36,7 @@ An error is thrown is \code{index} is completely out of bounds for all
 chords.
 }
 \examples{
-x <- "a2 ceg e_gc egc,cc'"
+x <- "a_2 c#eg# e_gc egc,cc'"
 chord_root(x)
 chord_top(x)
 identical(chord_slice(x, 1), chord_root(x))

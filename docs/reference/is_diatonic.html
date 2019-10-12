@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Check if chords are diatonic — chord_is_diatonic • tabr</title>
+<title>Check if notes and chords are diatonic — is_diatonic • tabr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -44,8 +44,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Check if chords are diatonic — chord_is_diatonic" />
-<meta property="og:description" content="Check whether chords are diatonic in a given key." />
+<meta property="og:title" content="Check if notes and chords are diatonic — is_diatonic" />
+<meta property="og:description" content="Check if notes and chords are diatonic in a given key." />
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -89,7 +89,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9.9000</span>
       </span>
     </div>
 
@@ -204,23 +204,23 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Check if chords are diatonic</h1>
-    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/chords.R'><code>R/chords.R</code></a></small>
-    <div class="hidden name"><code>chord_is_diatonic.Rd</code></div>
+    <h1>Check if notes and chords are diatonic</h1>
+    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/scales.R'><code>R/scales.R</code></a></small>
+    <div class="hidden name"><code>is_diatonic.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Check whether chords are diatonic in a given key.</p>
+    <p>Check if notes and chords are diatonic in a given key.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>chord_is_diatonic</span>(<span class='no'>chord</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>)</pre>
+    <pre class="usage"><span class='fu'>is_diatonic</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>chord</th>
-      <td><p>character, a chord string. May be a vector.</p></td>
+      <th>notes</th>
+      <td><p>character, a noteworthy string.</p></td>
     </tr>
     <tr>
       <th>key</th>
@@ -233,15 +233,14 @@
     <p>logical</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function strictly accepts chord strings. To check if notes are in a
-scale, see <code><a href='scale-deg.html'>note_in_scale</a></code>. To check generally if a
-<code>noteworthy</code> string is fully diatonic, see <code><a href='valid-notes.html'>is_diatonic</a></code>.</p>
+    <p>This function is a wrapper around <code><a href='scale-deg.html'>is_in_scale</a></code>. To check if
+individual notes are in a scale, see <code><a href='scale-deg.html'>note_in_scale</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='scale-deg.html'>note_in_scale</a></code>, <code><a href='valid-notes.html'>is_diatonic</a></code></p></div>
+    <div class='dont-index'><p><code><a href='scale-deg.html'>is_in_scale</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>chord_is_diatonic</span>(<span class='st'>"ceg ace ce_g"</span>, <span class='st'>"c"</span>)</div><div class='output co'>#&gt; [1]  TRUE  TRUE FALSE</div><div class='input'><span class='fu'>chord_is_diatonic</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"dfa"</span>, <span class='st'>"df#a"</span>), <span class='st'>"d"</span>)</div><div class='output co'>#&gt; [1] FALSE  TRUE</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>is_diatonic</span>(<span class='st'>"ceg ace ce_g"</span>, <span class='st'>"c"</span>)</div><div class='output co'>#&gt; [1]  TRUE  TRUE FALSE</div><div class='input'><span class='fu'>is_diatonic</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"r"</span>, <span class='st'>"d"</span>, <span class='st'>"dfa"</span>, <span class='st'>"df#a"</span>), <span class='st'>"d"</span>)</div><div class='output co'>#&gt; [1]    NA  TRUE FALSE  TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

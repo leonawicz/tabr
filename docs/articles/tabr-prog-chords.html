@@ -45,7 +45,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9.9000</span>
       </span>
     </div>
 
@@ -175,7 +175,7 @@
 <a href="#chord-identity-and-comparison" class="anchor"></a>Chord identity and comparison</h2>
 <p>You have already seen <code>is_chord</code>, which is similar to <code>is_note</code>. Another check you have seen is <code>is_diatonic</code>. You can also check whether a chords are major or minor, but this is imperfect due to the inability to know if the user is interpreting their notation of a chord as an inversion. Instances where it is too difficult to tell, or inapplicable such as with single notes, return <code>NA</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">x &lt;-<span class="st"> "b c ce_g cd#g"</span></a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="kw"><a href="../reference/valid-notes.html">is_diatonic</a></span>(x, <span class="dt">key =</span> <span class="st">"b_"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw"><a href="../reference/is_diatonic.html">is_diatonic</a></span>(x, <span class="dt">key =</span> <span class="st">"b_"</span>)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; [1] FALSE  TRUE  TRUE FALSE
 </code></pre>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="../reference/chord_is_major.html">chord_is_major</a></span>(x)</a></code></pre></div>
@@ -221,12 +221,12 @@
 <a class="sourceLine" id="cb10-2" title="2"><span class="kw"><a href="../reference/chord-filter.html">chord_root</a></span>(x)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">a</span><span style="color: #00BBBB;">2</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">,</span><span>
+#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">a</span><span style="color: #00BBBB;">,</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">,</span><span>
 </span></code></pre>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw"><a href="../reference/chord-filter.html">chord_top</a></span>(x)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">a</span><span style="color: #00BBBB;">2</span><span> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">'</span><span>
+#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">a</span><span style="color: #00BBBB;">,</span><span> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">'</span><span>
 </span></code></pre>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/identical.html">identical</a></span>(<span class="kw"><a href="../reference/chord-filter.html">chord_slice</a></span>(x, <span class="dv">1</span>), <span class="kw"><a href="../reference/chord-filter.html">chord_root</a></span>(x))</a></code></pre></div>
 <pre class="r-output"><code>#&gt; [1] TRUE
@@ -307,17 +307,19 @@
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1"><span class="kw"><a href="../reference/dyad.html">dyad</a></span>(<span class="st">"a"</span>, <span class="dv">3</span>)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Values: </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ac</span><span style="color: #00BBBB;">4</span><span style="color: #BBBB00;">&gt;</span><span>
+#&gt;   Values: </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ac</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span>
 </span></code></pre>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1">x &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"minor third"</span>, <span class="st">"m3"</span>, <span class="st">"augmented second"</span>, <span class="st">"A2"</span>)</a>
-<a class="sourceLine" id="cb25-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(x, <span class="cf">function</span>(x) <span class="kw"><a href="../reference/dyad.html">dyad</a></span>(<span class="st">"a"</span>, x))</a></code></pre></div>
-<pre class="r-output"><code>#&gt;      minor third               m3 augmented second               A2 
-#&gt;            "ac4"            "ac4"            "ac4"            "ac4"
-</code></pre>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(x, <span class="cf">function</span>(x) <span class="kw"><a href="../reference/dyad.html">dyad</a></span>(<span class="st">"c'"</span>, x, <span class="dt">reverse =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
-<pre class="r-output"><code>#&gt;      minor third               m3 augmented second               A2 
-#&gt;            "ac'"            "ac'"            "ac'"            "ac'"
-</code></pre>
+<a class="sourceLine" id="cb25-2" title="2"><span class="kw"><a href="../reference/dyad.html">dyad</a></span>(<span class="st">"a"</span>, x)</a></code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Values: </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ac</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ac</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ac</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ac</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span>
+</span></code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="kw"><a href="../reference/dyad.html">dyad</a></span>(<span class="st">"c'"</span>, x, <span class="dt">reverse =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Values: </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ac</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ac</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ac</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ac</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span>
+</span></code></pre>
 </div>
 <div id="predefined-chord-constructors" class="section level2">
 <h2 class="hasAnchor">
@@ -359,17 +361,17 @@
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1"><span class="kw"><a href="../reference/chords.html">chord_min7</a></span>(<span class="st">"a c e"</span>)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Values: </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ac</span><span style="color: #00BBBB;">4</span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">4</span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #00BBBB;">4</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">cd#ga#</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">egbd</span><span style="color: #00BBBB;">4</span><span style="color: #BBBB00;">&gt;</span><span>
+#&gt;   Values: </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ac</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ce_gb_</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">egbd</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span>
 </span></code></pre>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1"><span class="kw"><a href="../reference/chords.html">chord_min7</a></span>(<span class="st">"a c e"</span>, <span class="dt">key =</span> <span class="st">"f"</span>)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Values: </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ac</span><span style="color: #00BBBB;">4</span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">4</span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #00BBBB;">4</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ce_gb_</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">egbd</span><span style="color: #00BBBB;">4</span><span style="color: #BBBB00;">&gt;</span><span>
+#&gt;   Values: </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ac</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ce_gb_</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">egbd</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span>
 </span></code></pre>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1"><span class="kw"><a href="../reference/chords.html">xm7</a></span>(<span class="st">"a c e"</span>, <span class="dt">key =</span> <span class="st">"f"</span>)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Values: </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ac</span><span style="color: #00BBBB;">4</span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">4</span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #00BBBB;">4</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ce_gb_</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">egbd</span><span style="color: #00BBBB;">4</span><span style="color: #BBBB00;">&gt;</span><span>
+#&gt;   Values: </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ac</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ce_gb_</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">egbd</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span>
 </span></code></pre>
 </div>
 <div id="predefined-guitar-chords" class="section level2">
@@ -413,17 +415,17 @@
 <pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 12 x 13</span><span>
 #&gt;    id    lp_name root  octave root_fret min_fret bass_string notes frets
 #&gt;    </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>       </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>
-#&gt; </span><span style="color: #555555;"> 1</span><span> m     a#,:m   a#         2         1        1           5 a#,f~ x133~
-#&gt; </span><span style="color: #555555;"> 2</span><span> m     b,:m    b          2         2        2           5 b,f#~ x244~
+#&gt; </span><span style="color: #555555;"> 1</span><span> m     b_,:m   b_         2         1        1           5 b_,f~ x133~
+#&gt; </span><span style="color: #555555;"> 2</span><span> m     b,:m    b          2         2        2           5 b,g_~ x244~
 #&gt; </span><span style="color: #555555;"> 3</span><span> m     c:m     c          3         3        3           5 cgc'~ x355~
-#&gt; </span><span style="color: #555555;"> 4</span><span> m     c#:m    c#         3         4        4           5 c#g#~ x466~
+#&gt; </span><span style="color: #555555;"> 4</span><span> m     d_:m    d_         3         4        4           5 d_a_~ x466~
 #&gt; </span><span style="color: #555555;"> 5</span><span> m     d:m     d          3         5        5           5 dad'~ x577~
-#&gt; </span><span style="color: #555555;"> 6</span><span> m     d#:m    d#         3         6        6           5 d#a#~ x688~
+#&gt; </span><span style="color: #555555;"> 6</span><span> m     e_:m    e_         3         6        6           5 e_b_~ x688~
 #&gt; </span><span style="color: #555555;"> 7</span><span> m     e:m     e          3         7        7           5 ebe'~ x799~
 #&gt; </span><span style="color: #555555;"> 8</span><span> m     f:m     f          3         8        8           5 fc'f~ x8(1~
-#&gt; </span><span style="color: #555555;"> 9</span><span> m     f#:m    f#         3         9        9           5 f#c#~ x9(1~
+#&gt; </span><span style="color: #555555;"> 9</span><span> m     g_:m    g_         3         9        9           5 g_d_~ x9(1~
 #&gt; </span><span style="color: #555555;">10</span><span> m     g:m     g          3        10       10           5 gd'g~ x(10~
-#&gt; </span><span style="color: #555555;">11</span><span> m     g#:m    g#         3        11       11           5 g#d#~ x(11~
+#&gt; </span><span style="color: #555555;">11</span><span> m     a_:m    a_         3        11       11           5 a_e_~ x(11~
 #&gt; </span><span style="color: #555555;">12</span><span> m     a:m     a          3        12       12           5 ae'a~ x(12~
 #&gt; </span><span style="color: #555555;"># ... with 4 more variables: semitones </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span style="color: #555555;">, optional </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span style="color: #555555;">,
 #&gt; #   fretboard </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span style="color: #555555;">, open </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>

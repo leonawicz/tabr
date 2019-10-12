@@ -37,7 +37,7 @@
 #' for the chord.
 #' @param tuning character, string tuning. See \code{tunings} for predefined
 #' tunings. Custom tunings are specified with a similar \code{value} string.
-#' @param ... additional arguments passed to \code{transpose}. See examples.
+#' @param ... additional arguments passed to \code{transpose}.
 #'
 #' @return a data frame
 #' @export
@@ -77,10 +77,11 @@ chord_def <- function(fret, id, optional = NA, tuning = "standard", ...){
     )
 
   dots <- list(...)
-  key <- ifelse(is.null(dots$key), "c", dots$key)
-  style <- ifelse(is.null(dots$style), "tick", dots$style)
+  o <- ifelse(is.null(dots$octaves), "tick", dots$octaves)
+  a <- ifelse(is.null(dots$accidentals), "flat", dots$accidentals)
+  k <- dots$key
   notes <- sapply(1:6, function(i){
-    if(!i %in% idx) NA else transpose(x[i], fret[i], key, style)
+    if(!i %in% idx) NA else transpose(x[i], fret[i], o, a, k)
   })
   if(!any(is.na(optional))) optional <- paste(notes[optional], collapse = " ")
 
@@ -90,7 +91,7 @@ chord_def <- function(fret, id, optional = NA, tuning = "standard", ...){
   notes <- paste(notes[idx], collapse = "")
   lp_name <- lp_chord_id(pitch1, id, ...)
 
-  dplyr::tibble(
+  tibble::tibble(
     id = id, lp_name = lp_name,
     root = root, octave = octave, root_fret = root_fret, min_fret = min_fret,
     bass_string = bass_string, notes = notes,
@@ -237,7 +238,7 @@ lp_chord_mod <- function(root, chord, exact = FALSE, ...){
 #' chord_name_mod("a aM b_,m7#5")
 #'
 #' gc_info("a") # a major chord, not a single note
-#' gc_info("ceg a#m7_5") # only third entry is a guitar chord
+#' gc_info("ceg a#m7_5") # only second entry is a guitar chord
 #' gc_info("ceg a#m7_5", key = "f")
 #'
 #' gc_info("a,m c d f,")
@@ -250,14 +251,14 @@ gc_info <- function(name, root_fret = NA, min_fret = NA, bass_string = NA,
   .keycheck(key)
   acc <- .keydata$sf[.keydata$key == key]
   sharp <- is.na(acc) || acc == "sharp"
-  f <- if(sharp) sharpen_flat else flatten_sharp
+  f <- if(sharp) .flat_to_sharp else .sharp_to_flat
   x <- chord_name_split(name)
   by <- c(id = "mod", root = "root")
   if(!ignore_octave){
     x$octave <- sapply(x$root, .pitch_to_octave)
     by <- c(by, octave = "octave")
   }
-  x$root <- as.character(.pitch_to_note(f(x$root)))
+  x$root <- as.character(.pitch_to_note(sapply(x$root, f)))
   if(sharp){
     d <- dplyr::filter(tabr::guitarChords, !grepl("_", .data[["notes"]]))
   } else {
@@ -309,7 +310,7 @@ chord_name_split <- function(name){
   mod[mod == ""] <- "M"
   idx <- grep("M6", mod)
   if(length(idx)) mod[idx] <- gsub("M6", "6", mod[idx])
-  dplyr::tibble(root = root, mod = mod)
+  tibble::tibble(root = root, mod = mod)
 }
 
 #' @export

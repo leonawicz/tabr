@@ -4,7 +4,8 @@
 \alias{dyad}
 \title{Construct a dyad}
 \usage{
-dyad(notes, interval, reverse = FALSE, key = "c")
+dyad(notes, interval, reverse = FALSE, octaves = c("tick", "integer"),
+  accidentals = c("flat", "sharp"), key = NULL)
 }
 \arguments{
 \item{notes}{character, a noteworthy string, single notes only, no chords.
@@ -16,7 +17,7 @@ respectively. See details.}
 \item{reverse}{logical, reverse the transposition direction. Useful when
 \code{interval} is character.}
 
-\item{key}{character, key signature.}
+\item{octaves, accidentals, key}{See \code{\link{transpose}}.}
 }
 \value{
 character

@@ -49,6 +49,8 @@ This class is mostly used internally by a variety of functions, but otherwise th
 
 `as_noteworthy` can be used to coerce to the `noteworthy` class. Coercion will fail if the string is not noteworthy. Using the `noteworthy` class is generally not needed by the user explicitly, but is available and offers its own `print` and `summary` methods for noteworthy strings.
 
+However, `as_noteworthy` and other functions that return a noteworthy string class have the added benefit of conforming all notes to the same formatting. This will clean up any presence of combined flats and sharps and combined tick and integer octave numbering.
+
 ```{r as_noteworthy}
 x <- "a# b_*2 c, d'' e3*2 g_4 c2e_2g2*2"
 x <- as_noteworthy(x)
@@ -57,7 +59,7 @@ x
 summary(x)
 ```
 
-When coercing a noteworthy character string to one that has the `noteworthy` class, it is possible to override some format attributes that are derived from the input string:
+When coercing a noteworthy character string to one that has the `noteworthy` class, formatting is inferred from the `notes` input. Precedence is given to ticks for octave numbering and flats for accidentals. You can specify formatting attributes by providing explicit arguments. This is useful for coercing to another format.
 
 ```{r noteworthy2}
 x <- as_noteworthy(x, format = "vector", octaves = "tick", accidentals = "flat")
@@ -65,6 +67,10 @@ x
 
 summary(x)
 ```
+
+Some functions like `transpose` also expose these formatting arguments directly. For other functions, format is strictly inferred from the input notes, but you can always coerce to another format with `as_noteworthy`.
+
+As an aside, tick octave notation is not the default just because it is used by LilyPond. The vignettes on transcription show that conversion from integers to ticks for the `phrase` objects used in transcription is automatic. Another reason is the ticks are more robust. In `tabr`, integer octaves cannot go below zero with leading to problematic syntax, but you can always add more commas as octaves decrease.
 
 ### Stricter note and chord validation
 
@@ -78,7 +84,7 @@ is_note(x)
 is_chord(x)
 ```
 
-These functions serve simple enough purposes that you are unlikely to use them when writing tabs. However, these and many others can be highly useful when programming more complex musical manipulations.
+Functions like these serve simple purposes that you are unlikely to use them when writing sheet music. However, they can be highly useful in music data analysis, particularly when building more complex musical manipulations on top of simpler functions.
 
 ## Notable phrases
 

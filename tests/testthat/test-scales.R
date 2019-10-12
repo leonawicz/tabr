@@ -6,24 +6,24 @@ test_that("scales return as expected", {
   expect_equal(scale_diatonic("c", collapse = TRUE) %>% as.character(),
                "c d e f g a b")
   expect_equal(scale_diatonic("am", collapse = TRUE) %>% as.character(),
-               "a2 b2 c d e f g")
+               "a, b, c d e f g")
   expect_equal(length(scale_chromatic("c")), 12)
 
   expect_equal(scale_diatonic(key = "dm", TRUE) %>% as.character(),
-               "d e f g a b_ c4")
+               "d e f g a b_ c'")
   expect_equal(scale_minor(key = "dm", TRUE, TRUE) %>% as.character(),
                "d e f g a b_ c")
   expect_equal(scale_major(key = "d", TRUE) %>% as.character(),
-               "d e f# g a b c#4")
+               "d e f# g a b c#'")
 
   expect_equal(scale_chromatic(root = "a", collapse = TRUE) %>% as.character(),
-               c("a2 a#2 b2 c c# d d# e f f# g g#"))
+               c("a, a#, b, c c# d d# e f f# g g#"))
   expect_equal(scale_chromatic(root = "a", ignore_octave = TRUE) %>%
                  as.character(), c("a",  "a#", "b",  "c",  "c#", "d",  "d#",
                                    "e",  "f",  "f#", "g",  "g#"))
 
   expect_equal(scale_harmonic_minor("am", TRUE) %>% as.character(),
-               "a2 b2 c d e f g#")
+               "a, b, c d e f g#")
   expect_equal(scale_hungarian_minor("am", TRUE, TRUE) %>% as.character(),
                "a b c d# e f g#")
 
@@ -32,7 +32,7 @@ test_that("scales return as expected", {
     rev(scale_melodic_minor("am", descending = TRUE, ignore_octave = TRUE)),
     letters[1:7])
   expect_equal(scale_jazz_minor("am", collapse = TRUE) %>% as.character(),
-               "a2 b2 c d e f# g#")
+               "a, b, c d e f# g#")
 
   expect_equal(length(modes()), 7)
   expect_equal(length(modes("major")), 3)
@@ -47,49 +47,68 @@ test_that("scales return as expected", {
 })
 
 test_that("other scale helpers return as expected", {
-  expect_equal(scale_degree("c e g"), c(1, 3, 5))
+  x <- "r c, e3 g~ g s g# ceg"
+  expect_equal(scale_degree(x), c(NA, 1, 3, 5, 5, NA, NA, 1))
+  expect_equal(note_in_scale(x), c(NA, T, T, T, T, NA, F, T))
+  expect_equal(scale_degree("a b c d e f g", "am", "harmonic_minor"),
+               c(1:6, NA))
   expect_equal(scale_degree("c e g", roman = TRUE), as.roman(c(1, 3, 5)))
   expect_equal(scale_degree("c e g", key = "d"), c(NA, 2, 4))
 
+  expect_equal(scale_degree("c c# d_ e", key = "d"), c(NA, 7, NA, 2))
+  expect_equal(scale_degree("c c# d_ e", key = "d", strict_accidentals = FALSE),
+               c(NA, 7, 7, 2))
+
   x <- "c, e_3 g' f#ac#"
   expect_equal(scale_degree(x), c(1, NA, 5, NA))
-  expect_equal(scale_degree(x, naturalize = TRUE), c(1, 3, 5, 4))
-  expect_equal(scale_degree(x, scale = "chromatic"), c(1, NA, 8, 7))
-  expect_equal(scale_degree(x, scale = "chromatic", sharp = FALSE),
-               c(1, 4, 8, NA))
+  expect_equal(scale_degree(x, use_root = FALSE), c(1, NA, 5, NA))
+  expect_equal(scale_degree(x, naturalize = TRUE), c(1, 3, 5, 1))
+  expect_equal(scale_degree(x, scale = "chromatic"), c(1, 4, 8, 2))
+  expect_equal(
+    scale_degree("c# d_ e_' e4 f f# g", key = "c#", scale = "chromatic"),
+    c(1, 1, 3:7))
 
   expect_equal(scale_note(1:3), c("c", "d", "e"))
-  expect_equal(scale_note(c(1, 3, 8), "d", collapse = TRUE), "d f# NA")
+  expect_equal(scale_note(c(1, 3, 8), "d", collapse = TRUE), "d f# d")
   expect_true(all(sapply(list(4, "IV", as.roman(4)), scale_note) == "f"))
 
-  expect_equal(chord_is_diatonic("f#ac# f#ac", "a"), c(TRUE, FALSE)) # nolint
+  expect_equal(is_diatonic("f2#a3c#' r s f#ac", "a"), c(T, NA, NA, F)) # nolint
 
   err <- "`tabr::scale_a` is not an exported scale."
   expect_error(scale_degree(x, scale = "a"), err)
   expect_error(scale_note(1, scale = "a"), err)
   expect_error(scale_note(0), "`deg` should be >= 1.")
-  expect_error(chord_is_diatonic("ceg x"), "Invalid chord found.")
+  expect_error(is_diatonic("ceg x"), "Invalid notes or chords found.")
 
-  expect_error(note_in_scale(x), "Invalid note found.")
+  expect_identical(note_in_scale(x), c(T, F, T, FALSE))
   expect_identical(note_in_scale("c e_ g"), c(TRUE, FALSE, TRUE))
   expect_identical(note_in_scale("c e_ g", "cm", "minor"), c(TRUE, TRUE, TRUE))
+
+  expect_equal(
+    chord_degree("c#d d_ e_' e4 f f# g", key = "c#", scale = "chromatic"),
+    list(1:2, 1, 3, 4, 5, 6, 7))
+  x <- "r s d~ dfa df#a f#ac#"
+  expect_equal(chord_degree(x, "d"),
+                   list(NA_integer_, NA_integer_, 1, c(1, NA, 5), c(1, 3, 5),
+                        c(3, 5, 7)))
+  expect_identical(is_in_scale(x, "d"), c(NA, NA, T, F, T, T))
 })
 
 test_that("scale_chords returns as expected", {
   expect_equal(scale_chords("c", "major", collapse = TRUE),
-               as_noteworthy("ceg dfa egb fac4 gbd4 ac4e4 bd4f4"))
+               as_noteworthy("ceg dfa egb fac' gbd' ac'e' bd'f'"))
   expect_equal(scale_chords("a", "minor", collapse = TRUE),
-               as_noteworthy("a2ce b2df ceg dfa egb fac4 gbd4"))
+               as_noteworthy("a,ce b,df ceg dfa egb fac' gbd'"))
   expect_equal(scale_chords("a", "harmonic minor", collapse = TRUE),
-               as_noteworthy("a2ce b2df ceg# dfa eg#b fac4 g#bd4"))
+               as_noteworthy("a,ce b,df ceg# dfa eg#b fac' g#bd'"))
   expect_identical(scale_chords("a", "melodic minor"),
                    scale_chords("a", "jazz minor"))
   expect_equal(scale_chords("a", "hungarian minor"),
                as_noteworthy(
-                 c("a2ce", "b2d#f", "ceg#", "d#fa", "eg#b", "fac4", "g#bd#4")))
+                 c("a,ce", "b,d#f", "ceg#", "d#fa", "eg#b", "fac'", "g#bd#'")))
 
   expect_equal(scale_chords("c", "major", "seventh", collapse = TRUE),
-               as_noteworthy("cegb dfac4 egbd4 fac4e4 gbd4f4 ac4e4g4 bd4f4a4"))
+               as_noteworthy("cegb dfac' egbd' fac'e' gbd'f' ac'e'g' bd'f'a'"))
   expect_equal(scale_chords("a", "minor", "seventh", collapse = TRUE),
-               as_noteworthy("a2ceg b2dfa cegb dfac4 egbd4 fac4e4 gbd4f4"))
+               as_noteworthy("a,ceg b,dfa cegb dfac' egbd' fac'e' gbd'f'"))
 })

@@ -68,10 +68,10 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
     stop("`score` is not a score object.", call. = FALSE)
   major <- ifelse(utils::tail(strsplit(key, "")[[1]], 1) == "m", FALSE, TRUE)
   raw_key <- gsub("m", "", key)
-  key <- .split_chord(.notesub(raw_key))
+  key <- .notesub(raw_key, simplify = TRUE)
   mode <- ifelse(major, "\\major", "\\minor")
   if((major && !key %in% .keys$major) || (!major && !key %in% .keys$minor))
-    stop("Invalid key.", call. = FALSE)
+    stop("Invalid `key`. See `keys()`.", call. = FALSE)
   paper_args <- .lp_paper_args(paper)
   paper <- do.call(.lp_paper, paper_args)
   chords <- attributes(score)$chords
@@ -373,7 +373,7 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
         tp_wrap <- ms_tp[.x] != 0
         if(tp_wrap){
           rel_tp_key <- .notesub(
-            transpose(raw_key, ms_tp[.x], ms_key[.x], "tick")
+            transpose(raw_key, ms_tp[.x], "tick", key = ms_key[.x])
           )
           rel_tp_string <- paste("\\transpose", key, rel_tp_key, "{ ")
         }
@@ -414,7 +414,7 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
     ms_tp <- unique(purrr::map_int(d, ~unique(.x$ms_transpose)))
     ms_key <- unique(purrr::map_chr(d, ~unique(.x$ms_key)))
     if(rel_tp && length(ms_tp) == 1 && ms_tp != 0 && length(ms_key) == 1){
-      rel_tp_key <- .notesub(transpose(raw_key, ms_tp, ms_key, "tick"))
+      rel_tp_key <- .notesub(transpose(raw_key, ms_tp, "tick", key = ms_key))
       rel_tp_string <- paste("\\transpose", key, rel_tp_key, "{ ")
       midi_melody_id <- paste0(rel_tp_string, "\\", midi_melody_id, " }")
     } else {

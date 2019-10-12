@@ -57,6 +57,11 @@ mainIntervals <- data.frame(
 usethis::use_data(tunings, tabrSyntax, mainIntervals)
 
 library(tabr)
-.all_pitches <- sapply(0:131, function(x) transpose("c,,,,", x, "flat", "tick"))
+.all_pitches_tick <- sapply(0:131, function(x) transpose("c,,,,", x, "tick", "flat"))
+.all_pitches_integer <- .octave_to_int(.all_pitches_tick)
+.all_pitches_tick_sharp <- .flat_to_sharp(.all_pitches_tick)
+.all_pitches_integer_sharp <- .flat_to_sharp(.all_pitches_integer)
 
-usethis::use_data(.all_pitches, internal = TRUE)
+usethis::use_data(.all_pitches_tick, .all_pitches_integer,
+                  .all_pitches_tick_sharp, .all_pitches_integer_sharp,
+                  internal = TRUE, overwrite = TRUE)

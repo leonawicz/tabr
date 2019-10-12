@@ -190,16 +190,16 @@ sf_phrase <- function(string, fret = NULL, info = NULL, key = "c",
         strsplit(x, "")[[1]]
       }
       }) %>%
-      unlist %>%
-      as.integer
+      unlist() %>%
+      as.integer()
     if(length(x) != length(y)) stop("String/fret mismatch.", call. = FALSE)
     x <- sapply(seq_along(x), function(i, x, y){
-      transpose(open_notes[x[i]], y[i], key, "tick")
+      transpose(open_notes[x[i]], y[i], "tick", key = key)
     }, x = x, y = y)
     if(any(string_tie)) x[string_tie] <- paste0(x[string_tie], "~")
     paste(x, collapse = "")
   })) %>%
-    unlist %>%
+    unlist() %>%
     paste(collapse = " ")
   if(to_notes) return(notes)
   phrase(notes, info, gsub("~", "", string), bar)
@@ -242,7 +242,7 @@ sfn <- sf_note
   x <- do.call(rbind, x) %>%
     as.data.frame(stringsAsFactors = FALSE) %>%
     stats::setNames(c("string", "fret", "info")) %>%
-    dplyr::as_tibble() %>%
+    tibble::as_tibble() %>%
     tidyr::fill(.data[["string"]], .data[["info"]]) %>%
     dplyr::mutate(
       string = .infer_strings(.data[["string"]], .data[["fret"]]),

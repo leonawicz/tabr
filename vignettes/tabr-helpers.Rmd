@@ -64,7 +64,7 @@ rest(c(8, 1, "4."), c(3, 10, 1))
 
 Tied notes were introduced momentarily in the previous section on phrases. The example given showed that ties are denoted by appending the pitch letter of the note with `~` and this will create a tie in the output from this note to the next one.
 
-This can be frustrating to type and to read when done for six-string chords for example. `tie` can make this more bearable. Chords receive further discussion in subsequent sections. They were only shown very briefly at the end of the last section so that space-delimited time and simultaneous notes could be demonstrated clearly. For now, this is enough to appreciate this example of `tie`.
+This can be frustrating to type and to read when done for six-string chords for example. `tie` can make this more bearable. Chords receive further discussion in subsequent sections. They were shown briefly at the end of the last section so that space-delimited time and simultaneous notes could be demonstrated clearly. For now, this is enough to demonstrate `tie`.
 
 ```{r tie}
 em <- "e,a,dgbe'"
@@ -115,9 +115,9 @@ Since `notes` can be arbitrarily short, even a single note, there is no reason f
 
 ```{r tp3}
 tp("a3 b4 c5", 2, key = "f")
-tp("a3 b4 c5", 2, key = "g", style = "tick")
-tp("a b' c''", 2, key = "flat")
-tp("a, b c'", 2, key = "sharp", style = "integer")
+tp("a3 b4 c5", 2, octaves = "tick", key = "g")
+tp("a b' c''", 2, accidentals = "flat")
+tp("a, b c'", 2, octaves = "integer", accidentals = "sharp")
 ```
 
 The key of F has one flat (B flat) and the key of G has one sharp (F sharp). Transposing the above notes up by a whole step (two semitones or half steps) results in a new note sequence that includes either a D flat or C sharp for the second note. This pitch does not occur (except as an accidental) in either of those keys. 

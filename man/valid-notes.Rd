@@ -5,8 +5,8 @@
 \alias{is_note}
 \alias{is_chord}
 \alias{noteworthy}
-\alias{is_diatonic}
 \alias{as_noteworthy}
+\alias{is_noteworthy}
 \title{Check note and chord validity}
 \usage{
 is_note(x)
@@ -15,24 +15,21 @@ is_chord(x)
 
 noteworthy(x)
 
-is_diatonic(x, key = "c")
+as_noteworthy(x, octaves = NULL, accidentals = NULL, format = NULL)
 
-as_noteworthy(x, format = NULL, octaves = NULL, accidentals = NULL)
+is_noteworthy(x)
 }
 \arguments{
-\item{x}{character, space-delimited entries or a vector of single,
-non-delimited entries.}
+\item{x}{character, a noteworthy string.}
 
-\item{key}{character, key signature.}
+\item{octaves}{\code{NULL} or character, \code{"tick"} or \code{"integer"}
+octave numbering in result.}
 
-\item{format}{\code{NULL} or character (\code{"space"} or \code{"vector"}),
-the timestep delimiter format.}
+\item{accidentals}{\code{NULL} or character, represent accidentals,
+\code{"flat"} or \code{"sharp"}.}
 
-\item{octaves}{\code{NULL} or character (\code{"tick"} or \code{"integer"}),
-the octave representation.}
-
-\item{accidentals}{\code{NULL} or character (\code{"flat"} or
-\code{"sharp"}), the accidentals representation.}
+\item{format}{\code{NULL} or character, the timestep delimiter format,
+\code{"space"} or \code{"vector"}.}
 }
 \value{
 logical
@@ -52,16 +49,21 @@ Coercion will fail if the string is not noteworthy.
 Using the \code{noteworthy} class is generally not needed by the user during
 an interactive session, but is available and offers its own \code{print} and
 \code{summary} methods for noteworthy strings.
-It is more likely to be used by other functions and functions that output a
+However, an added benefit to using \code{as_noteworthy} is to conform all
+notes in a noteworthy string to specific formatting for accidentals and
+octave numbering.
+It is often used by other functions, and functions that output a
 noteworthy string generally attach the noteworthy class.
 
-\code{is_diatonic} performs a vectorized logical check on a
-\code{noteworthy} string for all notes and chords.
-To check strictly notes or chords, see \code{\link{note_in_scale}} and
-\code{\link{chord_is_diatonic}}.
+For \code{as_noteworthy} and in general for functions that accept
+\code{octaves}, \code{accidentals}, \code{format}, and sometimes \code{key}
+as arguments, when these arguments are \code{NULL}, formatting is inferred
+from the noteworthy string input. When mixed formats are present,
+tick format is the default for octave numbering and flats are the default
+for accidentals.
 }
 \examples{
-x <- "a# b_ c, d'' e3 g_4 A m c2e_2g2 cegh"
+x <- "a# b_ c, d'' e3 g_4 A m c2e_2g2 cegh" # includes invalid syntax
 data.frame(
   x = strsplit(x, " ")[[1]],
   note = is_note(x),
@@ -71,7 +73,9 @@ data.frame(
 is_diatonic("ace ac#e d e_", "c")
 
 x <- "a# b_ c,~ c, d'' e3 g_4 c2e_2g2"
-x <- as_noteworthy(x)
+noteworthy(x) # is it noteworthy; a validity check for any string
+x <- as_noteworthy(x) # coerce to 'noteworthy' class, conform formatting
+is_noteworthy(x) # check for 'noteworthy' class
 x
 
 summary(x)
@@ -83,5 +87,6 @@ x
 summary(x)
 }
 \seealso{
-\code{\link{note_in_scale}}, \code{\link{chord_is_diatonic}}
+\code{\link{note-checks}}, \code{\link{note-metadata}},
+\code{\link{note-summaries}}, \code{\link{note-coerce}}
 }

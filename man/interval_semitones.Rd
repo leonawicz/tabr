@@ -15,8 +15,7 @@ integer
 \description{
 Convert named intervals to numbers of semitones.
 For a complete list of valid interval names and abbreviations see
-\code{\link{mainIntervals}}.
-\code{interval} may be a vector.
+\code{\link{mainIntervals}}. \code{interval} may be a vector.
 }
 \examples{
 x <- c("minor third", "m3", "augmented second", "A2")

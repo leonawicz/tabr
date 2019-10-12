@@ -62,128 +62,128 @@
 \alias{xM13}
 \title{Chord constructors}
 \usage{
-chord_min(notes, key = "c", style = "default")
+chord_min(notes, key = "c", octaves = "tick")
 
-chord_maj(notes, key = "c", style = "default")
+chord_maj(notes, key = "c", octaves = "tick")
 
-chord_min7(notes, key = "c", style = "default")
+chord_min7(notes, key = "c", octaves = "tick")
 
-chord_dom7(notes, key = "c", style = "default")
+chord_dom7(notes, key = "c", octaves = "tick")
 
-chord_7s5(notes, key = "c", style = "default")
+chord_7s5(notes, key = "c", octaves = "tick")
 
-chord_maj7(notes, key = "c", style = "default")
+chord_maj7(notes, key = "c", octaves = "tick")
 
-chord_min6(notes, key = "c", style = "default")
+chord_min6(notes, key = "c", octaves = "tick")
 
-chord_maj6(notes, key = "c", style = "default")
+chord_maj6(notes, key = "c", octaves = "tick")
 
-chord_dim(notes, key = "c", style = "default")
+chord_dim(notes, key = "c", octaves = "tick")
 
-chord_dim7(notes, key = "c", style = "default")
+chord_dim7(notes, key = "c", octaves = "tick")
 
-chord_m7b5(notes, key = "c", style = "default")
+chord_m7b5(notes, key = "c", octaves = "tick")
 
-chord_aug(notes, key = "c", style = "default")
+chord_aug(notes, key = "c", octaves = "tick")
 
-chord_5(notes, key = "c", style = "default")
+chord_5(notes, key = "c", octaves = "tick")
 
-chord_sus2(notes, key = "c", style = "default")
+chord_sus2(notes, key = "c", octaves = "tick")
 
-chord_sus4(notes, key = "c", style = "default")
+chord_sus4(notes, key = "c", octaves = "tick")
 
-chord_dom9(notes, key = "c", style = "default")
+chord_dom9(notes, key = "c", octaves = "tick")
 
-chord_7s9(notes, key = "c", style = "default")
+chord_7s9(notes, key = "c", octaves = "tick")
 
-chord_maj9(notes, key = "c", style = "default")
+chord_maj9(notes, key = "c", octaves = "tick")
 
-chord_add9(notes, key = "c", style = "default")
+chord_add9(notes, key = "c", octaves = "tick")
 
-chord_min9(notes, key = "c", style = "default")
+chord_min9(notes, key = "c", octaves = "tick")
 
-chord_madd9(notes, key = "c", style = "default")
+chord_madd9(notes, key = "c", octaves = "tick")
 
-chord_min11(notes, key = "c", style = "default")
+chord_min11(notes, key = "c", octaves = "tick")
 
-chord_7s11(notes, key = "c", style = "default")
+chord_7s11(notes, key = "c", octaves = "tick")
 
-chord_maj7s11(notes, key = "c", style = "default")
+chord_maj7s11(notes, key = "c", octaves = "tick")
 
-chord_11(notes, key = "c", style = "default")
+chord_11(notes, key = "c", octaves = "tick")
 
-chord_maj11(notes, key = "c", style = "default")
+chord_maj11(notes, key = "c", octaves = "tick")
 
-chord_13(notes, key = "c", style = "default")
+chord_13(notes, key = "c", octaves = "tick")
 
-chord_min13(notes, key = "c", style = "default")
+chord_min13(notes, key = "c", octaves = "tick")
 
-chord_maj13(notes, key = "c", style = "default")
+chord_maj13(notes, key = "c", octaves = "tick")
 
-xm(notes, key = "c", style = "default")
+xm(notes, key = "c", octaves = "tick")
 
-xM(notes, key = "c", style = "default")
+xM(notes, key = "c", octaves = "tick")
 
-xm7(notes, key = "c", style = "default")
+xm7(notes, key = "c", octaves = "tick")
 
-x7(notes, key = "c", style = "default")
+x7(notes, key = "c", octaves = "tick")
 
-x7s5(notes, key = "c", style = "default")
+x7s5(notes, key = "c", octaves = "tick")
 
-xM7(notes, key = "c", style = "default")
+xM7(notes, key = "c", octaves = "tick")
 
-xm6(notes, key = "c", style = "default")
+xm6(notes, key = "c", octaves = "tick")
 
-xM6(notes, key = "c", style = "default")
+xM6(notes, key = "c", octaves = "tick")
 
-xdim(notes, key = "c", style = "default")
+xdim(notes, key = "c", octaves = "tick")
 
-xdim7(notes, key = "c", style = "default")
+xdim7(notes, key = "c", octaves = "tick")
 
-xm7b5(notes, key = "c", style = "default")
+xm7b5(notes, key = "c", octaves = "tick")
 
-xaug(notes, key = "c", style = "default")
+xaug(notes, key = "c", octaves = "tick")
 
-x5(notes, key = "c", style = "default")
+x5(notes, key = "c", octaves = "tick")
 
-xs2(notes, key = "c", style = "default")
+xs2(notes, key = "c", octaves = "tick")
 
-xs4(notes, key = "c", style = "default")
+xs4(notes, key = "c", octaves = "tick")
 
-x9(notes, key = "c", style = "default")
+x9(notes, key = "c", octaves = "tick")
 
-x7s9(notes, key = "c", style = "default")
+x7s9(notes, key = "c", octaves = "tick")
 
-xM9(notes, key = "c", style = "default")
+xM9(notes, key = "c", octaves = "tick")
 
-xadd9(notes, key = "c", style = "default")
+xadd9(notes, key = "c", octaves = "tick")
 
-xm9(notes, key = "c", style = "default")
+xm9(notes, key = "c", octaves = "tick")
 
-xma9(notes, key = "c", style = "default")
+xma9(notes, key = "c", octaves = "tick")
 
-xm11(notes, key = "c", style = "default")
+xm11(notes, key = "c", octaves = "tick")
 
-x7s11(notes, key = "c", style = "default")
+x7s11(notes, key = "c", octaves = "tick")
 
-xM7s11(notes, key = "c", style = "default")
+xM7s11(notes, key = "c", octaves = "tick")
 
-x_11(notes, key = "c", style = "default")
+x_11(notes, key = "c", octaves = "tick")
 
-xM11(notes, key = "c", style = "default")
+xM11(notes, key = "c", octaves = "tick")
 
-x_13(notes, key = "c", style = "default")
+x_13(notes, key = "c", octaves = "tick")
 
-xm13(notes, key = "c", style = "default")
+xm13(notes, key = "c", octaves = "tick")
 
-xM13(notes, key = "c", style = "default")
+xM13(notes, key = "c", octaves = "tick")
 }
 \arguments{
 \item{notes}{character, a noteworthy string of chord root notes.}
 
 \item{key}{key signature. See details.}
 
-\item{style}{character, passed to \code{transpose}.}
+\item{octaves}{character, passed to \code{transpose}.}
 }
 \value{
 character

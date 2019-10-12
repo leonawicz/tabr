@@ -127,7 +127,7 @@ track <- function(phrase, tuning = "standard", voice = 1L,
   if(is.na(music_staff) & no_tab)
     stop("Cannot have both `music_staff` = NA and `no_tab` = TRUE.",
          call. = FALSE)
-  x <- dplyr::tibble(
+  x <- tibble::tibble(
     phrase, tuning = .map_tuning(tuning), voice = as.integer(voice),
     staff = as.character(music_staff), ms_transpose = as.integer(ms_transpose),
     ms_key = as.character(ms_key), tab = !no_tab)
