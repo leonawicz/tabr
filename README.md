@@ -294,9 +294,82 @@ distinct_pitches(x) %>% pitch_freq() # in Hz
 #> [1] 110.0000 138.5913 164.8138 220.0000 277.1826 329.6276
 ```
 
-`tabr` offers many functions for manipulating musical structures defined
-in music notation. See the vignettes for more information on music
-programming.
+## Tidy music analysis
+
+Ideally music data already exists in a data frame format. But if it
+doesn’t, or if you just wrote out a new note sequence like below,
+getting this data into a data frame for a more tidy approach to analysis
+is easy. Conversion can also populate several derivative variables in
+the process.
+
+In the earlier example you saw the result of calling `as_music_df` on a
+noteworthy string.
+
+``` r
+x <- "a, c e r r c a, g#, a ac'e'"
+as_music_df(x)
+```
+
+You may have noticed that rests (`r`) are allowed for timesteps and that
+functions that compute lagged intervals respect these gaps. Since all
+that was provided to `as_music_df` was a string of pitches, there are no
+time variables in the current data frame. However, discrete timesteps
+still exist and they do not have to contain notes.
+
+There are a number of derivative columns. If you are working with a
+large sequence of music, there is no need to carry all of these along
+through your analysis if you do not need them. They can be created using
+various package functions and you can build onto your data frame and
+transform variables later with `mutate`.
+
+``` r
+library(dplyr)
+x <- "a, c e r r c a, g#, a ac'e'"
+tibble(pitch = as_vector_time(x)) %>% 
+  mutate(scale_int = scale_diff(pitch))
+#> # A tibble: 10 x 2
+#>    pitch scale_int
+#>    <chr> <chr>    
+#>  1 a,    <NA>     
+#>  2 c     m3       
+#>  3 e     M3       
+#>  4 r     <NA>     
+#>  5 r     <NA>     
+#>  6 c     M3       
+#>  7 a,    m3       
+#>  8 g#,   m2       
+#>  9 a     m9       
+#> 10 ac'e' P1
+```
+
+In fact, it’s much more powerful to create the columns according to your
+needs using specific functions and their various arguments. But
+`as_music_df` is convenient and also offers some additional arguments.
+Adding `key` and `scale` allows for scale degrees. `scale` is diatonic
+by default but does not have to be.
+
+``` r
+x <- "g g#"
+as_music_df(x, key = "am") %>% 
+  select(pitch, key, scale, scale_deg)
+#> # A tibble: 2 x 4
+#>   pitch key   scale    scale_deg
+#>   <chr> <chr> <chr>        <int>
+#> 1 g     am    diatonic         7
+#> 2 g#    am    diatonic        NA
+
+as_music_df(x, key = "am", scale = "harmonic_minor") %>% 
+  select(pitch, key, scale, scale_deg)
+#> # A tibble: 2 x 4
+#>   pitch key   scale          scale_deg
+#>   <chr> <chr> <chr>              <int>
+#> 1 g     am    harmonic_minor        NA
+#> 2 g#    am    harmonic_minor         7
+```
+
+`tabr` offers many functions for manipulating and analyzing music data
+and working in music notation. See the collection of vignettes for more
+information on music programming and analysis.
 
 ## Basic transcription example
 
