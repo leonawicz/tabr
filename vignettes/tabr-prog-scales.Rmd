@@ -145,8 +145,6 @@ pitch_interval("r c ceg c e g s", "a c d d f# a e")
 pitch_interval("r c ceg c e g s", "a c d d f# a e", use_root = FALSE)
 ```
 
-A limitation is that the true interval is lost when a rest is in the noteworthy string between two notes in time. It is best to use without rests. Rests are unlikely to be present in this context for music analysis, but their presence is supported by `tabr` for transcription applications.
-
 Next is `scale_interval`. This function is similar to `pitch_interval` in that it takes two noteworthy strings, which together define an intervals element-wise. It is almost an inverse of `interval_semitones` except that you provide notes rather than the semitone distance of their intervals. The function returns a main interval name or abbreviation from `mainIntervals`, depending on `format`. The results are name-only. They are not signed. Use `pitch_interval` to obtain direction.
 
 ```{r intervals3}
@@ -154,7 +152,7 @@ scale_interval("c c c c", "c, e g b")
 scale_interval("a2", "c", format = "mmp")
 ```
 
-There are also lagged difference versions of these functions. You can adjust the lag with `n`. You can also retain (convenient for data frames) or trim leading `NA`s.
+There are also lagged difference versions of these functions. You can adjust the lag with `n`. You can also retain (convenient for data frames) or trim the `n` leading `NA`s. This does not trim meaningful `NA`s like those resulting from rests.
 
 ```{r intervals4}
 pitch_diff("c d e f g a b")
@@ -163,4 +161,12 @@ scale_diff("c d e f g a b")
 scale_diff("c d e f g a b", n = 2)
 ```
 
-There is not much else to these interval helper functions, but `pitch_interval` is leveraged extensively in support of more complex music programming.
+Lagged intervals respect rest timesteps. All timestep positions including rests are retained, but the lag-`n` difference computation ignores them.
+
+```{r intervals5}
+x <- "a, c r r r r g"
+pitch_diff(x)
+scale_diff(x)
+pitch_diff(x, n = 2)
+scale_diff(x, n = 2, trim = TRUE)
+```

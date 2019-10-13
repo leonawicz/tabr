@@ -361,7 +361,6 @@
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="kw"><a href="../reference/intervals.html">pitch_interval</a></span>(<span class="st">"r c ceg c e g s"</span>, <span class="st">"a c d d f# a e"</span>, <span class="dt">use_root =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; [1] NA  0 NA  2  2  2 NA
 </code></pre>
-<p>A limitation is that the true interval is lost when a rest is in the noteworthy string between two notes in time. It is best to use without rests. Rests are unlikely to be present in this context for music analysis, but their presence is supported by <code>tabr</code> for transcription applications.</p>
 <p>Next is <code>scale_interval</code>. This function is similar to <code>pitch_interval</code> in that it takes two noteworthy strings, which together define an intervals element-wise. It is almost an inverse of <code>interval_semitones</code> except that you provide notes rather than the semitone distance of their intervals. The function returns a main interval name or abbreviation from <code>mainIntervals</code>, depending on <code>format</code>. The results are name-only. They are not signed. Use <code>pitch_interval</code> to obtain direction.</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1"><span class="kw"><a href="../reference/intervals.html">scale_interval</a></span>(<span class="st">"c c c c"</span>, <span class="st">"c, e g b"</span>)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; [1] "P8" "M3" "P5" "M7"
@@ -369,7 +368,7 @@
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1"><span class="kw"><a href="../reference/intervals.html">scale_interval</a></span>(<span class="st">"a2"</span>, <span class="st">"c"</span>, <span class="dt">format =</span> <span class="st">"mmp"</span>)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; [1] "minor third"
 </code></pre>
-<p>There are also lagged difference versions of these functions. You can adjust the lag with <code>n</code>. You can also retain (convenient for data frames) or trim leading <code>NA</code>s.</p>
+<p>There are also lagged difference versions of these functions. You can adjust the lag with <code>n</code>. You can also retain (convenient for data frames) or trim the <code>n</code> leading <code>NA</code>s. This does not trim meaningful <code>NA</code>s like those resulting from rests.</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1"><span class="kw"><a href="../reference/intervals.html">pitch_diff</a></span>(<span class="st">"c d e f g a b"</span>)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; [1] NA  2  2  1  2  2  2
 </code></pre>
@@ -382,7 +381,20 @@
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1"><span class="kw"><a href="../reference/intervals.html">scale_diff</a></span>(<span class="st">"c d e f g a b"</span>, <span class="dt">n =</span> <span class="dv">2</span>)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; [1] NA   NA   "M3" "m3" "m3" "M3" "M3"
 </code></pre>
-<p>There is not much else to these interval helper functions, but <code>pitch_interval</code> is leveraged extensively in support of more complex music programming.</p>
+<p>Lagged intervals respect rest timesteps. All timestep positions including rests are retained, but the lag-<code>n</code> difference computation ignores them.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1">x &lt;-<span class="st"> "a, c r r r r g"</span></a>
+<a class="sourceLine" id="cb33-2" title="2"><span class="kw"><a href="../reference/intervals.html">pitch_diff</a></span>(x)</a></code></pre></div>
+<pre class="r-output"><code>#&gt; [1] NA  3 NA NA NA NA  7
+</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1"><span class="kw"><a href="../reference/intervals.html">scale_diff</a></span>(x)</a></code></pre></div>
+<pre class="r-output"><code>#&gt; [1] NA   "m3" NA   NA   NA   NA   "P5"
+</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" title="1"><span class="kw"><a href="../reference/intervals.html">pitch_diff</a></span>(x, <span class="dt">n =</span> <span class="dv">2</span>)</a></code></pre></div>
+<pre class="r-output"><code>#&gt; [1] NA NA NA NA NA NA 10
+</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1"><span class="kw"><a href="../reference/intervals.html">scale_diff</a></span>(x, <span class="dt">n =</span> <span class="dv">2</span>, <span class="dt">trim =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre class="r-output"><code>#&gt; [1] NA   NA   NA   NA   "m7"
+</code></pre>
 </div>
   </div>
 

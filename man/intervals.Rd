@@ -31,7 +31,8 @@ chords are \code{NA}.}
 
 \item{n}{integer, size of lag.}
 
-\item{trim}{logical, trim the leading \code{NA} values from lagged intervals.}
+\item{trim}{logical, trim the \code{n} leading \code{NA} values from lagged
+intervals.}
 
 \item{format}{character, format of the scale notation: major/minor/perfect,
 augmented/diminished, and respective abbreviations. See argument options in
@@ -55,14 +56,16 @@ main interval, simple or compound, defined by  the two notes.
 This function will return \code{NA} for any uncommon out of range large
 interval not listed as a named interval in \code{\link{mainIntervals}}.
 
-\code{pitch_interval} and \code{scale_interval} compute intervals element-wise
-between two noteworthy strings. \code{pitch_diff} and \code{scale_diff}
-work similarly but compute lagged intervals on the elements in \code{notes}.
+\code{pitch_interval} and \code{scale_interval} compute intervals
+element-wise between two noteworthy strings. \code{pitch_diff} and
+\code{scale_diff} work similarly but compute lagged intervals on the
+elements in \code{notes}.
 }
 \examples{
 pitch_interval("b", "c4")
-pitch_interval("c,", "d")
-pitch_interval("c,", "dfa")
+pitch_interval("c, e_, g_, a,", "e_, g_, a, c")
+pitch_interval("c r", "dfa d")
+pitch_interval("c r", "dfa d", use_root = FALSE)
 scale_interval("c", "e_")
 scale_interval("ceg", "egd'")
 
@@ -71,6 +74,17 @@ pitch_diff(x)
 pitch_diff(x, use_root = FALSE)
 scale_diff(x)
 scale_diff(x, n = 2, trim = TRUE, use_root = FALSE)
+
+# Lagged intervals respect rest timesteps.
+# All timestep position including rests are retained.
+# But the lag-n difference skips rest entries.
+x <- "a, c r r r r g"
+pitch_diff(x)
+scale_diff(x)
+pitch_diff(x, n = 2)
+scale_diff(x, n = 2)
+pitch_diff(x, n = 2, trim = TRUE)
+scale_diff(x, n = 2, trim = TRUE)
 }
 \seealso{
 \code{\link{mainIntervals}}

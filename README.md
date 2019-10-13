@@ -49,20 +49,20 @@ transcribe short pieces of music syntax in R into sheet music or
 tablature files.
 
 ``` r
-x <- "a, c e c a, g#, a ac'e'"
+x <- "a, c e g# a ac'e' ac'e'"
 x <- as_noteworthy(x)
 x
 #> <Noteworthy string>
 #>   Format: space-delimited time
-#>   Values: a, c e c a, g#, a <ac'e'>
+#>   Values: a, c e g# a <ac'e'> <ac'e'>
 
 summary(x)
 #> <Noteworthy string>
-#>   Timesteps: 8 (7 notes, 1 chord)
+#>   Timesteps: 7 (5 notes, 2 chords)
 #>   Octaves: tick
 #>   Accidentals: sharp
 #>   Format: space-delimited time
-#>   Values: a, c e c a, g#, a <ac'e'>
+#>   Values: a, c e g# a <ac'e'> <ac'e'>
 ```
 
 Functions exist for directly performing various mathematical and
@@ -78,19 +78,21 @@ for a more familiar and powerful approach to the analysis of large
 amounts of structured music data.
 
 ``` r
-x <- "a, c e c a, g#, a ac'e'"
+x <- "a, c e r r c a, g#, a ac'e'"
 as_music_df(x)
-#> # A tibble: 8 x 7
-#>   pitch note  semitone octave  freq pitch_int scale_int
-#>   <chr> <chr>    <int>  <int> <dbl>     <int> <chr>    
-#> 1 a,    a           57      2  110.        NA <NA>     
-#> 2 c     c           48      3  131.         3 m3       
-#> 3 e     e           52      3  165.         4 M3       
-#> 4 c     c           48      3  131.        -4 M3       
-#> 5 a,    a           57      2  110.        -3 m3       
-#> 6 g#,   g#          56      2  104.        -1 m2       
-#> 7 a     a           57      3  220.        13 m9       
-#> 8 ac'e' ace         57      3  220.         0 P1
+#> # A tibble: 10 x 7
+#>    pitch note  semitone octave  freq pitch_int scale_int
+#>    <chr> <chr>    <int>  <int> <dbl>     <int> <chr>    
+#>  1 a,    a           57      2  110.        NA <NA>     
+#>  2 c     c           48      3  131.         3 m3       
+#>  3 e     e           52      3  165.         4 M3       
+#>  4 r     r           NA     NA   NA         NA <NA>     
+#>  5 r     r           NA     NA   NA         NA <NA>     
+#>  6 c     c           48      3  131.        -4 M3       
+#>  7 a,    a           57      2  110.        -3 m3       
+#>  8 g#,   g#          56      2  104.        -1 m2       
+#>  9 a     a           57      3  220.        13 m9       
+#> 10 ac'e' ace         57      3  220.         0 P1
 ```
 
 Several functions are available for mapping seamlessly between and

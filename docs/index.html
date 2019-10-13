@@ -190,35 +190,37 @@
 <a href="#music-data-structures" class="anchor"></a>Music data structures</h3>
 <p>Music data can be viewed, manipulated and analyzed while in different forms of representation based around different data structures: strings and data frames. Each representation offers advantages over the other for different use cases.</p>
 <p>Music syntax can be entered directly and represented in character strings to minimize the formatting overhead of data entry by using simple data structures, for example when wanting to quickly enter and transcribe short pieces of music syntax in R into sheet music or tablature files.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">x &lt;-<span class="st"> "a, c e c a, g#, a ac'e'"</span></a>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">x &lt;-<span class="st"> "a, c e g# a ac'e' ac'e'"</span></a>
 <a class="sourceLine" id="cb1-2" title="2">x &lt;-<span class="st"> </span><span class="kw"><a href="reference/valid-notes.html">as_noteworthy</a></span>(x)</a>
 <a class="sourceLine" id="cb1-3" title="3">x</a>
 <a class="sourceLine" id="cb1-4" title="4"><span class="co">#&gt; &lt;Noteworthy string&gt;</span></a>
 <a class="sourceLine" id="cb1-5" title="5"><span class="co">#&gt;   Format: space-delimited time</span></a>
-<a class="sourceLine" id="cb1-6" title="6"><span class="co">#&gt;   Values: a, c e c a, g#, a &lt;ac'e'&gt;</span></a>
+<a class="sourceLine" id="cb1-6" title="6"><span class="co">#&gt;   Values: a, c e g# a &lt;ac'e'&gt; &lt;ac'e'&gt;</span></a>
 <a class="sourceLine" id="cb1-7" title="7"></a>
 <a class="sourceLine" id="cb1-8" title="8"><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(x)</a>
 <a class="sourceLine" id="cb1-9" title="9"><span class="co">#&gt; &lt;Noteworthy string&gt;</span></a>
-<a class="sourceLine" id="cb1-10" title="10"><span class="co">#&gt;   Timesteps: 8 (7 notes, 1 chord)</span></a>
+<a class="sourceLine" id="cb1-10" title="10"><span class="co">#&gt;   Timesteps: 7 (5 notes, 2 chords)</span></a>
 <a class="sourceLine" id="cb1-11" title="11"><span class="co">#&gt;   Octaves: tick</span></a>
 <a class="sourceLine" id="cb1-12" title="12"><span class="co">#&gt;   Accidentals: sharp</span></a>
 <a class="sourceLine" id="cb1-13" title="13"><span class="co">#&gt;   Format: space-delimited time</span></a>
-<a class="sourceLine" id="cb1-14" title="14"><span class="co">#&gt;   Values: a, c e c a, g#, a &lt;ac'e'&gt;</span></a></code></pre></div>
+<a class="sourceLine" id="cb1-14" title="14"><span class="co">#&gt;   Values: a, c e g# a &lt;ac'e'&gt; &lt;ac'e'&gt;</span></a></code></pre></div>
 <p>Functions exist for directly performing various mathematical and organizational operations on strings like the one above by checking their music syntax validity and adding custom classes and methods to these strings (more on this below). Of course, none of this will work on character strings that are not noteworthy. Invalid, unworthy syntax is rejected early with an error, preventing corrupted music syntax from causing unexpected issues later on.</p>
 <p>The same music data can also be organized in tidy data frames, allowing for a more familiar and powerful approach to the analysis of large amounts of structured music data.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">x &lt;-<span class="st"> "a, c e c a, g#, a ac'e'"</span></a>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">x &lt;-<span class="st"> "a, c e r r c a, g#, a ac'e'"</span></a>
 <a class="sourceLine" id="cb2-2" title="2"><span class="kw"><a href="reference/as_music_df.html">as_music_df</a></span>(x)</a>
-<a class="sourceLine" id="cb2-3" title="3"><span class="co">#&gt; # A tibble: 8 x 7</span></a>
-<a class="sourceLine" id="cb2-4" title="4"><span class="co">#&gt;   pitch note  semitone octave  freq pitch_int scale_int</span></a>
-<a class="sourceLine" id="cb2-5" title="5"><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;    &lt;int&gt;  &lt;int&gt; &lt;dbl&gt;     &lt;int&gt; &lt;chr&gt;    </span></a>
-<a class="sourceLine" id="cb2-6" title="6"><span class="co">#&gt; 1 a,    a           57      2  110.        NA &lt;NA&gt;     </span></a>
-<a class="sourceLine" id="cb2-7" title="7"><span class="co">#&gt; 2 c     c           48      3  131.         3 m3       </span></a>
-<a class="sourceLine" id="cb2-8" title="8"><span class="co">#&gt; 3 e     e           52      3  165.         4 M3       </span></a>
-<a class="sourceLine" id="cb2-9" title="9"><span class="co">#&gt; 4 c     c           48      3  131.        -4 M3       </span></a>
-<a class="sourceLine" id="cb2-10" title="10"><span class="co">#&gt; 5 a,    a           57      2  110.        -3 m3       </span></a>
-<a class="sourceLine" id="cb2-11" title="11"><span class="co">#&gt; 6 g#,   g#          56      2  104.        -1 m2       </span></a>
-<a class="sourceLine" id="cb2-12" title="12"><span class="co">#&gt; 7 a     a           57      3  220.        13 m9       </span></a>
-<a class="sourceLine" id="cb2-13" title="13"><span class="co">#&gt; 8 ac'e' ace         57      3  220.         0 P1</span></a></code></pre></div>
+<a class="sourceLine" id="cb2-3" title="3"><span class="co">#&gt; # A tibble: 10 x 7</span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="co">#&gt;    pitch note  semitone octave  freq pitch_int scale_int</span></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;    &lt;int&gt;  &lt;int&gt; &lt;dbl&gt;     &lt;int&gt; &lt;chr&gt;    </span></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="co">#&gt;  1 a,    a           57      2  110.        NA &lt;NA&gt;     </span></a>
+<a class="sourceLine" id="cb2-7" title="7"><span class="co">#&gt;  2 c     c           48      3  131.         3 m3       </span></a>
+<a class="sourceLine" id="cb2-8" title="8"><span class="co">#&gt;  3 e     e           52      3  165.         4 M3       </span></a>
+<a class="sourceLine" id="cb2-9" title="9"><span class="co">#&gt;  4 r     r           NA     NA   NA         NA &lt;NA&gt;     </span></a>
+<a class="sourceLine" id="cb2-10" title="10"><span class="co">#&gt;  5 r     r           NA     NA   NA         NA &lt;NA&gt;     </span></a>
+<a class="sourceLine" id="cb2-11" title="11"><span class="co">#&gt;  6 c     c           48      3  131.        -4 M3       </span></a>
+<a class="sourceLine" id="cb2-12" title="12"><span class="co">#&gt;  7 a,    a           57      2  110.        -3 m3       </span></a>
+<a class="sourceLine" id="cb2-13" title="13"><span class="co">#&gt;  8 g#,   g#          56      2  104.        -1 m2       </span></a>
+<a class="sourceLine" id="cb2-14" title="14"><span class="co">#&gt;  9 a     a           57      3  220.        13 m9       </span></a>
+<a class="sourceLine" id="cb2-15" title="15"><span class="co">#&gt; 10 ac'e' ace         57      3  220.         0 P1</span></a></code></pre></div>
 <p>Several functions are available for mapping seamlessly between and manipulating these data structures and their representations of musical information.</p>
 </div>
 <div id="transcription" class="section level3">

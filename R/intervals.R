@@ -37,9 +37,10 @@ interval_semitones <- function(interval){
 #' This function will return \code{NA} for any uncommon out of range large
 #' interval not listed as a named interval in \code{\link{mainIntervals}}.
 #'
-#' \code{pitch_interval} and \code{scale_interval} compute intervals element-wise
-#' between two noteworthy strings. \code{pitch_diff} and \code{scale_diff}
-#' work similarly but compute lagged intervals on the elements in \code{notes}.
+#' \code{pitch_interval} and \code{scale_interval} compute intervals
+#' element-wise between two noteworthy strings. \code{pitch_diff} and
+#' \code{scale_diff} work similarly but compute lagged intervals on the
+#' elements in \code{notes}.
 #'
 #' @param notes,notes1,notes2 character, a noteworthy string. \code{notes1} and
 #' \code{notes2} must have equal number of timesteps.
@@ -47,7 +48,8 @@ interval_semitones <- function(interval){
 #' scale intervals between adjacent timesteps. Otherwise intervals involving
 #' chords are \code{NA}.
 #' @param n integer, size of lag.
-#' @param trim logical, trim the leading \code{NA} values from lagged intervals.
+#' @param trim logical, trim the \code{n} leading \code{NA} values from lagged
+#' intervals.
 #' @param format character, format of the scale notation: major/minor/perfect,
 #' augmented/diminished, and respective abbreviations. See argument options in
 #' defaults.
@@ -60,8 +62,9 @@ interval_semitones <- function(interval){
 #'
 #' @examples
 #' pitch_interval("b", "c4")
-#' pitch_interval("c,", "d")
-#' pitch_interval("c,", "dfa")
+#' pitch_interval("c, e_, g_, a,", "e_, g_, a, c")
+#' pitch_interval("c r", "dfa d")
+#' pitch_interval("c r", "dfa d", use_root = FALSE)
 #' scale_interval("c", "e_")
 #' scale_interval("ceg", "egd'")
 #'
@@ -70,7 +73,24 @@ interval_semitones <- function(interval){
 #' pitch_diff(x, use_root = FALSE)
 #' scale_diff(x)
 #' scale_diff(x, n = 2, trim = TRUE, use_root = FALSE)
+#'
+#' # Lagged intervals respect rest timesteps.
+#' # All timestep position including rests are retained.
+#' # But the lag-n difference skips rest entries.
+#' x <- "a, c r r r r g"
+#' pitch_diff(x)
+#' scale_diff(x)
+#' pitch_diff(x, n = 2)
+#' scale_diff(x, n = 2)
+#' pitch_diff(x, n = 2, trim = TRUE)
+#' scale_diff(x, n = 2, trim = TRUE)
 pitch_interval <- function(notes1, notes2, use_root = TRUE){
+  .check_noteworthy(notes1, na.rm = TRUE)
+  .check_noteworthy(notes2, na.rm = TRUE)
+  .get_pitch_interval(notes1, notes2, use_root)
+}
+
+.get_pitch_interval <- function(notes1, notes2, use_root = TRUE){
   x <- purrr::map(list(notes1, notes2), ~.uncollapse(gsub("~", "", .x)))
   len <- sapply(x, length)
   if(length(x[[1]]) != length(x[[2]]))
@@ -87,8 +107,17 @@ pitch_interval <- function(notes1, notes2, use_root = TRUE){
 #' @export
 #' @rdname intervals
 pitch_diff <- function(notes, use_root = TRUE, n = 1, trim = FALSE){
-  x <- dplyr::lag(.uncollapse(notes), n)
-  x <- pitch_interval(x, notes, use_root)
+  .check_noteworthy(notes, na.rm = TRUE)
+  x <- .uncollapse(notes)
+  idx <- x %in% c("r", "s")
+  if(any(idx)) x <- x[!idx]
+  i <- .get_pitch_interval(dplyr::lag(x, n), x, use_root)
+  if(any(idx)){
+    x <- rep(NA_integer_, length(idx))
+    x[!idx] <- i
+  } else {
+    x <- i
+  }
   if(trim) x[-c(seq_len(max(1, n)))] else x
 }
 
@@ -97,7 +126,15 @@ pitch_diff <- function(notes, use_root = TRUE, n = 1, trim = FALSE){
 scale_interval <- function(notes1, notes2, use_root = TRUE,
                            format = c("mmp_abb", "mmp", "ad_abb", "ad")){
   format <- match.arg(format)
-  x <- abs(pitch_interval(notes1, notes2, use_root))
+  .check_noteworthy(notes1, na.rm = TRUE)
+  .check_noteworthy(notes2, na.rm = TRUE)
+  .get_scale_interval(notes1, notes2, use_root, format)
+}
+
+.get_scale_interval <- function(notes1, notes2, use_root = TRUE,
+                           format = c("mmp_abb", "mmp", "ad_abb", "ad")){
+  format <- match.arg(format)
+  x <- abs(.get_pitch_interval(notes1, notes2, use_root))
   x[is.na(x)] <- 99
   d <- tabr::mainIntervals
   x <- d[match(x, d$semitones), format]
@@ -109,8 +146,17 @@ scale_interval <- function(notes1, notes2, use_root = TRUE,
 scale_diff <- function(notes, use_root = TRUE, n = 1, trim = FALSE,
                        format = c("mmp_abb", "mmp", "ad_abb", "ad")){
   format <- match.arg(format)
-  x <- dplyr::lag(.uncollapse(notes), n)
-  x <- scale_interval(x, notes, use_root, format)
+  .check_noteworthy(notes, na.rm = TRUE)
+  x <- .uncollapse(notes)
+  idx <- x %in% c("r", "s")
+  if(any(idx)) x <- x[!idx]
+  i <- .get_scale_interval(dplyr::lag(x, n), x, use_root, format)
+  if(any(idx)){
+    x <- rep(NA_character_, length(idx))
+    x[!idx] <- i
+  } else {
+    x <- i
+  }
   if(trim) x[-c(seq_len(max(1, n)))] else x
 }
 

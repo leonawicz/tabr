@@ -30,7 +30,7 @@
 #' @export
 #'
 #' @examples
-#' x <- "a, b, c d e f g# a ac'e' a c' e' c' a"
+#' x <- "a, b, c d e f g# a r ac'e' a c' e' c' r r r a"
 #' as_music_df(x, key = "c", scale = "major")
 #' as_music_df(x, key = "am", scale = "harmonic_minor", si_format = "ad_abb")
 as_music_df <- function(notes, key = NULL, scale = "diatonic",
