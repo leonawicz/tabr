@@ -167,7 +167,7 @@ print.phrase <- function(x, ...){
   x <- gsub("(~)", info("\\1"), x)
   x <- gsub("(r|s)(\\d+)", paste0(notes("\\1"), info("\\2")), x)
   cat(col1("<"),
-      col1$bold("Musical phrase"), col1(">"), "\n", col1(x), sep = "")
+      col1$bold("Musical phrase"), col1(">"), "\n", col1(x), "\n", sep = "")
 }
 
 #' Phrase validation and coercion

@@ -649,6 +649,7 @@ note_arpeggiate <- function(notes, n = 0, step = 12){
 #' \code{"flat"} or \code{"sharp"}.
 #' @param format \code{NULL} or character, the timestep delimiter format,
 #' \code{"space"} or \code{"vector"}.
+#' @param na.rm remove \code{NA}s.
 #'
 #' @return logical
 #' @export
@@ -679,7 +680,11 @@ note_arpeggiate <- function(notes, n = 0, step = 12){
 #' x
 #'
 #' summary(x)
-is_note <- function(x){
+is_note <- function(x, na.rm = FALSE){
+  if(na.rm){
+    x <- x[!is.na(x)]
+    if(!is.character(x)) x <- as.character(x)
+  }
   x <- .uncollapse(x)
   y1 <- grepl("[a-grs]", x) & !grepl("[h-qt-zA-Z]", x)
   y2 <- gsub("\\d|,|'|_|#|~|\\*", "", x)
@@ -688,7 +693,11 @@ is_note <- function(x){
 
 #' @export
 #' @rdname valid-notes
-is_chord <- function(x){
+is_chord <- function(x, na.rm = FALSE){
+  if(na.rm){
+    x <- x[!is.na(x)]
+    if(!is.character(x)) x <- as.character(x)
+  }
   x <- .uncollapse(x)
   len <- sapply(gregexpr("[a-g]", x), length)
   idx <- len > 1
@@ -702,9 +711,9 @@ is_chord <- function(x){
 
 #' @export
 #' @rdname valid-notes
-noteworthy <- function(x){
+noteworthy <- function(x, na.rm = FALSE){
   if(is_noteworthy(x)) return(TRUE)
-  all(is_note(x) | is_chord(x))
+  all(is_note(x, na.rm) | is_chord(x, na.rm))
 }
 
 .asnw <- function(x, octaves = NULL, accidentals = NULL, format = NULL){
@@ -774,15 +783,20 @@ is_noteworthy <- function(x){
   "noteworthy" %in% class(x)
 }
 
-.check_note <- function(x) if(any(!is_note(x)))
-  stop("Invalid note found.", call. = FALSE)
+.check_note <- function(x, na.rm = FALSE){
+  if(any(!is_note(x, na.rm)))
+    stop("Invalid note found.", call. = FALSE)
+}
 
-.check_chord <- function(x) if(any(!is_chord(x)))
-  stop("Invalid chord found.", call. = FALSE)
+.check_chord <- function(x, na.rm = FALSE){
+  if(any(!is_chord(x, na.rm)))
+    stop("Invalid chord found.", call. = FALSE)
+}
 
-.check_noteworthy <- function(x) if(!noteworthy(x))
-  stop("Invalid notes or chords found.", call. = FALSE)
-
+.check_noteworthy <- function(x, na.rm = FALSE){
+  if(!noteworthy(x, na.rm))
+    stop("Invalid notes or chords found.", call. = FALSE)
+}
 
 #' @export
 print.noteworthy <- function(x, ...){
@@ -807,7 +821,7 @@ summary.noteworthy <- function(object, ...){
       col1("\n  Octaves: "), a$octave,
       col1("\n  Accidentals: "), a$accidentals,
       col1("\n  Format: "), a$format, col1("\n  Values: "),
-      .tabr_print(.uncollapse(as.character(object)), col1), sep = "")
+      .tabr_print(.uncollapse(as.character(object)), col1), "\n", sep = "")
 }
 
 .tabr_print <- function(x, col1){

@@ -9,11 +9,11 @@
 \alias{is_noteworthy}
 \title{Check note and chord validity}
 \usage{
-is_note(x)
+is_note(x, na.rm = FALSE)
 
-is_chord(x)
+is_chord(x, na.rm = FALSE)
 
-noteworthy(x)
+noteworthy(x, na.rm = FALSE)
 
 as_noteworthy(x, octaves = NULL, accidentals = NULL, format = NULL)
 
@@ -21,6 +21,8 @@ is_noteworthy(x)
 }
 \arguments{
 \item{x}{character, a noteworthy string.}
+
+\item{na.rm}{remove \code{NA}s.}
 
 \item{octaves}{\code{NULL} or character, \code{"tick"} or \code{"integer"}
 octave numbering in result.}
