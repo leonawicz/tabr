@@ -117,13 +117,21 @@ An existing MIDI file can also be passed through directly to LilyPond to attempt
 
 ## Installation
 
-You can install tabr from CRAN with:
+### Upcoming v0.4.0 release
+
+General music data analysis has been expanding significantly since version 0.3.0, which brought many new functions to `tabr`. Version 0.3.5 brought even more functions for music analysis, an alternative input format for guitar tab transcription, and a long in progress refactoring of the package documentation around transcription being now just one component of `tabr`. The package remains cohesive in that the syntax has not changed and continues to lend itself naturally to transcription when that is an end goal following data manipulation, but there is so much more than just rendering sheet music.
+
+In the upcoming version 0.4.0, there are even more functions for music data analysis. There is better MIDI file support. There are more functions for tidy analysis. Functions have been vectorized that previously only operated note by note. Other functions have been generalized that previously could handle single notes but lacked an approach to chords in certain contexts. The entire package has been significantly optimized for better performance over previous versions.
+
+All things considered, the next release of `tabr` will be a big improvement. You can get many of these developments now by installing v0.3.9.9000 from GitHub, which all the current online documentation is updated for (this README, `pkgdown` website , vignettes).
+
+You can install tabr v0.3.5 from CRAN with:
 
 ```{r cran-installation, eval = FALSE}
 install.packages("tabr")
 ```
 
-You can install tabr from GitHub with:
+You can install the latest from GitHub with:
 
 ```{r gh-installation, eval = FALSE}
 # install.packages("remotes")
