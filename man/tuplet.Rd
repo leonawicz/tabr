@@ -10,12 +10,13 @@ tuplet(x, n, string = NULL, a = 3, b = 2)
 triplet(x, n, string = NULL)
 }
 \arguments{
-\item{x}{phrase object or character string of notes.}
+\item{x}{noteworthy string or phrase object.}
 
 \item{n}{integer, duration of each tuplet note, e.g., 8 for 8th note tuplet.}
 
-\item{string, }{character, optional string that specifies which guitar
-strings to play for each specific note.}
+\item{string, }{character, optional string or vector with same number of
+timesteps as \code{x} that specifies which strings to play for each specific
+note. Only applies when \code{x} is a noteworthy string.}
 
 \item{a}{integer, notes per tuplet.}
 

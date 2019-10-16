@@ -196,10 +196,11 @@ hp <- function(...){
 #' tuplet tag, so take care to ensure the phrase contents make sense as part of
 #' a tuplet.
 #'
-#' @param x phrase object or character string of notes.
+#' @param x noteworthy string or phrase object.
 #' @param n integer, duration of each tuplet note, e.g., 8 for 8th note tuplet.
-#' @param string, character, optional string that specifies which guitar
-#' strings to play for each specific note.
+#' @param string, character, optional string or vector with same number of
+#' timesteps as \code{x} that specifies which strings to play for each specific
+#' note. Only applies when \code{x} is a noteworthy string.
 #' @param a integer, notes per tuplet.
 #' @param b integer, beats per tuplet.
 #'
@@ -221,10 +222,16 @@ tuplet <- function(x, n, string = NULL, a = 3, b = 2){
   } else {
     notes <- x
   }
+  notes <- .uncollapse(notes)
   notes <- .octave_to_tick(.notesub(notes))
-  notes <- strsplit(notes, " ")[[1]]
   s <- !is.null(string)
-  if(s) string <- .strsub(string)
+  if(s){
+    string <- .uncollapse(string)
+    if(length(string) != length(notes))
+      stop(paste("`string` must have the same number of timesteps as `x`,",
+                 "or a single value to repeat, or be NULL."), call. = FALSE)
+    string <- .strsub(string)
+  }
   notes <- purrr::map_chr(
     seq_along(notes),
     ~paste0(

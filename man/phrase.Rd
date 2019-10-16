@@ -10,13 +10,15 @@ phrase(notes, info, string = NULL, bar = FALSE)
 p(notes, info, string = NULL, bar = FALSE)
 }
 \arguments{
-\item{notes}{character, notes \code{a} through \code{g}, comprising a
-noteworthy string. \code{notes}. See details.}
+\item{notes}{character, a noteworthy string. See details.}
 
-\item{info}{character, metadata pertaining to the \code{notes }. See details.}
+\item{info}{space-delimited character string or vector (or integer vector if
+simple durations). Number of timesteps must be one (to be repeated) or equal
+to the number of timesteps in \code{notes}. See details.}
 
-\item{string}{character, optional string that specifies which guitar strings
-to play for each specific note.}
+\item{string}{space-delimited character string or vector (or integer vector if
+simple string numbers). This is an optional argument that specifies which
+instrument strings to play for each specific timestep. Otherwise \code{NULL}.}
 
 \item{bar}{logical, insert a bar check at the end of the phrase.}
 }

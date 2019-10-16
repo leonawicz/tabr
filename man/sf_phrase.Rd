@@ -18,12 +18,17 @@ sf_note(...)
 sfn(...)
 }
 \arguments{
-\item{string}{character, string numbers associated with notes, or provide
-all information here and ignore \code{fret} and \code{info}. See details.}
+\item{string}{character, space-delimited or vector. String numbers
+associated with notes. Alternatively, provide all information here in a
+single space-delimited string and ignore \code{fret} and \code{info}. See
+details.}
 
-\item{fret}{character, fret numbers associated with notes.}
+\item{fret}{character, space-delimited or vector (or integer vector) of fret
+numbers associated with notes. Same number of timesteps as \code{string}.}
 
-\item{info}{character, metadata associated with notes.}
+\item{info}{character, space-delimited or vector (or integer vector if simple
+durations) giving metadata associated with notes. Same number of timesteps as
+\code{string}.}
 
 \item{key}{character, key signature or just specify \code{"sharp"} or
 \code{"flat"}.}

@@ -114,10 +114,15 @@
 #' See the examples for a comparison of two identical phrases specified using
 #' both input methods for \code{sf_phrase}.
 #'
-#' @param string character, string numbers associated with notes, or provide
-#' all information here and ignore \code{fret} and \code{info}. See details.
-#' @param fret character, fret numbers associated with notes.
-#' @param info character, metadata associated with notes.
+#' @param string character, space-delimited or vector. String numbers
+#' associated with notes. Alternatively, provide all information here in a
+#' single space-delimited string and ignore \code{fret} and \code{info}. See
+#' details.
+#' @param fret character, space-delimited or vector (or integer vector) of fret
+#' numbers associated with notes. Same number of timesteps as \code{string}.
+#' @param info character, space-delimited or vector (or integer vector if simple
+#' durations) giving metadata associated with notes. Same number of timesteps as
+#' \code{string}.
 #' @param key character, key signature or just specify \code{"sharp"} or
 #' \code{"flat"}.
 #' @param tuning character, instrument tuning.
@@ -153,21 +158,31 @@ sf_phrase <- function(string, fret = NULL, info = NULL, key = "c",
          call. = FALSE)
   if(is.null(fret)){
     sfi <- .split_sfp_input(string)
-    string <- paste(sfi$string, collapse = " ")
-    fret <- paste(sfi$fret, collapse = " ")
-    info <- paste(sfi$info, collapse = " ")
+    string <- sfi$string
+    fret <- sfi$fret
+    info <- sfi$info
+  } else {
+    string <- .uncollapse(string)
+    print(string)
+    n <- length(string)
+    fret <- .uncollapse(fret)
+    info <- .uncollapse(info)
+    if(length(fret) == 1) info <- rep(fret, n)
+    if(length(fret) != n)
+      stop(paste("`fret` must have the same number of timesteps as `string`",
+                 "or a single value to repeat."), call. = FALSE)
+    if(length(info) == 1) info <- rep(info, n)
+    if(length(info) != n)
+      stop(paste("`info` must have the same number of timesteps as `string`",
+                 "or a single value to repeat."), call. = FALSE)
   }
-  .check_phrase_input(string, "string")
-  .check_phrase_input(fret, "fret")
-  string <- paste(gsub("_", "", .strsub(string)), collapse = " ")
-  fret <- (strsplit(fret, " ")[[1]] %>%
-             purrr::map_chr(.star_expand) %>%
-              paste0(collapse = " ") %>%
-             strsplit(" "))[[1]]
+  string <- .strsub(string)
+  print(string)
   tuning <- .map_tuning(tuning)
   open_notes <- rev(strsplit(tuning, " ")[[1]])
   str_num <- rev(seq_along(open_notes))
-  notes <- purrr::map2(strsplit(string, " ")[[1]], fret, ~({
+  print(fret)
+  notes <- purrr::map2(string, fret, ~({
     string_tie <- grepl("~", .x)
     fret_tie <- grepl("~", .y)
     if(!identical(string_tie, fret_tie))
@@ -178,7 +193,7 @@ sf_phrase <- function(string, fret = NULL, info = NULL, key = "c",
     if(x %in% rests | y %in% rests){
       if(x == y) return(x) else stop("Rest mismatch.", call. = FALSE)
     }
-    x <- as.integer(strsplit(x, "")[[1]])
+    x <- as.integer(strsplit(x, "_")[[1]])
     if(any(!x %in% str_num))
       stop("String number outside range inferred by tuning.", call. = FALSE)
     y <- trimws(gsub("(\\(\\d{1,2}\\))", " \\1 ", y))

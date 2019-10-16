@@ -53,7 +53,7 @@ pitch_freq <- function(notes, a4 = 440){
 pitch_semitones <- function(notes){
   .check_note(notes)
   69L + purrr::map_int(gsub("~", "", .uncollapse(notes)),
-                       ~pitch_interval("a4", .x))
+                       ~.get_pitch_interval("a4", .x))
 }
 
 #' @export
@@ -70,7 +70,7 @@ chord_semitones <- function(notes){
   .check_noteworthy(notes)
   x <- gsub("~", "", .uncollapse(notes))
   f <- function(x){
-    69L + purrr::map_int(.split_chord(x), ~pitch_interval("a4", .x))
+    69L + purrr::map_int(.split_chords(x), ~.get_pitch_interval("a4", .x))
   }
   stats::setNames(lapply(x, f), x)
 }

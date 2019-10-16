@@ -56,9 +56,6 @@
 }
 
 .strsub <- function(x){
-  x <- strsplit(as.character(x), " ")[[1]] %>%
-    purrr::map_chr(.star_expand) %>%
-    paste0(collapse = " ")
   x <- gsub("7s", "7654321", x)
   x <- gsub("6s", "654321", x)
   x <- gsub("5s", "54321", x)
@@ -72,7 +69,7 @@
       unlist() %>%
       paste0(collapse = "_")
   }
-  purrr::map_chr(strsplit(x, " ")[[1]], f)
+  purrr::map_chr(x, f)
 }
 
 .noterev <- function(x){

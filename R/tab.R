@@ -439,12 +439,6 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   paste(rev(strsplit(x, " ")[[1]]), collapse = " ")
 }
 
-.star_expand <- function(x){
-  if(length(grep("\\*", x)) == 0) return(x)
-  x <- strsplit(x, "\\*")[[1]]
-  do.call(pn, list(x = x[1], n = as.integer(x[2])))
-}
-
 .split_chord <- function(x, strings = FALSE, abb = TRUE){
   if(nchar(x) == 1) return(x)
   y <- if(strings) c(0:9, "x", "o") else letters[1:7]

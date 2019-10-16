@@ -19,7 +19,7 @@ notify(phrase)
 
 phrase_notes(phrase, collapse = TRUE)
 
-phrase_info(phrase, collapse = TRUE)
+phrase_info(phrase, collapse = TRUE, annotations = TRUE)
 
 phrase_strings(phrase, collapse = TRUE)
 
@@ -30,6 +30,9 @@ notable(phrase)
 
 \item{collapse}{logical, collapse result into a single string ready for
 phrase construction.}
+
+\item{annotations}{logical, strip any text annotations from the note info
+converted from \code{phrase}.}
 }
 \value{
 see details for each function's purpose and return value.

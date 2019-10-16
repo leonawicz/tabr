@@ -68,11 +68,13 @@
 #' See \code{\link{notate}}.
 #' For more details and example, see the package vignettes.
 #'
-#' @param notes character, notes \code{a} through \code{g}, comprising a
-#' noteworthy string. \code{notes}. See details.
-#' @param info character, metadata pertaining to the \code{notes }. See details.
-#' @param string character, optional string that specifies which guitar strings
-#' to play for each specific note.
+#' @param notes character, a noteworthy string. See details.
+#' @param info space-delimited character string or vector (or integer vector if
+#' simple durations). Number of timesteps must be one (to be repeated) or equal
+#' to the number of timesteps in \code{notes}. See details.
+#' @param string space-delimited character string or vector (or integer vector if
+#' simple string numbers). This is an optional argument that specifies which
+#' instrument strings to play for each specific timestep. Otherwise \code{NULL}.
 #' @param bar logical, insert a bar check at the end of the phrase.
 #'
 #' @return a phrase.
@@ -93,19 +95,25 @@ NULL
 #' @rdname phrase
 phrase <- function(notes, info, string = NULL, bar = FALSE){
   .check_noteworthy(notes)
-  if(length(notes) > 1) notes <- paste(notes, collapse = " ")
-  .check_phrase_input(info, "info")
+  notes <- .uncollapse(notes)
+  n <- length(notes)
+  idx <- grep("\\d", notes)
+  if(length(idx)) notes <- .octave_to_tick(notes)
+  info <- .uncollapse(info)
+  if(length(info) == 1) info <- rep(info, n)
+  if(length(notes) != length(info))
+    stop(paste("`info` must have the same number of timesteps as `notes`",
+               "or a single value to repeat."), call. = FALSE)
+
   if(length(string) == 1 && is.na(string)) string <- NULL
-  if(!is.null(string)) .check_phrase_input(string, "string")
-  notes <- (strsplit(notes, " ")[[1]] %>%
-              purrr::map_chr(.star_expand) %>%
-    paste0(collapse = " ") %>%
-      strsplit(" "))[[1]]
-  notes <- .octave_to_tick(notes)
-  info <- (strsplit(as.character(info), " ")[[1]] %>%
-             purrr::map_chr(.star_expand) %>%
-             paste0(collapse = " ") %>%
-             strsplit(" "))[[1]]
+  if(!is.null(string)){
+    string <- .uncollapse(string)
+    if(length(string) == 1) string <- rep(string, n)
+    if(length(string) != length(notes))
+      stop(paste("`string` must have the same number of timesteps as `notes`,",
+                 "or a single value to repeat, or be NULL."), call. = FALSE)
+  }
+
   notes <- purrr::map_chr(notes, .tabsub)
   info <- purrr::map_chr(info, .tabsub)
   bend <- which(purrr::map_int(info, ~{
@@ -119,8 +127,6 @@ phrase <- function(notes, info, string = NULL, bar = FALSE){
   info <- gsub(";", "", info)
   .bend <- "\\bendAfter #+6"
   s <- !is.null(string)
-  if(s && is.numeric(string))
-    string <- paste0(rep(string, length(notes)), collapse = " ")
   if(s) string <- .strsub(string)
   notes <- purrr::map_chr(
     seq_along(notes),
@@ -209,6 +215,8 @@ print.phrase <- function(x, ...){
 #' @param phrase phrase object or character string (candidate phrase).
 #' @param collapse logical, collapse result into a single string ready for
 #' phrase construction.
+#' @param annotations logical, strip any text annotations from the note info
+#' converted from \code{phrase}.
 #'
 #' @return see details for each function's purpose and return value.
 #' @export
@@ -264,15 +272,16 @@ as_phrase <- function(phrase){
 #' @rdname phrase-checks
 phrasey <- function(phrase){
   if(!inherits(phrase, "phrase") & !inherits(phrase, "character")) return(FALSE)
-  i1 <- sum(attr(gregexpr("<", phrase)[[1]], "match.length"))
+  x <- gsub("\\^\".*\"", "", phrase)
+  i1 <- sum(attr(gregexpr("<", x)[[1]], "match.length"))
   if(i1 < 1){
-    if(gsub(" |(r|s)\\d+(\\.|)(\\.|)", "", phrase) == ""){
+    if(gsub(" |(r|s)\\d+(\\.|)(\\.|)", "", x) == ""){
       return(TRUE)
     } else {
       return(FALSE)
     }
   }
-  i2 <- sum(attr(gregexpr(">", phrase)[[1]], "match.length"))
+  i2 <- sum(attr(gregexpr(">", x)[[1]], "match.length"))
   if(i1 != i2) return(FALSE)
   TRUE
 }
@@ -284,12 +293,29 @@ notify <- function(phrase){
   x <- .tag_rests(phrase)
   x <- strsplit(x, " <")[[1]]
   x <- gsub("\\\\glissando", "-", x)
+  x <- gsub("\\\\staccato", "]", x)
   x <- gsub("is", "#", x)
   x <- gsub("(^|<)([a|e])s", "\\2_", x)
   x <- gsub(" ([a|e])s", " \\1_", x)
   x <- gsub("es", "_", x)
+
+  txt <- rep("", length(x))
+  idx <- grepl(".*\\^\".*\".*", x)
+  if(any(idx)){
+    txt[idx] <- gsub(" ", "_", gsub(".*\\^\"(.*)\".*", "\\1", x[idx]))
+    x[idx] <- gsub("(.*)(\\^\".*)", "\\1", x[idx])
+  }
+
+  idx2 <- grep("^\\\\deadNote$", x)
+  if(length(idx2)) x[idx2 + 1] <- paste0(x[idx2 + 1], "x")
+
   x <- gsub(" ", "", x)
   x <- gsub("^<", "", x)
+
+  if(any(idx)) x[idx] <- paste0(x[idx], ";^\"", txt[idx], "\"")
+
+  if(length(idx2)) x <- x[-idx2]
+
   x <- strsplit(x, ">")
   notes <- sapply(x, "[[", 1)
   info <- sapply(x, "[[", 2)
@@ -326,8 +352,9 @@ phrase_notes <- function(phrase, collapse = TRUE){
 
 #' @export
 #' @rdname phrase-checks
-phrase_info <- function(phrase, collapse = TRUE){
+phrase_info <- function(phrase, collapse = TRUE, annotations = TRUE){
   x <- notify(phrase)$info
+  if(!annotations) x <- .strip_annotations(x)
   if(collapse) x <- paste(x, collapse = " ")
   x
 }
@@ -348,4 +375,10 @@ notable <- function(phrase){
   if(!phrasey(phrase)) return(FALSE)
   tryCatch(notify(phrase), error = function(e) FALSE)
   TRUE
+}
+
+.strip_annotations <- function(x){
+  idx <- grepl(";\\^\".*\".*", x)
+  if(any(idx)) x[idx] <- gsub("(.*);\\^\".*\"$", "\\1", x[idx])
+  x
 }

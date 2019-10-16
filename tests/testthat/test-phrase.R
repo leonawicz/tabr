@@ -64,6 +64,15 @@ test_that("phrasey returns as expected", {
   expect_false(phrasey("x"))
   expect_false(phrasey("<a"))
   expect_true(phrasey("r1 s2"))
+  expect_true(
+    phrasey(p("r s", pc(notate(4, "Note 1"), notate("4..", "Note 2"))))
+  )
+  expect_true(
+    phrasey(p("s", pc(notate("4..", "Note 2"))))
+  )
+  expect_true(
+    phrasey(p("a b r", pc(4, notate(4, "Note 1"), notate("4..", "Note 2"))))
+  )
 })
 
 test_that("as_phrase returns as expected", {
