@@ -508,10 +508,16 @@ p("r a2 c f d a f", "4 8*6", "x 5 5 4 4 3 4") %>% track %>% score %>%
     #> Converting to `./phrase.pdf'...
     #> Success: compilation successfully completed
 
-<br/>
+The pdf output looks like this:
 
-For comparison, if you were using string-fret specification to construct
-the above phrase, one way to do so is the following:
+<p>
+
+<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex00.png?raw=true" class="centerimg" width="50%">
+
+</p>
+
+For comparison, if you use string-fret specification to construct the
+above phrase, one way to do so is the following.
 
 ``` r
 sfp("r;r;4 5;0;8 3 4;3; 0 3;2; 4;3;")
