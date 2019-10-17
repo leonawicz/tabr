@@ -215,13 +215,15 @@ lp_chord_mod <- function(root, chord, exact = FALSE, ...){
 #' @param notes character, a noteworthy string.
 #' @param name character, chord name in \code{tabr} format, e.g.,
 #' \code{"bM b_m b_m7#5"}, etc.
+#' @param root_octave integer, optional filter for chords whose root note is in
+#' a set of octave numbers. May be a vector.
 #' @param root_fret integer, optional filter for chords whose root note matches
 #' a specific fret. May be a vector.
 #' @param min_fret integer, optional filter for chords whose notes are all at
 #' or above a specific fret. May be a vector.
 #' @param bass_string integer, optional filter for chords whose lowest pitch
 #' string matches a specific string, 6, 5, or 4. May be a vector.
-#' @param open logical, optional filter for open and movable chords. \code{NA}
+#' @param open logical, optional filter for open and movable chords. \code{NULL}
 #' retains both types.
 #' @param key character, key signature, used to enforce type of accidentals.
 #' @param ignore_octave logical, if \code{TRUE}, functions like \code{gc_info}
@@ -242,15 +244,15 @@ lp_chord_mod <- function(root, chord, exact = FALSE, ...){
 #' gc_info("ceg a#m7_5", key = "f")
 #'
 #' gc_info("a,m c d f,")
-#' gc_fretboard("a,m c d f,", 0:3)
+#' gc_fretboard("a,m c d f,", root_fret = 0:3)
 #'
-#' x <- gc_notes("a, b,", 0:2)
+#' x <- gc_notes("a, b,", root_fret = 0:2)
 #' summary(x)
-gc_info <- function(name, root_fret = NA, min_fret = NA, bass_string = NA,
-                    open = NA, key = "c", ignore_octave = FALSE){
+gc_info <- function(name, root_octave = NULL, root_fret = NULL, min_fret = NULL,
+                    bass_string = NULL, open = NULL, key = "c",
+                    ignore_octave = TRUE){
   .keycheck(key)
-  acc <- .keydata$sf[.keydata$key == key]
-  sharp <- is.na(acc) || acc == "sharp"
+  sharp <- key_is_sharp(key)
   f <- if(sharp) .flat_to_sharp else .sharp_to_flat
   x <- chord_name_split(name)
   by <- c(id = "mod", root = "root")
@@ -259,36 +261,38 @@ gc_info <- function(name, root_fret = NA, min_fret = NA, bass_string = NA,
     by <- c(by, octave = "octave")
   }
   x$root <- as.character(.pitch_to_note(sapply(x$root, f)))
-  if(sharp){
-    d <- dplyr::filter(tabr::guitarChords, !grepl("_", .data[["notes"]]))
-  } else {
-    d <- dplyr::filter(tabr::guitarChords, !grepl("#", .data[["notes"]]))
-  }
+  d <- dplyr::filter(tabr::guitarChords,
+                     !grepl(if(sharp) "_" else "#", .data[["notes"]]))
   x$mod <- factor(x$mod, levels = levels(d$id))
   d <- dplyr::inner_join(d, x, by = by)
-  if(!any(is.na(root_fret)))
+  if(!any(is.null(root_octave)))
+    d <- dplyr::filter(d, .data[["octave"]] %in% !!root_octave)
+  if(!any(is.null(root_fret)))
     d <- dplyr::filter(d, .data[["root_fret"]] %in% !!root_fret)
-  if(!any(is.na(min_fret)))
+  if(!any(is.null(min_fret)))
     d <- dplyr::filter(d, .data[["min_fret"]] %in% !!min_fret)
-  if(!any(is.na(bass_string)))
+  if(!any(is.null(bass_string)))
     d <- dplyr::filter(d, .data[["bass_string"]] %in% !!bass_string)
-  if(!is.na(open)) d <- dplyr::filter(d, .data[["open"]] == !!open)
+  if(!is.null(open)) d <- dplyr::filter(d, .data[["open"]] == !!open)
   d
 }
 
 #' @export
 #' @rdname chord-mapping
-gc_fretboard <- function(name, root_fret = NA, min_fret = NA, bass_string = NA,
-                         open = NA, key = "c", ignore_octave = FALSE){
-  d <- gc_info(name, root_fret, min_fret, bass_string, open, key, ignore_octave)
+gc_fretboard <- function(name, root_octave = NULL, root_fret = NULL,
+                         min_fret = NULL, bass_string = NULL, open = NULL,
+                         key = "c", ignore_octave = TRUE){
+  d <- gc_info(name, root_octave, root_fret, min_fret, bass_string, open, key,
+               ignore_octave)
   stats::setNames(d$fretboard, d$lp_name)
 }
 
 #' @export
 #' @rdname chord-mapping
-gc_notes <- function(name, root_fret = NA, min_fret = NA, bass_string = NA,
-                     open = NA, key = "c", ignore_octave = FALSE){
-  x <- gc_info(name, root_fret, min_fret, bass_string, open, key,
+gc_notes <- function(name, root_octave = NULL, root_fret = NULL,
+                     min_fret = NULL, bass_string = NULL, open = NULL,
+                     key = "c", ignore_octave = TRUE){
+  x <- gc_info(name, root_octave, root_fret, min_fret, bass_string, open, key,
                ignore_octave)$notes
   if(length(name) == 1) x <- paste(x, collapse = " ")
   .asnw(x)

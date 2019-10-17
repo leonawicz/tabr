@@ -11,14 +11,15 @@
 \alias{chord_name_mod}
 \title{Chord mapping}
 \usage{
-gc_info(name, root_fret = NA, min_fret = NA, bass_string = NA,
-  open = NA, key = "c", ignore_octave = FALSE)
+gc_info(name, root_octave = NULL, root_fret = NULL, min_fret = NULL,
+  bass_string = NULL, open = NULL, key = "c", ignore_octave = TRUE)
 
-gc_fretboard(name, root_fret = NA, min_fret = NA, bass_string = NA,
-  open = NA, key = "c", ignore_octave = FALSE)
+gc_fretboard(name, root_octave = NULL, root_fret = NULL,
+  min_fret = NULL, bass_string = NULL, open = NULL, key = "c",
+  ignore_octave = TRUE)
 
-gc_notes(name, root_fret = NA, min_fret = NA, bass_string = NA,
-  open = NA, key = "c", ignore_octave = FALSE)
+gc_notes(name, root_octave = NULL, root_fret = NULL, min_fret = NULL,
+  bass_string = NULL, open = NULL, key = "c", ignore_octave = TRUE)
 
 chord_is_known(notes)
 
@@ -32,6 +33,9 @@ chord_name_mod(name)
 \item{name}{character, chord name in \code{tabr} format, e.g.,
 \code{"bM b_m b_m7#5"}, etc.}
 
+\item{root_octave}{integer, optional filter for chords whose root note is in
+a set of octave numbers. May be a vector.}
+
 \item{root_fret}{integer, optional filter for chords whose root note matches
 a specific fret. May be a vector.}
 
@@ -41,7 +45,7 @@ or above a specific fret. May be a vector.}
 \item{bass_string}{integer, optional filter for chords whose lowest pitch
 string matches a specific string, 6, 5, or 4. May be a vector.}
 
-\item{open}{logical, optional filter for open and movable chords. \code{NA}
+\item{open}{logical, optional filter for open and movable chords. \code{NULL}
 retains both types.}
 
 \item{key}{character, key signature, used to enforce type of accidentals.}
@@ -97,8 +101,8 @@ gc_info("ceg a#m7_5") # only second entry is a guitar chord
 gc_info("ceg a#m7_5", key = "f")
 
 gc_info("a,m c d f,")
-gc_fretboard("a,m c d f,", 0:3)
+gc_fretboard("a,m c d f,", root_fret = 0:3)
 
-x <- gc_notes("a, b,", 0:2)
+x <- gc_notes("a, b,", root_fret = 0:2)
 summary(x)
 }

@@ -228,8 +228,8 @@ for better performance over previous versions.
 All things considered, the next release of `tabr` will be a big
 improvement. You can get many of these developments now by installing
 version 0.3.9.9000 from GitHub, which all the current online
-documentation is updated for (this README, `pkgdown` website,
-vignettes).
+documentation is updated for (this document, the `pkgdown` website, help
+files and vignettes).
 
 You can install tabr v0.3.5 from CRAN with:
 

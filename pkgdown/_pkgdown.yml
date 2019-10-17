@@ -56,6 +56,10 @@ reference:
   desc: "Functions mapping music notation and other quantities like semitones and frequency"
   contents:
   - pitch_freq
+- title: Syntax conversion
+  desc: "Syntax converters for mapping other music notation syntax to tabr"
+  contents:
+  - to_tabr
 - title: Tidy music data analysis
   desc: "Functions for converting to and from and manipulating music data frames"
   contents:

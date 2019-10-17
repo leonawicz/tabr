@@ -68,7 +68,6 @@ p2 <- volta(p("e4 g b g b4 b g b a4 g b g b4 b g b", 8, pn(s1, 2)), 3)
 e2 <- p("e5 g b g f#5 b g b g5 g b g a5 b g b", 8, pn(s1, 2))
 e <- list(p(x2, 8, pn(s1, 2)), e2)
 p3 <- pc(p1, p1, volta(p(pc(x1, x2, x1), 8, pn(s1, 6)), 1, e))
-
 ```
 
 Things become more complex with the next phrases. These use longer sequences of notes. `p5` also relies on a helper function just to shorten the typing a bit. It is worth looking for opportunities to avoid typing anything highly redundant. You should also only type out phrases to a length you are comfortable working with. A misplaced note can ruin everything and if you make your phrases too long to troubleshoot easily, you will become unhappy with your decision.
@@ -100,7 +99,7 @@ Phrases, or song parts, depending on what you want to call these slices of music
 ```{r g1v1_4}
 p6 <- pc(volta(p1), p1, p(x1, 8, pn(s1, 2)), e2)
 p7 <- pc(
-  p(tp(pc(gsub("e4|g4", "b4", x1), x2), 12, key = "em"), 8, pn(s1, 8)),
+  p(tp(pc(gsub("e4|g4", "b4", x1), x2), 12, key = "em"), 8, pn(s1, 4)),
   p(tp(pc(x1, x2), 12, key = "em"), 8, pn(s1, 4))
 )
 p8 <- pc(p1, p1)

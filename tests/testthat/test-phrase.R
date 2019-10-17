@@ -38,8 +38,16 @@ test_that("phrase returns as expected", {
   expect_equal(as.character(x2), "<b,\\5>4( <c\\5>4)\\glissando <d\\5>2")
 
   expect_error(p(1:2, 1, 1), "Invalid notes or chords found.")
-  expect_error(p("a", 1:2, 1), "`info` must be length one.")
-  expect_error(p("a", 1, 1:2), "`string` must be length one.")
+  expect_error(
+    p("a", 1:2, 1),
+    paste("`info` must have the same number of timesteps as `notes`",
+           "or a single value to repeat.")
+  )
+  expect_error(
+    p("a", 1, 1:2),
+    paste("`string` must have the same number of timesteps as `notes`,",
+          "or a single value to repeat, or be NULL.")
+  )
 
   expect_equal(.notesub("ees", simplify = TRUE), "es")
 })

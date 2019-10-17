@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Tuplets — tuplet • tabr</title>
+<title>Note info helpers — noteinfo • tabr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -44,8 +44,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Tuplets — tuplet" />
-<meta property="og:description" content="Helper function for generating tuplet syntax." />
+<meta property="og:title" content="Note info helpers — noteinfo" />
+<meta property="og:description" content="Functions for working with note info strings." />
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -204,79 +204,44 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Tuplets</h1>
-    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/phrase_helpers.R'><code>R/phrase_helpers.R</code></a></small>
-    <div class="hidden name"><code>tuplet.Rd</code></div>
+    <h1>Note info helpers</h1>
+    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/noteinfo.R'><code>R/noteinfo.R</code></a></small>
+    <div class="hidden name"><code>noteinfo.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Helper function for generating tuplet syntax.</p>
+    <p>Functions for working with note info strings.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tuplet</span>(<span class='no'>x</span>, <span class='no'>n</span>, <span class='kw'>string</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>2</span>)
-
-<span class='fu'>triplet</span>(<span class='no'>x</span>, <span class='no'>n</span>, <span class='kw'>string</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>phrase_duration</span>(<span class='no'>phrase</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>noteworthy string or phrase object.</p></td>
-    </tr>
-    <tr>
-      <th>n</th>
-      <td><p>integer, duration of each tuplet note, e.g., 8 for 8th note tuplet.</p></td>
-    </tr>
-    <tr>
-      <th>string, </th>
-      <td><p>character, optional string or vector with same number of
-timesteps as <code>x</code> that specifies which strings to play for each specific
-note. Only applies when <code>x</code> is a noteworthy string.</p></td>
-    </tr>
-    <tr>
-      <th>a</th>
-      <td><p>integer, notes per tuplet.</p></td>
-    </tr>
-    <tr>
-      <th>b</th>
-      <td><p>integer, beats per tuplet.</p></td>
+      <th>phrase</th>
+      <td><p>a phrase object.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>phrase</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>This function gives control over tuplet construction. The default arguments
-<code>a = 3</code> and <code>b = 2</code> generates a triplet where three triplet notes,
-each lasting for two thirds of a beat, take up two beats.
-<code>n</code> is used to describe the beat duration with the same
-fraction-of-measure denominator notation used for notes in <code>tabr</code>
-phrases, e.g., 16th note triplet, 8th note triplet, etc.</p>
-<p>If you provide a note sequence for multiple tuplets in a row of the same
-type, they will be connected automatically. It is not necessary to call
-<code>tuplet</code> each time when the pattern is constant.
-If you provide a complete phrase object, it will simply be wrapped in the
-tuplet tag, so take care to ensure the phrase contents make sense as part of
-a tuplet.</p>
+    <p>character</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>tuplet</span>(<span class='st'>"c c# d"</span>, <span class='fl'>8</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'>&lt;</span><span style='color: #555555;font-weight: bold;'>Musical phrase</span><span style='color: #555555;'>&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>\tuplet 3/2 4 { &lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>8</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>cis</span><span style='color: #555555;'>&gt; &lt;</span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #555555;'>&gt; }</span><span></div><div class='input'><span class='fu'>triplet</span>(<span class='st'>"c c# d"</span>, <span class='fl'>8</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'>&lt;</span><span style='color: #555555;font-weight: bold;'>Musical phrase</span><span style='color: #555555;'>&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>\tuplet 3/2 4 { &lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>8</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>cis</span><span style='color: #555555;'>&gt; &lt;</span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #555555;'>&gt; }</span><span></div><div class='input'><span class='fu'>tuplet</span>(<span class='st'>"c c# d c c# d"</span>, <span class='fl'>4</span>, <span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>4</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'>&lt;</span><span style='color: #555555;font-weight: bold;'>Musical phrase</span><span style='color: #555555;'>&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>\tuplet 6/4 1 { &lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>4</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>cis</span><span style='color: #555555;'>&gt; &lt;</span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #555555;'>&gt; &lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #555555;'>&gt; &lt;</span><span style='color: #00BBBB;font-weight: bold;'>cis</span><span style='color: #555555;'>&gt; &lt;</span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #555555;'>&gt; }</span><span></div><div class='input'>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='st'>"c c# d"</span>, <span class='st'>"8] 8( 8)"</span>, <span class='st'>"5*3"</span>)
-<span class='fu'>tuplet</span>(<span class='no'>p1</span>, <span class='fl'>8</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'>&lt;</span><span style='color: #555555;font-weight: bold;'>Musical phrase</span><span style='color: #555555;'>&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>\tuplet 3/2 4 { &lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #BB0000;'>\5</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>8\</span><span style='color: #555555;'>staccato &lt;</span><span style='color: #00BBBB;font-weight: bold;'>cis</span><span style='color: #BB0000;'>\5</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>8(</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #BB0000;'>\5</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>8)</span><span style='color: #555555;'> }</span><span></div></span></pre>
+    <pre class="examples"><div class='input'><span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='notate.html'>notate</a></span>(<span class='st'>"8x"</span>, <span class='st'>"Start here"</span>)
+<span class='no'>notes</span> <span class='kw'>&lt;-</span> <span class='st'>"a, b, c d e f g# a r ac'e' a c' e' c' r*3 ac'e'~ ac'e'"</span>
+<span class='no'>info</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='no'>a</span>, <span class='st'>"8] 8] 16 4.. 16- 16 2 2 4. 8( 4)( 4) 8*4 1 1"</span>)
+<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='no'>notes</span>, <span class='no'>info</span>)
+
+<span class='fu'>phrase_duration</span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt;  [1] "8"   "8"   "8"   "16"  "4.." "16"  "16"  "2"   "2"   "4."  "8"   "4"  
+#&gt; [13] "4"   "8"   "8"   "8"   "8"   "1"   "1"  </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

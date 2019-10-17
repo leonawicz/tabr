@@ -491,51 +491,58 @@
 <a href="#chord-information" class="anchor"></a>Chord information</h3>
 <p><code>gc_info</code> can be used to filter <code>guitarChords</code>. In the examples below, you can see that multiple chord names can be supplied at once. All are used to filter the chord dataset. If the inputs do not exist, an empty tibble with zero rows is returned. The result is not vectorized to match the number of entries in the input; it is simply a row filter for <code>guitarChords</code>.</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" title="1"><span class="kw"><a href="../reference/chord-mapping.html">gc_info</a></span>(<span class="st">"a"</span>) <span class="co"># a major chord, not a single note</span></a></code></pre></div>
-<pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 3 x 12</span><span>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 6 x 12</span><span>
 #&gt;   id    lp_name root  octave root_fret min_fret bass_string notes frets
 #&gt;   </span><span style="color: #555555;font-style: italic;">&lt;fct&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>       </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>
-#&gt; </span><span style="color: #555555;">1</span><span> M     a:5     a          3         7        7           4 ae'a~ xx79~
-#&gt; </span><span style="color: #555555;">2</span><span> M     a:5     a          3        12       12           5 ae'a~ x(12~
-#&gt; </span><span style="color: #555555;">3</span><span> M     a:5     a          3        12        9           5 ac#'~ x(12~
+#&gt; </span><span style="color: #555555;">1</span><span> M     a,:5    a          2         0        0           5 a,ea~ xo22~
+#&gt; </span><span style="color: #555555;">2</span><span> M     a,:5    a          2         5        5           6 a,ea~ 5776~
+#&gt; </span><span style="color: #555555;">3</span><span> M     a,:5    a          2         5        2           6 a,d_~ 5422~
+#&gt; </span><span style="color: #555555;">4</span><span> M     a:5     a          3         7        7           4 ae'a~ xx79~
+#&gt; </span><span style="color: #555555;">5</span><span> M     a:5     a          3        12       12           5 ae'a~ x(12~
+#&gt; </span><span style="color: #555555;">6</span><span> M     a:5     a          3        12        9           5 ad_'~ x(12~
 #&gt; </span><span style="color: #555555;"># ... with 3 more variables: semitones </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span style="color: #555555;">, fretboard </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span style="color: #555555;">, open </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>
 </span></code></pre>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" title="1"><span class="kw"><a href="../reference/chord-mapping.html">gc_info</a></span>(<span class="st">"ceg a#m7_5"</span>) <span class="co"># only third entry is a guitar chord</span></a></code></pre></div>
-<pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 3 x 12</span><span>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 6 x 12</span><span>
 #&gt;   id    lp_name root  octave root_fret min_fret bass_string notes frets
 #&gt;   </span><span style="color: #555555;font-style: italic;">&lt;fct&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>       </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>
-#&gt; </span><span style="color: #555555;">1</span><span> m7_5  a#:m7_5 a#         3         8        4           4 a#c#~ xx86~
-#&gt; </span><span style="color: #555555;">2</span><span> m7_5  a#:m7_5 a#         3         8        8           4 a#e'~ xx89~
-#&gt; </span><span style="color: #555555;">3</span><span> m7_5  a#:m7_5 a#         3        13       12           5 a#g#~ x(13~
+#&gt; </span><span style="color: #555555;">1</span><span> m7_5  b_,:m7~ b_         2         1        0           5 b_,a~ x1x1~
+#&gt; </span><span style="color: #555555;">2</span><span> m7_5  b_,:m7~ b_         2         1        1           5 b_,e~ x121~
+#&gt; </span><span style="color: #555555;">3</span><span> m7_5  b_,:m7~ b_         2         6        5           6 b_,a~ 6x66~
+#&gt; </span><span style="color: #555555;">4</span><span> m7_5  b_:m7_5 b_         3         8        4           4 b_d_~ xx86~
+#&gt; </span><span style="color: #555555;">5</span><span> m7_5  b_:m7_5 b_         3         8        8           4 b_e'~ xx89~
+#&gt; </span><span style="color: #555555;">6</span><span> m7_5  b_:m7_5 b_         3        13       12           5 b_a_~ x(13~
 #&gt; </span><span style="color: #555555;"># ... with 3 more variables: semitones </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span style="color: #555555;">, fretboard </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span style="color: #555555;">, open </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>
 </span></code></pre>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" title="1"><span class="kw"><a href="../reference/chord-mapping.html">gc_info</a></span>(<span class="st">"ceg a#m7_5"</span>, <span class="dt">key =</span> <span class="st">"f"</span>)</a></code></pre></div>
-<pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 3 x 12</span><span>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 6 x 12</span><span>
 #&gt;   id    lp_name root  octave root_fret min_fret bass_string notes frets
 #&gt;   </span><span style="color: #555555;font-style: italic;">&lt;fct&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>       </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>
-#&gt; </span><span style="color: #555555;">1</span><span> m7_5  b_:m7_5 b_         3         8        4           4 b_d_~ xx86~
-#&gt; </span><span style="color: #555555;">2</span><span> m7_5  b_:m7_5 b_         3         8        8           4 b_e'~ xx89~
-#&gt; </span><span style="color: #555555;">3</span><span> m7_5  b_:m7_5 b_         3        13       12           5 b_a_~ x(13~
+#&gt; </span><span style="color: #555555;">1</span><span> m7_5  b_,:m7~ b_         2         1        0           5 b_,a~ x1x1~
+#&gt; </span><span style="color: #555555;">2</span><span> m7_5  b_,:m7~ b_         2         1        1           5 b_,e~ x121~
+#&gt; </span><span style="color: #555555;">3</span><span> m7_5  b_,:m7~ b_         2         6        5           6 b_,a~ 6x66~
+#&gt; </span><span style="color: #555555;">4</span><span> m7_5  b_:m7_5 b_         3         8        4           4 b_d_~ xx86~
+#&gt; </span><span style="color: #555555;">5</span><span> m7_5  b_:m7_5 b_         3         8        8           4 b_e'~ xx89~
+#&gt; </span><span style="color: #555555;">6</span><span> m7_5  b_:m7_5 b_         3        13       12           5 b_a_~ x(13~
 #&gt; </span><span style="color: #555555;"># ... with 3 more variables: semitones </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span style="color: #555555;">, fretboard </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span style="color: #555555;">, open </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>
 </span></code></pre>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" title="1"></a>
 <a class="sourceLine" id="cb43-2" title="2"><span class="kw"><a href="../reference/chord-mapping.html">gc_info</a></span>(<span class="st">"a,m c d f,"</span>)</a></code></pre></div>
-<pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 13 x 12</span><span>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 23 x 12</span><span>
 #&gt;    id    lp_name root  octave root_fret min_fret bass_string notes frets
 #&gt;    </span><span style="color: #555555;font-style: italic;">&lt;fct&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>       </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>
 #&gt; </span><span style="color: #555555;"> 1</span><span> m     a,:m    a          2         0        0           5 a,ea~ xo22~
 #&gt; </span><span style="color: #555555;"> 2</span><span> m     a,:m    a          2         5        5           6 a,ea~ 5775~
 #&gt; </span><span style="color: #555555;"> 3</span><span> m     a,:m    a          2         5        2           6 a,cea 5322~
-#&gt; </span><span style="color: #555555;"> 4</span><span> M     c:5     c          3         3        3           5 cgc'~ x355~
-#&gt; </span><span style="color: #555555;"> 5</span><span> M     c:5     c          3         3        0           5 cegc~ x32o~
-#&gt; </span><span style="color: #555555;"> 6</span><span> M     c:5     c          3         8        8           6 cgc'~ 8(10~
-#&gt; </span><span style="color: #555555;"> 7</span><span> M     c:5     c          3         8        5           6 cegc~ 8755~
-#&gt; </span><span style="color: #555555;"> 8</span><span> M     d:5     d          3         0        0           4 dad'~ xxo2~
-#&gt; </span><span style="color: #555555;"> 9</span><span> M     d:5     d          3         5        5           5 dad'~ x577~
-#&gt; </span><span style="color: #555555;">10</span><span> M     d:5     d          3         5        2           5 df#a~ x542~
-#&gt; </span><span style="color: #555555;">11</span><span> M     d:5     d          3        10       10           6 dad'~ (10)~
-#&gt; </span><span style="color: #555555;">12</span><span> M     d:5     d          3        10        7           6 df#a~ (10)~
-#&gt; </span><span style="color: #555555;">13</span><span> M     f,:5    f          2         1        1           6 f,cf~ 1332~
-#&gt; </span><span style="color: #555555;"># ... with 3 more variables: semitones </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span style="color: #555555;">, fretboard </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span style="color: #555555;">, open </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>
+#&gt; </span><span style="color: #555555;"> 4</span><span> m     a:m     a          3         7        7           4 ae'a~ xx79~
+#&gt; </span><span style="color: #555555;"> 5</span><span> m     a:m     a          3        12       12           5 ae'a~ x(12~
+#&gt; </span><span style="color: #555555;"> 6</span><span> m     a:m     a          3        12        9           5 ac'e~ x(12~
+#&gt; </span><span style="color: #555555;"> 7</span><span> M     c:5     c          3         3        3           5 cgc'~ x355~
+#&gt; </span><span style="color: #555555;"> 8</span><span> M     c:5     c          3         3        0           5 cegc~ x32o~
+#&gt; </span><span style="color: #555555;"> 9</span><span> M     c:5     c          3         8        8           6 cgc'~ 8(10~
+#&gt; </span><span style="color: #555555;">10</span><span> M     c:5     c          3         8        5           6 cegc~ 8755~
+#&gt; </span><span style="color: #555555;"># ... with 13 more rows, and 3 more variables: semitones </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span style="color: #555555;">,
+#&gt; #   fretboard </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span style="color: #555555;">, open </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>
 </span></code></pre>
 <p>The same properties of <code>gc_info</code> apply to wrapper functions around it, namely, <code>gc_notes</code> and <code>gc_fretboard</code>.</p>
 </div>
@@ -545,6 +552,8 @@
 <p><code>gc_notes</code> takes chord names that exist in <code>guitarChords</code> and returns the noteworthy strings needed for phrase construction. Remember, the is just a basic filter. If you specify chords imprecisely, the result will contain many more chords than were in the input. If you specify chords completely unambiguously, then there is one result for each input. However, this also requires you do not provide any chord names that are not in <code>guitarChords</code>, or these will be dropped.</p>
 <p>Keep in mind that these functions are under active development and the approaches they take may change prior to the next CRAN release of <code>tabr</code>. Currently, the ways you can add precision to your chord mapping include passing the following optional arguments:</p>
 <ul>
+<li>
+<code>root_octave</code>: the octave number for the root note.</li>
 <li>
 <code>root_fret</code>: the fret for the root note.</li>
 <li>
@@ -556,27 +565,27 @@
 <li>
 <code>key</code>: key signature, to enforce sharps or flats when present.</li>
 </ul>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" title="1">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chord-mapping.html">gc_notes</a></span>(<span class="st">"a,7 b,m"</span>, <span class="dv">0</span><span class="op">:</span><span class="dv">2</span>) <span class="co"># filter/restriction: root fret must be in 0:2</span></a>
+<p>In this example, possible matches from <code>guitarChord</code> are filtered to any whose root fret is in <code>0:2</code>.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" title="1">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chord-mapping.html">gc_notes</a></span>(<span class="st">"a,7 b,m"</span>, <span class="dt">root_fret =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">ignore_octave =</span> <span class="ot">FALSE</span>)</a>
 <a class="sourceLine" id="cb44-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(x)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
 #&gt;   Timesteps: </span><span>2 (0 notes, 2 chords)</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Octaves: </span><span>tick</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Accidentals: </span><span>sharp</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Accidentals: </span><span>flat</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Values: </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">a</span><span style="color: #00BBBB;">,</span><span style="color: #00BBBB;font-weight: bold;">egc#</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">b</span><span style="color: #00BBBB;">,</span><span style="color: #00BBBB;font-weight: bold;">f#bd</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">f#</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span>
+#&gt;   Values: </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">a</span><span style="color: #00BBBB;">,</span><span style="color: #00BBBB;font-weight: bold;">egd_</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">b</span><span style="color: #00BBBB;">,</span><span style="color: #00BBBB;font-weight: bold;">g_bd</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">g_</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span>
 </span></code></pre>
-<p>Notice that the octave information helps further restrict the chord set as well. This can be turned off with <code>ignore_octave = TRUE</code>.</p>
+<p>Notice that the octave information helps further restrict the chord set with <code>ignore_octave = FALSE</code>.</p>
 </div>
 <div id="fretboard-diagrams" class="section level3">
 <h3 class="hasAnchor">
 <a href="#fretboard-diagrams" class="anchor"></a>Fretboard diagrams</h3>
 <p>When creating tablature and sheet music with LilyPond, you may wish to include a chord chart containing fretboard diagrams of the chords as they are played. Currently, <code>tabr</code> uses the <code>chord_set</code> function to prepare a named character vector of chords that have quasi-LilyPond chord names and fretboard notation values, ready to be passed to <code>score</code> for proper injection into LilyPond.</p>
 <p>This process and the structure of the data objects involved may change soon (I have not decided for certain yet). But for the time being, this is still the process. Therefore, the new function <code>gc_fretboard</code> performs the same manipulation using chords from <code>guitarChords</code>.</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" title="1"><span class="kw"><a href="../reference/chord-mapping.html">gc_fretboard</a></span>(<span class="st">"a,m c d f,"</span>, <span class="ot">NA</span>, <span class="dv">0</span><span class="op">:</span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" title="1"><span class="kw"><a href="../reference/chord-mapping.html">gc_fretboard</a></span>(<span class="st">"a,m c d f,"</span>, <span class="dt">min_fret =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">1</span>)</a></code></pre></div>
 <pre class="r-output"><code>#&gt;           a,:m            c:5            d:5           f,:5 
 #&gt; "x;o;2;2;1;o;" "x;3;2;o;1;o;" "x;x;o;2;3;2;" "1;3;3;2;1;1;"
 </code></pre>
-<p>This summarizes the current state of guitar chord name-note mapping in <code>tabr</code>. This is an area still under active development and subject to change.</p>
 </div>
 </div>
   </div>

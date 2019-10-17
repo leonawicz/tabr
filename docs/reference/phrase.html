@@ -226,17 +226,19 @@ ensure proper tablature layout.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>notes</th>
-      <td><p>character, notes <code>a</code> through <code>g</code>, comprising a
-noteworthy string. <code>notes</code>. See details.</p></td>
+      <td><p>character, a noteworthy string. See details.</p></td>
     </tr>
     <tr>
       <th>info</th>
-      <td><p>character, metadata pertaining to the <code>notes </code>. See details.</p></td>
+      <td><p>space-delimited character string or vector (or integer vector if
+simple durations). Number of timesteps must be one (to be repeated) or equal
+to the number of timesteps in <code>notes</code>. See details.</p></td>
     </tr>
     <tr>
       <th>string</th>
-      <td><p>character, optional string that specifies which guitar strings
-to play for each specific note.</p></td>
+      <td><p>space-delimited character string or vector (or integer vector if
+simple string numbers). This is an optional argument that specifies which
+instrument strings to play for each specific timestep. Otherwise <code>NULL</code>.</p></td>
     </tr>
     <tr>
       <th>bar</th>

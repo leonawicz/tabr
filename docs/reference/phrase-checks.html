@@ -223,7 +223,7 @@ phrase objects.</p>
 
 <span class='fu'>phrase_notes</span>(<span class='no'>phrase</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'>phrase_info</span>(<span class='no'>phrase</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>phrase_info</span>(<span class='no'>phrase</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>annotations</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>phrase_strings</span>(<span class='no'>phrase</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
@@ -240,6 +240,11 @@ phrase objects.</p>
       <th>collapse</th>
       <td><p>logical, collapse result into a single string ready for
 phrase construction.</p></td>
+    </tr>
+    <tr>
+      <th>annotations</th>
+      <td><p>logical, strip any text annotations from the note info
+converted from <code>phrase</code>.</p></td>
     </tr>
     </table>
 

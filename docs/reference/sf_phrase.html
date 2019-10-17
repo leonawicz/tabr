@@ -250,16 +250,21 @@ once it is done being used to help derive <code>notes</code>.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>string</th>
-      <td><p>character, string numbers associated with notes, or provide
-all information here and ignore <code>fret</code> and <code>info</code>. See details.</p></td>
+      <td><p>character, space-delimited or vector. String numbers
+associated with notes. Alternatively, provide all information here in a
+single space-delimited string and ignore <code>fret</code> and <code>info</code>. See
+details.</p></td>
     </tr>
     <tr>
       <th>fret</th>
-      <td><p>character, fret numbers associated with notes.</p></td>
+      <td><p>character, space-delimited or vector (or integer vector) of fret
+numbers associated with notes. Same number of timesteps as <code>string</code>.</p></td>
     </tr>
     <tr>
       <th>info</th>
-      <td><p>character, metadata associated with notes.</p></td>
+      <td><p>character, space-delimited or vector (or integer vector if simple
+durations) giving metadata associated with notes. Same number of timesteps as
+<code>string</code>.</p></td>
     </tr>
     <tr>
       <th>key</th>

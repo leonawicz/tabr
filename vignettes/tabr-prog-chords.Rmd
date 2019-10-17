@@ -210,18 +210,21 @@ The same properties of `gc_info` apply to wrapper functions around it, namely, `
 
 Keep in mind that these functions are under active development and the approaches they take may change prior to the next CRAN release of `tabr`. Currently, the ways you can add precision to your chord mapping include passing the following optional arguments:
 
+* `root_octave`: the octave number for the root note.
 * `root_fret`: the fret for the root note.
 * `min_fret`: the lowest fret position for a chord.
 * `bass_string`: the lowest unmuted string for a chord.
 * `open`: open chords, closed/movable chords, or both (default).
 * `key`: key signature, to enforce sharps or flats when present.
 
+In this example, possible matches from `guitarChord` are filtered to any whose root fret is in `0:2`.
+
 ```{r gc_notes}
-x <- gc_notes("a,7 b,m", 0:2) # filter/restriction: root fret must be in 0:2
+x <- gc_notes("a,7 b,m", root_fret = 0:2, ignore_octave = FALSE)
 summary(x)
 ```
 
-Notice that the octave information helps further restrict the chord set as well. This can be turned off with `ignore_octave = TRUE`.
+Notice that the octave information helps further restrict the chord set with `ignore_octave = FALSE`.
 
 ### Fretboard diagrams
 
@@ -230,7 +233,5 @@ When creating tablature and sheet music with LilyPond, you may wish to include a
 This process and the structure of the data objects involved may change soon (I have not decided for certain yet). But for the time being, this is still the process. Therefore, the new function `gc_fretboard` performs the same manipulation using chords from `guitarChords`.
 
 ```{r gc_fretboard}
-gc_fretboard("a,m c d f,", NA, 0:1)
+gc_fretboard("a,m c d f,", min_fret = 0:1)
 ```
-
-This summarizes the current state of guitar chord name-note mapping in `tabr`. This is an area still under active development and subject to change.

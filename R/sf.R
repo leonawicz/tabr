@@ -163,11 +163,10 @@ sf_phrase <- function(string, fret = NULL, info = NULL, key = "c",
     info <- sfi$info
   } else {
     string <- .uncollapse(string)
-    print(string)
     n <- length(string)
     fret <- .uncollapse(fret)
     info <- .uncollapse(info)
-    if(length(fret) == 1) info <- rep(fret, n)
+    if(length(fret) == 1) fret <- rep(fret, n)
     if(length(fret) != n)
       stop(paste("`fret` must have the same number of timesteps as `string`",
                  "or a single value to repeat."), call. = FALSE)
@@ -177,11 +176,9 @@ sf_phrase <- function(string, fret = NULL, info = NULL, key = "c",
                  "or a single value to repeat."), call. = FALSE)
   }
   string <- .strsub(string)
-  print(string)
   tuning <- .map_tuning(tuning)
   open_notes <- rev(strsplit(tuning, " ")[[1]])
   str_num <- rev(seq_along(open_notes))
-  print(fret)
   notes <- purrr::map2(string, fret, ~({
     string_tie <- grepl("~", .x)
     fret_tie <- grepl("~", .y)

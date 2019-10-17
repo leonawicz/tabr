@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Tuplets — tuplet • tabr</title>
+<title>Fold and unfold strings — string_unfold • tabr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -44,8 +44,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Tuplets — tuplet" />
-<meta property="og:description" content="Helper function for generating tuplet syntax." />
+<meta property="og:title" content="Fold and unfold strings — string_unfold" />
+<meta property="og:description" content="Fold or unfold a string on the expansion operator." />
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -204,72 +204,50 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Tuplets</h1>
-    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/phrase_helpers.R'><code>R/phrase_helpers.R</code></a></small>
-    <div class="hidden name"><code>tuplet.Rd</code></div>
+    <h1>Fold and unfold strings</h1>
+    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/strings.R'><code>R/strings.R</code></a></small>
+    <div class="hidden name"><code>string_unfold.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Helper function for generating tuplet syntax.</p>
+    <p>Fold or unfold a string on the expansion operator.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tuplet</span>(<span class='no'>x</span>, <span class='no'>n</span>, <span class='kw'>string</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+    <pre class="usage"><span class='fu'>string_unfold</span>(<span class='no'>x</span>)
 
-<span class='fu'>triplet</span>(<span class='no'>x</span>, <span class='no'>n</span>, <span class='kw'>string</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+<span class='fu'>string_fold</span>(<span class='no'>x</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>3</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>noteworthy string or phrase object.</p></td>
+      <td><p>character string, should be valid notes or note info such as beats.</p></td>
     </tr>
     <tr>
       <th>n</th>
-      <td><p>integer, duration of each tuplet note, e.g., 8 for 8th note tuplet.</p></td>
-    </tr>
-    <tr>
-      <th>string, </th>
-      <td><p>character, optional string or vector with same number of
-timesteps as <code>x</code> that specifies which strings to play for each specific
-note. Only applies when <code>x</code> is a noteworthy string.</p></td>
-    </tr>
-    <tr>
-      <th>a</th>
-      <td><p>integer, notes per tuplet.</p></td>
-    </tr>
-    <tr>
-      <th>b</th>
-      <td><p>integer, beats per tuplet.</p></td>
+      <td><p>integer, minimum number of consecutive repeated values to warrant
+folding, defaults to 3.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>phrase</p>
+    <p>character</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function gives control over tuplet construction. The default arguments
-<code>a = 3</code> and <code>b = 2</code> generates a triplet where three triplet notes,
-each lasting for two thirds of a beat, take up two beats.
-<code>n</code> is used to describe the beat duration with the same
-fraction-of-measure denominator notation used for notes in <code>tabr</code>
-phrases, e.g., 16th note triplet, 8th note triplet, etc.</p>
-<p>If you provide a note sequence for multiple tuplets in a row of the same
-type, they will be connected automatically. It is not necessary to call
-<code>tuplet</code> each time when the pattern is constant.
-If you provide a complete phrase object, it will simply be wrapped in the
-tuplet tag, so take care to ensure the phrase contents make sense as part of
-a tuplet.</p>
+    <p>These function work on arbitrary stings. They do not perform a noteworthy
+check. This allows them to work for <code>info</code> strings as well. Make sure
+your strings are properly formatted. <code>string_fold</code> always collapses the
+output string as space-delimited.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>tuplet</span>(<span class='st'>"c c# d"</span>, <span class='fl'>8</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'>&lt;</span><span style='color: #555555;font-weight: bold;'>Musical phrase</span><span style='color: #555555;'>&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>\tuplet 3/2 4 { &lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>8</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>cis</span><span style='color: #555555;'>&gt; &lt;</span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #555555;'>&gt; }</span><span></div><div class='input'><span class='fu'>triplet</span>(<span class='st'>"c c# d"</span>, <span class='fl'>8</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'>&lt;</span><span style='color: #555555;font-weight: bold;'>Musical phrase</span><span style='color: #555555;'>&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>\tuplet 3/2 4 { &lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>8</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>cis</span><span style='color: #555555;'>&gt; &lt;</span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #555555;'>&gt; }</span><span></div><div class='input'><span class='fu'>tuplet</span>(<span class='st'>"c c# d c c# d"</span>, <span class='fl'>4</span>, <span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>4</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'>&lt;</span><span style='color: #555555;font-weight: bold;'>Musical phrase</span><span style='color: #555555;'>&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>\tuplet 6/4 1 { &lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>4</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>cis</span><span style='color: #555555;'>&gt; &lt;</span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #555555;'>&gt; &lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #555555;'>&gt; &lt;</span><span style='color: #00BBBB;font-weight: bold;'>cis</span><span style='color: #555555;'>&gt; &lt;</span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #555555;'>&gt; }</span><span></div><div class='input'>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='st'>"c c# d"</span>, <span class='st'>"8] 8( 8)"</span>, <span class='st'>"5*3"</span>)
-<span class='fu'>tuplet</span>(<span class='no'>p1</span>, <span class='fl'>8</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'>&lt;</span><span style='color: #555555;font-weight: bold;'>Musical phrase</span><span style='color: #555555;'>&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>\tuplet 3/2 4 { &lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #BB0000;'>\5</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>8\</span><span style='color: #555555;'>staccato &lt;</span><span style='color: #00BBBB;font-weight: bold;'>cis</span><span style='color: #BB0000;'>\5</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>8(</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #BB0000;'>\5</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>8)</span><span style='color: #555555;'> }</span><span></div></span></pre>
+    <pre class="examples"><div class='input'><span class='no'>time</span> <span class='kw'>&lt;-</span> <span class='st'>"8*3 16 4.. 16 16 2 2 4. 8 4 4 8*4 1"</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>string_unfold</span>(<span class='no'>time</span>)
+<span class='no'>x</span></div><div class='output co'>#&gt; [1] "8 8 8 16 4.. 16 16 2 2 4. 8 4 4 8 8 8 8 1"</div><div class='input'><span class='fu'>string_fold</span>(<span class='no'>x</span>) <span class='kw'>==</span> <span class='no'>time</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='no'>notes</span> <span class='kw'>&lt;-</span> <span class='st'>"a, b, c d e f g# a r ac'e' a c' e' c' r r r a"</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>string_fold</span>(<span class='no'>notes</span>)
+<span class='no'>x</span></div><div class='output co'>#&gt; [1] "a, b, c d e f g# a r ac'e' a c' e' c' r*3 a"</div><div class='input'><span class='fu'>string_unfold</span>(<span class='no'>x</span>) <span class='kw'>==</span> <span class='no'>notes</span></div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
