@@ -10,6 +10,9 @@ to_tabr(id, ...)
 from_chorrrds(chords, key = "c", guitar = FALSE, gc_args = list())
 }
 \arguments{
+\item{id}{character, suffix of \code{from_*} function, e.g.,
+\code{"chorrrds"}}
+
 \item{...}{arguments passed to the function matched by \code{id}.}
 
 \item{chords}{character vector of chords output from the \code{chorrrds}

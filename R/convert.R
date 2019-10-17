@@ -36,6 +36,9 @@
 #' chords in \code{chords}, but at a minimum, typical default component pitches
 #' will be determined and returned in \code{tabr} notation style.
 #'
+#' @param id character, suffix of \code{from_*} function, e.g.,
+#' \code{"chorrrds"}
+#' @param ... arguments passed to the function matched by \code{id}.
 #' @param chords character vector of chords output from the \code{chorrrds}
 #' package.
 #' @param key key signature, used to enforce consistent use of flats or sharps.
@@ -44,7 +47,6 @@
 #' consecutive pitches covering minimum pitch range are returned.
 #' @param gc_args named list of additional arguments passed to
 #' \code{\link{gc_info}}, used when \code{guitar = TRUE}.
-#' @param ... arguments passed to the function matched by \code{id}.
 #'
 #' @return a noteworthy string
 #' @export
