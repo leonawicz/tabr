@@ -6,7 +6,7 @@
 * Generalized functions that previously could accept notes but not chords, doing so on a case by case basis in ways that are meaningful and sensible for handling chords.
 * Added MIDI file read support (requires optional `tuneR` installation) and a set of functions for inspecting and manipulating the table of MIDI music data.
 * Added more functions for mapping between noteworthy strings, phrase objects, and data frames.
-* Added first syntax converter `from_chorrrds`, and `to_tabr` general wrapper function, for converting other music notation syntax to `tabr` syntax.
+* Added first syntax converter `from_chorrrds` (for chord output from `chorrrds` package), and `to_tabr` general wrapper function, for converting other music notation syntax to `tabr` syntax.
 * Updated vignettes, readme and other documentation.
 * Made improvements to print method for phrase objects.
 * Added `rests` argument to some note metadata functions.
