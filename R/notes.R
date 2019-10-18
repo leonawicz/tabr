@@ -617,7 +617,7 @@ note_arpeggiate <- function(notes, n = 0, step = 12){
 #' Check note and chord validity
 #'
 #' Check whether a string is comprised exclusively of valid note and/or chord
-#' substring syntax.
+#' syntax.
 #' \code{is_note} and \code{is_chord} are vectorized and their positive results
 #' are mutually exclusive.
 #' \code{noteworthy} is also vectorized and performs both checks, but it
@@ -632,8 +632,8 @@ note_arpeggiate <- function(notes, n = 0, step = 12){
 #' However, an added benefit to using \code{as_noteworthy} is to conform all
 #' notes in a noteworthy string to specific formatting for accidentals and
 #' octave numbering.
-#' It is often used by other functions, and functions that output a
-#' noteworthy string generally attach the noteworthy class.
+#' The class is often used by other functions, and functions that output a
+#' noteworthy string attach the \code{noteworthy} class.
 #'
 #' For \code{as_noteworthy} and in general for functions that accept
 #' \code{octaves}, \code{accidentals}, \code{format}, and sometimes \code{key}
@@ -651,7 +651,7 @@ note_arpeggiate <- function(notes, n = 0, step = 12){
 #' \code{"space"} or \code{"vector"}.
 #' @param na.rm remove \code{NA}s.
 #'
-#' @return logical
+#' @return depends on the function
 #' @export
 #' @name valid-notes
 #' @seealso \code{\link{note-checks}}, \code{\link{note-metadata}},
@@ -808,7 +808,7 @@ print.noteworthy <- function(x, ...){
     format <- "vectorized time"
   }
   cat(col1("<Noteworthy string>\n  Format: "), format, col1("\n  Values: "),
-      .tabr_print(x, col1), "\n", sep = "")
+      .tabr_print(x), "\n", sep = "")
 }
 
 #' @export
@@ -821,10 +821,10 @@ summary.noteworthy <- function(object, ...){
       col1("\n  Octaves: "), a$octave,
       col1("\n  Accidentals: "), a$accidentals,
       col1("\n  Format: "), a$format, col1("\n  Values: "),
-      .tabr_print(.uncollapse(as.character(object)), col1), "\n", sep = "")
+      .tabr_print(.uncollapse(as.character(object))), "\n", sep = "")
 }
 
-.tabr_print <- function(x, col1){
+.tabr_print <- function(x){
   notes <- crayon::make_style("dodgerblue")$bold
   oct <- crayon::make_style("dodgerblue")
   other <- crayon::make_style("orange2")

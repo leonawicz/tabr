@@ -4,11 +4,15 @@
 \alias{as_music_df}
 \title{Noteworthy string to data frame}
 \usage{
-as_music_df(notes, key = NULL, scale = "diatonic", chords = c("root",
-  "list", "character"), si_format = c("mmp_abb", "mmp", "ad_abb", "ad"))
+as_music_df(notes, info = NULL, key = NULL, scale = "diatonic",
+  chords = c("root", "list", "character"), si_format = c("mmp_abb",
+  "mmp", "ad_abb", "ad"))
 }
 \arguments{
-\item{notes}{character, a noteworthy string.}
+\item{notes}{character, a noteworthy string, or a phrase object in which
+case \code{info} is ignored.}
+
+\item{info}{\code{NULL} or character, a note info string.}
 
 \item{key}{character, key signature, only required for inclusion of scale
 degrees.}
@@ -32,6 +36,9 @@ Convert a noteworthy string to a tibble data frame and include additional
 derivative variables.
 }
 \details{
+If \code{info} is provided or \code{notes} is a phrase object, the
+resulting data frame also contains note durations and other info variables.
+
 For some derived column variables the root note (lowest pitch) in chord is
 used. This is done for pitch intervals and scale intervals between adjacent
 timesteps. This also occurs for scale degrees.
@@ -47,4 +54,13 @@ can be recovered without recomputing from the original pitches.
 x <- "a, b, c d e f g# a r ac'e' a c' e' c' r r r a"
 as_music_df(x, key = "c", scale = "major")
 as_music_df(x, key = "am", scale = "harmonic_minor", si_format = "ad_abb")
+
+a <- notate("8", "Start here.")
+time <- paste(a, "8*2 16 4.. 16( 16)( 2) 2 4. 8- 4 4- 8*4 1")
+d1 <- as_music_df(x, time)
+d1
+
+p1 <- phrase(x, time)
+d2 <- as_music_df(p1)
+identical(d1, d2)
 }

@@ -3,6 +3,9 @@
 #' Convert a noteworthy string to a tibble data frame and include additional
 #' derivative variables.
 #'
+#' If \code{info} is provided or \code{notes} is a phrase object, the
+#' resulting data frame also contains note durations and other info variables.
+#'
 #' For some derived column variables the root note (lowest pitch) in chord is
 #' used. This is done for pitch intervals and scale intervals between adjacent
 #' timesteps. This also occurs for scale degrees.
@@ -14,7 +17,9 @@
 #' readily visible when printing the table, but information is not stripped and
 #' can be recovered without recomputing from the original pitches.
 #'
-#' @param notes character, a noteworthy string.
+#' @param notes character, a noteworthy string, or a phrase object in which
+#' case \code{info} is ignored.
+#' @param info \code{NULL} or character, a note info string.
 #' @param key character, key signature, only required for inclusion of scale
 #' degrees.
 #' @param scale character, defaults to \code{"diatonic"}. Only used in
@@ -33,18 +38,59 @@
 #' x <- "a, b, c d e f g# a r ac'e' a c' e' c' r r r a"
 #' as_music_df(x, key = "c", scale = "major")
 #' as_music_df(x, key = "am", scale = "harmonic_minor", si_format = "ad_abb")
-as_music_df <- function(notes, key = NULL, scale = "diatonic",
+#'
+#' a <- notate("8", "Start here.")
+#' time <- paste(a, "8*2 16 4.. 16( 16)( 2) 2 4. 8- 4 4- 8*4 1")
+#' d1 <- as_music_df(x, time)
+#' d1
+#'
+#' p1 <- phrase(x, time)
+#' d2 <- as_music_df(p1)
+#' identical(d1, d2)
+as_music_df <- function(notes, info = NULL, key = NULL, scale = "diatonic",
                         chords = c("root", "list", "character"),
                         si_format = c("mmp_abb", "mmp", "ad_abb", "ad")){
   .keycheck(key)
   si_format <- match.arg(si_format)
-  .check_noteworthy(notes)
-  x <- .uncollapse(notes)
+  if(inherits(notes, "phrase")){
+    x <- phrase_notes(notes, FALSE)
+    info <- phrase_info(notes, FALSE)
+    len <- length(x)
+  } else {
+    .check_noteworthy(notes)
+    x <- .uncollapse(notes)
+    len <- length(x)
+    if(!is.null(info)){
+      .check_noteinfo(info)
+      info <- .uncollapse(info)
+      if(length(info) == 1) info <- rep(info, len)
+      if(length(info) != len)
+        stop(paste("`info` must have the same number of timesteps as `notes`,",
+                   "or a single value to repeat, or be NULL."), call. = FALSE)
+    }
+  }
   if(length(grep("\\d", x))) x <- .octave_to_tick(x)
   n <- .pitch_to_note(x)
   o <- octaves(x)
   s <- unname(chord_semitones(n))
   f <- chord_freq(x)
+  if(is.null(info)){
+    duration <- NA_character_
+  } else {
+    duration <- as.character(info_duration(info))
+    slur <- rep(NA_character_, len)
+    y <- info_slur_on(info)
+    if(any(y)) slur[y] <- "on"
+    y <- info_slur_off(info)
+    if(any(y)) slur[y] <- ifelse(is.na(slur[y]), "off", "hold")
+    slide <- info_slide(info)
+    dotted <- rep(0L, len)
+    y <- info_dotted(info)
+    if(any(y)) dotted[y] <- 1L
+    y <- info_double_dotted(info)
+    if(any(y)) dotted[y] <- 2L
+    ann <- info_annotation(info)
+  }
 
   chords <- match.arg(chords)
   if(chords == "root"){
@@ -57,7 +103,10 @@ as_music_df <- function(notes, key = NULL, scale = "diatonic",
     f <- purrr::map_chr(f, ~paste(round(.x, 4), collapse = ":"))
   }
 
-  d <- tibble::tibble(pitch = x, note = n, semitone = s, octave = o, freq = f)
+  if(is_noteworthy(x)) x <- as.character(x)
+  if(is_noteworthy(n)) n <- as.character(n)
+  d <- tibble::tibble(duration = duration, pitch = x, note = n, semitone = s,
+                      octave = o, freq = f)
   if(!is.null(key)){
     d <- dplyr::mutate(
       d, key = key, scale = scale,
@@ -68,5 +117,10 @@ as_music_df <- function(notes, key = NULL, scale = "diatonic",
   d <- dplyr::mutate(
     d, pitch_int = pitch_diff(x, TRUE),
     scale_int = scale_diff(x, TRUE, format = si_format))
+  if(!is.null(info)){
+    d <- dplyr::mutate(
+      d, slur = slur, slide = slide, dotted = dotted,
+      annotation = ann)
+  }
   d
 }

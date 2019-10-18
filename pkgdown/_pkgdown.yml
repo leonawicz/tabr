@@ -56,6 +56,11 @@ reference:
   desc: "Functions mapping music notation and other quantities like semitones and frequency"
   contents:
   - pitch_freq
+- title: Time and other note information
+  desc: "Functions for inspecting and manipulating note info strings"
+  contents:
+  - valid-noteinfo
+  - noteinfo
 - title: Syntax conversion
   desc: "Syntax converters for mapping other music notation syntax to tabr"
   contents:

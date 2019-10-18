@@ -46,7 +46,7 @@
 
 <meta property="og:title" content="Check note and chord validity — valid-notes" />
 <meta property="og:description" content="Check whether a string is comprised exclusively of valid note and/or chord
-substring syntax.
+syntax.
 is_note and is_chord are vectorized and their positive results
 are mutually exclusive.
 noteworthy is also vectorized and performs both checks, but it
@@ -217,7 +217,7 @@ exclusively valid entries." />
 
     <div class="ref-description">
     <p>Check whether a string is comprised exclusively of valid note and/or chord
-substring syntax.
+syntax.
 <code>is_note</code> and <code>is_chord</code> are vectorized and their positive results
 are mutually exclusive.
 <code>noteworthy</code> is also vectorized and performs both checks, but it
@@ -265,7 +265,7 @@ octave numbering in result.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>logical</p>
+    <p>depends on the function</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>as_noteworthy</code> can be used to coerce to the <code>noteworthy</code> class.
@@ -276,8 +276,8 @@ an interactive session, but is available and offers its own <code>print</code> a
 However, an added benefit to using <code>as_noteworthy</code> is to conform all
 notes in a noteworthy string to specific formatting for accidentals and
 octave numbering.
-It is often used by other functions, and functions that output a
-noteworthy string generally attach the noteworthy class.</p>
+The class is often used by other functions, and functions that output a
+noteworthy string attach the <code>noteworthy</code> class.</p>
 <p>For <code>as_noteworthy</code> and in general for functions that accept
 <code>octaves</code>, <code>accidentals</code>, <code>format</code>, and sometimes <code>key</code>
 as arguments, when these arguments are <code>NULL</code>, formatting is inferred

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Note info helpers — noteinfo • tabr</title>
+<title>Check note info validity — valid-noteinfo • tabr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -44,8 +44,11 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Note info helpers — noteinfo" />
-<meta property="og:description" content="Functions for working with note info strings." />
+<meta property="og:title" content="Check note info validity — valid-noteinfo" />
+<meta property="og:description" content="Check whether a note info string is comprised exclusively of valid note info
+syntax.
+noteinfo returns a scalar logical result indicating whether the
+entire set contains exclusively valid entries." />
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -204,91 +207,82 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Note info helpers</h1>
+    <h1>Check note info validity</h1>
     <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/noteinfo.R'><code>R/noteinfo.R</code></a></small>
-    <div class="hidden name"><code>noteinfo.Rd</code></div>
+    <div class="hidden name"><code>valid-noteinfo.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Functions for working with note info strings.</p>
+    <p>Check whether a note info string is comprised exclusively of valid note info
+syntax.
+<code>noteinfo</code> returns a scalar logical result indicating whether the
+entire set contains exclusively valid entries.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>info_duration</span>(<span class='no'>x</span>)
+    <pre class="usage"><span class='fu'>informable</span>(<span class='no'>x</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>info_slur_on</span>(<span class='no'>x</span>)
+<span class='fu'>as_noteinfo</span>(<span class='no'>x</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>info_slur_off</span>(<span class='no'>x</span>)
-
-<span class='fu'>info_slide</span>(<span class='no'>x</span>)
-
-<span class='fu'>info_dotted</span>(<span class='no'>x</span>)
-
-<span class='fu'>info_single_dotted</span>(<span class='no'>x</span>)
-
-<span class='fu'>info_double_dotted</span>(<span class='no'>x</span>)
-
-<span class='fu'>info_annotation</span>(<span class='no'>x</span>)</pre>
+<span class='fu'>is_noteinfo</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>character, note info string normally accompanying a noteworthy
-string for building phrase objects. <code>x</code> may also be a phrase object.
-See examples.</p></td>
+      <td><p>character, a note info string.</p></td>
+    </tr>
+    <tr>
+      <th>na.rm</th>
+      <td><p>remove <code>NA</code>s.</p></td>
+    </tr>
+    <tr>
+      <th>format</th>
+      <td><p><code>NULL</code> or character, the timestep delimiter format,
+<code>"space"</code> or <code>"vector"</code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>character</p>
+    <p>depends on the function</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p><code>as_noteinfo</code> can be used to coerce to the <code>noteinfo</code> class.
+Coercion will fail if the string is has any syntax that is not valid for
+note info.
+Using the <code>noteinfo</code> class is generally not needed by the user during
+an interactive session, but is available and offers its own <code>print</code> and
+<code>summary</code> methods for note info strings.
+The class is often used by other functions, and functions that output a
+note info string attach the <code>noteinfo</code> class.</p>
+<p>For <code>as_noteinfo</code> and in general for functions that accept
+the <code>format</code> argument, when it is <code>NULL</code>, the timestep delimiter
+format is inferred from the note info string input. When unclear, such as
+with phrase objects, the default is space-delimited time.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='valid-noteinfo.html'>valid-noteinfo</a></code></p></div>
+    <div class='dont-index'><p><code><a href='noteinfo.html'>noteinfo</a></code>, <code><a href='valid-notes.html'>valid-notes</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='notate.html'>notate</a></span>(<span class='st'>"8x"</span>, <span class='st'>"Start here"</span>)
-<span class='no'>notes</span> <span class='kw'>&lt;-</span> <span class='st'>"a, b, c d e f g# a r ac'e' a c' e' c' r*3 ac'e'~ ac'e'"</span>
-<span class='no'>info</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='no'>a</span>, <span class='st'>"8x 8] 16 4.. 16- 16 2^ 2 4. 8( 4)( 4) 8*4 1 1"</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='no'>notes</span>, <span class='no'>info</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='no'>a</span>, <span class='st'>"8] 8] 16 4.. 16- 16 2^ 2 4. 8( 4)( 4) 8*4 1 1"</span>)
 
-<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>duration</span> <span class='kw'>=</span> <span class='fu'>info_duration</span>(<span class='no'>x</span>),
-  <span class='kw'>slur_on</span> <span class='kw'>=</span> <span class='fu'>info_slur_on</span>(<span class='no'>x</span>),
-  <span class='kw'>slur_off</span> <span class='kw'>=</span> <span class='fu'>info_slur_off</span>(<span class='no'>x</span>),
-  <span class='kw'>slide</span> <span class='kw'>=</span> <span class='fu'>info_slide</span>(<span class='no'>x</span>),
-  <span class='kw'>dotted</span> <span class='kw'>=</span> <span class='fu'>info_dotted</span>(<span class='no'>x</span>),
-  <span class='kw'>dotted1</span> <span class='kw'>=</span> <span class='fu'>info_single_dotted</span>(<span class='no'>x</span>),
-  <span class='kw'>dotted2</span> <span class='kw'>=</span> <span class='fu'>info_double_dotted</span>(<span class='no'>x</span>),
-  <span class='kw'>annotation</span> <span class='kw'>=</span> <span class='fu'>info_annotation</span>(<span class='no'>x</span>)
-)</div><div class='output co'>#&gt;    duration slur_on slur_off slide dotted dotted1 dotted2 annotation
-#&gt; 1         8   FALSE    FALSE FALSE  FALSE   FALSE   FALSE Start_here
-#&gt; 2         8   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 3         8   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 4        16   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 5       4..   FALSE    FALSE FALSE   TRUE   FALSE    TRUE       &lt;NA&gt;
-#&gt; 6        16   FALSE    FALSE  TRUE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 7        16   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 8         2   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 9         2   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 10       4.   FALSE    FALSE FALSE   TRUE    TRUE   FALSE       &lt;NA&gt;
-#&gt; 11        8    TRUE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 12        4    TRUE     TRUE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 13        4   FALSE     TRUE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 14        8   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 15        8   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 16        8   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 17        8   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 18        1   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 19        1   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;</div><div class='input'>
-</div></pre>
+<span class='fu'>informable</span>(<span class='no'>x</span>) <span class='co'># is it of 'noteinfo' class; a validity check for any string</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as_noteinfo</span>(<span class='no'>x</span>) <span class='co'># coerce to 'noteinfo' class</span>
+<span class='fu'>is_noteinfo</span>(<span class='no'>x</span>) <span class='co'># check for 'noteinfo' class</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='no'>x</span></div><div class='output co'>#&gt; <span style='color: #555555;font-weight: bold;'>&lt;Note info string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #BBBB00;'>x;^</span><span style='color: #555555;'>"Start_here" </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #BBBB00;'>]</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #BBBB00;'>]</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>16</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4..</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>16</span><span style='color: #BBBB00;'>-</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>16</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>2</span><span style='color: #BBBB00;'>^</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>2</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4.</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #BBBB00;'>(</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #BBBB00;'>)(</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #BBBB00;'>)</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>1</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>1</span><span></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Note info string&gt;
+#&gt;   Timesteps: </span><span>19</span><span style='color: #555555;font-weight: bold;'>
+#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #BBBB00;'>x;^</span><span style='color: #555555;'>"Start_here" </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #BBBB00;'>]</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #BBBB00;'>]</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>16</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4..</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>16</span><span style='color: #BBBB00;'>-</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>16</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>2</span><span style='color: #BBBB00;'>^</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>2</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4.</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #BBBB00;'>(</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #BBBB00;'>)(</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #BBBB00;'>)</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>1</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>1</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
       <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>

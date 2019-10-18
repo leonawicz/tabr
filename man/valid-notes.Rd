@@ -34,11 +34,11 @@ octave numbering in result.}
 \code{"space"} or \code{"vector"}.}
 }
 \value{
-logical
+depends on the function
 }
 \description{
 Check whether a string is comprised exclusively of valid note and/or chord
-substring syntax.
+syntax.
 \code{is_note} and \code{is_chord} are vectorized and their positive results
 are mutually exclusive.
 \code{noteworthy} is also vectorized and performs both checks, but it
@@ -54,8 +54,8 @@ an interactive session, but is available and offers its own \code{print} and
 However, an added benefit to using \code{as_noteworthy} is to conform all
 notes in a noteworthy string to specific formatting for accidentals and
 octave numbering.
-It is often used by other functions, and functions that output a
-noteworthy string generally attach the noteworthy class.
+The class is often used by other functions, and functions that output a
+noteworthy string attach the \code{noteworthy} class.
 
 For \code{as_noteworthy} and in general for functions that accept
 \code{octaves}, \code{accidentals}, \code{format}, and sometimes \code{key}

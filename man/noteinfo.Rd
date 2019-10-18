@@ -2,13 +2,36 @@
 % Please edit documentation in R/noteinfo.R
 \name{noteinfo}
 \alias{noteinfo}
-\alias{phrase_duration}
+\alias{info_duration}
+\alias{info_slur_on}
+\alias{info_slur_off}
+\alias{info_slide}
+\alias{info_dotted}
+\alias{info_single_dotted}
+\alias{info_double_dotted}
+\alias{info_annotation}
 \title{Note info helpers}
 \usage{
-phrase_duration(phrase)
+info_duration(x)
+
+info_slur_on(x)
+
+info_slur_off(x)
+
+info_slide(x)
+
+info_dotted(x)
+
+info_single_dotted(x)
+
+info_double_dotted(x)
+
+info_annotation(x)
 }
 \arguments{
-\item{phrase}{a phrase object.}
+\item{x}{character, note info string normally accompanying a noteworthy
+string for building phrase objects. \code{x} may also be a phrase object.
+See examples.}
 }
 \value{
 character
@@ -19,8 +42,21 @@ Functions for working with note info strings.
 \examples{
 a <- notate("8x", "Start here")
 notes <- "a, b, c d e f g# a r ac'e' a c' e' c' r*3 ac'e'~ ac'e'"
-info <- paste(a, "8] 8] 16 4.. 16- 16 2 2 4. 8( 4)( 4) 8*4 1 1")
-p1 <- phrase(notes, info)
+info <- paste(a, "8x 8] 16 4.. 16- 16 2^ 2 4. 8( 4)( 4) 8*4 1 1")
+x <- phrase(notes, info)
 
-phrase_duration(p1)
+data.frame(
+  duration = info_duration(x),
+  slur_on = info_slur_on(x),
+  slur_off = info_slur_off(x),
+  slide = info_slide(x),
+  dotted = info_dotted(x),
+  dotted1 = info_single_dotted(x),
+  dotted2 = info_double_dotted(x),
+  annotation = info_annotation(x)
+)
+
+}
+\seealso{
+\code{\link{valid-noteinfo}}
 }
