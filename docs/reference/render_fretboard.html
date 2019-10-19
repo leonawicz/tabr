@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Deprecated — tabr_dep • tabr</title>
+<title>Render fretboard diagrams with LilyPond — render_fretboard • tabr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -44,8 +44,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Deprecated — tabr_dep" />
-<meta property="og:description" content="Deprecated tabr functions." />
+<meta property="og:title" content="Render fretboard diagrams with LilyPond — render_fretboard" />
+<meta property="og:description" content="Render fretboard diagrams with LilyPond for a set of chords." />
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -204,42 +204,83 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Deprecated</h1>
-    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/deprecated.R'><code>R/deprecated.R</code></a></small>
-    <div class="hidden name"><code>tabr_dep.Rd</code></div>
+    <h1>Render fretboard diagrams with LilyPond</h1>
+    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/tab.R'><code>R/tab.R</code></a></small>
+    <div class="hidden name"><code>render_fretboard.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Deprecated tabr functions.</p>
+    <p>Render fretboard diagrams with LilyPond for a set of chords.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>dup</span>(<span class='no'>x</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1</span>)
-
-<span class='fu'>glue</span>(<span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>render_fretboard</span>(<span class='no'>chords</span>, <span class='no'>file</span>, <span class='kw'>keep_ly</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>fontsize</span> <span class='kw'>=</span> <span class='fl'>60</span>,
+  <span class='kw'>details</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>character, phrase or non-phrase string.</p></td>
+      <th>chords</th>
+      <td><p>named character vector of valid formatting for LilyPond chord
+names and values. See examples.</p></td>
     </tr>
     <tr>
-      <th>n</th>
-      <td><p>integer, number of repetitions.</p></td>
+      <th>file</th>
+      <td><p>output file.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>character, phrase or non-phrase string.</p></td>
+      <th>keep_ly</th>
+      <td><p>logical, keep intermediate LilyPond file.</p></td>
+    </tr>
+    <tr>
+      <th>fontsize</th>
+      <td><p>integer, vary this depending on the number of chords.
+It displays properly if you keep the chords to a single page. If the full
+set of chords does not fit then chords will be dropped from the rendered
+output.</p></td>
+    </tr>
+    <tr>
+      <th>details</th>
+      <td><p>logical, set to <code>FALSE</code> to disable printing of log
+output to console.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>writes files to disk</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>This function uses a generates a LilyPond template for displaying only a
+fretboard diagram chart. It then passes the file to LilyPond for rendering.
+To plot specific fretboard diagrams in R using ggplot and with greater
+control, use <code>fretboard_plot</code>.</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/message.html'>suppressPackageStartupMessages</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>))
+
+<span class='no'>chords</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(
+  <span class='no'>guitarChords</span>, <span class='no'>root</span> <span class='kw'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"c"</span>, <span class='st'>"f"</span>) <span class='kw'>&amp;</span> <span class='no'>id</span> <span class='kw'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"7"</span>, <span class='st'>"M7"</span>, <span class='st'>"m7"</span>) <span class='kw'>&amp;</span>
+  !<span class='fu'><a href='https://rdrr.io/r/base/grep.html'>grepl</a></span>(<span class='st'>"#"</span>, <span class='no'>notes</span>) <span class='kw'>&amp;</span> <span class='no'>root_fret</span> <span class='kw'>&lt;=</span> <span class='fl'>12</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span>(<span class='no'>root</span>, <span class='no'>id</span>)
+<span class='no'>chords</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/setNames.html'>setNames</a></span>(<span class='no'>chords</span>$<span class='no'>fretboard</span>, <span class='no'>chords</span>$<span class='no'>lp_name</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>chords</span>)</div><div class='output co'>#&gt;              c:7              c:7              c:7              c:7 
+#&gt;   "x;3;2;3;1;x;"   "x;3;5;3;5;3;"   "x;3;2;3;1;3;"  "8;10;8;9;8;8;" 
+#&gt;              c:7             c':7 
+#&gt;   "8;x;8;9;8;x;" "x;x;10;9;11;8;" </div><div class='input'>
+<span class='co'># requires LilyPond installation</span>
+<span class='kw'>if</span>(<span class='fu'><a href='tabr_options.html'>tabr_options</a></span>()$<span class='no'>lilypond</span> <span class='kw'>!=</span> <span class='st'>""</span>){
+  <span class='no'>outfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='st'>"out.pdf"</span>)
+  <span class='fu'>render_fretboard</span>(<span class='no'>chords</span>, <span class='no'>outfile</span>, <span class='kw'>fontsize</span> <span class='kw'>=</span> <span class='fl'>30</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
