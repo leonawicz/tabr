@@ -22,4 +22,6 @@ test_that("frequency conversions return as expected", {
   expect_is(y, "list")
   expect_equal(length(y), 6)
   expect_equal(as.numeric(sapply(y, length)), c(1, 1, 1, 3, 4, 1))
+
+  expect_error(semitone_pitch(-1), "Semitones must range from 0 to 131.")
 })

@@ -107,4 +107,15 @@ test_that("sf_phrase and phrase calls are equivalanet", {
   err <- "First timestep must include all three values as `string;fret;info`."
   expect_error(sfp(";0;1"), err)
   expect_error(sfp(";0;1"), err)
+
+  expect_error(
+    sfp("6 6", c(1, 2, 3), 1),
+    paste("`fret` must have the same number of timesteps as `string`",
+          "or a single value to repeat.")
+  )
+  expect_error(
+    sfp("6 6", 1, c(1, 2, 4)),
+    paste("`info` must have the same number of timesteps as `string`",
+          "or a single value to repeat.")
+  )
 })

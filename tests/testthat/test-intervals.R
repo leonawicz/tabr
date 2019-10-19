@@ -6,6 +6,8 @@ test_that("interval helpers return as expected", {
   expect_equal(pitch_interval("b,", "c,"), -11)
   expect_equal(pitch_interval("c#,", "b,"), 10)
   expect_equal(pitch_interval("b_,", "c"), 2)
+  expect_error(pitch_interval("b_,", "c d"),
+               "Inputs must have equal number of timesteps.")
 
   expect_equal(pitch_interval("c", "d3"), 2)
   expect_equal(pitch_interval("d5", "c,"), -38)

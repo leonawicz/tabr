@@ -46,6 +46,13 @@ test_that("helpers return as expected.", {
     paste("\\tuplet 6/4 1 { <c\\5>8( <cis\\5>8)( <d\\5>8)",
           "<c\\5>8\\staccato <cis\\5>8\\glissando <d\\5>8 }")
   )
+  expect_equal(as.character(triplet("c c# d", 8, string = 5)),
+               "\\tuplet 3/2 4 { <c\\5>8 <cis\\5> <d\\5> }")
+  expect_error(
+    triplet("c c# d", 8, string = "5 4"),
+    paste("`string` must have the same number of timesteps as `x`,",
+          "or a single value to repeat, or be NULL.")
+  )
 
   # lower level function
   expect_equal(.split_chord("15", strings = TRUE, abb = TRUE), "15")

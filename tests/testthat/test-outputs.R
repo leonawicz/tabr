@@ -1,5 +1,7 @@
 context("outputs")
 
+library(dplyr)
+
 notes <- "r s a2~ a2 c3 c f4 f' d a f ce_g ceg#"
 info <- "4. 4. 8*9 2. 4."
 p1 <- pc(pct(p("a", 1)), rp(p(notes, info)))
@@ -119,5 +121,21 @@ test_that("miditab and midily functions run without error", {
                    details = TRUE, lyric = TRUE, path = "."), cl)
   expect_is(miditab(midi, out[2]), cl)
   expect_is(miditab(midi, out[3], details = FALSE), cl)
+  unlink(cleanup)
+})
+
+test_that("render_fretboard runs without error", {
+  skip_on_appveyor()
+  skip_on_cran()
+  chords <- filter(
+    guitarChords, root %in% c("c", "f") & id %in% c("7", "M7", "m7") &
+    !grepl("#", notes) & root_fret <= 12) %>%
+    arrange(root, id)
+  chords <- setNames(chords$fretboard, chords$lp_name)
+
+  expect_is(render_fretboard(chords, out[2], fontsize = 30, details = TRUE),
+            cl)
+  expect_is(render_fretboard(chords, out[3], keep_ly = TRUE, fontsize = 30),
+            cl)
   unlink(cleanup)
 })
