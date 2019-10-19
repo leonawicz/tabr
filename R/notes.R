@@ -280,6 +280,8 @@ octave_span <- function(notes){
 #' note_is_sharp(x)
 #' note_has_tick(x)
 #' note_has_integer(x)
+#' note_is_tick(x)
+#' note_is_integer(x)
 note_is_accidental <- function(notes){
   grepl("_|#", .uncollapse(notes))
 }

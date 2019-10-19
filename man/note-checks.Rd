@@ -62,6 +62,8 @@ note_is_flat(x)
 note_is_sharp(x)
 note_has_tick(x)
 note_has_integer(x)
+note_is_tick(x)
+note_is_integer(x)
 }
 \seealso{
 \code{\link{note-metadata}}, \code{\link{note-summaries}},
