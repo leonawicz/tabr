@@ -24,19 +24,6 @@
   x[idx[len]]
 }
 
-.pitch_range <- function(x, octaves = "tick", accidentals = "flat"){
-  idx <- .pitch_order(x, octaves, accidentals, na_last = NA)
-  len <- length(idx)
-  x[c(idx[1], idx[len])]
-}
-
-.pitch_sort <- function(x, octaves = "tick", accidentals = "flat",
-                        na_last = NA, decreasing = FALSE){
-  idx <- .pitch_order(x, octaves, accidentals, na_last)
-  if(decreasing) idx <- rev(idx)
-  x[idx]
-}
-
 .pitch_order <- function(x, octaves = "tick", accidentals = "flat",
                          na_last = TRUE){
   idx <- .pitch_semitones(x, octaves, accidentals)

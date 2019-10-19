@@ -470,12 +470,16 @@ pretty_notes <- function(notes, ignore_octave = TRUE){
   gsub("~", "", gsub("_", "b", toupper(notes)))
 }
 
-#' Slice, rotate, shift and arpeggiate notes
+#' Slice, sort, rotate, shift and arpeggiate notes
 #'
 #' Helper functions for indexing and moving notes within noteworthy strings.
 #'
 #' \code{note_slice} subsets the timesteps of a noteworthy string by integer
 #' index or logical vector of length equal to the number of timesteps.
+#'
+#' \code{note_sort} sorts the timesteps of a noteworthy string by pitch. When a
+#' tie exists by root note, the next note in chords are compared, if they exist.
+#' For example, \code{a,} sorts lower than \code{a,ce}.
 #'
 #' \code{note_rotate} simply rotates anything space-delimited or vectorized in
 #' place. It allows chords. Octave numbering is ignored if present.
@@ -494,6 +498,7 @@ pretty_notes <- function(notes, ignore_octave = TRUE){
 #'
 #' @param notes character, a noteworthy string, space-delimited or vector of
 #' individual entries.
+#' @param decreasing logical, short in decreasing order.
 #' @param n integer, number of rotations or extensions of note sequence. See
 #' details.
 #' @param step integer, number of semitone steps from the first (or last) note
@@ -506,6 +511,10 @@ pretty_notes <- function(notes, ignore_octave = TRUE){
 #' @export
 #'
 #' @examples
+#' x <- "bd'f#' a c'e'g' b ba c'g' gd'g'd''"
+#' note_sort(x)
+#' note_sort(x, decreasing = TRUE)
+#'
 #' x <- "e_2 a_, c#f#a#"
 #' note_slice(x, 2:3)
 #' note_slice(x, c(FALSE, TRUE, TRUE))
@@ -534,6 +543,27 @@ note_slice <- function(notes, ...){
   x <- x[idx]
   x <- x[!is.na(x)]
   if(!length(x)) stop("Index out of bounds.", call. = FALSE)
+  if(length(notes) == 1) x <- paste0(x, collapse = " ")
+  .asnw(x)
+}
+
+#' @export
+#' @rdname note_slice
+note_sort <- function(notes, decreasing = FALSE){
+  .check_noteworthy(notes)
+  x <- .uncollapse(notes)
+  s <- lapply(chord_semitones(x), sort)
+  n <- max(sapply(s, length))
+  s <- purrr::map(s, ~{
+    x <- rep(NA_integer_, n)
+    x[seq_along(.x)] <- .x
+    x[is.na(x)] <- utils::tail(.x, 1)
+    x
+  })
+  d <- as.data.frame(t(as.data.frame(s)))
+  d <- tibble::as_tibble(d) %>% dplyr::mutate(x = x)
+  x <- dplyr::arrange_at(d, seq_len(ncol(d))[-c(n + 1)])$x
+  if(decreasing) x <- rev(x)
   if(length(notes) == 1) x <- paste0(x, collapse = " ")
   .asnw(x)
 }
@@ -800,14 +830,10 @@ is_noteworthy <- function(x){
 
 #' @export
 print.noteworthy <- function(x, ...){
+  a <- attributes(x)
   col1 <- crayon::make_style("gray50")$bold
-  if(length(x) == 1){
-    format <- "space-delimited time"
-    x <- .uncollapse(x)
-  } else {
-    format <- "vectorized time"
-  }
-  cat(col1("<Noteworthy string>\n  Format: "), format, col1("\n  Values: "),
+  if(length(x) == 1) x <- .uncollapse(x)
+  cat(col1("<Noteworthy string>\n  Format: "), a$format, col1("\n  Values: "),
       .tabr_print(x), "\n", sep = "")
 }
 

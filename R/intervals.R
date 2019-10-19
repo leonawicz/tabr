@@ -167,21 +167,3 @@ tuning_intervals <- function(tuning = "standard"){
   as.integer(c(0, cumsum(sapply(1:(length(x) - 1),
                                 function(i) pitch_interval(x[i], x[i + 1])))))
 }
-
-.na_interval <- function(x, y) is.na(x) | is.na(y)
-.rest_interval <- function(x, y) x %in% c("r", "s") | y %in% c("r", "s")
-
-.octave_interval <- function(x1, x2, ignore_octave = FALSE){
-  if(ignore_octave){
-    x1 <- gsub("\\d+|,|'", "", x1)
-    x2 <- gsub("\\d+|,|'", "", x2)
-  }
-  .pitch_to_octave(x2) - .pitch_to_octave(x1)
-}
-
-.cpass <- function(x1, x2, scale){
-  idx1 <- match(x1, scale)
-  idx2 <- match(x2, scale)
-  idxc <- match("c", scale)
-  (idx1 < idxc & idx2 >= idxc) | (idx1 >= idxc & idx2 < idxc)
-}

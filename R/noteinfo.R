@@ -75,7 +75,7 @@ info_annotation <- function(x){
   y <- rep(NA_character_, length(x))
   idx <- grep(";\\^\".*\"", x)
   if(length(idx)) y[idx] <- gsub(".*;\\^\"(.*)\"", "\\1", x[idx])
-  y
+  gsub("_", " ", y)
 }
 
 .parse_info_phrase <- function(x){
@@ -170,15 +170,11 @@ is_noteinfo <- function(x){
 
 #' @export
 print.noteinfo <- function(x, ...){
+  a <- attributes(x)
   col1 <- crayon::make_style("gray50")$bold
   col2 <- crayon::make_style("gray50")
-  if(length(x) == 1){
-    format <- "space-delimited time"
-    x <- .uncollapse(x)
-  } else {
-    format <- "vectorized time"
-  }
-  cat(col1("<Note info string>\n  Format: "), format, col1("\n  Values: "),
+  if(length(x) == 1) x <- .uncollapse(x)
+  cat(col1("<Note info string>\n  Format: "), a$format, col1("\n  Values: "),
       col2(.tabr_print2(x)), "\n", sep = "")
 }
 

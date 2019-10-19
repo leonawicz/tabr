@@ -2,12 +2,15 @@
 % Please edit documentation in R/notes.R
 \name{note_slice}
 \alias{note_slice}
+\alias{note_sort}
 \alias{note_rotate}
 \alias{note_shift}
 \alias{note_arpeggiate}
-\title{Slice, rotate, shift and arpeggiate notes}
+\title{Slice, sort, rotate, shift and arpeggiate notes}
 \usage{
 note_slice(notes, ...)
+
+note_sort(notes, decreasing = FALSE)
 
 note_rotate(notes, n = 0)
 
@@ -20,6 +23,8 @@ note_arpeggiate(notes, n = 0, step = 12)
 individual entries.}
 
 \item{...}{For \code{note_slice}, an integer or logical vector. See details.}
+
+\item{decreasing}{logical, short in decreasing order.}
 
 \item{n}{integer, number of rotations or extensions of note sequence. See
 details.}
@@ -39,6 +44,10 @@ Helper functions for indexing and moving notes within noteworthy strings.
 \code{note_slice} subsets the timesteps of a noteworthy string by integer
 index or logical vector of length equal to the number of timesteps.
 
+\code{note_sort} sorts the timesteps of a noteworthy string by pitch. When a
+tie exists by root note, the next note in chords are compared, if they exist.
+For example, \code{a,} sorts lower than \code{a,ce}.
+
 \code{note_rotate} simply rotates anything space-delimited or vectorized in
 place. It allows chords. Octave numbering is ignored if present.
 
@@ -55,6 +64,10 @@ the arpeggio is offset by \code{step} semitones from the original.
 by one octave.
 }
 \examples{
+x <- "bd'f#' a c'e'g' b ba c'g' gd'g'd''"
+note_sort(x)
+note_sort(x, decreasing = TRUE)
+
 x <- "e_2 a_, c#f#a#"
 note_slice(x, 2:3)
 note_slice(x, c(FALSE, TRUE, TRUE))

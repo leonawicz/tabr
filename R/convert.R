@@ -100,7 +100,7 @@ from_chorrrds <- function(chords, key = "c", guitar = FALSE, gc_args = list()){
   key <- tolower(key)
   minor <- grepl("m", key)
   key <- gsub("m|M", "", key)
-  if(nchar(key) == 2) key <- gsub("([a-g])b", "\\1_")
+  if(nchar(key) == 2) key <- gsub("([a-g])b", "\\1_", key)
   if(minor) key <- paste0(key, "m")
   .keycheck(key)
   key

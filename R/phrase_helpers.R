@@ -227,6 +227,7 @@ tuplet <- function(x, n, string = NULL, a = 3, b = 2){
   s <- !is.null(string)
   if(s){
     string <- .uncollapse(string)
+    if(length(string) == 1) string <- rep(string, length(notes))
     if(length(string) != length(notes))
       stop(paste("`string` must have the same number of timesteps as `x`,",
                  "or a single value to repeat, or be NULL."), call. = FALSE)

@@ -145,10 +145,6 @@ phrase <- function(notes, info, string = NULL, bar = FALSE){
   as_phrase(x)
 }
 
-.check_phrase_input <- function(x, y){
-  if(length(x) > 1) stop(paste0("`", y, "` must be length one."), call. = FALSE)
-}
-
 #' @export
 #' @rdname phrase
 p <- phrase
@@ -293,6 +289,7 @@ phrasey <- function(phrase){
 notify <- function(phrase){
   if(!phrasey(phrase)) stop("`phrase` is not phrasey.", call. = FALSE)
   x <- .tag_rests(phrase)
+  x <- gsub("\\\\deadNote ", "<\\\\deadNote ", x)
   x <- strsplit(x, " <")[[1]]
   x <- gsub("\\\\glissando", "-", x)
   x <- gsub("\\\\staccato", "]", x)
@@ -308,7 +305,7 @@ notify <- function(phrase){
     x[idx] <- gsub("(.*)(\\^\".*)", "\\1", x[idx])
   }
 
-  idx2 <- grep("^\\\\deadNote$", x)
+  idx2 <- grep("^(<|)\\\\deadNote$", x)
   if(length(idx2)) x[idx2 + 1] <- paste0(x[idx2 + 1], "x")
 
   x <- gsub(" ", "", x)

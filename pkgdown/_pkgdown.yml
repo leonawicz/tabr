@@ -99,6 +99,7 @@ reference:
   - score
   - tab
   - lilypond
+  - render_fretboard
   - chord_set
   - tabr_options
 - title: "Transcription: MIDI conversion"

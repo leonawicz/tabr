@@ -86,7 +86,6 @@ NULL
   idx <- grep("\\*\\d+", x)
   if(length(idx)){
     f <- function(x){
-      if(!grepl("\\*\\d+", x)) return(x)
       x <- strsplit(x, "\\*")[[1]]
       rep(x[1], as.integer(x[2]))
     }

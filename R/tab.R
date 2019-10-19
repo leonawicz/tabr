@@ -232,7 +232,6 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
                        instrument = "", meter = "", opus = "", piece = "",
                        poet = "", copyright = "", tagline = "", ...){
   x <- list(...)
-  if(!is.null(x$metre)) meter <- x$metre
   if(!is.null(subtitle) & !is.null(x$album)){
     subtitle <- paste(
       "\\markup {",
@@ -474,4 +473,92 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   if(strings && length(idx0))
     x[idx0] <- as.character(as.numeric(x[idx0]) + xdif)
   x
+}
+
+#' Render fretboard diagrams with LilyPond
+#'
+#' Render fretboard diagrams with LilyPond for a set of chords.
+#'
+#' This function uses a generates a LilyPond template for displaying only a
+#' fretboard diagram chart. It then passes the file to LilyPond for rendering.
+#' To plot specific fretboard diagrams in R using ggplot and with greater
+#' control, use \code{fretboard_plot}.
+#'
+#' @param chords named character vector of valid formatting for LilyPond chord
+#' names and values. See examples.
+#' @param file output file.
+#' @param keep_ly logical, keep intermediate LilyPond file.
+#' @param fontsize integer, vary this depending on the number of chords.
+#' It displays properly if you keep the chords to a single page. If the full
+#' set of chords does not fit then chords will be dropped from the rendered
+#' output.
+#' @param details logical, set to \code{FALSE} to disable printing of log
+#' output to console.
+#'
+#' @return writes files to disk
+#' @export
+#'
+#' @examples
+#' library(dplyr)
+#' chords <- filter(
+#'   guitarChords, root %in% c("c", "f") & id %in% c("7", "M7", "m7") &
+#'   !grepl("#", notes) & root_fret <= 12) %>%
+#'   arrange(root, id)
+#' chords <- setNames(chords$fretboard, chords$lp_name)
+#' head(chords)
+#'
+#' # requires LilyPond installation
+#' if(tabr_options()$lilypond != ""){
+#'   outfile <- file.path(tempdir(), "out.pdf")
+#'   render_fretboard(chords, outfile, fontsize = 30)
+#' }
+render_fretboard <- function(chords, file, keep_ly = FALSE, fontsize = 60,
+                             details = FALSE){
+  i <- seq_along(chords)
+  id <- names(chords)
+  x <- paste0(
+    "#(set-global-staff-size ", fontsize, " )\n\\header {tagline = \"\"}\n",
+    "\\include \"predefined-guitar-fretboards.ly\"\n")
+  def <- purrr::map_chr(i, ~.define_chord(.x, id[.x], chords[.x])) %>%
+    paste(collapse = "")
+  x <- paste0(x, "\n", def, "\nmychorddiagrams = \\chordmode {\n")
+  set <- purrr::map_chr(i, ~.set_chord(.x, id[.x])) %>% paste(collapse = "")
+  x <- paste0(x, set, "}\n\nchordNames = \\chordmode {\n",
+              "  \\override ChordName.font-size = #2\n  ",
+              paste(names(chords), collapse = " "), "\n}\n\n")
+  markup <- paste0(
+    "\\markup\\vspace #3\n", "\\markup \\fill-line {\n", "  \\score {\n",
+    "    <<\n", "      \\context ChordNames { \\mychorddiagrams }\n",
+    "      \\context FretBoards {\n",
+    "        \\override FretBoards.FretBoard.size = #'1.2\n",
+    "        \\mychorddiagrams\n", "      }\n", "    >>\n", "  \\layout {}\n",
+    "  }\n}\n\\markup\\vspace #3\n\n")
+  paper <- paste0("\\paper{\n  textheight = 220.\\mm\n  linewidth = 150.\\mm\n",
+                  "  indent = 0.\\mm\n  print-page-number = ##f\n}")
+  x <- paste0(x, markup, paper)
+  fp <- .adjust_file_path(file, NULL)
+  write(file = fp$lp, x)
+
+  lp_path <- tabr_options()$lilypond
+  is_windows <- Sys.info()[["sysname"]] == "Windows"
+  if(lp_path == "" && is_windows) lp_path <- "lilypond.exe"
+  call_string <- paste0("\"", lp_path, "\" --", fp$ext,
+                        " -dstrip-output-dir=#f \"", fp$lp, "\"")
+  if(is_windows){
+    system(call_string, show.output.on.console = details)
+  } else {
+    system(call_string)
+  }
+  if(!keep_ly) unlink(fp$lp)
+  invisible()
+}
+
+.define_chord <- function(i, id, value){
+  paste0("#(define fb", i, " (make-fretboard-table))\n",
+         "\\storePredefinedDiagram #fb", i,
+         " \\chordmode{", id, "} #guitar-tuning \"", value, "\"\n")
+}
+
+.set_chord <- function(i, id){
+  paste0("  \\set predefinedDiagramTable = #fb", i, " ", id, "\n")
 }
