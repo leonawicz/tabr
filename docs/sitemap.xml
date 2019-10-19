@@ -121,7 +121,7 @@
     <loc>http://leonawicz.github.io/tabr/reference/read_midi.html</loc>
   </url>
   <url>
-    <loc>http://leonawicz.github.io/tabr/reference/render_fretboard.html</loc>
+    <loc>http://leonawicz.github.io/tabr/reference/render_chordchart.html</loc>
   </url>
   <url>
     <loc>http://leonawicz.github.io/tabr/reference/repeats.html</loc>
@@ -188,6 +188,9 @@
   </url>
   <url>
     <loc>http://leonawicz.github.io/tabr/articles/tabr-basics.html</loc>
+  </url>
+  <url>
+    <loc>http://leonawicz.github.io/tabr/articles/tabr-chordchart.html</loc>
   </url>
   <url>
     <loc>http://leonawicz.github.io/tabr/articles/tabr-chords.html</loc>

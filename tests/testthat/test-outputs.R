@@ -124,7 +124,7 @@ test_that("miditab and midily functions run without error", {
   unlink(cleanup)
 })
 
-test_that("render_fretboard runs without error", {
+test_that("render_chordchart runs without error", {
   skip_on_appveyor()
   skip_on_cran()
   chords <- filter(
@@ -133,9 +133,9 @@ test_that("render_fretboard runs without error", {
     arrange(root, id)
   chords <- setNames(chords$fretboard, chords$lp_name)
 
-  expect_is(render_fretboard(chords, out[2], fontsize = 30, details = TRUE),
+  expect_is(render_chordchart(chords, out[2], fontsize = 30, details = TRUE),
             cl)
-  expect_is(render_fretboard(chords, out[3], keep_ly = TRUE, fontsize = 30),
+  expect_is(render_chordchart(chords, out[3], keep_ly = TRUE, fontsize = 30),
             cl)
   unlink(cleanup)
 })

@@ -1,0 +1,61 @@
+---
+title: "Render chord charts"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Render chord charts}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+options(crayon.enabled = TRUE)
+sgr_wrap <- function(x, options){
+  paste0("<pre class=\"r-output\"><code>", fansi::sgr_to_html(x = htmltools::htmlEscape(x)), "</code></pre>")
+}
+knitr::knit_hooks$set(output = sgr_wrap)
+knitr::opts_chunk$set(
+  collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, tidy = FALSE, out.width = "100%"
+)
+library(tabr)
+library(dplyr)
+```
+
+The `fretboard_plot` function can be used to create general fretboard diagrams directly in R using ggplot, but this vignette shows how to create a standalone chord chart using LilyPond. Instead of using `tab` to render a score to pdf that may contain a chord chart at the top of the first page, you can use `render_chordchart`. This function creates the necessary LilyPond file and sends it to LilyPond for final rendering.
+
+## Prepare chords
+
+For consistency, `render_chordchart` takes chord input in the same way that the `score` function does, as a named character vector. The chords and their names are in the same format.
+
+Filter the `guitarChords` dataset down to chords:
+
+* whose root note is either C or F
+* the chords is either a 7th, major 7th, or minor 7th
+* the chords do not contain sharps
+* and the fret number of the root note is no higher than 12
+
+```{r chords}
+library(dplyr)
+
+chords <- filter(
+  guitarChords, 
+  root %in% c("c", "f") & 
+    id %in% c("7", "M7", "m7") &
+    !grepl("#", notes) & root_fret <= 12
+  ) %>%
+  arrange(root, id)
+
+chords <- setNames(chords$fretboard, chords$lp_name)
+head(chords)
+```
+
+## Render chord chart
+
+The filtering above results in 41 chords. That is a lot for a chord chart, but the size of the fretboard diagrams for the chords can be controlled. Once the named chord vector is ready, rendering the chord chart is as simple as the following.
+
+```{r chordchart, eval=FALSE}
+render_chordchart(chords, "out.pdf", fontsize = 30)
+```
+
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex36.png?raw=true" class="centerimg" width="100%"></p>
+
+The current development version of template works well as long as you keep it to one page. You can control the size with `fontsize`. If you only have a few chords, you can enlarge them significantly.

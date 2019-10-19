@@ -104,7 +104,10 @@
       <a href="../articles/tabr-tracks-scores.html">Tracks and scores</a>
     </li>
     <li>
-      <a href="../articles/tabr-engraving.html">Engraving</a>
+      <a href="../articles/tabr-engraving.html">Render scores</a>
+    </li>
+    <li>
+      <a href="../articles/tabr-chordchart.html">Render chord chart</a>
     </li>
     <li>
       <a href="../articles/tabr-tunings.html">Strings and tunings</a>
@@ -516,7 +519,7 @@ e,, a,, d, g,
 <div id="current-limitations" class="section level2">
 <h2 class="hasAnchor">
 <a href="#current-limitations" class="anchor"></a>Current limitations</h2>
-<p>Although <code>tabr</code> infers the an instrument’s number of strings from its tuning, there are limitations. Chord fretboard diagrams are only supported for guitar, six string guitar specifically. If attempting to pass four or five strings of information to <code>chord_set</code> for bass, ukulele or banjo for example, this will incompletely fill in a six string guitar fretboard diagram in the chord chart of the output. Similarly, if attempting to provide seven strings for a seven string guitar, the chord chart will show the additional note, but it will be floating to the side of the chart. A seventh string line is not added to the diagram. Number of strings inferred from instrument tuning displays in the tablature staff, but does not generalize to fretboard diagrams.</p>
+<p>Although <code>tabr</code> infers an instrument’s number of strings from its tuning, there are limitations. Chord fretboard diagrams are only supported for guitar, six string guitar specifically. If attempting to pass four or five strings of information to <code>chord_set</code> for bass, ukulele or banjo for example, this will incompletely fill in a six string guitar fretboard diagram in the chord chart of the output. Similarly, if attempting to provide seven strings for a seven string guitar, the chord chart will show the additional note, but it will be floating to the side of the chart. A seventh string line is not added to the diagram. Number of strings inferred from instrument tuning displays in the tablature staff, but does not generalize to fretboard diagrams.</p>
 </div>
   </div>
 

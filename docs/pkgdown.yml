@@ -3,6 +3,7 @@ pkgdown: 1.4.1
 pkgdown_sha: ~
 articles:
   tabr-basics: tabr-basics.html
+  tabr-chordchart: tabr-chordchart.html
   tabr-chords: tabr-chords.html
   tabr-engraving: tabr-engraving.html
   tabr-ex1: tabr-ex1.html

@@ -1,8 +1,8 @@
 ---
-title: "Engraving"
+title: "Render scores"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Engraving}
+  %\VignetteIndexEntry{Render scores}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

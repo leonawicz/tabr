@@ -99,7 +99,7 @@ reference:
   - score
   - tab
   - lilypond
-  - render_fretboard
+  - render_chordchart
   - chord_set
   - tabr_options
 - title: "Transcription: MIDI conversion"
@@ -152,8 +152,10 @@ navbar:
           href: "articles/tabr-repeats.html"
         - text: "Tracks and scores"
           href: "articles/tabr-tracks-scores.html"
-        - text: "Engraving"
+        - text: "Render scores"
           href: "articles/tabr-engraving.html"
+        - text: "Render chord chart"
+          href: "articles/tabr-chordchart.html"
         - text: "Strings and tunings"
           href: "articles/tabr-tunings.html"
     - text: "Examples"

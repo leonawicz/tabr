@@ -80,19 +80,19 @@ amounts of structured music data.
 ``` r
 x <- "a, c e r r c a, g#, a ac'e'"
 as_music_df(x)
-#> # A tibble: 10 x 7
-#>    pitch note  semitone octave  freq pitch_int scale_int
-#>    <chr> <chr>    <int>  <int> <dbl>     <int> <chr>    
-#>  1 a,    a           57      2  110.        NA <NA>     
-#>  2 c     c           48      3  131.         3 m3       
-#>  3 e     e           52      3  165.         4 M3       
-#>  4 r     r           NA     NA   NA         NA <NA>     
-#>  5 r     r           NA     NA   NA         NA <NA>     
-#>  6 c     c           48      3  131.        -4 M3       
-#>  7 a,    a           57      2  110.        -3 m3       
-#>  8 g#,   g#          56      2  104.        -1 m2       
-#>  9 a     a           57      3  220.        13 m9       
-#> 10 ac'e' ace         57      3  220.         0 P1
+#> # A tibble: 10 x 8
+#>    duration pitch note  semitone octave  freq pitch_int scale_int
+#>    <chr>    <chr> <chr>    <int>  <int> <dbl>     <int> <chr>    
+#>  1 <NA>     a,    a           57      2  110.        NA <NA>     
+#>  2 <NA>     c     c           48      3  131.         3 m3       
+#>  3 <NA>     e     e           52      3  165.         4 M3       
+#>  4 <NA>     r     r           NA     NA   NA         NA <NA>     
+#>  5 <NA>     r     r           NA     NA   NA         NA <NA>     
+#>  6 <NA>     c     c           48      3  131.        -4 M3       
+#>  7 <NA>     a,    a           57      2  110.        -3 m3       
+#>  8 <NA>     g#,   g#          56      2  104.        -1 m2       
+#>  9 <NA>     a     a           57      3  220.        13 m9       
+#> 10 <NA>     ac'e' ace         57      3  220.         0 P1
 ```
 
 Several functions are available for mapping seamlessly between and

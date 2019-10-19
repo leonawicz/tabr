@@ -475,9 +475,10 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   x
 }
 
-#' Render fretboard diagrams with LilyPond
+#' Render a chord chart with LilyPond
 #'
-#' Render fretboard diagrams with LilyPond for a set of chords.
+#' Render a standalone chord chart of chord fretboard diagrams with LilyPond
+#' for a set of chords.
 #'
 #' This function uses a generates a LilyPond template for displaying only a
 #' fretboard diagram chart. It then passes the file to LilyPond for rendering.
@@ -511,9 +512,9 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 #' # requires LilyPond installation
 #' if(tabr_options()$lilypond != ""){
 #'   outfile <- file.path(tempdir(), "out.pdf")
-#'   render_fretboard(chords, outfile, fontsize = 30)
+#'   render_chordchart(chords, outfile, fontsize = 30)
 #' }
-render_fretboard <- function(chords, file, keep_ly = FALSE, fontsize = 60,
+render_chordchart <- function(chords, file, keep_ly = FALSE, fontsize = 60,
                              details = FALSE){
   i <- seq_along(chords)
   id <- names(chords)

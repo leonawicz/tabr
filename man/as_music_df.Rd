@@ -38,6 +38,10 @@ derivative variables.
 \details{
 If \code{info} is provided or \code{notes} is a phrase object, the
 resulting data frame also contains note durations and other info variables.
+The \code{duration} column is always included in the output even as a vector
+of \code{NA}s when \code{info = NULL}. This makes it more explicit that a
+given music data frame was generated without any time information for the
+timesteps. Other note info columns are not included in this case.
 
 For some derived column variables the root note (lowest pitch) in chord is
 used. This is done for pitch intervals and scale intervals between adjacent
