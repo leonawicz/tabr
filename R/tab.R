@@ -499,7 +499,8 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 #' @export
 #'
 #' @examples
-#' library(dplyr)
+#' suppressPackageStartupMessages(library(dplyr))
+#'
 #' chords <- filter(
 #'   guitarChords, root %in% c("c", "f") & id %in% c("7", "M7", "m7") &
 #'   !grepl("#", notes) & root_fret <= 12) %>%

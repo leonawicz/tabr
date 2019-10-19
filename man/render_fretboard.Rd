@@ -36,7 +36,8 @@ To plot specific fretboard diagrams in R using ggplot and with greater
 control, use \code{fretboard_plot}.
 }
 \examples{
-library(dplyr)
+suppressPackageStartupMessages(library(dplyr))
+
 chords <- filter(
   guitarChords, root \%in\% c("c", "f") & id \%in\% c("7", "M7", "m7") &
   !grepl("#", notes) & root_fret <= 12) \%>\%
