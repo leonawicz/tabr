@@ -491,6 +491,10 @@ pretty_notes <- function(notes, ignore_octave = TRUE){
 #' If \code{notes} contains chords, they are broken into successive notes. Then
 #' all notes are ordered by pitch. Finally shifting occurs.
 #'
+#' \code{note_rep} is a convenient, robust wrapper for noteworthy strings
+#' that provides analogous behavior to \code{rep} and accepts \code{each} and
+#' \code{times} arguments.
+#'
 #' Instead of a moving window, \code{note_arpeggiate} grows its sequence from
 #' the original set of timesteps by repeating the entire sequence \code{n}
 #' times (\code{n} must be positive). Each repeated sequence contributing to
@@ -507,7 +511,8 @@ pretty_notes <- function(notes, ignore_octave = TRUE){
 #' in \code{notes} at which to begin repeating the shifted \code{notes}
 #' sequence as an arpeggio. See examples.
 #' arpeggio.
-#' @param ... For \code{note_slice}, an integer or logical vector. See details.
+#' @param ... For \code{note_slice}, an integer or logical vector. For
+#' \code{note_rep}, may take \code{each} or \code{times}. See details.
 #'
 #' @return character
 #' @export
@@ -520,6 +525,10 @@ pretty_notes <- function(notes, ignore_octave = TRUE){
 #' x <- "e_2 a_, c#f#a#"
 #' note_slice(x, 2:3)
 #' note_slice(x, c(FALSE, TRUE, TRUE))
+#'
+#' note_rep(x, 2)
+#' note_rep(x, each = 2)
+#' note_rep(x, times = 3:1)
 #'
 #' note_rotate(x, 1)
 #'
@@ -545,6 +554,23 @@ note_slice <- function(notes, ...){
   x <- x[idx]
   x <- x[!is.na(x)]
   if(!length(x)) stop("Index out of bounds.", call. = FALSE)
+  if(length(notes) == 1) x <- paste0(x, collapse = " ")
+  .asnw(x)
+}
+
+#' @export
+#' @rdname note_slice
+note_rep <- function(notes, ...){
+  .check_noteworthy(notes)
+  x <- .uncollapse(notes)
+  a <- list(...)
+  if(is.null(a$each) & is.null(a$times)){
+    x <- rep(x, ...)
+  } else if(!is.null(a$each)){
+    x <- rep(x, each = a$each)
+  } else {
+    x <- rep(x, times = a$times)
+  }
   if(length(notes) == 1) x <- paste0(x, collapse = " ")
   .asnw(x)
 }

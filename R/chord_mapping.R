@@ -187,7 +187,7 @@ lp_chord_mod <- function(root, chord, exact = FALSE, ...){
 #' These functions assist with mapping between different information that
 #' define chords.
 #'
-#' For \code{chord_is_known}, a check is done against chords in the
+#' For \code{gc_is_known}, a check is done against chords in the
 #' \code{guitarChords} dataset.
 #' A simple noteworthy string is permitted, but any single-note entry will
 #' automatically yield a \code{FALSE} result.
@@ -207,10 +207,10 @@ lp_chord_mod <- function(root, chord, exact = FALSE, ...){
 #' These functions filter \code{guitarChords}. The result is the set of all
 #' chords matched by the supplied input filters.
 #'
-#' \code{chord_name_split} splits a vector or space-delimited set of chord
+#' \code{gc_name_split} splits a vector or space-delimited set of chord
 #' names into a tibble data frame containing separate chord root and chord
 #' modifier columns.
-#' \code{chord_name_root} and \code{chord_name_mod} are wrappers around this.
+#' \code{gc_name_root} and \code{gc_name_mod} are wrappers around this.
 #'
 #' @param notes character, a noteworthy string.
 #' @param name character, chord name in \code{tabr} format, e.g.,
@@ -234,10 +234,10 @@ lp_chord_mod <- function(root, chord, exact = FALSE, ...){
 #' @name chord-mapping
 #'
 #' @examples
-#' chord_is_known("a b_,fb_d'f'")
+#' gc_is_known("a b_,fb_d'f'")
 #'
-#' chord_name_root("a aM b_,m7#5")
-#' chord_name_mod("a aM b_,m7#5")
+#' gc_name_root("a aM b_,m7#5")
+#' gc_name_mod("a aM b_,m7#5")
 #'
 #' gc_info("a") # a major chord, not a single note
 #' gc_info("ceg a#m7_5") # only second entry is a guitar chord
@@ -245,16 +245,18 @@ lp_chord_mod <- function(root, chord, exact = FALSE, ...){
 #'
 #' gc_info("a,m c d f,")
 #' gc_fretboard("a,m c d f,", root_fret = 0:3)
+#' gc_notes_to_fb("a,eac'e' cgc'e'g'")
 #'
 #' x <- gc_notes("a, b,", root_fret = 0:2)
 #' summary(x)
+#'
 gc_info <- function(name, root_octave = NULL, root_fret = NULL, min_fret = NULL,
                     bass_string = NULL, open = NULL, key = "c",
                     ignore_octave = TRUE){
   .keycheck(key)
   sharp <- key_is_sharp(key)
   f <- if(sharp) .flat_to_sharp else .sharp_to_flat
-  x <- chord_name_split(name)
+  x <- gc_name_split(name)
   by <- c(id = "mod", root = "root")
   if(!ignore_octave){
     x$octave <- sapply(x$root, .pitch_to_octave)
@@ -289,6 +291,34 @@ gc_fretboard <- function(name, root_octave = NULL, root_fret = NULL,
 
 #' @export
 #' @rdname chord-mapping
+gc_notes_to_fb <- function(notes, root_octave = NULL, root_fret = NULL,
+                           min_fret = NULL, bass_string = NULL, open = NULL){
+  .check_noteworthy(notes)
+  x <- .octave_to_tick(.uncollapse(notes))
+
+  d <- tabr::guitarChords
+  if(!any(is.null(root_octave)))
+    d <- dplyr::filter(d, .data[["octave"]] %in% !!root_octave)
+  if(!any(is.null(root_fret)))
+    d <- dplyr::filter(d, .data[["root_fret"]] %in% !!root_fret)
+  if(!any(is.null(min_fret)))
+    d <- dplyr::filter(d, .data[["min_fret"]] %in% !!min_fret)
+  if(!any(is.null(bass_string)))
+    d <- dplyr::filter(d, .data[["bass_string"]] %in% !!bass_string)
+  if(!is.null(open)) d <- dplyr::filter(d, .data[["open"]] == !!open)
+
+  rows <- match(x, d$notes)
+  idx <- !is.na(rows)
+  if(!any(idx)) return(rows)
+  d <- dplyr::slice(d, rows[idx])
+  x[idx] <- d$fretboard
+  if(any(!idx)) x[!idx] <- NA_character_
+  names(x)[idx] <- d$lp_name
+  x
+}
+
+#' @export
+#' @rdname chord-mapping
 gc_notes <- function(name, root_octave = NULL, root_fret = NULL,
                      min_fret = NULL, bass_string = NULL, open = NULL,
                      key = "c", ignore_octave = TRUE){
@@ -300,14 +330,14 @@ gc_notes <- function(name, root_octave = NULL, root_fret = NULL,
 
 #' @export
 #' @rdname chord-mapping
-chord_is_known <- function(notes){
+gc_is_known <- function(notes){
   .check_noteworthy(notes)
   .octave_to_tick(.uncollapse(untie(notes))) %in% tabr::guitarChords$notes
 }
 
 #' @export
 #' @rdname chord-mapping
-chord_name_split <- function(name){
+gc_name_split <- function(name){
   x <- .uncollapse(name)
   root <- gsub("(^[a-g])(#|_|)(,|'|).*", "\\1\\2\\3", x)
   mod <- gsub("(^[a-g])(#|_|)(,|'|)(.*)", "\\4", x)
@@ -319,12 +349,12 @@ chord_name_split <- function(name){
 
 #' @export
 #' @rdname chord-mapping
-chord_name_root <- function(name){
-  chord_name_split(name)$root
+gc_name_root <- function(name){
+  gc_name_split(name)$root
 }
 
 #' @export
 #' @rdname chord-mapping
-chord_name_mod <- function(name){
-  chord_name_split(name)$mod
+gc_name_mod <- function(name){
+  gc_name_split(name)$mod
 }

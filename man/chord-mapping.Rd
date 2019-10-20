@@ -4,11 +4,12 @@
 \alias{chord-mapping}
 \alias{gc_info}
 \alias{gc_fretboard}
+\alias{gc_notes_to_fb}
 \alias{gc_notes}
-\alias{chord_is_known}
-\alias{chord_name_split}
-\alias{chord_name_root}
-\alias{chord_name_mod}
+\alias{gc_is_known}
+\alias{gc_name_split}
+\alias{gc_name_root}
+\alias{gc_name_mod}
 \title{Chord mapping}
 \usage{
 gc_info(name, root_octave = NULL, root_fret = NULL, min_fret = NULL,
@@ -18,16 +19,19 @@ gc_fretboard(name, root_octave = NULL, root_fret = NULL,
   min_fret = NULL, bass_string = NULL, open = NULL, key = "c",
   ignore_octave = TRUE)
 
+gc_notes_to_fb(notes, root_octave = NULL, root_fret = NULL,
+  min_fret = NULL, bass_string = NULL, open = NULL)
+
 gc_notes(name, root_octave = NULL, root_fret = NULL, min_fret = NULL,
   bass_string = NULL, open = NULL, key = "c", ignore_octave = TRUE)
 
-chord_is_known(notes)
+gc_is_known(notes)
 
-chord_name_split(name)
+gc_name_split(name)
 
-chord_name_root(name)
+gc_name_root(name)
 
-chord_name_mod(name)
+gc_name_mod(name)
 }
 \arguments{
 \item{name}{character, chord name in \code{tabr} format, e.g.,
@@ -65,7 +69,7 @@ Helper functions for chord mapping.
 These functions assist with mapping between different information that
 define chords.
 
-For \code{chord_is_known}, a check is done against chords in the
+For \code{gc_is_known}, a check is done against chords in the
 \code{guitarChords} dataset.
 A simple noteworthy string is permitted, but any single-note entry will
 automatically yield a \code{FALSE} result.
@@ -85,16 +89,16 @@ is not intended to be of equal length.
 These functions filter \code{guitarChords}. The result is the set of all
 chords matched by the supplied input filters.
 
-\code{chord_name_split} splits a vector or space-delimited set of chord
+\code{gc_name_split} splits a vector or space-delimited set of chord
 names into a tibble data frame containing separate chord root and chord
 modifier columns.
-\code{chord_name_root} and \code{chord_name_mod} are wrappers around this.
+\code{gc_name_root} and \code{gc_name_mod} are wrappers around this.
 }
 \examples{
-chord_is_known("a b_,fb_d'f'")
+gc_is_known("a b_,fb_d'f'")
 
-chord_name_root("a aM b_,m7#5")
-chord_name_mod("a aM b_,m7#5")
+gc_name_root("a aM b_,m7#5")
+gc_name_mod("a aM b_,m7#5")
 
 gc_info("a") # a major chord, not a single note
 gc_info("ceg a#m7_5") # only second entry is a guitar chord
@@ -102,7 +106,9 @@ gc_info("ceg a#m7_5", key = "f")
 
 gc_info("a,m c d f,")
 gc_fretboard("a,m c d f,", root_fret = 0:3)
+gc_notes_to_fb("a,eac'e' cgc'e'g'")
 
 x <- gc_notes("a, b,", root_fret = 0:2)
 summary(x)
+
 }

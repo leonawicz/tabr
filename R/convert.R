@@ -47,17 +47,25 @@
 #' consecutive pitches covering minimum pitch range are returned.
 #' @param gc_args named list of additional arguments passed to
 #' \code{\link{gc_info}}, used when \code{guitar = TRUE}.
+#' @param x character, general syntax input.
+#' @param accidentals character, represent accidentals, \code{"flat"} or
+#' \code{"sharp"}.
 #'
 #' @return a noteworthy string
 #' @export
 #'
 #' @examples
+#' # chorrds package output
 #' chords <- c("Bb", "Bbm", "Bbm7", "Bbm7(b5)", "Bb7(#5)/G", "Bb7(#5)/Ab")
 #' from_chorrrds(chords)
 #' to_tabr(id = "chorrrds", chords = chords)
 #'
 #' from_chorrrds(chords, guitar = TRUE)
 #' to_tabr(id = "chorrrds", chords = chords, guitar = TRUE)
+#'
+#' # music21 tiny notation
+#' x <- "4/4 CCC#4.. trip{c#8 d'- e-' f g a' b'} D4~# D E F r B16 trip{c4 d e}"
+#' from_music21(x)
 to_tabr <- function(id, ...){
   x <- paste0("from_", id)
   f <- tryCatch(utils::getFromNamespace(x, "tabr"), error = function(e) NULL)
@@ -74,7 +82,7 @@ from_chorrrds <- function(chords, key = "c", guitar = FALSE, gc_args = list()){
   x <- tolower(gsub("\\(|\\)", "", gsub("b", "_", chords)))
   alt_bass <- .get_alt_bass(x)
   x <- gsub("/.*", "", x)
-  x <- chord_name_split(x)
+  x <- gc_name_split(x)
   xfuns <- paste0("x", gsub("#", "s", gsub("_", "b", x$mod)))
   xfuns <- lapply(xfuns, utils::getFromNamespace, ns = "tabr")
   if(guitar){
@@ -129,4 +137,125 @@ from_chorrrds <- function(chords, key = "c", guitar = FALSE, gc_args = list()){
     pitches <- if(drop_top) c(y, pitches[-n]) else c(y, pitches)
     paste(pitches, collapse = "")
   })
+}
+
+#' @export
+#' @rdname to_tabr
+from_music21 <- function(x, accidentals = "flat"){
+  .music21_check(x)
+  .convert_music21(x, accidentals)
+}
+
+.music21_check <- function(x){
+  if(any(grepl("--|##", x)))
+    stop("Double flat/sharp currently not allowed", call. = FALSE)
+}
+
+.convert_music21 <- function(x, a){
+  timesig <- .music21_timesig(x)
+  x <- .music21_uncollapse(.music21_strip_timesig(x))
+  time <- .music21_time(x)
+  notes <- gsub("t\\d+|\\d+|\\.+", "", x) %>% .music21_notes(a)
+  list(notes = notes, time = time, timesig = timesig)
+}
+
+.music21_timesig <- function(x){
+  idx <- grep("(\\d+/\\d+).*", x)
+  if(!length(idx)) return(NA_character_)
+  x <- gsub("(\\d+/\\d+|).*", "\\1", x)
+  x <- x[x != ""]
+  if(length(x)) x else NA_character_
+}
+
+.music21_strip_timesig <- function(x){
+  gsub("^\\d+/\\d+ (.*)", "\\1", x)
+}
+
+.music21_tuplets <- function(x, sep = "+"){
+  idx <- grepl("trip\\{", x)
+  if(any(idx)){
+    time <- gregexpr("\\d+", x[idx])
+    a <- as.integer(sapply(time, "[", 1))
+    b <- a + purrr::map_int(time, ~as.integer(attr(.x, "match.length")[1])) - 1
+    time <- purrr::map2_chr(a, b, ~substr(x[idx], .x, .y))
+    notes <- gsub("\\d+", "", gsub("trip\\{(.*)", "\\1", x[idx]))
+    if(sep != " ") notes <- gsub(" ", sep, notes)
+    x[idx] <- gsub("trip\\{.*", paste0("t", time, "{", notes), x[idx])
+  }
+  x
+}
+
+.music21_uncollapse <- function(x){
+  if(length(x) > 1) x <- paste(x, collapse = " ")
+  x <- strsplit(x, "(?<=.)(?=\\})", perl = TRUE)[[1]]
+  if(length(x) > 1){
+    x <- purrr::map(x, ~strsplit(.x, "(?<=.)(?=trip\\{)", perl = TRUE)[[1]]) %>%
+      unlist()
+    idx <- grep("^trip\\{", x)
+    x[idx] <- sapply(x[idx], .music21_tuplets, USE.NAMES = FALSE)
+    x <- paste(x, collapse = "")
+  }
+  x <- gsub("\\+", " ", strsplit(x, " ")[[1]])
+  x
+}
+
+.music21_time <- function(x){
+  trp <- grep("\\{", x)
+  if(length(trp)){
+    trp_n <- purrr::map_int(x[trp], ~length(strsplit(.x, " ")[[1]]))
+  }
+  x <- gsub("[-#a-gnrA-G~\\{\\}' ]", "", x)
+  x[x == ""] <- NA
+  if(length(x) > 1) for(i in seq_along(x)[-1]) if(is.na(x[i])) x[i] <- x[i-1]
+  if(length(trp)){
+    x[trp] <- purrr::map2_chr(x[trp], trp_n, ~{
+      paste(rep(.x, .y), collapse = " ")
+    })
+    x <- strsplit(paste(x, collapse = " "), " ")[[1]]
+  }
+  x
+}
+
+.music21_notes <- function(x, a){
+  trp <- grepl("\\{", x)
+  if(any(trp)){
+    x[trp] <- gsub("\\{|\\}", "", x[trp])
+    y <- strsplit(x[trp], " ")
+    y <- sapply(y, function(x){
+      sapply(x, .music21_notes_step, a = a, USE.NAMES = FALSE) %>%
+        paste(collapse = " ")
+    })
+    x[trp] <- paste0("{", y, "}")
+  }
+  if(any(!trp)){
+    x[!trp] <- sapply(x[!trp], .music21_notes_step, a = a, USE.NAMES = FALSE)
+  }
+  x
+}
+
+.music21_notes_step <- function(x, a){
+  x <- strsplit(x, "")[[1]]
+  y <- rle(x)
+  uc <- grepl("[A-G]", y$values)
+  y$values[uc] <- purrr::map2_chr(tolower(y$values[uc]), y$lengths[uc], ~{
+    paste0(c(.x, rep(",", .y)), collapse = "")
+  })
+  y$lengths[grepl("[a-g]", y$values)] <- 1L
+  x <- purrr::map2_chr(y$values, y$lengths, ~{
+    if(.y == 1) return(.x)
+    paste(rep(.x, .y), collapse = "")
+  }) %>% paste(collapse = "")
+  x <- strsplit(x, "(?<=.)(?=[a-g])", perl = TRUE)[[1]]
+  x <- .music21_accidentals(x, TRUE, a)
+  x <- .music21_accidentals(x, FALSE, a)
+  paste(x, collapse = "")
+}
+
+.music21_accidentals <- function(x, flat, a){
+  pat <- if(flat) "-" else "#"
+  acc <- grep(pat, x)
+  if(!length(acc)) return(x)
+  x[acc] <- gsub(pat, "", x[acc])
+  x[acc] <- transpose(x[acc], if(flat) -1 else 1, accidentals = a)
+  x
 }

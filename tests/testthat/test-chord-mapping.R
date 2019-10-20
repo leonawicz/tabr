@@ -1,10 +1,10 @@
 context("chord mapping")
 
 test_that("chord mapping returns as expected", {
-  expect_equal(chord_is_known("a b_,fb_d'f'"), c(FALSE, TRUE))
+  expect_equal(gc_is_known("a b_,fb_d'f'"), c(FALSE, TRUE))
 
-  expect_equal(chord_name_root("a aM b_,m7#5"), c("a", "a", "b_,"))
-  expect_equal(chord_name_mod("a aM b_,m7#5"), c("M", "M", "m7#5"))
+  expect_equal(gc_name_root("a aM b_,m7#5"), c("a", "a", "b_,"))
+  expect_equal(gc_name_mod("a aM b_,m7#5"), c("M", "M", "m7#5"))
 
   d <- gc_info("a", ignore_octave = FALSE)
   expect_is(d, "tbl_df")

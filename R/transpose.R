@@ -81,8 +81,8 @@ transpose <- function(notes, n = 0, octaves = NULL, accidentals = NULL,
   note <- .pitch_to_note(x, tie = FALSE)
   idx <- grep("#", note)
   f <- function(x){
-    switch(x, "c#" = "d_", "d#" = "e_", "f#" = "g_", "g#" = "a_",
-           "a#" = "b_")
+    switch(gsub("~", "", x),
+           "c#" = "d_", "d#" = "e_", "f#" = "g_", "g#" = "a_", "a#" = "b_")
   }
   if(length(idx))
     x[idx] <- purrr::map2_chr(x[idx], note[idx], ~gsub("[a-g]#", f(.y), .x))
@@ -96,8 +96,8 @@ transpose <- function(notes, n = 0, octaves = NULL, accidentals = NULL,
   note <- .pitch_to_note(x, tie = FALSE)
   idx <- grep("_", note)
   f <- function(x){
-    switch(x, "d_" = "c#", "e_" = "d#", "g_" = "f#", "a_" = "g#" ,
-           "b_" = "a#")
+    switch(gsub("~", "", x),
+           "d_" = "c#", "e_" = "d#", "g_" = "f#", "a_" = "g#" , "b_" = "a#")
   }
   if(length(idx))
     x[idx] <- purrr::map2_chr(x[idx], note[idx], ~gsub("[a-g]_", f(.y), .x))

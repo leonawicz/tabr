@@ -3,11 +3,14 @@
 \name{to_tabr}
 \alias{to_tabr}
 \alias{from_chorrrds}
+\alias{from_music21}
 \title{Music notation syntax converters}
 \usage{
 to_tabr(id, ...)
 
 from_chorrrds(chords, key = "c", guitar = FALSE, gc_args = list())
+
+from_music21(x, accidentals = "flat")
 }
 \arguments{
 \item{id}{character, suffix of \code{from_*} function, e.g.,
@@ -26,6 +29,11 @@ consecutive pitches covering minimum pitch range are returned.}
 
 \item{gc_args}{named list of additional arguments passed to
 \code{\link{gc_info}}, used when \code{guitar = TRUE}.}
+
+\item{x}{character, general syntax input.}
+
+\item{accidentals}{character, represent accidentals, \code{"flat"} or
+\code{"sharp"}.}
 }
 \value{
 a noteworthy string
@@ -69,10 +77,15 @@ chords in \code{chords}, but at a minimum, typical default component pitches
 will be determined and returned in \code{tabr} notation style.
 }
 \examples{
+# chorrds package output
 chords <- c("Bb", "Bbm", "Bbm7", "Bbm7(b5)", "Bb7(#5)/G", "Bb7(#5)/Ab")
 from_chorrrds(chords)
 to_tabr(id = "chorrrds", chords = chords)
 
 from_chorrrds(chords, guitar = TRUE)
 to_tabr(id = "chorrrds", chords = chords, guitar = TRUE)
+
+# music21 tiny notation
+x <- "4/4 CCC#4.. trip{c#8 d'- e-' f g a' b'} D4~# D E F r B16 trip{c4 d e}"
+from_music21(x)
 }

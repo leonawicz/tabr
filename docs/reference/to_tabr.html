@@ -125,6 +125,9 @@
       <a href="../articles/tabr-prog-chords.html">Chord functions</a>
     </li>
     <li>
+      <a href="../articles/tabr-prog-converters.html">Syntax converters</a>
+    </li>
+    <li>
       <a href="../articles/tabr-fretboard.html">Fretboard diagram plots</a>
     </li>
     <li class="divider"></li>
@@ -218,7 +221,9 @@
 
     <pre class="usage"><span class='fu'>to_tabr</span>(<span class='no'>id</span>, <span class='no'>...</span>)
 
-<span class='fu'>from_chorrrds</span>(<span class='no'>chords</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>guitar</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>gc_args</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>())</pre>
+<span class='fu'>from_chorrrds</span>(<span class='no'>chords</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>guitar</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>gc_args</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>())
+
+<span class='fu'>from_music21</span>(<span class='no'>x</span>, <span class='kw'>accidentals</span> <span class='kw'>=</span> <span class='st'>"flat"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -251,6 +256,15 @@ consecutive pitches covering minimum pitch range are returned.</p></td>
       <th>gc_args</th>
       <td><p>named list of additional arguments passed to
 <code><a href='chord-mapping.html'>gc_info</a></code>, used when <code>guitar = TRUE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>x</th>
+      <td><p>character, general syntax input.</p></td>
+    </tr>
+    <tr>
+      <th>accidentals</th>
+      <td><p>character, represent accidentals, <code>"flat"</code> or
+<code>"sharp"</code>.</p></td>
     </tr>
     </table>
 
@@ -290,7 +304,8 @@ chords in <code>chords</code>, but at a minimum, typical default component pitch
 will be determined and returned in <code>tabr</code> notation style.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>chords</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Bb"</span>, <span class='st'>"Bbm"</span>, <span class='st'>"Bbm7"</span>, <span class='st'>"Bbm7(b5)"</span>, <span class='st'>"Bb7(#5)/G"</span>, <span class='st'>"Bb7(#5)/Ab"</span>)
+    <pre class="examples"><div class='input'><span class='co'># chorrds package output</span>
+<span class='no'>chords</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Bb"</span>, <span class='st'>"Bbm"</span>, <span class='st'>"Bbm7"</span>, <span class='st'>"Bbm7(b5)"</span>, <span class='st'>"Bb7(#5)/G"</span>, <span class='st'>"Bb7(#5)/Ab"</span>)
 <span class='fu'>from_chorrrds</span>(<span class='no'>chords</span>)</div><div class='output co'>#&gt; <span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>b_d</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>b_d_</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>b_d_</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>b_d_</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>e</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>gb_d</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>g_</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>a_b_d</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>g_</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>to_tabr</span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"chorrrds"</span>, <span class='kw'>chords</span> <span class='kw'>=</span> <span class='no'>chords</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
@@ -300,7 +315,21 @@ will be determined and returned in <code>tabr</code> notation style.</p>
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>fb_d</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>fb_d_</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>fa_d_</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>a_d_</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>e</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>g_a_d</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>g_a_d</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>to_tabr</span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"chorrrds"</span>, <span class='kw'>chords</span> <span class='kw'>=</span> <span class='no'>chords</span>, <span class='kw'>guitar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Alternate bass note detected, but ignored when `guitar = TRUE`.</span></div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>fb_d</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>fb_d_</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>fa_d_</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>a_d_</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>e</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>g_a_d</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>g_a_d</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span></div></span></pre>
+#&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>fb_d</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>fb_d_</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>fa_d_</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>a_d_</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>e</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>g_a_d</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>g_a_d</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'>
+<span class='co'># music21 tiny notation</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"4/4 CCC#4.. trip{c#8 d'- e-' f g a' b'} D4~# D E F r B16 trip{c4 d e}"</span>
+<span class='fu'>from_music21</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; $notes
+#&gt; [1] "d_,,,"                  "{d_ d_' e_' f g a' b'}" "e_,~"                  
+#&gt; [4] "d,"                     "e,"                     "f,"                    
+#&gt; [7] "r"                      "b,"                     "{c d e}"               
+#&gt; 
+#&gt; $time
+#&gt;  [1] "4.." "t8"  "t8"  "t8"  "t8"  "t8"  "t8"  "t8"  "4"   "4"   "4"   "4"  
+#&gt; [13] "4"   "16"  "t4"  "t4"  "t4" 
+#&gt; 
+#&gt; $timesig
+#&gt; [1] "4/4"
+#&gt; </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

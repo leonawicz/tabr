@@ -175,15 +175,15 @@ lp_chord_id("a a a", "m M m7_5")
 lp_chord_mod("a a a", "m M m7_5")
 ```
 
-`chord_is_known` checks against `guitarChords` to see if the explicit chord, as given by its component pitches, exists in the dataset. Notice below that `a` in the string of notes is a note, not a major `A` chord, and hence returns `FALSE`. In the `chord_name_*` functions, the same `a` is now interpreted as a major chord because these functions operate on chord name inputs.
+`gc_is_known` checks against `guitarChords` to see if the explicit chord, as given by its component pitches, exists in the dataset. Notice below that `a` in the string of notes is a note, not a major `A` chord, and hence returns `FALSE`. In the `gc_name_*` functions, the same `a` is now interpreted as a major chord because these functions operate on chord name inputs.
 
 ```{r gc_helpers2}
-chord_is_known("a b_,fb_d'f'")
+gc_is_known("a b_,fb_d'f'")
 
 x <- "a aM b_,m7#5"
-chord_name_split(x)
-chord_name_root(x)
-chord_name_mod(x)
+gc_name_split(x)
+gc_name_root(x)
+gc_name_mod(x)
 ```
 
 ## Guitar chord construction
