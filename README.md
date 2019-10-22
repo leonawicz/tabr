@@ -214,22 +214,30 @@ followed by rendering the generated LilyPond file to sheet music.
 
 Music data analysis has been expanding significantly since version
 0.3.0, which brought many new functions to `tabr`. Version 0.3.5 brought
-even more functions for music analysis and an alternative input format
-for guitar tab transcription.
+even more as well as an alternative input format for guitar tab
+transcription.
 
-In the upcoming version 0.4.0, there are even more functions for music
-data analysis. There is better MIDI file support. There are more
-functions for tidy analysis. Several internal and user-facing functions
-have been vectorized. Other functions have been generalized that
-previously could handle single notes but lacked an approach to chords in
-certain contexts. The entire package has been significantly optimized
-for better performance over previous versions.
+The upcoming version 0.4.0 is a huge release. There is so much more in
+terms of data analysis. There is also better MIDI file support. There
+are more functions for tidy analysis. Several internal and user-facing
+functions have been vectorized. Other functions have been generalized
+that previously could handle single notes but lacked an approach to
+chords in certain contexts. The entire package has been significantly
+optimized for better performance over previous versions.
 
-All things considered, the next release of `tabr` will be a big
-improvement. You can get many of these developments now by installing
-version 0.3.9.9000 from GitHub, which all the current online
-documentation is updated for (this document, the `pkgdown` website, help
-files and vignettes).
+More can be done with music notation syntax converters, moving to and
+from data frames, and between classes. New classes `noteinfo` and
+`music` have been added along with accompanying functions.
+
+Since it’s still in early versions, several aspects of the package and
+its approaches to working with musical information have been reimagined,
+corrected, enhanced and made more resilient while keeping to the simple
+syntax and premises.
+
+All things considered, the next release of `tabr` is the one to use. You
+can get many of these developments now by installing version 0.3.9.9000
+from GitHub, which all the current online documentation is updated for
+(this document, the `pkgdown` website, help files and vignettes).
 
 You can install tabr v0.3.5 from CRAN with:
 
@@ -271,9 +279,9 @@ However, you will notice that package functions that operate on
 noteworthy strings and whose output is another noteworthy string will
 yield a string with the supplemental `noteworthy` class. This has its
 own print and summary methods. Several other generic methods are also
-implemented for the class so it is recommended to use the class. While
-many functions will attempt to coerce a string to `noteworthy`, note all
-will and some methods are implemented specifically for the class.
+implemented. While many functions will attempt to coerce a string to
+`noteworthy`, not all will and some methods are implemented specifically
+for the class.
 
 ``` r
 x <- "g#, c d# g#c'd#'"
