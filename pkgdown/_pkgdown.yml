@@ -13,6 +13,7 @@ reference:
 - title: Package
   contents:
   - tabr
+  - tabr-methods
 - title: Working with noteworthy strings
   desc: "Functions for inspecting and manipulating noteworthy strings"
   contents:
@@ -24,6 +25,23 @@ reference:
   - note_slice
   - note-equivalence
   - transpose
+- title: "Time and other information: noteinfo objects"
+  desc: "Functions for inspecting and manipulating note info strings"
+  contents:
+  - valid-noteinfo
+  - noteinfo
+- title: "Combine time and sound: music objects"
+  desc: "Functions for inspecting and manipulating music strings"
+  contents:
+  - music
+- title: Syntax conversion
+  desc: "Syntax converters for mapping other music notation syntax to tabr"
+  contents:
+  - to_tabr
+- title: Tidy music data analysis
+  desc: "Functions for converting to and from and manipulating music data frames"
+  contents:
+  - as_music_df
 - title: Chords in noteworthy strings
   desc: "Functions for constructing and manipulating chords"
   contents:
@@ -56,19 +74,6 @@ reference:
   desc: "Functions mapping music notation and other quantities like semitones and frequency"
   contents:
   - pitch_freq
-- title: Time and other note information
-  desc: "Functions for inspecting and manipulating note info strings"
-  contents:
-  - valid-noteinfo
-  - noteinfo
-- title: Syntax conversion
-  desc: "Syntax converters for mapping other music notation syntax to tabr"
-  contents:
-  - to_tabr
-- title: Tidy music data analysis
-  desc: "Functions for converting to and from and manipulating music data frames"
-  contents:
-  - as_music_df
 - title: Plots (non-tablature visualizations)
   desc: "Functions for musical plots and diagrams"
   contents:

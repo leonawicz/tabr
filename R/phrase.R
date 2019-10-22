@@ -355,7 +355,7 @@ phrase_info <- function(phrase, collapse = TRUE, annotations = TRUE){
   x <- notify(phrase)$info
   if(!annotations) x <- .strip_annotations(x)
   if(collapse) x <- paste(x, collapse = " ")
-  x
+  .asni(x)
 }
 
 #' @export

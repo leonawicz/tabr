@@ -30,7 +30,7 @@ test_that("scales return as expected", {
   expect_identical(scale_melodic_minor("am"), scale_jazz_minor("am"))
   expect_equal(
     rev(scale_melodic_minor("am", descending = TRUE, ignore_octave = TRUE)),
-    letters[1:7])
+    as_noteworthy(letters[1:7]))
   expect_equal(scale_jazz_minor("am", collapse = TRUE) %>% as.character(),
                "a, b, c d e f# g#")
 
@@ -68,8 +68,9 @@ test_that("other scale helpers return as expected", {
     scale_degree("c# d_ e_' e4 f f# g", key = "c#", scale = "chromatic"),
     c(1, 1, 3:7))
 
-  expect_equal(scale_note(1:3), c("c", "d", "e"))
-  expect_equal(scale_note(c(1, 3, 8), "d", collapse = TRUE), "d f# d")
+  expect_equal(scale_note(1:3), as_noteworthy(c("c", "d", "e")))
+  expect_equal(scale_note(c(1, 3, 8), "d", collapse = TRUE),
+               as_noteworthy("d f# d"))
   expect_true(all(sapply(list(4, "IV", as.roman(4)), scale_note) == "f"))
 
   expect_equal(is_diatonic("f2#a3c#' r s f#ac", "a"), c(T, NA, NA, F)) # nolint

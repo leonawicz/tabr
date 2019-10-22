@@ -233,6 +233,12 @@
           <p><code><a href="tabr.html">tabr</a></code> </p>
         </td>
         <td><p>tabr: Music notation syntax, manipulation, analysis and transcription in R.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="tabr-methods.html">tabr-methods</a></code> </p>
+        </td>
+        <td><p>Implemented methods for tabr classes</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -274,7 +280,7 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="note_slice.html">note_slice()</a></code> <code><a href="note_slice.html">note_rep()</a></code> <code><a href="note_slice.html">note_sort()</a></code> <code><a href="note_slice.html">note_rotate()</a></code> <code><a href="note_slice.html">note_shift()</a></code> <code><a href="note_slice.html">note_arpeggiate()</a></code> </p>
+          <p><code><a href="note_slice.html">note_slice()</a></code> <code><a href="note_slice.html">note_sort()</a></code> <code><a href="note_slice.html">note_rotate()</a></code> <code><a href="note_slice.html">note_shift()</a></code> <code><a href="note_slice.html">note_arpeggiate()</a></code> </p>
         </td>
         <td><p>Slice, sort, rotate, shift and arpeggiate notes</p></td>
       </tr><tr>
@@ -289,6 +295,68 @@
           <p><code><a href="transpose.html">transpose()</a></code> <code><a href="transpose.html">tp()</a></code> </p>
         </td>
         <td><p>Transpose pitch</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-time-and-other-information-noteinfo-objects" class="hasAnchor"><a href="#section-time-and-other-information-noteinfo-objects" class="anchor"></a>Time and other information: noteinfo objects</h2>
+          <p class="section-desc"><p>Functions for inspecting and manipulating note info strings</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="valid-noteinfo.html">informable()</a></code> <code><a href="valid-noteinfo.html">as_noteinfo()</a></code> <code><a href="valid-noteinfo.html">is_noteinfo()</a></code> </p>
+        </td>
+        <td><p>Check note info validity</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="noteinfo.html">info_duration()</a></code> <code><a href="noteinfo.html">info_slur_on()</a></code> <code><a href="noteinfo.html">info_slur_off()</a></code> <code><a href="noteinfo.html">info_slide()</a></code> <code><a href="noteinfo.html">info_dotted()</a></code> <code><a href="noteinfo.html">info_single_dotted()</a></code> <code><a href="noteinfo.html">info_double_dotted()</a></code> <code><a href="noteinfo.html">info_annotation()</a></code> </p>
+        </td>
+        <td><p>Note info helpers</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-combine-time-and-sound-music-objects" class="hasAnchor"><a href="#section-combine-time-and-sound-music-objects" class="anchor"></a>Combine time and sound: music objects</h2>
+          <p class="section-desc"><p>Functions for inspecting and manipulating music strings</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="music.html">musical()</a></code> <code><a href="music.html">as_music()</a></code> <code><a href="music.html">is_music()</a></code> <code><a href="music.html">music_split()</a></code> <code><a href="music.html">music_notes()</a></code> <code><a href="music.html">music_info()</a></code> <code><a href="music.html">music_tsig()</a></code> </p>
+        </td>
+        <td><p>Check music string validity</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-syntax-conversion" class="hasAnchor"><a href="#section-syntax-conversion" class="anchor"></a>Syntax conversion</h2>
+          <p class="section-desc"><p>Syntax converters for mapping other music notation syntax to tabr</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="to_tabr.html">to_tabr()</a></code> <code><a href="to_tabr.html">from_chorrrds()</a></code> <code><a href="to_tabr.html">from_music21()</a></code> </p>
+        </td>
+        <td><p>Music notation syntax converters</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-tidy-music-data-analysis" class="hasAnchor"><a href="#section-tidy-music-data-analysis" class="anchor"></a>Tidy music data analysis</h2>
+          <p class="section-desc"><p>Functions for converting to and from and manipulating music data frames</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="as_music_df.html">as_music_df()</a></code> </p>
+        </td>
+        <td><p>Noteworthy string to data frame</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -441,54 +509,6 @@
           <p><code><a href="pitch_freq.html">pitch_freq()</a></code> <code><a href="pitch_freq.html">pitch_semitones()</a></code> <code><a href="pitch_freq.html">chord_freq()</a></code> <code><a href="pitch_freq.html">chord_semitones()</a></code> <code><a href="pitch_freq.html">freq_pitch()</a></code> <code><a href="pitch_freq.html">freq_semitones()</a></code> <code><a href="pitch_freq.html">semitone_pitch()</a></code> </p>
         </td>
         <td><p>Pitch conversions</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-time-and-other-note-information" class="hasAnchor"><a href="#section-time-and-other-note-information" class="anchor"></a>Time and other note information</h2>
-          <p class="section-desc"><p>Functions for inspecting and manipulating note info strings</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="valid-noteinfo.html">informable()</a></code> <code><a href="valid-noteinfo.html">as_noteinfo()</a></code> <code><a href="valid-noteinfo.html">is_noteinfo()</a></code> </p>
-        </td>
-        <td><p>Check note info validity</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="noteinfo.html">info_duration()</a></code> <code><a href="noteinfo.html">info_slur_on()</a></code> <code><a href="noteinfo.html">info_slur_off()</a></code> <code><a href="noteinfo.html">info_slide()</a></code> <code><a href="noteinfo.html">info_dotted()</a></code> <code><a href="noteinfo.html">info_single_dotted()</a></code> <code><a href="noteinfo.html">info_double_dotted()</a></code> <code><a href="noteinfo.html">info_annotation()</a></code> </p>
-        </td>
-        <td><p>Note info helpers</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-syntax-conversion" class="hasAnchor"><a href="#section-syntax-conversion" class="anchor"></a>Syntax conversion</h2>
-          <p class="section-desc"><p>Syntax converters for mapping other music notation syntax to tabr</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="to_tabr.html">to_tabr()</a></code> <code><a href="to_tabr.html">from_chorrrds()</a></code> <code><a href="to_tabr.html">from_music21()</a></code> </p>
-        </td>
-        <td><p>Music notation syntax converters</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-tidy-music-data-analysis" class="hasAnchor"><a href="#section-tidy-music-data-analysis" class="anchor"></a>Tidy music data analysis</h2>
-          <p class="section-desc"><p>Functions for converting to and from and manipulating music data frames</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="as_music_df.html">as_music_df()</a></code> </p>
-        </td>
-        <td><p>Noteworthy string to data frame</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -717,13 +737,14 @@
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#section-package">Package</a></li>
       <li><a href="#section-working-with-noteworthy-strings">Working with noteworthy strings</a></li>
+      <li><a href="#section-time-and-other-information-noteinfo-objects">Time and other information: noteinfo objects</a></li>
+      <li><a href="#section-combine-time-and-sound-music-objects">Combine time and sound: music objects</a></li>
+      <li><a href="#section-syntax-conversion">Syntax conversion</a></li>
+      <li><a href="#section-tidy-music-data-analysis">Tidy music data analysis</a></li>
       <li><a href="#section-chords-in-noteworthy-strings">Chords in noteworthy strings</a></li>
       <li><a href="#section-key-signatures-scales-and-modes">Key signatures, scales and modes</a></li>
       <li><a href="#section-interval-helpers">Interval helpers</a></li>
       <li><a href="#section-notation-frequency-conversion">Notation-frequency conversion</a></li>
-      <li><a href="#section-time-and-other-note-information">Time and other note information</a></li>
-      <li><a href="#section-syntax-conversion">Syntax conversion</a></li>
-      <li><a href="#section-tidy-music-data-analysis">Tidy music data analysis</a></li>
       <li><a href="#section-plots-non-tablature-visualizations-">Plots (non-tablature visualizations)</a></li>
       <li><a href="#section-phrase-validation-and-coercion">Phrase validation and coercion</a></li>
       <li><a href="#section-transcription-phrase-construction">Transcription: Phrase construction</a></li>

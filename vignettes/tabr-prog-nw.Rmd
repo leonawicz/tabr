@@ -27,14 +27,14 @@ Before exploring many of the music programming functions in the package, it is w
 
 There are a number of requirements strings must meet to have valid `tabr` music notation syntax that can be transformed meaningfully and unambiguously into LilyPond syntax. A string is considered *noteworthy* if it meets all of these requirements that differentiate it from arbitrary character strings.
 
-There is no need to attach a special class to a character string to explicitly differentiate noteworthy strings from ordinary strings in R, though such a class exists (see below). It is fine to work with strings as usual and ignore this class. However, it is important to be familiar with the requirements of a noteworthy string so that you can construct them properly.
+It is important to be familiar with the requirements of a noteworthy string so that you can construct them properly. There is also the `noteworthy` class object built upon strings that have valid music notation syntax.
 
 ### Checking noteworthiness
 
 A string can be checked directly with `noteworthy`.
 
 ```{r noteworthy}
-x <- "a2 r b2*2 ce_g cd#g"
+x <- "a, r b,*2 ce_g cd#g"
 noteworthy(x)
 noteworthy("h")
 ```
@@ -45,11 +45,11 @@ This reports whether the entire string conforms to all requirements for it to be
 
 Functions in `tabr` that take noteworthy strings as input perform internal checks of noteworthiness for you and will throw an error if you provide an unworthy string. These checks are skipped if the input already has the `noteworthy` class. If a function returns a noteworthy string, the class will also be `noteworthy`.
 
-This class is mostly used internally by a variety of functions, but otherwise this is an ephemeral class that is easily dropped when performing your own string manipulations. Users do not need to be directly concerned with the class. However, it is important to understand that the notion of noteworthy strings is implemented throughout `tabr` for the purpose of thorough and strict input validation. This leads to more robust function behavior and consistent user programming experience by rejecting problematic string input early.
+It is important to understand that the notion of noteworthy strings is implemented throughout `tabr`. One purpose is thorough and strict input validation. This leads to more robust function behavior and consistent user programming experience by rejecting problematic string input early.
 
 `as_noteworthy` can be used to coerce to the `noteworthy` class. Coercion will fail if the string is not noteworthy. Using the `noteworthy` class is generally not needed by the user explicitly, but is available and offers its own `print` and `summary` methods for noteworthy strings.
 
-However, `as_noteworthy` and other functions that return a noteworthy string class have the added benefit of conforming all notes to the same formatting. This will clean up any presence of combined flats and sharps and combined tick and integer octave numbering.
+Functions like `as_noteworthy` have the added benefit of conforming all notes to the same formatting. This will clean up any presence of combined flats and sharps and combined tick and integer octave numbering.
 
 ```{r as_noteworthy}
 x <- "a# b_*2 c, d'' e3*2 g_4 c2e_2g2*2"
@@ -70,7 +70,7 @@ summary(x)
 
 Some functions like `transpose` also expose these formatting arguments directly. For other functions, format is strictly inferred from the input notes, but you can always coerce to another format with `as_noteworthy`.
 
-As an aside, tick octave notation is not the default just because it is used by LilyPond. The vignettes on transcription show that conversion from integers to ticks for the `phrase` objects used in transcription is automatic. Another reason is the ticks are more robust. In `tabr`, integer octaves cannot go below zero with leading to problematic syntax, but you can always add more commas as octaves decrease.
+As an aside, tick octave notation is not the default just because it is used by LilyPond. The vignettes on transcription show that conversion from integers to ticks for the `phrase` objects used in transcription is automatic. Another reason is that the tick format is more robust. In `tabr`, integer octaves cannot go below zero without leading to problematic syntax, but you can always add more commas as octaves decrease. An even more critical reason is that the `music` class, which assembles a `noteworthy` class object and a `noteinfo` class object together, strictly uses tick format for octave numbering because numbers are needed to unambiguously describe time.
 
 ### Stricter note and chord validation
 

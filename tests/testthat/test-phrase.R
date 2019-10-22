@@ -110,7 +110,7 @@ test_that("notification works as expected", {
     c("4;^\"Start_here.\"", "4x")
   )
   expect_equal(phrase_info(p("a b", pc(notate("4", "Z"), "4")), FALSE, FALSE),
-               c("4", "4"))
+               as_noteinfo(c("4", "4")))
   x2 <- lapply(x, function(x){
     p(phrase_notes(x), phrase_info(x), phrase_strings(x))
   })

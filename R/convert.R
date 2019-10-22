@@ -2,8 +2,14 @@
 #'
 #' Convert alternative representations of music notation to \code{tabr} syntax.
 #'
+#' @details
 #' These functions convert music notation from other data sources into the style
 #' used by \code{tabr} for music analysis and sheet music transcription.
+#'
+#' @section Syntax converter for chorrrds:
+#' The input \code{x} is a character vector of chords output from the
+#' \code{chorrrds} package, as shown in the examples. Output is a noteworthy
+#' string object.
 #'
 #' Some sources do not offer as complete or explicit information in order to
 #' make sheet music. However, what is available in those formats is converted
@@ -36,36 +42,51 @@
 #' chords in \code{chords}, but at a minimum, typical default component pitches
 #' will be determined and returned in \code{tabr} notation style.
 #'
-#' @param id character, suffix of \code{from_*} function, e.g.,
-#' \code{"chorrrds"}
-#' @param ... arguments passed to the function matched by \code{id}.
-#' @param chords character vector of chords output from the \code{chorrrds}
-#' package.
+#' @section Syntax converter for music21:
+#' The input \code{x} is a character vector of in music21 tiny notation syntax,
+#' as shown in the examples. Default output is a music object. Setting
+#' \code{output = "list"} returns a list of three elements: a noteworthy string,
+#' a note info string, and the time signature.
+#'
+#' The recommendation for music21 syntax is to keep it simple. Do not use the
+#' letter \code{n} for explicit natural notes. Do not add text annotations such
+#' as lyrics. Double flats and sharps are not supported. The examples
+#' demonstrate what is currently supported.
+#'
+#' @param x character, general syntax input. See details and examples for how
+#' inputs are structured for each converter.
 #' @param key key signature, used to enforce consistent use of flats or sharps.
 #' @param guitar logical, attempt to match input chords to known guitar chords
 #' in \code{\link{guitarChords}}. Otherwise by default standard piano chords of
 #' consecutive pitches covering minimum pitch range are returned.
 #' @param gc_args named list of additional arguments passed to
 #' \code{\link{gc_info}}, used when \code{guitar = TRUE}.
-#' @param x character, general syntax input.
 #' @param accidentals character, represent accidentals, \code{"flat"} or
 #' \code{"sharp"}.
+#' @param output character, type of output when multiple options are available.
+#' @param id character, suffix of \code{from_*} function, e.g.,
+#' \code{"chorrrds"}
+#' @param ... arguments passed to the function matched by \code{id}.
 #'
-#' @return a noteworthy string
+#' @return noteworthy string for chorrrds; music string or list for music21.
 #' @export
 #'
 #' @examples
 #' # chorrds package output
 #' chords <- c("Bb", "Bbm", "Bbm7", "Bbm7(b5)", "Bb7(#5)/G", "Bb7(#5)/Ab")
 #' from_chorrrds(chords)
-#' to_tabr(id = "chorrrds", chords = chords)
+#' to_tabr(id = "chorrrds", x = chords)
 #'
 #' from_chorrrds(chords, guitar = TRUE)
-#' to_tabr(id = "chorrrds", chords = chords, guitar = TRUE)
+#' to_tabr(id = "chorrrds", x = chords, guitar = TRUE)
 #'
 #' # music21 tiny notation
-#' x <- "4/4 CCC#4.. trip{c#8 d'- e-' f g a' b'} D4~# D E F r B16 trip{c4 d e}"
+#' x <- "4/4 CC#FF4.. trip{c#8eg# d'- e-' f g a'} D4~# D E F r B16"
 #' from_music21(x)
+#'
+#' from_music21(x, accidentals = "sharp")
+#'
+#' from_music21(x, output = "list")
 to_tabr <- function(id, ...){
   x <- paste0("from_", id)
   f <- tryCatch(utils::getFromNamespace(x, "tabr"), error = function(e) NULL)
@@ -77,9 +98,9 @@ to_tabr <- function(id, ...){
 
 #' @export
 #' @rdname to_tabr
-from_chorrrds <- function(chords, key = "c", guitar = FALSE, gc_args = list()){
+from_chorrrds <- function(x, key = "c", guitar = FALSE, gc_args = list()){
   key <- .process_key(key)
-  x <- tolower(gsub("\\(|\\)", "", gsub("b", "_", chords)))
+  x <- tolower(gsub("\\(|\\)", "", gsub("b", "_", x)))
   alt_bass <- .get_alt_bass(x)
   x <- gsub("/.*", "", x)
   x <- gc_name_split(x)
@@ -132,18 +153,21 @@ from_chorrrds <- function(chords, key = "c", guitar = FALSE, gc_args = list()){
     acc <- if(key_is_sharp(key)) "sharp" else "flat"
     while(.pitch_semitones(y, accidentals = acc) > .pitch_semitones(
       pitches[1], accidentals = acc)){
-      y <- transpose(y, -12, key = key)
+      y <- as.character(transpose(y, -12, key = key))
     }
-    pitches <- if(drop_top) c(y, pitches[-n]) else c(y, pitches)
-    paste(pitches, collapse = "")
+    if(drop_top) pitches <- pitches[-n]
+    paste(c(y, pitches), collapse = "")
   })
 }
 
 #' @export
 #' @rdname to_tabr
-from_music21 <- function(x, accidentals = "flat"){
+from_music21 <- function(x, accidentals = c("flat", "sharp"),
+                         output = c("music", "list")){
+  a <- match.arg(accidentals)
+  out <- match.arg(output)
   .music21_check(x)
-  .convert_music21(x, accidentals)
+  .convert_music21(x, a, out)
 }
 
 .music21_check <- function(x){
@@ -151,12 +175,20 @@ from_music21 <- function(x, accidentals = "flat"){
     stop("Double flat/sharp currently not allowed", call. = FALSE)
 }
 
-.convert_music21 <- function(x, a){
-  timesig <- .music21_timesig(x)
+.convert_music21 <- function(x, a, out){
+  tsig <- .music21_timesig(x)
   x <- .music21_uncollapse(.music21_strip_timesig(x))
   time <- .music21_time(x)
-  notes <- gsub("t\\d+|\\d+|\\.+", "", x) %>% .music21_notes(a)
-  list(notes = notes, time = time, timesig = timesig)
+  x <- gsub("t\\d+|\\d+|\\.+", "", x)
+  trp <- grep("\\{", x)
+  if(length(trp)){
+    x <- gsub("\\{|\\}", "", x)
+    x <- .uncollapse(paste(x, collapse = " "))
+  }
+  x <- .music21_notes(x, a)
+  x <- as_music(x, time, accidentals = a, tsig = tsig, format = "space")
+  if(out == "list") x <- music_split(x)
+  x
 }
 
 .music21_timesig <- function(x){
@@ -217,20 +249,21 @@ from_music21 <- function(x, accidentals = "flat"){
 }
 
 .music21_notes <- function(x, a){
-  trp <- grepl("\\{", x)
-  if(any(trp)){
-    x[trp] <- gsub("\\{|\\}", "", x[trp])
-    y <- strsplit(x[trp], " ")
-    y <- sapply(y, function(x){
-      sapply(x, .music21_notes_step, a = a, USE.NAMES = FALSE) %>%
-        paste(collapse = " ")
-    })
-    x[trp] <- paste0("{", y, "}")
-  }
-  if(any(!trp)){
-    x[!trp] <- sapply(x[!trp], .music21_notes_step, a = a, USE.NAMES = FALSE)
-  }
-  x
+  # trp <- grepl("\\{", x)
+  # if(any(trp)){
+  #   x[trp] <- gsub("\\{|\\}", "", x[trp])
+  #   y <- strsplit(x[trp], " ")
+  #   y <- sapply(y, function(x){
+  #     sapply(x, .music21_notes_step, a = a, USE.NAMES = FALSE) %>%
+  #       paste(collapse = " ")
+  #   })
+  #   x[trp] <- paste0("{", y, "}")
+  # }
+  # if(any(!trp)){
+  #  x[!trp] <- sapply(x[!trp], .music21_notes_step, a = a, USE.NAMES = FALSE)
+  #}
+  #x
+  sapply(x, .music21_notes_step, a = a, USE.NAMES = FALSE)
 }
 
 .music21_notes_step <- function(x, a){

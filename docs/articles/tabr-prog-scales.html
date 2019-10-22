@@ -294,11 +294,15 @@
 </code></pre>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"></a>
 <a class="sourceLine" id="cb15-2" title="2"><span class="kw"><a href="../reference/scale-deg.html">scale_note</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>, <span class="st">"d"</span>)</a></code></pre></div>
-<pre class="r-output"><code>#&gt; [1] "d"  "e"  "f#" "g"  "a"  "b"
-</code></pre>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>vectorized time</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">d</span><span> </span><span style="color: #00BBBB;font-weight: bold;">e</span><span> </span><span style="color: #00BBBB;font-weight: bold;">f#</span><span> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span> </span><span style="color: #00BBBB;font-weight: bold;">a</span><span> </span><span style="color: #00BBBB;font-weight: bold;">b</span><span>
+</span></code></pre>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw"><a href="../reference/scale-deg.html">scale_note</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">8</span>), <span class="st">"dm"</span>, <span class="st">"harmonic minor"</span>)</a></code></pre></div>
-<pre class="r-output"><code>#&gt; [1] "d"  "e"  "f"  "g"  "a"  "b_" "d"
-</code></pre>
+<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>vectorized time</span><span style="color: #555555;font-weight: bold;">
+#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">d</span><span> </span><span style="color: #00BBBB;font-weight: bold;">e</span><span> </span><span style="color: #00BBBB;font-weight: bold;">f</span><span> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span> </span><span style="color: #00BBBB;font-weight: bold;">a</span><span> </span><span style="color: #00BBBB;font-weight: bold;">b_</span><span> </span><span style="color: #00BBBB;font-weight: bold;">d</span><span>
+</span></code></pre>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"></a>
 <a class="sourceLine" id="cb17-2" title="2"><span class="kw"><a href="../reference/scale-deg.html">note_in_scale</a></span>(<span class="st">"a_ g#"</span>, <span class="st">"a_"</span>, <span class="dt">strict_accidentals =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; [1] TRUE TRUE

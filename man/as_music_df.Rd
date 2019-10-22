@@ -9,8 +9,8 @@ as_music_df(notes, info = NULL, key = NULL, scale = "diatonic",
   "mmp", "ad_abb", "ad"))
 }
 \arguments{
-\item{notes}{character, a noteworthy string, or a phrase object in which
-case \code{info} is ignored.}
+\item{notes}{character, a noteworthy string. Alternatively, a music object
+a phrase object, in which case \code{info} is ignored.}
 
 \item{info}{\code{NULL} or character, a note info string.}
 
@@ -60,10 +60,16 @@ as_music_df(x, key = "c", scale = "major")
 as_music_df(x, key = "am", scale = "harmonic_minor", si_format = "ad_abb")
 
 a <- notate("8", "Start here.")
-time <- paste(a, "8*2 16 4.. 16( 16)( 2) 2 4. 8- 4 4- 8*4 1")
+time <- paste(a, "8*2 16 4.. 16( 16)( 2) 2 4. t8- t8 t8- 8*4 1")
 d1 <- as_music_df(x, time)
 d1
 
+# Go directly from music object to data frame
+m1 <- as_music(x, time)
+d2 <- as_music_df(m1)
+identical(d1, d2)
+
+# Go directly from phrase object to data frame
 p1 <- phrase(x, time)
 d2 <- as_music_df(p1)
 identical(d1, d2)

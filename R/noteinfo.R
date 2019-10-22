@@ -29,31 +29,31 @@
 #' )
 #'
 info_duration <- function(x){
-  .asni(gsub("^([0-9\\.]+).*", "\\1", .parse_info_phrase(x)))
+  .asni(gsub("^([t0-9\\.]+).*", "\\1", .parse_info(x)))
 }
 
 #' @export
 #' @rdname noteinfo
 info_slur_on <- function(x){
-  grepl("\\(", .parse_info_phrase(x))
+  grepl("\\(", .parse_info(x))
 }
 
 #' @export
 #' @rdname noteinfo
 info_slur_off <- function(x){
-  grepl("\\)", .parse_info_phrase(x))
+  grepl("\\)", .parse_info(x))
 }
 
 #' @export
 #' @rdname noteinfo
 info_slide <- function(x){
-  grepl("[-]", .parse_info_phrase(x))
+  grepl("[-]", .parse_info(x))
 }
 
 #' @export
 #' @rdname noteinfo
 info_dotted <- function(x){
-  grepl("\\.{1,2}", .parse_info_phrase(x))
+  grepl("\\.{1,2}", .parse_info(x))
 }
 
 #' @export
@@ -65,21 +65,33 @@ info_single_dotted <- function(x){
 #' @export
 #' @rdname noteinfo
 info_double_dotted <- function(x){
-  grepl("\\.{2}", .parse_info_phrase(x))
+  grepl("\\.{2}", .parse_info(x))
 }
 
 #' @export
 #' @rdname noteinfo
 info_annotation <- function(x){
-  x <- if(inherits(x, "phrase")) phrase_info(x, FALSE) else .uncollapse(x)
+  if(inherits(x, "phrase")){
+    x <- phrase_info(x, FALSE)
+  } else if(inherits(x, "music")){
+    x <- .uncollapse(music_info(x))
+  } else {
+    x <- .uncollapse(x)
+  }
   y <- rep(NA_character_, length(x))
   idx <- grep(";\\^\".*\"", x)
   if(length(idx)) y[idx] <- gsub(".*;\\^\"(.*)\"", "\\1", x[idx])
   gsub("_", " ", y)
 }
 
-.parse_info_phrase <- function(x){
-  if(inherits(x, "phrase")) phrase_info(x, FALSE, FALSE) else .uncollapse(x)
+.parse_info <- function(x){
+  if(inherits(x, "phrase")){
+    phrase_info(x, FALSE, FALSE)
+  } else if(inherits(x, "music")){
+    .uncollapse(music_info(x))
+  } else {
+    .uncollapse(x)
+  }
 }
 
 #' Check note info validity
@@ -130,10 +142,11 @@ informable <- function(x, na.rm = FALSE){
     if(!is.character(x)) x <- as.character(x)
   }
   x <- .uncollapse(x)
+  if(!length(x) | any(x == "")) return(FALSE)
   x <- gsub(";\\^\".*\"", "", x)
-  durations <- gsub("^(\\d+|).*", "\\1", x)
+  durations <- gsub("^(t|)(\\d+|).*", "\\2", x)
   if(!all(durations %in% c(1, 2, 4, 8, 16, 32))) return(FALSE)
-  x <- gsub("[123468\\(\\)\\.\\^x]+|\\[|\\]|-", "", x)
+  x <- gsub("t\\d+|[123468\\(\\)\\.\\^x]+|\\[|\\]|-", "", x)
   if(all(x == "")) TRUE else FALSE
 }
 
@@ -152,7 +165,7 @@ informable <- function(x, na.rm = FALSE){
 #' @export
 #' @rdname valid-noteinfo
 as_noteinfo <- function(x, format = NULL){
-  if("noteinfo" %in% class(x) & is.null(format)) return(x)
+  if(inherits(x, "noteinfo") & is.null(format)) return(x)
   .check_noteinfo(x)
   .check_format_arg(format)
   .asni(x, format)
@@ -171,27 +184,27 @@ is_noteinfo <- function(x){
 #' @export
 print.noteinfo <- function(x, ...){
   a <- attributes(x)
-  col1 <- crayon::make_style("gray50")$bold
-  col2 <- crayon::make_style("gray50")
-  if(length(x) == 1) x <- .uncollapse(x)
-  cat(col1("<Note info string>\n  Format: "), a$format, col1("\n  Values: "),
-      col2(.tabr_print2(x)), "\n", sep = "")
+  col1 <- crayon::make_style("gray50")
+  col2 <- col1$bold
+  if(length(as.character(x)) == 1) x <- .uncollapse(x)
+  cat(col2("<Note info string>\n  Format: "), a$format, col2("\n  Values: "),
+      col1(.tabr_print2(x)), "\n", sep = "")
 }
 
 #' @export
 summary.noteinfo <- function(object, ...){
   a <- attributes(object)
-  col1 <- crayon::make_style("gray50")$bold
-  col2 <- crayon::make_style("gray50")
-  cat(col1("<Note info string>\n  Timesteps: "), a$steps,
-      col1("\n  Format: "), a$format, col1("\n  Values: "),
-      col2(.tabr_print2(.uncollapse(as.character(object)))), "\n", sep = "")
+  col1 <- crayon::make_style("gray50")
+  col2 <- col1$bold
+  cat(col2("<Note info string>\n  Timesteps: "), a$steps,
+      col2("\n  Format: "), a$format, col2("\n  Values: "),
+      col1(.tabr_print2(.uncollapse(as.character(object)))), "\n", sep = "")
 }
 
 .tabr_print2 <- function(x){
   durations <- crayon::make_style("dodgerblue")$bold
   other_info <- crayon::make_style("orange2")
-  x <- gsub("^(\\d+|\\d+\\.+)", durations("\\1"), x)
+  x <- gsub("^(t\\d+|\\d+|\\d+\\.+)", durations("\\1"), x)
   x <- gsub("(\\(|\\)|;\\^|\\^|x|-|\\])", other_info("\\1"), x)
   paste(x, collapse = " ")
 }

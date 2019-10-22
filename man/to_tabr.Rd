@@ -8,9 +8,10 @@
 \usage{
 to_tabr(id, ...)
 
-from_chorrrds(chords, key = "c", guitar = FALSE, gc_args = list())
+from_chorrrds(x, key = "c", guitar = FALSE, gc_args = list())
 
-from_music21(x, accidentals = "flat")
+from_music21(x, accidentals = c("flat", "sharp"), output = c("music",
+  "list"))
 }
 \arguments{
 \item{id}{character, suffix of \code{from_*} function, e.g.,
@@ -18,8 +19,8 @@ from_music21(x, accidentals = "flat")
 
 \item{...}{arguments passed to the function matched by \code{id}.}
 
-\item{chords}{character vector of chords output from the \code{chorrrds}
-package.}
+\item{x}{character, general syntax input. See details and examples for how
+inputs are structured for each converter.}
 
 \item{key}{key signature, used to enforce consistent use of flats or sharps.}
 
@@ -30,13 +31,13 @@ consecutive pitches covering minimum pitch range are returned.}
 \item{gc_args}{named list of additional arguments passed to
 \code{\link{gc_info}}, used when \code{guitar = TRUE}.}
 
-\item{x}{character, general syntax input.}
-
 \item{accidentals}{character, represent accidentals, \code{"flat"} or
 \code{"sharp"}.}
+
+\item{output}{character, type of output when multiple options are available.}
 }
 \value{
-a noteworthy string
+noteworthy string for chorrrds; music string or list for music21.
 }
 \description{
 Convert alternative representations of music notation to \code{tabr} syntax.
@@ -44,6 +45,12 @@ Convert alternative representations of music notation to \code{tabr} syntax.
 \details{
 These functions convert music notation from other data sources into the style
 used by \code{tabr} for music analysis and sheet music transcription.
+}
+\section{Syntax converter for chorrrds}{
+
+The input \code{x} is a character vector of chords output from the
+\code{chorrrds} package, as shown in the examples. Output is a noteworthy
+string object.
 
 Some sources do not offer as complete or explicit information in order to
 make sheet music. However, what is available in those formats is converted
@@ -76,16 +83,34 @@ position on the guitar neck. The options will never work perfectly for all
 chords in \code{chords}, but at a minimum, typical default component pitches
 will be determined and returned in \code{tabr} notation style.
 }
+
+\section{Syntax converter for music21}{
+
+The input \code{x} is a character vector of in music21 tiny notation syntax,
+as shown in the examples. Default output is a music object. Setting
+\code{output = "list"} returns a list of three elements: a noteworthy string,
+a note info string, and the time signature.
+
+The recommendation for music21 syntax is to keep it simple. Do not use the
+letter \code{n} for explicit natural notes. Do not add text annotations such
+as lyrics. Double flats and sharps are not supported. The examples
+demonstrate what is currently supported.
+}
+
 \examples{
 # chorrds package output
 chords <- c("Bb", "Bbm", "Bbm7", "Bbm7(b5)", "Bb7(#5)/G", "Bb7(#5)/Ab")
 from_chorrrds(chords)
-to_tabr(id = "chorrrds", chords = chords)
+to_tabr(id = "chorrrds", x = chords)
 
 from_chorrrds(chords, guitar = TRUE)
-to_tabr(id = "chorrrds", chords = chords, guitar = TRUE)
+to_tabr(id = "chorrrds", x = chords, guitar = TRUE)
 
 # music21 tiny notation
-x <- "4/4 CCC#4.. trip{c#8 d'- e-' f g a' b'} D4~# D E F r B16 trip{c4 d e}"
+x <- "4/4 CC#FF4.. trip{c#8eg# d'- e-' f g a'} D4~# D E F r B16"
 from_music21(x)
+
+from_music21(x, accidentals = "sharp")
+
+from_music21(x, output = "list")
 }

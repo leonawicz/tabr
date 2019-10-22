@@ -4,9 +4,15 @@
 * Substantial code optimization was done, overhauling much of the package in the process.
 * Vectorized functions that previously only operated note by note.
 * Generalized functions that previously could accept notes but not chords, doing so on a case by case basis in ways that are meaningful and sensible for handling chords.
+* Added new classes `noteinfo` to complement `noteworthy` and associated functions.
+* Added new class `music` which builds upon the combination of `noteworthy` and `noteinfo`, similar in content to `phrase` but maintaining the structure of the other `tabr` classes for data manipulation and analysis.
+* Added implementations for several common R functions including primitives like `c`, `length`, `[` and more to be used with special classes available in `tabr`.
+* Refactored some basic metadata functions as generics to dispatch to the new classes rather than only working for `noteworthy` objects. For example, `time_format`, `n_steps`.
 * Added MIDI file read support (requires optional `tuneR` installation) and a set of functions for inspecting and manipulating the table of MIDI music data.
+* Added more functions for music data manipulation and analysis.
 * Added more functions for mapping between noteworthy strings, phrase objects, and data frames.
-* Added first syntax converter `from_chorrrds` (for chord output from `chorrrds` package), and `to_tabr` general wrapper function, for converting other music notation syntax to `tabr` syntax.
+* Added syntax converters `from_chorrrds` (for chord output from `chorrrds` package) and `from_music21`, for converting other music notation syntax to `tabr` syntax.
+* Added new vignettes on syntax conversion and rendering chord charts.
 * Updated vignettes, readme and other documentation.
 * Made improvements to print method for phrase objects.
 * Added `rests` argument to some note metadata functions.

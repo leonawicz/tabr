@@ -2,7 +2,6 @@
 % Please edit documentation in R/notes.R
 \name{note_slice}
 \alias{note_slice}
-\alias{note_rep}
 \alias{note_sort}
 \alias{note_rotate}
 \alias{note_shift}
@@ -10,8 +9,6 @@
 \title{Slice, sort, rotate, shift and arpeggiate notes}
 \usage{
 note_slice(notes, ...)
-
-note_rep(notes, ...)
 
 note_sort(notes, decreasing = FALSE)
 
@@ -25,8 +22,7 @@ note_arpeggiate(notes, n = 0, step = 12)
 \item{notes}{character, a noteworthy string, space-delimited or vector of
 individual entries.}
 
-\item{...}{For \code{note_slice}, an integer or logical vector. For
-\code{note_rep}, may take \code{each} or \code{times}. See details.}
+\item{...}{For \code{note_slice}, an integer or logical vector.}
 
 \item{decreasing}{logical, short in decreasing order.}
 
@@ -60,10 +56,6 @@ if inverting a broken chord.
 If \code{notes} contains chords, they are broken into successive notes. Then
 all notes are ordered by pitch. Finally shifting occurs.
 
-\code{note_rep} is a convenient, robust wrapper for noteworthy strings
-that provides analogous behavior to \code{rep} and accepts \code{each} and
-\code{times} arguments.
-
 Instead of a moving window, \code{note_arpeggiate} grows its sequence from
 the original set of timesteps by repeating the entire sequence \code{n}
 times (\code{n} must be positive). Each repeated sequence contributing to
@@ -79,10 +71,6 @@ note_sort(x, decreasing = TRUE)
 x <- "e_2 a_, c#f#a#"
 note_slice(x, 2:3)
 note_slice(x, c(FALSE, TRUE, TRUE))
-
-note_rep(x, 2)
-note_rep(x, each = 2)
-note_rep(x, times = 3:1)
 
 note_rotate(x, 1)
 

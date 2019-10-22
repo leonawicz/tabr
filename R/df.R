@@ -21,8 +21,8 @@
 #' readily visible when printing the table, but information is not stripped and
 #' can be recovered without recomputing from the original pitches.
 #'
-#' @param notes character, a noteworthy string, or a phrase object in which
-#' case \code{info} is ignored.
+#' @param notes character, a noteworthy string. Alternatively, a music object
+#' a phrase object, in which case \code{info} is ignored.
 #' @param info \code{NULL} or character, a note info string.
 #' @param key character, key signature, only required for inclusion of scale
 #' degrees.
@@ -44,10 +44,16 @@
 #' as_music_df(x, key = "am", scale = "harmonic_minor", si_format = "ad_abb")
 #'
 #' a <- notate("8", "Start here.")
-#' time <- paste(a, "8*2 16 4.. 16( 16)( 2) 2 4. 8- 4 4- 8*4 1")
+#' time <- paste(a, "8*2 16 4.. 16( 16)( 2) 2 4. t8- t8 t8- 8*4 1")
 #' d1 <- as_music_df(x, time)
 #' d1
 #'
+#' # Go directly from music object to data frame
+#' m1 <- as_music(x, time)
+#' d2 <- as_music_df(m1)
+#' identical(d1, d2)
+#'
+#' # Go directly from phrase object to data frame
 #' p1 <- phrase(x, time)
 #' d2 <- as_music_df(p1)
 #' identical(d1, d2)
@@ -59,6 +65,10 @@ as_music_df <- function(notes, info = NULL, key = NULL, scale = "diatonic",
   if(inherits(notes, "phrase")){
     x <- phrase_notes(notes, FALSE)
     info <- phrase_info(notes, FALSE)
+    len <- length(x)
+  } else if(inherits(notes, "music")){
+    x <- .uncollapse(music_notes(notes))
+    info <- .uncollapse(music_info(notes))
     len <- length(x)
   } else {
     .check_noteworthy(notes)

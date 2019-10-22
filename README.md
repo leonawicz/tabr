@@ -261,19 +261,19 @@ A simple character string like `"c e g"`, or alternatively as a vector,
 `"A"` is not, nor is `"z"`. There are other pieces of valid syntax than
 just the lowercase letters `a` through `g` and sharp and flat notation.
 The most important for specifying pitch is to indicate the octave
-number, either in tick (comma and single quote) or integer format. For
-all the available syntax specifications and related details see the
-package vignettes.
+number, either in tick (recommended; comma and single quote) or integer
+format (not recommended, more limited utility). For all the available
+syntax specifications and related details see the package vignettes.
 
-Noteworthiness can be checked on any character string. No supplemental
-class is required. When defining noteworthy strings you can define them
-like any other character vector. However, you will notice that package
-functions that operate on noteworthy strings and whose output is another
-noteworthy string will yield a string with the supplemental `noteworthy`
-class. This has its own print and summary methods. If you remove the
-class with a common R operation like `as.character()`, it does not
-impact any subsequent musical manipulation beyond the need to reperform
-a noteworthy check.
+Noteworthiness can be checked on any character string. When defining
+noteworthy strings you can define them like any other character vector.
+However, you will notice that package functions that operate on
+noteworthy strings and whose output is another noteworthy string will
+yield a string with the supplemental `noteworthy` class. This has its
+own print and summary methods. Several other generic methods are also
+implemented for the class so it is recommended to use the class. While
+many functions will attempt to coerce a string to `noteworthy`, note all
+will and some methods are implemented specifically for the class.
 
 ``` r
 x <- "g#, c d# g#c'd#'"
@@ -315,6 +315,9 @@ distinct_pitches(x) %>% pitch_freq() # in Hz
 #> [1] 110.0000 138.5913 164.8138 220.0000 277.1826 329.6276
 ```
 
+There is also a `noteinfo` class and a `music` class. You can learn more
+in the vignettes.
+
 ## Tidy music analysis
 
 Ideally music data already exists in a data frame format. But if it
@@ -349,18 +352,18 @@ x <- "a, c e r r c a, g#, a ac'e'"
 tibble(pitch = as_vector_time(x)) %>% 
   mutate(scale_int = scale_diff(pitch))
 #> # A tibble: 10 x 2
-#>    pitch scale_int
-#>    <chr> <chr>    
-#>  1 a,    <NA>     
-#>  2 c     m3       
-#>  3 e     M3       
-#>  4 r     <NA>     
-#>  5 r     <NA>     
-#>  6 c     M3       
-#>  7 a,    m3       
-#>  8 g#,   m2       
-#>  9 a     m9       
-#> 10 ac'e' P1
+#>    pitch      scale_int
+#>    <notwrthy> <chr>    
+#>  1 a,         <NA>     
+#>  2 c          m3       
+#>  3 e          M3       
+#>  4 r          <NA>     
+#>  5 r          <NA>     
+#>  6 c          M3       
+#>  7 a,         m3       
+#>  8 g#,        m2       
+#>  9 a          m9       
+#> 10 ac'e'      P1
 ```
 
 In fact, it’s much more powerful to create the columns according to your

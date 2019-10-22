@@ -309,8 +309,8 @@
 <h2 class="hasAnchor">
 <a href="#noteworthy-strings" class="anchor"></a>Noteworthy strings</h2>
 <p>As a quick introduction and to get oriented to the music notation syntax offered by <code>tabr</code>, consider the concept of a noteworthy string. This is like any other character string, except that what makes a string noteworthy is that its content consists strictly of valid <code>tabr</code> music notation syntax. It can be parsed unambiguously and meaningfully into a musical phrase (see next section) and can be processed as input to the various package functions that inspect and manipulate musical information.</p>
-<p>A simple character string like <code>"c e g"</code>, or alternatively as a vector, <code><a href="https://rdrr.io/r/base/c.html">c("c", "e", "g")</a></code>, is a noteworthy string. The single lowercase letter <code>"a"</code> is noteworthy. So are <code>"a_"</code> and <code>"a#"</code> (flat and sharp). However, <code>"A"</code> is not, nor is <code>"z"</code>. There are other pieces of valid syntax than just the lowercase letters <code>a</code> through <code>g</code> and sharp and flat notation. The most important for specifying pitch is to indicate the octave number, either in tick (comma and single quote) or integer format. For all the available syntax specifications and related details see the package vignettes.</p>
-<p>Noteworthiness can be checked on any character string. No supplemental class is required. When defining noteworthy strings you can define them like any other character vector. However, you will notice that package functions that operate on noteworthy strings and whose output is another noteworthy string will yield a string with the supplemental <code>noteworthy</code> class. This has its own print and summary methods. If you remove the class with a common R operation like <code><a href="https://rdrr.io/r/base/character.html">as.character()</a></code>, it does not impact any subsequent musical manipulation beyond the need to reperform a noteworthy check.</p>
+<p>A simple character string like <code>"c e g"</code>, or alternatively as a vector, <code><a href="https://rdrr.io/r/base/c.html">c("c", "e", "g")</a></code>, is a noteworthy string. The single lowercase letter <code>"a"</code> is noteworthy. So are <code>"a_"</code> and <code>"a#"</code> (flat and sharp). However, <code>"A"</code> is not, nor is <code>"z"</code>. There are other pieces of valid syntax than just the lowercase letters <code>a</code> through <code>g</code> and sharp and flat notation. The most important for specifying pitch is to indicate the octave number, either in tick (recommended; comma and single quote) or integer format (not recommended, more limited utility). For all the available syntax specifications and related details see the package vignettes.</p>
+<p>Noteworthiness can be checked on any character string. When defining noteworthy strings you can define them like any other character vector. However, you will notice that package functions that operate on noteworthy strings and whose output is another noteworthy string will yield a string with the supplemental <code>noteworthy</code> class. This has its own print and summary methods. Several other generic methods are also implemented for the class so it is recommended to use the class. While many functions will attempt to coerce a string to <code>noteworthy</code>, note all will and some methods are implemented specifically for the class.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">x &lt;-<span class="st"> "g#, c d# g#c'd#'"</span></a>
 <a class="sourceLine" id="cb5-2" title="2"><span class="kw"><a href="reference/valid-notes.html">as_noteworthy</a></span>(x)</a>
 <a class="sourceLine" id="cb5-3" title="3"><span class="co">#&gt; &lt;Noteworthy string&gt;</span></a>
@@ -348,6 +348,7 @@
 <a class="sourceLine" id="cb5-35" title="35"><span class="co">#&gt;   Values: a2 c# e a c#4 e4</span></a>
 <a class="sourceLine" id="cb5-36" title="36"><span class="kw"><a href="reference/note-summaries.html">distinct_pitches</a></span>(x) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/pitch_freq.html">pitch_freq</a></span>() <span class="co"># in Hz</span></a>
 <a class="sourceLine" id="cb5-37" title="37"><span class="co">#&gt; [1] 110.0000 138.5913 164.8138 220.0000 277.1826 329.6276</span></a></code></pre></div>
+<p>There is also a <code>noteinfo</code> class and a <code>music</code> class. You can learn more in the vignettes.</p>
 </div>
 <div id="tidy-music-analysis" class="section level2">
 <h2 class="hasAnchor">
@@ -363,18 +364,18 @@
 <a class="sourceLine" id="cb7-3" title="3"><span class="kw">tibble</span>(<span class="dt">pitch =</span> <span class="kw"><a href="reference/note-coerce.html">as_vector_time</a></span>(x)) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb7-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">scale_int =</span> <span class="kw"><a href="reference/intervals.html">scale_diff</a></span>(pitch))</a>
 <a class="sourceLine" id="cb7-5" title="5"><span class="co">#&gt; # A tibble: 10 x 2</span></a>
-<a class="sourceLine" id="cb7-6" title="6"><span class="co">#&gt;    pitch scale_int</span></a>
-<a class="sourceLine" id="cb7-7" title="7"><span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;    </span></a>
-<a class="sourceLine" id="cb7-8" title="8"><span class="co">#&gt;  1 a,    &lt;NA&gt;     </span></a>
-<a class="sourceLine" id="cb7-9" title="9"><span class="co">#&gt;  2 c     m3       </span></a>
-<a class="sourceLine" id="cb7-10" title="10"><span class="co">#&gt;  3 e     M3       </span></a>
-<a class="sourceLine" id="cb7-11" title="11"><span class="co">#&gt;  4 r     &lt;NA&gt;     </span></a>
-<a class="sourceLine" id="cb7-12" title="12"><span class="co">#&gt;  5 r     &lt;NA&gt;     </span></a>
-<a class="sourceLine" id="cb7-13" title="13"><span class="co">#&gt;  6 c     M3       </span></a>
-<a class="sourceLine" id="cb7-14" title="14"><span class="co">#&gt;  7 a,    m3       </span></a>
-<a class="sourceLine" id="cb7-15" title="15"><span class="co">#&gt;  8 g#,   m2       </span></a>
-<a class="sourceLine" id="cb7-16" title="16"><span class="co">#&gt;  9 a     m9       </span></a>
-<a class="sourceLine" id="cb7-17" title="17"><span class="co">#&gt; 10 ac'e' P1</span></a></code></pre></div>
+<a class="sourceLine" id="cb7-6" title="6"><span class="co">#&gt;    pitch      scale_int</span></a>
+<a class="sourceLine" id="cb7-7" title="7"><span class="co">#&gt;    &lt;notwrthy&gt; &lt;chr&gt;    </span></a>
+<a class="sourceLine" id="cb7-8" title="8"><span class="co">#&gt;  1 a,         &lt;NA&gt;     </span></a>
+<a class="sourceLine" id="cb7-9" title="9"><span class="co">#&gt;  2 c          m3       </span></a>
+<a class="sourceLine" id="cb7-10" title="10"><span class="co">#&gt;  3 e          M3       </span></a>
+<a class="sourceLine" id="cb7-11" title="11"><span class="co">#&gt;  4 r          &lt;NA&gt;     </span></a>
+<a class="sourceLine" id="cb7-12" title="12"><span class="co">#&gt;  5 r          &lt;NA&gt;     </span></a>
+<a class="sourceLine" id="cb7-13" title="13"><span class="co">#&gt;  6 c          M3       </span></a>
+<a class="sourceLine" id="cb7-14" title="14"><span class="co">#&gt;  7 a,         m3       </span></a>
+<a class="sourceLine" id="cb7-15" title="15"><span class="co">#&gt;  8 g#,        m2       </span></a>
+<a class="sourceLine" id="cb7-16" title="16"><span class="co">#&gt;  9 a          m9       </span></a>
+<a class="sourceLine" id="cb7-17" title="17"><span class="co">#&gt; 10 ac'e'      P1</span></a></code></pre></div>
 <p>In fact, it’s much more powerful to create the columns according to your needs using specific functions and their various arguments. But <code>as_music_df</code> is convenient and also offers some additional arguments. Adding <code>key</code> and <code>scale</code> allows for scale degrees. <code>scale</code> is diatonic by default but does not have to be.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">x &lt;-<span class="st"> "g g#"</span></a>
 <a class="sourceLine" id="cb8-2" title="2"><span class="kw"><a href="reference/as_music_df.html">as_music_df</a></span>(x, <span class="dt">key =</span> <span class="st">"am"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>

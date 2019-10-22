@@ -69,7 +69,8 @@ scale_harmonic_minor <- function(key = "am", collapse = FALSE,
   tkey <- if(key_is_natural(key)) "g" else key
   x[7] <- transpose(x[7], 1, key = tkey)
   if(collapse) x <- paste0(x, collapse = " ")
-  note_set_key(x, key)
+  a <- if(key_is_flat(tkey)) "flat" else "sharp"
+  .asnw(x, accidentals = a)
 }
 
 #' @export
@@ -81,7 +82,8 @@ scale_hungarian_minor <- function(key = "am", collapse = FALSE,
   x[4] <- transpose(x[4], 1, key = tkey)
   x[7] <- transpose(x[7], 1, key = tkey)
   if(collapse) x <- paste0(x, collapse = " ")
-  note_set_key(x, key)
+  a <- if(key_is_flat(tkey)) "flat" else "sharp"
+  .asnw(x, accidentals = a)
 }
 
 #' @export
@@ -92,11 +94,12 @@ scale_melodic_minor <- function(key = "am", descending = FALSE,
   if(descending){
     x <- rev(x)
   } else {
-    tkey <- if(key_is_natural(key)) "g" else key
-    x[6:7] <- transpose(x[6:7], 1, key = tkey)
+    key <- if(key_is_natural(key)) "g" else key
+    x[6:7] <- transpose(x[6:7], 1, key = key)
   }
   if(collapse) x <- paste0(x, collapse = " ")
-  note_set_key(x, key)
+  a <- if(key_is_flat(key)) "flat" else "sharp"
+  .asnw(x, accidentals = a)
 }
 
 #' @export
@@ -305,7 +308,7 @@ scale_note <- function(deg, key = "c", scale = "diatonic", collapse = FALSE,
   if(any(deg < 1)) stop("`deg` should be >= 1.", call. = FALSE)
   deg <- deg %% length(x)
   x <- x[deg]
-  if(collapse) x <- paste0(x, collapse = " ")
+  if(collapse) x <- .asnw(paste0(x, collapse = " "))
   x
 }
 

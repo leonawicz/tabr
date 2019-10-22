@@ -235,9 +235,9 @@ accidentals.</p>
 
 <span class='fu'>as_integer_octaves</span>(<span class='no'>notes</span>)
 
-<span class='fu'>as_space_time</span>(<span class='no'>notes</span>)
+<span class='fu'>as_space_time</span>(<span class='no'>x</span>)
 
-<span class='fu'>as_vector_time</span>(<span class='no'>notes</span>)
+<span class='fu'>as_vector_time</span>(<span class='no'>x</span>)
 
 <span class='fu'>pretty_notes</span>(<span class='no'>notes</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
@@ -258,6 +258,10 @@ individual entries.</p></td>
       <td><p>character, key signature to coerce any accidentals to the
 appropriate form for the key. May also specify <code>"sharp"</code> or
 <code>"flat"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>x</th>
+      <td><p>for generic functions: notes, info or music string.</p></td>
     </tr>
     <tr>
       <th>ignore_octave</th>
@@ -284,6 +288,25 @@ This is a wrapper around <code>sharpen_flat</code> and <code>flatten_sharp</code
 For simultaneous control over the representation of timesteps, octave
 numbering and accidentals, all three are available as arguments to
 <code><a href='valid-notes.html'>as_noteworthy</a></code>.</p>
+    <h2 class="hasAnchor" id="a-note-on-generic-functions"><a class="anchor" href="#a-note-on-generic-functions"></a>A note on generic functions</h2>
+
+    
+
+<p><code>as_space_time</code> and <code>as_vector_time</code> are generic since they
+apply clearly to and are useful for not only noteworthy strings, but also
+note info and music objects. If <code>x</code> is still a simple character string,
+these functions attempt to guess which of the three it is. It is recommended
+to set the class before using these functions.</p>
+<p>There are many package functions that operate on noteworthy strings that
+could in concept work on music objects, but the expectation is that sound
+and time/info are disentangled.
+The music class is convenient for data entry, e.g., for transcription
+purposes, but it is not sensible to perform data analysis with quantities
+like pitch and time tightly bound together. This would only lead to
+repetitive deconstructions and reconstructions of music class objects. Most
+functions that operate on noteworthy strings or note info strings strictly
+apply to one or the other. Generic functions are reserved for only the most
+fundamental and generally applicable metadata retrieval and format coercion.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='note-checks.html'>note-checks</a></code>, <code><a href='note-metadata.html'>note-metadata</a></code>,
@@ -317,6 +340,7 @@ numbering and accidentals, all three are available as arguments to
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#details">Details</a></li>
+      <li><a href="#a-note-on-generic-functions">A note on generic functions</a></li>
       <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>

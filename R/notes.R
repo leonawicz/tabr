@@ -2,6 +2,7 @@
 #'
 #' Inspect basic metadata for noteworthy strings.
 #'
+#' @details
 #' These functions inspect the basic metadata of noteworthy strings.
 #' For functions that perform basic checks on strings, see
 #' \code{\link{note-checks}}.
@@ -17,14 +18,39 @@
 #' post-conversion to the \code{noteworthy} class and does not necessarily
 #' reflect what is found in \code{notes} verbatim. See examples.
 #'
+#' @section A note on generic functions:
+#' \code{n_steps} and the three time format functions are generic since they
+#' apply clearly to and are useful for not only noteworthy strings, but also
+#' note info and music objects. If \code{x} is still a simple character string,
+#' these functions attempt to guess which of the three it is. It is recommended
+#' to set the class before using these functions.
+#'
+#' There are many package functions that operate on noteworthy strings that
+#' could in concept also work on music objects, but the expectation is that
+#' sound and time/info are disentangled for analysis.
+#' The music class is convenient and relatively efficient data entry, e.g., for
+#' transcription purposes, but it is not sensible to perform data analysis with
+#' quantities like pitch and time tightly bound together in a single string.
+#' This would only lead to repetitive deconstructions and reconstructions of
+#' music class objects.
+#'
+#' The music class is intended to be a transient class such as during data
+#' import, data entry, or data export.
+#' Most functions that operate on noteworthy strings or note info
+#' strings strictly apply to one or the other. Generic functions are reserved
+#' for only the most fundamental and generally applicable metadata retrieval
+#' and format coercion.
+#'
 #' @param notes character, a noteworthy string, space-delimited or vector of
 #' individual entries.
+#' @param x for generic functions: notes, info or music string.
 #'
 #' @return varies by function
 #' @export
 #' @name note-metadata
-#' @seealso \code{\link{note-checks}}, \code{\link{note-summaries}},
-#' \code{\link{note-coerce}}, \code{\link{valid-notes}}
+#' @seealso \code{\link{tabr-methods}}, \code{\link{note-checks}},
+#' \code{\link{note-summaries}}, \code{\link{note-coerce}},
+#' \code{\link{valid-notes}}
 #'
 #' @examples
 #' x <- "e_2 a_, c#f#a#"
@@ -43,8 +69,38 @@
 #' time_format(x)
 #' is_space_time(x)
 #' is_vector_time(x)
-n_steps <- function(notes){
-  attr(as_noteworthy(notes), "steps")
+n_steps <- function(x){
+  UseMethod("n_steps", x)
+}
+
+#' @export
+n_steps.noteworthy <- function(x){
+  attr(as_noteworthy(x), "steps")
+}
+
+#' @export
+n_steps.noteinfo <- function(x){
+  attr(as_noteinfo(x), "steps")
+}
+
+#' @export
+n_steps.music <- function(x){
+  attr(as_music(x), "steps")
+}
+
+#' @export
+n_steps.numeric <- function(x){
+  n_steps.noteinfo(x)
+}
+
+#' @export
+n_steps.character <- function(x){
+  switch(
+    .guess_string_type(x),
+    "noteworthy" = n_steps.noteworthy(x),
+    "noteinfo" = n_steps.noteinfo(x),
+    "music" = n_steps.music(x)
+  )
 }
 
 #' @export
@@ -73,26 +129,119 @@ octave_type <- function(notes){
 
 #' @export
 #' @rdname note-metadata
-accidental_type <- function(notes){
-  attr(as_noteworthy(notes), "accidentals")
+accidental_type <- function(x){
+  y <- .guess_string_type(x, try_info = FALSE)
+  switch(y,
+    "noteworthy" = attr(as_noteworthy(x), "accidentals"),
+    "music" = attr(as_music(x), "accidentals")
+  )
 }
 
 #' @export
 #' @rdname note-metadata
-time_format <- function(notes){
-  attr(as_noteworthy(notes), "format")
+time_format <- function(x){
+  UseMethod("time_format", x)
+}
+
+#' @export
+time_format.noteworthy <- function(x){
+  attr(as_noteworthy(x), "format")
+}
+
+#' @export
+time_format.noteinfo <- function(x){
+  attr(as_noteinfo(x), "format")
+}
+
+#' @export
+time_format.music <- function(x){
+  attr(as_music(x), "format")
+}
+
+time_format.numeric <- function(x){
+  time_format.noteinfo(x)
+}
+
+#' @export
+time_format.character <- function(x){
+  switch(
+    .guess_string_type(x),
+    "noteworthy" = time_format.noteworthy(x),
+    "noteinfo" = time_format.noteinfo(x),
+    "music" = time_format.music(x)
+  )
 }
 
 #' @export
 #' @rdname note-metadata
-is_space_time <- function(notes){
-  time_format(notes) == "space-delimited time"
+is_space_time <- function(x){
+  UseMethod("is_space_time", x)
+}
+
+#' @export
+is_space_time.noteworthy <- function(x){
+  time_format.noteworthy(x) == "space-delimited time"
+}
+
+#' @export
+is_space_time.noteinfo<- function(x){
+  time_format.noteinfo(x) == "space-delimited time"
+}
+
+#' @export
+is_space_time.music <- function(x){
+  time_format.music(x) == "space-delimited time"
+}
+
+#' @export
+is_space_time.numeric <- function(x){
+  is_space_time.noteinfo(x)
+}
+
+#' @export
+is_space_time.character <- function(x){
+  switch(
+    .guess_string_type(x),
+    "noteworthy" = is_space_time.noteworthy(x),
+    "noteinfo" = is_space_time.noteinfo(x),
+    "music" = is_space_time.music(x)
+  )
 }
 
 #' @export
 #' @rdname note-metadata
-is_vector_time <- function(notes){
-  time_format(notes) == "vectorized time"
+is_vector_time <- function(x){
+  UseMethod("is_vector_time", x)
+}
+
+#' @export
+is_vector_time.noteworthy <- function(x){
+  time_format.noteworthy(x) == "vectorized time"
+}
+
+#' @export
+is_vector_time.noteinfo <- function(x){
+  time_format.noteinfo(x) == "vectorized time"
+}
+
+#' @export
+is_vector_time.music <- function(x){
+  time_format.music(x) == "vectorized time"
+}
+
+#' @export
+is_vector_time.numeric <- function(x){
+  is_vector_time.noteinfo(x)
+}
+
+#' @export
+is_vector_time.character <- function(x){
+  switch(
+    .guess_string_type(x),
+    "noteworthy" = is_vector_time.noteworthy(x),
+    "noteinfo" = is_vector_time.noteinfo(x),
+    "music" = is_vector_time.music(x)
+  )
 }
 
 #' Noteworthy string summaries
@@ -358,6 +507,7 @@ note_has_integer <- function(notes){
 #' noteworthy strings including representation of timesteps, octaves and
 #' accidentals.
 #'
+#' @details
 #' For \code{sharpen_flat} and \code{flatten_sharp}, sharpening flats and
 #' flattening sharps refer to inverting their respective notation,
 #' not to raising or lowering a flatted or sharped note by one semitone.
@@ -372,6 +522,24 @@ note_has_integer <- function(notes){
 #' numbering and accidentals, all three are available as arguments to
 #' \code{\link{as_noteworthy}}.
 #'
+#' @section A note on generic functions:
+#' \code{as_space_time} and \code{as_vector_time} are generic since they
+#' apply clearly to and are useful for not only noteworthy strings, but also
+#' note info and music objects. If \code{x} is still a simple character string,
+#' these functions attempt to guess which of the three it is. It is recommended
+#' to set the class before using these functions.
+#'
+#' There are many package functions that operate on noteworthy strings that
+#' could in concept work on music objects, but the expectation is that sound
+#' and time/info are disentangled.
+#' The music class is convenient for data entry, e.g., for transcription
+#' purposes, but it is not sensible to perform data analysis with quantities
+#' like pitch and time tightly bound together. This would only lead to
+#' repetitive deconstructions and reconstructions of music class objects. Most
+#' functions that operate on noteworthy strings or note info strings strictly
+#' apply to one or the other. Generic functions are reserved for only the most
+#' fundamental and generally applicable metadata retrieval and format coercion.
+#'
 #' @param notes character, a noteworthy string, space-delimited or vector of
 #' individual entries.
 #' @param type character, type of note to naturalize.
@@ -380,6 +548,7 @@ note_has_integer <- function(notes){
 #' @param key character, key signature to coerce any accidentals to the
 #' appropriate form for the key. May also specify \code{"sharp"} or
 #' \code{"flat"}.
+#' @param x for generic functions: notes, info or music string.
 #'
 #' @return character
 #' @export
@@ -454,14 +623,76 @@ as_integer_octaves <- function(notes){
 
 #' @export
 #' @rdname note-coerce
-as_space_time <- function(notes){
-  as_noteworthy(notes, format = "space")
+as_space_time <- function(x){
+  UseMethod("as_space_time", x)
+}
+
+#' @export
+as_space_time.noteworthy <- function(x){
+  .asnw(x, format = "space")
+}
+
+#' @export
+as_space_time.noteinfo <- function(x){
+  .asni(x, format = "space")
+}
+
+#' @export
+as_space_time.music <- function(x){
+  x <- music_split(x)
+  .asmusic(x$notes, x$info, tsig = x$tsig, format = "space")
+}
+
+#' @export
+as_space_time.numeric <- function(x){
+  as_space_time.noteinfo(x)
+}
+
+#' @export
+as_space_time.character <- function(x){
+  switch(
+    .guess_string_type(x),
+    "noteworthy" = as_space_time.noteworthy(x),
+    "noteinfo" = as_space_time.noteinfo(x),
+    "music" = as_space_time.music(x)
+  )
 }
 
 #' @export
 #' @rdname note-coerce
-as_vector_time <- function(notes){
-  as_noteworthy(notes, format = "vector")
+as_vector_time <- function(x){
+  UseMethod("as_vector_time", x)
+}
+
+#' @export
+as_vector_time.noteworthy <- function(x){
+  .asnw(x, format = "vector")
+}
+
+#' @export
+as_vector_time.noteinfo <- function(x){
+  .asni(x, format = "vector")
+}
+
+#' @export
+as_vector_time.music <- function(x){
+  x <- music_split(x)
+  .asmusic(x$notes, x$info, tsig = x$tsig, format = "vector")
+}
+
+#' @export
+as_vector_time.numeric <- function(x){
+  as_vector_time.noteinfo(x)
+}
+
+#' @export
+as_vector_time.character <- function(x){
+  switch(
+    .guess_string_type(x),
+    "noteworthy" = as_vector_time.noteworthy(x),
+    "noteinfo" = as_vector_time.noteinfo(x),
+    "music" = as_vector_time.music(x)
+  )
 }
 
 #' @export
@@ -491,10 +722,6 @@ pretty_notes <- function(notes, ignore_octave = TRUE){
 #' If \code{notes} contains chords, they are broken into successive notes. Then
 #' all notes are ordered by pitch. Finally shifting occurs.
 #'
-#' \code{note_rep} is a convenient, robust wrapper for noteworthy strings
-#' that provides analogous behavior to \code{rep} and accepts \code{each} and
-#' \code{times} arguments.
-#'
 #' Instead of a moving window, \code{note_arpeggiate} grows its sequence from
 #' the original set of timesteps by repeating the entire sequence \code{n}
 #' times (\code{n} must be positive). Each repeated sequence contributing to
@@ -511,8 +738,7 @@ pretty_notes <- function(notes, ignore_octave = TRUE){
 #' in \code{notes} at which to begin repeating the shifted \code{notes}
 #' sequence as an arpeggio. See examples.
 #' arpeggio.
-#' @param ... For \code{note_slice}, an integer or logical vector. For
-#' \code{note_rep}, may take \code{each} or \code{times}. See details.
+#' @param ... For \code{note_slice}, an integer or logical vector.
 #'
 #' @return character
 #' @export
@@ -525,10 +751,6 @@ pretty_notes <- function(notes, ignore_octave = TRUE){
 #' x <- "e_2 a_, c#f#a#"
 #' note_slice(x, 2:3)
 #' note_slice(x, c(FALSE, TRUE, TRUE))
-#'
-#' note_rep(x, 2)
-#' note_rep(x, each = 2)
-#' note_rep(x, times = 3:1)
 #'
 #' note_rotate(x, 1)
 #'
@@ -554,23 +776,6 @@ note_slice <- function(notes, ...){
   x <- x[idx]
   x <- x[!is.na(x)]
   if(!length(x)) stop("Index out of bounds.", call. = FALSE)
-  if(length(notes) == 1) x <- paste0(x, collapse = " ")
-  .asnw(x)
-}
-
-#' @export
-#' @rdname note_slice
-note_rep <- function(notes, ...){
-  .check_noteworthy(notes)
-  x <- .uncollapse(notes)
-  a <- list(...)
-  if(is.null(a$each) & is.null(a$times)){
-    x <- rep(x, ...)
-  } else if(!is.null(a$each)){
-    x <- rep(x, each = a$each)
-  } else {
-    x <- rep(x, times = a$times)
-  }
   if(length(notes) == 1) x <- paste0(x, collapse = " ")
   .asnw(x)
 }
@@ -684,21 +889,20 @@ note_arpeggiate <- function(notes, n = 0, step = 12){
 #'
 #' \code{as_noteworthy} can be used to coerce to the \code{noteworthy} class.
 #' Coercion will fail if the string is not noteworthy.
-#' Using the \code{noteworthy} class is generally not needed by the user during
-#' an interactive session, but is available and offers its own \code{print} and
-#' \code{summary} methods for noteworthy strings.
-#' However, an added benefit to using \code{as_noteworthy} is to conform all
+#' While many functions will work on simple character strings and, if their
+#' syntax is valid, coerce them to the 'noteworthy' class, it is recommended to
+#' use this class. Not all functions are so aggressive, and several generic
+#' methods are implemented for the class. It also offers its own \code{print}
+#' and \code{summary} methods for noteworthy strings.
+#' An added benefit to using \code{as_noteworthy} is to conform all
 #' notes in a noteworthy string to specific formatting for accidentals and
 #' octave numbering.
-#' The class is often used by other functions, and functions that output a
-#' noteworthy string attach the \code{noteworthy} class.
+#' Functions that output a noteworthy string attach the \code{noteworthy} class.
 #'
-#' For \code{as_noteworthy} and in general for functions that accept
-#' \code{octaves}, \code{accidentals}, \code{format}, and sometimes \code{key}
-#' as arguments, when these arguments are \code{NULL}, formatting is inferred
-#' from the noteworthy string input. When mixed formats are present,
-#' tick format is the default for octave numbering and flats are the default
-#' for accidentals.
+#' When \code{octaves}, \code{accidentals}, and \code{format} are \code{NULL},
+#' formatting is inferred from the noteworthy string input. When mixed formats
+#' are present, tick format is the default for octave numbering and flats are
+#' the default for accidentals.
 #'
 #' @param x character, a noteworthy string.
 #' @param octaves \code{NULL} or character, \code{"tick"} or \code{"integer"}
@@ -786,12 +990,12 @@ noteworthy <- function(x, na.rm = FALSE){
   nchord <- as.integer(sum(is_chord(x)))
   has_acc <- switch(accidentals,
                     "flat" = note_has_flat, "sharp" = note_has_sharp)
-  a <- if(has_acc(x)) accidentals else "unknown"
+  a <- if(has_acc(x)) accidentals else "flat"
   tick <- any(grepl(",|'", x))
   int <- any(grepl("\\d", x))
   has_oct <- switch(octaves,
                     "tick" = note_has_tick, "integer" = note_has_integer)
-  o <- if(has_oct(x)) octaves else "unknown"
+  o <- if(has_oct(x)) octaves else "tick"
   if(format == "space-delimited time") x <- paste(x, collapse = " ")
   attributes(x) <- list(steps = steps, n_note = nnote, n_chord = nchord,
                         octave = o, accidentals = a, format = format)
@@ -803,7 +1007,7 @@ noteworthy <- function(x, na.rm = FALSE){
 #' @rdname valid-notes
 as_noteworthy <- function(x, octaves = NULL, accidentals = NULL, format = NULL){
   null_args <- all(sapply(list(format, octaves, accidentals), is.null))
-  if("noteworthy" %in% class(x) & null_args) return(x)
+  if(inherits(x, "noteworthy") & null_args) return(x)
   .check_noteworthy(x)
   .check_format_arg(format)
   .check_octaves_arg(octaves)
@@ -838,7 +1042,7 @@ as_noteworthy <- function(x, octaves = NULL, accidentals = NULL, format = NULL){
 #' @export
 #' @rdname valid-notes
 is_noteworthy <- function(x){
-  "noteworthy" %in% class(x)
+  inherits(x, "noteworthy")
 }
 
 .check_note <- function(x, na.rm = FALSE){
@@ -860,7 +1064,7 @@ is_noteworthy <- function(x){
 print.noteworthy <- function(x, ...){
   a <- attributes(x)
   col1 <- crayon::make_style("gray50")$bold
-  if(length(x) == 1) x <- .uncollapse(x)
+  x <- .uncollapse(x)
   cat(col1("<Noteworthy string>\n  Format: "), a$format, col1("\n  Values: "),
       .tabr_print(x), "\n", sep = "")
 }
@@ -875,7 +1079,7 @@ summary.noteworthy <- function(object, ...){
       col1("\n  Octaves: "), a$octave,
       col1("\n  Accidentals: "), a$accidentals,
       col1("\n  Format: "), a$format, col1("\n  Values: "),
-      .tabr_print(.uncollapse(as.character(object))), "\n", sep = "")
+      .tabr_print(.uncollapse(object)), "\n", sep = "")
 }
 
 .tabr_print <- function(x){

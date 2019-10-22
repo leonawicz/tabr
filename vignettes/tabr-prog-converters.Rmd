@@ -44,12 +44,17 @@ note transcription data for any particular instrument. This means the result of 
 The tiny notation format for [music21](https://web.mit.edu/music21/) is similar in several respects to `tabr` notation. The `to_tabr` function, and specifically, `from_music21`, will convert from `music21` to `tabr` syntax. The functionality is still a work in progress, but works for simple notation.
 
 ```{r music21}
-m21 <- "4/4 CCC#4.. trip{c#8 d'- e-' f g a' b'} D4~# D E F r B16 trip{c4 d e}"
+m21 <- "4/4 CC#FF4.. trip{c#8eg# d'- e-' f g a'} D4~# D E F r B16 trip{c4 d e}"
 x <- from_music21(m21)
+class(x)
 x
+
+summary(x)
 
 y <- to_tabr(id = "music21", x = m21)
 identical(x, y)
+
+from_music21(m21, output = "list") # same as music_split(x)
 ```
 
 Different syntax converters not only handle different input structures, but due to the different nature of the information they contain, their outputs are different as well. See `help("to_tabr")` for more details on converters and their available arguments.
@@ -71,7 +76,7 @@ chords <- c("Bb", "Bbm", "Bbm7", "Bbm7(b5)", "Bb7(#5)/G", "Bb7(#5)/Ab")
 x <- from_chorrrds(chords)
 x
 
-y <- to_tabr("chorrrds", chords = chords)
+y <- to_tabr("chorrrds", x = chords)
 identical(x, y)
 ```
 
@@ -119,14 +124,16 @@ as_music_df(x)
 Say also that you knew that these chords were all strummed four times each, four quarter notes per measure. You can expand the series and add the time information as well.
 
 ```{r chorrrds5}
-x <- note_rep(x, each = 4)
-time <- rep(4, n_steps(x))
+x <- rep(x, each = 4)
+time <- rep(4, length(x))
 
 mdf <- as_music_df(x, time, key = "am")
 mdf
 ```
 
 The functions available in `tabr` for manipulating noteworthy strings can be applied similarly to data frame columns for general music data analysis.
+
+Also, notice the generic primitives `length` and `rep` have been implemented for `tabr` classes. See `help("tabr-methods")` for more information on the available methods.
 
 ### Visual representation
 

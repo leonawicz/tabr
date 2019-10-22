@@ -38,8 +38,8 @@ Recycling occurs only if one argument is scalar.
 \examples{
 dyad("a", 4)
 x <- c("minor third", "m3", "augmented second", "A2")
-sapply(x, function(x) dyad("a", x))
-sapply(x, function(x) dyad("c'", x, reverse = TRUE))
+dyad("a", x)
+dyad("c'", x, reverse = TRUE)
 
 x <- c("M3", "m3", "m3", "M3", "M3", "m3", "m3")
 dyad(letters[c(3:7, 1, 2)], x)

@@ -48,21 +48,20 @@ exclusively valid entries.
 \details{
 \code{as_noteworthy} can be used to coerce to the \code{noteworthy} class.
 Coercion will fail if the string is not noteworthy.
-Using the \code{noteworthy} class is generally not needed by the user during
-an interactive session, but is available and offers its own \code{print} and
-\code{summary} methods for noteworthy strings.
-However, an added benefit to using \code{as_noteworthy} is to conform all
+While many functions will work on simple character strings and, if their
+syntax is valid, coerce them to the 'noteworthy' class, it is recommended to
+use this class. Not all functions are so aggressive, and several generic
+methods are implemented for the class. It also offers its own \code{print}
+and \code{summary} methods for noteworthy strings.
+An added benefit to using \code{as_noteworthy} is to conform all
 notes in a noteworthy string to specific formatting for accidentals and
 octave numbering.
-The class is often used by other functions, and functions that output a
-noteworthy string attach the \code{noteworthy} class.
+Functions that output a noteworthy string attach the \code{noteworthy} class.
 
-For \code{as_noteworthy} and in general for functions that accept
-\code{octaves}, \code{accidentals}, \code{format}, and sometimes \code{key}
-as arguments, when these arguments are \code{NULL}, formatting is inferred
-from the noteworthy string input. When mixed formats are present,
-tick format is the default for octave numbering and flats are the default
-for accidentals.
+When \code{octaves}, \code{accidentals}, and \code{format} are \code{NULL},
+formatting is inferred from the noteworthy string input. When mixed formats
+are present, tick format is the default for octave numbering and flats are
+the default for accidentals.
 }
 \examples{
 x <- "a# b_ c, d'' e3 g_4 A m c2e_2g2 cegh" # includes invalid syntax

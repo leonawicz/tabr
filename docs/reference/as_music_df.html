@@ -230,8 +230,8 @@ derivative variables.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>notes</th>
-      <td><p>character, a noteworthy string, or a phrase object in which
-case <code>info</code> is ignored.</p></td>
+      <td><p>character, a noteworthy string. Alternatively, a music object
+a phrase object, in which case <code>info</code> is ignored.</p></td>
     </tr>
     <tr>
       <th>info</th>
@@ -328,7 +328,7 @@ can be recovered without recomputing from the original pitches.</p>
 #&gt; </span><span style='color: #555555;'>18</span><span> </span><span style='color: #BB0000;'>NA</span><span>       a     a           57      3  220. am    harm~         1        -</span><span style='color: #BB0000;'>3</span><span>
 #&gt; </span><span style='color: #555555;'># ... with 1 more variable: scale_int </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'>
 <span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='notate.html'>notate</a></span>(<span class='st'>"8"</span>, <span class='st'>"Start here."</span>)
-<span class='no'>time</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='no'>a</span>, <span class='st'>"8*2 16 4.. 16( 16)( 2) 2 4. 8- 4 4- 8*4 1"</span>)
+<span class='no'>time</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='no'>a</span>, <span class='st'>"8*2 16 4.. 16( 16)( 2) 2 4. t8- t8 t8- 8*4 1"</span>)
 <span class='no'>d1</span> <span class='kw'>&lt;-</span> <span class='fu'>as_music_df</span>(<span class='no'>x</span>, <span class='no'>time</span>)
 <span class='no'>d1</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 18 x 12</span><span>
 #&gt;    duration pitch note  semitone octave  freq pitch_int scale_int slur  slide
@@ -343,15 +343,20 @@ can be recovered without recomputing from the original pitches.</p>
 #&gt; </span><span style='color: #555555;'> 8</span><span> 2        a     a           57      3  220.         1 m2        off   FALSE
 #&gt; </span><span style='color: #555555;'> 9</span><span> 2        r     r           </span><span style='color: #BB0000;'>NA</span><span>     </span><span style='color: #BB0000;'>NA</span><span>   </span><span style='color: #BB0000;'>NA</span><span>         </span><span style='color: #BB0000;'>NA</span><span> </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='color: #BB0000;'>NA</span><span>    FALSE
 #&gt; </span><span style='color: #555555;'>10</span><span> 4.       ac'e' ace         57      3  220.         0 P1        </span><span style='color: #BB0000;'>NA</span><span>    FALSE
-#&gt; </span><span style='color: #555555;'>11</span><span> 8        a     a           57      3  220.         0 P1        </span><span style='color: #BB0000;'>NA</span><span>    TRUE 
-#&gt; </span><span style='color: #555555;'>12</span><span> 4        c'    c           48      4  262.         3 m3        </span><span style='color: #BB0000;'>NA</span><span>    FALSE
-#&gt; </span><span style='color: #555555;'>13</span><span> 4        e'    e           52      4  330.         4 M3        </span><span style='color: #BB0000;'>NA</span><span>    TRUE 
+#&gt; </span><span style='color: #555555;'>11</span><span> t8       a     a           57      3  220.         0 P1        </span><span style='color: #BB0000;'>NA</span><span>    TRUE 
+#&gt; </span><span style='color: #555555;'>12</span><span> t8       c'    c           48      4  262.         3 m3        </span><span style='color: #BB0000;'>NA</span><span>    FALSE
+#&gt; </span><span style='color: #555555;'>13</span><span> t8       e'    e           52      4  330.         4 M3        </span><span style='color: #BB0000;'>NA</span><span>    TRUE 
 #&gt; </span><span style='color: #555555;'>14</span><span> 8        c'    c           48      4  262.        -</span><span style='color: #BB0000;'>4</span><span> M3        </span><span style='color: #BB0000;'>NA</span><span>    FALSE
 #&gt; </span><span style='color: #555555;'>15</span><span> 8        r     r           </span><span style='color: #BB0000;'>NA</span><span>     </span><span style='color: #BB0000;'>NA</span><span>   </span><span style='color: #BB0000;'>NA</span><span>         </span><span style='color: #BB0000;'>NA</span><span> </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='color: #BB0000;'>NA</span><span>    FALSE
 #&gt; </span><span style='color: #555555;'>16</span><span> 8        r     r           </span><span style='color: #BB0000;'>NA</span><span>     </span><span style='color: #BB0000;'>NA</span><span>   </span><span style='color: #BB0000;'>NA</span><span>         </span><span style='color: #BB0000;'>NA</span><span> </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='color: #BB0000;'>NA</span><span>    FALSE
 #&gt; </span><span style='color: #555555;'>17</span><span> 8        r     r           </span><span style='color: #BB0000;'>NA</span><span>     </span><span style='color: #BB0000;'>NA</span><span>   </span><span style='color: #BB0000;'>NA</span><span>         </span><span style='color: #BB0000;'>NA</span><span> </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='color: #BB0000;'>NA</span><span>    FALSE
 #&gt; </span><span style='color: #555555;'>18</span><span> 1        a     a           57      3  220.        -</span><span style='color: #BB0000;'>3</span><span> m3        </span><span style='color: #BB0000;'>NA</span><span>    FALSE
 #&gt; </span><span style='color: #555555;'># ... with 2 more variables: dotted </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, annotation </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'>
+<span class='co'># Go directly from music object to data frame</span>
+<span class='no'>m1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='music.html'>as_music</a></span>(<span class='no'>x</span>, <span class='no'>time</span>)
+<span class='no'>d2</span> <span class='kw'>&lt;-</span> <span class='fu'>as_music_df</span>(<span class='no'>m1</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='no'>d1</span>, <span class='no'>d2</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='co'># Go directly from phrase object to data frame</span>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='no'>x</span>, <span class='no'>time</span>)
 <span class='no'>d2</span> <span class='kw'>&lt;-</span> <span class='fu'>as_music_df</span>(<span class='no'>p1</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='no'>d1</span>, <span class='no'>d2</span>)</div><div class='output co'>#&gt; [1] TRUE</div></span></pre>

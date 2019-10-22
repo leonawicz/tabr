@@ -48,7 +48,7 @@ transpose <- function(notes, n = 0, octaves = NULL, accidentals = NULL,
   .check_noteworthy(notes)
   .check_octaves_arg(octaves)
   .check_accidentals_arg(accidentals)
-  format <- if(length(notes) == 1) "space" else "vector"
+  format <- if(length(as.character(notes)) == 1) "space" else "vector"
   if(is.null(octaves)) octaves <- .infer_octave_type(notes)
   if(is.null(accidentals)) accidentals <- .infer_accidentals(notes)
   if(!is.null(key)){

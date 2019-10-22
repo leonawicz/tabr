@@ -25,9 +25,9 @@ as_tick_octaves(notes)
 
 as_integer_octaves(notes)
 
-as_space_time(notes)
+as_space_time(x)
 
-as_vector_time(notes)
+as_vector_time(x)
 
 pretty_notes(notes, ignore_octave = TRUE)
 }
@@ -40,6 +40,8 @@ individual entries.}
 \item{key}{character, key signature to coerce any accidentals to the
 appropriate form for the key. May also specify \code{"sharp"} or
 \code{"flat"}.}
+
+\item{x}{for generic functions: notes, info or music string.}
 
 \item{ignore_octave}{logical, strip any octave notation that may be present,
 returning only the basic notes without explicit pitch.}
@@ -67,6 +69,26 @@ For simultaneous control over the representation of timesteps, octave
 numbering and accidentals, all three are available as arguments to
 \code{\link{as_noteworthy}}.
 }
+\section{A note on generic functions}{
+
+\code{as_space_time} and \code{as_vector_time} are generic since they
+apply clearly to and are useful for not only noteworthy strings, but also
+note info and music objects. If \code{x} is still a simple character string,
+these functions attempt to guess which of the three it is. It is recommended
+to set the class before using these functions.
+
+There are many package functions that operate on noteworthy strings that
+could in concept work on music objects, but the expectation is that sound
+and time/info are disentangled.
+The music class is convenient for data entry, e.g., for transcription
+purposes, but it is not sensible to perform data analysis with quantities
+like pitch and time tightly bound together. This would only lead to
+repetitive deconstructions and reconstructions of music class objects. Most
+functions that operate on noteworthy strings or note info strings strictly
+apply to one or the other. Generic functions are reserved for only the most
+fundamental and generally applicable metadata retrieval and format coercion.
+}
+
 \examples{
 x <- "e_2 a_, b_, c#f#a# c#'f#'a#''"
 note_set_key(x, "f")

@@ -17,7 +17,7 @@
 \alias{note_has_integer}
 \title{Noteworthy string metadata}
 \usage{
-n_steps(notes)
+n_steps(x)
 
 n_notes(notes)
 
@@ -27,13 +27,13 @@ n_octaves(notes)
 
 octave_type(notes)
 
-accidental_type(notes)
+accidental_type(x)
 
-time_format(notes)
+time_format(x)
 
-is_space_time(notes)
+is_space_time(x)
 
-is_vector_time(notes)
+is_vector_time(x)
 
 note_is_tick(notes)
 
@@ -44,6 +44,8 @@ note_has_tick(notes)
 note_has_integer(notes)
 }
 \arguments{
+\item{x}{for generic functions: notes, info or music string.}
+
 \item{notes}{character, a noteworthy string, space-delimited or vector of
 individual entries.}
 }
@@ -69,6 +71,31 @@ inspecting a standard character string, the result pertains to
 post-conversion to the \code{noteworthy} class and does not necessarily
 reflect what is found in \code{notes} verbatim. See examples.
 }
+\section{A note on generic functions}{
+
+\code{n_steps} and the three time format functions are generic since they
+apply clearly to and are useful for not only noteworthy strings, but also
+note info and music objects. If \code{x} is still a simple character string,
+these functions attempt to guess which of the three it is. It is recommended
+to set the class before using these functions.
+
+There are many package functions that operate on noteworthy strings that
+could in concept also work on music objects, but the expectation is that
+sound and time/info are disentangled for analysis.
+The music class is convenient and relatively efficient data entry, e.g., for
+transcription purposes, but it is not sensible to perform data analysis with
+quantities like pitch and time tightly bound together in a single string.
+This would only lead to repetitive deconstructions and reconstructions of
+music class objects.
+
+The music class is intended to be a transient class such as during data
+import, data entry, or data export.
+Most functions that operate on noteworthy strings or note info
+strings strictly apply to one or the other. Generic functions are reserved
+for only the most fundamental and generally applicable metadata retrieval
+and format coercion.
+}
+
 \examples{
 x <- "e_2 a_, c#f#a#"
 n_steps(x)
@@ -88,6 +115,7 @@ is_space_time(x)
 is_vector_time(x)
 }
 \seealso{
-\code{\link{note-checks}}, \code{\link{note-summaries}},
-\code{\link{note-coerce}}, \code{\link{valid-notes}}
+\code{\link{tabr-methods}}, \code{\link{note-checks}},
+\code{\link{note-summaries}}, \code{\link{note-coerce}},
+\code{\link{valid-notes}}
 }

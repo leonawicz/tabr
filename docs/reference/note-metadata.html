@@ -219,7 +219,7 @@
     <p>Inspect basic metadata for noteworthy strings.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>n_steps</span>(<span class='no'>notes</span>)
+    <pre class="usage"><span class='fu'>n_steps</span>(<span class='no'>x</span>)
 
 <span class='fu'>n_notes</span>(<span class='no'>notes</span>)
 
@@ -229,13 +229,13 @@
 
 <span class='fu'>octave_type</span>(<span class='no'>notes</span>)
 
-<span class='fu'>accidental_type</span>(<span class='no'>notes</span>)
+<span class='fu'>accidental_type</span>(<span class='no'>x</span>)
 
-<span class='fu'>time_format</span>(<span class='no'>notes</span>)
+<span class='fu'>time_format</span>(<span class='no'>x</span>)
 
-<span class='fu'>is_space_time</span>(<span class='no'>notes</span>)
+<span class='fu'>is_space_time</span>(<span class='no'>x</span>)
 
-<span class='fu'>is_vector_time</span>(<span class='no'>notes</span>)
+<span class='fu'>is_vector_time</span>(<span class='no'>x</span>)
 
 <span class='fu'>note_is_tick</span>(<span class='no'>notes</span>)
 
@@ -248,6 +248,10 @@
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>for generic functions: notes, info or music string.</p></td>
+    </tr>
     <tr>
       <th>notes</th>
       <td><p>character, a noteworthy string, space-delimited or vector of
@@ -272,10 +276,34 @@ Note that the result pertains to true <code>noteworthy</code>-class objects. If
 inspecting a standard character string, the result pertains to
 post-conversion to the <code>noteworthy</code> class and does not necessarily
 reflect what is found in <code>notes</code> verbatim. See examples.</p>
+    <h2 class="hasAnchor" id="a-note-on-generic-functions"><a class="anchor" href="#a-note-on-generic-functions"></a>A note on generic functions</h2>
+
+    
+
+<p><code>n_steps</code> and the three time format functions are generic since they
+apply clearly to and are useful for not only noteworthy strings, but also
+note info and music objects. If <code>x</code> is still a simple character string,
+these functions attempt to guess which of the three it is. It is recommended
+to set the class before using these functions.</p>
+<p>There are many package functions that operate on noteworthy strings that
+could in concept also work on music objects, but the expectation is that
+sound and time/info are disentangled for analysis.
+The music class is convenient and relatively efficient data entry, e.g., for
+transcription purposes, but it is not sensible to perform data analysis with
+quantities like pitch and time tightly bound together in a single string.
+This would only lead to repetitive deconstructions and reconstructions of
+music class objects.</p>
+<p>The music class is intended to be a transient class such as during data
+import, data entry, or data export.
+Most functions that operate on noteworthy strings or note info
+strings strictly apply to one or the other. Generic functions are reserved
+for only the most fundamental and generally applicable metadata retrieval
+and format coercion.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='note-checks.html'>note-checks</a></code>, <code><a href='note-summaries.html'>note-summaries</a></code>,
-<code><a href='note-coerce.html'>note-coerce</a></code>, <code><a href='valid-notes.html'>valid-notes</a></code></p></div>
+    <div class='dont-index'><p><code><a href='tabr-methods.html'>tabr-methods</a></code>, <code><a href='note-checks.html'>note-checks</a></code>,
+<code><a href='note-summaries.html'>note-summaries</a></code>, <code><a href='note-coerce.html'>note-coerce</a></code>,
+<code><a href='valid-notes.html'>valid-notes</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"e_2 a_, c#f#a#"</span>
@@ -294,6 +322,7 @@ reflect what is found in <code>notes</code> verbatim. See examples.</p>
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#details">Details</a></li>
+      <li><a href="#a-note-on-generic-functions">A note on generic functions</a></li>
       <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>

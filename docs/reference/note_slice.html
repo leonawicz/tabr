@@ -221,8 +221,6 @@
 
     <pre class="usage"><span class='fu'>note_slice</span>(<span class='no'>notes</span>, <span class='no'>...</span>)
 
-<span class='fu'>note_rep</span>(<span class='no'>notes</span>, <span class='no'>...</span>)
-
 <span class='fu'>note_sort</span>(<span class='no'>notes</span>, <span class='kw'>decreasing</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>note_rotate</span>(<span class='no'>notes</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>0</span>)
@@ -241,8 +239,7 @@ individual entries.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>For <code>note_slice</code>, an integer or logical vector. For
-<code>note_rep</code>, may take <code>each</code> or <code>times</code>. See details.</p></td>
+      <td><p>For <code>note_slice</code>, an integer or logical vector.</p></td>
     </tr>
     <tr>
       <th>decreasing</th>
@@ -278,9 +275,6 @@ place. It allows chords. Octave numbering is ignored if present.</p>
 if inverting a broken chord.
 If <code>notes</code> contains chords, they are broken into successive notes. Then
 all notes are ordered by pitch. Finally shifting occurs.</p>
-<p><code>note_rep</code> is a convenient, robust wrapper for noteworthy strings
-that provides analogous behavior to <code>rep</code> and accepts <code>each</code> and
-<code>times</code> arguments.</p>
 <p>Instead of a moving window, <code>note_arpeggiate</code> grows its sequence from
 the original set of timesteps by repeating the entire sequence <code>n</code>
 times (<code>n</code> must be positive). Each repeated sequence contributing to
@@ -301,13 +295,6 @@ by one octave.</p>
 #&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>d_g_b_</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>note_slice</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>FALSE</span>, <span class='fl'>TRUE</span>, <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>d_g_b_</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'>
-<span class='fu'>note_rep</span>(<span class='no'>x</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
-#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>d_g_b_</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>d_g_b_</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>note_rep</span>(<span class='no'>x</span>, <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
-#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>d_g_b_</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>d_g_b_</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>note_rep</span>(<span class='no'>x</span>, <span class='kw'>times</span> <span class='kw'>=</span> <span class='fl'>3</span>:<span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
-#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>d_g_b_</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'>
 <span class='fu'>note_rotate</span>(<span class='no'>x</span>, <span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>d_g_b_</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>,</span><span></div><div class='input'>

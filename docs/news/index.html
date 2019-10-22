@@ -222,9 +222,15 @@
 <li>Substantial code optimization was done, overhauling much of the package in the process.</li>
 <li>Vectorized functions that previously only operated note by note.</li>
 <li>Generalized functions that previously could accept notes but not chords, doing so on a case by case basis in ways that are meaningful and sensible for handling chords.</li>
+<li>Added new classes <code>noteinfo</code> to complement <code>noteworthy</code> and associated functions.</li>
+<li>Added new class <code>music</code> which builds upon the combination of <code>noteworthy</code> and <code>noteinfo</code>, similar in content to <code>phrase</code> but maintaining the structure of the other <code>tabr</code> classes for data manipulation and analysis.</li>
+<li>Added implementations for several common R functions including primitives like <code>c</code>, <code>length</code>, <code><a href="https://rdrr.io/r/base/Extract.html">[</a></code> and more to be used with special classes available in <code>tabr</code>.</li>
+<li>Refactored some basic metadata functions as generics to dispatch to the new classes rather than only working for <code>noteworthy</code> objects. For example, <code>time_format</code>, <code>n_steps</code>.</li>
 <li>Added MIDI file read support (requires optional <code>tuneR</code> installation) and a set of functions for inspecting and manipulating the table of MIDI music data.</li>
+<li>Added more functions for music data manipulation and analysis.</li>
 <li>Added more functions for mapping between noteworthy strings, phrase objects, and data frames.</li>
-<li>Added first syntax converter <code>from_chorrrds</code> (for chord output from <code>chorrrds</code> package), and <code>to_tabr</code> general wrapper function, for converting other music notation syntax to <code>tabr</code> syntax.</li>
+<li>Added syntax converters <code>from_chorrrds</code> (for chord output from <code>chorrrds</code> package) and <code>from_music21</code>, for converting other music notation syntax to <code>tabr</code> syntax.</li>
+<li>Added new vignettes on syntax conversion and rendering chord charts.</li>
 <li>Updated vignettes, readme and other documentation.</li>
 <li>Made improvements to print method for phrase objects.</li>
 <li>Added <code>rests</code> argument to some note metadata functions.</li>

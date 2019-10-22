@@ -165,8 +165,8 @@ chord_break <- function(notes){
 #' @examples
 #' dyad("a", 4)
 #' x <- c("minor third", "m3", "augmented second", "A2")
-#' sapply(x, function(x) dyad("a", x))
-#' sapply(x, function(x) dyad("c'", x, reverse = TRUE))
+#' dyad("a", x)
+#' dyad("c'", x, reverse = TRUE)
 #'
 #' x <- c("M3", "m3", "m3", "M3", "M3", "m3", "m3")
 #' dyad(letters[c(3:7, 1, 2)], x)
@@ -198,11 +198,11 @@ dyad <- function(notes, interval, reverse = FALSE,
     n1 <- n1[i]
     int <- int[i]
     n2 <- transpose(n1, int, o, a, key)
-    paste(if(int == 0) n1 else if(int > 0) c(n1, n2) else c(n2, n1),
+    paste(if(int == 0) n1 else if(int > 0) paste0(n1, n2) else paste0(n2, n1),
           collapse = "")
   }
   x <- sapply(seq_along(x), f, x, interval)
-  if(length(notes) == 1) x <- paste(x, collapse = " ")
+  if(length(as.character(notes)) == 1) x <- paste(x, collapse = " ")
   .asnw(x)
 }
 

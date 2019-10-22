@@ -142,9 +142,9 @@ remotes::install_github("leonawicz/tabr")
 
 As a quick introduction and to get oriented to the music notation syntax offered by `tabr`, consider the concept of a noteworthy string. This is like any other character string, except that what makes a string noteworthy is that its content consists strictly of valid `tabr` music notation syntax. It can be parsed unambiguously and meaningfully into a musical phrase (see next section) and can be processed as input to the various package functions that inspect and manipulate musical information.
 
-A simple character string like `"c e g"`, or alternatively as a vector, `c("c", "e", "g")`, is a noteworthy string. The single lowercase letter `"a"` is noteworthy. So are `"a_"` and `"a#"` (flat and sharp). However, `"A"` is not, nor is `"z"`. There are other pieces of valid syntax than just the lowercase letters `a` through `g` and sharp and flat notation. The most important for specifying pitch is to indicate the octave number, either in tick (comma and single quote) or integer format. For all the available syntax specifications and related details see the package vignettes.
+A simple character string like `"c e g"`, or alternatively as a vector, `c("c", "e", "g")`, is a noteworthy string. The single lowercase letter `"a"` is noteworthy. So are `"a_"` and `"a#"` (flat and sharp). However, `"A"` is not, nor is `"z"`. There are other pieces of valid syntax than just the lowercase letters `a` through `g` and sharp and flat notation. The most important for specifying pitch is to indicate the octave number, either in tick (recommended; comma and single quote) or integer format (not recommended, more limited utility). For all the available syntax specifications and related details see the package vignettes.
 
-Noteworthiness can be checked on any character string. No supplemental class is required. When defining noteworthy strings you can define them like any other character vector. However, you will notice that package functions that operate on noteworthy strings and whose output is another noteworthy string will yield a string with the supplemental `noteworthy` class. This has its own print and summary methods. If you remove the class with a common R operation like `as.character()`, it does not impact any subsequent musical manipulation beyond the need to reperform a noteworthy check.
+Noteworthiness can be checked on any character string. When defining noteworthy strings you can define them like any other character vector. However, you will notice that package functions that operate on noteworthy strings and whose output is another noteworthy string will yield a string with the supplemental `noteworthy` class. This has its own print and summary methods. Several other generic methods are also implemented for the class so it is recommended to use the class. While many functions will attempt to coerce a string to `noteworthy`, note all will and some methods are implemented specifically for the class.
 
 ```{r nw}
 x <- "g#, c d# g#c'd#'"
@@ -163,6 +163,8 @@ summary(x)
 distinct_pitches(x)
 distinct_pitches(x) %>% pitch_freq() # in Hz
 ```
+
+There is also a `noteinfo` class and a `music` class. You can learn more in the vignettes.
 
 ## Tidy music analysis
 

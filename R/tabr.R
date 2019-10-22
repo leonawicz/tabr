@@ -81,7 +81,7 @@ NULL
 NULL
 
 .uncollapse <- function(x){
-  if(!is.character(x)) x <- as.character(x)
+  x <- as.character(x)
   if(length(x) == 1) x <- strsplit(x, " ")[[1]]
   idx <- grep("\\*\\d+", x)
   if(length(idx)){
@@ -115,5 +115,32 @@ NULL
 }
 
 .infer_time_format <- function(x){
-  if(length(x) == 1) "space" else "vector"
+  if(length(as.character(x)) == 1) "space" else "vector"
+}
+
+.guess_string_type <- function(x, try_info = TRUE){
+  y <- tryCatch(
+    as_noteworthy(x),
+    error = function(e) NULL
+  )
+  if(!is.null(y)) return("noteworthy")
+  if(try_info){
+    y <- tryCatch(
+      as_noteinfo(x),
+      error = function(e) NULL
+    )
+    if(!is.null(y)) return("noteinfo")
+  }
+  y <- tryCatch(
+    .check_music_split(x),
+    error = function(e) NULL
+  )
+  if(!is.null(y)){
+    "music"
+  } else if(try_info){
+    stop(paste("Cannot coerce string to any of class",
+               "'noteworthy', 'noteinfo', or 'music'."), call. = FALSE)
+  } else {
+    stop("Cannot coerce string to 'noteworthy' or 'music'.", call. = FALSE)
+  }
 }

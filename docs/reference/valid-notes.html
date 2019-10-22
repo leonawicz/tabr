@@ -276,20 +276,19 @@ octave numbering in result.</p></td>
 
     <p><code>as_noteworthy</code> can be used to coerce to the <code>noteworthy</code> class.
 Coercion will fail if the string is not noteworthy.
-Using the <code>noteworthy</code> class is generally not needed by the user during
-an interactive session, but is available and offers its own <code>print</code> and
-<code>summary</code> methods for noteworthy strings.
-However, an added benefit to using <code>as_noteworthy</code> is to conform all
+While many functions will work on simple character strings and, if their
+syntax is valid, coerce them to the 'noteworthy' class, it is recommended to
+use this class. Not all functions are so aggressive, and several generic
+methods are implemented for the class. It also offers its own <code>print</code>
+and <code>summary</code> methods for noteworthy strings.
+An added benefit to using <code>as_noteworthy</code> is to conform all
 notes in a noteworthy string to specific formatting for accidentals and
 octave numbering.
-The class is often used by other functions, and functions that output a
-noteworthy string attach the <code>noteworthy</code> class.</p>
-<p>For <code>as_noteworthy</code> and in general for functions that accept
-<code>octaves</code>, <code>accidentals</code>, <code>format</code>, and sometimes <code>key</code>
-as arguments, when these arguments are <code>NULL</code>, formatting is inferred
-from the noteworthy string input. When mixed formats are present,
-tick format is the default for octave numbering and flats are the default
-for accidentals.</p>
+Functions that output a noteworthy string attach the <code>noteworthy</code> class.</p>
+<p>When <code>octaves</code>, <code>accidentals</code>, and <code>format</code> are <code>NULL</code>,
+formatting is inferred from the noteworthy string input. When mixed formats
+are present, tick format is the default for octave numbering and flats are
+the default for accidentals.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='note-checks.html'>note-checks</a></code>, <code><a href='note-metadata.html'>note-metadata</a></code>,
