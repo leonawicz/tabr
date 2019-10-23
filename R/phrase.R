@@ -4,97 +4,56 @@
 #' metadata, and optionally explicit strings fretted. The latter can be used to
 #' ensure proper tablature layout.
 #'
-#' Meeting all of the requirements for a string of notes to be valid
-#' \code{tabr} syntax is referred to as \emph{noteworthy}. Noteworthy strings
-#' are referred to throughout the documentation.
-#' Such requirements are outlined below.
+#' A phrase object combines a valid string of notes with a corresponding valid
+#' string of note info. The only required note info is time, but other
+#' information can be included as well. You do not need to input an existing
+#' \code{noteworthy} class object and \code{noteinfo} class object, but both
+#' inputs must be valid and thus coercible to these classes. This is similar to
+#' how the \code{music} class works. The difference with phrase objects is that
+#' they are used to create LilyPond syntax analogous to what a music object
+#' contains.
 #'
-#' Noteworthy strings use space-delimited time. This means that notes and
-#' chords separated in time are separated in the \code{notes} string by spaces.
-#' This is by far the most common usage. However, many functions in
-#' \code{tabr}, including \code{phrase},
-#' allow a \code{notes} or similar first function argument to be provided in
-#' vector form where each vector element is a single note or chord (single
-#' point in time).
-#' Internally, functions like \code{phrase} will manipulate these forms back
-#' and forth as needed. Having both input options provides useful flexibility
-#' for music programming in \code{tabr} in general.
-#' The pipe operator can also be leveraged to chain several functions together.
-#'
-#' Sharps and flats are indicated by appending \code{#} and \code{_},
-#' respectively, e.g. \code{f#} or \code{g_}.
-#'
-#' Specifying notes that are one or multiple octaves below or above the third
-#' octave can be done by appending one or multiple commas or single quote
-#' tick marks, respectively, e.g. \code{c,} or \code{c''}.
-#' But this is not necessary. Instead, you can use octave numbering. This may
-#' be easier to read, generally more familiar,
-#' potentially requires less typing, can still be omitted completely
-#' for the third octave (no need to type c3, d3, ...), and is automatically
-#' converted for you by \code{phrase} to the tick mark format interpreted by
-#' LilyPond.
-#' That said, using the raised and lowered tick mark approach can be
-#' surprisingly easier to read for chords, which have no spaces between notes,
-#' especially six-string chords,
-#' given that the tick marks help break up the notes in the chord visually much
-#' more so than integers do. See examples.
-#'
+#' See the help documentation on \code{noteworthy}, \code{noteinfo}, and
+#' \code{music} classes for an understanding of the input data structures.
 #' The function \code{p} is a convenient shorthand wrapper for \code{phrase}.
 #'
-#' Tied notes indicated by \code{~} are part of the \code{note} notation and
-#' not part of the \code{info} notation, e.g. \code{c''~}.
-#'
-#' Notes can comprise chords. These are bound tightly rather than
-#' space-delimited, as they are not separated in time.
-#' For example, a C chord could be given as \code{ceg} and in the case of tied
-#' notes would be \code{c~e~g~}.
-#'
-#' Other information about a note is indicated with the \code{info} string.
-#' The most pertinent information, minimally required, is the note duration.
-#' A string of space-delimited \code{notes} will always be accompanied by a
-#' space-delimited string of an equal number of integer durations.
-#' Durations are powers of 2: 1, 2, 4, 8, 16, 32, 64. They represent the
-#' fraction of a measure, e.g., 2 means 1/2 of a measure and 8 refers to an
-#' eighth note.
-#' Dotted notes are indicated by adding \code{.} immediately after the integer,
-#' e.g., \code{2.} or \code{2..}.
-#' Any other note metadata is appended to these durations. See examples.
-#'
-#' Opening and closing slurs (or hammer ons and pull offs) are indicated with
-#' opening and closing parentheses, slides with \code{-}, and simple bends with
-#' \code{^}.
-#' Text annotations aligned vertically with a note in time on the staff is done
-#' by appending the text to the note info entry itself.
-#' See \code{\link{notate}}.
-#' For more details and example, see the package vignettes.
-#'
-#' @param notes character, a noteworthy string. See details.
-#' @param info space-delimited character string or vector (or integer vector if
-#' simple durations). Number of timesteps must be one (to be repeated) or equal
-#' to the number of timesteps in \code{notes}. See details.
-#' @param string space-delimited character string or vector (or integer vector if
-#' simple string numbers). This is an optional argument that specifies which
+#' @param notes,info noteworthy and note info strings. When \code{info = NULL},
+#' it is assumed that \code{notes} refers to a music object or string formatted
+#' as such.
+#' @param string space-delimited character string or vector (or integer vector
+#' if simple string numbers). This is an optional argument that specifies which
 #' instrument strings to play for each specific timestep. Otherwise \code{NULL}.
 #' @param bar logical, insert a bar check at the end of the phrase.
 #'
 #' @return a phrase.
-#' @name phrase
 #' @export
+#' @seealso \code{\link{valid-notes}}, \code{\link{valid-noteinfo}},
+#' \code{\link{music}}
 #'
 #' @examples
-#' phrase("c ec'g' ec'g'", "4 4 2") # no string numbers (not recommended)
+#' phrase("c ec'g' ec'g'", "4 4 2") # no string arg (not recommended for tabs)
 #' phrase("c ec4g4 ec4g4", "4 4 2") # same as above
 #' phrase("c b, c", "4. 8( 8)", "5 5 5") # direction implies hammer on
 #' phrase("b2 c d", "4( 4)- 2", "5 5 5") # hammer and slide
 #'
 #' phrase("c ec'g' ec'g'", "1 1 1", "5 432 432")
 #' p("c ec'g' ec'g'", "1 1 1", "5 432 432") # same as above
-NULL
-
-#' @export
-#' @rdname phrase
-phrase <- function(notes, info, string = NULL, bar = FALSE){
-  .check_noteworthy(notes)
+#'
+#' n <- "a, b, c d e f g e f g a~ a"
+#' i <- "8- 8 8 8] t8( t8)( t8) t16( t16)( t16) 8 1"
+#' m <- as_music(n, i)
+#'
+#' x <- p(n, i)
+#' x
+#' identical(x, p(m))
+phrase <- function(notes, info = NULL, string = NULL, bar = FALSE){
+  if(is.null(info)){
+    if(!inherits(notes, "music")) notes <- as_music(notes)
+    info <- .uncollapse(music_info(notes))
+    notes <- .uncollapse(music_notes(notes))
+  } else {
+    .check_noteworthy(notes)
+  }
   notes <- .uncollapse(notes)
   n <- length(notes)
   idx <- grep("\\d", notes)
@@ -114,6 +73,45 @@ phrase <- function(notes, info, string = NULL, bar = FALSE){
                  "or a single value to repeat, or be NULL."), call. = FALSE)
   }
 
+  dur <- as.character(info_duration(info))
+  trp <- gsub("t", "", gsub("^\\d+(\\.+|)$", "", dur))
+  rl <- rle(trp)
+
+  x <- purrr::map(seq_along(rl$values), ~{
+    idx2 <- sum(rl$lengths[1:.x])
+    idx1 <- idx2 - rl$lengths[.x] + 1
+    idx <- idx1:idx2
+    x <- notes[idx]
+    y <- info[idx]
+    z <- string[idx]
+    v <- as.integer(rl$values[.x])
+    p0 <- .phrase(x, y, z)
+    if(!is.na(v)){
+      p0 <- paste(p0, collapse = " ")
+      if(bar) p0 <- paste(p0, "|")
+      p0 <- gsub("\\| \\|", "\\|", p0)
+      p0 <- gsub(">t", ">", triplet(as_phrase(p0), v))
+    }
+    p0
+  })
+
+  idx <- which(rl$values == "")
+  if(length(idx)){
+    x[idx] <- purrr::map(x[idx], ~{
+      x <- paste(.x, collapse = " ")
+      if(bar) x <- paste(x, "|")
+      x <- gsub("\\| \\|", "\\|", x)
+      as_phrase(x)
+    })
+  }
+  do.call(c, x)
+}
+
+#' @export
+#' @rdname phrase
+p <- phrase
+
+.phrase <- function(notes, info, string){
   notes <- purrr::map_chr(notes, .tabsub)
   info <- purrr::map_chr(info, .tabsub)
   bend <- which(purrr::map_int(info, ~{
@@ -138,16 +136,8 @@ phrase <- function(notes, info, string = NULL, bar = FALSE){
   x <- paste0(notes, info)
   if(length(bend)) x[bend] <- paste0(x[bend], .bend)
   if(length(dead)) x[dead] <- paste("\\deadNote", x[dead])
-  x <- gsub("\\\\x", "", x)
-  x <- paste(x, collapse = " ")
-  if(bar) x <- paste(x, "|")
-  x <- gsub("\\| \\|", "\\|", x)
-  as_phrase(x)
+  gsub("\\\\x", "", x)
 }
-
-#' @export
-#' @rdname phrase
-p <- phrase
 
 #' @export
 print.phrase <- function(x, ...){
@@ -170,6 +160,7 @@ print.phrase <- function(x, ...){
   x <- gsub("(\\^\\\\bendAfter #\\+6)", info("\\1"), x)
   x <- gsub("(~)", info("\\1"), x)
   x <- gsub("(r|s)(\\d+)", paste0(notes("\\1"), info("\\2")), x)
+  x <- gsub("(\\\\tuplet \\d/\\d \\d+ \\{|\\})", info("\\1"), x)
   cat(col1("<"), col1$bold("Musical phrase"), col1(">"), "\n", col1(x), "\n",
       sep = "")
 }

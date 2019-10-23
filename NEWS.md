@@ -7,7 +7,8 @@
 * Added new classes `noteinfo` to complement `noteworthy` and associated functions.
 * Added new class `music` which builds upon the combination of `noteworthy` and `noteinfo`, similar in content to `phrase` but maintaining the structure of the other `tabr` classes for data manipulation and analysis.
 * Added implementations for several common R functions including primitives like `c`, `length`, `[` and more to be used with special classes available in `tabr`.
-* Refactored some basic metadata functions as generics to dispatch to the new classes rather than only working for `noteworthy` objects. For example, `time_format`, `n_steps`.
+* Refactored some basic metadata functions as generics to dispatch to the new classes rather than only working for `noteworthy` objects. For example, `time_format`.
+* Added native triplet support in note info using the `t`-prefix, e.g., `4 4] t8 t8- t8^ 4`. Support extends to `music` objects and now also to `phrase`, which alleviates reliance on the `triplet` function and its limitations.
 * Added MIDI file read support (requires optional `tuneR` installation) and a set of functions for inspecting and manipulating the table of MIDI music data.
 * Added more functions for music data manipulation and analysis.
 * Added more functions for mapping between noteworthy strings, phrase objects, and data frames.

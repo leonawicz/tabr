@@ -10,7 +10,7 @@ as_music_df(notes, info = NULL, key = NULL, scale = "diatonic",
 }
 \arguments{
 \item{notes}{character, a noteworthy string. Alternatively, a music object
-a phrase object, in which case \code{info} is ignored.}
+or a phrase object, in which case \code{info} is ignored.}
 
 \item{info}{\code{NULL} or character, a note info string.}
 

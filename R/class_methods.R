@@ -1,7 +1,8 @@
 #' Implemented methods for tabr classes
 #'
 #' Several methods are implemented for the classes \code{noteworthy},
-#' \code{noteinfo}, and \code{music}.
+#' \code{noteinfo}, and \code{music}. See further below for details on limited
+#' implementations for the \code{phrase} class.
 #'
 #' @details
 #' In addition to custom print and summary methods, the following methods have
@@ -67,6 +68,15 @@
 #' single timestep. Double bracket indexing is mostly useful for combining the
 #' steps of extracting a single value and discarding the special class in one
 #' command.
+#'
+#' #' @section Limited phrase implementations:
+#' Methods implemented for the \code{phrase} are limited to \code{c} and
+#' \code{rep}. Due to the complex LilyPond syntax, applying most of the
+#' functions above directly to phrases is problematic. \code{c} is implemented
+#' like it is for the other classes. \code{rep} is restricted in that it can
+#' only repeat the entire phrase sequence, not the timesteps within. However,
+#' you can convert a phrase class back to \code{noteworthy} and \code{noteinfo}
+#' objects (under reasonable conditions). See \code{\link{notify}}.
 #'
 #' @param x object
 #' @param i index
@@ -289,6 +299,18 @@ c.music <- function(...){
 }
 
 #' @export
+c.phrase <- function(...){
+  x <- list(...)
+  cl <- sapply(lapply(x, class), "[", 1)
+  if(any(!cl %in% c("phrase", "character")))
+    stop("Cannot concatenate incompatible classes with 'phrase'.",
+         call. = FALSE)
+  idx <- which(cl == "character")
+  if(length(idx)) x[idx] <- lapply(x[idx], as_phrase)
+  purrr::map_chr(x, ~as.character(.x)) %>% paste(collapse = " ") %>% as_phrase()
+}
+
+#' @export
 rep.noteworthy <- function(x, ...){
   o <- octave_type(x)
   a <- accidental_type(x)
@@ -336,6 +358,21 @@ rep.music <- function(x, ...){
   notes <- rep(.music_notes(x, format), ...)
   info <- rep(.music_info(x, format), ...)
   .asmusic(notes, info, a, tsig, format)
+}
+
+#' @export
+rep.phrase <- function(x, ...){
+  x <- as.character(x)
+  y <- list(...)
+  if(is.null(y$each) & is.null(y$times)){
+    x <- rep(x, ...)
+  } else if(!is.null(y$each)){
+    stop("Cannot use `each` with a phrase.", call. = FALSE)
+  } else {
+    stop("Cannot use `times` with a phrase.", call. = FALSE)
+  }
+  if(!length(x)) stop("Cannot have zero timesteps.", call. = FALSE)
+  as_phrase(paste0(x, collapse = " "))
 }
 
 #' @export

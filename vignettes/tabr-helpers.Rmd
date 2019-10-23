@@ -137,7 +137,7 @@ tuplet(pn(x, 2), 8, a = 6, b = 4) # 6 notes per 4 beats
 tuplet(pn(x, 4), 8) # multiple tuplets, one call
 ```
 
-Like `phrase`, these functions accept a `string` number argument, which is critical as usual (try engraving the final phrase below without explicit string numbers and see the mess you get). This example includes some rests.
+Like `phrase`, these functions accept a `string` number argument, which is critical as usual for guitar tablature (try engraving the final phrase below without explicit string numbers and see the mess you get). This example includes some rests.
 
 ```{r tuplet2, results="hide", eval=FALSE}
 p1 <- pc(triplet("c4 r e4", 8, "4 3 3"), 
@@ -149,7 +149,7 @@ track(pc(p1, p("d c", "8 4.", "6 6"))) %>% score %>% tab("ex12.pdf")
 
 <p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex12.png?raw=true" class="centerimg" width="100%"></p>
 
-This concludes the section on helper functions associated with phrases and note sequences. The next section goes into deeper detail on chord specification and the various use of chords in `tabr`.
+By itself `triplet` is of limited utility. Notice that it does not allow any additional note info to be included. If you have more note info, `phrase` now supports triplets directly (not general tuplets though). It is recommended to provide note info to `phrase` that uses the `t`-prefix triplet notation, e.g., `"t8"`. Notes and chords with this triplet timing will be parsed into LilyPond triplet syntax like above, but also retaining other note info.
 
 ```{r cleanup, echo=FALSE}
 unlink("*.mid")

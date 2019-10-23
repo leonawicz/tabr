@@ -231,7 +231,7 @@ derivative variables.</p>
     <tr>
       <th>notes</th>
       <td><p>character, a noteworthy string. Alternatively, a music object
-a phrase object, in which case <code>info</code> is ignored.</p></td>
+or a phrase object, in which case <code>info</code> is ignored.</p></td>
     </tr>
     <tr>
       <th>info</th>
@@ -359,7 +359,7 @@ can be recovered without recomputing from the original pitches.</p>
 <span class='co'># Go directly from phrase object to data frame</span>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='no'>x</span>, <span class='no'>time</span>)
 <span class='no'>d2</span> <span class='kw'>&lt;-</span> <span class='fu'>as_music_df</span>(<span class='no'>p1</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='no'>d1</span>, <span class='no'>d2</span>)</div><div class='output co'>#&gt; [1] TRUE</div></span></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='no'>d1</span>, <span class='no'>d2</span>)</div><div class='output co'>#&gt; [1] FALSE</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

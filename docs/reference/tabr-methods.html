@@ -46,7 +46,8 @@
 
 <meta property="og:title" content="Implemented methods for tabr classes — tabr-methods" />
 <meta property="og:description" content="Several methods are implemented for the classes noteworthy,
-noteinfo, and music." />
+noteinfo, and music. See further below for details on limited
+implementations for the phrase class." />
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -218,7 +219,8 @@ noteinfo, and music." />
 
     <div class="ref-description">
     <p>Several methods are implemented for the classes <code>noteworthy</code>,
-<code>noteinfo</code>, and <code>music</code>.</p>
+<code>noteinfo</code>, and <code>music</code>. See further below for details on limited
+implementations for the <code>phrase</code> class.</p>
     </div>
 
 
@@ -304,6 +306,14 @@ return the same object, but again double brackets only allow indexing a
 single timestep. Double bracket indexing is mostly useful for combining the
 steps of extracting a single value and discarding the special class in one
 command.</p>
+<p>#' @section Limited phrase implementations:
+Methods implemented for the <code>phrase</code> are limited to <code>c</code> and
+<code>rep</code>. Due to the complex LilyPond syntax, applying most of the
+functions above directly to phrases is problematic. <code>c</code> is implemented
+like it is for the other classes. <code>rep</code> is restricted in that it can
+only repeat the entire phrase sequence, not the timesteps within. However,
+you can convert a phrase class back to <code>noteworthy</code> and <code>noteinfo</code>
+objects (under reasonable conditions). See <code><a href='phrase-checks.html'>notify</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='note-metadata.html'>note-metadata</a></code></p></div>

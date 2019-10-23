@@ -22,7 +22,7 @@
 #' can be recovered without recomputing from the original pitches.
 #'
 #' @param notes character, a noteworthy string. Alternatively, a music object
-#' a phrase object, in which case \code{info} is ignored.
+#' or a phrase object, in which case \code{info} is ignored.
 #' @param info \code{NULL} or character, a note info string.
 #' @param key character, key signature, only required for inclusion of scale
 #' degrees.

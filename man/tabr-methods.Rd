@@ -12,7 +12,8 @@
 }
 \description{
 Several methods are implemented for the classes \code{noteworthy},
-\code{noteinfo}, and \code{music}.
+\code{noteinfo}, and \code{music}. See further below for details on limited
+implementations for the \code{phrase} class.
 }
 \details{
 In addition to custom print and summary methods, the following methods have
@@ -83,6 +84,15 @@ return the same object, but again double brackets only allow indexing a
 single timestep. Double bracket indexing is mostly useful for combining the
 steps of extracting a single value and discarding the special class in one
 command.
+
+#' @section Limited phrase implementations:
+Methods implemented for the \code{phrase} are limited to \code{c} and
+\code{rep}. Due to the complex LilyPond syntax, applying most of the
+functions above directly to phrases is problematic. \code{c} is implemented
+like it is for the other classes. \code{rep} is restricted in that it can
+only repeat the entire phrase sequence, not the timesteps within. However,
+you can convert a phrase class back to \code{noteworthy} and \code{noteinfo}
+objects (under reasonable conditions). See \code{\link{notify}}.
 }
 
 \examples{

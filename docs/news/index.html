@@ -225,7 +225,8 @@
 <li>Added new classes <code>noteinfo</code> to complement <code>noteworthy</code> and associated functions.</li>
 <li>Added new class <code>music</code> which builds upon the combination of <code>noteworthy</code> and <code>noteinfo</code>, similar in content to <code>phrase</code> but maintaining the structure of the other <code>tabr</code> classes for data manipulation and analysis.</li>
 <li>Added implementations for several common R functions including primitives like <code>c</code>, <code>length</code>, <code><a href="https://rdrr.io/r/base/Extract.html">[</a></code> and more to be used with special classes available in <code>tabr</code>.</li>
-<li>Refactored some basic metadata functions as generics to dispatch to the new classes rather than only working for <code>noteworthy</code> objects. For example, <code>time_format</code>, <code>n_steps</code>.</li>
+<li>Refactored some basic metadata functions as generics to dispatch to the new classes rather than only working for <code>noteworthy</code> objects. For example, <code>time_format</code>.</li>
+<li>Added native triplet support in note info using the <code>t</code>-prefix, e.g., <code>4 4] t8 t8- t8^ 4</code>. Support extends to <code>music</code> objects and now also to <code>phrase</code>, which alleviates reliance on the <code>triplet</code> function and its limitations.</li>
 <li>Added MIDI file read support (requires optional <code>tuneR</code> installation) and a set of functions for inspecting and manipulating the table of MIDI music data.</li>
 <li>Added more functions for music data manipulation and analysis.</li>
 <li>Added more functions for mapping between noteworthy strings, phrase objects, and data frames.</li>
