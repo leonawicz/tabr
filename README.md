@@ -221,13 +221,15 @@ The upcoming version 0.4.0 is a huge release. There is so much more in
 terms of data analysis. There is also better MIDI file support. There
 are more functions for tidy analysis. Several internal and user-facing
 functions have been vectorized. Other functions have been generalized
-that previously could handle single notes but lacked an approach to
-chords in certain contexts. The entire package has been significantly
-optimized for better performance over previous versions.
+that previously lacked an approach to chords in certain contexts. The
+entire package has been significantly optimized for better performance
+over previous versions.
 
 More can be done with music notation syntax converters, moving to and
 from data frames, and between classes. New classes `noteinfo` and
-`music` have been added along with accompanying functions.
+`music` have been added along with accompanying functions. Support for
+triplets have been integrated into `noteinfo` using the `t`-prefix
+notation, which is supported in turn now by `music` and by `phrase`.
 
 Since it’s still in early versions, several aspects of the package and
 its approaches to working with musical information have been reimagined,
