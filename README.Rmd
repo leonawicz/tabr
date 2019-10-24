@@ -30,20 +30,34 @@ library(tabr)
 
 ## Overview <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/tabr_logo.png?raw=true" width=320 style="float:right;margin-left:10px;width:320px;">
 
-The `tabr` package provides a music notation syntax and a collection of music programming functions for generating, manipulating, organizing and analyzing musical information in R. The music notation framework facilitates creating and analyzing music data in notation form; i.e, more from the perspective and in the language of a musician than, say, an audio engineer.
+The `tabr` package provides a music notation syntax and a collection of music programming functions for generating, manipulating, organizing and analyzing musical information in R. 
+
+The music notation framework facilitates creating and analyzing music data in notation form; i.e, more from the perspective and in the language of a musician than, say, an audio engineer.
+
+<p></p>
+<hr>
+**If you enjoy my R community contributions, consider [buying me a coffee in Ko-fi](ko-fi.com/leonawicz) (or through PayPal** 
+<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DHMC76S85GJCY&source=url"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" /></a>**) so I can keep developing and maintaining this and other packages :)**
+<hr>
 
 ### Music data structures
 
 Music data can be viewed, manipulated and analyzed while in different forms of representation based around different data structures: strings and data frames. Each representation offers advantages over the other for different use cases.
 
-Music syntax can be entered directly and represented in character strings to minimize the formatting overhead of data entry by using simple data structures, for example when wanting to quickly enter and transcribe short pieces of music syntax in R into sheet music or tablature files.
+Music syntax can be entered directly and represented in character strings to minimize the formatting overhead of data entry by using simple data structures, for example when wanting to quickly enter and transcribe short pieces of music syntax in R into sheet music or tablature files. You can also enter sound and time together for the `music` class, and no need to repeat consecutive durations until a change.
 
 ```{r music-data1}
-x <- "a, c e g# a ac'e' ac'e'"
+x <- "a, c e g# a ac'e' ac'e'~ ac'e' a c' e' a'"
 x <- as_noteworthy(x)
 x
 
 summary(x)
+
+y <- "a,8 c et8 g# a ac'e'4. ac'e'~8 ac'e'4 at4 c' e' a'1"
+y <- as_music(y)
+summary(y)
+
+music_split(y)
 ```
 
 Functions exist for directly performing various mathematical and organizational operations on strings like the one above by checking their music syntax validity and adding custom classes and methods to these strings (more on this below). Of course, none of this will work on character strings that are not noteworthy. Invalid, unworthy syntax is rejected early with an error, preventing corrupted music syntax from causing unexpected issues later on.
@@ -51,8 +65,8 @@ Functions exist for directly performing various mathematical and organizational 
 The same music data can also be organized in tidy data frames, allowing for a more familiar and powerful approach to the analysis of large amounts of structured music data.
 
 ```{r music-data2}
-x <- "a, c e r r c a, g#, a ac'e'"
-as_music_df(x)
+x <- "a,8 c e r r c a, g#, a ac'e'"
+as_music(x) %>% as_music_df()
 ```
 
 Several functions are available for mapping seamlessly between and manipulating these data structures and their representations of musical information.
@@ -67,7 +81,7 @@ While LilyPond is listed as a system requirement for `tabr`, you can use the pac
 
 ### Use case considerations
 
-`tabr` offers a useful but limited LilyPond API and is not intended to access all LilyPond functionality from R, nor is transcription via the API the entire scope of `tabr`. If you are only creating sheet music on a case by case basis, write your own LilyPond files manually. There is no need to use `tabr` or limit yourself to its existing LilyPond API or it's guitar tablature focus.
+`tabr` offers a useful but limited LilyPond API and is not intended to access all LilyPond functionality from R, nor is transcription via the API the entire scope of `tabr`. If you are only creating sheet music on a case by case basis, write your own LilyPond files manually. There is no need to use `tabr` or limit yourself to its existing LilyPond API or its guitar tablature focus.
 
 However, if you are generating music notation programmatically, `tabr` provides the ability to do so in R and offers the added benefit of converting what you write in R code to the LilyPond file format to be rendered as printable sheet music.
 
@@ -209,7 +223,7 @@ as_music_df(x, key = "am", scale = "harmonic_minor") %>%
 
 Rendering sheet music is based on building up pieces of musical information culminating in a score. The fundamental object to consider in the transcription context is a phrase. A phrase is created from a noteworthy string and incorporates additional information, most importantly time and rhythm. It can also include positional information such as the instrument string on which a note is played. Outside of rendering tabs, there is no reason to construct phrase objects. Everything from the phrase object on up is about using the R to LilyPond pipeline to render some kind of sheet music document.
 
-If you doing music analysis on noteworthy strings and are combining the note, pitch or chord information with time, that can be done with a corresponding variable; using a phrase object is not the way to do that because phrase objects are intended for the construction of LilyPond markup syntax.
+If you are doing music analysis on noteworthy strings and are combining the note, pitch or chord information with time, that can be done with a corresponding variable; using a phrase object is not the way to do that because phrase objects are intended for the construction of LilyPond markup syntax.
 
 As a brief example, recreate the tablature shown in the image above (minus the R logo). Here are the steps.
 
@@ -282,7 +296,7 @@ For comparison, if you use string-fret specification to construct the above phra
 sfp("r;r;4 5;0;8 3 4;3; 0 3;2; 4;3;")
 ```
 
-It may not look particularly beneficial here, but for more complex music it can be easier to reason about the phrase under construction when using this format to bind information by time step rather. See `?sf_phrase` for a comparison with `phrase` and the various ways you can do phrase construction in `tabr` for equivalent results. If you are looking to do quick, easy and basic tabbing, you may want to consider using the single-argument input method of the `sf_phrase` function. The package vignettes focus on general use cases using the `phrase` function rather than `sf_phrase`.
+It may not look particularly beneficial here, but for more complex music it can be easier to reason about the phrase under construction when using this format to bind information by time step rather by information type. See `?sf_phrase` for a comparison with `phrase` and the various ways you can do phrase construction in `tabr` for equivalent results. If you are looking to do quick, easy and basic tabbing, you may want to consider using the single-argument input method of the `sf_phrase` function. The package vignettes focus on general use cases using the `phrase` function rather than `sf_phrase`.
 
 Note above that `tabr` also exports the pipe `%>%` operator. Even given the hierarchy of objects involved in the series of steps to move from a phrase to a rendered pdf, a short example like this does not even require a single assignment. While music can be quite complex and a full score will be much longer, `tabr` strives to minimize the work while still forcing some sense of interpretable, organized structure. For long and complex music, it can require some effort and practice to ensure your approach to transcription in your R code is not opaque.
 

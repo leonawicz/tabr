@@ -30,10 +30,24 @@ Stars](https://img.shields.io/github/stars/leonawicz/tabr.svg?style=social&label
 
 The `tabr` package provides a music notation syntax and a collection of
 music programming functions for generating, manipulating, organizing and
-analyzing musical information in R. The music notation framework
-facilitates creating and analyzing music data in notation form; i.e,
-more from the perspective and in the language of a musician than, say,
-an audio engineer.
+analyzing musical information in R.
+
+The music notation framework facilitates creating and analyzing music
+data in notation form; i.e, more from the perspective and in the
+language of a musician than, say, an audio engineer.
+
+<p>
+
+</p>
+
+<hr>
+
+**If you enjoy my R community contributions, consider [buying me a
+coffee in Ko-fi](ko-fi.com/leonawicz) (or through PayPal**
+<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DHMC76S85GJCY&source=url"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" /></a>**)
+so I can keep developing and maintaining this and other packages :)**
+
+<hr>
 
 ### Music data structures
 
@@ -46,23 +60,50 @@ Music syntax can be entered directly and represented in character
 strings to minimize the formatting overhead of data entry by using
 simple data structures, for example when wanting to quickly enter and
 transcribe short pieces of music syntax in R into sheet music or
-tablature files.
+tablature files. You can also enter sound and time together for the
+`music` class, and no need to repeat consecutive durations until a
+change.
 
 ``` r
-x <- "a, c e g# a ac'e' ac'e'"
+x <- "a, c e g# a ac'e' ac'e'~ ac'e' a c' e' a'"
 x <- as_noteworthy(x)
 x
 #> <Noteworthy string>
 #>   Format: space-delimited time
-#>   Values: a, c e g# a <ac'e'> <ac'e'>
+#>   Values: a, c e g# a <ac'e'> <ac'e'~> <ac'e'> a c' e' a'
 
 summary(x)
 #> <Noteworthy string>
-#>   Timesteps: 7 (5 notes, 2 chords)
+#>   Timesteps: 12 (9 notes, 3 chords)
 #>   Octaves: tick
 #>   Accidentals: sharp
 #>   Format: space-delimited time
-#>   Values: a, c e g# a <ac'e'> <ac'e'>
+#>   Values: a, c e g# a <ac'e'> <ac'e'~> <ac'e'> a c' e' a'
+
+y <- "a,8 c et8 g# a ac'e'4. ac'e'~8 ac'e'4 at4 c' e' a'1"
+y <- as_music(y)
+summary(y)
+#> <Music string>
+#>   Timesteps: 12 (9 notes, 3 chords)
+#>   Octaves: tick
+#>   Accidentals: sharp
+#>   Time Signature: 4/4
+#>   Format: space-delimited time
+#>   Values: a,8 c8 et8 g#t8 at8 <ac'e'>4. <ac'e'~>8 <ac'e'>4 at4 c't4 e't4 a'1
+
+music_split(y)
+#> $notes
+#> <Noteworthy string>
+#>   Format: space-delimited time
+#>   Values: a, c e g# a <ac'e'> <ac'e'~> <ac'e'> a c' e' a'
+#> 
+#> $info
+#> <Note info string>
+#>   Format: space-delimited time
+#>   Values: 8 8 t8 t8 t8 4. 8 4 t4 t4 t4 1
+#> 
+#> $tsig
+#> [1] "4/4"
 ```
 
 Functions exist for directly performing various mathematical and
@@ -78,21 +119,22 @@ for a more familiar and powerful approach to the analysis of large
 amounts of structured music data.
 
 ``` r
-x <- "a, c e r r c a, g#, a ac'e'"
-as_music_df(x)
-#> # A tibble: 10 x 8
-#>    duration pitch note  semitone octave  freq pitch_int scale_int
-#>    <chr>    <chr> <chr>    <int>  <int> <dbl>     <int> <chr>    
-#>  1 <NA>     a,    a           57      2  110.        NA <NA>     
-#>  2 <NA>     c     c           48      3  131.         3 m3       
-#>  3 <NA>     e     e           52      3  165.         4 M3       
-#>  4 <NA>     r     r           NA     NA   NA         NA <NA>     
-#>  5 <NA>     r     r           NA     NA   NA         NA <NA>     
-#>  6 <NA>     c     c           48      3  131.        -4 M3       
-#>  7 <NA>     a,    a           57      2  110.        -3 m3       
-#>  8 <NA>     g#,   g#          56      2  104.        -1 m2       
-#>  9 <NA>     a     a           57      3  220.        13 m9       
-#> 10 <NA>     ac'e' ace         57      3  220.         0 P1
+x <- "a,8 c e r r c a, g#, a ac'e'"
+as_music(x) %>% as_music_df()
+#> # A tibble: 10 x 12
+#>    duration pitch note  semitone octave  freq pitch_int scale_int slur 
+#>    <chr>    <chr> <chr>    <int>  <int> <dbl>     <int> <chr>     <chr>
+#>  1 8        a,    a           57      2  110.        NA <NA>      <NA> 
+#>  2 8        c     c           48      3  131.         3 m3        <NA> 
+#>  3 8        e     e           52      3  165.         4 M3        <NA> 
+#>  4 8        r     r           NA     NA   NA         NA <NA>      <NA> 
+#>  5 8        r     r           NA     NA   NA         NA <NA>      <NA> 
+#>  6 8        c     c           48      3  131.        -4 M3        <NA> 
+#>  7 8        a,    a           57      2  110.        -3 m3        <NA> 
+#>  8 8        g#,   g#          56      2  104.        -1 m2        <NA> 
+#>  9 8        a     a           57      3  220.        13 m9        <NA> 
+#> 10 8        ac'e' ace         57      3  220.         0 P1        <NA> 
+#> # ... with 3 more variables: slide <lgl>, dotted <int>, annotation <chr>
 ```
 
 Several functions are available for mapping seamlessly between and
@@ -132,7 +174,7 @@ access all LilyPond functionality from R, nor is transcription via the
 API the entire scope of `tabr`. If you are only creating sheet music on
 a case by case basis, write your own LilyPond files manually. There is
 no need to use `tabr` or limit yourself to its existing LilyPond API or
-it’s guitar tablature focus.
+its guitar tablature focus.
 
 However, if you are generating music notation programmatically, `tabr`
 provides the ability to do so in R and offers the added benefit of
@@ -417,8 +459,8 @@ rendering tabs, there is no reason to construct phrase objects.
 Everything from the phrase object on up is about using the R to LilyPond
 pipeline to render some kind of sheet music document.
 
-If you doing music analysis on noteworthy strings and are combining the
-note, pitch or chord information with time, that can be done with a
+If you are doing music analysis on noteworthy strings and are combining
+the note, pitch or chord information with time, that can be done with a
 corresponding variable; using a phrase object is not the way to do that
 because phrase objects are intended for the construction of LilyPond
 markup syntax.
@@ -540,13 +582,13 @@ sfp("r;r;4 5;0;8 3 4;3; 0 3;2; 4;3;")
 
 It may not look particularly beneficial here, but for more complex music
 it can be easier to reason about the phrase under construction when
-using this format to bind information by time step rather. See
-`?sf_phrase` for a comparison with `phrase` and the various ways you can
-do phrase construction in `tabr` for equivalent results. If you are
-looking to do quick, easy and basic tabbing, you may want to consider
-using the single-argument input method of the `sf_phrase` function. The
-package vignettes focus on general use cases using the `phrase` function
-rather than `sf_phrase`.
+using this format to bind information by time step rather by information
+type. See `?sf_phrase` for a comparison with `phrase` and the various
+ways you can do phrase construction in `tabr` for equivalent results. If
+you are looking to do quick, easy and basic tabbing, you may want to
+consider using the single-argument input method of the `sf_phrase`
+function. The package vignettes focus on general use cases using the
+`phrase` function rather than `sf_phrase`.
 
 Note above that `tabr` also exports the pipe `%>%` operator. Even given
 the hierarchy of objects involved in the series of steps to move from a

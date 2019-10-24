@@ -190,43 +190,76 @@
 <h2 class="hasAnchor">
 <a href="#overview-" class="anchor"></a>Overview <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/tabr_logo.png?raw=true" width="320" style="float:right;margin-left:10px;width:320px;">
 </h2>
-<p>The <code>tabr</code> package provides a music notation syntax and a collection of music programming functions for generating, manipulating, organizing and analyzing musical information in R. The music notation framework facilitates creating and analyzing music data in notation form; i.e, more from the perspective and in the language of a musician than, say, an audio engineer.</p>
+<p>The <code>tabr</code> package provides a music notation syntax and a collection of music programming functions for generating, manipulating, organizing and analyzing musical information in R.</p>
+<p>The music notation framework facilitates creating and analyzing music data in notation form; i.e, more from the perspective and in the language of a musician than, say, an audio engineer.</p>
+<p>
+
+</p>
+<hr>
+<p><strong>If you enjoy my R community contributions, consider <a href="ko-fi.com/leonawicz">buying me a coffee in Ko-fi</a> (or through PayPal</strong> <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=DHMC76S85GJCY&amp;source=url"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif"></a><strong>) so I can keep developing and maintaining this and other packages :)</strong></p>
+<hr>
 <div id="music-data-structures" class="section level3">
 <h3 class="hasAnchor">
 <a href="#music-data-structures" class="anchor"></a>Music data structures</h3>
 <p>Music data can be viewed, manipulated and analyzed while in different forms of representation based around different data structures: strings and data frames. Each representation offers advantages over the other for different use cases.</p>
-<p>Music syntax can be entered directly and represented in character strings to minimize the formatting overhead of data entry by using simple data structures, for example when wanting to quickly enter and transcribe short pieces of music syntax in R into sheet music or tablature files.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">x &lt;-<span class="st"> "a, c e g# a ac'e' ac'e'"</span></a>
+<p>Music syntax can be entered directly and represented in character strings to minimize the formatting overhead of data entry by using simple data structures, for example when wanting to quickly enter and transcribe short pieces of music syntax in R into sheet music or tablature files. You can also enter sound and time together for the <code>music</code> class, and no need to repeat consecutive durations until a change.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">x &lt;-<span class="st"> "a, c e g# a ac'e' ac'e'~ ac'e' a c' e' a'"</span></a>
 <a class="sourceLine" id="cb1-2" title="2">x &lt;-<span class="st"> </span><span class="kw"><a href="reference/valid-notes.html">as_noteworthy</a></span>(x)</a>
 <a class="sourceLine" id="cb1-3" title="3">x</a>
 <a class="sourceLine" id="cb1-4" title="4"><span class="co">#&gt; &lt;Noteworthy string&gt;</span></a>
 <a class="sourceLine" id="cb1-5" title="5"><span class="co">#&gt;   Format: space-delimited time</span></a>
-<a class="sourceLine" id="cb1-6" title="6"><span class="co">#&gt;   Values: a, c e g# a &lt;ac'e'&gt; &lt;ac'e'&gt;</span></a>
+<a class="sourceLine" id="cb1-6" title="6"><span class="co">#&gt;   Values: a, c e g# a &lt;ac'e'&gt; &lt;ac'e'~&gt; &lt;ac'e'&gt; a c' e' a'</span></a>
 <a class="sourceLine" id="cb1-7" title="7"></a>
 <a class="sourceLine" id="cb1-8" title="8"><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(x)</a>
 <a class="sourceLine" id="cb1-9" title="9"><span class="co">#&gt; &lt;Noteworthy string&gt;</span></a>
-<a class="sourceLine" id="cb1-10" title="10"><span class="co">#&gt;   Timesteps: 7 (5 notes, 2 chords)</span></a>
+<a class="sourceLine" id="cb1-10" title="10"><span class="co">#&gt;   Timesteps: 12 (9 notes, 3 chords)</span></a>
 <a class="sourceLine" id="cb1-11" title="11"><span class="co">#&gt;   Octaves: tick</span></a>
 <a class="sourceLine" id="cb1-12" title="12"><span class="co">#&gt;   Accidentals: sharp</span></a>
 <a class="sourceLine" id="cb1-13" title="13"><span class="co">#&gt;   Format: space-delimited time</span></a>
-<a class="sourceLine" id="cb1-14" title="14"><span class="co">#&gt;   Values: a, c e g# a &lt;ac'e'&gt; &lt;ac'e'&gt;</span></a></code></pre></div>
+<a class="sourceLine" id="cb1-14" title="14"><span class="co">#&gt;   Values: a, c e g# a &lt;ac'e'&gt; &lt;ac'e'~&gt; &lt;ac'e'&gt; a c' e' a'</span></a>
+<a class="sourceLine" id="cb1-15" title="15"></a>
+<a class="sourceLine" id="cb1-16" title="16">y &lt;-<span class="st"> "a,8 c et8 g# a ac'e'4. ac'e'~8 ac'e'4 at4 c' e' a'1"</span></a>
+<a class="sourceLine" id="cb1-17" title="17">y &lt;-<span class="st"> </span><span class="kw"><a href="reference/music.html">as_music</a></span>(y)</a>
+<a class="sourceLine" id="cb1-18" title="18"><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(y)</a>
+<a class="sourceLine" id="cb1-19" title="19"><span class="co">#&gt; &lt;Music string&gt;</span></a>
+<a class="sourceLine" id="cb1-20" title="20"><span class="co">#&gt;   Timesteps: 12 (9 notes, 3 chords)</span></a>
+<a class="sourceLine" id="cb1-21" title="21"><span class="co">#&gt;   Octaves: tick</span></a>
+<a class="sourceLine" id="cb1-22" title="22"><span class="co">#&gt;   Accidentals: sharp</span></a>
+<a class="sourceLine" id="cb1-23" title="23"><span class="co">#&gt;   Time Signature: 4/4</span></a>
+<a class="sourceLine" id="cb1-24" title="24"><span class="co">#&gt;   Format: space-delimited time</span></a>
+<a class="sourceLine" id="cb1-25" title="25"><span class="co">#&gt;   Values: a,8 c8 et8 g#t8 at8 &lt;ac'e'&gt;4. &lt;ac'e'~&gt;8 &lt;ac'e'&gt;4 at4 c't4 e't4 a'1</span></a>
+<a class="sourceLine" id="cb1-26" title="26"></a>
+<a class="sourceLine" id="cb1-27" title="27"><span class="kw"><a href="reference/music.html">music_split</a></span>(y)</a>
+<a class="sourceLine" id="cb1-28" title="28"><span class="co">#&gt; $notes</span></a>
+<a class="sourceLine" id="cb1-29" title="29"><span class="co">#&gt; &lt;Noteworthy string&gt;</span></a>
+<a class="sourceLine" id="cb1-30" title="30"><span class="co">#&gt;   Format: space-delimited time</span></a>
+<a class="sourceLine" id="cb1-31" title="31"><span class="co">#&gt;   Values: a, c e g# a &lt;ac'e'&gt; &lt;ac'e'~&gt; &lt;ac'e'&gt; a c' e' a'</span></a>
+<a class="sourceLine" id="cb1-32" title="32"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb1-33" title="33"><span class="co">#&gt; $info</span></a>
+<a class="sourceLine" id="cb1-34" title="34"><span class="co">#&gt; &lt;Note info string&gt;</span></a>
+<a class="sourceLine" id="cb1-35" title="35"><span class="co">#&gt;   Format: space-delimited time</span></a>
+<a class="sourceLine" id="cb1-36" title="36"><span class="co">#&gt;   Values: 8 8 t8 t8 t8 4. 8 4 t4 t4 t4 1</span></a>
+<a class="sourceLine" id="cb1-37" title="37"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb1-38" title="38"><span class="co">#&gt; $tsig</span></a>
+<a class="sourceLine" id="cb1-39" title="39"><span class="co">#&gt; [1] "4/4"</span></a></code></pre></div>
 <p>Functions exist for directly performing various mathematical and organizational operations on strings like the one above by checking their music syntax validity and adding custom classes and methods to these strings (more on this below). Of course, none of this will work on character strings that are not noteworthy. Invalid, unworthy syntax is rejected early with an error, preventing corrupted music syntax from causing unexpected issues later on.</p>
 <p>The same music data can also be organized in tidy data frames, allowing for a more familiar and powerful approach to the analysis of large amounts of structured music data.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">x &lt;-<span class="st"> "a, c e r r c a, g#, a ac'e'"</span></a>
-<a class="sourceLine" id="cb2-2" title="2"><span class="kw"><a href="reference/as_music_df.html">as_music_df</a></span>(x)</a>
-<a class="sourceLine" id="cb2-3" title="3"><span class="co">#&gt; # A tibble: 10 x 8</span></a>
-<a class="sourceLine" id="cb2-4" title="4"><span class="co">#&gt;    duration pitch note  semitone octave  freq pitch_int scale_int</span></a>
-<a class="sourceLine" id="cb2-5" title="5"><span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;    &lt;int&gt;  &lt;int&gt; &lt;dbl&gt;     &lt;int&gt; &lt;chr&gt;    </span></a>
-<a class="sourceLine" id="cb2-6" title="6"><span class="co">#&gt;  1 &lt;NA&gt;     a,    a           57      2  110.        NA &lt;NA&gt;     </span></a>
-<a class="sourceLine" id="cb2-7" title="7"><span class="co">#&gt;  2 &lt;NA&gt;     c     c           48      3  131.         3 m3       </span></a>
-<a class="sourceLine" id="cb2-8" title="8"><span class="co">#&gt;  3 &lt;NA&gt;     e     e           52      3  165.         4 M3       </span></a>
-<a class="sourceLine" id="cb2-9" title="9"><span class="co">#&gt;  4 &lt;NA&gt;     r     r           NA     NA   NA         NA &lt;NA&gt;     </span></a>
-<a class="sourceLine" id="cb2-10" title="10"><span class="co">#&gt;  5 &lt;NA&gt;     r     r           NA     NA   NA         NA &lt;NA&gt;     </span></a>
-<a class="sourceLine" id="cb2-11" title="11"><span class="co">#&gt;  6 &lt;NA&gt;     c     c           48      3  131.        -4 M3       </span></a>
-<a class="sourceLine" id="cb2-12" title="12"><span class="co">#&gt;  7 &lt;NA&gt;     a,    a           57      2  110.        -3 m3       </span></a>
-<a class="sourceLine" id="cb2-13" title="13"><span class="co">#&gt;  8 &lt;NA&gt;     g#,   g#          56      2  104.        -1 m2       </span></a>
-<a class="sourceLine" id="cb2-14" title="14"><span class="co">#&gt;  9 &lt;NA&gt;     a     a           57      3  220.        13 m9       </span></a>
-<a class="sourceLine" id="cb2-15" title="15"><span class="co">#&gt; 10 &lt;NA&gt;     ac'e' ace         57      3  220.         0 P1</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">x &lt;-<span class="st"> "a,8 c e r r c a, g#, a ac'e'"</span></a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="kw"><a href="reference/music.html">as_music</a></span>(x) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/as_music_df.html">as_music_df</a></span>()</a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="co">#&gt; # A tibble: 10 x 12</span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="co">#&gt;    duration pitch note  semitone octave  freq pitch_int scale_int slur </span></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;    &lt;int&gt;  &lt;int&gt; &lt;dbl&gt;     &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;</span></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="co">#&gt;  1 8        a,    a           57      2  110.        NA &lt;NA&gt;      &lt;NA&gt; </span></a>
+<a class="sourceLine" id="cb2-7" title="7"><span class="co">#&gt;  2 8        c     c           48      3  131.         3 m3        &lt;NA&gt; </span></a>
+<a class="sourceLine" id="cb2-8" title="8"><span class="co">#&gt;  3 8        e     e           52      3  165.         4 M3        &lt;NA&gt; </span></a>
+<a class="sourceLine" id="cb2-9" title="9"><span class="co">#&gt;  4 8        r     r           NA     NA   NA         NA &lt;NA&gt;      &lt;NA&gt; </span></a>
+<a class="sourceLine" id="cb2-10" title="10"><span class="co">#&gt;  5 8        r     r           NA     NA   NA         NA &lt;NA&gt;      &lt;NA&gt; </span></a>
+<a class="sourceLine" id="cb2-11" title="11"><span class="co">#&gt;  6 8        c     c           48      3  131.        -4 M3        &lt;NA&gt; </span></a>
+<a class="sourceLine" id="cb2-12" title="12"><span class="co">#&gt;  7 8        a,    a           57      2  110.        -3 m3        &lt;NA&gt; </span></a>
+<a class="sourceLine" id="cb2-13" title="13"><span class="co">#&gt;  8 8        g#,   g#          56      2  104.        -1 m2        &lt;NA&gt; </span></a>
+<a class="sourceLine" id="cb2-14" title="14"><span class="co">#&gt;  9 8        a     a           57      3  220.        13 m9        &lt;NA&gt; </span></a>
+<a class="sourceLine" id="cb2-15" title="15"><span class="co">#&gt; 10 8        ac'e' ace         57      3  220.         0 P1        &lt;NA&gt; </span></a>
+<a class="sourceLine" id="cb2-16" title="16"><span class="co">#&gt; # ... with 3 more variables: slide &lt;lgl&gt;, dotted &lt;int&gt;, annotation &lt;chr&gt;</span></a></code></pre></div>
 <p>Several functions are available for mapping seamlessly between and manipulating these data structures and their representations of musical information.</p>
 </div>
 <div id="transcription" class="section level3">
@@ -239,7 +272,7 @@
 <div id="use-case-considerations" class="section level3">
 <h3 class="hasAnchor">
 <a href="#use-case-considerations" class="anchor"></a>Use case considerations</h3>
-<p><code>tabr</code> offers a useful but limited LilyPond API and is not intended to access all LilyPond functionality from R, nor is transcription via the API the entire scope of <code>tabr</code>. If you are only creating sheet music on a case by case basis, write your own LilyPond files manually. There is no need to use <code>tabr</code> or limit yourself to its existing LilyPond API or it’s guitar tablature focus.</p>
+<p><code>tabr</code> offers a useful but limited LilyPond API and is not intended to access all LilyPond functionality from R, nor is transcription via the API the entire scope of <code>tabr</code>. If you are only creating sheet music on a case by case basis, write your own LilyPond files manually. There is no need to use <code>tabr</code> or limit yourself to its existing LilyPond API or its guitar tablature focus.</p>
 <p>However, if you are generating music notation programmatically, <code>tabr</code> provides the ability to do so in R and offers the added benefit of converting what you write in R code to the LilyPond file format to be rendered as printable sheet music.</p>
 <p>With ongoing development, the music programming side of <code>tabr</code> will likely continue to grow much more than the transcription functionality.</p>
 </div>
@@ -401,7 +434,7 @@
 <h2 class="hasAnchor">
 <a href="#basic-transcription-example" class="anchor"></a>Basic transcription example</h2>
 <p>Rendering sheet music is based on building up pieces of musical information culminating in a score. The fundamental object to consider in the transcription context is a phrase. A phrase is created from a noteworthy string and incorporates additional information, most importantly time and rhythm. It can also include positional information such as the instrument string on which a note is played. Outside of rendering tabs, there is no reason to construct phrase objects. Everything from the phrase object on up is about using the R to LilyPond pipeline to render some kind of sheet music document.</p>
-<p>If you doing music analysis on noteworthy strings and are combining the note, pitch or chord information with time, that can be done with a corresponding variable; using a phrase object is not the way to do that because phrase objects are intended for the construction of LilyPond markup syntax.</p>
+<p>If you are doing music analysis on noteworthy strings and are combining the note, pitch or chord information with time, that can be done with a corresponding variable; using a phrase object is not the way to do that because phrase objects are intended for the construction of LilyPond markup syntax.</p>
 <p>As a brief example, recreate the tablature shown in the image above (minus the R logo). Here are the steps.</p>
 <ul>
 <li>Define a musical phrase with <code>phrase</code> or the shorthand alias <code>p</code>.</li>
@@ -455,7 +488,7 @@
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw"><a href="reference/sf_phrase.html">sfp</a></span>(<span class="st">"r;r;4 5;0;8 3 4;3; 0 3;2; 4;3;"</span>)</a>
 <a class="sourceLine" id="cb11-2" title="2"><span class="co">#&gt; &lt;Musical phrase&gt;</span></a>
 <a class="sourceLine" id="cb11-3" title="3"><span class="co">#&gt; r4 &lt;a,\5&gt;8 &lt;c\5&gt;8 &lt;f\4&gt;8 &lt;d\4&gt;8 &lt;a\3&gt;8 &lt;f\4&gt;8</span></a></code></pre></div>
-<p>It may not look particularly beneficial here, but for more complex music it can be easier to reason about the phrase under construction when using this format to bind information by time step rather. See <code><a href="reference/sf_phrase.html">?sf_phrase</a></code> for a comparison with <code>phrase</code> and the various ways you can do phrase construction in <code>tabr</code> for equivalent results. If you are looking to do quick, easy and basic tabbing, you may want to consider using the single-argument input method of the <code>sf_phrase</code> function. The package vignettes focus on general use cases using the <code>phrase</code> function rather than <code>sf_phrase</code>.</p>
+<p>It may not look particularly beneficial here, but for more complex music it can be easier to reason about the phrase under construction when using this format to bind information by time step rather by information type. See <code><a href="reference/sf_phrase.html">?sf_phrase</a></code> for a comparison with <code>phrase</code> and the various ways you can do phrase construction in <code>tabr</code> for equivalent results. If you are looking to do quick, easy and basic tabbing, you may want to consider using the single-argument input method of the <code>sf_phrase</code> function. The package vignettes focus on general use cases using the <code>phrase</code> function rather than <code>sf_phrase</code>.</p>
 <p>Note above that <code>tabr</code> also exports the pipe <code><a href="reference/pipe.html">%&gt;%</a></code> operator. Even given the hierarchy of objects involved in the series of steps to move from a phrase to a rendered pdf, a short example like this does not even require a single assignment. While music can be quite complex and a full score will be much longer, <code>tabr</code> strives to minimize the work while still forcing some sense of interpretable, organized structure. For long and complex music, it can require some effort and practice to ensure your approach to transcription in your R code is not opaque.</p>
 </div>
 </div>

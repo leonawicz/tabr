@@ -50,6 +50,16 @@ strings. A music object can be built from such a string. It combines a
 noteworthy string and a note info string.
 }
 \details{
+With note info strings, you are required to enter something at every
+timestep, even if it is only the duration. This makes sense because if you
+do not enter something, there is simply no indication of a timestep.
+A nice feature of music strings is that explicit timesteps are achieved
+just by having notes present, allowing you to leave out durations entirely
+when they repeat, inheriting them from the previous timestep where duration
+was given explicitly. There is no need to enter the same number across
+consecutive timesteps; the first will suffice and the rest are automatically
+filled in for you when the object is constructed.
+
 \code{musical} returns a scalar logical result indicating whether all
 timesteps contain exclusively valid entries.
 
@@ -64,7 +74,8 @@ When mixed formats are present, flats are the default for accidentals and
 4/4 common time is the default time signature.
 }
 \examples{
-x <- "a#4] b_4.. c,4x d''t8) et8)( g_'t8)- a4 c,e_,g,4 ce_g1"
+# note durations inherit from previous timestep if missing
+x <- "a#4] b_ c,x d''t8( e)( g_')- a4 c,e_,g, ce_g4. a~8 a1"
 is_music(x)
 musical(x)
 x <- as_music(x)

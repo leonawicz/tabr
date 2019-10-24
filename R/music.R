@@ -4,6 +4,16 @@
 #' strings. A music object can be built from such a string. It combines a
 #' noteworthy string and a note info string.
 #'
+#' With note info strings, you are required to enter something at every
+#' timestep, even if it is only the duration. This makes sense because if you
+#' do not enter something, there is simply no indication of a timestep.
+#' A nice feature of music strings is that explicit timesteps are achieved
+#' just by having notes present, allowing you to leave out durations entirely
+#' when they repeat, inheriting them from the previous timestep where duration
+#' was given explicitly. There is no need to enter the same number across
+#' consecutive timesteps; the first will suffice and the rest are automatically
+#' filled in for you when the object is constructed.
+#'
 #' \code{musical} returns a scalar logical result indicating whether all
 #' timesteps contain exclusively valid entries.
 #'
@@ -34,7 +44,8 @@
 #' \code{\link{note-summaries}}, \code{\link{note-coerce}}
 #'
 #' @examples
-#' x <- "a#4] b_4.. c,4x d''t8) et8)( g_'t8)- a4 c,e_,g,4 ce_g1"
+#' # note durations inherit from previous timestep if missing
+#' x <- "a#4] b_ c,x d''t8( e)( g_')- a4 c,e_,g, ce_g4. a~8 a1"
 #' is_music(x)
 #' musical(x)
 #' x <- as_music(x)
@@ -139,12 +150,21 @@ music_split <- function(x){
 }
 
 .music_notes <- function(x, format){
-  notes <- gsub("^([a-grs_#~,']+).*", "\\1", x)
+  notes <- gsub("^([a-grs_#,'~]+).*", "\\1", x)
   as_noteworthy(notes, format = format)
 }
 
 .music_info <- function(x, format){
   info <- gsub("^[a-grs_#~,']+(.*)", "\\1", x)
+  has_time <- grepl("^(t|)\\d+", info)
+  if(!has_time[1])
+    stop("First timestep must have a duration value.", call. = FALSE)
+  if(any(!has_time)){
+    x <- rep(NA, length(info))
+    x[has_time] <- info_duration(info[has_time])
+    for(i in seq_along(x)[-1]) if(is.na(x[i])) x[i] <- x[i - 1]
+    info[!has_time] <- paste0(x[!has_time], info[!has_time])
+  }
   as_noteinfo(info, format)
 }
 
