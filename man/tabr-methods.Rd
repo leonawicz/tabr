@@ -2,13 +2,15 @@
 % Please edit documentation in R/class_methods.R
 \name{tabr-methods}
 \alias{tabr-methods}
-\title{Implemented methods for tabr classes}
+\title{Summary of implemented S3 generic methods}
 \arguments{
-\item{x}{object}
+\item{x}{object.}
 
-\item{i}{index}
+\item{i}{index.}
 
 \item{value}{values to assign at index.}
+
+\item{...}{additional arguments.}
 }
 \description{
 Several methods are implemented for the classes \code{noteworthy},
@@ -74,7 +76,7 @@ method implementations work in this manner.
 
 \section{Square brackets}{
 
-Single and double square bracket subsetting by index work similarly to what
+Single and double bracket subsetting by index work similarly to what
 occurs with lists. Single bracket subsetting returns the same object,
 but only containing the indexed timesteps. Double bracket subsetting only
 operates on a single timestep and extracts the character string value.
@@ -84,8 +86,10 @@ return the same object, but again double brackets only allow indexing a
 single timestep. Double bracket indexing is mostly useful for combining the
 steps of extracting a single value and discarding the special class in one
 command.
+}
 
-#' @section Limited phrase implementations:
+\section{Limited phrase implementations}{
+
 Methods implemented for the \code{phrase} are limited to \code{c} and
 \code{rep}. Due to the complex LilyPond syntax, applying most of the
 functions above directly to phrases is problematic. \code{c} is implemented

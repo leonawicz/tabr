@@ -13,7 +13,17 @@ reference:
 - title: Package
   contents:
   - tabr
+- title: Class methods
+  desc: "S3 methods implemented for tabr classes"
+  contents:
   - tabr-methods
+  - single-bracket
+  - double-bracket
+  - tabr-length
+  - tabr-c
+  - tabr-rep
+  - tabr-rev
+  - tabr-head
 - title: Working with noteworthy strings
   desc: "Functions for inspecting and manipulating noteworthy strings"
   contents:

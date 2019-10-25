@@ -1,4 +1,4 @@
-#' Implemented methods for tabr classes
+#' Summary of implemented S3 generic methods
 #'
 #' Several methods are implemented for the classes \code{noteworthy},
 #' \code{noteinfo}, and \code{music}. See further below for details on limited
@@ -58,7 +58,7 @@
 #' method implementations work in this manner.
 #'
 #' @section Square brackets:
-#' Single and double square bracket subsetting by index work similarly to what
+#' Single and double bracket subsetting by index work similarly to what
 #' occurs with lists. Single bracket subsetting returns the same object,
 #' but only containing the indexed timesteps. Double bracket subsetting only
 #' operates on a single timestep and extracts the character string value.
@@ -69,7 +69,7 @@
 #' steps of extracting a single value and discarding the special class in one
 #' command.
 #'
-#' #' @section Limited phrase implementations:
+#' @section Limited phrase implementations:
 #' Methods implemented for the \code{phrase} are limited to \code{c} and
 #' \code{rep}. Due to the complex LilyPond syntax, applying most of the
 #' functions above directly to phrases is problematic. \code{c} is implemented
@@ -78,13 +78,13 @@
 #' you can convert a phrase class back to \code{noteworthy} and \code{noteinfo}
 #' objects (under reasonable conditions). See \code{\link{notify}}.
 #'
-#' @param x object
-#' @param i index
+#' @param x object.
+#' @param i index.
 #' @param value values to assign at index.
+#' @param ... additional arguments.
 #'
 #' @name tabr-methods
 #' @seealso \code{\link{note-metadata}}
-#' @importFrom utils head tail
 #'
 #' @examples
 #' # noteworthy class examples
@@ -124,7 +124,41 @@
 #' x
 NULL
 
+#' Single bracket methods for tabr classes
+#'
+#' Single bracket indexing and assignment. See \code{\link{tabr-methods}} for
+#' more details on methods for tabr classes.
+#'
+#' @param x object.
+#' @param i index.
+#' @param value values to assign at index.
+#'
+#' @name single-bracket
+#' @seealso \code{\link{tabr-methods}}, \code{\link{note-metadata}}
 #' @export
+#'
+#' @examples
+#' # noteworthy class examples
+#' x <- as_noteworthy("a, b, c ce_g d4f#4a4")
+#' x[3:4]
+#' x[-2]
+#' x[2] <- paste0(transpose(x[2], 1), "~")
+#' x
+#'
+#' # noteinfo class examples
+#' x <- as_noteinfo(c("4-", "t8(", "t8)", "t8x", "8^", "16"))
+#' x[2:4]
+#' x[-1]
+#' x[5:6] <- c("16^", "8")
+#' x
+#' x[x == "4-"]
+#'
+#' # music class examples
+#' x <- as_music("c,~4 c,1 c'e_'g'4]*4")
+#' x[1:3]
+#' x[-c(1:2)]
+#' x[3:6] <- "c'e'g'8"
+#' x
 `[.noteworthy` <- function(x, i){
   if(all(i == 0)) stop("Cannot have zero timesteps.", call. = FALSE)
   o <- octave_type(x)
@@ -134,6 +168,7 @@ NULL
   .asnw(x, o, a, format)
 }
 
+#' @name single-bracket
 #' @export
 `[.noteinfo` <- function(x, i){
   if(all(i == 0)) stop("Cannot have zero timesteps.", call. = FALSE)
@@ -142,6 +177,7 @@ NULL
   .asni(x, format)
 }
 
+#' @name single-bracket
 #' @export
 `[.music` <- function(x, i){
   if(all(i == 0)) stop("Cannot have zero timesteps.", call. = FALSE)
@@ -154,6 +190,7 @@ NULL
   .asmusic(notes, info, a, tsig, format)
 }
 
+#' @name single-bracket
 #' @export
 `[<-.noteworthy` <- function(x, i, value){
   o <- octave_type(x)
@@ -163,6 +200,7 @@ NULL
   .asnw(x, o, a, format)
 }
 
+#' @name single-bracket
 #' @export
 `[<-.noteinfo` <- function(x, i, value){
   format <- if(time_format(x) == "space-delimited time") "space" else "vector"
@@ -170,6 +208,7 @@ NULL
   .asni(x, format)
 }
 
+#' @name single-bracket
 #' @export
 `[<-.music` <- function(x, i, value){
   a <- accidental_type(x)
@@ -181,21 +220,56 @@ NULL
   .asmusic(notes, info, a, tsig, format)
 }
 
+#' Double bracket methods for tabr classes
+#'
+#' Double bracket indexing and assignment. See \code{\link{tabr-methods}} for
+#' more details on methods for tabr classes.
+#'
+#' @param x object.
+#' @param i index.
+#' @param value values to assign at index.
+#'
+#' @name double-bracket
+#' @seealso \code{\link{tabr-methods}}, \code{\link{note-metadata}}
+#' @export
+#'
+#' @examples
+#' # noteworthy class examples
+#' x <- as_noteworthy("a, b, c ce_g")
+#' x[[3]]
+#' x[[2]] <- paste0(transpose(x[2], 1), "~")
+#' x
+#'
+#' # noteinfo class examples
+#' x <- as_noteinfo(c("4-", "t8(", "t8)", "t8x"))
+#' x[[3]]
+#' x[[3]] <- c("t8]")
+#' x
+#'
+#' # music class examples
+#' x <- as_music("c,~4 c,1 c'e_'g'4]*2")
+#' x[[3]]
+#' x[[3]] <- "c'e'g'8"
+#' x
+#' @name double-bracket
 #' @export
 `[[.noteworthy` <- function(x, i){
   .uncollapse(x)[[i]]
 }
 
+#' @name double-bracket
 #' @export
 `[[.noteinfo` <- function(x, i){
   .uncollapse(x)[[i]]
 }
 
+#' @name double-bracket
 #' @export
 `[[.music` <- function(x, i){
   .uncollapse(x)[[i]]
 }
 
+#' @name double-bracket
 #' @export
 `[[<-.noteworthy` <- function(x, i, value){
   o <- octave_type(x)
@@ -205,6 +279,7 @@ NULL
   .asnw(x, o, a, format)
 }
 
+#' @name double-bracket
 #' @export
 `[[<-.noteinfo` <- function(x, i, value){
   format <- if(time_format(x) == "space-delimited time") "space" else "vector"
@@ -212,6 +287,7 @@ NULL
   .asni(x, format)
 }
 
+#' @name double-bracket
 #' @export
 `[[<-.music` <- function(x, i, value){
   a <- accidental_type(x)
@@ -224,22 +300,78 @@ NULL
 
 }
 
+#' Length for tabr classes
+#'
+#' Several methods are implemented for the classes \code{noteworthy},
+#' \code{noteinfo}, and \code{music}. See \code{\link{tabr-methods}} for
+#' more details on methods for tabr classes.
+#'
+#' @param x object.
+#'
+#' @name tabr-length
+#' @seealso \code{\link{tabr-methods}}, \code{\link{note-metadata}}
 #' @export
+#'
+#' @examples
+#' # noteworthy class examples
+#' x <- "a b c"
+#' length(x)
+#' length(as_noteworthy(x))
+#' length(as_noteworthy("a b*2 c*2"))
+#'
+#' # noteinfo class examples
+#' x <- "4- t8( t8)( t8) 4*2"
+#' length(x)
+#' length(as_noteinfo(x))
+#'
+#' # music class examples
+#' x <- "c,~4 c,1 c'e_'g'4]*4"
+#' length(x)
+#' length(as_music(x))
 length.noteworthy <- function(x){
   attr(x, "steps")
 }
 
+#' @name tabr-length
 #' @export
 length.noteinfo <- function(x){
   attr(x, "steps")
 }
 
+#' @name tabr-length
 #' @export
 length.music <- function(x){
   attr(x, "steps")
 }
 
+#' Concatenate for tabr classes
+#'
+#' Several methods are implemented for the classes \code{noteworthy},
+#' \code{noteinfo}, and \code{music}. See \code{\link{tabr-methods}} for
+#' more details on methods for tabr classes.
+#'
+#' @param ... objects.
+#'
+#' @name tabr-c
+#' @seealso \code{\link{tabr-methods}}, \code{\link{note-metadata}}
 #' @export
+#'
+#' @examples
+#' # noteworthy class examples
+#' x <- "a b c"
+#' c(x, x)
+#' c(as_noteworthy(x), x)
+#'
+#' # noteinfo class examples
+#' x <- "4- t8( t8)( t8) 4*2"
+#' c(as_noteinfo(x), x)
+#'
+#' # music class examples
+#' x <- "c,~4 c,1 c'e_'g'4]*2"
+#' c(as_music(x), x)
+#'
+#' # phrase class examples
+#' c(phrase(x), x)
 c.noteworthy <- function(...){
   x <- list(...)
   cl <- sapply(lapply(x, class), "[", 1)
@@ -259,6 +391,7 @@ c.noteworthy <- function(...){
   .asnw(x, o, a, format)
 }
 
+#' @name tabr-c
 #' @export
 c.noteinfo <- function(...){
   x <- list(...)
@@ -275,6 +408,7 @@ c.noteinfo <- function(...){
   .asni(x, format)
 }
 
+#' @name tabr-c
 #' @export
 c.music <- function(...){
   x <- list(...)
@@ -298,6 +432,7 @@ c.music <- function(...){
   .asmusic(x$notes, x$info, a, tsig[1], format)
 }
 
+#' @name tabr-c
 #' @export
 c.phrase <- function(...){
   x <- list(...)
@@ -306,11 +441,39 @@ c.phrase <- function(...){
     stop("Cannot concatenate incompatible classes with 'phrase'.",
          call. = FALSE)
   idx <- which(cl == "character")
-  if(length(idx)) x[idx] <- lapply(x[idx], as_phrase)
+  if(length(idx)) x[idx] <- lapply(x[idx], phrase)
   purrr::map_chr(x, ~as.character(.x)) %>% paste(collapse = " ") %>% as_phrase()
 }
 
+#' Repeat for tabr classes
+#'
+#' Several methods are implemented for the classes \code{noteworthy},
+#' \code{noteinfo}, and \code{music}. See \code{\link{tabr-methods}} for
+#' more details on methods for tabr classes.
+#'
+#' @param x object.
+#' @param ... additional arguments. Not accepted for phrase objects.
+#'
+#' @name tabr-rep
+#' @seealso \code{\link{tabr-methods}}, \code{\link{note-metadata}}
 #' @export
+#'
+#' @examples
+#' # noteworthy class examples
+#' x <- "a b c"
+#' rep(x, 2)
+#' rep(as_noteworthy(x), 2)
+#'
+#' # noteinfo class examples
+#' x <- "4x 4]*2 2"
+#' rep(as_noteinfo(x), times = c(2, 1, 1, 2))
+#'
+#' # music class examples
+#' x <- "c,~4 c,1 c'e_'g'4]"
+#' rep(as_music(x), each = 2)
+#'
+#' # phrase class examples
+#' rep(phrase(x), 2)
 rep.noteworthy <- function(x, ...){
   o <- octave_type(x)
   a <- accidental_type(x)
@@ -330,6 +493,7 @@ rep.noteworthy <- function(x, ...){
   .asnw(x, o, a, format)
 }
 
+#' @name tabr-rep
 #' @export
 rep.noteinfo <- function(x, ...){
   format <- time_format(x)
@@ -348,6 +512,7 @@ rep.noteinfo <- function(x, ...){
   .asni(x, format)
 }
 
+#' @name tabr-rep
 #' @export
 rep.music <- function(x, ...){
   a <- accidental_type(x)
@@ -360,6 +525,7 @@ rep.music <- function(x, ...){
   .asmusic(notes, info, a, tsig, format)
 }
 
+#' @name tabr-rep
 #' @export
 rep.phrase <- function(x, ...){
   x <- as.character(x)
@@ -375,7 +541,31 @@ rep.phrase <- function(x, ...){
   as_phrase(paste0(x, collapse = " "))
 }
 
+#' Reverse for tabr classes
+#'
+#' Several methods are implemented for the classes \code{noteworthy},
+#' \code{noteinfo}, and \code{music}. See \code{\link{tabr-methods}} for
+#' more details on methods for tabr classes.
+#'
+#' @param x object.
+#'
+#' @name tabr-rev
+#' @seealso \code{\link{tabr-methods}}, \code{\link{note-metadata}}
 #' @export
+#'
+#' @examples
+#' # noteworthy class examples
+#' x <- "a b c"
+#' rev(x)
+#' rev(as_noteworthy(x))
+#'
+#' # noteinfo class examples
+#' x <- "4x 4]*2 2"
+#' rev(as_noteinfo(x))
+#'
+#' # music class examples
+#' x <- "c,~4 c,1 c'e_'g'4]"
+#' rev(as_music(x))
 rev.noteworthy <- function(x){
   o <- octave_type(x)
   a <- accidental_type(x)
@@ -386,6 +576,7 @@ rev.noteworthy <- function(x){
   .asnw(x, o, a, format)
 }
 
+#' @name tabr-rev
 #' @export
 rev.noteinfo <- function(x){
   format <- time_format(x)
@@ -395,6 +586,7 @@ rev.noteinfo <- function(x){
   .asni(x, format)
 }
 
+#' @name tabr-rev
 #' @export
 rev.music <- function(x){
   a <- accidental_type(x)
@@ -407,7 +599,36 @@ rev.music <- function(x){
   .asmusic(notes, info, a, tsig, format)
 }
 
+#' Head and tail for tabr classes
+#'
+#' Several methods are implemented for the classes \code{noteworthy},
+#' \code{noteinfo}, and \code{music}. See \code{\link{tabr-methods}} for
+#' more details on methods for tabr classes.
+#'
+#' @param x object.
+#' @param ... number of elements to return.
+#'
+#' @name tabr-head
+#' @seealso \code{\link{tabr-methods}}, \code{\link{note-metadata}}
+#' @importFrom utils head tail
 #' @export
+#'
+#' @examples
+#' # noteworthy class examples
+#' x <- "a b c d e f g"
+#' head(x, 2)
+#' head(as_noteworthy(x), 2)
+#' tail(as_noteworthy(x), 2)
+#'
+#' # noteinfo class examples
+#' x <- "4x 4]*8 2 4"
+#' head(as_noteinfo(x))
+#' tail(as_noteinfo(x))
+#'
+#' # music class examples
+#' x <- "c,~4 c,1 c'e_'g'4]"
+#' head(as_music(x), 2)
+#' tail(as_music(x), 2)
 head.noteworthy <- function(x, ...){
   o <- octave_type(x)
   a <- accidental_type(x)
@@ -418,6 +639,7 @@ head.noteworthy <- function(x, ...){
   .asnw(x, o, a, format)
 }
 
+#' @name tabr-head
 #' @export
 head.noteinfo <- function(x, ...){
   format <- time_format(x)
@@ -427,6 +649,7 @@ head.noteinfo <- function(x, ...){
   .asni(x, format)
 }
 
+#' @name tabr-head
 #' @export
 head.music <- function(x, ...){
   a <- accidental_type(x)
@@ -439,6 +662,7 @@ head.music <- function(x, ...){
   .asmusic(notes, info, a, tsig, format)
 }
 
+#' @name tabr-head
 #' @export
 tail.noteworthy <- function(x, ...){
   o <- octave_type(x)
@@ -450,6 +674,7 @@ tail.noteworthy <- function(x, ...){
   .asnw(x, o, a, format)
 }
 
+#' @name tabr-head
 #' @export
 tail.noteinfo <- function(x, ...){
   format <- time_format(x)
@@ -459,6 +684,7 @@ tail.noteinfo <- function(x, ...){
   .asni(x, format)
 }
 
+#' @name tabr-head
 #' @export
 tail.music <- function(x, ...){
   a <- accidental_type(x)

@@ -152,7 +152,7 @@ print.phrase <- function(x, ...){
                  "\\6\\7")
   x <- gsub(pat, repl, x)
   x <- gsub(pat, repl, x)
-  x <- gsub("(\\\\deadNote|\\\\staccato|\\\\glissando) ", info("\\1 "), x)
+  x <- gsub("(\\\\deadNote|\\\\staccato|\\\\glissando)", info("\\1"), x)
   x <- gsub(">(\\d+)([\\.\\(\\)]+)( <|\\^|)",
             paste0(">", info("\\1\\2"), "\\3"), x)
   x <- gsub(">(\\d+|)(\\.+|)(\\\\[a-zA-Z]+|)",
