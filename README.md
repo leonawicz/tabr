@@ -43,8 +43,8 @@ language of a musician than, say, an audio engineer.
 <hr>
 
 *If you enjoy my R community contributions, consider [buying me a coffee
-in Ko-fi](ko-fi.com/leonawicz) (or through PayPal**
-<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DHMC76S85GJCY&source=url"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" /></a>**)
+in Ko-fi](ko-fi.com/leonawicz) (or through PayPal
+<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DHMC76S85GJCY&source=url"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" /></a>)
 so I can keep developing and maintaining this and other packages :)*
 
 <hr>
