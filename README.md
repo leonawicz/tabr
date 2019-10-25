@@ -106,11 +106,16 @@ music_split(y)
 #> [1] "4/4"
 ```
 
-Functions exist for directly performing various mathematical and
-organizational operations on strings like the one above by checking
-their music syntax validity and adding custom classes and methods to
-these strings (more on this below). Of course, none of this will work on
-character strings that are not noteworthy. Invalid, unworthy syntax is
+Functions exist for directly performing various mathematical, logical
+and organizational operations and musical transformations on strings
+like the one above by checking their music syntax validity and adding
+custom classes and methods to these strings (more on this below). `tabr`
+offers special object classes that facilitate working with music data
+and notation in ways that are natural to R, robust, tidy, and lend
+themselves well to transcription as well as analysis.
+
+Of course, none of this will work on character strings that are not
+“noteworthy” or “musical”, for example. Invalid, unworthy syntax is
 rejected early with an error, preventing corrupted music syntax from
 causing unexpected issues later on.
 
