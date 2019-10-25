@@ -2,11 +2,25 @@
 % Please edit documentation in R/tracks.R
 \name{track}
 \alias{track}
+\alias{track_guitar}
+\alias{track_tc}
+\alias{track_bc}
+\alias{track_bass}
 \title{Create a music track}
 \usage{
 track(phrase, tuning = "standard", voice = 1L,
   music_staff = "treble_8", ms_transpose = 0, ms_key = NA,
   no_tab = FALSE)
+
+track_guitar(phrase, tuning = "standard", voice = 1L,
+  music_staff = "treble_8", ms_transpose = 0, ms_key = NA,
+  no_tab = FALSE)
+
+track_tc(phrase, voice = 1L, ms_transpose = 0, ms_key = NA)
+
+track_bc(phrase, voice = 1L, ms_transpose = 0, ms_key = NA)
+
+track_bass(phrase, voice = 1L, ms_transpose = 0, ms_key = NA)
 }
 \arguments{
 \item{phrase}{a phrase object.}
@@ -14,7 +28,8 @@ track(phrase, tuning = "standard", voice = 1L,
 \item{tuning}{character, space-delimited pitches describing the instrument
 string tuning or a predefined tuning ID (see \code{\link{tunings}}).
 Defaults to standard guitar tuning. Tick or integer octave numbering
-accepted for custom tuning entries.}
+accepted for custom tuning entries. Not relevant if tablature staff is
+suppressed.}
 
 \item{voice}{integer, ID indicating the unique voice \code{phrase} belongs
 to within a single track (another track may share the same tab/music staff
@@ -46,14 +61,16 @@ table. All tracks are stored as track tables, one per row, even if that
 table consists of a single track.
 \code{track} creates a single-entry track table.
 See \code{\link{trackbind}} for merging single tracks into a multi-track
-table. This is simply row binding that properly preserves phrase and track
+table. This is row binding that also properly preserves phrase and track
 classes.
 
 The default for an additional music staff is \code{"treble_8"} for 8va
-treble clef, which is commonly displayed in quality guitar tablature above
+treble clef, which is commonly displayed in guitar tablature above
 the tablature staff to include precise rhythm and timing information.
 Note that guitar is a transposing instrument. For this reason, the default
-ID is \code{"treble_8"}, not \code{"treble"}.
+ID is \code{"treble_8"}, not \code{"treble"}. However, there are other
+\code{track_*} functions that have different default arguments. See examples.
+
 Set \code{music_staff = NA} to suppress the additional music staff above
 the tablature staff.
 This is appropriate for simple patterns where there are already multiple
@@ -78,5 +95,8 @@ required; it is merely more clear and informative for the user.
 }
 \examples{
 x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
-track(x)
+track(x) # same as track_guitar(x); 8va treble clef above tab staff
+track_tc(x) # treble clef sheet music, no tab staff
+track_bc(x) # bass clef sheet music, no tab staff
+track_bass(x) # includes tab staff and standard bass string tuning
 }

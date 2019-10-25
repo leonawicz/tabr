@@ -161,6 +161,8 @@ print.phrase <- function(x, ...){
   x <- gsub("(~)", info("\\1"), x)
   x <- gsub("(r|s)(\\d+)", paste0(notes("\\1"), info("\\2")), x)
   x <- gsub("(\\\\tuplet \\d/\\d \\d+ \\{|\\})", info("\\1"), x)
+  x <- gsub("(\\\\repeat )(unfold|percent|volta)( \\d+ \\{)",
+            info("\\1\\2\\3"), x)
   cat(col1("<"), col1$bold("Musical phrase"), col1(">"), "\n", col1(x), "\n",
       sep = "")
 }

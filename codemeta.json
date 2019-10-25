@@ -247,9 +247,13 @@
     "lilypond",
     "music-analysis",
     "music-transcription",
-    "music-notation"
+    "music-notation",
+    "music-data",
+    "lilypond-api",
+    "music-syntax",
+    "music-programming"
   ],
   "relatedLink": "https://CRAN.R-project.org/package=tabr",
-  "fileSize": "327.165KB",
+  "fileSize": "330.303KB",
   "developmentStatus": "http://www.repostatus.org/#active"
 }

@@ -40,6 +40,9 @@
     <loc>http://leonawicz.github.io/tabr/reference/chord_set.html</loc>
   </url>
   <url>
+    <loc>http://leonawicz.github.io/tabr/reference/double-bracket.html</loc>
+  </url>
+  <url>
     <loc>http://leonawicz.github.io/tabr/reference/dyad.html</loc>
   </url>
   <url>
@@ -148,13 +151,31 @@
     <loc>http://leonawicz.github.io/tabr/reference/sf_phrase.html</loc>
   </url>
   <url>
+    <loc>http://leonawicz.github.io/tabr/reference/single-bracket.html</loc>
+  </url>
+  <url>
     <loc>http://leonawicz.github.io/tabr/reference/string_unfold.html</loc>
   </url>
   <url>
     <loc>http://leonawicz.github.io/tabr/reference/tab.html</loc>
   </url>
   <url>
+    <loc>http://leonawicz.github.io/tabr/reference/tabr-c.html</loc>
+  </url>
+  <url>
+    <loc>http://leonawicz.github.io/tabr/reference/tabr-head.html</loc>
+  </url>
+  <url>
+    <loc>http://leonawicz.github.io/tabr/reference/tabr-length.html</loc>
+  </url>
+  <url>
     <loc>http://leonawicz.github.io/tabr/reference/tabr-methods.html</loc>
+  </url>
+  <url>
+    <loc>http://leonawicz.github.io/tabr/reference/tabr-rep.html</loc>
+  </url>
+  <url>
+    <loc>http://leonawicz.github.io/tabr/reference/tabr-rev.html</loc>
   </url>
   <url>
     <loc>http://leonawicz.github.io/tabr/reference/tabr.html</loc>

@@ -13,6 +13,7 @@
 * Added more functions for music data manipulation and analysis.
 * Added more functions for mapping between noteworthy strings, phrase objects, and data frames.
 * Added syntax converters `from_chorrrds` (for chord output from `chorrrds` package) and `from_music21`, for converting other music notation syntax to `tabr` syntax.
+* Added `track_*` wrapper functions to provide better default track arguments for different instruments and use cases.
 * Added new vignettes on syntax conversion and rendering chord charts.
 * Updated vignettes, readme and other documentation.
 * Made improvements to print method for phrase objects.

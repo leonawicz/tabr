@@ -32,11 +32,17 @@ p1 <- p("c e g c' e' c' g e", 8, "5 4 3 2 1 2 3 4")
 p2 <- p("g b d' g'", 8, "4 3 2 1")
 p3 <- p("f a c' f'", 8, "4 3 2 1")
 p4 <- p("c e g e c", "8*4 2", "5 4 3 4 5")
-p_all <- pc(p1, p2, p3, p4)
+p_all <- c(p1, p2, p3, p4)
 track(p_all) %>% score
 ```
 
-This general process has been seen many times already. Now, examples are given that use the various arguments available in these functions, beginning with tracks.
+This general process has been seen many times already. Below, examples are given that use the various arguments available in these functions, beginning with tracks. Briefly before exploring these arguments, note that `track` is equivalent to `track_guitar` and has appropriate default arguments. However, other wrappers around `track` are available that take different defaults. `track_bass` defaults to standard four-string bass tuning and includes the tab staff. For sheet music treble clef and bass clef tracks without any tablature staff, you can use `track_tc` and `track_bc`, respectively.
+
+```{r track0}
+track_tc(p_all)
+track_bc(p_all)
+track_bass(p_all)
+```
 
 ## Single voice
 
@@ -143,7 +149,7 @@ Another important fact worth mentioning is that while multiple simultaneous trac
 
 ### String tuning
 
-String tuning can be unique to each track, but this is intended to translate to each music staff. This means that entirely different tracks (destined for different music staves in the output) may be tuned differently. However, distinct voices that share the same staff should not be be passed different tunings in their respective `track` calls. The next example shows the change to the tuning for the first tab staff.
+String tuning can be unique to each track, but this is intended to translate to a tab staff. This means that entirely different tracks (destined for different tab staves in the output) may be tuned differently. However, distinct voices that share the same staff should not be be passed different tunings in their respective `track` calls. The next example shows the change to the tuning for the first tab staff.
 
 ```{r track6}
 p1 <- p("e, b, e g b e'", 8)
@@ -164,9 +170,9 @@ Rendering each of these tracks, all three look as expected given the different t
 
 ## Supplemental music staff
 
-Return for a moment to the music staff. Earlier it was suppressed. It was also shown how `ms_tranpose` and `ms_key` relate to it. Generally speaking, the addition of a standard music staff above the tab staff is absolutely critical for quality guitar tablature. It is the only way to provide accurate and complete rhythm information and other details not suitable to a tab staff. The tab staff does an excellent job of showing you *what* to play, but attempts to force it to provide more and more information regarding *how* to play it lead to ugly "plain text" style tabs that can be incredibly difficult to read and reason about.
+Return for a moment to the music staff. Earlier it was suppressed. It was also shown how `ms_tranpose` and `ms_key` relate to it. Generally speaking, the addition of a standard music staff above the tab staff is critical for quality guitar tablature. It is the only way to provide accurate and complete rhythm information and other details not suitable to a tab staff. The tab staff does an excellent job of showing you *what* to play, but attempts to force it to provide more and more information regarding *how* to play it lead to ugly "plain text" style tabs that can be incredibly difficult to read and reason about.
 
-`tabr` focuses on guitar tabs. This is why the default music staff is `treble_8` for the treble clef, or G clef, transposed one octave (guitar is a transposing instrument). However, any music staff ID accepted by LilyPond can be provided; for example, `bass_8` for the bass clef. Simply change the value of the `music_staff` argument.
+`tabr` focuses on guitar tabs. This is why the default music staff is `treble_8` for the treble clef, or G clef, transposed one octave (guitar is a transposing instrument; the `_8` suffix is for *8va*). However, any music staff ID accepted by LilyPond can be provided; for example, `treble` or `bass` for the standard treble or bass clef, respectively. Use one of the available `track_*` wrapper functions or change the value of the `music_staff` argument in `track`.
 
 ```{r track7, results="hide", eval=FALSE}
 track(p1, music_staff = "bass_8") %>% score %>% tab("ex27.pdf")
