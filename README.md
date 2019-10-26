@@ -36,14 +36,10 @@ The music notation framework facilitates creating and analyzing music
 data in notation form; i.e, more from the perspective and in the
 language of a musician than, say, an audio engineer.
 
-<p>
-
-</p>
-
 <hr>
 
-*If you enjoy my R community contributions, consider [buying me a coffee
-in Ko-fi](https://ko-fi.com/leonawicz) (or through PayPal
+*If you enjoy my R community contributions, consider* ***[buying me a
+coffee in Ko-fi](https://ko-fi.com/leonawicz)*** *(or through PayPal
 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DHMC76S85GJCY&source=url"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" /></a>)
 so I can keep developing and maintaining this and other packages :)*
 
@@ -640,6 +636,6 @@ provides package introductions and examples.
 
 -----
 
-Please note that this project is released with a [Contributor Code of
-Conduct](https://leonawicz.github.io/tabr/CODE_OF_CONDUCT.html). By
-participating in this project you agree to abide by its terms.
+Please note that the `tabr` project is released with a [Contributor Code
+of Conduct](https://leonawicz.github.io/tabr/CODE_OF_CONDUCT.html). By
+contributing to this project, you agree to abide by its terms.
