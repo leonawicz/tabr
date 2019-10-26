@@ -43,7 +43,7 @@ language of a musician than, say, an audio engineer.
 <hr>
 
 *If you enjoy my R community contributions, consider [buying me a coffee
-in Ko-fi](ko-fi.com/leonawicz) (or through PayPal
+in Ko-fi](https://ko-fi.com/leonawicz) (or through PayPal
 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DHMC76S85GJCY&source=url"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" /></a>)
 so I can keep developing and maintaining this and other packages :)*
 
@@ -288,13 +288,13 @@ can get many of these developments now by installing version 0.3.9.9000
 from GitHub, which all the current online documentation is updated for
 (this document, the `pkgdown` website, help files and vignettes).
 
-You can install tabr v0.3.5 from CRAN with:
+Install the CRAN release of `tabr` with
 
 ``` r
 install.packages("tabr")
 ```
 
-You can install the latest from GitHub with:
+Install the development version from GitHub with
 
 ``` r
 # install.packages("remotes")
