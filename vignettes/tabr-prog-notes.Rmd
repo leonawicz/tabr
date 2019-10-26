@@ -278,7 +278,7 @@ An important function in `tabr` for manipulating music notation is the `transpos
 ```{r tp1}
 notes1 <- "c3 b2 c3 d3 e3 e3 d3 c3 b2 c3 c3 c4"
 notes2 <- "c4 b c4 d4 e4 e4 d4 c4 b c4 c4 c5"
-transpose(notes1, 12, octaves = "integer") == notes2
+transpose(notes1, 12, octaves = "integer") == as_noteworthy(notes2)
 ```
 
 Transposing down is done with negative integers. 

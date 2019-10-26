@@ -260,8 +260,8 @@
 <p>In the last section there was an example showing a sequence of notes followed by the same sequence transposed one octave up. At the time, it was written out twice. Here, the same sequence is reproduced using <code>transpose</code>. Transposing up one octave is done by specifying an increase of 12 semitones or half steps. Note that <code>transpose</code> drops the unnecessary <code>3</code>s for the third octave, the central octave in LilyPond. They are dropped from <code>note2</code> here</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">notes1 &lt;-<span class="st"> "c3 b2 c3 d3 e3 e3 d3 c3 b2 c3 c3 c4"</span></a>
 <a class="sourceLine" id="cb12-2" title="2">notes2 &lt;-<span class="st"> "c4 b c4 d4 e4 e4 d4 c4 b c4 c4 c5"</span></a>
-<a class="sourceLine" id="cb12-3" title="3"><span class="kw"><a href="../reference/transpose.html">transpose</a></span>(notes1, <span class="dv">12</span>) <span class="op">==</span><span class="st"> </span>notes2</a></code></pre></div>
-<pre class="r-output"><code>#&gt; [1] TRUE
+<a class="sourceLine" id="cb12-3" title="3"><span class="kw"><a href="../reference/transpose.html">transpose</a></span>(notes1, <span class="dv">12</span>) <span class="op">==</span><span class="st"> </span><span class="kw"><a href="../reference/valid-notes.html">as_noteworthy</a></span>(notes2)</a></code></pre></div>
+<pre class="r-output"><code>#&gt;  [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
 </code></pre>
 <p>Transposing down is done with negative integers. The default (<code>n = 0</code>) returns the input, <code>x</code>, with no transposition. The alias <code>tp</code> can be used to limit typing. Examples are shown below.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw"><a href="../reference/transpose.html">transpose</a></span>(<span class="st">"a_3 b_4 c5"</span>, <span class="dv">0</span>)</a></code></pre></div>
