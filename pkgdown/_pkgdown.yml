@@ -24,6 +24,7 @@ reference:
   - tabr-rep
   - tabr-rev
   - tabr-head
+  - note-logic
 - title: Working with noteworthy strings
   desc: "Functions for inspecting and manipulating noteworthy strings"
   contents:

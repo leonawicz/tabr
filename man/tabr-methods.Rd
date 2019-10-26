@@ -21,7 +21,8 @@ implementations for the \code{phrase} class.
 In addition to custom print and summary methods, the following methods have
 been implemented for all three classes: \code{[}, \code{[<-}, \code{[[},
 \code{[[<-}, \code{length}, \code{c}, \code{rep}, \code{rev}, \code{head}
-and \code{tail}.
+and \code{tail}. Logical operators are also implemented for noteworthy
+strings.
 }
 \section{Methods \code{length} and \code{c}}{
 
@@ -137,5 +138,5 @@ x[[3]] <- "b_t8"
 x
 }
 \seealso{
-\code{\link{note-metadata}}
+\code{\link{note-logic}}, \code{\link{note-metadata}}
 }

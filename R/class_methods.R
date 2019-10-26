@@ -8,7 +8,8 @@
 #' In addition to custom print and summary methods, the following methods have
 #' been implemented for all three classes: \code{[}, \code{[<-}, \code{[[},
 #' \code{[[<-}, \code{length}, \code{c}, \code{rep}, \code{rev}, \code{head}
-#' and \code{tail}.
+#' and \code{tail}. Logical operators are also implemented for noteworthy
+#' strings.
 #'
 #' @section Methods \code{length} and \code{c}:
 #' The implementation of \code{length} is equivalent to \code{n_steps}. They
@@ -84,7 +85,7 @@
 #' @param ... additional arguments.
 #'
 #' @name tabr-methods
-#' @seealso \code{\link{note-metadata}}
+#' @seealso \code{\link{note-logic}}, \code{\link{note-metadata}}
 #'
 #' @examples
 #' # noteworthy class examples
@@ -695,4 +696,101 @@ tail.music <- function(x, ...){
   notes <- .music_notes(x, format)
   info <- .music_info(x, format)
   .asmusic(notes, info, a, tsig, format)
+}
+
+#' Logical operators for noteworthy class
+#'
+#' Logical operators for comparing two noteworthy class objects.
+#'
+#' Equality is assessed in the same manner as used for \code{\link{note_sort}}
+#' when sorting pitches. What matters is the underlying semitone value
+#' associated with each pitch, not the string notation such as flat vs. sharp
+#' (see \code{\link{pitch_is_identical}}). When comparing chords, or a chord
+#' vs. a single note, comparison favors the root. Comparison is made of the
+#' respective lowest pitches, then proceeds to the next pitch if equal.
+#'
+#' For these operators, the objects on the left and right side of the operator
+#' must both be \code{noteworthy} or an error is returned.
+#'
+#' The examples include a chord with its pitches entered out of pitch order.
+#' This does not affect the results because pitches within chords are sorted
+#' before note to note comparisons at each timestep are done between \code{e1}
+#' and \code{e2}.
+#'
+#' @param e1 noteworthy string.
+#' @param e2 noteworthy string.
+#'
+#' @return logical vector
+#' @export
+#' @name note-logic
+#'
+#' @examples
+#' x <- as_noteworthy("f# a d'f#'a' d'f#'a'")
+#' y <- as_noteworthy("g_ b f#'a'd' d'd''")
+#' x == y
+#' x != y
+#' x < y
+#' x > y
+#' x <= y
+#' x >= y
+`==.noteworthy` <- function(e1, e2){
+  rowSums(.logic_diff(e1, e2)) == 0
+}
+
+#' @export
+#' @rdname note-logic
+`!=.noteworthy` <- function(e1, e2){
+  rowSums(.logic_diff(e1, e2)) != 0
+}
+
+#' @export
+#' @rdname note-logic
+`<.noteworthy` <- function(e1, e2){
+  .logic_comp(e1, e2) < 0
+}
+
+#' @export
+#' @rdname note-logic
+`<=.noteworthy` <- function(e1, e2){
+  .logic_comp(e1, e2) <= 0
+}
+
+#' @export
+#' @rdname note-logic
+`>.noteworthy` <- function(e1, e2){
+  .logic_comp(e1, e2) > 0
+}
+
+#' @export
+#' @rdname note-logic
+`>=.noteworthy` <- function(e1, e2){
+  .logic_comp(e1, e2) >= 0
+}
+
+.logic_diff <- function(x, y){
+  if(!is_noteworthy(x) | !is_noteworthy(y))
+    stop("Lef and right hand side must both be `noteworthy` class.",
+         call. = FALSE)
+  .logic_prep(x) - .logic_prep(y)
+}
+
+.logic_prep <- function(x){
+  x <- .uncollapse(x)
+  s <- lapply(chord_semitones(x), sort)
+  n <- max(sapply(s, length))
+  s <- purrr::map(s, ~{
+    x <- rep(NA_integer_, n)
+    x[seq_along(.x)] <- .x
+    x[is.na(x)] <- utils::tail(.x, 1)
+    x
+  })
+  unname(t(as.data.frame(s)))
+}
+.logic_comp <- function(x, y){
+  apply(.logic_diff(x, y), 1, .logic_first)
+}
+
+.logic_first <- function(x){
+  i <- which(x != 0)
+  if(length(i)) x[i[1]] else 0L
 }
