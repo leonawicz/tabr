@@ -166,7 +166,7 @@ intend to render tabs. You can even use the `lilypond` function to write
 LilyPond files to disk without the software installed, since this is
 only a case of R writing plain text files in the proper format. The only
 functions in the package that require a LilyPond installation are `tab`,
-`midily` and `miditab`.
+`midily`, `miditab` and any `render_*` functions.
 
 ### Use case considerations
 

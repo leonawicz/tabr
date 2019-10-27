@@ -179,47 +179,85 @@ miditab <- function(midi_file, file, keep_ly = FALSE, path = NULL,
   invisible()
 }
 
-#' Read and inspect MIDI file contents
+#' Read, inspect and convert MIDI file contents
 #'
 #' Read MIDI file into a data frame and inspect the music data with supporting
 #' functions.
 #'
-#' This function wraps around \code{tuneR::readMidi} by Uwe Ligges and Johanna
-#' Mielke.
+#' The \code{read_midi} function wraps around \code{tuneR::readMidi} by Uwe
+#' Ligges and Johanna Mielke. \code{midi_notes} is a work in progress, but
+#' converts MIDI data to noteworthy strings and note info formats. This makes
+#' it easy to analyze, transform and edit the music data as well as render it
+#' to sheet music and a new MIDI file.
+#'
+#' \code{read_midi} does not parse the ticks per quarter note from the MIDI
+#' file input at this time. It must be specified with \code{ticks_per_qtr}
 #'
 #' @param file character, path to MIDI file.
-#' @param x a data frame returned by \code{read_midi}.
+#' @param x a data frame returned by \code{read_midi}. An integer vector for
+#' \code{ticks_to_duration}; a character vector (may be a space-delimited
+#' string) for \code{duration_to_ticks}.
+#' @param ticks_per_qtr ticks per quarter note. Used to compute durations from
+#' MIDI file ticks.
 #' @param channel,track integer, filter rows on channel or track.
+#' @param noteworthy logical, convert to \code{noteworthy} and \code{noteinfo}
+#' data.
 #'
 #' @return a tibble data frame
 #' @export
 #'
 #' @examples
-#' file <- system.file("example.mid", package = "tabr")
+#' ticks_to_duration(c(120, 160))
+#' ticks_to_duration(c(128, 192, 512), ticks_per_qtr = 384)
+#' duration_to_ticks(c("t8", "8", "8.", "8.."))
+#' duration_to_ticks(c("t8 8 8. 8.."), ticks_per_qtr = 384)
+#'
+#' file <- system.file("example2.mid", package = "tabr")
 #' if(require("tuneR")){
-#'   x <- read_midi(file)
+#'   x <- read_midi(file, ticks_per_qtr = 384)
 #'   midi_metadata(x)
 #'   midi_time(x)
 #'   midi_key(x)
-#'   midi_notes(x, channel = 1)
+#'   midi_notes(x, channel = 0, noteworthy = FALSE)
+#'
+#'   (x <- midi_notes(x, channel = 0))
+#'   (x <- as_music(x$pitch, x$duration))
+#'
+#'   \dontrun{
+#'   # requires LilyPond installation
+#'   phrase(x) %>% track_bc() %>% score() %>% tab("out.pdf", tempo = "4 = 120")
+#'   }
 #' }
-read_midi <- function(file){
+read_midi <- function(file, ticks_per_qtr = 480){
   if(!requireNamespace("tuneR")){
     message("Please install the `tuneR` package to read MIDI files.")
     return(invisible())
   } else {
+    mx <- duration_to_ticks(1, ticks_per_qtr)
     x <- tibble::as_tibble(tuneR::readMidi(file))
     y <- tuneR::getMidiNotes(x)
     bycols <- c("channel", "track", "time", parameter1 = "note")
-    dplyr::left_join(x, y, by = bycols) %>%
+    d <- dplyr::left_join(x, y, by = bycols) %>%
       dplyr::select(-c("notename")) %>%
       dplyr::mutate(
         note = semitone_pitch(.data[["parameter1"]]),
         note = ifelse(.data[["event"]] == "Note On", .data[["note"]], NA),
-        duration = 32 / round(.data[["length"]] / 48)) %>%
+        duration = ticks_to_duration(.data[["length"]], ticks_per_qtr)) %>%
       dplyr::select(c("time", "length", "duration", "event", "type", "channel",
                       "parameter1", "parameter2",
                       "parameterMetaSystem", "track", "note", "velocity"))
+    idx <- which(is.na(d$duration) & d$event == "Note On")
+    if(length(idx)){
+      d$duration[idx] <- purrr::map_chr(d$length[idx], ~{
+        y <- x <- .x
+        while(x > mx){
+          x <- x - mx
+          y <- c(x, y)
+        }
+        paste(ticks_to_duration(y, ticks_per_qtr), collapse = ";")
+      })
+    }
+    d
   }
 }
 
@@ -231,16 +269,42 @@ midi_metadata <- function(x){
 
 #' @export
 #' @rdname read_midi
-midi_notes <- function(x, channel = NULL, track = NULL){
+midi_notes <- function(x, channel = NULL, track = NULL, noteworthy = TRUE){
   x <- dplyr::filter(x, .data[["event"]] == "Note On") %>%
     dplyr::rename(semitone = .data[["parameter1"]]) %>%
-    dplyr::select(c("time", "duration", "note", "semitone", "velocity",
-                    "channel", "track"))
+    dplyr::select(c("time", "length", "duration", "note", "semitone",
+                    "velocity", "channel", "track"))
 
   if(!is.null(channel))
     x <- dplyr::filter(x, .data[["channel"]] %in% !! channel)
   if(!is.null(track))
     x <- dplyr::filter(x, .data[["track"]] %in% !! track)
+  if(noteworthy){
+    x <- dplyr::group_by(x, .data[["time"]]) %>%
+      dplyr::summarize(
+        pitch = paste(.data[["note"]][order(.data[["semitone"]])],
+                      collapse = ""),
+        duration = unique(.data[["duration"]])) %>%
+      dplyr::select(-.data[["time"]])
+    idx <- grep(";", x$duration)
+    if(length(idx)){
+      while(length(idx)){
+        info <- strsplit(x$duration[idx[1]], ";")[[1]]
+        n <- length(info)
+        notes <- rep(x$pitch[idx[1]], n)
+        notes[-n] <- tie(notes[-n])
+        x$duration[idx[1]] <- info[1]
+        x$pitch[idx[1]] <- notes[1]
+        x <- dplyr::add_row(
+          x, "pitch" := notes[-1], "duration" := info[-1], .after = idx[1])
+        idx <- grep(";", x$duration)
+      }
+    }
+    x <- dplyr::mutate(
+      x, pitch = as_noteworthy(.data[["pitch"]]),
+      duration = as_noteinfo(.data[["duration"]])
+    )
+  }
   x
 }
 
@@ -256,3 +320,36 @@ midi_key <- function(x){
   unique(x$parameterMetaSystem[x$event == "Key Signature"])
 }
 
+#' @export
+#' @rdname read_midi
+ticks_to_duration <- function(x, ticks_per_qtr = 480){
+  y <- .tick_table(x, ticks_per_qtr)
+  z <- y[match(x, y)]
+  idx <- which(is.na(z))
+  if(length(idx)){
+    z[idx] <- sapply(x[idx], function(x) y[which.min(abs(y - x))])
+    names(z)[idx] <- names(y)[match(z[idx], y)]
+  }
+  names(z)
+}
+
+#' @export
+#' @rdname read_midi
+duration_to_ticks <- function(x, ticks_per_qtr = 480){
+  x <- .uncollapse(x)
+  y <- .tick_table(x, ticks_per_qtr)
+  z <- as.integer(y[match(x, names(y))])
+  if(any(is.na(z))) stop("Invalid durations found.", call. = FALSE)
+  z
+}
+
+.tick_table <- function(x, r = 480){
+  x <- r * 2 ^ (-3:2)
+  dot1 <- x[-6] + r * 2 ^ (-4:0)
+  dot2 <- dot1[-6] + r * 2 ^ (-5:-1)
+  trp <- (2 / 3) * x[-6]
+  d <- c(32, 16, 8, 4, 2, 1)
+  x <- c(x, dot1, dot2, trp)
+  names(x) <- c(d, paste0(d[-6], "."), paste0(d[-6], ".."), paste0("t", d[-6]))
+  sort(x)
+}

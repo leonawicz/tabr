@@ -6,24 +6,38 @@
 \alias{midi_notes}
 \alias{midi_time}
 \alias{midi_key}
-\title{Read and inspect MIDI file contents}
+\alias{ticks_to_duration}
+\alias{duration_to_ticks}
+\title{Read, inspect and convert MIDI file contents}
 \usage{
-read_midi(file)
+read_midi(file, ticks_per_qtr = 480)
 
 midi_metadata(x)
 
-midi_notes(x, channel = NULL, track = NULL)
+midi_notes(x, channel = NULL, track = NULL, noteworthy = TRUE)
 
 midi_time(x)
 
 midi_key(x)
+
+ticks_to_duration(x, ticks_per_qtr = 480)
+
+duration_to_ticks(x, ticks_per_qtr = 480)
 }
 \arguments{
 \item{file}{character, path to MIDI file.}
 
-\item{x}{a data frame returned by \code{read_midi}.}
+\item{ticks_per_qtr}{ticks per quarter note. Used to compute durations from
+MIDI file ticks.}
+
+\item{x}{a data frame returned by \code{read_midi}. An integer vector for
+\code{ticks_to_duration}; a character vector (may be a space-delimited
+string) for \code{duration_to_ticks}.}
 
 \item{channel, track}{integer, filter rows on channel or track.}
+
+\item{noteworthy}{logical, convert to \code{noteworthy} and \code{noteinfo}
+data.}
 }
 \value{
 a tibble data frame
@@ -33,16 +47,35 @@ Read MIDI file into a data frame and inspect the music data with supporting
 functions.
 }
 \details{
-This function wraps around \code{tuneR::readMidi} by Uwe Ligges and Johanna
-Mielke.
+The \code{read_midi} function wraps around \code{tuneR::readMidi} by Uwe
+Ligges and Johanna Mielke. \code{midi_notes} is a work in progress, but
+converts MIDI data to noteworthy strings and note info formats. This makes
+it easy to analyze, transform and edit the music data as well as render it
+to sheet music and a new MIDI file.
+
+\code{read_midi} does not parse the ticks per quarter note from the MIDI
+file input at this time. It must be specified with \code{ticks_per_qtr}
 }
 \examples{
-file <- system.file("example.mid", package = "tabr")
+ticks_to_duration(c(120, 160))
+ticks_to_duration(c(128, 192, 512), ticks_per_qtr = 384)
+duration_to_ticks(c("t8", "8", "8.", "8.."))
+duration_to_ticks(c("t8 8 8. 8.."), ticks_per_qtr = 384)
+
+file <- system.file("example2.mid", package = "tabr")
 if(require("tuneR")){
-  x <- read_midi(file)
+  x <- read_midi(file, ticks_per_qtr = 384)
   midi_metadata(x)
   midi_time(x)
   midi_key(x)
-  midi_notes(x, channel = 1)
+  midi_notes(x, channel = 0, noteworthy = FALSE)
+
+  (x <- midi_notes(x, channel = 0))
+  (x <- as_music(x$pitch, x$duration))
+
+  \dontrun{
+  # requires LilyPond installation
+  phrase(x) \%>\% track_bc() \%>\% score() \%>\% tab("out.pdf", tempo = "4 = 120")
+  }
 }
 }

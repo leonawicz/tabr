@@ -229,6 +229,7 @@
 <li>Refactored some basic metadata functions as generics to dispatch to the new classes rather than only working for <code>noteworthy</code> objects. For example, <code>time_format</code>.</li>
 <li>Added native triplet support in note info using the <code>t</code>-prefix, e.g., <code>4 4] t8 t8- t8^ 4</code>. Support extends to <code>music</code> objects and now also to <code>phrase</code>, which alleviates reliance on the <code>triplet</code> function and its limitations.</li>
 <li>Added MIDI file read support (requires optional <code>tuneR</code> installation) and a set of functions for inspecting and manipulating the table of MIDI music data.</li>
+<li>Added initial support for conversion of MIDI file input to <code>noteworthy</code>, <code>noteinfo</code>, <code>music</code> and <code>phrase</code> classes so the MIDI data can be analyzed, transformed, edited and rendered to sheet music and a new MIDI file.</li>
 <li>Added more functions for music data manipulation and analysis.</li>
 <li>Added more functions for mapping between noteworthy strings, phrase objects, and data frames.</li>
 <li>Added syntax converters <code>from_chorrrds</code> (for chord output from <code>chorrrds</code> package) and <code>from_music21</code>, for converting other music notation syntax to <code>tabr</code> syntax.</li>

@@ -65,3 +65,10 @@ library(tabr)
 usethis::use_data(.all_pitches_tick, .all_pitches_integer,
                   .all_pitches_tick_sharp, .all_pitches_integer_sharp,
                   internal = TRUE, overwrite = TRUE)
+
+# Add example midi track to package
+notes <- "g, a, b, c d e f# gbd' fac' g b d' g'~ g'"
+info <- "t8( t8)( t8)^ t16- t16] t16x 8 2 4. 8 4 4 1 1"
+s <- p(notes, info) %>% track() %>% trackbind() %>% score()
+tab(s, "inst/example2.pdf", tempo = "4 = 120", midi = TRUE)
+unlink("inst/example2.pdf", recursive = TRUE, force = TRUE)

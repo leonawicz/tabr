@@ -77,7 +77,7 @@ Music programming in the notation syntax provided by `tabr` can be used for a va
 
 LilyPond is an open source music engraving program for generating high quality sheet music based on markup syntax. `tabr` generates LilyPond files from R code and can pass them to LilyPond to be rendered into sheet music pdf files. While LilyPond caters to sheet music in general and `tabr` can be used to create basic sheet music, the transcription functions focus on leveraging LilyPond specifically for creating quality guitar tablature. You do not need to use it for guitar tablature, but for vocal or other instrument tracks, you can change settings, such as suppressing a tab staff from your sheet music.
 
-While LilyPond is listed as a system requirement for `tabr`, you can use the package for music analysis without installing LilyPond if you do not intend to render tabs. You can even use the `lilypond` function to write LilyPond files to disk without the software installed, since this is only a case of R writing plain text files in the proper format. The only functions in the package that require a LilyPond installation are `tab`, `midily` and `miditab`.
+While LilyPond is listed as a system requirement for `tabr`, you can use the package for music analysis without installing LilyPond if you do not intend to render tabs. You can even use the `lilypond` function to write LilyPond files to disk without the software installed, since this is only a case of R writing plain text files in the proper format. The only functions in the package that require a LilyPond installation are `tab`, `midily`, `miditab` and any `render_*` functions.
 
 ### Use case considerations
 
