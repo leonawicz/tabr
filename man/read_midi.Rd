@@ -73,9 +73,10 @@ if(require("tuneR")){
   (x <- midi_notes(x, channel = 0))
   (x <- as_music(x$pitch, x$duration))
 
-  \dontrun{
   # requires LilyPond installation
-  phrase(x) \%>\% track_bc() \%>\% score() \%>\% tab("out.pdf", tempo = "4 = 120")
+  if(tabr_options()$lilypond != ""){
+    out <- file.path(tempdir(), "out.pdf")
+    phrase(x) \%>\% track_bc() \%>\% score() \%>\% tab(out, details = FALSE)
   }
 }
 }

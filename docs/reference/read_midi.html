@@ -290,11 +290,12 @@ file input at this time. It must be specified with <code>ticks_per_qtr</code></p
   (<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>midi_notes</span>(<span class='no'>x</span>, <span class='kw'>channel</span> <span class='kw'>=</span> <span class='fl'>0</span>))
   (<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='music.html'>as_music</a></span>(<span class='no'>x</span>$<span class='no'>pitch</span>, <span class='no'>x</span>$<span class='no'>duration</span>))
 
-  <span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
   <span class='co'># requires LilyPond installation</span>
-  <span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='no'>x</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='track.html'>track_bc</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='score.html'>score</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='tab.html'>tab</a></span>(<span class='st'>"out.pdf"</span>, <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='st'>"4 = 120"</span>)
+  <span class='kw'>if</span>(<span class='fu'><a href='tabr_options.html'>tabr_options</a></span>()$<span class='no'>lilypond</span> <span class='kw'>!=</span> <span class='st'>""</span>){
+    <span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='st'>"out.pdf"</span>)
+    <span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='no'>x</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='track.html'>track_bc</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='score.html'>score</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='tab.html'>tab</a></span>(<span class='no'>out</span>, <span class='kw'>details</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
   }
-}</div><div class='output co'>#&gt; <span class='message'>Loading required package: tuneR</span></div></pre>
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

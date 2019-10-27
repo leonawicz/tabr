@@ -223,9 +223,10 @@ miditab <- function(midi_file, file, keep_ly = FALSE, path = NULL,
 #'   (x <- midi_notes(x, channel = 0))
 #'   (x <- as_music(x$pitch, x$duration))
 #'
-#'   \dontrun{
 #'   # requires LilyPond installation
-#'   phrase(x) %>% track_bc() %>% score() %>% tab("out.pdf", tempo = "4 = 120")
+#'   if(tabr_options()$lilypond != ""){
+#'     out <- file.path(tempdir(), "out.pdf")
+#'     phrase(x) %>% track_bc() %>% score() %>% tab(out, details = FALSE)
 #'   }
 #' }
 read_midi <- function(file, ticks_per_qtr = 480){
@@ -240,12 +241,12 @@ read_midi <- function(file, ticks_per_qtr = 480){
     d <- dplyr::left_join(x, y, by = bycols) %>%
       dplyr::select(-c("notename")) %>%
       dplyr::mutate(
-        note = semitone_pitch(.data[["parameter1"]]),
-        note = ifelse(.data[["event"]] == "Note On", .data[["note"]], NA),
+        pitch = semitone_pitch(.data[["parameter1"]]),
+        pitch = ifelse(.data[["event"]] == "Note On", .data[["pitch"]], NA),
         duration = ticks_to_duration(.data[["length"]], ticks_per_qtr)) %>%
       dplyr::select(c("time", "length", "duration", "event", "type", "channel",
                       "parameter1", "parameter2",
-                      "parameterMetaSystem", "track", "note", "velocity"))
+                      "parameterMetaSystem", "track", "pitch", "velocity"))
     idx <- which(is.na(d$duration) & d$event == "Note On")
     if(length(idx)){
       d$duration[idx] <- purrr::map_chr(d$length[idx], ~{
@@ -272,7 +273,7 @@ midi_metadata <- function(x){
 midi_notes <- function(x, channel = NULL, track = NULL, noteworthy = TRUE){
   x <- dplyr::filter(x, .data[["event"]] == "Note On") %>%
     dplyr::rename(semitone = .data[["parameter1"]]) %>%
-    dplyr::select(c("time", "length", "duration", "note", "semitone",
+    dplyr::select(c("time", "length", "duration", "pitch", "semitone",
                     "velocity", "channel", "track"))
 
   if(!is.null(channel))
@@ -282,9 +283,9 @@ midi_notes <- function(x, channel = NULL, track = NULL, noteworthy = TRUE){
   if(noteworthy){
     x <- dplyr::group_by(x, .data[["time"]]) %>%
       dplyr::summarize(
-        pitch = paste(.data[["note"]][order(.data[["semitone"]])],
-                      collapse = ""),
-        duration = unique(.data[["duration"]])) %>%
+        duration = unique(.data[["duration"]]),
+        pitch = paste(.data[["pitch"]][order(.data[["semitone"]])],
+                      collapse = "")) %>%
       dplyr::select(-.data[["time"]])
     idx <- grep(";", x$duration)
     if(length(idx)){
@@ -296,13 +297,13 @@ midi_notes <- function(x, channel = NULL, track = NULL, noteworthy = TRUE){
         x$duration[idx[1]] <- info[1]
         x$pitch[idx[1]] <- notes[1]
         x <- dplyr::add_row(
-          x, "pitch" := notes[-1], "duration" := info[-1], .after = idx[1])
+          x, "duration" := info[-1], "pitch" := notes[-1], .after = idx[1])
         idx <- grep(";", x$duration)
       }
     }
     x <- dplyr::mutate(
-      x, pitch = as_noteworthy(.data[["pitch"]]),
-      duration = as_noteinfo(.data[["duration"]])
+      x, duration = as_noteinfo(.data[["duration"]]),
+      pitch = as_noteworthy(.data[["pitch"]])
     )
   }
   x

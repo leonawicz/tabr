@@ -1,4 +1,4 @@
-globalVariables(".data")
+globalVariables(c(".data", ":="))
 
 #' tabr: Music notation syntax, manipulation, analysis and transcription in R.
 #'
