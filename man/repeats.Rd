@@ -14,7 +14,7 @@ pct(phrase, n = 1, counter = FALSE, step = 1, reset = TRUE)
 volta(phrase, n = 1, endings = NULL, silent = FALSE)
 }
 \arguments{
-\item{phrase}{a phrase or basic string to be repeated.}
+\item{phrase}{a phrase object or equivalent string to be repeated.}
 
 \item{n}{integer, number of repeats of \code{phrase} (one less than the
 total number of plays).}
@@ -31,7 +31,7 @@ are only applied to the single \code{pct} call and are reset afterward.
 If \code{reset = FALSE}, the settings are left open to apply to any
 subsequent percent repeat sections in a track.}
 
-\item{endings}{list of phrases or basic strings, alternate endings.}
+\item{endings}{a single phrase or a list of phrases, alternate endings.}
 
 \item{silent}{if \code{TRUE}, no text will be printed above the staff at the
 beginning of a volta section.See details.}

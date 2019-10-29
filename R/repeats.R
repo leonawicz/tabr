@@ -37,10 +37,10 @@
 #' \code{counter} and \code{step} only apply to full measures or bars of music.
 #' It does not apply to shorter beats that are repeated using \code{pct}.
 #'
-#' @param phrase a phrase or basic string to be repeated.
+#' @param phrase a phrase object or equivalent string to be repeated.
 #' @param n integer, number of repeats of \code{phrase} (one less than the
 #' total number of plays).
-#' @param endings list of phrases or basic strings, alternate endings.
+#' @param endings a single phrase or a list of phrases, alternate endings.
 #' @param silent if \code{TRUE}, no text will be printed above the staff at the
 #' beginning of a volta section.See details.
 #' @param counter logical, if \code{TRUE}, print the percent repeat counter
@@ -114,8 +114,12 @@ volta <- function(phrase, n = 1, endings = NULL, silent = FALSE){
   x <- paste("\\repeat volta", n + 1, "{", paste(phrase, collapse = " "),
              "| }\n")
   if(!is.null(endings)){
+    if(!is.list(endings) & length(endings) > 1)
+      stop("`endings` must be a list of phrases or a single phrase.",
+           call. = FALSE)
+    if(length(endings) == 1) endings <- as.list(endings)
     x <- paste0(x, "\\alternative {\n",
-                paste("  {", endings, "| }\n", collapse = ""), "}")
+                paste("  {", unlist(endings), "| }\n", collapse = ""), "}")
   }
   x <- gsub("\\| \\|", "\\|", x)
   as_phrase(x)

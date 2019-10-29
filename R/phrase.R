@@ -266,7 +266,7 @@ phrasey <- function(phrase){
   x <- gsub("\\^\".*\"", "", phrase)
   i1 <- sum(attr(gregexpr("<", x)[[1]], "match.length"))
   if(i1 < 1){
-    if(gsub(" |(r|s)\\d+(\\.|)(\\.|)", "", x) == ""){
+    if(grepl("(r|s)\\d+(\\.|)(\\.|)", x)){
       return(TRUE)
     } else {
       return(FALSE)
