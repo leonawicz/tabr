@@ -21,7 +21,12 @@
 #' }
 #'
 #' All \code{paper} list elements are numeric except \code{page_numbers},
-#' which is logical. The options for \code{paper} include:
+#' which is logical. \code{page_numbers = FALSE} suppresses all page numbering.
+#' \code{first_page_number} is the number of the first page, defaulting to 1.
+#' Setting \code{first_page_number = NULL} will suppress numbering of the first
+#' page even with \code{page_numbers = TRUE}.
+#'
+#' The options for \code{paper} include:
 #' \itemize{
 #'   \item \code{textheight}
 #'   \item \code{linewidth}
@@ -64,6 +69,10 @@
 lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
                      header = NULL, string_names = NULL, paper = NULL,
                      endbar = TRUE, midi = TRUE, path = NULL){
+  if(is.null(tempo)){
+    if(midi) stop("Set an explicit `tempo` if `midi = TRUE`.", call. = FALSE)
+    tempo <- '" "'
+  }
   if(!"score" %in% class(score))
     stop("`score` is not a score object.", call. = FALSE)
   major <- ifelse(utils::tail(strsplit(key, "")[[1]], 1) == "m", FALSE, TRUE)
@@ -129,7 +138,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
     }
     score <- paste0(score, score2, collapse = "\n")
   }
-  output <- paste(c(top, global, cd, melody, score, paper), collapse = "")
+  output <- paste(c(paper, top, global, cd, melody, score), collapse = "")
   write(file = .adjust_file_path(file, path)$lp, output)
 }
 
@@ -160,7 +169,8 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 #' @param key character, key signature, e.g., \code{c}, \code{b_}, \code{f#m},
 #' etc.
 #' @param time character, defaults to \code{"4/4"}.
-#' @param tempo character, defaults to \code{"2 = 60"}.
+#' @param tempo character, defaults to \code{"2 = 60"}. Set to \code{NULL} to
+#' suppress display of the time signature in the output.
 #' @param header a named list of arguments passed to the header of the
 #' LilyPond file. See details.
 #' @param string_names label strings at beginning of tab staff. \code{NULL}
@@ -293,15 +303,20 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 
 .lp_paper <- function(...){
   x <- list(...)
-  pn <- ifelse(x$page_numbers, "##t", "##f")
+  ppn <- ifelse(x$page_numbers, "##t", "##f")
+  fpn <- x$first_page_number
+  pfpn <- if(x$page_numbers & !is.null(fpn)) "##t" else "##f"
+  set_paper <- paste0(
+    "#(set! paper-alist (cons '(\"papersize\" . (cons (* ",
+    x$linewidth, " mm) (* ", x$textheight, " mm))) paper-alist))\n"
+  )
   paste0(
-    "\\paper{\n",
-    paste0("    textheight = ", x$textheight, ".\\mm\n"),
-    paste0("    linewidth = ", x$linewidth, ".\\mm\n"),
-    paste0("    indent = ", x$indent, ".\\mm\n"),
-    paste0("    first-page-number = ", x$first_page_number, "\n"),
-    paste0("    print-page-number = ", pn, "\n"),
-    paste0("    print-first-page-number = ", pn, "\n"), "}"
+    set_paper,
+    "\\paper{\n  #(set-paper-size \"papersize\")\n",
+    paste0("  indent = ", x$indent, ".\\mm\n"),
+    if(!is.null(fpn)) paste0("  first-page-number = ", fpn, "\n"),
+    paste0("  print-page-number = ", ppn, "\n"),
+    paste0("  print-first-page-number = ", pfpn, "\n"), "}\n\n"
   )
 }
 
@@ -427,7 +442,7 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   }
   paste0("\\score {  <<\n  ",
          if(has_chord_seq) "\\new ChordNames \\chordNames\n  ", x, ">>\n",
-         if(layout) "  \\layout{ }\n", if(!is.null(midi)) midi, "}\n\n")
+         if(layout) "  \\layout{ }\n", if(!is.null(midi)) midi, "}")
 }
 
 .tunelab <- function(x){

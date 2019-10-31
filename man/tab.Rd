@@ -19,7 +19,8 @@ etc.}
 
 \item{time}{character, defaults to \code{"4/4"}.}
 
-\item{tempo}{character, defaults to \code{"2 = 60"}.}
+\item{tempo}{character, defaults to \code{"2 = 60"}. Set to \code{NULL} to
+suppress display of the time signature in the output.}
 
 \item{header}{a named list of arguments passed to the header of the
 LilyPond file. See details.}

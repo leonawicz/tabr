@@ -65,7 +65,12 @@ All \code{header} list elements are character strings. The options for
 }
 
 All \code{paper} list elements are numeric except \code{page_numbers},
-which is logical. The options for \code{paper} include:
+which is logical. \code{page_numbers = FALSE} suppresses all page numbering.
+\code{first_page_number} is the number of the first page, defaulting to 1.
+Setting \code{first_page_number = NULL} will suppress numbering of the first
+page even with \code{page_numbers = TRUE}.
+
+The options for \code{paper} include:
 \itemize{
   \item \code{textheight}
   \item \code{linewidth}
