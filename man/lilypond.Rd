@@ -64,20 +64,25 @@ All \code{header} list elements are character strings. The options for
   \item \code{tagline}
 }
 
-All \code{paper} list elements are numeric except \code{page_numbers},
-which is logical. \code{page_numbers = FALSE} suppresses all page numbering.
-\code{first_page_number} is the number of the first page, defaulting to 1.
-Setting \code{first_page_number = NULL} will suppress numbering of the first
-page even with \code{page_numbers = TRUE}.
+All \code{paper} list elements are numeric except \code{page_numbers} and
+\code{print_first_page_number},
+which are logical. \code{page_numbers = FALSE} suppresses all page numbering.
+When \code{page_numbers = TRUE}, you can set
+\code{print_first_page_number = FALSE} to suppress printing of only the
+first page number. \code{first_page_number} is the number of the first page,
+defaulting to 1, and determines all subsequent page numbers. These arguments
+correspond to LilyPond paper block variables.
 
-The options for \code{paper} include:
+The options for \code{paper} include the following and have the following
+default values if not provided:
 \itemize{
-  \item \code{textheight}
-  \item \code{linewidth}
-  \item \code{indent}
-  \item \code{first_page_number}
-  \item \code{page_numbers}
-  \item \code{fontsize}
+  \item \code{textheight = 220}
+  \item \code{linewidth = 150}
+  \item \code{indent = 0}
+  \item \code{fontsize = 14}
+  \item \code{page_numbers = TRUE}
+  \item \code{print_first_page_number = TRUE}
+  \item \code{first_page_number = 1}
 }
 }
 \examples{

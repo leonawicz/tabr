@@ -303,18 +303,23 @@ may be an absolute or relative path. If <code>NULL</code> (default), only
 <li><p><code>tagline</code></p></li>
 </ul>
 
-<p>All <code>paper</code> list elements are numeric except <code>page_numbers</code>,
-which is logical. <code>page_numbers = FALSE</code> suppresses all page numbering.
-<code>first_page_number</code> is the number of the first page, defaulting to 1.
-Setting <code>first_page_number = NULL</code> will suppress numbering of the first
-page even with <code>page_numbers = TRUE</code>.</p>
-<p>The options for <code>paper</code> include:</p><ul>
-<li><p><code>textheight</code></p></li>
-<li><p><code>linewidth</code></p></li>
-<li><p><code>indent</code></p></li>
-<li><p><code>first_page_number</code></p></li>
-<li><p><code>page_numbers</code></p></li>
-<li><p><code>fontsize</code></p></li>
+<p>All <code>paper</code> list elements are numeric except <code>page_numbers</code> and
+<code>print_first_page_number</code>,
+which are logical. <code>page_numbers = FALSE</code> suppresses all page numbering.
+When <code>page_numbers = TRUE</code>, you can set
+<code>print_first_page_number = FALSE</code> to suppress printing of only the
+first page number. <code>first_page_number</code> is the number of the first page,
+defaulting to 1, and determines all subsequent page numbers. These arguments
+correspond to LilyPond paper block variables.</p>
+<p>The options for <code>paper</code> include the following and have the following
+default values if not provided:</p><ul>
+<li><p><code>textheight = 220</code></p></li>
+<li><p><code>linewidth = 150</code></p></li>
+<li><p><code>indent = 0</code></p></li>
+<li><p><code>fontsize = 14</code></p></li>
+<li><p><code>page_numbers = TRUE</code></p></li>
+<li><p><code>print_first_page_number = TRUE</code></p></li>
+<li><p><code>first_page_number = 1</code></p></li>
 </ul>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>

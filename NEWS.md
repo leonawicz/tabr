@@ -21,6 +21,8 @@
 * Made improvements to print method for phrase objects.
 * Added `rests` argument to some note metadata functions.
 * Minor bug fixes.
+* Thank you to [fnord-repeater](https://github.com/fnord-repeater) for several helpful suggestions and insights as well as example code that helped to make the transcription pipeline better.
+* Thank you to [Han Oostdijk](https://github.com/HanOostdijk) for additional bug fixes and improvements to the code for the transcription pipeline.
 
 # tabr 0.3.5
 

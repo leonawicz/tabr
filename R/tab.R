@@ -20,20 +20,25 @@
 #'   \item \code{tagline}
 #' }
 #'
-#' All \code{paper} list elements are numeric except \code{page_numbers},
-#' which is logical. \code{page_numbers = FALSE} suppresses all page numbering.
-#' \code{first_page_number} is the number of the first page, defaulting to 1.
-#' Setting \code{first_page_number = NULL} will suppress numbering of the first
-#' page even with \code{page_numbers = TRUE}.
+#' All \code{paper} list elements are numeric except \code{page_numbers} and
+#' \code{print_first_page_number},
+#' which are logical. \code{page_numbers = FALSE} suppresses all page numbering.
+#' When \code{page_numbers = TRUE}, you can set
+#' \code{print_first_page_number = FALSE} to suppress printing of only the
+#' first page number. \code{first_page_number} is the number of the first page,
+#' defaulting to 1, and determines all subsequent page numbers. These arguments
+#' correspond to LilyPond paper block variables.
 #'
-#' The options for \code{paper} include:
+#' The options for \code{paper} include the following and have the following
+#' default values if not provided:
 #' \itemize{
-#'   \item \code{textheight}
-#'   \item \code{linewidth}
-#'   \item \code{indent}
-#'   \item \code{first_page_number}
-#'   \item \code{page_numbers}
-#'   \item \code{fontsize}
+#'   \item \code{textheight = 220}
+#'   \item \code{linewidth = 150}
+#'   \item \code{indent = 0}
+#'   \item \code{fontsize = 14}
+#'   \item \code{page_numbers = TRUE}
+#'   \item \code{print_first_page_number = TRUE}
+#'   \item \code{first_page_number = 1}
 #' }
 #'
 #' @param score a score object.
@@ -262,7 +267,7 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 
 .paper_defaults <- list(textheight = 220, linewidth = 150, indent = 0,
    fontsize = 14, page_numbers = TRUE,
-   print_first_page_number=TRUE, first_page_number = 1)
+   print_first_page_number = TRUE, first_page_number = 1)
 
 .keys <- list(
   major = .notesub(dplyr::filter(.keydata, major)$key, simplify = TRUE),
@@ -303,16 +308,15 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 
 .lp_paper <- function(...) {
   x <- list(...)
-  to_bool_numeric <- function (x,def,fun=is.logical) {
-    r = ifelse(fun(x),x,def)
-    if (is.null(r) || is.na(r)) r = def
-    r
-  }
-  pn <- to_bool_numeric(x$page_numbers,def=F)
-  pfpn <- ifelse(pn == F, F, to_bool_numeric(x$print_first_page_number,def=T))
-  fpn <- to_bool_numeric(x$first_page_number,def=1,fun=is.numeric)
-  ppn <- ifelse(pn, "##t", "##f")
-  pfpn <- ifelse(pfpn, "##t", "##f")
+  ppn <- x$page_numbers
+  if(!is.logical(ppn)) stop("`page_numbers` must be logical.", call. = FALSE)
+  pfpn <- x$print_first_page_number
+  if(!is.logical(pfpn))
+    stop("`Print_first_page_number` must be logical.", call. = FALSE)
+  if(!ppn) pfpn <- FALSE
+  fpn <- x$first_page_number
+  if(!is.numeric(fpn))
+    stop("`first_page_number` must be a number.", call. = FALSE)
   set_paper <- paste0(
     "#(set! paper-alist (cons '(\"papersize\" . (cons (* ",
     x$linewidth,
@@ -325,8 +329,8 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
     "\\paper{\n  #(set-paper-size \"papersize\")\n",
     paste0("  indent = ", x$indent, ".\\mm\n"),
     paste0("  first-page-number = ", fpn, "\n"),
-    paste0("  print-page-number = ", ppn, "\n"),
-    paste0("  print-first-page-number = ", pfpn, "\n"),
+    paste0("  print-page-number = ", ifelse(ppn, "##t", "##f"), "\n"),
+    paste0("  print-first-page-number = ", ifelse(pfpn, "##t", "##f"), "\n"),
     "}\n\n"
   )
 }
