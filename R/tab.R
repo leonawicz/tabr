@@ -261,8 +261,8 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 }
 
 .paper_defaults <- list(textheight = 220, linewidth = 150, indent = 0,
-                        fontsize = 14, page_numbers = TRUE,
-                        first_page_number = 1)
+   fontsize = 14, page_numbers = TRUE,
+   print_first_page_number=TRUE, first_page_number = 1)
 
 .keys <- list(
   major = .notesub(dplyr::filter(.keydata, major)$key, simplify = TRUE),
@@ -301,24 +301,33 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   x
 }
 
-.lp_paper <- function(...){
+.lp_paper <- function(...) {
   x <- list(...)
-  ppn <- ifelse(x$page_numbers, "##t", "##f")
-  fpn <- x$first_page_number
-  if(!(inherits(fpn, "numeric") | is.null(fpn)))
-    stop("`first_page_number` must be a number or NULL.", call. = FALSE)
-  pfpn <- if(x$page_numbers & !is.null(fpn)) "##t" else "##f"
+  to_bool_numeric <- function (x,def,fun=is.logical) {
+    r = ifelse(fun(x),x,def)
+    if (is.null(r) || is.na(r)) r = def
+    r
+  }
+  pn <- to_bool_numeric(x$page_numbers,def=F)
+  pfpn <- ifelse(pn == F, F, to_bool_numeric(x$print_first_page_number,def=T))
+  fpn <- to_bool_numeric(x$first_page_number,def=1,fun=is.numeric)
+  ppn <- ifelse(pn, "##t", "##f")
+  pfpn <- ifelse(pfpn, "##t", "##f")
   set_paper <- paste0(
     "#(set! paper-alist (cons '(\"papersize\" . (cons (* ",
-    x$linewidth, " mm) (* ", x$textheight, " mm))) paper-alist))\n"
+    x$linewidth,
+    " mm) (* ",
+    x$textheight,
+    " mm))) paper-alist))\n"
   )
   paste0(
     set_paper,
     "\\paper{\n  #(set-paper-size \"papersize\")\n",
     paste0("  indent = ", x$indent, ".\\mm\n"),
-    if(!is.null(fpn)) paste0("  first-page-number = ", fpn, "\n"),
+    paste0("  first-page-number = ", fpn, "\n"),
     paste0("  print-page-number = ", ppn, "\n"),
-    paste0("  print-first-page-number = ", pfpn, "\n"), "}\n\n"
+    paste0("  print-first-page-number = ", pfpn, "\n"),
+    "}\n\n"
   )
 }
 
