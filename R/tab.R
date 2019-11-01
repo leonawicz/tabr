@@ -305,6 +305,8 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   x <- list(...)
   ppn <- ifelse(x$page_numbers, "##t", "##f")
   fpn <- x$first_page_number
+  if(!(inherits(fpn, "numeric") | is.null(fpn)))
+    stop("`first_page_number` must be a number or NULL.", call. = FALSE)
   pfpn <- if(x$page_numbers & !is.null(fpn)) "##t" else "##f"
   set_paper <- paste0(
     "#(set! paper-alist (cons '(\"papersize\" . (cons (* ",
