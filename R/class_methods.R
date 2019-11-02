@@ -1,12 +1,13 @@
 #' Summary of implemented S3 generic methods
 #'
 #' Several methods are implemented for the classes \code{noteworthy},
-#' \code{noteinfo}, and \code{music}. See further below for details on limited
-#' implementations for the \code{phrase} class.
+#' \code{noteinfo}, \code{music} and \code{lyrics}.
+#' See further below for details on limited implementations for the
+#' \code{phrase} class.
 #'
 #' @details
 #' In addition to custom print and summary methods, the following methods have
-#' been implemented for all three classes: \code{[}, \code{[<-}, \code{[[},
+#' been implemented for all four classes: \code{[}, \code{[<-}, \code{[[},
 #' \code{[[<-}, \code{length}, \code{c}, \code{rep}, \code{rev}, \code{head}
 #' and \code{tail}. Logical operators are also implemented for noteworthy
 #' strings.
@@ -23,7 +24,7 @@
 #' behave, coercing objects of different types such as numeric and character to
 #' character.
 #'
-#' For these three classes, \code{c} is strict in that it will return
+#' For these four classes, \code{c} is strict in that it will return
 #' an error if attempting to concatenate one of these classes with any other
 #' class besides character. This includes each other. While it would be
 #' possible to coerce a music object down to a \code{noteworthy} object or a
@@ -184,11 +185,26 @@ NULL
   if(all(i == 0)) stop("Cannot have zero timesteps.", call. = FALSE)
   a <- accidental_type(x)
   tsig <- attr(x, "tsig")
+  lyrics <- attr(x, "lyrics")
+  if(is.na(lyrics)){
+    lyrics <- NULL
+  } else {
+    lyrics <- lyrics[i]
+  }
   format <- if(time_format(x) == "space-delimited time") "space" else "vector"
   x <- .Primitive("[")(.uncollapse(x), i)
   notes <- gsub("^([a-grs_#~,']+).*", "\\1", x)
   info <- gsub("^[a-grs_#~,']+(.*)", "\\1", x)
-  .asmusic(notes, info, a, tsig, format)
+  .asmusic(notes, info, lyrics, a, tsig, format)
+}
+
+#' @name single-bracket
+#' @export
+`[.lyrics` <- function(x, i){
+  if(all(i == 0)) stop("Cannot have zero timesteps.", call. = FALSE)
+  format <- if(time_format(x) == "space-delimited time") "space" else "vector"
+  x <- .Primitive("[")(.uncollapse(x), i)
+  .aslyrics(x, format)
 }
 
 #' @name single-bracket
@@ -214,11 +230,21 @@ NULL
 `[<-.music` <- function(x, i, value){
   a <- accidental_type(x)
   tsig <- attr(x, "tsig")
+  lyrics <- attr(x, "lyrics")
+  if(is.na(lyrics)) lyrics <- NULL
   format <- if(time_format(x) == "space-delimited time") "space" else "vector"
   x <- .Primitive("[<-")(.uncollapse(x), i, value)
   notes <- gsub("^([a-grs_#~,']+).*", "\\1", x)
   info <- gsub("^[a-grs_#~,']+(.*)", "\\1", x)
-  .asmusic(notes, info, a, tsig, format)
+  .asmusic(notes, info, lyrics, a, tsig, format)
+}
+
+#' @name single-bracket
+#' @export
+`[<-.lyrics` <- function(x, i, value){
+  format <- if(time_format(x) == "space-delimited time") "space" else "vector"
+  x <- .Primitive("[<-")(.uncollapse(x), i, value)
+  .aslyrics(x, format)
 }
 
 #' Double bracket methods for tabr classes
@@ -272,6 +298,12 @@ NULL
 
 #' @name double-bracket
 #' @export
+`[[.lyrics` <- function(x, i){
+  .uncollapse(x)[[i]]
+}
+
+#' @name double-bracket
+#' @export
 `[[<-.noteworthy` <- function(x, i, value){
   o <- octave_type(x)
   a <- accidental_type(x)
@@ -293,12 +325,22 @@ NULL
 `[[<-.music` <- function(x, i, value){
   a <- accidental_type(x)
   tsig <- attr(x, "tsig")
+  lyrics <- attr(x, "lyrics")
+  if(is.na(lyrics)) lyrics <- NULL
   format <- if(time_format(x) == "space-delimited time") "space" else "vector"
   x <- .Primitive("[[<-")(.uncollapse(x), i, value)
   notes <- gsub("^([a-grs_#~,']+).*", "\\1", x)
   info <- gsub("^[a-grs_#~,']+(.*)", "\\1", x)
-  .asmusic(notes, info, a, tsig, format)
+  .asmusic(notes, info, lyrics, a, tsig, format)
 
+}
+
+#' @name double-bracket
+#' @export
+`[[<-.lyrics` <- function(x, i, value){
+  format <- if(time_format(x) == "space-delimited time") "space" else "vector"
+  x <- .Primitive("[[<-")(.uncollapse(x), i, value)
+  .aslyrics(x, format)
 }
 
 #' Length for tabr classes
@@ -342,6 +384,12 @@ length.noteinfo <- function(x){
 #' @name tabr-length
 #' @export
 length.music <- function(x){
+  attr(x, "steps")
+}
+
+#' @name tabr-length
+#' @export
+length.lyrics <- function(x){
   attr(x, "steps")
 }
 
@@ -427,10 +475,45 @@ c.music <- function(...){
   }
   a <- if(!any(a == "flat")) "sharp" else "flat"
   format <- if(!any(format == "space-delimited time")) "vector" else "space"
+  lyrics <- lapply(x, music_lyrics)
+  lyrics_na <- sapply(lyrics, is.na)
+  if(all(lyrics_na)){
+    lyrics <- NULL
+  } else {
+    idx <- which(lyrics_na)
+    steps <- sapply(x[idx], length)
+    lyrics[idx] <- lapply(steps, function(i) as_lyrics(rep(".", i), format))
+    lyrics_space <- sapply(lyrics, is_space_time)
+    if(format == "space" & any(!lyrics_space)){
+      lyrics[!lyrics_space] <- lapply(lyrics[!lyrics_space], as_space_time)
+    }
+    if(format == "vector" & any(lyrics_space)){
+      lyrics[lyrics_space] <- lapply(lyrics[lyrics_space], as_vector_time)
+    }
+    lyrics <- unlist(lyrics) %>% paste(collapse = " ")
+    lyrics <- as_lyrics(lyrics, format)
+  }
   x <- purrr::map_chr(x, ~paste(as.character(.x), collapse = " ")) %>%
     paste(collapse = " ") %>%
     .check_music_split()
-  .asmusic(x$notes, x$info, a, tsig[1], format)
+  .asmusic(x$notes, x$info, lyrics, a, tsig[1], format)
+}
+
+#' @name tabr-c
+#' @export
+c.lyrics <- function(...){
+  x <- list(...)
+  cl <- sapply(lapply(x, class), "[", 1)
+  if(any(!cl %in% c("lyrics", "character")))
+    stop("Cannot concatenate incompatible classes with 'lyrics'.",
+         call. = FALSE)
+  idx <- which(cl == "character")
+  if(length(idx)) x[idx] <- lapply(x[idx], as_lyrics)
+  format <- sapply(x, time_format)
+  format <- if(!any(format == "space-delimited time")) "vector" else "space"
+  x <- purrr::map_chr(x, ~paste(as.character(.x), collapse = " ")) %>%
+    paste(collapse = " ")
+  .aslyrics(x, format)
 }
 
 #' @name tabr-c
@@ -519,11 +602,36 @@ rep.music <- function(x, ...){
   a <- accidental_type(x)
   format <- time_format(x)
   tsig <- music_tsig(x)
+  lyrics <- attr(x, "lyrics")
+  if(is.na(lyrics)){
+    lyrics <- NULL
+  } else {
+    lyrics <- rep(lyrics, ...)
+  }
   format <- if(format == "space-delimited time") "space" else "vector"
   x <- .uncollapse(x)
   notes <- rep(.music_notes(x, format), ...)
   info <- rep(.music_info(x, format), ...)
-  .asmusic(notes, info, a, tsig, format)
+  .asmusic(notes, info, lyrics, a, tsig, format)
+}
+
+#' @name tabr-rep
+#' @export
+rep.lyrics <- function(x, ...){
+  format <- time_format(x)
+  format <- if(format == "space-delimited time") "space" else "vector"
+  x <- .uncollapse(x)
+  y <- list(...)
+  if(is.null(y$each) & is.null(y$times)){
+    x <- rep(x, ...)
+  } else if(!is.null(y$each)){
+    x <- rep(x, each = y$each)
+  } else {
+    x <- rep(x, times = y$times)
+  }
+  if(!length(x)) stop("Cannot have zero timesteps.", call. = FALSE)
+  if(format == "space") x <- paste0(x, collapse = " ")
+  .aslyrics(x, format)
 }
 
 #' @name tabr-rep
@@ -592,12 +700,28 @@ rev.noteinfo <- function(x){
 rev.music <- function(x){
   a <- accidental_type(x)
   tsig <- music_tsig(x)
+  lyrics <- attr(x, "lyrics")
+  if(is.na(lyrics)){
+    lyrics <- NULL
+  } else {
+    lyrics <- rev(lyrics)
+  }
   format <- time_format(x)
   format <- if(format == "space-delimited time") "space" else "vector"
   x <- rev(.uncollapse(x))
   notes <- .music_notes(x, format)
   info <- .music_info(x, format)
-  .asmusic(notes, info, a, tsig, format)
+  .asmusic(notes, info, lyrics, a, tsig, format)
+}
+
+#' @name tabr-rev
+#' @export
+rev.lyrics <- function(x){
+  format <- time_format(x)
+  format <- if(format == "space-delimited time") "space" else "vector"
+  x <- rev(.uncollapse(x))
+  if(format == "space") x <- paste0(x, collapse = " ")
+  .aslyrics(x, format)
 }
 
 #' Head and tail for tabr classes
@@ -655,12 +779,28 @@ head.noteinfo <- function(x, ...){
 head.music <- function(x, ...){
   a <- accidental_type(x)
   tsig <- music_tsig(x)
+  lyrics <- attr(x, "lyrics")
+  if(is.na(lyrics)){
+    lyrics <- NULL
+  } else {
+    lyrics <- head(lyrics, ...)
+  }
   format <- time_format(x)
   format <- if(format == "space-delimited time") "space" else "vector"
   x <- utils::head(.uncollapse(x), ...)
   notes <- .music_notes(x, format)
   info <- .music_info(x, format)
-  .asmusic(notes, info, a, tsig, format)
+  .asmusic(notes, info, lyrics, a, tsig, format)
+}
+
+#' @name tabr-head
+#' @export
+head.lyrics <- function(x, ...){
+  format <- time_format(x)
+  format <- if(format == "space-delimited time") "space" else "vector"
+  x <- utils::head(.uncollapse(x), ...)
+  if(format == "space") x <- paste0(x, collapse = " ")
+  .aslyrics(x, format)
 }
 
 #' @name tabr-head
@@ -690,12 +830,28 @@ tail.noteinfo <- function(x, ...){
 tail.music <- function(x, ...){
   a <- accidental_type(x)
   tsig <- music_tsig(x)
+  lyrics <- attr(x, "lyrics")
+  if(is.na(lyrics)){
+    lyrics <- NULL
+  } else {
+    lyrics <- tail(lyrics, ...)
+  }
   format <- time_format(x)
   format <- if(format == "space-delimited time") "space" else "vector"
   x <- utils::tail(.uncollapse(x), ...)
   notes <- .music_notes(x, format)
   info <- .music_info(x, format)
-  .asmusic(notes, info, a, tsig, format)
+  .asmusic(notes, info, lyrics, a, tsig, format)
+}
+
+#' @name tabr-head
+#' @export
+tail.lyrics <- function(x, ...){
+  format <- time_format(x)
+  format <- if(format == "space-delimited time") "space" else "vector"
+  x <- utils::tail(.uncollapse(x), ...)
+  if(format == "space") x <- paste0(x, collapse = " ")
+  .aslyrics(x, format)
 }
 
 #' Logical operators for noteworthy class

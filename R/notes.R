@@ -21,9 +21,11 @@
 #' @section A note on generic functions:
 #' \code{n_steps} and the three time format functions are generic since they
 #' apply clearly to and are useful for not only noteworthy strings, but also
-#' note info and music objects. If \code{x} is still a simple character string,
-#' these functions attempt to guess which of the three it is. It is recommended
-#' to set the class before using these functions.
+#' note info, music, and lyrics objects.
+#' If \code{x} is still a simple character string, these functions attempt to
+#' guess if it is noteworthy, note info, or music. Lyrics content is arbitrary
+#' so is never considered for a simple character string. Best practice is to
+#' set the class before using these functions anyway.
 #'
 #' There are many package functions that operate on noteworthy strings that
 #' could in concept also work on music objects, but the expectation is that
@@ -86,6 +88,11 @@ n_steps.noteinfo <- function(x){
 #' @export
 n_steps.music <- function(x){
   attr(as_music(x), "steps")
+}
+
+#' @export
+n_steps.lyrics <- function(x){
+  attr(x, "steps")
 }
 
 #' @export
@@ -158,6 +165,11 @@ time_format.music <- function(x){
   attr(as_music(x), "format")
 }
 
+#' @export
+time_format.lyrics <- function(x){
+  attr(x, "format")
+}
+
 time_format.numeric <- function(x){
   time_format.noteinfo(x)
 }
@@ -194,6 +206,11 @@ is_space_time.music <- function(x){
 }
 
 #' @export
+is_space_time.lyrics <- function(x){
+  time_format.lyrics(x) == "space-delimited time"
+}
+
+#' @export
 is_space_time.numeric <- function(x){
   is_space_time.noteinfo(x)
 }
@@ -227,6 +244,11 @@ is_vector_time.noteinfo <- function(x){
 #' @export
 is_vector_time.music <- function(x){
   time_format.music(x) == "vectorized time"
+}
+
+#' @export
+is_vector_time.lyrics<- function(x){
+  time_format.lyrics(x) == "vectorized time"
 }
 
 #' @export
@@ -649,6 +671,11 @@ as_space_time.numeric <- function(x){
 }
 
 #' @export
+as_space_time.lyrics <- function(x){
+  .aslyrics(x, format = "space")
+}
+
+#' @export
 as_space_time.character <- function(x){
   switch(
     .guess_string_type(x),
@@ -678,6 +705,11 @@ as_vector_time.noteinfo <- function(x){
 as_vector_time.music <- function(x){
   x <- music_split(x)
   .asmusic(x$notes, x$info, tsig = x$tsig, format = "vector")
+}
+
+#' @export
+as_vector_time.lyrics <- function(x){
+  .aslyrics(x, format = "vector")
 }
 
 #' @export

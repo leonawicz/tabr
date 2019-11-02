@@ -40,10 +40,9 @@ an interactive session, but is available and offers its own \code{print} and
 The class is often used by other functions, and functions that output a
 note info string attach the \code{noteinfo} class.
 
-For \code{as_noteinfo} and in general for functions that accept
-the \code{format} argument, when it is \code{NULL}, the timestep delimiter
-format is inferred from the note info string input. When unclear, such as
-with phrase objects, the default is space-delimited time.
+When \code{format = NULL}, the timestep delimiter format is inferred
+from the note info string input. When unclear, such as with phrase objects,
+the default is space-delimited time.
 }
 \examples{
 a <- notate("8x", "Start here")

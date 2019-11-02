@@ -5,6 +5,7 @@
 \alias{c.noteworthy}
 \alias{c.noteinfo}
 \alias{c.music}
+\alias{c.lyrics}
 \alias{c.phrase}
 \title{Concatenate for tabr classes}
 \usage{
@@ -13,6 +14,8 @@
 \method{c}{noteinfo}(...)
 
 \method{c}{music}(...)
+
+\method{c}{lyrics}(...)
 
 \method{c}{phrase}(...)
 }

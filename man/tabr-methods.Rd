@@ -14,12 +14,13 @@
 }
 \description{
 Several methods are implemented for the classes \code{noteworthy},
-\code{noteinfo}, and \code{music}. See further below for details on limited
-implementations for the \code{phrase} class.
+\code{noteinfo}, \code{music} and \code{lyrics}.
+See further below for details on limited implementations for the
+\code{phrase} class.
 }
 \details{
 In addition to custom print and summary methods, the following methods have
-been implemented for all three classes: \code{[}, \code{[<-}, \code{[[},
+been implemented for all four classes: \code{[}, \code{[<-}, \code{[[},
 \code{[[<-}, \code{length}, \code{c}, \code{rep}, \code{rev}, \code{head}
 and \code{tail}. Logical operators are also implemented for noteworthy
 strings.
@@ -37,7 +38,7 @@ object class in question. This is different from how \code{c} might normally
 behave, coercing objects of different types such as numeric and character to
 character.
 
-For these three classes, \code{c} is strict in that it will return
+For these four classes, \code{c} is strict in that it will return
 an error if attempting to concatenate one of these classes with any other
 class besides character. This includes each other. While it would be
 possible to coerce a music object down to a \code{noteworthy} object or a

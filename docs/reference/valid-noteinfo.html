@@ -262,10 +262,9 @@ an interactive session, but is available and offers its own <code>print</code> a
 <code>summary</code> methods for note info strings.
 The class is often used by other functions, and functions that output a
 note info string attach the <code>noteinfo</code> class.</p>
-<p>For <code>as_noteinfo</code> and in general for functions that accept
-the <code>format</code> argument, when it is <code>NULL</code>, the timestep delimiter
-format is inferred from the note info string input. When unclear, such as
-with phrase objects, the default is space-delimited time.</p>
+<p>When <code>format = NULL</code>, the timestep delimiter format is inferred
+from the note info string input. When unclear, such as with phrase objects,
+the default is space-delimited time.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='noteinfo.html'>noteinfo</a></code>, <code><a href='valid-notes.html'>valid-notes</a></code></p></div>

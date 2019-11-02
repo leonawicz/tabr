@@ -10,6 +10,8 @@
 * Added logical operator methods for the `noteworthy` class.
 * Refactored some basic metadata functions as generics to dispatch to the new classes rather than only working for `noteworthy` objects. For example, `time_format`.
 * Added native triplet support in note info using the `t`-prefix, e.g., `4 4] t8 t8- t8^ 4`. Support extends to `music` objects and now also to `phrase`, which alleviates reliance on the `triplet` function and its limitations.
+* Added `lyrics` class that parallels the structure and behavior of the other classes; added associated functions and generic method implementations.
+* Added `lyrics` support to `music` object construction and transformations.
 * Added MIDI file read support (requires optional `tuneR` installation) and a set of functions for inspecting and manipulating the table of MIDI music data.
 * Added initial support for conversion of MIDI file input to `noteworthy`, `noteinfo`, `music` and `phrase` classes so the MIDI data can be analyzed, transformed, edited and rendered to sheet music and a new MIDI file.
 * Added more functions for music data manipulation and analysis.

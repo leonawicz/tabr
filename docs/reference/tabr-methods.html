@@ -46,8 +46,9 @@
 
 <meta property="og:title" content="Summary of implemented S3 generic methods — tabr-methods" />
 <meta property="og:description" content="Several methods are implemented for the classes noteworthy,
-noteinfo, and music. See further below for details on limited
-implementations for the phrase class." />
+noteinfo, music and lyrics.
+See further below for details on limited implementations for the
+phrase class." />
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -219,8 +220,9 @@ implementations for the phrase class." />
 
     <div class="ref-description">
     <p>Several methods are implemented for the classes <code>noteworthy</code>,
-<code>noteinfo</code>, and <code>music</code>. See further below for details on limited
-implementations for the <code>phrase</code> class.</p>
+<code>noteinfo</code>, <code>music</code> and <code>lyrics</code>.
+See further below for details on limited implementations for the
+<code>phrase</code> class.</p>
     </div>
 
 
@@ -248,7 +250,7 @@ implementations for the <code>phrase</code> class.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>In addition to custom print and summary methods, the following methods have
-been implemented for all three classes: <code>[</code>, <code>[&lt;-</code>, <code>[[</code>,
+been implemented for all four classes: <code>[</code>, <code>[&lt;-</code>, <code>[[</code>,
 <code>[[&lt;-</code>, <code>length</code>, <code>c</code>, <code>rep</code>, <code>rev</code>, <code>head</code>
 and <code>tail</code>. Logical operators are also implemented for noteworthy
 strings.</p>
@@ -265,7 +267,7 @@ space-delimited format. To obtain the character string length, coerce with
 object class in question. This is different from how <code>c</code> might normally
 behave, coercing objects of different types such as numeric and character to
 character.</p>
-<p>For these three classes, <code>c</code> is strict in that it will return
+<p>For these four classes, <code>c</code> is strict in that it will return
 an error if attempting to concatenate one of these classes with any other
 class besides character. This includes each other. While it would be
 possible to coerce a music object down to a <code>noteworthy</code> object or a

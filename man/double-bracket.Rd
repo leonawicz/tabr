@@ -5,9 +5,11 @@
 \alias{[[.noteworthy}
 \alias{[[.noteinfo}
 \alias{[[.music}
+\alias{[[.lyrics}
 \alias{[[<-.noteworthy}
 \alias{[[<-.noteinfo}
 \alias{[[<-.music}
+\alias{[[<-.lyrics}
 \title{Double bracket methods for tabr classes}
 \usage{
 \method{[[}{noteworthy}(x, i)
@@ -16,11 +18,15 @@
 
 \method{[[}{music}(x, i)
 
+\method{[[}{lyrics}(x, i)
+
 \method{[[}{noteworthy}(x, i) <- value
 
 \method{[[}{noteinfo}(x, i) <- value
 
 \method{[[}{music}(x, i) <- value
+
+\method{[[}{lyrics}(x, i) <- value
 }
 \arguments{
 \item{x}{object.}

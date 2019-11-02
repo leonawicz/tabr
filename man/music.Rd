@@ -9,12 +9,13 @@
 \alias{music_notes}
 \alias{music_info}
 \alias{music_tsig}
+\alias{music_lyrics}
 \title{Check music string validity}
 \usage{
 musical(x)
 
-as_music(notes, info = NULL, accidentals = NULL, tsig = "4/4",
-  format = NULL)
+as_music(notes, info = NULL, lyrics = NULL, accidentals = NULL,
+  tsig = "4/4", format = NULL)
 
 is_music(x)
 
@@ -25,12 +26,17 @@ music_notes(x)
 music_info(x)
 
 music_tsig(x)
+
+music_lyrics(x)
 }
 \arguments{
 \item{x}{character, a music string. May or may not have the 'music' class.}
 
 \item{notes, info}{noteworthy and note info strings. For \code{as_music}, a
 complete music string is assumed for \code{notes} when \code{info = NULL}.}
+
+\item{lyrics}{optional \code{lyrics} object, attached to output as an
+attribute.}
 
 \item{accidentals}{\code{NULL} or character, represent accidentals,
 \code{"flat"} or \code{"sharp"}.}
@@ -67,8 +73,7 @@ timesteps contain exclusively valid entries.
 Coercion will fail if the string is not musical.
 The \code{music} class has its own \code{print} and \code{summary} methods.
 
-For \code{as_music} and in general for functions that accept
-When \code{accidentals}, \code{format}, and \code{tsig} are \code{NULL},
+When \code{accidentals}, \code{format}, or \code{tsig} are \code{NULL},
 these settings are inferred from the musical string input.
 When mixed formats are present, flats are the default for accidentals and
 4/4 common time is the default time signature.
@@ -90,8 +95,17 @@ music_split(x)
 music_notes(x)
 music_info(x)
 music_tsig(x)
+music_lyrics(x)
 
 as_music(x, accidentals = "sharp")
+
+y <- lyrics_template(x)
+y[3:8] <- strsplit("These are some song ly- rics", " ")[[1]]
+y
+
+x <- as_music(x, lyrics = y)
+x
+music_lyrics(x)
 }
 \seealso{
 \code{\link{note-checks}}, \code{\link{note-metadata}},

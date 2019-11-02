@@ -5,6 +5,7 @@
 \alias{rep.noteworthy}
 \alias{rep.noteinfo}
 \alias{rep.music}
+\alias{rep.lyrics}
 \alias{rep.phrase}
 \title{Repeat for tabr classes}
 \usage{
@@ -13,6 +14,8 @@
 \method{rep}{noteinfo}(x, ...)
 
 \method{rep}{music}(x, ...)
+
+\method{rep}{lyrics}(x, ...)
 
 \method{rep}{phrase}(x, ...)
 }

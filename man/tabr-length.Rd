@@ -5,6 +5,7 @@
 \alias{length.noteworthy}
 \alias{length.noteinfo}
 \alias{length.music}
+\alias{length.lyrics}
 \title{Length for tabr classes}
 \usage{
 \method{length}{noteworthy}(x)
@@ -12,6 +13,8 @@
 \method{length}{noteinfo}(x)
 
 \method{length}{music}(x)
+
+\method{length}{lyrics}(x)
 }
 \arguments{
 \item{x}{object.}

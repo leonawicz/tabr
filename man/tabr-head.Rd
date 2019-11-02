@@ -5,9 +5,11 @@
 \alias{head.noteworthy}
 \alias{head.noteinfo}
 \alias{head.music}
+\alias{head.lyrics}
 \alias{tail.noteworthy}
 \alias{tail.noteinfo}
 \alias{tail.music}
+\alias{tail.lyrics}
 \title{Head and tail for tabr classes}
 \usage{
 \method{head}{noteworthy}(x, ...)
@@ -16,11 +18,15 @@
 
 \method{head}{music}(x, ...)
 
+\method{head}{lyrics}(x, ...)
+
 \method{tail}{noteworthy}(x, ...)
 
 \method{tail}{noteinfo}(x, ...)
 
 \method{tail}{music}(x, ...)
+
+\method{tail}{lyrics}(x, ...)
 }
 \arguments{
 \item{x}{object.}

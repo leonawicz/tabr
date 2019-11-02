@@ -21,8 +21,7 @@
 #' Coercion will fail if the string is not musical.
 #' The \code{music} class has its own \code{print} and \code{summary} methods.
 #'
-#' For \code{as_music} and in general for functions that accept
-#' When \code{accidentals}, \code{format}, and \code{tsig} are \code{NULL},
+#' When \code{accidentals}, \code{format}, or \code{tsig} are \code{NULL},
 #' these settings are inferred from the musical string input.
 #' When mixed formats are present, flats are the default for accidentals and
 #' 4/4 common time is the default time signature.
@@ -30,6 +29,8 @@
 #' @param x character, a music string. May or may not have the 'music' class.
 #' @param notes,info noteworthy and note info strings. For \code{as_music}, a
 #' complete music string is assumed for \code{notes} when \code{info = NULL}.
+#' @param lyrics optional \code{lyrics} object, attached to output as an
+#' attribute.
 #' @param accidentals \code{NULL} or character, represent accidentals,
 #' \code{"flat"} or \code{"sharp"}.
 #' @param tsig character, store the time signature as a music attribute.
@@ -60,10 +61,17 @@
 #' music_notes(x)
 #' music_info(x)
 #' music_tsig(x)
+#' music_lyrics(x)
 #'
 #' as_music(x, accidentals = "sharp")
-#' @export
-#' @rdname music
+#'
+#' y <- lyrics_template(x)
+#' y[3:8] <- strsplit("These are some song ly- rics", " ")[[1]]
+#' y
+#'
+#' x <- as_music(x, lyrics = y)
+#' x
+#' music_lyrics(x)
 musical <- function(x){
   if(is_music(x)) return(TRUE)
   .check_music_split(x, FALSE)
@@ -71,10 +79,11 @@ musical <- function(x){
 
 #' @export
 #' @rdname music
-as_music <- function(notes, info = NULL, accidentals = NULL, tsig = "4/4",
-                     format = NULL){
-  null_args <- all(sapply(list(format, accidentals), is.null))
-  if(inherits(notes, "music") & null_args) return(notes)
+as_music <- function(notes, info = NULL, lyrics = NULL, accidentals = NULL,
+                     tsig = "4/4", format = NULL){
+  null_args <- all(sapply(list(format, accidentals, lyrics), is.null))
+  if(inherits(notes, "music") && null_args && music_tsig(notes) == tsig)
+    return(notes)
   if(is.null(format)) format <- .infer_time_format(notes)
   if(is.null(info)){
     x <- .check_music_split(notes)
@@ -87,30 +96,45 @@ as_music <- function(notes, info = NULL, accidentals = NULL, tsig = "4/4",
   }
   .check_format_arg(format)
   .check_accidentals_arg(accidentals)
-  .asmusic(notes, info, accidentals, tsig, format)
+  .asmusic(notes, info, lyrics, accidentals, tsig, format)
 }
 
-.asmusic <- function(x, y, accidentals = NULL, tsig = "4/4", format = NULL){
+.asmusic <- function(x, y, lyrics = NULL, accidentals = NULL, tsig = "4/4",
+                     format = NULL){
   x <- .asnw(x, "tick", accidentals, "vector")
   y <- .asni(y, "vector")
   .check_timesteps(x, y)
+  if(!is.null(lyrics)){
+    if(!is_lyrics(lyrics))
+      stop("`lyrics` must be a `lyrics`-class object.", call. = FALSE)
+    .check_timesteps(x, lyrics, "lyrics")
+  }
   ax <- c(attributes(x), list(tsig = tsig))
   x <- as.character(paste(x, y, sep = ""))
   if(is.null(format)) format <- "space"
   if(format == "space"){
     x <- paste(x, collapse = " ")
     ax$format <- "space-delimited time"
+    if(!is.null(lyrics)){
+      if(is_vector_time(lyrics)) lyrics <- as_space_time(lyrics)
+    }
+  } else {
+    if(!is.null(lyrics)){
+      if(is_space_time(lyrics)) lyrics <- as_vector_time(lyrics)
+    }
   }
+  ax$lyrics <- if(is.null(lyrics)) NA else lyrics
   attributes(x) <- ax[names(ax) != "class"]
   class(x) <- unique(c("music", class(x)))
   x
 }
 
-.check_timesteps <- function(x, y){
+.check_timesteps <- function(x, y, ylab = "info"){
   nx <- n_steps(x)
   ny <- n_steps(y)
   if(nx > 1 & ny == 1) y <- rep(y, nx) else if(nx != ny)
-    stop("`notes` and `info` have unequal number of timesteps.", call. = FALSE)
+    stop(paste0("`notes` and `", ylab, "` have unequal number of timesteps."),
+         call. = FALSE)
 }
 
 #' @export
@@ -122,7 +146,9 @@ is_music <- function(x){
 #' @export
 #' @rdname music
 music_split <- function(x){
-  .check_music_split(x)
+  lyrics <- if(is_music(x)) music_lyrics(x) else NULL
+  x <- .check_music_split(x)
+  c(x, list(lyrics = lyrics))
 }
 
 .check_music_split <- function(x, err = TRUE){
@@ -183,7 +209,13 @@ music_info <- function(x){
 #' @export
 #' @rdname music
 music_tsig <- function(x){
-  music_split(x)$tsig
+  attr(x, "tsig")
+}
+
+#' @export
+#' @rdname music
+music_lyrics <- function(x){
+  attr(x, "lyrics")
 }
 
 #' @export
@@ -201,12 +233,16 @@ summary.music <- function(object, ...){
   a <- attributes(object)
   col1 <- crayon::make_style("gray50")
   col2 <- col1$bold
+  lyrics <- a$lyrics
+  if(!is.na(lyrics) & length(lyrics) > 10)
+    lyrics <- gsub("\\.{4}", "...", paste0(head(lyrics, 10), "..."))
   cat(col2("<Music string>\n  Timesteps: "), a$steps, " (",
       a$n_note, " ", paste0("note", ifelse(a$n_note == 1, "", "s")), ", ",
       a$n_chord, " ", paste0("chord", ifelse(a$n_chord == 1, "", "s"), ")"),
       col2("\n  Octaves: "), a$octave,
       col2("\n  Accidentals: "), a$accidentals,
       col2("\n  Time Signature: "), a$tsig,
+      col2("\n  Lyrics: "), lyrics,
       col2("\n  Format: "), a$format, col2("\n  Values: "),
       col1(.tabr_print3(.uncollapse(as.character(object)))), "\n", sep = "")
 }

@@ -45,6 +45,10 @@ reference:
   desc: "Functions for inspecting and manipulating music strings"
   contents:
   - music
+- title: "Song lyrics: lyrics objects"
+  desc: "Functions for aligning lyrics with other objects by timestep"
+  contents:
+  - lyrics
 - title: Syntax conversion
   desc: "Syntax converters for mapping other music notation syntax to tabr"
   contents:

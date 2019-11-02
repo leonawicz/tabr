@@ -5,6 +5,7 @@
 \alias{rev.noteworthy}
 \alias{rev.noteinfo}
 \alias{rev.music}
+\alias{rev.lyrics}
 \title{Reverse for tabr classes}
 \usage{
 \method{rev}{noteworthy}(x)
@@ -12,6 +13,8 @@
 \method{rev}{noteinfo}(x)
 
 \method{rev}{music}(x)
+
+\method{rev}{lyrics}(x)
 }
 \arguments{
 \item{x}{object.}

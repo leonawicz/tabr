@@ -75,9 +75,11 @@ reflect what is found in \code{notes} verbatim. See examples.
 
 \code{n_steps} and the three time format functions are generic since they
 apply clearly to and are useful for not only noteworthy strings, but also
-note info and music objects. If \code{x} is still a simple character string,
-these functions attempt to guess which of the three it is. It is recommended
-to set the class before using these functions.
+note info, music, and lyrics objects.
+If \code{x} is still a simple character string, these functions attempt to
+guess if it is noteworthy, note info, or music. Lyrics content is arbitrary
+so is never considered for a simple character string. Best practice is to
+set the class before using these functions anyway.
 
 There are many package functions that operate on noteworthy strings that
 could in concept also work on music objects, but the expectation is that
