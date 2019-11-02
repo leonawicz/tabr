@@ -470,7 +470,7 @@ c.music <- function(...){
   tsig <- sapply(x, music_tsig)
   a <- sapply(x, accidental_type)
   format <- sapply(x, time_format)
-  tsig <- if(any(tsig != tsig[1])){
+  if(any(tsig != tsig[1])){
     warning("Time signature is inconsistent. Only the first is used.")
   }
   a <- if(!any(a == "flat")) "sharp" else "flat"
