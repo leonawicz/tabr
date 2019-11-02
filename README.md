@@ -84,6 +84,7 @@ summary(y)
 #>   Octaves: tick
 #>   Accidentals: sharp
 #>   Time Signature: 4/4
+#>   Lyrics: NA
 #>   Format: space-delimited time
 #>   Values: a,8 c8 et8 g#t8 at8 <ac'e'>4. <ac'e'~>8 <ac'e'>4 at4 c't4 e't4 a'1
 
@@ -100,6 +101,9 @@ music_split(y)
 #> 
 #> $tsig
 #> [1] "4/4"
+#> 
+#> $lyrics
+#> [1] NA
 ```
 
 Functions exist for directly performing various mathematical, logical
