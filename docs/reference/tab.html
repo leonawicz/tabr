@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create tablature — tab • tabr</title>
+<title>Render sheet music with LilyPond — tab • tabr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -44,8 +44,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Create tablature — tab" />
-<meta property="og:description" content="Create sheet music/guitar tablature from a music score." />
+<meta property="og:title" content="Render sheet music with LilyPond — tab" />
+<meta property="og:description" content="Render sheet music/tablature from a music score with LilyPond." />
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -210,18 +210,27 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create tablature</h1>
+    <h1>Render sheet music with LilyPond</h1>
     <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/tab.R'><code>R/tab.R</code></a></small>
     <div class="hidden name"><code>tab.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Create sheet music/guitar tablature from a music score.</p>
+    <p>Render sheet music/tablature from a music score with LilyPond.</p>
     </div>
 
     <pre class="usage"><span class='fu'>tab</span>(<span class='no'>score</span>, <span class='no'>file</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>time</span> <span class='kw'>=</span> <span class='st'>"4/4"</span>, <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='st'>"2 = 60"</span>,
   <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>string_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>endbar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>keep_ly</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>details</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>keep_ly</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>details</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='fu'>render_tab</span>(<span class='no'>score</span>, <span class='no'>file</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>time</span> <span class='kw'>=</span> <span class='st'>"4/4"</span>, <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='st'>"2 = 60"</span>,
+  <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>string_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>endbar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>keep_ly</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>details</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='fu'>render_score</span>(<span class='no'>score</span>, <span class='no'>file</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>time</span> <span class='kw'>=</span> <span class='st'>"4/4"</span>, <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='st'>"2 = 60"</span>,
+  <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>endbar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='fu'>render_midi</span>(<span class='no'>score</span>, <span class='no'>file</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>time</span> <span class='kw'>=</span> <span class='st'>"4/4"</span>, <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='st'>"2 = 60"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -232,8 +241,9 @@
     </tr>
     <tr>
       <th>file</th>
-      <td><p>character, output file ending in .pdf or .png. May include an
-absolute or relative path.</p></td>
+      <td><p>character, output file ending in .pdf or .png for sheet music or
+tablature for <code>score</code>. May include an absolute or relative path.
+For <code>render_midi</code>, a file ending in .mid.</p></td>
     </tr>
     <tr>
       <th>key</th>
@@ -300,6 +310,25 @@ program.
 Output format is inferred from <code>file</code> extension. This function is a
 wrapper around <code><a href='lilypond.html'>lilypond</a></code>, the function that creates the
 LilyPond (<code>.ly</code>) file.</p>
+<p><code>render_score</code> renders <code>score</code> to pdf or png. <code>render_midi</code>
+renders a MIDI file based on <code>score</code>. This is still done via LilyPond.
+The sheet music is created automatically in the process behind the scenes
+but is deleted and only the MIDI output is retained.</p>
+<p>The original <code>tab</code> or <code>render_tab</code> (equivalent) produces both the
+sheet music and the MIDI file output by default and includes other arguments
+such as the tablature-relevant argument <code>string_names</code>.
+This is the all-purpose function. Also use this when you intend to create
+both a sheet music document and a MIDI file.</p>
+<p>Remember that whether a track contains a tablature staff, standard music
+staff, or both, is defined in each individual track object contained in
+<code>score</code>. It is the contents you have assembled in
+<code>score</code> that dictate what render function you should use.
+<code>render_tab</code> is general and always works, but <code>render_score</code> would
+not be the best choice when a tablature staff is present unless you accept
+the default string naming convention.</p>
+<p><code>render_midi</code> is different from <code>midily</code> and <code>miditab</code>, whose
+purpose is to create sheet music from an existing MIDI file using a LilyPond
+command line utility.</p>
 <p>For Windows users, add the path to the LilyPond executable to the system
 path variable. For example, if the file is at
 <code>C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe</code>,

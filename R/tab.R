@@ -153,9 +153,9 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   x[idx]
 }
 
-#' Create tablature
+#' Render sheet music with LilyPond
 #'
-#' Create sheet music/guitar tablature from a music score.
+#' Render sheet music/tablature from a music score with LilyPond.
 #'
 #' Generate a pdf or png of a music score using the LilyPond music engraving
 #' program.
@@ -163,14 +163,38 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 #' wrapper around \code{\link{lilypond}}, the function that creates the
 #' LilyPond (\code{.ly}) file.
 #'
+#' \code{render_score} renders \code{score} to pdf or png. \code{render_midi}
+#' renders a MIDI file based on \code{score}. This is still done via LilyPond.
+#' The sheet music is created automatically in the process behind the scenes
+#' but is deleted and only the MIDI output is retained.
+#'
+#' The original \code{tab} or \code{render_tab} (equivalent) produces both the
+#' sheet music and the MIDI file output by default and includes other arguments
+#' such as the tablature-relevant argument \code{string_names}.
+#' This is the all-purpose function. Also use this when you intend to create
+#' both a sheet music document and a MIDI file.
+#'
+#' Remember that whether a track contains a tablature staff, standard music
+#' staff, or both, is defined in each individual track object contained in
+#' \code{score}. It is the contents you have assembled in
+#' \code{score} that dictate what render function you should use.
+#' \code{render_tab} is general and always works, but \code{render_score} would
+#' not be the best choice when a tablature staff is present unless you accept
+#' the default string naming convention.
+#'
+#' \code{render_midi} is different from \code{midily} and \code{miditab}, whose
+#' purpose is to create sheet music from an existing MIDI file using a LilyPond
+#' command line utility.
+#'
 #' For Windows users, add the path to the LilyPond executable to the system
 #' path variable. For example, if the file is at
 #' \code{C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe},
 #' then add \code{C:/Program Files (x86)/LilyPond/usr/bin} to the system path.
 #'
 #' @param score a score object.
-#' @param file character, output file ending in .pdf or .png. May include an
-#' absolute or relative path.
+#' @param file character, output file ending in .pdf or .png for sheet music or
+#' tablature for \code{score}. May include an absolute or relative path.
+#' For \code{render_midi}, a file ending in .mid.
 #' @param key character, key signature, e.g., \code{c}, \code{b_}, \code{f#m},
 #' etc.
 #' @param time character, defaults to \code{"4/4"}.
@@ -222,6 +246,28 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
     system(call_string)
   }
   if(!keep_ly) unlink(fp$lp)
+  invisible()
+}
+
+#' @export
+#' @rdname tab
+render_tab <- tab
+
+#' @export
+#' @rdname tab
+render_score <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
+                         header = NULL, paper = NULL, endbar = TRUE){
+  tab(score, file, key, time, tempo, header, FALSE, paper, endbar, FALSE,
+      FALSE, NULL, FALSE)
+}
+
+#' @export
+#' @rdname tab
+render_midi <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60"){
+  file0 <- gsub("\\.mid$", ".png", file)
+  tab(score, file0, key, tempo = tempo, midi = TRUE, keep_ly = FALSE,
+      details = FALSE)
+  unlink(file0, recursive = TRUE, force = TRUE)
   invisible()
 }
 
