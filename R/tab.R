@@ -559,7 +559,7 @@ render_midi <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60"){
 #' This function uses a generates a LilyPond template for displaying only a
 #' fretboard diagram chart. It then passes the file to LilyPond for rendering.
 #' To plot specific fretboard diagrams in R using ggplot and with greater
-#' control, use \code{fretboard_plot}.
+#' control, use \code{plot_fretboard}.
 #'
 #' @param chords named character vector of valid formatting for LilyPond chord
 #' names and values. See examples.

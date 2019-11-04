@@ -22,14 +22,14 @@ library(tabr)
 
 ## Overview
 
-While music visualization in `tabr` focuses on leveraging LilyPond to make tablature, some diagrams can also be drawn directly in R using ggplot without any need to involve LilyPond. The `fretboard_plot` function makes standalone fretboard diagrams in R, independent of the LilyPond sheet music pipeline.
+While music visualization in `tabr` focuses on leveraging LilyPond to make tablature, some diagrams can also be drawn directly in R using ggplot without any need to involve LilyPond. The `plot_fretboard` function makes standalone fretboard diagrams in R, independent of the LilyPond sheet music pipeline.
 
-`fretboard_plot` is a highly specialized function that takes vector inputs for string numbers and fret numbers and maps the combination element-wise to produce a fretboard diagram. Note that `fretboard_plot` is a developmental function and the interface and arguments it provides may change.
+`plot_fretboard` is a highly specialized function that takes vector inputs for string numbers and fret numbers and maps the combination element-wise to produce a fretboard diagram. Note that `plot_fretboard` is a developmental function and the interface and arguments it provides may change.
 
 The fretted notes are marked in the diagram using customary large circles.
 
 ```{r fb1}
-fretboard_plot(string = 6:1, fret = c(0, 2, 2, 0, 0, 0))
+plot_fretboard(string = 6:1, fret = c(0, 2, 2, 0, 0, 0))
 ```
 
 ## Labels and tuning
@@ -37,21 +37,21 @@ fretboard_plot(string = 6:1, fret = c(0, 2, 2, 0, 0, 0))
 The fretted notes can be labeled. `labels` can be an arbitrary vector corresponding to the string and fret numbers. For example, you can label each circle with the fingerings used to play chords or scales.
 
 ```{r fb2}
-fretboard_plot(6:1, c(0, 2, 2, 0, 0, 0), c("G", "U", "I", "T", "A", "R"))
+plot_fretboard(6:1, c(0, 2, 2, 0, 0, 0), c("G", "U", "I", "T", "A", "R"))
 ```
 
-If you set `labels = "notes"`, this is a special setting that will label all points with their note names. This can be done automatically because providing string and fret numbers in conjunction with the `tuning` argument gives full information about the notes along the guitar neck. `fretboard_plot` transposes these internally. This means it will work automatically no matter what arbitrary `tuning` you set. Here is an example that also displays the tuning.
+If you set `labels = "notes"`, this is a special setting that will label all points with their note names. This can be done automatically because providing string and fret numbers in conjunction with the `tuning` argument gives full information about the notes along the guitar neck. `plot_fretboard` transposes these internally. This means it will work automatically no matter what arbitrary `tuning` you set. Here is an example that also displays the tuning.
 
 ```{r fb3}
 string <- c(6, 6, 6, 5, 5, 5, 4, 4, 4, 4, 4, 3, 3, 3, 2, 2, 2, 1, 1, 1)
 fret <- c(2, 4, 5, 2, 4, 5, 2, 4, 6, 7, 9, 6, 7, 9, 7, 9, 10, 7, 9, 10)
-fretboard_plot(string, fret, "notes", show_tuning = TRUE)
+plot_fretboard(string, fret, "notes", show_tuning = TRUE)
 ```
 
 How accidentals are displayed when `labels = "notes"`, as sharps or flats, can be controlled by setting the `key` to a specific key or simply to `sharp` or `flat`. Here, the key of G contains a sharp, which alters the labeling from the previous diagram. 
 
 ```{r fb4}
-fretboard_plot(string, fret, "notes", show_tuning = TRUE, key = "g")
+plot_fretboard(string, fret, "notes", show_tuning = TRUE, key = "g")
 ```
 
 ## Limits
@@ -59,14 +59,14 @@ fretboard_plot(string, fret, "notes", show_tuning = TRUE, key = "g")
 X and Y limits are expressed in terms of the number of instrument strings and the span of frets. You can override the fret range that is derived from `fret`:
 
 ```{r fb5}
-fretboard_plot(string, fret, "notes", fret_range = c(0, 10), show_tuning = TRUE)
+plot_fretboard(string, fret, "notes", fret_range = c(0, 10), show_tuning = TRUE)
 ```
 
 The number of strings an instrument has is derived from `tuning` and this generalizes the fretboard diagram possibilities further. The tuning now specifies a seven-string guitar. One note has been added on string seven:
 
 ```{r fb6}
 tuning <- "b1 e2 a2 d3 g3 b3 e4"
-fretboard_plot(c(7, string), c(1, fret), "notes", fret_range = c(0, 10), 
+plot_fretboard(c(7, string), c(1, fret), "notes", fret_range = c(0, 10), 
                tuning = tuning, show_tuning = TRUE)
 ```
 
@@ -84,13 +84,13 @@ idx <- c(2, 2, 1, 1, 1, 2, rep(1, 6))
 lab_col <- c("white", "black")[idx]
 pt_fill <- c("firebrick1", "white")[idx]
 
-fretboard_plot(am_strings, am_frets, "notes", mute, 
+plot_fretboard(am_strings, am_frets, "notes", mute, 
                label_color = lab_col, point_fill = pt_fill)
 ```
 
-`group` can also be used for faceting. However, faceting is still a problematic feature. It may work well enough in cases where the different diagrams span similar frets. The presence of muted notes can also cause issues when faceting. `fretboard_plot` works best for single-panel plots. Since the function returns a ggplot object, you can always make them separate plots and arrange in a grid layout rather than rely on within-plot faceting.
+`group` can also be used for faceting. However, faceting is still a problematic feature. It may work well enough in cases where the different diagrams span similar frets. The presence of muted notes can also cause issues when faceting. `plot_fretboard` works best for single-panel plots. Since the function returns a ggplot object, you can always make them separate plots and arrange in a grid layout rather than rely on within-plot faceting.
 
-Note that `fretboard_plot` accepts character inputs like those used throughout `tabr`:
+Note that `plot_fretboard` accepts character inputs like those used throughout `tabr`:
 
 ```{r fb7b}
 f <- "0 2 2 1 0 0 0 2 2 0 0 0"
@@ -102,7 +102,7 @@ idx <- c(2, 1, 1, 1, 2, 2, 2, 1, 1, 2, 2, 2)
 lab_col <- c("white", "black")[idx]
 pt_fill <- c("firebrick1", "white")[idx]
 
-fretboard_plot(s, f, "notes", group = grp, fret_range = c(0, 4),
+plot_fretboard(s, f, "notes", group = grp, fret_range = c(0, 4),
                label_color = lab_col, point_fill = pt_fill)
 ```
 
@@ -110,15 +110,38 @@ fretboard_plot(s, f, "notes", group = grp, fret_range = c(0, 4),
 
 The direction and handedness can also be changed. Diagrams can be vertical or horizontal as well as left- or right-handed.
 
-Here, titles are added to the ggplot objects with `ggtitle`. Of course you can add onto ggplot objects returned by `fretboard_plot`, but you are limited in what you can add on and must be careful to avoid overriding properties of layers `fretboard_plot` has already specified.
+Here, titles are added to the ggplot objects with `ggtitle`. Of course you can add onto ggplot objects returned by `plot_fretboard`, but you are limited in what you can add on and must be careful to avoid overriding properties of layers `plot_fretboard` has already specified.
 
 ```{r fb8}
 library(ggplot2)
-fretboard_plot(string, fret, "notes", label_color = "white", point_fill = "dodgerblue",
+plot_fretboard(string, fret, "notes", label_color = "white", point_fill = "dodgerblue",
                fret_range = c(0, 10), show_tuning = TRUE, horizontal = TRUE) +
   ggtitle("Horizontal")
 
-fretboard_plot(string, fret, "notes", label_color = "white", point_fill = "dodgerblue",
+plot_fretboard(string, fret, "notes", label_color = "white", point_fill = "dodgerblue",
                fret_range = c(0, 10), show_tuning = TRUE, horizontal = TRUE, left_handed = TRUE) +
   ggtitle("Horizontal and left-handed")
+```
+
+## Chord diagrams
+
+The previous examples show a mix of using `plot_fretboard` to make general fretboard diagrams that show scales, arpeggios and other patterns, as well as to produce chord diagrams of specific chords. It is easier to use `plot_chord` for the latter. It is a wrapper around `plot_fretboard` that takes a string representing a single chord in the simple fret format shown here.
+
+```{r plot_chord1}
+idx <- c(1, 1, 2, 2, 2, 1)
+fill <- c("white", "black")[idx]
+lab_col <- c("black", "white")[idx]
+plot_chord("xo221o", "notes", label_color = lab_col, point_fill = fill)
+```
+
+Leading `x` is inferred if there are fewer fret values in the string than there are instrument strings, as inferred from the `tuning` argument. `plot_chord` takes all the same arguments as `plot_fretboard` except that it takes `chord` instead of `string` and `fret` and it does not use `mute` because muted notes are indicated with an `x` inside `chord`.
+
+```{r plot_chord2}
+plot_chord("0231")
+```
+
+Frets are assumed to be single-digit when provided as above. When any two-digit fret value occurs, you must provide the fret values as space- or semicolon-delimited. The latter is like LilyPond format, but a trailing semicolon is ignored if present.
+
+```{r plot_chord3}
+plot_chord("10 12 13 11", fret_range = c(10, 14)) # same as "10;12;13;11"
 ```

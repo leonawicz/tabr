@@ -92,7 +92,7 @@ reference:
 - title: Plots (non-tablature visualizations)
   desc: "Functions for musical plots and diagrams"
   contents:
-  - fretboard_plot
+  - plot_fretboard
 - title: Phrase validation and coercion
   desc: "Functions for checking and decomposing phrases objects"
   contents:

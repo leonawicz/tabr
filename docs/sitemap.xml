@@ -46,9 +46,6 @@
     <loc>http://leonawicz.github.io/tabr/reference/dyad.html</loc>
   </url>
   <url>
-    <loc>http://leonawicz.github.io/tabr/reference/fretboard_plot.html</loc>
-  </url>
-  <url>
     <loc>http://leonawicz.github.io/tabr/reference/guitarChords.html</loc>
   </url>
   <url>
@@ -128,6 +125,9 @@
   </url>
   <url>
     <loc>http://leonawicz.github.io/tabr/reference/pitch_freq.html</loc>
+  </url>
+  <url>
+    <loc>http://leonawicz.github.io/tabr/reference/plot_fretboard.html</loc>
   </url>
   <url>
     <loc>http://leonawicz.github.io/tabr/reference/read_midi.html</loc>

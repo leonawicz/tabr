@@ -20,7 +20,7 @@ library(tabr)
 library(dplyr)
 ```
 
-The `fretboard_plot` function can be used to create general fretboard diagrams directly in R using ggplot, but this vignette shows how to create a standalone chord chart using LilyPond. Instead of using `tab` to render a score to pdf that may contain a chord chart at the top of the first page, you can use `render_chordchart`. This function creates the necessary LilyPond file and sends it to LilyPond for final rendering.
+The `plot_fretboard` function can be used to create general fretboard diagrams directly in R using ggplot and `plot_chord` specifically produces single chord diagrams, but this vignette shows how to create a standalone chord chart using LilyPond. Instead of using `tab` to render a score to pdf that may contain a chord chart at the top of the first page, you can use `render_chordchart`. This function creates the necessary LilyPond file and sends it to LilyPond for final rendering.
 
 ## Prepare chords
 
