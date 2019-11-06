@@ -137,7 +137,7 @@ Also, notice the generic primitives `length` and `rep` have been implemented for
 
 ### Visual representation
 
-Note that this last step requires a LilyPond installation. This vignette is part of the music programming and music data analysis collection, but for completeness, the example below shows what you can do on the transcription side.
+This vignette is part of the music programming and music data analysis vignette collection, but for completeness, the example below shows how you can connect this to LilyPond. Note that for purposes of this example, this last step requires a LilyPond installation, though you could also do this with ggplot (see [this vignette](tabr-fretboard.html) for examples). 
 
 The fretboard diagram syntax and chord names for creating the chord chart with LilyPond can be obtained directly from the pitches in a chord, as long as those pitches match a known chord in `guitarChords`. Since the goal here is to make a chord chart of playable chords, consider chord shape and position on the guitar neck. The pitches themselves obviously do not contain any instrument-specific information.
 
