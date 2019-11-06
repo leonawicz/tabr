@@ -20,8 +20,8 @@ test_that("plot_fretboard runs successfully", {
   fret <- c(2, 4, 5, 2, 4, 5, 2, 4, 6, 7, 9, 6, 7, 9, 7, 9, 10, 7, 9, 10)
   expect_is(plot_fretboard(string, fret, "notes", show_tuning = TRUE), "ggplot")
   expect_is(
-    plot_fretboard(string, fret, "notes", show_tuning = TRUE, key = "f"),
-    "ggplot")
+    plot_fretboard(string, fret, "notes", show_tuning = TRUE,
+                   accidentals = "sharp"), "ggplot")
   expect_is(
     plot_fretboard(string, fret, "notes", fret_range = c(0, 10),
                    show_tuning = TRUE),

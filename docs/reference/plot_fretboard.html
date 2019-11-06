@@ -220,16 +220,18 @@
     </div>
 
     <pre class="usage"><span class='fu'>plot_fretboard</span>(<span class='no'>string</span>, <span class='no'>fret</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mute</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>label_size</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>label_color</span> <span class='kw'>=</span> <span class='st'>"white"</span>, <span class='kw'>point_size</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+  <span class='kw'>label_size</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>label_color</span> <span class='kw'>=</span> <span class='st'>"white"</span>, <span class='kw'>point_size</span> <span class='kw'>=</span> <span class='fl'>10</span>,
   <span class='kw'>point_color</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>point_fill</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>horizontal</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>left_handed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>fret_range</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>, <span class='kw'>show_tuning</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>asp</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+  <span class='kw'>accidentals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"flat"</span>, <span class='st'>"sharp"</span>), <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>,
+  <span class='kw'>show_tuning</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>asp</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>base_size</span> <span class='kw'>=</span> <span class='fl'>20</span>)
 
-<span class='fu'>plot_chord</span>(<span class='no'>chord</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label_size</span> <span class='kw'>=</span> <span class='fl'>4</span>,
+<span class='fu'>plot_chord</span>(<span class='no'>chord</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label_size</span> <span class='kw'>=</span> <span class='fl'>10</span>,
   <span class='kw'>label_color</span> <span class='kw'>=</span> <span class='st'>"white"</span>, <span class='kw'>point_size</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>point_color</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
   <span class='kw'>point_fill</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>horizontal</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>left_handed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>fret_range</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>,
-  <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>, <span class='kw'>show_tuning</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>asp</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+  <span class='kw'>left_handed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>fret_range</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>accidentals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"flat"</span>,
+  <span class='st'>"sharp"</span>), <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>, <span class='kw'>show_tuning</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>asp</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>base_size</span> <span class='kw'>=</span> <span class='fl'>20</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -289,9 +291,9 @@ string numbers.</p></td>
 from <code>fret</code>.</p></td>
     </tr>
     <tr>
-      <th>key</th>
-      <td><p>character, key signature, used to enforce type of accidentals
-when <code>labels = "notes"</code>.</p></td>
+      <th>accidentals</th>
+      <td><p>character, when <code>labels = "notes"</code> represent
+accidentals: <code>"flat"</code> or <code>"sharp"</code>.</p></td>
     </tr>
     <tr>
       <th>tuning</th>
@@ -306,6 +308,10 @@ pre-defined tuning. See details.</p></td>
       <th>asp</th>
       <td><p>numeric, aspect ratio, overrides default aspect ratio derived
 from number of strings and frets.</p></td>
+    </tr>
+    <tr>
+      <th>base_size</th>
+      <td><p>base size for <code><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>ggplot2::theme_void</a></code>.</p></td>
     </tr>
     <tr>
       <th>chord</th>

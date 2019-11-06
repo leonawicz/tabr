@@ -196,8 +196,8 @@
 <a class="sourceLine" id="cb3-2" title="2">fret &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">10</span>)</a>
 <a class="sourceLine" id="cb3-3" title="3"><span class="kw"><a href="../reference/plot_fretboard.html">plot_fretboard</a></span>(string, fret, <span class="st">"notes"</span>, <span class="dt">show_tuning =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="tabr-fretboard_files/figure-html/fb3-1.png" width="100%"></p>
-<p>How accidentals are displayed when <code>labels = "notes"</code>, as sharps or flats, can be controlled by setting the <code>key</code> to a specific key or simply to <code>sharp</code> or <code>flat</code>. Here, the key of G contains a sharp, which alters the labeling from the previous diagram.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="../reference/plot_fretboard.html">plot_fretboard</a></span>(string, fret, <span class="st">"notes"</span>, <span class="dt">show_tuning =</span> <span class="ot">TRUE</span>, <span class="dt">key =</span> <span class="st">"g"</span>)</a></code></pre></div>
+<p>When <code>labels = "notes"</code>, accidentals are displayed as flats by default. Set <code>accidentals = "sharp"</code> to change.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="../reference/plot_fretboard.html">plot_fretboard</a></span>(string, fret, <span class="st">"notes"</span>, <span class="dt">show_tuning =</span> <span class="ot">TRUE</span>, <span class="dt">accidentals =</span>  <span class="st">"sharp"</span>)</a></code></pre></div>
 <p><img src="tabr-fretboard_files/figure-html/fb4-1.png" width="100%"></p>
 </div>
 <div id="limits" class="section level2">
@@ -274,6 +274,22 @@
 <p>Frets are assumed to be single-digit when provided as above. When any two-digit fret value occurs, you must provide the fret values as space- or semicolon-delimited. The latter is like LilyPond format, but a trailing semicolon is ignored if present.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw"><a href="../reference/plot_fretboard.html">plot_chord</a></span>(<span class="st">"10 12 13 11"</span>, <span class="dt">fret_range =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">10</span>, <span class="dv">14</span>)) <span class="co"># same as "10;12;13;11"</span></a></code></pre></div>
 <p><img src="tabr-fretboard_files/figure-html/plot_chord3-1.png" width="100%"></p>
+<p>In an effort to leave some flexibility to the user, and while these plotting functions remain under development, plotting multiple chords as a chord chart is intentionally handled separately on a case by case basis. Here is an example using a little extra <code>ggplot2</code>, <code>purrr</code> and <code>gridExtra</code>. It also shows how you can tweak some layout settings to size and arrange elements nicely for your <code>Rmd</code> file.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</a>
+<a class="sourceLine" id="cb14-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(purrr)</a>
+<a class="sourceLine" id="cb14-3" title="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(gridExtra)</a>
+<a class="sourceLine" id="cb14-4" title="4"></a>
+<a class="sourceLine" id="cb14-5" title="5">chords &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"02210"</span>, <span class="st">"32010"</span>, <span class="st">"0232"</span>, <span class="st">"133211"</span>, <span class="st">"022100"</span>)</a>
+<a class="sourceLine" id="cb14-6" title="6">id &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Am"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>, <span class="st">"F"</span>, <span class="st">"E"</span>)</a>
+<a class="sourceLine" id="cb14-7" title="7"></a>
+<a class="sourceLine" id="cb14-8" title="8">g &lt;-<span class="st"> </span><span class="kw">map2</span>(chords, id, <span class="op">~</span>{</a>
+<a class="sourceLine" id="cb14-9" title="9">  <span class="kw"><a href="../reference/plot_fretboard.html">plot_chord</a></span>(.x, <span class="st">"notes"</span>, <span class="dt">point_size =</span> <span class="dv">8</span>, <span class="dt">fret_range =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">4</span>), <span class="dt">accidentals =</span> <span class="st">"sharp"</span>, <span class="dt">asp =</span> <span class="fl">1.25</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb14-10" title="10"><span class="st">    </span><span class="kw">ggtitle</span>(.y)</a>
+<a class="sourceLine" id="cb14-11" title="11">})</a>
+<a class="sourceLine" id="cb14-12" title="12"></a>
+<a class="sourceLine" id="cb14-13" title="13"><span class="kw">grid.arrange</span>(<span class="dt">grobs =</span> g, <span class="dt">nrow =</span> <span class="dv">2</span>)</a></code></pre></div>
+<p><img src="tabr-fretboard_files/figure-html/plot_chord4-1.png" width="100%"></p>
+<p>You can use <code>marrangeGrob</code> instead of <code>grid.arrange</code> if you want to split a larger set of chord diagrams onto multiple pages.</p>
 </div>
   </div>
 

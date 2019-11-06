@@ -6,16 +6,18 @@
 \title{Chord and fretboard diagram plots}
 \usage{
 plot_fretboard(string, fret, labels = NULL, mute = FALSE,
-  label_size = 4, label_color = "white", point_size = 10,
+  label_size = 10, label_color = "white", point_size = 10,
   point_color = "black", point_fill = "black", group = NULL,
   horizontal = FALSE, left_handed = FALSE, fret_range = NULL,
-  key = "c", tuning = "standard", show_tuning = FALSE, asp = NULL)
+  accidentals = c("flat", "sharp"), tuning = "standard",
+  show_tuning = FALSE, asp = NULL, base_size = 20)
 
-plot_chord(chord, labels = NULL, label_size = 4,
+plot_chord(chord, labels = NULL, label_size = 10,
   label_color = "white", point_size = 10, point_color = "black",
   point_fill = "black", group = NULL, horizontal = FALSE,
-  left_handed = FALSE, fret_range = NULL, key = "c",
-  tuning = "standard", show_tuning = FALSE, asp = NULL)
+  left_handed = FALSE, fret_range = NULL, accidentals = c("flat",
+  "sharp"), tuning = "standard", show_tuning = FALSE, asp = NULL,
+  base_size = 20)
 }
 \arguments{
 \item{string}{integer or as a space-delimited character string; instrument
@@ -46,8 +48,8 @@ string numbers.}
 \item{fret_range}{fret limits, if not \code{NULL}, overrides limits derived
 from \code{fret}.}
 
-\item{key}{character, key signature, used to enforce type of accidentals
-when \code{labels = "notes"}.}
+\item{accidentals}{character, when \code{labels = "notes"} represent
+accidentals: \code{"flat"} or \code{"sharp"}.}
 
 \item{tuning}{explicit tuning, e.g., \code{"e, a, d g b e'"}, or a
 pre-defined tuning. See details.}
@@ -56,6 +58,8 @@ pre-defined tuning. See details.}
 
 \item{asp}{numeric, aspect ratio, overrides default aspect ratio derived
 from number of strings and frets.}
+
+\item{base_size}{base size for \code{ggplot2::theme_void}.}
 
 \item{chord}{character, a single chord given in fret notation. See details.}
 }

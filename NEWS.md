@@ -23,6 +23,7 @@
 * Updated vignettes, readme and other documentation.
 * Made improvements to print method for phrase objects.
 * Added `rests` argument to some note metadata functions.
+* Improvements to `plot_fretboard` (renamed from `fretboard_plot`) and added wrapper function `plot_chord` for more convenient chord diagrams.
 * Minor bug fixes.
 * Thank you to [fnord-repeater](https://github.com/fnord-repeater) for several helpful suggestions and insights as well as example code that helped to make the transcription pipeline better.
 * Thank you to [Han Oostdijk](https://github.com/HanOostdijk) for additional bug fixes and improvements to the code for the transcription pipeline.

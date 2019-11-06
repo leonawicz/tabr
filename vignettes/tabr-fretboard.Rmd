@@ -16,6 +16,9 @@ knitr::knit_hooks$set(output = sgr_wrap)
 knitr::opts_chunk$set(
   collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, tidy = FALSE, out.width = "100%"
 )
+library(ggplot2)
+library(purrr)
+library(gridExtra)
 library(tabr)
 ```
 
@@ -48,10 +51,10 @@ fret <- c(2, 4, 5, 2, 4, 5, 2, 4, 6, 7, 9, 6, 7, 9, 7, 9, 10, 7, 9, 10)
 plot_fretboard(string, fret, "notes", show_tuning = TRUE)
 ```
 
-How accidentals are displayed when `labels = "notes"`, as sharps or flats, can be controlled by setting the `key` to a specific key or simply to `sharp` or `flat`. Here, the key of G contains a sharp, which alters the labeling from the previous diagram. 
+When `labels = "notes"`, accidentals are displayed as flats by default. Set `accidentals = "sharp"` to change. 
 
 ```{r fb4}
-plot_fretboard(string, fret, "notes", show_tuning = TRUE, key = "g")
+plot_fretboard(string, fret, "notes", show_tuning = TRUE, accidentals =  "sharp")
 ```
 
 ## Limits
@@ -144,4 +147,28 @@ Frets are assumed to be single-digit when provided as above. When any two-digit 
 
 ```{r plot_chord3}
 plot_chord("10 12 13 11", fret_range = c(10, 14)) # same as "10;12;13;11"
+```
+
+In an effort to leave some flexibility to the user, and while these plotting functions remain under development, plotting multiple chords as a chord chart is intentionally handled separately on a case by case basis. Here is an example using a little extra `ggplot2`, `purrr` and `gridExtra`. It also shows how you can tweak some layout settings to size and arrange elements nicely for your `Rmd` file.
+
+```{r plot_chord4, fig.height=6.5}
+library(ggplot2)
+library(purrr)
+library(gridExtra)
+
+chords <- c("02210", "32010", "0232", "133211", "022100")
+id <- c("Am", "C", "D", "F", "E")
+
+g <- map2(chords, id, ~{
+  plot_chord(.x, "notes", point_size = 8, fret_range = c(0, 4), accidentals = "sharp", asp = 1.25) + 
+    ggtitle(.y)
+})
+
+grid.arrange(grobs = g, nrow = 2)
+```
+
+You can use `marrangeGrob` instead of `grid.arrange` if you want to split a larger set of chord diagrams onto multiple pages.
+
+```{r cleanup, include=FALSE}
+detach("package:purrr", unload = TRUE)
 ```

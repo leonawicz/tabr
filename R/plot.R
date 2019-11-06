@@ -44,13 +44,14 @@
 #' @param left_handed logical, handedness orientation.
 #' @param fret_range fret limits, if not \code{NULL}, overrides limits derived
 #' from \code{fret}.
-#' @param key character, key signature, used to enforce type of accidentals
-#' when \code{labels = "notes"}.
+#' @param accidentals character, when \code{labels = "notes"} represent
+#' accidentals: \code{"flat"} or \code{"sharp"}.
 #' @param tuning explicit tuning, e.g., \code{"e, a, d g b e'"}, or a
 #' pre-defined tuning. See details.
 #' @param show_tuning logical, show tuning of each string.
 #' @param asp numeric, aspect ratio, overrides default aspect ratio derived
 #' from number of strings and frets.
+#' @param base_size base size for \code{ggplot2::theme_void}.
 #'
 #' @return a ggplot object
 #' @export
@@ -75,12 +76,16 @@
 #'
 #' plot_chord("10 12 13 11", fret_range = c(10, 14))
 plot_fretboard <- function(string, fret, labels = NULL, mute = FALSE,
-                           label_size = 4, label_color = "white",
+                           label_size = 10, label_color = "white",
                            point_size = 10, point_color = "black",
                            point_fill = "black", group = NULL,
                            horizontal = FALSE, left_handed = FALSE,
-                           fret_range = NULL, key = "c", tuning = "standard",
-                           show_tuning = FALSE, asp = NULL){
+                           fret_range = NULL, accidentals = c("flat", "sharp"),
+                           tuning = "standard", show_tuning = FALSE,
+                           asp = NULL, base_size = 20){
+  accidentals <- match.arg(accidentals)
+  label_size <- label_size / 2.5
+  key <- if(accidentals == "flat") "f" else "g"
   string <- as.integer(.uncollapse(string))
   fret <- as.integer(.uncollapse(fret))
   if(length(string) != length(fret))
@@ -202,7 +207,7 @@ plot_fretboard <- function(string, fret, labels = NULL, mute = FALSE,
   g <- g + ggplot2::geom_point(
     data = d[!mute, ], shape = 21, color = d$point_color[!mute],
     fill = d$point_fill[!mute], size = point_size) +
-    xscale + ggplot2::theme_void()
+    xscale + ggplot2::theme_void(base_size = base_size)
 
   if(!is.null(labels))
     g <- g +
@@ -216,18 +221,21 @@ plot_fretboard <- function(string, fret, labels = NULL, mute = FALSE,
   if(horizontal) g <- g + ggplot2::coord_flip()
   if(!is.null(group)) g <- g +
     ggplot2::facet_wrap(stats::as.formula(paste("~group")), scales = "free")
-  g + ggplot2::theme(plot.margin = ggplot2::unit(c(5, 5, 5, 5), "mm"),
+  g + ggplot2::theme(
+    plot.margin = ggplot2::unit(c(5, 5, 5, 5), "mm"),
     axis.text.x = x, axis.text.y = y, aspect.ratio = asp)
 }
 
 #' @export
 #' @rdname plot_fretboard
-plot_chord <- function(chord, labels = NULL, label_size = 4,
-                     label_color = "white", point_size = 10,
-                     point_color = "black", point_fill = "black", group = NULL,
-                     horizontal = FALSE, left_handed = FALSE,
-                     fret_range = NULL, key = "c", tuning = "standard",
-                     show_tuning = FALSE, asp = NULL){
+plot_chord <- function(chord, labels = NULL, label_size = 10,
+                       label_color = "white", point_size = 10,
+                       point_color = "black", point_fill = "black",
+                       group = NULL, horizontal = FALSE, left_handed = FALSE,
+                       fret_range = NULL, accidentals = c("flat", "sharp"),
+                       tuning = "standard", show_tuning = FALSE, asp = NULL,
+                       base_size = 20){
+  accidentals <- match.arg(accidentals)
   if(length(chord) > 1) stop("Length of chord must be one.", call. = FALSE)
   if(grepl(";", chord)){
     chord <- gsub(";$", "", chord)
@@ -250,5 +258,6 @@ plot_chord <- function(chord, labels = NULL, label_size = 4,
   }
   plot_fretboard(n_strings:1, chord, labels, mute, label_size, label_color,
                  point_size, point_color, point_fill, group, horizontal,
-                 left_handed, fret_range, key, tuning, show_tuning, asp)
+                 left_handed, fret_range, accidentals, tuning, show_tuning,
+                 asp, base_size)
 }

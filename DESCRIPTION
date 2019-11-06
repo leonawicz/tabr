@@ -29,6 +29,7 @@ Suggests:
     rmarkdown,
     covr,
     kableExtra,
+    gridExtra,
     htmltools,
     fansi,
     tuneR
