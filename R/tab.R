@@ -237,7 +237,9 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
            paper, endbar, midi, dirname(fp$lp))
   lp_path <- tabr_options()$lilypond
   is_windows <- Sys.info()[["sysname"]] == "Windows"
-  if(lp_path == "" && is_windows) lp_path <- "lilypond.exe"
+  if(lp_path == ""){
+    lp_path <- if(is_windows) "lilypond.exe" else "lilypond"
+  }
   call_string <- paste0("\"", lp_path, "\" --", fp$ext,
                         " -dstrip-output-dir=#f \"", fp$lp, "\"")
   if(is_windows){
@@ -619,7 +621,9 @@ render_chordchart <- function(chords, file, keep_ly = FALSE, fontsize = 60,
 
   lp_path <- tabr_options()$lilypond
   is_windows <- Sys.info()[["sysname"]] == "Windows"
-  if(lp_path == "" && is_windows) lp_path <- "lilypond.exe"
+  if(lp_path == ""){
+    lp_path <- if(is_windows) "lilypond.exe" else "lilypond"
+  }
   call_string <- paste0("\"", lp_path, "\" --", fp$ext,
                         " -dstrip-output-dir=#f \"", fp$lp, "\"")
   if(is_windows){

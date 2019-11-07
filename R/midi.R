@@ -84,10 +84,15 @@ midily <- function(midi_file, file, key = "c", absolute = FALSE,
   }
   if(explicit) x <- paste(x, "--verbose")
   if(explicit) x <- paste(x, "--text-lyrics")
+  is_windows <- Sys.info()[["sysname"]] == "Windows"
+  py_path <- tabr_options()$python
+  if(py_path == ""){
+    py_path <- if(is_windows) "python.exe" else "python"
+  }
+  midi2ly_path <- tabr_options()$python
+  if(midi2ly_path == "") midi2ly_path <- "midi2ly.py"
   system(paste0(
-    "\"", tabr_options()$python, "\" ", "\"",
-    tabr_options()$midi2ly, "\" ", x,
-    " --output=\"",
+    "\"", py_path, "\" ", "\"", midi2ly_path, "\" ", x, " --output=\"",
     .adjust_file_path(file, path)$lp, "\" \"", midi_file, "\""
   ))
   invisible()
@@ -167,7 +172,9 @@ miditab <- function(midi_file, file, keep_ly = FALSE, path = NULL,
                          path = dirname(fp$lp)), list(...)))
   lp_path <- tabr_options()$lilypond
   is_windows <- Sys.info()[["sysname"]] == "Windows"
-  if(lp_path == "" && is_windows) lp_path <- "lilypond.exe"
+  if(lp_path == ""){
+    lp_path <- if(is_windows) "lilypond.exe" else "lilypond"
+  }
   call_string <- paste0("\"", lp_path, "\" --", fp$ext,
                         " -dstrip-output-dir=#f \"", fp$lp, "\"")
   if(is_windows){
