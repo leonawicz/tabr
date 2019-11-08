@@ -8,14 +8,17 @@
 \alias{music_split}
 \alias{music_notes}
 \alias{music_info}
-\alias{music_tsig}
+\alias{music_strings}
+\alias{music_key}
+\alias{music_time}
+\alias{music_tempo}
 \alias{music_lyrics}
 \title{Check music string validity}
 \usage{
 musical(x)
 
-as_music(notes, info = NULL, lyrics = NULL, accidentals = NULL,
-  tsig = "4/4", format = NULL)
+as_music(notes, info = NULL, lyrics = NA, key = "c", time = "4/4",
+  tempo = "2 = 60", accidentals = NULL, format = NULL)
 
 is_music(x)
 
@@ -25,7 +28,13 @@ music_notes(x)
 
 music_info(x)
 
-music_tsig(x)
+music_strings(x)
+
+music_key(x)
+
+music_time(x)
+
+music_tempo(x)
 
 music_lyrics(x)
 }
@@ -35,14 +44,19 @@ music_lyrics(x)
 \item{notes, info}{noteworthy and note info strings. For \code{as_music}, a
 complete music string is assumed for \code{notes} when \code{info = NULL}.}
 
-\item{lyrics}{optional \code{lyrics} object, attached to output as an
-attribute.}
+\item{lyrics}{optional \code{lyrics} object or \code{NA}, attached to output
+as an attribute.}
+
+\item{key}{character, store the key signature as a music attribute. Defaults
+to \code{"c"}. See details.}
+
+\item{time}{character, store the time signature as a music attribute.
+Defaults to \code{"4/4"}. See details.}
+
+\item{tempo}{character, defaults to \code{"2 = 60"}. See details.}
 
 \item{accidentals}{\code{NULL} or character, represent accidentals,
 \code{"flat"} or \code{"sharp"}.}
-
-\item{tsig}{character, store the time signature as a music attribute.
-Defaults to \code{"4/4"}.}
 
 \item{format}{\code{NULL} or character, the timestep delimiter format,
 \code{"space"} or \code{"vector"}.}
@@ -72,11 +86,36 @@ timesteps contain exclusively valid entries.
 \code{as_music} can be used to coerce to the \code{music} class.
 Coercion will fail if the string is not musical.
 The \code{music} class has its own \code{print} and \code{summary} methods.
+\code{music} objects are primarily intended to represent an aggregation of a
+\code{noteworthy} object and a \code{noteinfo}. You can optionally fold in a
+\code{lyrics} object as well. However, for music data analysis, any
+operations will involve first splitting the object into its component parts.
+The value of this class is for the more efficient data entry it provides.
 
-When \code{accidentals}, \code{format}, or \code{tsig} are \code{NULL},
+When \code{accidentals} or \code{format} are \code{NULL},
 these settings are inferred from the musical string input.
-When mixed formats are present, flats are the default for accidentals and
-4/4 common time is the default time signature.
+When mixed formats are present, flats are the default for accidentals.
+
+Other attributes are attached to a \code{music} object.
+\code{key} uses the \code{tabr} syntax, e.g., \code{"c"}, \code{"b_"},
+\code{"f#m"}, etc. \code{time} and \code{tempo} use the LilyPond string
+format. For music programming and analysis, \code{key}, \code{time} and
+\code{tempo} can most likely be ignored. They are primarily relevant when
+rendering a music snippet directly from a \code{music} object with LilyPond.
+These additional attributes provide more complete context for the rendered
+sheet music.
+
+If you plan to render music snippets from a \code{music} object that you are
+defining from a new character string, and the context you have in mind is a
+stringed and fretted instrument like guitar, you can specify string numbers
+at the end of each timestep with numbers following a semicolon delimiter.
+This would still precede any \code{*} timestep multiplier number.
+See examples.
+
+Note that if you convert a music object to a phrase object, you are changing
+contexts. The phrase object is the simplest LilyPond-format music structure.
+Coercion with \code{phrase} strips all attributes of a music object and
+retains only notes, note info and string numbers.
 }
 \examples{
 # note durations inherit from previous timestep if missing
@@ -94,7 +133,9 @@ attributes(x)
 music_split(x)
 music_notes(x)
 music_info(x)
-music_tsig(x)
+music_key(x)
+music_time(x)
+music_tempo(x)
 music_lyrics(x)
 
 as_music(x, accidentals = "sharp")
@@ -106,6 +147,10 @@ y
 x <- as_music(x, lyrics = y)
 x
 music_lyrics(x)
+
+# Starting string = 5: use \\code{;5}. Carries over until an explicit change.
+x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g';4 c';5 ce';51"
+as_music(x)
 }
 \seealso{
 \code{\link{note-checks}}, \code{\link{note-metadata}},

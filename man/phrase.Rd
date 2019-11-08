@@ -38,6 +38,11 @@ how the \code{music} class works. The difference with phrase objects is that
 they are used to create LilyPond syntax analogous to what a music object
 contains.
 
+Note that if you convert a music object to a phrase object, you are changing
+contexts. The phrase object is the simplest LilyPond-format music structure.
+Coercion with \code{phrase} strips all attributes of a music object and
+retains only notes, note info and string numbers.
+
 See the help documentation on \code{noteworthy}, \code{noteinfo}, and
 \code{music} classes for an understanding of the input data structures.
 The function \code{p} is a convenient shorthand wrapper for \code{phrase}.
@@ -49,7 +54,8 @@ phrase("c b, c", "4. 8( 8)", "5 5 5") # direction implies hammer on
 phrase("b2 c d", "4( 4)- 2", "5 5 5") # hammer and slide
 
 phrase("c ec'g' ec'g'", "1 1 1", "5 432 432")
-p("c ec'g' ec'g'", "1 1 1", "5 432 432") # same as above
+p("c ec'g' ec'g'", 1, "5 4 4") # same as above
+
 
 n <- "a, b, c d e f g e f g a~ a"
 i <- "8- 8 8 8] t8( t8)( t8) t16( t16)( t16) 8 1"
@@ -58,6 +64,10 @@ m <- as_music(n, i)
 x <- p(n, i)
 x
 identical(x, p(m))
+
+x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g';4 c';5 ce';51"
+p(x)
+identical(p(x), p(as_music(x)))
 }
 \seealso{
 \code{\link{valid-notes}}, \code{\link{valid-noteinfo}},

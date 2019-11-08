@@ -4,8 +4,8 @@
 \alias{render_chordchart}
 \title{Render a chord chart with LilyPond}
 \usage{
-render_chordchart(chords, file, keep_ly = FALSE, fontsize = 60,
-  details = FALSE)
+render_chordchart(chords, file, size = 1.2, header = NULL,
+  paper = NULL, keep_ly = FALSE, details = FALSE)
 }
 \arguments{
 \item{chords}{named character vector of valid formatting for LilyPond chord
@@ -13,12 +13,16 @@ names and values. See examples.}
 
 \item{file}{output file.}
 
-\item{keep_ly}{logical, keep intermediate LilyPond file.}
+\item{size}{numeric, size of fretboard diagrams (relative to paper font
+size). Use this to scale diagrams up or down.}
 
-\item{fontsize}{integer, vary this depending on the number of chords.
-It displays properly if you keep the chords to a single page. If the full
-set of chords does not fit then chords will be dropped from the rendered
-output.}
+\item{header}{a named list of arguments passed to the header of the
+LilyPond file. See details.}
+
+\item{paper}{a named list of arguments for the LilyPond file page layout.
+See details.}
+
+\item{keep_ly}{logical, keep intermediate LilyPond file.}
 
 \item{details}{logical, set to \code{FALSE} to disable printing of log
 output to console.}
@@ -35,6 +39,45 @@ This function uses a generates a LilyPond template for displaying only a
 fretboard diagram chart. It then passes the file to LilyPond for rendering.
 To plot specific fretboard diagrams in R using ggplot and with greater
 control, use \code{plot_fretboard}.
+
+All \code{header} list elements are character strings. The options for
+\code{header} include:
+\itemize{
+  \item \code{title}
+  \item \code{subtitle}
+  \item \code{composer}
+  \item \code{album}
+  \item \code{arranger}
+  \item \code{instrument}
+  \item \code{meter}
+  \item \code{opus}
+  \item \code{piece}
+  \item \code{poet}
+  \item \code{copyright}
+  \item \code{tagline}
+}
+
+The options for \code{paper} include the following and have the following
+default values if not provided.
+
+\itemize{
+  \item \code{textheight = 220}
+  \item \code{linewidth = 150}
+  \item \code{indent = 0}
+  \item \code{fontsize = 10}
+  \item \code{page_numbers = FALSE}
+  \item \code{print_first_page_number = TRUE}
+  \item \code{first_page_number = 1}
+}
+
+\code{fontsize} only controls the global font size. If you want to scale the
+size of the fretboard diagrams up or down use the the \code{size} argument
+rather than this \code{paper} value.
+
+Note that chord chart output must fit on a single page. If the full set of
+chord diagrams does not fit on one page then diagrams will be clipped in the
+rendered output. Use \code{size} to keep the output to one page or make
+multiple sheets separately.
 }
 \examples{
 suppressPackageStartupMessages(library(dplyr))
@@ -49,6 +92,14 @@ head(chords)
 # requires LilyPond installation
 if(tabr_options()$lilypond != ""){
   outfile <- file.path(tempdir(), "out.pdf")
-  render_chordchart(chords, outfile, fontsize = 30)
+  hdr <- list(
+    title = "Dominant 7th, major 7th and minor 7th chords",
+    subtitle = "C and F root"
+  )
+  render_chordchart(chords, outfile, 2, hdr, list(textheight = 175))
 }
+}
+\seealso{
+\code{\link{plot_fretboard}}, \code{\link{lilypond}},
+\code{\link{tab}}
 }

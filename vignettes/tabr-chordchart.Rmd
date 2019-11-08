@@ -50,12 +50,16 @@ head(chords)
 
 ## Render chord chart
 
-The filtering above results in 41 chords. That is a lot for a chord chart, but the size of the fretboard diagrams for the chords can be controlled. Once the named chord vector is ready, rendering the chord chart is as simple as the following.
+The filtering above results in 41 chords. The size of the fretboard diagrams is increased below with `size = 2`. Like `lilypond` and the `render_*` functions that wrap around it for rendering music scores, `render_chordchart` also takes the `header` and `paper` named list arguments. Once the named chord vector is ready, rendering the chord chart is as simple as the following.
 
 ```{r chordchart, eval=FALSE}
-render_chordchart(chords, "out.pdf", fontsize = 30)
+hdr <- list(
+  title = "Dominant 7th, major 7th and minor 7th chords",
+  subtitle = "C and F root"
+)
+render_chordchart(chords, "out.png", 2, hdr, list(textheight = 175))
 ```
 
 <p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex36.png?raw=true" class="centerimg" width="100%"></p>
 
-The current development version of template works well as long as you keep it to one page. You can control the size with `fontsize`. If you only have a few chords, you can enlarge them significantly.
+The chord chart template must be kept to one page.

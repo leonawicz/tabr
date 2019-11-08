@@ -56,11 +56,6 @@
 }
 
 .strsub <- function(x){
-  x <- gsub("7s", "7654321", x)
-  x <- gsub("6s", "654321", x)
-  x <- gsub("5s", "54321", x)
-  x <- gsub("4s", "4321", x)
-  x <- gsub("3s", "321", x)
   f <- function(x){
     strsplit(gsub("\\(", " \\(", gsub("\\)", " ", x)), " ")[[1]] %>%
       purrr::map(~({

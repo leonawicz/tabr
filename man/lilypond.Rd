@@ -79,7 +79,7 @@ default values if not provided:
   \item \code{textheight = 220}
   \item \code{linewidth = 150}
   \item \code{indent = 0}
-  \item \code{fontsize = 14}
+  \item \code{fontsize = 10}
   \item \code{page_numbers = TRUE}
   \item \code{print_first_page_number = TRUE}
   \item \code{first_page_number = 1}
@@ -93,5 +93,6 @@ outfile <- file.path(tempdir(), "out.ly")
 lilypond(x, outfile)
 }
 \seealso{
-\code{\link{tab}}, \code{\link{midily}},
+\code{\link{tab}}, \code{\link{render_chordchart}},
+\code{\link{midily}}
 }

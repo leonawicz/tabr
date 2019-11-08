@@ -10,14 +10,17 @@ test_that("music functions return as expected", {
 
   expect_is(summary(x), "NULL")
   expect_is(print.music(x), "NULL")
-  expect_equal(length(attributes(x)), 9)
+  expect_equal(length(attributes(x)), 11)
 
   y <- music_split(x)
-  expect_equal(length(y), 4)
+  expect_equal(length(y), 6)
   expect_is(music_notes(x), "noteworthy")
   expect_is(music_info(x), "noteinfo")
-  expect_equal(music_tsig(x), "4/4")
+  expect_equal(music_key(x), "c")
+  expect_equal(music_time(x), "4/4")
+  expect_equal(music_tempo(x), "2 = 60")
   expect_equal(music_lyrics(x), NA)
+  expect_equal(music_strings(x), NULL)
 
   expect_true(grepl("#", as_music(x, accidentals = "sharp")))
 
@@ -28,4 +31,14 @@ test_that("music functions return as expected", {
 
   x <- as_music(x, lyrics = y)
   expect_identical(y, music_lyrics(x))
+
+  x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g';4 c';5 ce';51"
+  s <- as.character(c(rep(5, 7), 5432, 5432, 2, 3, 4, 5, 51))
+  x <- as_music(x)
+  expect_equal(music_strings(x), s)
+  y <- music_split(x)
+  expect_equal(length(y), 7)
+  expect_equal(y[[3]], y$string)
+  expect_equal(y$string, s)
+  expect_equal(music_strings(x), s)
 })

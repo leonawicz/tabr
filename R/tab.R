@@ -35,7 +35,7 @@
 #'   \item \code{textheight = 220}
 #'   \item \code{linewidth = 150}
 #'   \item \code{indent = 0}
-#'   \item \code{fontsize = 14}
+#'   \item \code{fontsize = 10}
 #'   \item \code{page_numbers = TRUE}
 #'   \item \code{print_first_page_number = TRUE}
 #'   \item \code{first_page_number = 1}
@@ -63,7 +63,8 @@
 #'
 #' @return nothing returned; a file is written.
 #' @export
-#' @seealso \code{\link{tab}}, \code{\link{midily}},
+#' @seealso \code{\link{tab}}, \code{\link{render_chordchart}},
+#' \code{\link{midily}}
 #'
 #' @examples
 #' x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
@@ -201,12 +202,12 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 #' @param tempo character, defaults to \code{"2 = 60"}. Set to \code{NULL} to
 #' suppress display of the time signature in the output.
 #' @param header a named list of arguments passed to the header of the
-#' LilyPond file. See details.
+#' LilyPond file. See \code{lilypond} details.
 #' @param string_names label strings at beginning of tab staff. \code{NULL}
 #' (default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for
 #' force on or off completely.
 #' @param paper a named list of arguments for the LilyPond file page layout.
-#' See details.
+#' See \code{lilypond} details.
 #' @param endbar character, the end bar.
 #' @param midi logical, output midi file in addition to tablature.
 #' @param keep_ly logical, keep LilyPond file.
@@ -214,11 +215,12 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 #' may be an absolute or relative path. If \code{NULL} (default), only
 #' \code{file} is used.
 #' @param details logical, set to \code{FALSE} to disable printing of log
-#' output to console.
+#' output to console. Windows only.
 #'
 #' @return nothing returned; a file is written.
 #' @export
-#' @seealso \code{\link{lilypond}}, \code{\link{miditab}}
+#' @seealso \code{\link{lilypond}}, \code{\link{render_chordchart}},
+#' \code{\link{miditab}}
 #'
 #' @examples
 #' if(tabr_options()$lilypond != ""){
@@ -303,7 +305,7 @@ render_midi <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60"){
   } else {
     subtitle <- paste0("\"", subtitle, "\"", collapse = "")
   }
-  header <- paste0(
+  paste0(
     "\\header {\n", "  title = \"", title, "\"\n", "  subtitle = ", subtitle,
     "\n",
     "  composer = \"", composer, "\"\n", "  arranger = \"", arranger, "\"\n",
@@ -314,7 +316,7 @@ render_midi <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60"){
 }
 
 .paper_defaults <- list(textheight = 220, linewidth = 150, indent = 0,
-   fontsize = 14, page_numbers = TRUE,
+   fontsize = 10, page_numbers = TRUE,
    print_first_page_number = TRUE, first_page_number = 1)
 
 .keys <- list(
@@ -392,7 +394,7 @@ render_midi <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60"){
 .lp_top <- function(fontsize, header, rel_tp){
   if(is.null(header)) header <- list()
   paste0(if(rel_tp) .ly_transpose_defs,
-         paste("#(set-global-staff-size", fontsize, ")\n"),
+         paste0("#(set-global-staff-size ", fontsize, ")\n"),
          do.call(.lp_header, header),
          "\\include \"predefined-guitar-fretboards.ly\"\n\n")
 }
@@ -409,7 +411,7 @@ render_midi <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60"){
       "\\markup \\fill-line {\n  \\score {\n    <<\n      ",
       "\\context ChordNames { \\mychorddiagrams }\n",
       "      \\context FretBoards {\n        ",
-      "\\override FretBoards.FretBoard.size = #'1.2\n",
+      "\\override FretBoards.FretBoard.size = #1.2\n",
       "        \\mychorddiagrams\n      }\n    >>\n  ",
       "\\layout {}\n  }\n}\n\\markup\\vspace #3\n\n")
   } else {
@@ -563,19 +565,62 @@ render_midi <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60"){
 #' To plot specific fretboard diagrams in R using ggplot and with greater
 #' control, use \code{plot_fretboard}.
 #'
+#' All \code{header} list elements are character strings. The options for
+#' \code{header} include:
+#' \itemize{
+#'   \item \code{title}
+#'   \item \code{subtitle}
+#'   \item \code{composer}
+#'   \item \code{album}
+#'   \item \code{arranger}
+#'   \item \code{instrument}
+#'   \item \code{meter}
+#'   \item \code{opus}
+#'   \item \code{piece}
+#'   \item \code{poet}
+#'   \item \code{copyright}
+#'   \item \code{tagline}
+#' }
+#'
+#' The options for \code{paper} include the following and have the following
+#' default values if not provided.
+#'
+#' \itemize{
+#'   \item \code{textheight = 220}
+#'   \item \code{linewidth = 150}
+#'   \item \code{indent = 0}
+#'   \item \code{fontsize = 10}
+#'   \item \code{page_numbers = FALSE}
+#'   \item \code{print_first_page_number = TRUE}
+#'   \item \code{first_page_number = 1}
+#' }
+#'
+#' \code{fontsize} only controls the global font size. If you want to scale the
+#' size of the fretboard diagrams up or down use the the \code{size} argument
+#' rather than this \code{paper} value.
+#'
+#' Note that chord chart output must fit on a single page. If the full set of
+#' chord diagrams does not fit on one page then diagrams will be clipped in the
+#' rendered output. Use \code{size} to keep the output to one page or make
+#' multiple sheets separately.
+#'
 #' @param chords named character vector of valid formatting for LilyPond chord
 #' names and values. See examples.
 #' @param file output file.
+#' @param size numeric, size of fretboard diagrams (relative to paper font
+#' size). Use this to scale diagrams up or down.
+#' @param header a named list of arguments passed to the header of the
+#' LilyPond file. See details.
+#' @param paper a named list of arguments for the LilyPond file page layout.
+#' See details.
 #' @param keep_ly logical, keep intermediate LilyPond file.
-#' @param fontsize integer, vary this depending on the number of chords.
-#' It displays properly if you keep the chords to a single page. If the full
-#' set of chords does not fit then chords will be dropped from the rendered
-#' output.
 #' @param details logical, set to \code{FALSE} to disable printing of log
 #' output to console.
 #'
 #' @return writes files to disk
 #' @export
+#' @seealso \code{\link{plot_fretboard}}, \code{\link{lilypond}},
+#' \code{\link{tab}}
 #'
 #' @examples
 #' suppressPackageStartupMessages(library(dplyr))
@@ -590,15 +635,23 @@ render_midi <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60"){
 #' # requires LilyPond installation
 #' if(tabr_options()$lilypond != ""){
 #'   outfile <- file.path(tempdir(), "out.pdf")
-#'   render_chordchart(chords, outfile, fontsize = 30)
+#'   hdr <- list(
+#'     title = "Dominant 7th, major 7th and minor 7th chords",
+#'     subtitle = "C and F root"
+#'   )
+#'   render_chordchart(chords, outfile, 2, hdr, list(textheight = 175))
 #' }
-render_chordchart <- function(chords, file, keep_ly = FALSE, fontsize = 60,
-                             details = FALSE){
+render_chordchart <- function(chords, file, size = 1.2, header = NULL,
+                              paper = NULL, keep_ly = FALSE, details = FALSE){
   i <- seq_along(chords)
   id <- names(chords)
+  paper_args <- .lp_paper_args2(paper)
+  paper <- do.call(.lp_paper, paper_args)
   x <- paste0(
-    "#(set-global-staff-size ", fontsize, " )\n\\header {tagline = \"\"}\n",
-    "\\include \"predefined-guitar-fretboards.ly\"\n")
+    "#(set-global-staff-size ", paper_args$fontsize,
+    ")\n", do.call(.lp_header, if(is.null(header)) list() else header), "\n",
+    "\\include \"predefined-guitar-fretboards.ly\"\n"
+  )
   def <- purrr::map_chr(i, ~.define_chord(.x, id[.x], chords[.x])) %>%
     paste(collapse = "")
   x <- paste0(x, "\n", def, "\nmychorddiagrams = \\chordmode {\n")
@@ -610,12 +663,10 @@ render_chordchart <- function(chords, file, keep_ly = FALSE, fontsize = 60,
     "\\markup\\vspace #3\n", "\\markup \\fill-line {\n", "  \\score {\n",
     "    <<\n", "      \\context ChordNames { \\mychorddiagrams }\n",
     "      \\context FretBoards {\n",
-    "        \\override FretBoards.FretBoard.size = #'1.2\n",
+    "        \\override FretBoards.FretBoard.size = #", size, "\n",
     "        \\mychorddiagrams\n", "      }\n", "    >>\n", "  \\layout {}\n",
-    "  }\n}\n\\markup\\vspace #3\n\n")
-  paper <- paste0("\\paper{\n  textheight = 220.\\mm\n  linewidth = 150.\\mm\n",
-                  "  indent = 0.\\mm\n  print-page-number = ##f\n}")
-  x <- paste0(x, markup, paper)
+    "  }\n}\n\\markup\\vspace #3\n")
+  x <- paste0(paper, x, markup)
   fp <- .adjust_file_path(file, NULL)
   write(file = fp$lp, x)
 
@@ -633,6 +684,17 @@ render_chordchart <- function(chords, file, keep_ly = FALSE, fontsize = 60,
   }
   if(!keep_ly) unlink(fp$lp)
   invisible()
+}
+
+.paper_defaults2 <- list(textheight = 220, linewidth = 150, indent = 0,
+                        fontsize = 14, page_numbers = FALSE,
+                        print_first_page_number = TRUE, first_page_number = 1)
+
+.lp_paper_args2 <- function(x){
+  if(is.null(x)) return(.paper_defaults2)
+  for(i in names(.paper_defaults2))
+    if(!i %in% names(x)) x[[i]] <- .paper_defaults2[[i]]
+    x
 }
 
 .define_chord <- function(i, id, value){

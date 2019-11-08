@@ -60,6 +60,7 @@
 #' n_notes(x)
 #' n_chords(x)
 #' n_octaves(x)
+#' chord_size(x)
 #'
 #' # Type is mixed in \code{x} but is inferred under default conversion rules.
 #' # These check \code{x} once validated and coerced to 'noteworthy' class.
@@ -126,6 +127,14 @@ n_chords <- function(notes){
 #' @rdname note-metadata
 n_octaves <- function(notes){
   length(distinct_octaves(notes))
+}
+
+#' @export
+#' @rdname note-metadata
+chord_size <- function(notes){
+  .check_noteworthy(notes)
+  x <- .uncollapse(notes)
+  purrr::map_int(x, ~length(.split_chords(.x)))
 }
 
 #' @export
@@ -440,7 +449,7 @@ octave_span <- function(notes){
 #' \code{\link{note-coerce}}, \code{\link{valid-notes}}
 #'
 #' @examples
-#' x <- "a_2 a a#'"
+#' x <- "r a_2 a a#' s"
 #' note_has_accidental(x)
 #' note_has_natural(x)
 #' note_has_flat(x)
@@ -453,6 +462,8 @@ octave_span <- function(notes){
 #' note_has_integer(x)
 #' note_is_tick(x)
 #' note_is_integer(x)
+#' note_has_rest(x)
+#' note_is_rest(x)
 note_is_accidental <- function(notes){
   grepl("_|#", .uncollapse(notes))
 }
@@ -521,6 +532,18 @@ note_has_tick <- function(notes){
 #' @rdname note-metadata
 note_has_integer <- function(notes){
   any(note_is_integer(.uncollapse(notes)))
+}
+
+#' @export
+#' @rdname note-metadata
+note_is_rest <- function(notes){
+  grepl("[rs]", (.uncollapse(notes)))
+}
+
+#' @export
+#' @rdname note-metadata
+note_has_rest <- function(notes){
+  any(note_is_rest(notes))
 }
 
 #' Basic noteworthy strings formatting and coercion helpers
@@ -662,7 +685,8 @@ as_space_time.noteinfo <- function(x){
 #' @export
 as_space_time.music <- function(x){
   x <- music_split(x)
-  .asmusic(x$notes, x$info, tsig = x$tsig, format = "space")
+  .asmusic(x$notes, x$info, key = x$key, time = x$time, tempo = x$tempo,
+           format = "space")
 }
 
 #' @export
@@ -704,7 +728,8 @@ as_vector_time.noteinfo <- function(x){
 #' @export
 as_vector_time.music <- function(x){
   x <- music_split(x)
-  .asmusic(x$notes, x$info, tsig = x$tsig, format = "vector")
+  .asmusic(x$notes, x$info, key = x$key, time = x$time, tempo = x$tempo,
+           format = "vector")
 }
 
 #' @export

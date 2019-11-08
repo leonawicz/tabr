@@ -80,15 +80,33 @@ test_that("music methods return as expected", {
   expect_equal(as.character(c(x, x)), paste(y, y, sep = " "))
   expect_identical(c(x, as.character(x)), c(x, x))
   expect_identical(c(x, x), rep(x, 2))
-  expect_warning(z <- c(as_music("a4", tsig = "3/4"), as_music("a4")),
+  expect_warning(z <- c(as_music("a4", key = "a"), as_music("a4")),
+                 "Key signature is inconsistent. Only the first is used.")
+  expect_equal(music_key(z), "a")
+  expect_warning(z <- c(as_music("a4", time = "3/4"), as_music("a4")),
                  "Time signature is inconsistent. Only the first is used.")
-  expect_equal(music_tsig(z), "3/4")
+  expect_equal(music_time(z), "3/4")
+  expect_warning(z <- c(as_music("a4", tempo = "4 = 100"), as_music("a4")),
+                 "Tempo is inconsistent. Only the first is used.")
+  expect_equal(music_tempo(z), "4 = 100")
   expect_equal(as.character(rep(as_music("a1 b2"), each = 2)), "a1 a1 b2 b2")
   expect_equal(as.character(rep(as_music("a1 b2"), times = 1:2)), "a1 b2 b2")
 
   expect_identical(rev(as_music("a1 b2")), as_music("b2 a1"))
   expect_equal(head(as_music("a8 b c d e f g")), as_music("a8 b c d e f"))
   expect_equal(tail(as_music("a8 b c d e f g")), as_music("b8 c d e f g"))
+
+  y <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g';4 c';5 ce';51"
+  s <- as.character(c(rep(5, 7), 5432, 5432, 2, 3, 4, 5, 51))
+  z <- as_music(y)
+
+  expect_equal(music_strings(c(x, z)), c(rep("", length(x)), s))
+  expect_equal(music_strings(c(z, x)), c(s, rep("", length(x))))
+  expect_equal(music_strings(rep(z, 2)), rep(s, 2))
+  expect_equal(music_strings(head(z, 2)), head(s, 2))
+  expect_equal(music_strings(tail(z, 2)), tail(s, 2))
+  expect_equal(music_strings(rev(z)), rev(s))
+  expect_equal(music_strings(z[2:3]), s[2:3])
 })
 
 test_that("lyrics methods return as expected", {

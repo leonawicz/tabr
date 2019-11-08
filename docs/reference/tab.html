@@ -262,7 +262,7 @@ suppress display of the time signature in the output.</p></td>
     <tr>
       <th>header</th>
       <td><p>a named list of arguments passed to the header of the
-LilyPond file. See details.</p></td>
+LilyPond file. See <code>lilypond</code> details.</p></td>
     </tr>
     <tr>
       <th>string_names</th>
@@ -273,7 +273,7 @@ force on or off completely.</p></td>
     <tr>
       <th>paper</th>
       <td><p>a named list of arguments for the LilyPond file page layout.
-See details.</p></td>
+See <code>lilypond</code> details.</p></td>
     </tr>
     <tr>
       <th>endbar</th>
@@ -296,7 +296,7 @@ may be an absolute or relative path. If <code>NULL</code> (default), only
     <tr>
       <th>details</th>
       <td><p>logical, set to <code>FALSE</code> to disable printing of log
-output to console.</p></td>
+output to console. Windows only.</p></td>
     </tr>
     </table>
 
@@ -335,7 +335,8 @@ path variable. For example, if the file is at
 then add <code>C:/Program Files (x86)/LilyPond/usr/bin</code> to the system path.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='lilypond.html'>lilypond</a></code>, <code><a href='miditab.html'>miditab</a></code></p></div>
+    <div class='dont-index'><p><code><a href='lilypond.html'>lilypond</a></code>, <code><a href='render_chordchart.html'>render_chordchart</a></code>,
+<code><a href='miditab.html'>miditab</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span>(<span class='fu'><a href='tabr_options.html'>tabr_options</a></span>()$<span class='no'>lilypond</span> <span class='kw'>!=</span> <span class='st'>""</span>){

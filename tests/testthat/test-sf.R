@@ -1,6 +1,6 @@
 context("sf")
 
-s <- c("5 4 3 2 1", "654321 6s 21 1 21", "6s*2 1*4")
+s <- c("5 4 3 2 1", "654321 6 21 1 21", "6*2 1*4")
 i <- c("8*4 1", "4. 8 8 8 4", "4- 4 8] 8( 8)( 8)")
 f <- c("1 3 3 3 1", "133211 355333 11 (13) (13)(13)", "111343 333565 1 1 0 1")
 x <- c("5;1;8 4;3; 3;3; 2;3; 1;1;1",
@@ -37,7 +37,8 @@ p_list <- list(
 )
 
 test_that("sf_phrase and phrase calls are equivalanet", {
-  err <- c("String/fret mismatch.", "Rest mismatch.", "Tied note mismatch.")
+  err <- c("Number of strings and frets must match at each non-rest timestep.",
+           "Rest mismatch.", "Tied note mismatch.")
   expect_is(sfp("6 6", "1", 1), "phrase")
   expect_error(sfp("66", "1", 1), err[1])
   expect_error(sfp("s", "r", 1), err[2])
@@ -64,22 +65,22 @@ test_that("sf_phrase and phrase calls are equivalanet", {
   info <- "2 1 1 2"
   expect_identical(sfp("s 6~ 6 r", "s 1~ 1 r", info), p("s f,~ f, r", info,
                                                         "x 6 6 x"))
-  expect_identical(sfp("s 6s~ 6s r", "s 133211~ 133211 r", info),
-                   p("s f,cfac'f'~ f,cfac'f' r", info, "x 6s 6s x"))
+  expect_identical(sfp("s 6~ 6 r", "s 133211~ 133211 r", info),
+                   p("s f,cfac'f'~ f,cfac'f' r", info, "x 6 6 x"))
 
   expect_identical(sfp("s;s;2 6;1;1~ ;1;1 ;r;2"), p("s f,~ f, r", info,
                                                     "x 6 6 x"))
   expect_identical(sfp("s;s;2 6;133211;1~ ;133211;1 ;r;2"),
-                   p("s f,cfac'f'~ f,cfac'f' r", info, "x 6s 6s x"))
+                   p("s f,cfac'f'~ f,cfac'f' r", info, "x 6 6 x"))
 
-  strings <- "4~ 4 r 5s s 5"
+  strings <- "4~ 4 r 5 s 5"
   frets <- "1~ 1 r 02220 s 2"
   info <- "1 4. 8 2 16 2..."
   x <- "4;1;1~ ;1;4. ;r;8 5;02220;2 ;s;16 5;2;2..."
   expect_identical(sfp(strings, frets, info, key = "sharp"),
-                   p("d#~ d# r a,eac#'e' s b,", info, "4 4 x 5s x 5"))
+                   p("d#~ d# r a,eac#'e' s b,", info, "4 4 x 5 x 5"))
   expect_identical(sfp(x, key = "sharp"),
-                   p("d#~ d# r a,eac#'e' s b,", info, "4 4 x 5s x 5"))
+                   p("d#~ d# r a,eac#'e' s b,", info, "4 4 x 5 x 5"))
 
   p1 <- sf_phrase(strings, frets, info, key = "sharp", to_notes = TRUE)
   p2 <- sf_phrase(x, key = "sharp", to_notes = TRUE)
@@ -89,7 +90,7 @@ test_that("sf_phrase and phrase calls are equivalanet", {
   expect_identical(p1, sfn(strings, frets, info, key = "sharp"))
   expect_identical(p1, p2)
 
-  s <- "3s*5 53~*3 543*2 643"
+  s <- "3*5 53~*3 5*2 643"
   f <- "987*2 775 553 335 77~*3 545 325 210"
   i <- "2*3 4. 16 4.*3 4*3"
   p1 <- sfp(s, f, i)

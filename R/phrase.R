@@ -13,6 +13,11 @@
 #' they are used to create LilyPond syntax analogous to what a music object
 #' contains.
 #'
+#' Note that if you convert a music object to a phrase object, you are changing
+#' contexts. The phrase object is the simplest LilyPond-format music structure.
+#' Coercion with \code{phrase} strips all attributes of a music object and
+#' retains only notes, note info and string numbers.
+#'
 #' See the help documentation on \code{noteworthy}, \code{noteinfo}, and
 #' \code{music} classes for an understanding of the input data structures.
 #' The function \code{p} is a convenient shorthand wrapper for \code{phrase}.
@@ -37,7 +42,8 @@
 #' phrase("b2 c d", "4( 4)- 2", "5 5 5") # hammer and slide
 #'
 #' phrase("c ec'g' ec'g'", "1 1 1", "5 432 432")
-#' p("c ec'g' ec'g'", "1 1 1", "5 432 432") # same as above
+#' p("c ec'g' ec'g'", 1, "5 4 4") # same as above
+#'
 #'
 #' n <- "a, b, c d e f g e f g a~ a"
 #' i <- "8- 8 8 8] t8( t8)( t8) t16( t16)( t16) 8 1"
@@ -46,16 +52,34 @@
 #' x <- p(n, i)
 #' x
 #' identical(x, p(m))
+#'
+#' x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g';4 c';5 ce';51"
+#' p(x)
+#' identical(p(x), p(as_music(x)))
 phrase <- function(notes, info = NULL, string = NULL, bar = FALSE){
   if(is.null(info)){
     if(!inherits(notes, "music")) notes <- as_music(notes)
+    if(is.null(string)) string <- music_strings(notes)
     info <- .uncollapse(music_info(notes))
-    notes <- .uncollapse(music_notes(notes))
+    notes <- music_notes(notes)
+    n <- length(notes)
   } else {
-    .check_noteworthy(notes)
+    notes <- as_noteworthy(notes)
+    n <- length(notes)
+    if(length(string) == 1 && is.na(string)) string <- NULL
+    if(!is.null(string)){
+      string <- .uncollapse(string)
+      if(length(string) == 1) string <- rep(string, n)
+      if(length(string) != length(notes))
+        stop(
+          paste("`string` must have the same number of timesteps as `notes`,",
+                "or a single value to repeat, or be NULL."),
+          call. = FALSE
+        )
+      string <- .music_infer_strings(notes, .uncollapse(string))
+    }
   }
   notes <- .uncollapse(notes)
-  n <- length(notes)
   idx <- grep("\\d", notes)
   if(length(idx)) notes <- .octave_to_tick(notes)
   info <- .uncollapse(info)
@@ -63,15 +87,6 @@ phrase <- function(notes, info = NULL, string = NULL, bar = FALSE){
   if(length(notes) != length(info))
     stop(paste("`info` must have the same number of timesteps as `notes`",
                "or a single value to repeat."), call. = FALSE)
-
-  if(length(string) == 1 && is.na(string)) string <- NULL
-  if(!is.null(string)){
-    string <- .uncollapse(string)
-    if(length(string) == 1) string <- rep(string, n)
-    if(length(string) != length(notes))
-      stop(paste("`string` must have the same number of timesteps as `notes`,",
-                 "or a single value to repeat, or be NULL."), call. = FALSE)
-  }
 
   dur <- as.character(info_duration(info))
   trp <- gsub("t", "", gsub("^\\d+(\\.+|)$", "", dur))

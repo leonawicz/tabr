@@ -20,21 +20,49 @@
 #' \code{as_music} can be used to coerce to the \code{music} class.
 #' Coercion will fail if the string is not musical.
 #' The \code{music} class has its own \code{print} and \code{summary} methods.
+#' \code{music} objects are primarily intended to represent an aggregation of a
+#' \code{noteworthy} object and a \code{noteinfo}. You can optionally fold in a
+#' \code{lyrics} object as well. However, for music data analysis, any
+#' operations will involve first splitting the object into its component parts.
+#' The value of this class is for the more efficient data entry it provides.
 #'
-#' When \code{accidentals}, \code{format}, or \code{tsig} are \code{NULL},
+#' When \code{accidentals} or \code{format} are \code{NULL},
 #' these settings are inferred from the musical string input.
-#' When mixed formats are present, flats are the default for accidentals and
-#' 4/4 common time is the default time signature.
+#' When mixed formats are present, flats are the default for accidentals.
+#'
+#' Other attributes are attached to a \code{music} object.
+#' \code{key} uses the \code{tabr} syntax, e.g., \code{"c"}, \code{"b_"},
+#' \code{"f#m"}, etc. \code{time} and \code{tempo} use the LilyPond string
+#' format. For music programming and analysis, \code{key}, \code{time} and
+#' \code{tempo} can most likely be ignored. They are primarily relevant when
+#' rendering a music snippet directly from a \code{music} object with LilyPond.
+#' These additional attributes provide more complete context for the rendered
+#' sheet music.
+#'
+#' If you plan to render music snippets from a \code{music} object that you are
+#' defining from a new character string, and the context you have in mind is a
+#' stringed and fretted instrument like guitar, you can specify string numbers
+#' at the end of each timestep with numbers following a semicolon delimiter.
+#' This would still precede any \code{*} timestep multiplier number.
+#' See examples.
+#'
+#' Note that if you convert a music object to a phrase object, you are changing
+#' contexts. The phrase object is the simplest LilyPond-format music structure.
+#' Coercion with \code{phrase} strips all attributes of a music object and
+#' retains only notes, note info and string numbers.
 #'
 #' @param x character, a music string. May or may not have the 'music' class.
 #' @param notes,info noteworthy and note info strings. For \code{as_music}, a
 #' complete music string is assumed for \code{notes} when \code{info = NULL}.
-#' @param lyrics optional \code{lyrics} object, attached to output as an
-#' attribute.
+#' @param lyrics optional \code{lyrics} object or \code{NA}, attached to output
+#' as an attribute.
+#' @param key character, store the key signature as a music attribute. Defaults
+#' to \code{"c"}. See details.
+#' @param time character, store the time signature as a music attribute.
+#' Defaults to \code{"4/4"}. See details.
+#' @param tempo character, defaults to \code{"2 = 60"}. See details.
 #' @param accidentals \code{NULL} or character, represent accidentals,
 #' \code{"flat"} or \code{"sharp"}.
-#' @param tsig character, store the time signature as a music attribute.
-#' Defaults to \code{"4/4"}.
 #' @param format \code{NULL} or character, the timestep delimiter format,
 #' \code{"space"} or \code{"vector"}.
 #'
@@ -60,7 +88,9 @@
 #' music_split(x)
 #' music_notes(x)
 #' music_info(x)
-#' music_tsig(x)
+#' music_key(x)
+#' music_time(x)
+#' music_tempo(x)
 #' music_lyrics(x)
 #'
 #' as_music(x, accidentals = "sharp")
@@ -72,6 +102,10 @@
 #' x <- as_music(x, lyrics = y)
 #' x
 #' music_lyrics(x)
+#'
+#' # Starting string = 5: use \code{;5}. Carries over until an explicit change.
+#' x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g';4 c';5 ce';51"
+#' as_music(x)
 musical <- function(x){
   if(is_music(x)) return(TRUE)
   .check_music_split(x, FALSE)
@@ -79,54 +113,77 @@ musical <- function(x){
 
 #' @export
 #' @rdname music
-as_music <- function(notes, info = NULL, lyrics = NULL, accidentals = NULL,
-                     tsig = "4/4", format = NULL){
-  null_args <- all(sapply(list(format, accidentals, lyrics), is.null))
-  if(inherits(notes, "music") && null_args && music_tsig(notes) == tsig)
-    return(notes)
+as_music <- function(notes, info = NULL, lyrics = NA, key = "c", time = "4/4",
+                     tempo = "2 = 60", accidentals = NULL, format = NULL){
+  null_args <- is.null(accidentals) & is.null(format)
+  if(inherits(notes, "music") && null_args && music_key(notes) == key &&
+     music_time(notes) == time && music_tempo(notes) == tempo &&
+     identical(music_lyrics(notes), lyrics)) return(notes)
   if(is.null(format)) format <- .infer_time_format(notes)
   if(is.null(info)){
     x <- .check_music_split(notes)
     notes <- x$notes
     info <- x$info
+    s <- x$string
   } else {
     .check_noteworthy(notes)
     .check_noteinfo(info)
     .check_timesteps(notes, info)
+    s <- NULL
   }
   .check_format_arg(format)
   .check_accidentals_arg(accidentals)
-  .asmusic(notes, info, lyrics, accidentals, tsig, format)
+  .asmusic(notes, info, s, lyrics, key, time, tempo, accidentals, format)
 }
 
-.asmusic <- function(x, y, lyrics = NULL, accidentals = NULL, tsig = "4/4",
-                     format = NULL){
+.asmusic <- function(x, y, s, lyrics = NA, key = "c", time = "4/4",
+                     tempo = "2 = 60", accidentals = NULL, format = NULL){
   x <- .asnw(x, "tick", accidentals, "vector")
+  if(!is.null(s)) s <- .music_infer_strings(x, s)
   y <- .asni(y, "vector")
   .check_timesteps(x, y)
-  if(!is.null(lyrics)){
+  if(!is.na(lyrics)){
     if(!is_lyrics(lyrics))
-      stop("`lyrics` must be a `lyrics`-class object.", call. = FALSE)
+      stop("`lyrics` must be a `lyrics`-class object or NA.", call. = FALSE)
     .check_timesteps(x, lyrics, "lyrics")
   }
-  ax <- c(attributes(x), list(tsig = tsig))
+  ax <- c(attributes(x), list(key = key, time = time, tempo = tempo))
   x <- as.character(paste(x, y, sep = ""))
   if(is.null(format)) format <- "space"
   if(format == "space"){
     x <- paste(x, collapse = " ")
     ax$format <- "space-delimited time"
-    if(!is.null(lyrics)){
+    if(!is.na(lyrics)){
       if(is_vector_time(lyrics)) lyrics <- as_space_time(lyrics)
     }
   } else {
-    if(!is.null(lyrics)){
+    if(!is.na(lyrics)){
       if(is_space_time(lyrics)) lyrics <- as_vector_time(lyrics)
     }
   }
-  ax$lyrics <- if(is.null(lyrics)) NA else lyrics
+  ax$lyrics <- if(is.na(lyrics)) NA else lyrics
+  if(!is.null(s)) ax$string <- s
   attributes(x) <- ax[names(ax) != "class"]
   class(x) <- unique(c("music", class(x)))
   x
+}
+
+.music_infer_strings <- function(x, s){
+  size <- chord_size(x)
+  rests <- note_is_rest(x)
+  idx <- which(nchar(s) == 1 & size > 1)
+  if(length(idx)) s[idx] <- purrr::map2_chr(as.integer(s[idx]), size[idx], ~{
+    x <- paste(seq(.x, by = -1, length.out = .y), collapse = "")
+    if(grepl("[-0]", x)) stop("Invalid string number < 1.", call. = FALSE)
+    x
+  })
+  idx <- !rests & nchar(s) != 0
+  if(any(idx)){
+    if(any(nchar(s[idx]) != size[idx]))
+      stop("Number of strings and notes must match at each non-rest timestep.",
+           call. = FALSE)
+  }
+  s
 }
 
 .check_timesteps <- function(x, y, ylab = "info"){
@@ -146,33 +203,51 @@ is_music <- function(x){
 #' @export
 #' @rdname music
 music_split <- function(x){
-  lyrics <- if(is_music(x)) music_lyrics(x) else NULL
+  if(is_music(x)){
+    lyrics <- music_lyrics(x)
+    key = music_key(x)
+    time = music_time(x)
+    tempo = music_tempo(x)
+  } else {
+    lyrics <- NA
+    key <- "c"
+    time <- "4/4"
+    tempo = "2 = 60"
+  }
   x <- .check_music_split(x)
-  c(x, list(lyrics = lyrics))
+  c(x, list(lyrics = lyrics, key = key, time = time, tempo = tempo))
 }
 
 .check_music_split <- function(x, err = TRUE){
   format <- if(length(as.character(x) == 1)) "space" else "vector"
+  s <- if(is_music(x)) attr(x, "string") else NA
   x <- .uncollapse(x)
+  idx <- grep(";\\d+$", x)
+  if(length(idx)){
+    s <- rep(NA, length(x))
+    s[idx] <- gsub(".*;(\\d+)$", "\\1", x[idx])
+    s <- tidyr::fill(tibble::tibble(s), .data[["s"]])$s
+    s <- ifelse(is.na(s), "", s)
+    x <- gsub(";\\d+$", "", x)
+  } else {
+    if(is.null(s)) s <- NA
+  }
   e1 <- "Invalid notes or note info found."
   y <- gsub(";\\^\".*\"", "", x)
   if(any(grepl("[A-Zh-quvwyz]", y))){
     if(err) stop(e1, call. = FALSE) else return(FALSE)
   }
   if(err){
-    .music_split(x, format)
+    .music_split(x, s, format)
   } else {
-    x <- tryCatch(.music_split(x, format), error = function(e) NULL)
+    x <- tryCatch(.music_split(x, s, format), error = function(e) NULL)
     !is.null(x)
   }
 }
 
-.music_split <- function(x, format){
-  list(
-    notes = .music_notes(x, format),
-    info = .music_info(x, format),
-    tsig = "4/4"
-  )
+.music_split <- function(x, s, format){
+  x <- list(notes = .music_notes(x, format), info = .music_info(x, format))
+  if(any(!is.na(s))) c(x, list(string = s)) else x
 }
 
 .music_notes <- function(x, format){
@@ -208,8 +283,26 @@ music_info <- function(x){
 
 #' @export
 #' @rdname music
-music_tsig <- function(x){
-  attr(x, "tsig")
+music_strings <- function(x){
+  music_split(x)$string
+}
+
+#' @export
+#' @rdname music
+music_key <- function(x){
+  attr(x, "key")
+}
+
+#' @export
+#' @rdname music
+music_time <- function(x){
+  attr(x, "time")
+}
+
+#' @export
+#' @rdname music
+music_tempo <- function(x){
+  attr(x, "tempo")
 }
 
 #' @export
@@ -236,13 +329,24 @@ summary.music <- function(object, ...){
   lyrics <- a$lyrics
   if(!is.na(lyrics) & length(lyrics) > 10)
     lyrics <- gsub("\\.{4}", "...", paste0(head(lyrics, 10), "..."))
+  s <- a$string
+  has_s <- any(!is.na(s))
+  if(has_s){
+    s[s == ""] <- "."
+    n <- length(s)
+    s <- paste(head(s, 10), collapse = " ")
+    if(n > 10) s <- gsub("\\.{4}", "...", paste0(s, "..."))
+  }
   cat(col2("<Music string>\n  Timesteps: "), a$steps, " (",
       a$n_note, " ", paste0("note", ifelse(a$n_note == 1, "", "s")), ", ",
       a$n_chord, " ", paste0("chord", ifelse(a$n_chord == 1, "", "s"), ")"),
       col2("\n  Octaves: "), a$octave,
       col2("\n  Accidentals: "), a$accidentals,
-      col2("\n  Time Signature: "), a$tsig,
+      col2("\n  Key signature: "), a$key,
+      col2("\n  Time signature: "), a$time,
+      col2("\n  Tempo: "), a$tempo,
       col2("\n  Lyrics: "), lyrics,
+      if(has_s) col2("\n  Strings: "), if(has_s) s,
       col2("\n  Format: "), a$format, col2("\n  Values: "),
       col1(.tabr_print3(.uncollapse(as.character(object)))), "\n", sep = "")
 }

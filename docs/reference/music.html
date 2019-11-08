@@ -225,8 +225,8 @@ noteworthy string and a note info string.</p>
 
     <pre class="usage"><span class='fu'>musical</span>(<span class='no'>x</span>)
 
-<span class='fu'>as_music</span>(<span class='no'>notes</span>, <span class='kw'>info</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lyrics</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>accidentals</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>tsig</span> <span class='kw'>=</span> <span class='st'>"4/4"</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>as_music</span>(<span class='no'>notes</span>, <span class='kw'>info</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lyrics</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>time</span> <span class='kw'>=</span> <span class='st'>"4/4"</span>,
+  <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='st'>"2 = 60"</span>, <span class='kw'>accidentals</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='fu'>is_music</span>(<span class='no'>x</span>)
 
@@ -236,7 +236,13 @@ noteworthy string and a note info string.</p>
 
 <span class='fu'>music_info</span>(<span class='no'>x</span>)
 
-<span class='fu'>music_tsig</span>(<span class='no'>x</span>)
+<span class='fu'>music_strings</span>(<span class='no'>x</span>)
+
+<span class='fu'>music_key</span>(<span class='no'>x</span>)
+
+<span class='fu'>music_time</span>(<span class='no'>x</span>)
+
+<span class='fu'>music_tempo</span>(<span class='no'>x</span>)
 
 <span class='fu'>music_lyrics</span>(<span class='no'>x</span>)</pre>
 
@@ -254,18 +260,27 @@ complete music string is assumed for <code>notes</code> when <code>info = NULL</
     </tr>
     <tr>
       <th>lyrics</th>
-      <td><p>optional <code>lyrics</code> object, attached to output as an
-attribute.</p></td>
+      <td><p>optional <code>lyrics</code> object or <code>NA</code>, attached to output
+as an attribute.</p></td>
+    </tr>
+    <tr>
+      <th>key</th>
+      <td><p>character, store the key signature as a music attribute. Defaults
+to <code>"c"</code>. See details.</p></td>
+    </tr>
+    <tr>
+      <th>time</th>
+      <td><p>character, store the time signature as a music attribute.
+Defaults to <code>"4/4"</code>. See details.</p></td>
+    </tr>
+    <tr>
+      <th>tempo</th>
+      <td><p>character, defaults to <code>"2 = 60"</code>. See details.</p></td>
     </tr>
     <tr>
       <th>accidentals</th>
       <td><p><code>NULL</code> or character, represent accidentals,
 <code>"flat"</code> or <code>"sharp"</code>.</p></td>
-    </tr>
-    <tr>
-      <th>tsig</th>
-      <td><p>character, store the time signature as a music attribute.
-Defaults to <code>"4/4"</code>.</p></td>
     </tr>
     <tr>
       <th>format</th>
@@ -292,11 +307,33 @@ filled in for you when the object is constructed.</p>
 timesteps contain exclusively valid entries.</p>
 <p><code>as_music</code> can be used to coerce to the <code>music</code> class.
 Coercion will fail if the string is not musical.
-The <code>music</code> class has its own <code>print</code> and <code>summary</code> methods.</p>
-<p>When <code>accidentals</code>, <code>format</code>, or <code>tsig</code> are <code>NULL</code>,
+The <code>music</code> class has its own <code>print</code> and <code>summary</code> methods.
+<code>music</code> objects are primarily intended to represent an aggregation of a
+<code>noteworthy</code> object and a <code>noteinfo</code>. You can optionally fold in a
+<code>lyrics</code> object as well. However, for music data analysis, any
+operations will involve first splitting the object into its component parts.
+The value of this class is for the more efficient data entry it provides.</p>
+<p>When <code>accidentals</code> or <code>format</code> are <code>NULL</code>,
 these settings are inferred from the musical string input.
-When mixed formats are present, flats are the default for accidentals and
-4/4 common time is the default time signature.</p>
+When mixed formats are present, flats are the default for accidentals.</p>
+<p>Other attributes are attached to a <code>music</code> object.
+<code>key</code> uses the <code>tabr</code> syntax, e.g., <code>"c"</code>, <code>"b_"</code>,
+<code>"f#m"</code>, etc. <code>time</code> and <code>tempo</code> use the LilyPond string
+format. For music programming and analysis, <code>key</code>, <code>time</code> and
+<code>tempo</code> can most likely be ignored. They are primarily relevant when
+rendering a music snippet directly from a <code>music</code> object with LilyPond.
+These additional attributes provide more complete context for the rendered
+sheet music.</p>
+<p>If you plan to render music snippets from a <code>music</code> object that you are
+defining from a new character string, and the context you have in mind is a
+stringed and fretted instrument like guitar, you can specify string numbers
+at the end of each timestep with numbers following a semicolon delimiter.
+This would still precede any <code>*</code> timestep multiplier number.
+See examples.</p>
+<p>Note that if you convert a music object to a phrase object, you are changing
+contexts. The phrase object is the simplest LilyPond-format music structure.
+Coercion with <code>phrase</code> strips all attributes of a music object and
+retains only notes, note info and string numbers.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='note-checks.html'>note-checks</a></code>, <code><a href='note-metadata.html'>note-metadata</a></code>,
@@ -313,7 +350,9 @@ When mixed formats are present, flats are the default for accidentals and
 #&gt;   Timesteps: </span><span>11 (9 notes, 2 chords)</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Octaves: </span><span>tick</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Accidentals: </span><span>flat</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Time Signature: </span><span>4/4</span><span style='color: #555555;font-weight: bold;'>
+#&gt;   Key signature: </span><span>c</span><span style='color: #555555;font-weight: bold;'>
+#&gt;   Time signature: </span><span>4/4</span><span style='color: #555555;font-weight: bold;'>
+#&gt;   Tempo: </span><span>2 = 60</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Lyrics: </span><span>NA</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #BBBB00;'>4]</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #BBBB00;'>4</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>c,</span><span style='color: #BBBB00;'>4x</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>d''</span><span style='color: #BBBB00;'>t8(</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>e</span><span style='color: #BBBB00;'>t8)(</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>g_'</span><span style='color: #BBBB00;'>t8)-</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #BBBB00;'>4</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>c,e_,g,</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>4</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>ce_g</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>4.</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>a~</span><span style='color: #BBBB00;'>8</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #BBBB00;'>1</span><span></div><div class='input'>
@@ -335,8 +374,14 @@ When mixed formats are present, flats are the default for accidentals and
 #&gt; $format
 #&gt; [1] "space-delimited time"
 #&gt; 
-#&gt; $tsig
+#&gt; $key
+#&gt; [1] "c"
+#&gt; 
+#&gt; $time
 #&gt; [1] "4/4"
+#&gt; 
+#&gt; $tempo
+#&gt; [1] "2 = 60"
 #&gt; 
 #&gt; $lyrics
 #&gt; [1] NA
@@ -354,16 +399,22 @@ When mixed formats are present, flats are the default for accidentals and
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #BBBB00;'>]</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #BBBB00;'>x</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>t8</span><span style='color: #BBBB00;'>(</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>t8</span><span style='color: #BBBB00;'>)(</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>t8</span><span style='color: #BBBB00;'>)-</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4.</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>1</span><span>
 #&gt; 
-#&gt; $tsig
-#&gt; [1] "4/4"
-#&gt; 
 #&gt; $lyrics
 #&gt; [1] NA
+#&gt; 
+#&gt; $key
+#&gt; [1] "c"
+#&gt; 
+#&gt; $time
+#&gt; [1] "4/4"
+#&gt; 
+#&gt; $tempo
+#&gt; [1] "2 = 60"
 #&gt; </div><div class='input'><span class='fu'>music_notes</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #00BBBB;'>''</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>g_</span><span style='color: #00BBBB;'>'</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>,</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>ce_g</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #BBBB00;'>~</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span></div><div class='input'><span class='fu'>music_info</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Note info string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #BBBB00;'>]</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #BBBB00;'>x</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>t8</span><span style='color: #BBBB00;'>(</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>t8</span><span style='color: #BBBB00;'>)(</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>t8</span><span style='color: #BBBB00;'>)-</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4.</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>1</span><span></div><div class='input'><span class='fu'>music_tsig</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "4/4"</div><div class='input'><span class='fu'>music_lyrics</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] NA</div><div class='input'>
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #BBBB00;'>]</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #BBBB00;'>x</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>t8</span><span style='color: #BBBB00;'>(</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>t8</span><span style='color: #BBBB00;'>)(</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>t8</span><span style='color: #BBBB00;'>)-</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4.</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>1</span><span></div><div class='input'><span class='fu'>music_key</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "c"</div><div class='input'><span class='fu'>music_time</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "4/4"</div><div class='input'><span class='fu'>music_tempo</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "2 = 60"</div><div class='input'><span class='fu'>music_lyrics</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] NA</div><div class='input'>
 <span class='fu'>as_music</span>(<span class='no'>x</span>, <span class='kw'>accidentals</span> <span class='kw'>=</span> <span class='st'>"sharp"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Music string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>a#</span><span style='color: #BBBB00;'>4]</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>a#</span><span style='color: #BBBB00;'>4</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>c,</span><span style='color: #BBBB00;'>4x</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>d''</span><span style='color: #BBBB00;'>t8(</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>e</span><span style='color: #BBBB00;'>t8)(</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>f#'</span><span style='color: #BBBB00;'>t8)-</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #BBBB00;'>4</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>c,d#,g,</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>4</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>cd#g</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>4.</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>a~</span><span style='color: #BBBB00;'>8</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #BBBB00;'>1</span><span></div><div class='input'>
@@ -377,7 +428,12 @@ When mixed formats are present, flats are the default for accidentals and
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #BBBB00;'>4]</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #BBBB00;'>4</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>c,</span><span style='color: #BBBB00;'>4x</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>d''</span><span style='color: #BBBB00;'>t8(</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>e</span><span style='color: #BBBB00;'>t8)(</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>g_'</span><span style='color: #BBBB00;'>t8)-</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #BBBB00;'>4</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>c,e_,g,</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>4</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>ce_g</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>4.</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>a~</span><span style='color: #BBBB00;'>8</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #BBBB00;'>1</span><span></div><div class='input'><span class='fu'>music_lyrics</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Lyrics string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span style='color: #555555;'> </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>These</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>are</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>some</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>song</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>ly-</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>rics</span><span style='color: #555555;'> </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span style='color: #555555;'> </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span style='color: #555555;'> </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span></div></span></pre>
+#&gt;   Values: </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span style='color: #555555;'> </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>These</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>are</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>some</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>song</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>ly-</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>rics</span><span style='color: #555555;'> </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span style='color: #555555;'> </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span style='color: #555555;'> </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span></div><div class='input'>
+<span class='co'># Starting string = 5: use \code{;5}. Carries over until an explicit change.</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g';4 c';5 ce';51"</span>
+<span class='fu'>as_music</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Music string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>a,</span><span style='color: #BBBB00;'>4</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>a,</span><span style='color: #BBBB00;'>4</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>a,</span><span style='color: #BBBB00;'>4</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>a,</span><span style='color: #BBBB00;'>4</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>a,</span><span style='color: #BBBB00;'>4</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>b,</span><span style='color: #BBBB00;'>4-</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #BBBB00;'>4</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>cgc'e'~</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>4</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>cgc'e'</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>1</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>e'</span><span style='color: #BBBB00;'>4</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>c'</span><span style='color: #BBBB00;'>4</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>g'</span><span style='color: #BBBB00;'>4</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>c'</span><span style='color: #BBBB00;'>4</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>ce'</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>4</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

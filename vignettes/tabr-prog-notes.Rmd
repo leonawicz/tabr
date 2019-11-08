@@ -59,6 +59,7 @@ There are a number of functions that parse basic metadata about noteworthy strin
 * `n_notes`
 * `n_chords`
 * `n_octaves`
+* `chord_size`
 * `octave_type`
 * `accidental_type`
 * `time_format`
@@ -72,6 +73,7 @@ x <- "e_2 a_, c#f#a#"
 n_steps(x)
 n_notes(x)
 n_chords(x)
+chord_size(x)
 octave_type(x)
 time_format(x)
 ```

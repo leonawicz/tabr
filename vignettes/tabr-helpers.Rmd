@@ -25,8 +25,8 @@ This section covers helper functions related to phrases. These functions assist 
 
 Briefly, there are some convenient aliases for `tabr` functions that are used often. These aliases have short function names to help keep the music notation R syntax a more concise if desired. These include:
 
-*    `p`, an alias for `phrase`.
-*    `tp`, an alias for `transpose`.
+* `p`, an alias for `phrase`.
+* `tp`, an alias for `transpose`.
 
 The most common conflicts to watch out for are using `tabr` with `shiny` where `p` is a function and if you use `purrr` to help wrangle some of your more complex tablature, it has its own `transpose` function. Pay attention to package load order and/or use explicit names spaces if working with these packages loaded.
 The recommended approach is to stick with `phrase` in apps where users will not see your code anyway and stick with `tp` for transposition in general.

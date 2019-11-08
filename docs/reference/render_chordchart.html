@@ -221,8 +221,8 @@ for a set of chords." />
 for a set of chords.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>render_chordchart</span>(<span class='no'>chords</span>, <span class='no'>file</span>, <span class='kw'>keep_ly</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>fontsize</span> <span class='kw'>=</span> <span class='fl'>60</span>,
-  <span class='kw'>details</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>render_chordchart</span>(<span class='no'>chords</span>, <span class='no'>file</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1.2</span>, <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>keep_ly</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>details</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -237,15 +237,23 @@ names and values. See examples.</p></td>
       <td><p>output file.</p></td>
     </tr>
     <tr>
-      <th>keep_ly</th>
-      <td><p>logical, keep intermediate LilyPond file.</p></td>
+      <th>size</th>
+      <td><p>numeric, size of fretboard diagrams (relative to paper font
+size). Use this to scale diagrams up or down.</p></td>
     </tr>
     <tr>
-      <th>fontsize</th>
-      <td><p>integer, vary this depending on the number of chords.
-It displays properly if you keep the chords to a single page. If the full
-set of chords does not fit then chords will be dropped from the rendered
-output.</p></td>
+      <th>header</th>
+      <td><p>a named list of arguments passed to the header of the
+LilyPond file. See details.</p></td>
+    </tr>
+    <tr>
+      <th>paper</th>
+      <td><p>a named list of arguments for the LilyPond file page layout.
+See details.</p></td>
+    </tr>
+    <tr>
+      <th>keep_ly</th>
+      <td><p>logical, keep intermediate LilyPond file.</p></td>
     </tr>
     <tr>
       <th>details</th>
@@ -263,6 +271,45 @@ output to console.</p></td>
 fretboard diagram chart. It then passes the file to LilyPond for rendering.
 To plot specific fretboard diagrams in R using ggplot and with greater
 control, use <code>plot_fretboard</code>.</p>
+<p>All <code>header</code> list elements are character strings. The options for
+<code>header</code> include:</p><ul>
+<li><p><code>title</code></p></li>
+<li><p><code>subtitle</code></p></li>
+<li><p><code>composer</code></p></li>
+<li><p><code>album</code></p></li>
+<li><p><code>arranger</code></p></li>
+<li><p><code>instrument</code></p></li>
+<li><p><code>meter</code></p></li>
+<li><p><code>opus</code></p></li>
+<li><p><code>piece</code></p></li>
+<li><p><code>poet</code></p></li>
+<li><p><code>copyright</code></p></li>
+<li><p><code>tagline</code></p></li>
+</ul>
+
+<p>The options for <code>paper</code> include the following and have the following
+default values if not provided.</p>
+<ul>
+<li><p><code>textheight = 220</code></p></li>
+<li><p><code>linewidth = 150</code></p></li>
+<li><p><code>indent = 0</code></p></li>
+<li><p><code>fontsize = 10</code></p></li>
+<li><p><code>page_numbers = FALSE</code></p></li>
+<li><p><code>print_first_page_number = TRUE</code></p></li>
+<li><p><code>first_page_number = 1</code></p></li>
+</ul>
+
+<p><code>fontsize</code> only controls the global font size. If you want to scale the
+size of the fretboard diagrams up or down use the the <code>size</code> argument
+rather than this <code>paper</code> value.</p>
+<p>Note that chord chart output must fit on a single page. If the full set of
+chord diagrams does not fit on one page then diagrams will be clipped in the
+rendered output. Use <code>size</code> to keep the output to one page or make
+multiple sheets separately.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='plot_fretboard.html'>plot_fretboard</a></code>, <code><a href='lilypond.html'>lilypond</a></code>,
+<code><a href='tab.html'>tab</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/message.html'>suppressPackageStartupMessages</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>))
@@ -279,7 +326,11 @@ control, use <code>plot_fretboard</code>.</p>
 <span class='co'># requires LilyPond installation</span>
 <span class='kw'>if</span>(<span class='fu'><a href='tabr_options.html'>tabr_options</a></span>()$<span class='no'>lilypond</span> <span class='kw'>!=</span> <span class='st'>""</span>){
   <span class='no'>outfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='st'>"out.pdf"</span>)
-  <span class='fu'>render_chordchart</span>(<span class='no'>chords</span>, <span class='no'>outfile</span>, <span class='kw'>fontsize</span> <span class='kw'>=</span> <span class='fl'>30</span>)
+  <span class='no'>hdr</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
+    <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Dominant 7th, major 7th and minor 7th chords"</span>,
+    <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='st'>"C and F root"</span>
+  )
+  <span class='fu'>render_chordchart</span>(<span class='no'>chords</span>, <span class='no'>outfile</span>, <span class='fl'>2</span>, <span class='no'>hdr</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>textheight</span> <span class='kw'>=</span> <span class='fl'>175</span>))
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -288,6 +339,7 @@ control, use <code>plot_fretboard</code>.</p>
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#details">Details</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

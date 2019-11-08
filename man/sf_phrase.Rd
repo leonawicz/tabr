@@ -166,12 +166,12 @@ both input methods for \code{sf_phrase}.
 
 \examples{
 sf_phrase("5 4 3 2 1", "1 3 3 3 1", "8*4 1", key = "b_")
-sf_phrase("654321 6s 12 1 21", "133211 355333 11 (13) (13)(13)", "4 4 8 8 4",
+sf_phrase("6 6 12 1 21", "133211 355333 11 (13) (13)(13)", "4 4 8 8 4",
           key = "f")
-sfp("6s*2 1*4", "000232*2 2*4", "4 4 8*4", tuning = "dropD", key = "d")
+sfp("6*2 1*4", "000232*2 2*4", "4 4 8*4", tuning = "dropD", key = "d")
 
 # compare with single-argument input
-s <- "3s*5 53~*3 543*2 643"
+s <- "3*5 53~*3 543*2 643"
 f <- "987*2 775 553 335 77~*3 545 325 210"
 i <- "2*3 4. 16 4.*3 4*3"
 p1 <- sfp(s, f, i)

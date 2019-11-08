@@ -35,12 +35,13 @@ When the notes of a chord are tied over to the next, it is convenient to use `ti
 tie("c3e3g3c4e4")
 ```
 
-Similar to `notes`, explicit string numbers passed to the `string` argument also require simply removing the spaces between individual notes. Recall the abbreviated syntax style `5s` and the expansion operator. Be careful with simple recycling, however. It does not work here for string number. Recycling will only work when it is a single note (single string entry) that can be passed as an single integer, like how the `4` below is passed as a recycled quarter beat. You cannot passed `"5s"` for example.
+Similar to `notes`, explicit string numbers passed to the `string` argument also remove spaces between individual string numbers. Recall the inferred strings when only the first (lowest number) string is given, as well as the expansion operator. Recycling only works when it is a single value.
 
 ```{r chord2}
 chords <- "cegc'e' c3e3g3c4e4 cegc4e4"
-phrase(chords, 4, "54321 54321 54321")
-phrase(chords, 4, "5s*3")
+x <- phrase(chords, 4, "54321 54321 54321")
+identical(phrase(chords, 4, "5*3"), x)
+identical(phrase("cegc'e'*3", 4, 5), x)
 ```
 
 ## Chord syntax for fretboard diagrams

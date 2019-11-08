@@ -133,9 +133,9 @@ test_that("render_chordchart runs without error", {
     arrange(root, id)
   chords <- setNames(chords$fretboard, chords$lp_name)
 
-  expect_is(render_chordchart(chords, out[2], fontsize = 30, details = TRUE),
+  expect_is(render_chordchart(chords, out[2], 2, paper = list(fontsize = 16),
+                              header = list(title = "A title"), details = TRUE),
             cl)
-  expect_is(render_chordchart(chords, out[3], keep_ly = TRUE, fontsize = 30),
-            cl)
+  expect_is(render_chordchart(chords, out[3], 1, keep_ly = TRUE), cl)
   unlink(cleanup)
 })

@@ -36,14 +36,14 @@ etc.}
 suppress display of the time signature in the output.}
 
 \item{header}{a named list of arguments passed to the header of the
-LilyPond file. See details.}
+LilyPond file. See \code{lilypond} details.}
 
 \item{string_names}{label strings at beginning of tab staff. \code{NULL}
 (default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for
 force on or off completely.}
 
 \item{paper}{a named list of arguments for the LilyPond file page layout.
-See details.}
+See \code{lilypond} details.}
 
 \item{endbar}{character, the end bar.}
 
@@ -56,7 +56,7 @@ may be an absolute or relative path. If \code{NULL} (default), only
 \code{file} is used.}
 
 \item{details}{logical, set to \code{FALSE} to disable printing of log
-output to console.}
+output to console. Windows only.}
 }
 \value{
 nothing returned; a file is written.
@@ -109,5 +109,6 @@ if(tabr_options()$lilypond != ""){
 }
 }
 \seealso{
-\code{\link{lilypond}}, \code{\link{miditab}}
+\code{\link{lilypond}}, \code{\link{render_chordchart}},
+\code{\link{miditab}}
 }

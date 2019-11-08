@@ -16,7 +16,7 @@ test_that("phrase returns as expected", {
                    "\\deadNote <c\\1>8 <d\\1>8^\\bendAfter #+6")
 
   expect_equal(as.character(p("de_' aa_,", 1)), "<d es'>1 <a as,>1")
-  expect_equal(as.character(p("ee_' a_a#,", "2")), "<e es'>2 <as ais,>2")
+  expect_equal(as.character(p("ee_' a_a#,", "2")), "<e es'>2 <as bes,>2")
   expect_equal(as.character(p("d,, e_e_ a_' b_'d", "1 2 4.. 8.")),
                "<d,,>1 <es es>2 <as'>4.. <bes' d>8.")
 
@@ -28,9 +28,9 @@ test_that("phrase returns as expected", {
 
   n <- "d,,e_e_3 a_4b_4d"
   y <- "<d,,\\3 es\\2 es\\1>2 <as'\\3 bes'\\2 d\\1>2"
-  expect_equal(as.character(p(n, "2 2", "321 321")), y)
-  expect_equal(as.character(p(n, "2*2", "321*2")), y)
-  expect_equal(as.character(p(n, 2, "321 3s")), y)
+  expect_equal(as.character(p(n, "2 2", "3 3")), y)
+  expect_equal(as.character(p(n, "2*2", "3*2")), y)
+  expect_equal(as.character(p(n, 2, "3 321")), y)
 
   x1 <- phrase("c b, c", "4. 8( 8)", "5 5 5") # direction implies hammer on
   x2 <- phrase("b2 c d", "4( 4)- 2", "5 5 5") # hammer and slide

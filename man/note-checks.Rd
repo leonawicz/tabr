@@ -51,7 +51,7 @@ the number of timesteps in \code{notes}.
 The \code{note_has_*} functions summarize these to a single logical value.
 }
 \examples{
-x <- "a_2 a a#'"
+x <- "r a_2 a a#' s"
 note_has_accidental(x)
 note_has_natural(x)
 note_has_flat(x)
@@ -64,6 +64,8 @@ note_has_tick(x)
 note_has_integer(x)
 note_is_tick(x)
 note_is_integer(x)
+note_has_rest(x)
+note_is_rest(x)
 }
 \seealso{
 \code{\link{note-metadata}}, \code{\link{note-summaries}},

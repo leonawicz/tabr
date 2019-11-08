@@ -65,15 +65,19 @@ as_music_df <- function(notes, info = NULL, key = NULL, scale = "diatonic",
   if(inherits(notes, "phrase")){
     x <- phrase_notes(notes, FALSE)
     info <- phrase_info(notes, FALSE)
+    string <- phrase_strings(notes, FALSE)
+    if(all(is.na(string))) string <- NULL
     len <- length(x)
   } else if(inherits(notes, "music")){
     x <- .uncollapse(music_notes(notes))
     info <- .uncollapse(music_info(notes))
+    string <- music_strings(notes)
     len <- length(x)
   } else {
     .check_noteworthy(notes)
     x <- .uncollapse(notes)
     len <- length(x)
+    string <- NULL
     if(!is.null(info)){
       .check_noteinfo(info)
       info <- .uncollapse(info)
@@ -136,5 +140,6 @@ as_music_df <- function(notes, info = NULL, key = NULL, scale = "diatonic",
       d, slur = slur, slide = slide, dotted = dotted,
       annotation = ann)
   }
+  if(!is.null(string)) d <- dplyr::mutate(d, string = string)
   d
 }

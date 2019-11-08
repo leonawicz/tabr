@@ -83,7 +83,9 @@ summary(y)
 #>   Timesteps: 12 (9 notes, 3 chords)
 #>   Octaves: tick
 #>   Accidentals: sharp
-#>   Time Signature: 4/4
+#>   Key signature: c
+#>   Time signature: 4/4
+#>   Tempo: 2 = 60
 #>   Lyrics: NA
 #>   Format: space-delimited time
 #>   Values: a,8 c8 et8 g#t8 at8 <ac'e'>4. <ac'e'~>8 <ac'e'>4 at4 c't4 e't4 a'1
@@ -99,11 +101,17 @@ music_split(y)
 #>   Format: space-delimited time
 #>   Values: 8 8 t8 t8 t8 4. 8 4 t4 t4 t4 1
 #> 
-#> $tsig
-#> [1] "4/4"
-#> 
 #> $lyrics
 #> [1] NA
+#> 
+#> $key
+#> [1] "c"
+#> 
+#> $time
+#> [1] "4/4"
+#> 
+#> $tempo
+#> [1] "2 = 60"
 ```
 
 Functions exist for directly performing various mathematical, logical

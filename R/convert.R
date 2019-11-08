@@ -186,7 +186,7 @@ from_music21 <- function(x, accidentals = c("flat", "sharp"),
     x <- .uncollapse(paste(x, collapse = " "))
   }
   x <- .music21_notes(x, a)
-  x <- as_music(x, time, accidentals = a, tsig = tsig, format = "space")
+  x <- as_music(x, time, accidentals = a, time = tsig, format = "space")
   if(out == "list") x <- music_split(x)
   x
 }

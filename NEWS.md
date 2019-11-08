@@ -23,6 +23,7 @@
 * Updated vignettes, readme and other documentation.
 * Made improvements to print method for phrase objects.
 * Added `rests` argument to some note metadata functions.
+* No more need (or support for) the `s`-suffix string numbering. All instances of single string number inputs are assumed starting string and any additional strings are inferred consecutively.
 * Improvements to `plot_fretboard` (renamed from `fretboard_plot`) and added wrapper function `plot_chord` for more convenient chord diagrams.
 * Minor bug fixes.
 * Thank you to [fnord-repeater](https://github.com/fnord-repeater) for several helpful suggestions and insights as well as example code that helped to make the transcription pipeline better.

@@ -6,6 +6,7 @@
 \alias{n_notes}
 \alias{n_chords}
 \alias{n_octaves}
+\alias{chord_size}
 \alias{octave_type}
 \alias{accidental_type}
 \alias{time_format}
@@ -15,6 +16,8 @@
 \alias{note_is_integer}
 \alias{note_has_tick}
 \alias{note_has_integer}
+\alias{note_is_rest}
+\alias{note_has_rest}
 \title{Noteworthy string metadata}
 \usage{
 n_steps(x)
@@ -24,6 +27,8 @@ n_notes(notes)
 n_chords(notes)
 
 n_octaves(notes)
+
+chord_size(notes)
 
 octave_type(notes)
 
@@ -42,6 +47,10 @@ note_is_integer(notes)
 note_has_tick(notes)
 
 note_has_integer(notes)
+
+note_is_rest(notes)
+
+note_has_rest(notes)
 }
 \arguments{
 \item{x}{for generic functions: notes, info or music string.}
@@ -104,6 +113,7 @@ n_steps(x)
 n_notes(x)
 n_chords(x)
 n_octaves(x)
+chord_size(x)
 
 # Type is mixed in \\code{x} but is inferred under default conversion rules.
 # These check \\code{x} once validated and coerced to 'noteworthy' class.
