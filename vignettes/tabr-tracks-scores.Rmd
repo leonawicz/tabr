@@ -39,9 +39,9 @@ track(p_all) %>% score
 This general process has been seen many times already. Below, examples are given that use the various arguments available in these functions, beginning with tracks. Briefly before exploring these arguments, note that `track` is equivalent to `track_guitar` and has appropriate default arguments. However, other wrappers around `track` are available that take different defaults. `track_bass` defaults to standard four-string bass tuning and includes the tab staff. For sheet music treble clef and bass clef tracks without any tablature staff, you can use `track_tc` and `track_bc`, respectively.
 
 ```{r track0}
-track_tc(p_all)
-track_bc(p_all)
-track_bass(p_all)
+track_tc(p1)
+track_bc(p2)
+track_bass(p3)
 ```
 
 ## Single voice

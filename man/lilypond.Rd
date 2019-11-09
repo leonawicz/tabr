@@ -5,8 +5,8 @@
 \title{Save score to LilyPond file}
 \usage{
 lilypond(score, file, key = "c", time = "4/4", tempo = "2 = 60",
-  header = NULL, string_names = NULL, paper = NULL, endbar = TRUE,
-  midi = TRUE, path = NULL)
+  header = NULL, paper = NULL, string_names = NULL, endbar = TRUE,
+  midi = TRUE, path = NULL, crop_png = TRUE)
 }
 \arguments{
 \item{score}{a score object.}
@@ -24,12 +24,12 @@ etc.}
 \item{header}{a named list of arguments passed to the header of the
 LilyPond file. See details.}
 
+\item{paper}{a named list of arguments for the LilyPond file page layout.
+See details.}
+
 \item{string_names}{label strings at beginning of tab staff. \code{NULL}
 (default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for
 force on or off completely.}
-
-\item{paper}{a named list of arguments for the LilyPond file page layout.
-See details.}
 
 \item{endbar}{character, the end bar.}
 
@@ -38,6 +38,9 @@ See details.}
 \item{path}{character, optional output directory prefixed to \code{file},
 may be an absolute or relative path. If \code{NULL} (default), only
 \code{file} is used.}
+
+\item{crop_png}{logical, alter template for cropped height. See
+details.}
 }
 \value{
 nothing returned; a file is written.
@@ -84,6 +87,19 @@ default values if not provided:
   \item \code{print_first_page_number = TRUE}
   \item \code{first_page_number = 1}
 }
+
+By default \code{crop_png = TRUE}. This alters the template so that when
+the LilyPond output file is created, it contains specifications for cropping
+the image to the content when that file is rendered by LilyPond to png.
+The image will have its width and height automatically cropped
+rather than retain the standard page dimensions.
+This only applies to png outputs made from the LilyPond file, not pdf.
+The argument is also ignored if explicitly providing \code{textheight} to
+\code{paper}. You may still provide \code{linewidth} to \code{paper} if you
+find you need to increase it beyond the default 150mm, generally as a result
+of using a large \code{fontsize}.
+Various \code{render_*} functions that wrap \code{lilypond} make use of this
+argument as well.
 }
 \examples{
 x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")

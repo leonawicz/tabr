@@ -8,15 +8,17 @@
 \title{Render sheet music with LilyPond}
 \usage{
 tab(score, file, key = "c", time = "4/4", tempo = "2 = 60",
-  header = NULL, string_names = NULL, paper = NULL, endbar = TRUE,
-  midi = TRUE, keep_ly = FALSE, path = NULL, details = TRUE)
+  header = NULL, paper = NULL, string_names = NULL, endbar = TRUE,
+  midi = TRUE, keep_ly = FALSE, path = NULL, crop_png = TRUE,
+  transparent = FALSE, details = TRUE)
 
 render_tab(score, file, key = "c", time = "4/4", tempo = "2 = 60",
-  header = NULL, string_names = NULL, paper = NULL, endbar = TRUE,
-  midi = TRUE, keep_ly = FALSE, path = NULL, details = TRUE)
+  header = NULL, paper = NULL, string_names = NULL, endbar = TRUE,
+  midi = TRUE, keep_ly = FALSE, path = NULL, crop_png = TRUE,
+  transparent = FALSE, details = TRUE)
 
 render_score(score, file, key = "c", time = "4/4", tempo = "2 = 60",
-  header = NULL, paper = NULL, endbar = TRUE)
+  header = NULL, paper = NULL, endbar = TRUE, crop_png = TRUE)
 
 render_midi(score, file, key = "c", time = "4/4", tempo = "2 = 60")
 }
@@ -36,14 +38,14 @@ etc.}
 suppress display of the time signature in the output.}
 
 \item{header}{a named list of arguments passed to the header of the
-LilyPond file. See \code{lilypond} details.}
+LilyPond file. See \code{lilypond} for details.}
+
+\item{paper}{a named list of arguments for the LilyPond file page layout.
+See \code{lilypond} for details.}
 
 \item{string_names}{label strings at beginning of tab staff. \code{NULL}
 (default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for
 force on or off completely.}
-
-\item{paper}{a named list of arguments for the LilyPond file page layout.
-See \code{lilypond} details.}
 
 \item{endbar}{character, the end bar.}
 
@@ -54,6 +56,10 @@ See \code{lilypond} details.}
 \item{path}{character, optional output directory prefixed to \code{file},
 may be an absolute or relative path. If \code{NULL} (default), only
 \code{file} is used.}
+
+\item{crop_png}{logical, see \code{lilypond} for details.}
+
+\item{transparent}{logical, transparent background, png only.}
 
 \item{details}{logical, set to \code{FALSE} to disable printing of log
 output to console. Windows only.}

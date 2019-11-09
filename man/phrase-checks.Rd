@@ -21,7 +21,7 @@ phrase_notes(phrase, collapse = TRUE)
 
 phrase_info(phrase, collapse = TRUE, annotations = TRUE)
 
-phrase_strings(phrase, collapse = TRUE)
+phrase_strings(phrase, collapse = FALSE)
 
 notable(phrase)
 }
@@ -65,7 +65,7 @@ Complex phrase objects constructed originally with \code{phrase} can be
 challenging to deconstruct in a one to one manner.
 Information may be lost, garbled, or the function may fail.
 For example, this function is not advanced enough to unravel repeat notation
-or handle arbitrary text notations attached to notes.
+or tuplets.
 
 \code{notable} returns \code{TRUE} or \code{FALSE} regarding whether a
  phrase can be converted back to character string inputs,

@@ -96,7 +96,7 @@ test_that("music methods return as expected", {
   expect_equal(head(as_music("a8 b c d e f g")), as_music("a8 b c d e f"))
   expect_equal(tail(as_music("a8 b c d e f g")), as_music("b8 c d e f g"))
 
-  y <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g';4 c';5 ce';51"
+  y <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"
   s <- as.character(c(rep(5, 7), 5432, 5432, 2, 3, 4, 5, 51))
   z <- as_music(y)
 

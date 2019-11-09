@@ -32,7 +32,7 @@ test_that("music functions return as expected", {
   x <- as_music(x, lyrics = y)
   expect_identical(y, music_lyrics(x))
 
-  x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g';4 c';5 ce';51"
+  x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"
   s <- as.character(c(rep(5, 7), 5432, 5432, 2, 3, 4, 5, 51))
   x <- as_music(x)
   expect_equal(music_strings(x), s)

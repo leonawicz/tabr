@@ -41,6 +41,19 @@
 #'   \item \code{first_page_number = 1}
 #' }
 #'
+#' By default \code{crop_png = TRUE}. This alters the template so that when
+#' the LilyPond output file is created, it contains specifications for cropping
+#' the image to the content when that file is rendered by LilyPond to png.
+#' The image will have its width and height automatically cropped
+#' rather than retain the standard page dimensions.
+#' This only applies to png outputs made from the LilyPond file, not pdf.
+#' The argument is also ignored if explicitly providing \code{textheight} to
+#' \code{paper}. You may still provide \code{linewidth} to \code{paper} if you
+#' find you need to increase it beyond the default 150mm, generally as a result
+#' of using a large \code{fontsize}.
+#' Various \code{render_*} functions that wrap \code{lilypond} make use of this
+#' argument as well.
+#'
 #' @param score a score object.
 #' @param file character, LilyPond output file ending in \code{.ly}. May
 #' include an absolute or relative path.
@@ -50,16 +63,18 @@
 #' @param tempo character, defaults to \code{"2 = 60"}.
 #' @param header a named list of arguments passed to the header of the
 #' LilyPond file. See details.
+#' @param paper a named list of arguments for the LilyPond file page layout.
+#' See details.
 #' @param string_names label strings at beginning of tab staff. \code{NULL}
 #' (default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for
 #' force on or off completely.
-#' @param paper a named list of arguments for the LilyPond file page layout.
-#' See details.
 #' @param endbar character, the end bar.
 #' @param midi logical, add midi inclusion specification to LilyPond file.
 #' @param path character, optional output directory prefixed to \code{file},
 #' may be an absolute or relative path. If \code{NULL} (default), only
 #' \code{file} is used.
+#' @param crop_png logical, alter template for cropped height. See
+#' details.
 #'
 #' @return nothing returned; a file is written.
 #' @export
@@ -73,8 +88,11 @@
 #' outfile <- file.path(tempdir(), "out.ly")
 #' lilypond(x, outfile)
 lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
-                     header = NULL, string_names = NULL, paper = NULL,
-                     endbar = TRUE, midi = TRUE, path = NULL){
+                     header = NULL, paper = NULL, string_names = NULL,
+                     endbar = TRUE, midi = TRUE, path = NULL,
+                     crop_png = TRUE){
+  if(!is.null(paper$textheight)) crop_png <- FALSE
+  crop_png_w <- if(crop_png & !length(header)) TRUE else FALSE
   if(is.null(tempo)){
     if(midi) stop("Set an explicit `tempo` if `midi = TRUE`.", call. = FALSE)
     tempo <- '" "'
@@ -87,7 +105,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   mode <- ifelse(major, "\\major", "\\minor")
   if((major && !key %in% .keys$major) || (!major && !key %in% .keys$minor))
     stop("Invalid `key`. See `keys()`.", call. = FALSE)
-  paper_args <- .lp_paper_args(paper)
+  paper_args <- .lp_paper_args(paper, crop_png, crop_png_w)
   paper <- do.call(.lp_paper, paper_args)
   chords <- attributes(score)$chords
   has_chords <- !is.null(chords)
@@ -202,18 +220,20 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 #' @param tempo character, defaults to \code{"2 = 60"}. Set to \code{NULL} to
 #' suppress display of the time signature in the output.
 #' @param header a named list of arguments passed to the header of the
-#' LilyPond file. See \code{lilypond} details.
+#' LilyPond file. See \code{lilypond} for details.
+#' @param paper a named list of arguments for the LilyPond file page layout.
+#' See \code{lilypond} for details.
 #' @param string_names label strings at beginning of tab staff. \code{NULL}
 #' (default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for
 #' force on or off completely.
-#' @param paper a named list of arguments for the LilyPond file page layout.
-#' See \code{lilypond} details.
 #' @param endbar character, the end bar.
 #' @param midi logical, output midi file in addition to tablature.
 #' @param keep_ly logical, keep LilyPond file.
 #' @param path character, optional output directory prefixed to \code{file},
 #' may be an absolute or relative path. If \code{NULL} (default), only
 #' \code{file} is used.
+#' @param crop_png logical, see \code{lilypond} for details.
+#' @param transparent logical, transparent background, png only.
 #' @param details logical, set to \code{FALSE} to disable printing of log
 #' output to console. Windows only.
 #'
@@ -231,18 +251,28 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 #'   tab(x, outfile, details = FALSE) # requires LilyPond installation
 #' }
 tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
-                header = NULL, string_names = NULL, paper = NULL, endbar = TRUE,
-                midi = TRUE, keep_ly = FALSE, path = NULL, details = TRUE){
+                header = NULL, paper = NULL, string_names = NULL, endbar = TRUE,
+                midi = TRUE, keep_ly = FALSE, path = NULL,
+                crop_png = TRUE, transparent = FALSE, details = TRUE){
   fp <- .adjust_file_path(file, path)
+  ext <- if(fp$ext == "pdf") "--pdf" else "-dresolution=300 --png"
+  if(is.null(paper$textheight) & fp$ext == "png"){
+    png_args <- "\" -dbackend=eps "
+  } else {
+    png_args <-  "\" "
+  }
+  if(transparent & fp$ext == "png")
+    png_args <- paste(png_args, "\ -dpixmap-format=pngalpha ")
+  if(fp$ext == "pdf") crop_png <- FALSE
   if(details) cat("#### Engraving score to", fp$tp, "####\n")
-  lilypond(score, basename(fp$lp), key, time, tempo, header, string_names,
-           paper, endbar, midi, dirname(fp$lp))
+  lilypond(score, basename(fp$lp), key, time, tempo, header, paper,
+           string_names, endbar, midi, dirname(fp$lp), crop_png)
   lp_path <- tabr_options()$lilypond
   is_windows <- Sys.info()[["sysname"]] == "Windows"
   if(lp_path == ""){
     lp_path <- if(is_windows) "lilypond.exe" else "lilypond"
   }
-  call_string <- paste0("\"", lp_path, "\" --", fp$ext,
+  call_string <- paste0("\"", lp_path, png_args, ext,
                         " -dstrip-output-dir=#f \"", fp$lp, "\"")
   if(is_windows){
     system(call_string, show.output.on.console = details)
@@ -250,7 +280,7 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
     system(call_string)
   }
   if(!keep_ly) unlink(fp$lp)
-  invisible()
+  .eps_cleanup(fp$tp)
 }
 
 #' @export
@@ -260,9 +290,10 @@ render_tab <- tab
 #' @export
 #' @rdname tab
 render_score <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
-                         header = NULL, paper = NULL, endbar = TRUE){
-  tab(score, file, key, time, tempo, header, FALSE, paper, endbar, FALSE,
-      FALSE, NULL, FALSE)
+                         header = NULL, paper = NULL, endbar = TRUE,
+                         crop_png = TRUE){
+  tab(score, file, key, time, tempo, header, paper, FALSE, endbar, FALSE,
+      FALSE, NULL, FALSE, crop_png)
 }
 
 #' @export
@@ -349,15 +380,18 @@ render_midi <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60"){
   gsub("  ", "", gsub("  ", " ", x))
 }
 
-.lp_paper_args <- function(x){
-  if(is.null(x)) return(.paper_defaults)
+.lp_paper_args <- function(x, crop, cropw){
+  y <- list(crop = crop, cropw = cropw)
+  if(is.null(x)) return(c(.paper_defaults, y))
   for(i in names(.paper_defaults))
     if(!i %in% names(x)) x[[i]] <- .paper_defaults[[i]]
-  x
+  c(x, y)
 }
 
 .lp_paper <- function(...) {
   x <- list(...)
+  crop <- x$crop
+  cropw <- x$cropw
   ppn <- x$page_numbers
   if(!is.logical(ppn)) stop("`page_numbers` must be logical.", call. = FALSE)
   pfpn <- x$print_first_page_number
@@ -375,8 +409,13 @@ render_midi <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60"){
     " mm))) paper-alist))\n"
   )
   paste0(
-    set_paper,
-    "\\paper{\n  #(set-paper-size \"papersize\")\n",
+    if(!crop) set_paper,
+    if(crop) "\\paper{\n" else "\\paper{\n  #(set-paper-size \"papersize\")\n",
+    if(crop) paste0("  line-width=", x$linewidth, "\\mm\n"),
+    if(cropw) "  oddFooterMarkup=##f\n",
+    if(cropw) "  oddHeaderMarkup=##f\n",
+    if(cropw) "  bookTitleMarkup = ##f\n",
+    if(cropw) "  scoreTitleMarkup = ##f\n",
     paste0("  indent = ", x$indent, ".\\mm\n"),
     paste0("  first-page-number = ", fpn, "\n"),
     paste0("  print-page-number = ", ifelse(ppn, "##t", "##f"), "\n"),
@@ -555,6 +594,19 @@ render_midi <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60"){
   x
 }
 
+.eps_cleanup <- function(file){
+  out_dir <- dirname(file)
+  file <- basename(file)
+  ext <- gsub(".*\\.(.*)$", "\\1", file)
+  if(ext == "png"){
+    x <- gsub(paste0("\\.", ext), "", file)
+    y <- c(".eps", "-1.eps", "-systems.count", "-systems.tex", "-systems.texi")
+    x <- paste0(out_dir, "/", x, y)
+    unlink(x, recursive = TRUE, force = TRUE)
+  }
+  invisible()
+}
+
 #' Render a chord chart with LilyPond
 #'
 #' Render a standalone chord chart of chord fretboard diagrams with LilyPond
@@ -614,8 +666,10 @@ render_midi <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60"){
 #' @param paper a named list of arguments for the LilyPond file page layout.
 #' See details.
 #' @param keep_ly logical, keep intermediate LilyPond file.
+#' @param crop_png logical, see \code{lilypond} for details.
+#' @param transparent logical, transparent background, png only.
 #' @param details logical, set to \code{FALSE} to disable printing of log
-#' output to console.
+#' output to console. Windows only.
 #'
 #' @return writes files to disk
 #' @export
@@ -642,10 +696,22 @@ render_midi <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60"){
 #'   render_chordchart(chords, outfile, 2, hdr, list(textheight = 175))
 #' }
 render_chordchart <- function(chords, file, size = 1.2, header = NULL,
-                              paper = NULL, keep_ly = FALSE, details = FALSE){
+                              paper = NULL, keep_ly = FALSE,
+                              crop_png = TRUE, transparent = FALSE,
+                              details = FALSE){
   i <- seq_along(chords)
   id <- names(chords)
-  paper_args <- .lp_paper_args2(paper)
+  fp <- .adjust_file_path(file, NULL)
+  ext <- if(fp$ext == "pdf") "--pdf" else "-dresolution=300 --png"
+  if(is.null(paper$textheight) & fp$ext == "png"){
+    png_args <- "\" -dbackend=eps "
+  } else {
+    png_args <-  "\" "
+  }
+  if(transparent & fp$ext == "png")
+    png_args <- paste(png_args, "\ -dpixmap-format=pngalpha ")
+  crop_png_w <- if(crop_png & !length(header)) TRUE else FALSE
+  paper_args <- .lp_paper_args2(paper, crop_png, crop_png_w)
   paper <- do.call(.lp_paper, paper_args)
   x <- paste0(
     "#(set-global-staff-size ", paper_args$fontsize,
@@ -667,7 +733,6 @@ render_chordchart <- function(chords, file, size = 1.2, header = NULL,
     "        \\mychorddiagrams\n", "      }\n", "    >>\n", "  \\layout {}\n",
     "  }\n}\n\\markup\\vspace #3\n")
   x <- paste0(paper, x, markup)
-  fp <- .adjust_file_path(file, NULL)
   write(file = fp$lp, x)
 
   lp_path <- tabr_options()$lilypond
@@ -675,7 +740,7 @@ render_chordchart <- function(chords, file, size = 1.2, header = NULL,
   if(lp_path == ""){
     lp_path <- if(is_windows) "lilypond.exe" else "lilypond"
   }
-  call_string <- paste0("\"", lp_path, "\" --", fp$ext,
+  call_string <- paste0("\"", lp_path, png_args, ext,
                         " -dstrip-output-dir=#f \"", fp$lp, "\"")
   if(is_windows){
     system(call_string, show.output.on.console = details)
@@ -683,18 +748,19 @@ render_chordchart <- function(chords, file, size = 1.2, header = NULL,
     system(call_string)
   }
   if(!keep_ly) unlink(fp$lp)
-  invisible()
+  .eps_cleanup(file)
 }
 
 .paper_defaults2 <- list(textheight = 220, linewidth = 150, indent = 0,
                         fontsize = 14, page_numbers = FALSE,
                         print_first_page_number = TRUE, first_page_number = 1)
 
-.lp_paper_args2 <- function(x){
-  if(is.null(x)) return(.paper_defaults2)
+.lp_paper_args2 <- function(x, crop, cropw){
+  y <- list(crop = crop, cropw = cropw)
+  if(is.null(x)) return(c(.paper_defaults2, y))
   for(i in names(.paper_defaults2))
     if(!i %in% names(x)) x[[i]] <- .paper_defaults2[[i]]
-    x
+  c(x, list(crop = crop, cropw = cropw))
 }
 
 .define_chord <- function(i, id, value){

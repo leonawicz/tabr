@@ -357,9 +357,8 @@ can be recovered without recomputing from the original pitches.</p>
 <span class='no'>d2</span> <span class='kw'>&lt;-</span> <span class='fu'>as_music_df</span>(<span class='no'>m1</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='no'>d1</span>, <span class='no'>d2</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 <span class='co'># Go directly from phrase object to data frame</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='no'>x</span>, <span class='no'>time</span>)
-<span class='no'>d2</span> <span class='kw'>&lt;-</span> <span class='fu'>as_music_df</span>(<span class='no'>p1</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='no'>d1</span>, <span class='no'>d2</span>)</div><div class='output co'>#&gt; [1] FALSE</div></span></pre>
+<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='st'>"a b cgc'"</span>, <span class='st'>"4 4 2"</span>, <span class='fl'>5</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='fu'>as_music_df</span>(<span class='fu'><a href='music.html'>as_music</a></span>(<span class='st'>"a4;5 b cgc'2"</span>)), <span class='fu'>as_music_df</span>(<span class='no'>p1</span>))</div><div class='output co'>#&gt; [1] TRUE</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -220,15 +220,17 @@
     </div>
 
     <pre class="usage"><span class='fu'>tab</span>(<span class='no'>score</span>, <span class='no'>file</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>time</span> <span class='kw'>=</span> <span class='st'>"4/4"</span>, <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='st'>"2 = 60"</span>,
-  <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>string_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>endbar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>keep_ly</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>details</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+  <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>string_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>endbar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>keep_ly</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>crop_png</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>details</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>render_tab</span>(<span class='no'>score</span>, <span class='no'>file</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>time</span> <span class='kw'>=</span> <span class='st'>"4/4"</span>, <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='st'>"2 = 60"</span>,
-  <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>string_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>endbar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>keep_ly</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>details</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+  <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>string_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>endbar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>keep_ly</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>crop_png</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>details</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>render_score</span>(<span class='no'>score</span>, <span class='no'>file</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>time</span> <span class='kw'>=</span> <span class='st'>"4/4"</span>, <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='st'>"2 = 60"</span>,
-  <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>endbar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+  <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>endbar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>crop_png</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>render_midi</span>(<span class='no'>score</span>, <span class='no'>file</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>time</span> <span class='kw'>=</span> <span class='st'>"4/4"</span>, <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='st'>"2 = 60"</span>)</pre>
 
@@ -262,18 +264,18 @@ suppress display of the time signature in the output.</p></td>
     <tr>
       <th>header</th>
       <td><p>a named list of arguments passed to the header of the
-LilyPond file. See <code>lilypond</code> details.</p></td>
+LilyPond file. See <code>lilypond</code> for details.</p></td>
+    </tr>
+    <tr>
+      <th>paper</th>
+      <td><p>a named list of arguments for the LilyPond file page layout.
+See <code>lilypond</code> for details.</p></td>
     </tr>
     <tr>
       <th>string_names</th>
       <td><p>label strings at beginning of tab staff. <code>NULL</code>
 (default) for non-standard tunings only, <code>TRUE</code> or <code>FALSE</code> for
 force on or off completely.</p></td>
-    </tr>
-    <tr>
-      <th>paper</th>
-      <td><p>a named list of arguments for the LilyPond file page layout.
-See <code>lilypond</code> details.</p></td>
     </tr>
     <tr>
       <th>endbar</th>
@@ -292,6 +294,14 @@ See <code>lilypond</code> details.</p></td>
       <td><p>character, optional output directory prefixed to <code>file</code>,
 may be an absolute or relative path. If <code>NULL</code> (default), only
 <code>file</code> is used.</p></td>
+    </tr>
+    <tr>
+      <th>crop_png</th>
+      <td><p>logical, see <code>lilypond</code> for details.</p></td>
+    </tr>
+    <tr>
+      <th>transparent</th>
+      <td><p>logical, transparent background, png only.</p></td>
     </tr>
     <tr>
       <th>details</th>

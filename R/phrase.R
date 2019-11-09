@@ -53,7 +53,7 @@
 #' x
 #' identical(x, p(m))
 #'
-#' x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g';4 c';5 ce';51"
+#' x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"
 #' p(x)
 #' identical(p(x), p(as_music(x)))
 phrase <- function(notes, info = NULL, string = NULL, bar = FALSE){
@@ -210,7 +210,7 @@ print.phrase <- function(x, ...){
 #' challenging to deconstruct in a one to one manner.
 #' Information may be lost, garbled, or the function may fail.
 #' For example, this function is not advanced enough to unravel repeat notation
-#' or handle arbitrary text notations attached to notes.
+#' or tuplets.
 #'
 #'  \code{notable} returns \code{TRUE} or \code{FALSE} regarding whether a
 #'  phrase can be converted back to character string inputs,
@@ -296,6 +296,10 @@ phrasey <- function(phrase){
 #' @rdname phrase-checks
 notify <- function(phrase){
   if(!phrasey(phrase)) stop("`phrase` is not phrasey.", call. = FALSE)
+  if(grepl("\\\\repeat", phrase))
+    stop("Cannot notify phrases containing repeat sections.", call. = FALSE)
+  if(grepl("\\\\tuplet", phrase))
+    stop("Cannot notify phrases containing tuplets.", call. = FALSE)
   x <- .tag_rests(phrase)
   x <- gsub("\\\\deadNote ", "<\\\\deadNote ", x)
   x <- strsplit(x, " <")[[1]]
@@ -368,10 +372,10 @@ phrase_info <- function(phrase, collapse = TRUE, annotations = TRUE){
 
 #' @export
 #' @rdname phrase-checks
-phrase_strings <- function(phrase, collapse = TRUE){
+phrase_strings <- function(phrase, collapse = FALSE){
   x <- notify(phrase)$string
   if(collapse){
-    x <- if(any(is.na(x))) as.character(NA) else paste(x, collapse = " ")
+    x <- if(all(is.na(x))) as.character(x) else paste(x, collapse = " ")
   }
   x
 }

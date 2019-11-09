@@ -120,11 +120,13 @@ chord_set <- function(x, id = NULL){
 #' @export
 #'
 #' @examples
-#' x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
+#' x <- phrase("c ec'g' ec'g'", "4 4 2", "5 4 4")
 #' track(x) # same as track_guitar(x); 8va treble clef above tab staff
 #' track_tc(x) # treble clef sheet music, no tab staff
 #' track_bc(x) # bass clef sheet music, no tab staff
-#' track_bass(x) # includes tab staff and standard bass string tuning
+#'
+#' x <- phrase("c, g,c g,c", "4 4 2", "3 2 2")
+#' track_bass(x) # includes tab staff and standard bass tuning
 track <- function(phrase, tuning = "standard", voice = 1L,
                   music_staff = "treble_8", ms_transpose = 0, ms_key = NA,
                   no_tab = FALSE){
@@ -133,8 +135,28 @@ track <- function(phrase, tuning = "standard", voice = 1L,
   if(is.na(music_staff) & no_tab)
     stop("Cannot have both `music_staff` = NA and `no_tab` = TRUE.",
          call. = FALSE)
+
+  tuning <- .map_tuning(tuning)
+  n <- length(strsplit(tuning, " ")[[1]])
+  ps <- tryCatch(phrase_strings(phrase, TRUE), error = function(e) NULL)
+  if(is.null(ps)){
+    p2 <- gsub("\\\\repeat (unfold|percent|volta) \\d+ \\{ | \\}|\n", "",
+               phrase)
+    p2 <- gsub("\\\\tuplet \\d+/\\d+ \\d+ \\{ | \\}|\n", "",
+               phrase)
+    ps <- tryCatch(phrase_strings(p2, TRUE), error = function(e) NULL)
+  }
+  if(!is.null(ps)){
+    s <- as.integer(strsplit(gsub(" |NA", "", ps), "")[[1]])
+    if(any(!is.na(s))){
+      if(any(s > n))
+        stop("String number exceeds number of strings from `tuning`.",
+             call. = FALSE)
+    }
+  }
+
   x <- tibble::tibble(
-    phrase, tuning = .map_tuning(tuning), voice = as.integer(voice),
+    phrase, tuning = tuning, voice = as.integer(voice),
     staff = as.character(music_staff), ms_transpose = as.integer(ms_transpose),
     ms_key = as.character(ms_key), tab = !no_tab)
   x$phrase <- purrr::map(x$phrase, ~as_phrase(.x))
@@ -155,13 +177,13 @@ track_tc <- function(phrase, voice = 1L, ms_transpose = 0, ms_key = NA){
 #' @export
 #' @rdname track
 track_bc <- function(phrase, voice = 1L, ms_transpose = 0, ms_key = NA){
-  track(phrase, "bass", voice, "bass", ms_transpose, ms_key, TRUE)
+  track(phrase, "standard", voice, "bass", ms_transpose, ms_key, TRUE)
 }
 
 #' @export
 #' @rdname track
 track_bass <- function(phrase, voice = 1L, ms_transpose = 0, ms_key = NA){
-  track(phrase, "bass", voice, "bass", ms_transpose, ms_key, FALSE)
+  track(phrase, "bass", voice, "bass_8", ms_transpose, ms_key, FALSE)
 }
 
 #' Bind track tables

@@ -65,7 +65,7 @@ x <- p(n, i)
 x
 identical(x, p(m))
 
-x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g';4 c';5 ce';51"
+x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"
 p(x)
 identical(p(x), p(as_music(x)))
 }

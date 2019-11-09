@@ -45,6 +45,10 @@ reference:
   desc: "Functions for inspecting and manipulating music strings"
   contents:
   - music
+- title: "Sheet music snippets"
+  desc: "Transcription shortcuts for music objects"
+  contents:
+  - render_music
 - title: "Song lyrics: lyrics objects"
   desc: "Functions for aligning lyrics with other objects by timestep"
   contents:

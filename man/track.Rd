@@ -94,9 +94,11 @@ As with the \code{\link{transpose}} function, you can simply specify
 required; it is merely more clear and informative for the user.
 }
 \examples{
-x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
+x <- phrase("c ec'g' ec'g'", "4 4 2", "5 4 4")
 track(x) # same as track_guitar(x); 8va treble clef above tab staff
 track_tc(x) # treble clef sheet music, no tab staff
 track_bc(x) # bass clef sheet music, no tab staff
-track_bass(x) # includes tab staff and standard bass string tuning
+
+x <- phrase("c, g,c g,c", "4 4 2", "3 2 2")
+track_bass(x) # includes tab staff and standard bass tuning
 }

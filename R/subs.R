@@ -56,6 +56,7 @@
 }
 
 .strsub <- function(x){
+  if(any(is.na(x))) x[is.na(x)] <- "x"
   f <- function(x){
     strsplit(gsub("\\(", " \\(", gsub("\\)", " ", x)), " ")[[1]] %>%
       purrr::map(~({

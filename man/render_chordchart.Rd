@@ -5,7 +5,8 @@
 \title{Render a chord chart with LilyPond}
 \usage{
 render_chordchart(chords, file, size = 1.2, header = NULL,
-  paper = NULL, keep_ly = FALSE, details = FALSE)
+  paper = NULL, keep_ly = FALSE, crop_png = TRUE,
+  transparent = FALSE, details = FALSE)
 }
 \arguments{
 \item{chords}{named character vector of valid formatting for LilyPond chord
@@ -24,8 +25,12 @@ See details.}
 
 \item{keep_ly}{logical, keep intermediate LilyPond file.}
 
+\item{crop_png}{logical, see \code{lilypond} for details.}
+
+\item{transparent}{logical, transparent background, png only.}
+
 \item{details}{logical, set to \code{FALSE} to disable printing of log
-output to console.}
+output to console. Windows only.}
 }
 \value{
 writes files to disk

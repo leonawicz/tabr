@@ -70,7 +70,6 @@ d2 <- as_music_df(m1)
 identical(d1, d2)
 
 # Go directly from phrase object to data frame
-p1 <- phrase(x, time)
-d2 <- as_music_df(p1)
-identical(d1, d2)
+p1 <- phrase("a b cgc'", "4 4 2", 5)
+identical(as_music_df(as_music("a4;5 b cgc'2")), as_music_df(p1))
 }

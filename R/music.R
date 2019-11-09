@@ -104,7 +104,7 @@
 #' music_lyrics(x)
 #'
 #' # Starting string = 5: use \code{;5}. Carries over until an explicit change.
-#' x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g';4 c';5 ce';51"
+#' x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"
 #' as_music(x)
 musical <- function(x){
   if(is_music(x)) return(TRUE)
@@ -177,7 +177,7 @@ as_music <- function(notes, info = NULL, lyrics = NA, key = "c", time = "4/4",
     if(grepl("[-0]", x)) stop("Invalid string number < 1.", call. = FALSE)
     x
   })
-  idx <- !rests & nchar(s) != 0
+  idx <- !rests & !is.na(s) & nchar(s) != 0
   if(any(idx)){
     if(any(nchar(s[idx]) != size[idx]))
       stop("Number of strings and notes must match at each non-rest timestep.",

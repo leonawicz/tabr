@@ -79,7 +79,7 @@
 #' @rdname repeats
 rp <- function(phrase, n = 1){
   x <- paste("\\repeat unfold", n + 1, "{", paste(phrase, collapse = " "),
-             " }\n")
+             "}\n")
   as_phrase(x)
 }
 
@@ -87,7 +87,7 @@ rp <- function(phrase, n = 1){
 #' @rdname repeats
 pct <- function(phrase, n = 1, counter = FALSE, step = 1, reset = TRUE){
   x <- paste("\\repeat percent", n + 1, "{", paste(phrase, collapse = " "),
-             " }\n")
+             "}\n")
   if(counter) x <- paste0(
     "\\set countPercentRepeats = ##",
     ifelse(counter, "t", "f"),
