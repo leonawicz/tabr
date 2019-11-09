@@ -331,7 +331,7 @@ midi_key <- function(x){
 #' @export
 #' @rdname read_midi
 ticks_to_duration <- function(x, ticks_per_qtr = 480){
-  y <- .tick_table(x, ticks_per_qtr)
+  y <- .tick_table(ticks_per_qtr)
   z <- y[match(x, y)]
   idx <- which(is.na(z))
   if(length(idx)){
@@ -345,13 +345,13 @@ ticks_to_duration <- function(x, ticks_per_qtr = 480){
 #' @rdname read_midi
 duration_to_ticks <- function(x, ticks_per_qtr = 480){
   x <- .uncollapse(x)
-  y <- .tick_table(x, ticks_per_qtr)
+  y <- .tick_table(ticks_per_qtr)
   z <- as.integer(y[match(x, names(y))])
   if(any(is.na(z))) stop("Invalid durations found.", call. = FALSE)
   z
 }
 
-.tick_table <- function(x, r = 480){
+.tick_table <- function(r = 480){
   x <- r * 2 ^ (-3:2)
   dot1 <- x[-6] + r * 2 ^ (-4:0)
   dot2 <- dot1[-6] + r * 2 ^ (-5:-1)

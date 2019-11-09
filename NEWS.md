@@ -19,6 +19,7 @@
 * Added initial support for conversion of MIDI file input to `noteworthy`, `noteinfo`, `music` and `phrase` classes so the MIDI data can be analyzed, transformed, edited and rendered to sheet music and a new MIDI file.
 * Added more functions for music data manipulation and analysis.
 * Added more functions for mapping between noteworthy strings, phrase objects, and data frames.
+* Added functions for summarizing times and durations in `noteinfo` and `music` objects.
 * Added syntax converters `from_chorrrds` (for chord output from `chorrrds` package) and `from_music21`, for converting other music notation syntax to `tabr` syntax.
 * Added `track_*` wrapper functions to provide better default track arguments for different instruments and use cases.
 * Added `render_tab` alias to `tab` for consistent naming, and other functions `render_score` and `render_midi` as simpler wrappers around `tab` with appropriate fewer arguments and appropriate argument defaults.

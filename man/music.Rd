@@ -6,14 +6,7 @@
 \alias{as_music}
 \alias{is_music}
 \alias{music_split}
-\alias{music_notes}
-\alias{music_info}
-\alias{music_strings}
-\alias{music_key}
-\alias{music_time}
-\alias{music_tempo}
-\alias{music_lyrics}
-\title{Check music string validity}
+\title{Create music objects and check music string validity}
 \usage{
 musical(x)
 
@@ -23,23 +16,10 @@ as_music(notes, info = NULL, lyrics = NA, key = "c", time = "4/4",
 is_music(x)
 
 music_split(x)
-
-music_notes(x)
-
-music_info(x)
-
-music_strings(x)
-
-music_key(x)
-
-music_time(x)
-
-music_tempo(x)
-
-music_lyrics(x)
 }
 \arguments{
-\item{x}{character, a music string. May or may not have the 'music' class.}
+\item{x}{character or music, a string to be coerced or an existing music
+object.}
 
 \item{notes, info}{noteworthy and note info strings. For \code{as_music}, a
 complete music string is assumed for \code{notes} when \code{info = NULL}.}
@@ -126,33 +106,20 @@ x <- as_music(x)
 is_music(x)
 x
 
-summary(x)
-
-attributes(x)
-
-music_split(x)
-music_notes(x)
-music_info(x)
-music_key(x)
-music_time(x)
-music_tempo(x)
-music_lyrics(x)
-
-as_music(x, accidentals = "sharp")
-
 y <- lyrics_template(x)
 y[3:8] <- strsplit("These are some song ly- rics", " ")[[1]]
 y
 
-x <- as_music(x, lyrics = y)
-x
-music_lyrics(x)
+x <- as_music(x, lyrics = y, accidentals = "sharp")
+summary(x)
 
 # Starting string = 5: use \\code{;5}. Carries over until an explicit change.
 x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"
-as_music(x)
+x <- as_music_df(as_music(x))
+x$string
 }
 \seealso{
-\code{\link{note-checks}}, \code{\link{note-metadata}},
-\code{\link{note-summaries}}, \code{\link{note-coerce}}
+\code{\link{music-helpers}}, \code{\link{note-checks}},
+\code{\link{note-metadata}}, \code{\link{note-summaries}},
+\code{\link{note-coerce}}
 }

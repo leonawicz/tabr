@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Note info helpers — noteinfo • tabr</title>
+<title>Summarize rhythm and time of music objects — n_measures • tabr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -44,8 +44,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Note info helpers — noteinfo" />
-<meta property="og:description" content="Functions for working with note info strings." />
+<meta property="og:title" content="Summarize rhythm and time of music objects — n_measures" />
+<meta property="og:description" content="These functions assist with summarizing temporal data for music objects." />
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -210,87 +210,87 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Note info helpers</h1>
-    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/noteinfo.R'><code>R/noteinfo.R</code></a></small>
-    <div class="hidden name"><code>noteinfo.Rd</code></div>
+    <h1>Summarize rhythm and time of music objects</h1>
+    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/time.R'><code>R/time.R</code></a></small>
+    <div class="hidden name"><code>n_measures.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Functions for working with note info strings.</p>
+    <p>These functions assist with summarizing temporal data for music objects.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>info_duration</span>(<span class='no'>x</span>)
+    <pre class="usage"><span class='fu'>n_measures</span>(<span class='no'>x</span>)
 
-<span class='fu'>info_slur_on</span>(<span class='no'>x</span>)
+<span class='fu'>n_beats</span>(<span class='no'>x</span>, <span class='kw'>unit</span> <span class='kw'>=</span> <span class='fl'>4</span>)
 
-<span class='fu'>info_slur_off</span>(<span class='no'>x</span>)
+<span class='fu'>steps_per_measure</span>(<span class='no'>x</span>)
 
-<span class='fu'>info_slide</span>(<span class='no'>x</span>)
+<span class='fu'>bpm</span>(<span class='no'>x</span>, <span class='kw'>unit</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>info_dotted</span>(<span class='no'>x</span>)
+<span class='fu'>seconds</span>(<span class='no'>x</span>, <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>info_single_dotted</span>(<span class='no'>x</span>)
-
-<span class='fu'>info_double_dotted</span>(<span class='no'>x</span>)
-
-<span class='fu'>info_annotation</span>(<span class='no'>x</span>)</pre>
+<span class='fu'>seconds_per_measure</span>(<span class='no'>x</span>, <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>character, note info string normally accompanying a noteworthy
-string for building phrase objects. <code>x</code> may also be a phrase object.</p></td>
+      <td><p>note info or music object.</p></td>
+    </tr>
+    <tr>
+      <th>unit</th>
+      <td><p>character, or an equivalent integer. A beat unit. See details.</p></td>
+    </tr>
+    <tr>
+      <th>tempo</th>
+      <td><p>character, LilyPond format tempo, e.g., "4 = 120" is 120
+quarter note beats per minute.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>character</p>
+    <p>depends on function</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>If <code>x</code> is a phrase object, there are some parsing limitations such as
-tuplets and repeats.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='valid-noteinfo.html'>valid-noteinfo</a></code></p></div>
+    <p>These functions also work with the simpler <code>noteinfo</code> class, though
+some functions require you to provide additional arguments.</p>
+<p>Functions that deal with real time require a known tempo, which music
+objects have. The simpler note info object does not contain this information.
+You can provide a value to the <code>tempo</code> argument of such functions. This
+overrides the tempo of <code>x</code> if a music object. But the reason to use
+<code>tempo</code> is to provide one when <code>x</code> is a note info object.
+By default <code>tempo = NULL</code>, in which case it will derive the value from
+the music object or return an error for note info objects.</p>
+<p><code>n_measures</code> gives the total number of measures covered by all
+timesteps. Functions providing the number of beats and beats per minute both
+take a <code>unit</code>, defaulting to 4 for quarter note beats. The unit can be
+any even beat, triplet beat, dotted, or double dotted beat, from
+<code>"t32"</code> up to 1.</p>
+<p>The number of timesteps starting in each measure is obtained with
+<code>steps_per_measure</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='notate.html'>notate</a></span>(<span class='st'>"t8x"</span>, <span class='st'>"Start here"</span>)
 <span class='no'>notes</span> <span class='kw'>&lt;-</span> <span class='st'>"a, b, c d e f g# a r ac'e' a c' e' c' r*3 ac'e'~ ac'e'"</span>
 <span class='no'>info</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='no'>a</span>, <span class='st'>"t8x t8] 16 4.. 16- 16 2^ 2 4. 8( 4)( 4) 8*4 1 1"</span>)
+<span class='no'>info</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='valid-noteinfo.html'>as_noteinfo</a></span>(<span class='no'>info</span>)
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='music.html'>as_music</a></span>(<span class='no'>notes</span>, <span class='no'>info</span>)
 
-<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>duration</span> <span class='kw'>=</span> <span class='fu'>info_duration</span>(<span class='no'>x</span>),
-  <span class='kw'>slur_on</span> <span class='kw'>=</span> <span class='fu'>info_slur_on</span>(<span class='no'>x</span>),
-  <span class='kw'>slur_off</span> <span class='kw'>=</span> <span class='fu'>info_slur_off</span>(<span class='no'>x</span>),
-  <span class='kw'>slide</span> <span class='kw'>=</span> <span class='fu'>info_slide</span>(<span class='no'>x</span>),
-  <span class='kw'>dotted</span> <span class='kw'>=</span> <span class='fu'>info_dotted</span>(<span class='no'>x</span>),
-  <span class='kw'>dotted1</span> <span class='kw'>=</span> <span class='fu'>info_single_dotted</span>(<span class='no'>x</span>),
-  <span class='kw'>dotted2</span> <span class='kw'>=</span> <span class='fu'>info_double_dotted</span>(<span class='no'>x</span>),
-  <span class='kw'>annotation</span> <span class='kw'>=</span> <span class='fu'>info_annotation</span>(<span class='no'>x</span>)
-)</div><div class='output co'>#&gt;    duration slur_on slur_off slide dotted dotted1 dotted2 annotation
-#&gt; 1        t8   FALSE    FALSE FALSE  FALSE   FALSE   FALSE Start here
-#&gt; 2        t8   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 3        t8   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 4        16   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 5       4..   FALSE    FALSE FALSE   TRUE   FALSE    TRUE       &lt;NA&gt;
-#&gt; 6        16   FALSE    FALSE  TRUE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 7        16   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 8         2   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 9         2   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 10       4.   FALSE    FALSE FALSE   TRUE    TRUE   FALSE       &lt;NA&gt;
-#&gt; 11        8    TRUE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 12        4    TRUE     TRUE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 13        4   FALSE     TRUE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 14        8   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 15        8   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 16        8   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 17        8   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 18        1   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 19        1   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;</div></pre>
+<span class='fu'>n_measures</span>(<span class='no'>info</span>) <span class='co'># fraction indicates incomplete final measure</span></div><div class='output co'>#&gt; [1] 5.375</div><div class='input'><span class='fu'>n_measures</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 5.375</div><div class='input'>
+<span class='fu'>n_beats</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 21.5</div><div class='input'><span class='fu'>n_beats</span>(<span class='no'>x</span>, <span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] 5.375</div><div class='input'><span class='fu'>n_beats</span>(<span class='no'>x</span>, <span class='st'>"t16"</span>)</div><div class='output co'>#&gt; [1] 129</div><div class='input'>
+<span class='fu'>bpm</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 120</div><div class='input'><span class='fu'>bpm</span>(<span class='no'>x</span>, <span class='st'>"t8"</span>)</div><div class='output co'>#&gt; [1] 360</div><div class='input'>
+<span class='fu'>seconds</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 10.75</div><div class='input'><span class='fu'>seconds</span>(<span class='no'>info</span>, <span class='st'>"4 = 120"</span>)</div><div class='output co'>#&gt; [1] 10.75</div><div class='input'><span class='fu'>seconds</span>(<span class='no'>info</span>, <span class='st'>"2 = 60"</span>)</div><div class='output co'>#&gt; [1] 10.75</div><div class='input'><span class='fu'>seconds</span>(<span class='no'>x</span>, <span class='st'>"4 = 100"</span>)</div><div class='output co'>#&gt; [1] 12.9</div><div class='input'>
+<span class='fu'>steps_per_measure</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 x 2</span><span>
+#&gt;   measure steps
+#&gt;     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>       1     7
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>       2     2
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>       3     4
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span>       4     4
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span>       5     1
+#&gt; </span><span style='color: #BCBCBC;'>6</span><span>       6     1</div><div class='input'><span class='fu'>seconds_per_measure</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 2</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -298,7 +298,6 @@ tuplets and repeats.</p>
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#details">Details</a></li>
-      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

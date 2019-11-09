@@ -26,7 +26,7 @@ reference:
   - tabr-head
   - note-logic
 - title: Working with noteworthy strings
-  desc: "Functions for inspecting and manipulating noteworthy strings"
+  desc: "Create, inspect and manipulate noteworthy strings"
   contents:
   - valid-notes
   - note-checks
@@ -37,14 +37,16 @@ reference:
   - note-equivalence
   - transpose
 - title: "Time and other information: noteinfo objects"
-  desc: "Functions for inspecting and manipulating note info strings"
+  desc: "Create, inspect and manipulate  note info strings"
   contents:
   - valid-noteinfo
   - noteinfo
 - title: "Combine time and sound: music objects"
-  desc: "Functions for inspecting and manipulating music strings"
+  desc: "Create, inspect and manipulate  music strings"
   contents:
   - music
+  - music-helpers
+  - n_measures
 - title: "Sheet music snippets"
   desc: "Transcription shortcuts for music objects"
   contents:
@@ -58,7 +60,7 @@ reference:
   contents:
   - to_tabr
 - title: Tidy music data analysis
-  desc: "Functions for converting to and from and manipulating music data frames"
+  desc: "Converting to and from and manipulating music data frames"
   contents:
   - as_music_df
 - title: Chords in noteworthy strings
@@ -90,7 +92,7 @@ reference:
   - intervals
   - interval_semitones
 - title: Notation-frequency conversion
-  desc: "Functions mapping music notation and other quantities like semitones and frequency"
+  desc: "Map music notation and other quantities like semitones and frequency"
   contents:
   - pitch_freq
 - title: Plots (non-tablature visualizations)

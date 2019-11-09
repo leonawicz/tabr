@@ -1,4 +1,4 @@
-#' Check music string validity
+#' Create music objects and check music string validity
 #'
 #' Check whether a string is comprised exclusively of valid syntax for music
 #' strings. A music object can be built from such a string. It combines a
@@ -51,7 +51,8 @@
 #' Coercion with \code{phrase} strips all attributes of a music object and
 #' retains only notes, note info and string numbers.
 #'
-#' @param x character, a music string. May or may not have the 'music' class.
+#' @param x character or music, a string to be coerced or an existing music
+#' object.
 #' @param notes,info noteworthy and note info strings. For \code{as_music}, a
 #' complete music string is assumed for \code{notes} when \code{info = NULL}.
 #' @param lyrics optional \code{lyrics} object or \code{NA}, attached to output
@@ -69,8 +70,9 @@
 #' @return depends on the function
 #' @export
 #' @name music
-#' @seealso \code{\link{note-checks}}, \code{\link{note-metadata}},
-#' \code{\link{note-summaries}}, \code{\link{note-coerce}}
+#' @seealso \code{\link{music-helpers}}, \code{\link{note-checks}},
+#' \code{\link{note-metadata}}, \code{\link{note-summaries}},
+#' \code{\link{note-coerce}}
 #'
 #' @examples
 #' # note durations inherit from previous timestep if missing
@@ -81,31 +83,17 @@
 #' is_music(x)
 #' x
 #'
-#' summary(x)
-#'
-#' attributes(x)
-#'
-#' music_split(x)
-#' music_notes(x)
-#' music_info(x)
-#' music_key(x)
-#' music_time(x)
-#' music_tempo(x)
-#' music_lyrics(x)
-#'
-#' as_music(x, accidentals = "sharp")
-#'
 #' y <- lyrics_template(x)
 #' y[3:8] <- strsplit("These are some song ly- rics", " ")[[1]]
 #' y
 #'
-#' x <- as_music(x, lyrics = y)
-#' x
-#' music_lyrics(x)
+#' x <- as_music(x, lyrics = y, accidentals = "sharp")
+#' summary(x)
 #'
 #' # Starting string = 5: use \code{;5}. Carries over until an explicit change.
 #' x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"
-#' as_music(x)
+#' x <- as_music_df(as_music(x))
+#' x$string
 musical <- function(x){
   if(is_music(x)) return(TRUE)
   .check_music_split(x, FALSE)
@@ -270,48 +258,6 @@ music_split <- function(x){
 }
 
 #' @export
-#' @rdname music
-music_notes <- function(x){
-  music_split(x)$notes
-}
-
-#' @export
-#' @rdname music
-music_info <- function(x){
-  music_split(x)$info
-}
-
-#' @export
-#' @rdname music
-music_strings <- function(x){
-  music_split(x)$string
-}
-
-#' @export
-#' @rdname music
-music_key <- function(x){
-  attr(x, "key")
-}
-
-#' @export
-#' @rdname music
-music_time <- function(x){
-  attr(x, "time")
-}
-
-#' @export
-#' @rdname music
-music_tempo <- function(x){
-  attr(x, "tempo")
-}
-
-#' @export
-#' @rdname music
-music_lyrics <- function(x){
-  attr(x, "lyrics")
-}
-
-#' @export
 print.music <- function(x, ...){
   a <- attributes(x)
   col1 <- crayon::make_style("gray50")
@@ -372,4 +318,83 @@ summary.music <- function(object, ...){
     info[!idx] <- gsub("([-0-9t~x\\.\\(\\)^]+|\\])", col3("\\1"), info[!idx])
   }
   paste(paste0(notes, info), collapse = " ")
+}
+
+#' Accessing music object values and attributes
+#'
+#' Helper functions for accessing music object values and attributes.
+#'
+#' Note that while lyrics always shows as an attribute even when \code{NA},
+#' \code{strings} is completely absent as a value if it was not part of the
+#' object construction from a new character string.
+#'
+#' @param x music object.
+#'
+#' @return depends on the function
+#' @export
+#' @name music-helpers
+#' @seealso \code{\link{music}}, \code{\link{note-checks}},
+#' \code{\link{note-metadata}}, \code{\link{note-summaries}},
+#' \code{\link{note-coerce}}
+#'
+#' @examples
+#' # Starting string = 5: use \code{;5}. Carries over until an explicit change.
+#' x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"
+#' x <- as_music(x)
+#'
+#' y <- lyrics_template(x)
+#' y[3:8] <- strsplit("These are some song ly- rics", " ")[[1]]
+#' y
+#'
+#' x <- as_music(x, lyrics = y)
+#'
+#' attributes(x)
+#'
+#' music_split(x)
+#'
+#' music_notes(x)
+#' music_info(x)
+#' music_key(x)
+#' music_time(x)
+#' music_tempo(x)
+#' music_lyrics(x)
+#' music_strings(x)
+music_notes <- function(x){
+  music_split(x)$notes
+}
+
+#' @export
+#' @rdname music-helpers
+music_info <- function(x){
+  music_split(x)$info
+}
+
+#' @export
+#' @rdname music-helpers
+music_strings <- function(x){
+  music_split(x)$string
+}
+
+#' @export
+#' @rdname music-helpers
+music_key <- function(x){
+  attr(x, "key")
+}
+
+#' @export
+#' @rdname music-helpers
+music_time <- function(x){
+  attr(x, "time")
+}
+
+#' @export
+#' @rdname music-helpers
+music_tempo <- function(x){
+  attr(x, "tempo")
+}
+
+#' @export
+#' @rdname music-helpers
+music_lyrics <- function(x){
+  attr(x, "lyrics")
 }

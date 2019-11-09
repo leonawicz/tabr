@@ -30,8 +30,7 @@ info_annotation(x)
 }
 \arguments{
 \item{x}{character, note info string normally accompanying a noteworthy
-string for building phrase objects. \code{x} may also be a phrase object.
-See examples.}
+string for building phrase objects. \code{x} may also be a phrase object.}
 }
 \value{
 character
@@ -39,11 +38,15 @@ character
 \description{
 Functions for working with note info strings.
 }
+\details{
+If \code{x} is a phrase object, there are some parsing limitations such as
+tuplets and repeats.
+}
 \examples{
-a <- notate("8x", "Start here")
+a <- notate("t8x", "Start here")
 notes <- "a, b, c d e f g# a r ac'e' a c' e' c' r*3 ac'e'~ ac'e'"
-info <- paste(a, "8x 8] 16 4.. 16- 16 2^ 2 4. 8( 4)( 4) 8*4 1 1")
-x <- phrase(notes, info)
+info <- paste(a, "t8x t8] 16 4.. 16- 16 2^ 2 4. 8( 4)( 4) 8*4 1 1")
+x <- as_music(notes, info)
 
 data.frame(
   duration = info_duration(x),
@@ -55,7 +58,6 @@ data.frame(
   dotted2 = info_double_dotted(x),
   annotation = info_annotation(x)
 )
-
 }
 \seealso{
 \code{\link{valid-noteinfo}}
