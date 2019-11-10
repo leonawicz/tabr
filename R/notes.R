@@ -685,8 +685,8 @@ as_space_time.noteinfo <- function(x){
 #' @export
 as_space_time.music <- function(x){
   x <- music_split(x)
-  .asmusic(x$notes, x$info, key = x$key, time = x$time, tempo = x$tempo,
-           format = "space")
+  .asmusic(x$notes, x$info, x$string, x$lyrics, key = x$key, time = x$time,
+           tempo = x$tempo, format = "space")
 }
 
 #' @export
@@ -728,8 +728,8 @@ as_vector_time.noteinfo <- function(x){
 #' @export
 as_vector_time.music <- function(x){
   x <- music_split(x)
-  .asmusic(x$notes, x$info, key = x$key, time = x$time, tempo = x$tempo,
-           format = "vector")
+  .asmusic(x$notes, x$info, x$string, x$lyrics, key = x$key, time = x$time,
+           tempo = x$tempo, format = "vector")
 }
 
 #' @export

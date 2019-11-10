@@ -249,20 +249,6 @@ from_music21 <- function(x, accidentals = c("flat", "sharp"),
 }
 
 .music21_notes <- function(x, a){
-  # trp <- grepl("\\{", x)
-  # if(any(trp)){
-  #   x[trp] <- gsub("\\{|\\}", "", x[trp])
-  #   y <- strsplit(x[trp], " ")
-  #   y <- sapply(y, function(x){
-  #     sapply(x, .music21_notes_step, a = a, USE.NAMES = FALSE) %>%
-  #       paste(collapse = " ")
-  #   })
-  #   x[trp] <- paste0("{", y, "}")
-  # }
-  # if(any(!trp)){
-  #  x[!trp] <- sapply(x[!trp], .music21_notes_step, a = a, USE.NAMES = FALSE)
-  #}
-  #x
   sapply(x, .music21_notes_step, a = a, USE.NAMES = FALSE)
 }
 

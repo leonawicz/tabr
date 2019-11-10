@@ -384,13 +384,15 @@
 #&gt; melodyAB = {
 #&gt;  \global
 #&gt;  \override StringNumber #'transparent = ##t
-#&gt; \voiceTwo \repeat unfold 3 { &lt;c\5&gt;8 &lt;e\4&gt;8 &lt;g\3&gt;8 &lt;c'\2&gt;8 &lt;e'\1&gt;8 &lt;c'\2&gt;8 &lt;g\3&gt;8 &lt;e\4&gt;8 &lt;g\4&gt;8 &lt;b\3&gt;8 &lt;d'\2&gt;8 &lt;g'\1&gt;8 &lt;f\4&gt;8 &lt;a\3&gt;8 &lt;c'\2&gt;8 &lt;f'\1&gt;8 &lt;c\5&gt;8 &lt;e\4&gt;8 &lt;g\3&gt;8 &lt;e\4&gt;8 &lt;c\5&gt;2 }
+#&gt; \voiceTwo \repeat unfold 3 { &lt;c\5&gt;8 &lt;e\4&gt;8 &lt;g\3&gt;8 &lt;c'\2&gt;8 &lt;e'\1&gt;8 &lt;c'\2&gt;8 &lt;g\3&gt;8 &lt;e\4&gt;8 &lt;g\4&gt;8 &lt;b\3&gt;8 &lt;d'\2&gt;8 &lt;g'\1&gt;8 &lt;f\4&gt;8 &lt;a\3&gt;8 &lt;c'\2&gt;8 &lt;f'\1&gt;8 &lt;c\5&gt;8 &lt;e\4&gt;8 &lt;g\3&gt;8 &lt;e\4&gt;8 &lt;c\5&gt;2 
+#&gt; }
 #&gt; }
 #&gt; 
 #&gt; melodyB = {
 #&gt;  \global
 #&gt;  \override StringNumber #'transparent = ##t
-#&gt;  \repeat unfold 3 { &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;g,,\4&gt;4 &lt;g,,\4&gt;4 &lt;f,,\4&gt;4 &lt;f,,\4&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;2 }
+#&gt;  \repeat unfold 3 { &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;g,,\4&gt;4 &lt;g,,\4&gt;4 &lt;f,,\4&gt;4 &lt;f,,\4&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;2 
+#&gt; }
 #&gt; }
 #&gt; 
 #&gt; midimelodyAA = {
@@ -404,13 +406,17 @@
 #&gt;  \global
 #&gt;  \override StringNumber #'transparent = ##t
 #&gt;  \unfoldRepeats {\voiceTwo \repeat unfold 3 { &lt;c\5&gt;8 &lt;e\4&gt;8 &lt;g\3&gt;8 &lt;c'\2&gt;8 &lt;e'\1&gt;8 &lt;c'\2&gt;8 &lt;g\3&gt;8 &lt;e\4&gt;8 &lt;g\4&gt;8 &lt;b\3&gt;8 &lt;d'\2&gt;8 &lt;g'\1&gt;8 &lt;f\4&gt;8 &lt;a\3&gt;8 &lt;c'\2&gt;8 &lt;f'\1&gt;8 &lt;c\5&gt;8 &lt;e\4&gt;8 &lt;g\3&gt;8 &lt;e\4&gt;8 &lt;c\5&gt;2 }
-#&gt;  }}
+#&gt;  
+#&gt; }
+#&gt; }
 #&gt; 
 #&gt; midimelodyB = {
 #&gt;  \global
 #&gt;  \override StringNumber #'transparent = ##t
 #&gt;  \unfoldRepeats { \repeat unfold 3 { &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;g,,\4&gt;4 &lt;g,,\4&gt;4 &lt;f,,\4&gt;4 &lt;f,,\4&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;2 }
-#&gt;  }}
+#&gt;  
+#&gt; }
+#&gt; }
 #&gt; 
 #&gt; \score {  &lt;&lt;
 #&gt;   \new ChordNames \chordNames
@@ -526,13 +532,15 @@
 #&gt; melodyAB = {
 #&gt;  \global
 #&gt;  \override StringNumber #'transparent = ##t
-#&gt; \voiceTwo \repeat unfold 3 { c8\5 e\4 g\3 c'\2 e'\1 c'\2 g\3 e\4 g\4 b\3 d'\2 g'\1 f\4 a\3 c'\2 f'\1 c\5 e\4 g\3 e\4 c2\5 }
+#&gt; \voiceTwo \repeat unfold 3 { c8\5 e\4 g\3 c'\2 e'\1 c'\2 g\3 e\4 g\4 b\3 d'\2 g'\1 f\4 a\3 c'\2 f'\1 c\5 e\4 g\3 e\4 c2\5 
+#&gt; }
 #&gt; }
 #&gt; 
 #&gt; melodyB = {
 #&gt;  \global
 #&gt;  \override StringNumber #'transparent = ##t
-#&gt;  \repeat unfold 3 { &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt; g,,\4 g,,\4 f,,\4 f,,\4 &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt;2 }
+#&gt;  \repeat unfold 3 { &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt; g,,\4 g,,\4 f,,\4 f,,\4 &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt;2 
+#&gt; }
 #&gt; }
 #&gt; 
 #&gt; midimelodyAA = {
@@ -546,13 +554,17 @@
 #&gt;  \global
 #&gt;  \override StringNumber #'transparent = ##t
 #&gt;  \unfoldRepeats {\voiceTwo \repeat unfold 3 { c8\5 e\4 g\3 c'\2 e'\1 c'\2 g\3 e\4 g\4 b\3 d'\2 g'\1 f\4 a\3 c'\2 f'\1 c\5 e\4 g\3 e\4 c2\5 }
-#&gt;  }}
+#&gt;  
+#&gt; }
+#&gt; }
 #&gt; 
 #&gt; midimelodyB = {
 #&gt;  \global
 #&gt;  \override StringNumber #'transparent = ##t
 #&gt;  \unfoldRepeats { \repeat unfold 3 { &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt; g,,\4 g,,\4 f,,\4 f,,\4 &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt;2 }
-#&gt;  }}
+#&gt;  
+#&gt; }
+#&gt; }
 #&gt; 
 #&gt; \score {  &lt;&lt;
 #&gt;   \new ChordNames \chordNames

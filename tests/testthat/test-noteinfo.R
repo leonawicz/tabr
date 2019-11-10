@@ -34,4 +34,9 @@ test_that("expect note info helpers return as expected", {
   a <- info_annotation(x)
   expect_true(all(is.na(a[-1])))
   expect_equal(a[1], "Start here")
+
+  expect_equal(n_steps("1( 4."), 2)
+  expect_error(n_steps("1( 5."),
+               paste("Cannot coerce string to any of class",
+               "'noteworthy', 'noteinfo', or 'music'."))
 })

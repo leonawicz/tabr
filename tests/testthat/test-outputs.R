@@ -74,6 +74,8 @@ test_that("lilypond wrapper runs without error", {
   expect_warning(lilypond(x10, out[1]),
                  paste("Multiple music staves with different transposed key",
                        "signatures. MIDI output not transposed."))
+  expect_error(lilypond(NULL, tempo = NULL, midi = TRUE),
+               "Set an explicit `tempo` if `midi = TRUE`.")
   unlink(cleanup)
 })
 
@@ -81,8 +83,13 @@ test_that("tab wrapper runs without error", {
   skip_on_appveyor()
   skip_on_cran()
   include_midi <- TRUE
-  expect_is(tab(x1, out[2], midi = include_midi), cl)
+  expect_is(tab(x1, out[2], midi = include_midi, details = TRUE), cl)
   expect_is(tab(x1, out[3], midi = include_midi), cl)
+  expect_is(tab(x1, out[3], midi = include_midi, transparent = TRUE), cl)
+  expect_is(render_tab(x1, out[3], midi = include_midi, transparent = TRUE), cl)
+  expect_is(
+    render_score(x1, out[3], transparent = TRUE,
+                 colors = list(color = "blue", background = "#888888")), cl)
 
   purrr::walk(x, ~expect_is(
     tab(.x, out[2], midi = include_midi), cl))
@@ -139,5 +146,7 @@ test_that("render_chordchart runs without error", {
                               header = list(title = "A title"), details = TRUE),
             cl)
   expect_is(render_chordchart(chords, out[3], 1, keep_ly = TRUE), cl)
+  expect_is(render_chordchart(chords, out[3], 1, transparent = TRUE,
+                              colors = list(color = "blue")), cl)
   unlink(cleanup)
 })

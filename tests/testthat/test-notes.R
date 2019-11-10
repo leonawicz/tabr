@@ -134,6 +134,9 @@ test_that("Note metadata inspection works", {
   expect_equal(accidental_type(x), "flat")
   expect_equal(time_format(x), "space-delimited time")
 
+  expect_error(accidental_type("z"),
+               "Cannot coerce string to 'noteworthy' or 'music'.")
+
   x <- "e_2 a_, b2 c c' c''g'' c''g'' c#f#a#"
   expect_identical(n_steps(x), 8L)
   expect_identical(n_notes(x), 5L)

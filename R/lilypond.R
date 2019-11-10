@@ -280,13 +280,22 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
     }) %>%
       unlist()
     if(midi) x <- paste("\\unfoldRepeats {", x, "}")
-    x <- paste0(x, bg)
+    n <- length(x)
+    if(grepl(".*\\}([ \n]+|)$", x[n])){
+      x[n] <- gsub("(.*)\\}([ \n]+|)$", "\\1", x[n])
+      bg <- paste0("\n", bg, "\n}\n")
+    }
+    x[n] <- paste0(x[n], bg)
     x <- paste0(x0, "\\override StringNumber #'transparent = ##t\n  ",
                 gsub("\n\n", "\n", gsub("\\|", "\\|\n", x)), "}\n\n",
                 collapse = "\n")
   } else {
     x <- paste0(paste0(x, collapse = ""), "\n")
     if(midi) x <- paste("\\unfoldRepeats {", x, "}")
+    if(grepl(".*\\}([ \n]+|)$", x)){
+      x <- gsub("(.*)\\}([ \n]+|)$", "\\1", x)
+      bg <- paste0("\n", bg, "\n}\n")
+    }
     x <- paste0(x, bg)
     x <- paste0(x0, "\\override StringNumber #'transparent = ##t\n  ",
                 gsub("\n\n", "\n", gsub("\\|", "\\|\n", x)), "}\n\n")

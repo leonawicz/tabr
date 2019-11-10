@@ -130,7 +130,7 @@ as_music <- function(notes, info = NULL, lyrics = NA, key = "c", time = "4/4",
   if(!is.null(s)) s <- .music_infer_strings(x, s)
   y <- .asni(y, "vector")
   .check_timesteps(x, y)
-  if(!is.na(lyrics)){
+  if(!all(is.na(lyrics))){
     if(!is_lyrics(lyrics))
       stop("`lyrics` must be a `lyrics`-class object or NA.", call. = FALSE)
     .check_timesteps(x, lyrics, "lyrics")
@@ -141,15 +141,15 @@ as_music <- function(notes, info = NULL, lyrics = NA, key = "c", time = "4/4",
   if(format == "space"){
     x <- paste(x, collapse = " ")
     ax$format <- "space-delimited time"
-    if(!is.na(lyrics)){
+    if(!all(is.na(lyrics))){
       if(is_vector_time(lyrics)) lyrics <- as_space_time(lyrics)
     }
   } else {
-    if(!is.na(lyrics)){
+    if(!all(is.na(lyrics))){
       if(is_space_time(lyrics)) lyrics <- as_vector_time(lyrics)
     }
   }
-  ax$lyrics <- if(is.na(lyrics)) NA else lyrics
+  ax$lyrics <- if(all(is.na(lyrics))) NA else lyrics
   if(!is.null(s)) ax$string <- s
   attributes(x) <- ax[names(ax) != "class"]
   class(x) <- unique(c("music", class(x)))
@@ -273,7 +273,9 @@ summary.music <- function(object, ...){
   col1 <- crayon::make_style("gray50")
   col2 <- col1$bold
   lyrics <- a$lyrics
-  if(!is.na(lyrics) & length(lyrics) > 10)
+  if(is_lyrics(lyrics) && is_vector_time(lyrics))
+    lyrics <- as_space_time(lyrics)
+  if(!all(is.na(lyrics)) & length(lyrics) > 10)
     lyrics <- gsub("\\.{4}", "...", paste0(head(lyrics, 10), "..."))
   s <- a$string
   has_s <- any(!is.na(s))
