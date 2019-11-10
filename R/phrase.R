@@ -393,3 +393,65 @@ notable <- function(phrase){
   if(any(idx)) x[idx] <- gsub("(.*);\\^\".*\"$", "\\1", x[idx])
   x
 }
+
+#' Simplify the LilyPond syntax of a phrase
+#'
+#' This function can be used to simplify the LilyPond syntax of a phrase. Not
+#' intended for direct use. See details.
+#'
+#' This function not intended to be used directly, but is available so that you
+#' can see how LilyPond syntax for phrases will be transformed by default in
+#' the process of creating a LilyPond file. This function is used by the
+#' \code{lilypond} function and associated \code{render_*} functions. When
+#' using \code{lilypond} directly, this can be controlled by the
+#' \code{simplify} argument.
+#'
+#' The result of this function is a character string containing simpler, more
+#' efficient LilyPond syntax. It can be coerced back to a phrase with
+#' \code{as_phrase}, but its print method colors will no longer display
+#' properly. More importantly, this simplification removes any possibility of
+#' transforming the phrase back to its original inputs. The more complex but
+#' nicely structured original representation does a better job at maintaining
+#' reasonable possibility of one to one transformation between a phrase object
+#' and the inputs that it was built from.
+#'
+#' @param phrase a phrase object.
+#'
+#' @return character
+#' @export
+#'
+#' @examples
+#' notes <- "a~ a b c' c'e'g'~ c'e'g'"
+#' info <- "8.. 8.. 8- 8 4. 4."
+#' (x <- p(notes, info))
+#' as_phrase(simplify_phrase(x))
+#'
+#' (x <- p(notes, info, 5))
+#' as_phrase(simplify_phrase(x))
+simplify_phrase <- function(phrase){
+  if(!inherits(phrase, "phrase")) stop("Not a phrase.", call. = FALSE)
+  .simplify_phrase(phrase)
+}
+
+.simplify_phrase <- function(x){
+  idx <- gregexpr(">(\\d+|\\d+\\.+)|(r|s)(\\d+|\\d+\\.+)", x)
+  y <- purrr::map2_chr(idx[[1]], attr(idx[[1]], "match.length"), ~{
+    substr(x, .x + 1, .x + .y - 1)
+  })
+  idx2 <- which(y[-1] == y[-length(y)])
+  if(length(idx2)){
+    i1 <- idx[[1]][idx2 + 1] + 1
+    i2 <- i1 + attr(idx[[1]], "match.length")[idx2 + 1] - 2
+    i <- unlist(mapply(`:`, i1, i2, SIMPLIFY = FALSE))
+    x <- strsplit(x, "", fixed = TRUE)[[1]]
+    x[i] <- ""
+    x <- paste(x, collapse = "")
+  }
+  y <- "([a-g])(s|es|is|)([,]+|[']+|)(~|)"
+  x <- gsub(paste0("<", y,"(\\\\\\d|)>"), "\\1\\2\\3\\4\\5", x)
+  x <- gsub(paste0(y, "(\\\\\\d)(\\d+|\\d+\\.+)"), "\\1\\2\\3\\4\\6\\5", x)
+  x <- gsub("(~)(\\d+|\\d+\\.+)", "\\2\\1", x)
+  x <- gsub("~(\\\\\\d|)>(\\d+|\\d+\\.+)", "\\1>\\2~", x)
+  x <- gsub("([a-gs,'])~( |\\\\\\d )", "\\1\\2", x)
+  x
+}

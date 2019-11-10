@@ -6,7 +6,7 @@
 \usage{
 lilypond(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   header = NULL, paper = NULL, string_names = NULL, endbar = TRUE,
-  midi = TRUE, colors = NULL, crop_png = TRUE)
+  midi = TRUE, colors = NULL, crop_png = TRUE, simplify = TRUE)
 }
 \arguments{
 \item{score}{a score object.}
@@ -39,6 +39,9 @@ force on or off completely.}
 
 \item{crop_png}{logical, alter template for cropped height. See
 details.}
+
+\item{simplify}{logical, uses \code{simplify_phrase} to convert to simpler,
+more efficient LilyPond syntax.}
 }
 \value{
 nothing returned; a file is written.
@@ -118,11 +121,9 @@ argument as well.
 
 \section{Color options}{
 
-When a named list of color overrides for specific sheet music elements is
-provides to the \code{colors} argument of \code{lilypond} or one of the
-associated rendering functions, these are considered global color overrides
-and affect the entire score. They are overwritten by the \code{colors} lists
-that can be provides to \code{track}.
+You can provide a named list of global color overrides for various sheet
+music elements with the \code{colors} argument of \code{lilypond} or one of
+the associated rendering functions.
 
 By default, everything is black. Overrides are only inserted into the
 generated LilyPond file if given. Values are character; either the hex color
@@ -139,13 +140,15 @@ or a named R color. The named list options include:
   \item \code{accidental}
 }
 
-\code{color} is a global font color for the entire score. \code{background}
-controls the background color of the entire page. Do not use this if making
-a transparent background png with the \code{transparent} argument available
-in the various \code{render_*} functions. The other options are also global
-but override \code{color}. You can change the color of all elements with
-\code{color} and then change the color of specific elements using the other
-options.
+\code{color} is a global font color for the entire score. It affects staff
+elements and \code{header} elements. It does not affect everything, e.g.,
+page numbers.
+\code{background} controls the background color of the entire page. Do not
+use this if making a transparent background png with the \code{transparent}
+argument available in the various \code{render_*} functions.
+The other options are also global but override \code{color}. You can change
+the color of elements broadly with \code{color} and then change the color of
+specific elements using the other options.
 
 There are currently some limitations. Specifically, if you provide any
 \code{background} color override, most \code{header} elements will not

@@ -103,6 +103,7 @@ reference:
   desc: "Functions for checking and decomposing phrases objects"
   contents:
   - phrase-checks
+  - simplify_phrase
 - title: "Transcription: Phrase construction"
   desc: "Functions for describing, assembling and connecting musical phrases"
   contents:

@@ -139,8 +139,8 @@ midily <- function(midi_file, file, key = "c", absolute = FALSE,
 #' or relative path.
 #' @param file character, output file ending in .pdf or .png.
 #' @param keep_ly logical, keep LilyPond file.
-#' @param details logical, set to \code{FALSE} to disable printing of log
-#' output to console. Windows only.
+#' @param details logical, set to \code{TRUE} to print LilyPond log output to
+#' console. Windows only.
 #' @param ... additional arguments passed to \code{\link{midily}}.
 #'
 #' @return nothing returned; a file is written.
@@ -155,7 +155,7 @@ midily <- function(midi_file, file, key = "c", absolute = FALSE,
 #'   miditab(midi, outfile, details = FALSE) # requires LilyPond installation
 #' }
 #' }
-miditab <- function(midi_file, file, keep_ly = FALSE, details = TRUE, ...){
+miditab <- function(midi_file, file, keep_ly = FALSE, details = FALSE, ...){
   fp <- .adjust_file_path(file)
   if(details) cat("#### Engraving midi to", fp$tp, "####\n")
   do.call(midily, c(list(midi_file = midi_file, file = fp$lp), list(...)))

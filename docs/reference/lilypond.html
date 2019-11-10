@@ -223,7 +223,7 @@ LilyPond or subsequent editing outside of R.</p>
 
     <pre class="usage"><span class='fu'>lilypond</span>(<span class='no'>score</span>, <span class='no'>file</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>time</span> <span class='kw'>=</span> <span class='st'>"4/4"</span>, <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='st'>"2 = 60"</span>,
   <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>string_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>endbar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>crop_png</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>crop_png</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>simplify</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -282,6 +282,11 @@ force on or off completely.</p></td>
       <th>crop_png</th>
       <td><p>logical, alter template for cropped height. See
 details.</p></td>
+    </tr>
+    <tr>
+      <th>simplify</th>
+      <td><p>logical, uses <code>simplify_phrase</code> to convert to simpler,
+more efficient LilyPond syntax.</p></td>
     </tr>
     </table>
 
@@ -359,11 +364,9 @@ argument as well.</p>
 
     
 
-<p>When a named list of color overrides for specific sheet music elements is
-provides to the <code>colors</code> argument of <code>lilypond</code> or one of the
-associated rendering functions, these are considered global color overrides
-and affect the entire score. They are overwritten by the <code>colors</code> lists
-that can be provides to <code>track</code>.</p>
+<p>You can provide a named list of global color overrides for various sheet
+music elements with the <code>colors</code> argument of <code>lilypond</code> or one of
+the associated rendering functions.</p>
 <p>By default, everything is black. Overrides are only inserted into the
 generated LilyPond file if given. Values are character; either the hex color
 or a named R color. The named list options include:</p><ul>
@@ -378,13 +381,15 @@ or a named R color. The named list options include:</p><ul>
 <li><p><code>accidental</code></p></li>
 </ul>
 
-<p><code>color</code> is a global font color for the entire score. <code>background</code>
-controls the background color of the entire page. Do not use this if making
-a transparent background png with the <code>transparent</code> argument available
-in the various <code>render_*</code> functions. The other options are also global
-but override <code>color</code>. You can change the color of all elements with
-<code>color</code> and then change the color of specific elements using the other
-options.</p>
+<p><code>color</code> is a global font color for the entire score. It affects staff
+elements and <code>header</code> elements. It does not affect everything, e.g.,
+page numbers.
+<code>background</code> controls the background color of the entire page. Do not
+use this if making a transparent background png with the <code>transparent</code>
+argument available in the various <code>render_*</code> functions.
+The other options are also global but override <code>color</code>. You can change
+the color of elements broadly with <code>color</code> and then change the color of
+specific elements using the other options.</p>
 <p>There are currently some limitations. Specifically, if you provide any
 <code>background</code> color override, most <code>header</code> elements will not
 display.</p>

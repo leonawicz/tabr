@@ -82,7 +82,7 @@ Phrase objects may be associated with different voices, but still part of the sa
 These voices belong on the same music staff and tab staff and therefore must share the same track ID in `tabr`. The phrase objects corresponding to each voice must still be transformed into two unique track objects. The only change is that one must be explicitly assigned the voice ID `2`. Make a second voice. Let the new, higher voice be voice one.
 
 ```{r track3}
-p_all2 <- p("c5 d5 e5 f5 g5", "1 2 4 4 1", "1*5")
+p_all2 <- p("c'' d'' e'' f'' g''", "1 2 4 4 1", "1*5")
 t1 <- track(p_all2, voice = 1)
 t2 <- track(p_all, voice = 2)
 trackbind(t1, t2)
@@ -222,7 +222,7 @@ Finally, repeat every phrase two additional times by wrapping each phrase in `rp
 ```{r track8}
 t1 <- track(rp(p_all2, 2), voice = 1)
 t2 <- track(rp(p_all, 2), voice = 2)
-t3 <- track(rp(p("c2e2*4 g1*2 f1*2 c2e2*3", "4*10 2", "32*4 4*4 32*3"), 2), 
+t3 <- track(rp(p("c,e,*4 g,,*2 f,,*2 c,e,*3", "4*10 2", "32*4 4*4 32*3"), 2), 
             tuning = "bass", music_staff = "bass_8")
 t_all <- trackbind(t1, t2, t3, tabstaff = c(1, 1, 2))
 t_all

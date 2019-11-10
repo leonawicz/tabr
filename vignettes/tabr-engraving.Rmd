@@ -62,11 +62,11 @@ tab(song, "ex32.pdf", "dm", "2/2", "4 = 120")
 
 <p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex32.png?raw=true" class="centerimg" width="100%"></p>
 
-Notice how the key change alone, which added room for a single flat symbol to be squeezed into the start of the treble and bass clef staves, was enough to push everything to the point of wrapping around onto a second entire line compared to the earlier tutorial section where it all fit on one line. This is because it was a really tight fit to in the previous examples and there was not enough room for LilyPond to continue fitting everything on one line with this slight widening created by the key change. LilyPond generates sheet music with a somewhat responsive layout engraver. It won't leave everything on line one jam packaged and push a single measure to the line two. This will return to fitting on one line in a moment when we revert the key change.
+Notice how the key change alone, which added room for a single flat symbol to be squeezed into the start of the treble and bass clef staves, was enough to a line wrap compared to the previous tutorial section where it all fit on one line. This is because it was a tight fit to in the previous examples and there was not enough room for LilyPond to continue fitting everything on one line with this slight widening created by the key change. LilyPond generates sheet music with a somewhat responsive layout engraver. It won't necessarily leave everything on one line and push only a single measure to line two.
 
-### Output file and path
+### Output file
 
-The output file specified with `file` ends in pdf in every example. However, you can switch to png output simply by specifying a file name with that extension. `file` can specify just the file named or the path to the file. The path may be relative or absolute. Optionally, the path to the output file can be passed separately to `path`, which otherwise defaults to `NULL`.
+The output file specified with `file` ends in pdf in every example. However, you can switch to png. Output is inferred from the file extension. `file` can be a relative or absolute path to the file.
 
 ## Song information
 
@@ -107,21 +107,57 @@ Also, `tabr` is a package aimed at creating guitar tablature. It is not concerne
 
 The `string_names` argument defaults to `NULL`. This means that standard tuning is never specified alongside the lines of a tab staff at the beginning of the tablature. However, any other tuning will be explicitly noted so the reader is aware of the alternate tuning of any applicable track. This can also be set to `TRUE` to force all tunings to be explicit including standard guitar tuning or `FALSE` to suppress them all (though it is unclear what value there is in the `FALSE` setting).
 
-### Paper settings
+### Paper and color settings
 
 There is some nominal level of control over the paper layout via `paper`. Like `header`, this is a named list. The defaults are fine so you probably do not need to alter most of these values. There are six options, all numeric except for `page_numbers`, which is logical.
 
-*    `textheight`
-*    `linewidth`
-*    `indent`
-*    `first_page_number`
-*    `page_numbers`
-*    `fontsize`
+* `textheight`
+* `linewidth`
+* `indent`
+* `first_page_number`
+* `page_numbers`
+* `fontsize`
 
 If you pass any values for some of these in a named list to `paper`, any not passed will retain their built in defaults. You do not have to supply them all when using `paper`.
 
+There are also global color settings. You can pass a named list to `colors` with any of the following. Values are hex colors or R color names.
+
+* `color`
+* `background`
+* `staff_lines`
+* `time`
+* `clef`
+* `beam`
+* `head`
+* `stem`
+* `accidental`
+
 For more detail on these settings and others further above, see the help documentation, `?lilypond`.
 
+## The LilyPond file
+
+Finally, familiarize yourself with the LilyPond file itself. You may output a file and want to make additional edits to it directly. The example below also demonstrates some differences between `simplify = TRUE` and `simplify = FALSE`. This is a simple piece of music so not all possible syntax simplifications are shown here. 
+
+`phrase` objects have more robust structure that has advantages for performing object manipulations in R, but this is a more verbose version of LilyPond syntax. By default, `lilypond` as well as associated `render_*` functions will simplify this to a more efficient syntax so that it is less cumbersome to read and work with LilyPond files directly.
+
+### Original syntax
+
+There are other simplifications but the most notable benefits are the removal of all the `<>` around single notes and not repeating consecutive durations if they are unchanged from previous timesteps.
+
+```{r ly1}
+lilypond(song, "song.ly", simplify = FALSE)
+cat(readLines("song.ly"), sep = "\n")
+```
+
+### Simplified syntax
+
+Here you can see the changes to the notation. Since the music is so short in this example, most of the file remains the same.
+
+```{r ly2}
+lilypond(song, "song.ly")
+cat(readLines("song.ly"), sep = "\n")
+```
+
 ```{r cleanup, echo=FALSE}
-unlink("*.mid")
+unlink(c("*.ly", "*.mid"))
 ```

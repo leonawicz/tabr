@@ -70,6 +70,7 @@ test_that("lilypond wrapper runs without error", {
   expect_is(lilypond(x1, out[1]), cl)
   expect_is(lilypond(x2, out[1]), cl)
   purrr::walk(x, ~expect_is(lilypond(.x, out[1]), cl))
+  purrr::walk(x, ~expect_is(lilypond(.x, out[1], simplify = FALSE), cl))
   expect_warning(lilypond(x10, out[1]),
                  paste("Multiple music staves with different transposed key",
                        "signatures. MIDI output not transposed."))
@@ -84,22 +85,28 @@ test_that("tab wrapper runs without error", {
   expect_is(tab(x1, out[3], midi = include_midi), cl)
 
   purrr::walk(x, ~expect_is(
-    tab(.x, out[2], midi = include_midi, details = FALSE), cl))
+    tab(.x, out[2], midi = include_midi), cl))
   purrr::walk(x, ~expect_is(
-    tab(.x, out[3], midi = include_midi, details = FALSE), cl))
+    tab(.x, out[3], midi = include_midi), cl))
+  purrr::walk(x, ~expect_is(
+    tab(.x, out[3], midi = FALSE, simplify = FALSE), cl))
 
-  expect_error(tab(x8, out[2], "d_m", midi = include_midi, details = FALSE),
+  expect_error(tab(x8, out[2], "d_m", midi = include_midi),
                "Invalid `key`. See `keys\\(\\)`.")
 
   purrr::walk(keys(), ~expect_is(
     tab(x8, out[2], .x, "2/2", "4 = 110", header = header,
         string_names = FALSE, paper = paper, endbar = FALSE, midi = FALSE,
-        keep_ly = FALSE, details = FALSE), cl))
+        keep_ly = FALSE), cl))
+  purrr::walk(keys(), ~expect_is(
+    tab(x8, out[2], .x, "4/4", "4 = 120", header = header,
+        string_names = TRUE, paper = paper, midi = FALSE,
+        keep_ly = FALSE, simplify = FALSE), cl))
 
   expect_is(tab(x8, out[2], "c#", "2/2", "4 = 110",
                 header = c(header[c(1, 3, 4)], metre = "meter"),
                 string_names = TRUE, paper = paper[1:5], endbar = FALSE,
-                midi = FALSE, keep_ly = FALSE, details = FALSE), cl)
+                midi = FALSE, keep_ly = FALSE), cl)
   unlink(cleanup)
 })
 
@@ -114,8 +121,8 @@ test_that("miditab and midily functions run without error", {
   expect_is(midily(midi, out[1], key = "cm", absolute = TRUE, quantize = 8,
                    explicit = TRUE, start_quant = 8, allow_tuplet = "8*2/3",
                    lyric = TRUE), cl)
-  expect_is(miditab(midi, out[2]), cl)
-  expect_is(miditab(midi, out[3], details = FALSE), cl)
+  expect_is(miditab(midi, out[2], details = TRUE), cl)
+  expect_is(miditab(midi, out[3]), cl)
   unlink(cleanup)
 })
 

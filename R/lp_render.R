@@ -54,13 +54,15 @@
 #' force on or off completely.
 #' @param endbar character, the end bar.
 #' @param midi logical, output midi file in addition to tablature.
-#' @param keep_ly logical, keep LilyPond file.
 #' @param colors a named list of LilyPond element color overrides. See
 #' \code{lilypond} for details.
 #' @param crop_png logical, see \code{lilypond} for details.
 #' @param transparent logical, transparent background, png only.
-#' @param details logical, set to \code{FALSE} to disable printing of log
-#' output to console. Windows only.
+#' @param keep_ly logical, keep the intermediary LilyPond file.
+#' @param simplify logical, uses \code{simplify_phrase} to convert to simpler,
+#' more efficient LilyPond syntax for the LilyPond file before rendering it.
+#' @param details logical, set to \code{TRUE} to print LilyPond log output to
+#' console. Windows only.
 #'
 #' @return nothing returned; a file is written.
 #' @export
@@ -73,12 +75,13 @@
 #'   x <- track(x)
 #'   x <- score(x)
 #'   outfile <- file.path(tempdir(), "out.pdf")
-#'   tab(x, outfile, details = FALSE) # requires LilyPond installation
+#'   tab(x, outfile) # requires LilyPond installation
 #' }
 tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
                 header = NULL, paper = NULL, string_names = NULL, endbar = TRUE,
-                midi = TRUE, keep_ly = FALSE, colors = NULL,
-                crop_png = TRUE, transparent = FALSE, details = TRUE){
+                midi = TRUE, colors = NULL, crop_png = TRUE,
+                transparent = FALSE, keep_ly = FALSE, simplify = TRUE,
+                details = FALSE){
   fp <- .adjust_file_path(file)
   ext <- if(fp$ext == "pdf") "--pdf" else "-dresolution=600 --png"
   if(is.null(paper$textheight) & fp$ext == "png"){
@@ -91,7 +94,7 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   if(fp$ext == "pdf") crop_png <- FALSE
   if(details) cat("#### Engraving score to", fp$tp, "####\n")
   lilypond(score, fp$lp, key, time, tempo, header, paper,
-           string_names, endbar, midi, colors, crop_png)
+           string_names, endbar, midi, colors, crop_png, simplify)
   lp_path <- tabr_options()$lilypond
   is_windows <- Sys.info()[["sysname"]] == "Windows"
   if(lp_path == ""){
@@ -116,17 +119,17 @@ render_tab <- tab
 #' @rdname tab
 render_score <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
                          header = NULL, paper = NULL, endbar = TRUE,
-                         colors = NULL, crop_png = TRUE, transparent = FALSE){
+                         colors = NULL, crop_png = TRUE, transparent = FALSE,
+                         keep_ly = FALSE, simplify = TRUE){
   tab(score, file, key, time, tempo, header, paper, FALSE, endbar, FALSE,
-      FALSE, FALSE, colors, crop_png, transparent)
+      colors, crop_png, transparent, keep_ly, simplify)
 }
 
 #' @export
 #' @rdname tab
 render_midi <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60"){
   file0 <- gsub("\\.mid$", ".png", file)
-  tab(score, file0, key, tempo = tempo, midi = TRUE, keep_ly = FALSE,
-      details = FALSE)
+  tab(score, file0, key, tempo = tempo, midi = TRUE)
   unlink(file0, recursive = TRUE, force = TRUE)
   invisible()
 }
@@ -172,12 +175,12 @@ render_midi <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60"){
 #' LilyPond file. See details.
 #' @param paper a named list of arguments for the LilyPond file page layout.
 #' See details.
-#' @param keep_ly logical, keep intermediate LilyPond file.
 #' @param colors reserved; not yet implemented for this function.
 #' @param crop_png logical, see \code{lilypond} for details.
 #' @param transparent logical, transparent background, png only.
-#' @param details logical, set to \code{FALSE} to disable printing of log
-#' output to console. Windows only.
+#' @param keep_ly logical, keep intermediate LilyPond file.
+#' @param details logical, set to \code{TRUE} to print LilyPond log output to
+#' console. Windows only.
 #'
 #' @return writes files to disk
 #' @export
@@ -204,8 +207,8 @@ render_midi <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60"){
 #'   render_chordchart(chords, outfile, 2, hdr, list(textheight = 175))
 #' }
 render_chordchart <- function(chords, file, size = 1.2, header = NULL,
-                              paper = NULL, keep_ly = FALSE, colors = NULL,
-                              crop_png = TRUE, transparent = FALSE,
+                              paper = NULL, colors = NULL, crop_png = TRUE,
+                              transparent = FALSE, keep_ly = FALSE,
                               details = FALSE){
   header <- .header_plus_colors(header, colors)
   colors <- .lp_color_overrides(colors)

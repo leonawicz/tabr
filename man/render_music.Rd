@@ -11,25 +11,30 @@
 \usage{
 render_music(music, file, staff = "treble", tuning = "standard",
   no_tab = TRUE, string_names = NULL, header = NULL, paper = NULL,
-  midi = FALSE, colors = NULL, transparent = FALSE)
+  midi = FALSE, colors = NULL, transparent = FALSE,
+  keep_ly = FALSE, simplify = TRUE)
 
 render_music_tc(music, file, header = NULL, paper = NULL,
-  midi = FALSE, colors = NULL, transparent = FALSE)
+  midi = FALSE, colors = NULL, transparent = FALSE,
+  keep_ly = FALSE, simplify = TRUE)
 
 render_music_bc(music, file, header = NULL, paper = NULL,
-  midi = FALSE, colors = NULL, transparent = FALSE)
+  midi = FALSE, colors = NULL, transparent = FALSE,
+  keep_ly = FALSE, simplify = TRUE)
 
 render_music_tab(music, file, staff = NA, tuning = "standard",
   string_names = NULL, header = NULL, paper = NULL, midi = FALSE,
-  colors = NULL, transparent = FALSE)
+  colors = NULL, transparent = FALSE, keep_ly = FALSE,
+  simplify = TRUE)
 
 render_music_guitar(music, file, tuning = "standard",
   string_names = NULL, header = NULL, paper = NULL, midi = FALSE,
-  colors = NULL, transparent = FALSE)
+  colors = NULL, transparent = FALSE, keep_ly = FALSE,
+  simplify = TRUE)
 
 render_music_bass(music, file, tuning = "bass", string_names = NULL,
   header = NULL, paper = NULL, midi = FALSE, colors = NULL,
-  transparent = FALSE)
+  transparent = FALSE, keep_ly = FALSE, simplify = TRUE)
 }
 \arguments{
 \item{music}{a music object.}
@@ -61,6 +66,11 @@ See \code{lilypond} details.}
 \code{lilypond} for details.}
 
 \item{transparent}{logical, transparent background, png only.}
+
+\item{keep_ly}{logical, keep the intermediary LilyPond file.}
+
+\item{simplify}{logical, uses \code{simplify_phrase} to convert to simpler,
+more efficient LilyPond syntax.}
 }
 \value{
 nothing returned; a file is written.
@@ -123,9 +133,11 @@ default values if not provided:
 a value must be provided explicitly via \code{paper} when rendering to png.
 Otherwise for png outputs the height is cropped automatically rather than
 remaining a full page. See \code{lilypond} for details.
+
 Passing arguments to \code{header} can completely or partially prevent
-cropping, which must then be done manually with \code{linewidth}. This is
-all based on underlying LilyPond behavior.
+cropping in both direction, which must then be done manually with
+\code{linewidth} and \code{textheight}. This is all based on underlying
+LilyPond behavior.
 }
 \examples{
 x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"

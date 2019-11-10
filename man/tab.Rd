@@ -9,17 +9,18 @@
 \usage{
 tab(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   header = NULL, paper = NULL, string_names = NULL, endbar = TRUE,
-  midi = TRUE, keep_ly = FALSE, colors = NULL, crop_png = TRUE,
-  transparent = FALSE, details = TRUE)
+  midi = TRUE, colors = NULL, crop_png = TRUE, transparent = FALSE,
+  keep_ly = FALSE, simplify = TRUE, details = FALSE)
 
 render_tab(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   header = NULL, paper = NULL, string_names = NULL, endbar = TRUE,
-  midi = TRUE, keep_ly = FALSE, colors = NULL, crop_png = TRUE,
-  transparent = FALSE, details = TRUE)
+  midi = TRUE, colors = NULL, crop_png = TRUE, transparent = FALSE,
+  keep_ly = FALSE, simplify = TRUE, details = FALSE)
 
 render_score(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   header = NULL, paper = NULL, endbar = TRUE, colors = NULL,
-  crop_png = TRUE, transparent = FALSE)
+  crop_png = TRUE, transparent = FALSE, keep_ly = FALSE,
+  simplify = TRUE)
 
 render_midi(score, file, key = "c", time = "4/4", tempo = "2 = 60")
 }
@@ -52,8 +53,6 @@ force on or off completely.}
 
 \item{midi}{logical, output midi file in addition to tablature.}
 
-\item{keep_ly}{logical, keep LilyPond file.}
-
 \item{colors}{a named list of LilyPond element color overrides. See
 \code{lilypond} for details.}
 
@@ -61,8 +60,13 @@ force on or off completely.}
 
 \item{transparent}{logical, transparent background, png only.}
 
-\item{details}{logical, set to \code{FALSE} to disable printing of log
-output to console. Windows only.}
+\item{keep_ly}{logical, keep the intermediary LilyPond file.}
+
+\item{simplify}{logical, uses \code{simplify_phrase} to convert to simpler,
+more efficient LilyPond syntax for the LilyPond file before rendering it.}
+
+\item{details}{logical, set to \code{TRUE} to print LilyPond log output to
+console. Windows only.}
 }
 \value{
 nothing returned; a file is written.
@@ -111,7 +115,7 @@ if(tabr_options()$lilypond != ""){
   x <- track(x)
   x <- score(x)
   outfile <- file.path(tempdir(), "out.pdf")
-  tab(x, outfile, details = FALSE) # requires LilyPond installation
+  tab(x, outfile) # requires LilyPond installation
 }
 }
 \seealso{

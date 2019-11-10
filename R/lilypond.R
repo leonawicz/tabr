@@ -67,11 +67,9 @@
 #' argument as well.
 #'
 #' @section Color options:
-#' When a named list of color overrides for specific sheet music elements is
-#' provides to the \code{colors} argument of \code{lilypond} or one of the
-#' associated rendering functions, these are considered global color overrides
-#' and affect the entire score. They are overwritten by the \code{colors} lists
-#' that can be provides to \code{track}.
+#' You can provide a named list of global color overrides for various sheet
+#' music elements with the \code{colors} argument of \code{lilypond} or one of
+#' the associated rendering functions.
 #'
 #' By default, everything is black. Overrides are only inserted into the
 #' generated LilyPond file if given. Values are character; either the hex color
@@ -88,13 +86,15 @@
 #'   \item \code{accidental}
 #' }
 #'
-#' \code{color} is a global font color for the entire score. \code{background}
-#' controls the background color of the entire page. Do not use this if making
-#' a transparent background png with the \code{transparent} argument available
-#' in the various \code{render_*} functions. The other options are also global
-#' but override \code{color}. You can change the color of all elements with
-#' \code{color} and then change the color of specific elements using the other
-#' options.
+#' \code{color} is a global font color for the entire score. It affects staff
+#' elements and \code{header} elements. It does not affect everything, e.g.,
+#' page numbers.
+#' \code{background} controls the background color of the entire page. Do not
+#' use this if making a transparent background png with the \code{transparent}
+#' argument available in the various \code{render_*} functions.
+#' The other options are also global but override \code{color}. You can change
+#' the color of elements broadly with \code{color} and then change the color of
+#' specific elements using the other options.
 #'
 #' There are currently some limitations. Specifically, if you provide any
 #' \code{background} color override, most \code{header} elements will not
@@ -119,6 +119,8 @@
 #' @param colors a named list of LilyPond element color overrides. See details.
 #' @param crop_png logical, alter template for cropped height. See
 #' details.
+#' @param simplify logical, uses \code{simplify_phrase} to convert to simpler,
+#' more efficient LilyPond syntax.
 #'
 #' @return nothing returned; a file is written.
 #' @export
@@ -134,7 +136,7 @@
 lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
                      header = NULL, paper = NULL, string_names = NULL,
                      endbar = TRUE, midi = TRUE, colors = NULL,
-                     crop_png = TRUE){
+                     crop_png = TRUE, simplify = TRUE){
   if(!is.null(paper$textheight)) crop_png <- FALSE
   crop_png_w <- if(crop_png & !length(header)) TRUE else FALSE
   if(is.null(tempo)){
@@ -167,6 +169,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   colors <- .lp_color_overrides(colors)
   global <- .lp_global(time, key, mode, tempo, endbar, colors)
   cd <- .chord_diagram(chords, chord_seq)
+  if(simplify) score$phrase <- lapply(score$phrase, simplify_phrase)
   d <- split(score, score$tabstaff)
   melody0 <- split(score$phrase, score$tabstaff)
   melody_id <- paste0("melody", LETTERS[seq_along(melody0)])
