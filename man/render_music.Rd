@@ -11,24 +11,25 @@
 \usage{
 render_music(music, file, staff = "treble", tuning = "standard",
   no_tab = TRUE, string_names = NULL, header = NULL, paper = NULL,
-  midi = FALSE, transparent = FALSE)
+  midi = FALSE, colors = NULL, transparent = FALSE)
 
 render_music_tc(music, file, header = NULL, paper = NULL,
-  midi = FALSE, transparent = FALSE)
+  midi = FALSE, colors = NULL, transparent = FALSE)
 
 render_music_bc(music, file, header = NULL, paper = NULL,
-  midi = FALSE, transparent = FALSE)
+  midi = FALSE, colors = NULL, transparent = FALSE)
 
 render_music_tab(music, file, staff = NA, tuning = "standard",
   string_names = NULL, header = NULL, paper = NULL, midi = FALSE,
-  transparent = FALSE)
+  colors = NULL, transparent = FALSE)
 
 render_music_guitar(music, file, tuning = "standard",
   string_names = NULL, header = NULL, paper = NULL, midi = FALSE,
-  transparent = FALSE)
+  colors = NULL, transparent = FALSE)
 
 render_music_bass(music, file, tuning = "bass", string_names = NULL,
-  header = NULL, paper = NULL, midi = FALSE, transparent = FALSE)
+  header = NULL, paper = NULL, midi = FALSE, colors = NULL,
+  transparent = FALSE)
 }
 \arguments{
 \item{music}{a music object.}
@@ -55,6 +56,9 @@ LilyPond file. See \code{lilypond} details.}
 See \code{lilypond} details.}
 
 \item{midi}{logical, also output an corresponding MIDI file.}
+
+\item{colors}{a named list of LilyPond element color global overrides. See
+\code{lilypond} for details.}
 
 \item{transparent}{logical, transparent background, png only.}
 }

@@ -233,6 +233,7 @@
 <li>Added <code>render_*</code> functions for making simple sheet music snippets directly from <code>music</code> objects. This abstracts the <code>phrase() %&gt;% track() [%&gt;% trackbind()] %&gt;% score() %&gt;% render_*()</code> pipeline from the user for simpler music that is essentially a single voice, single track.</li>
 <li>Added support for auto-cropping of rendered sheet music when the output format is png.</li>
 <li>Added transparent background png support.</li>
+<li>Added a <code>colors</code> argument that takes a named list of color overrides for <code>lilypond</code> and <code>render_*</code> functions.</li>
 <li>Added MIDI file read support (requires optional <code>tuneR</code> installation) and a set of functions for inspecting and manipulating the table of MIDI music data.</li>
 <li>Added initial support for conversion of MIDI file input to <code>noteworthy</code>, <code>noteinfo</code>, <code>music</code> and <code>phrase</code> classes so the MIDI data can be analyzed, transformed, edited and rendered to sheet music and a new MIDI file.</li>
 <li>Added more functions for music data manipulation and analysis.</li>

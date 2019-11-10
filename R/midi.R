@@ -50,11 +50,7 @@
 #' @param explicit logical, print explicit durations.
 #' @param start_quant integer, duration, quantize note starts on the duration.
 #' @param allow_tuplet character vector, allow tuplet durations. See details.
-#' @param details logical, verbose detail.
 #' @param lyric logical, treat all text as lyrics.
-#' @param path character, optional output directory prefixed to \code{file},
-#' may be an absolute or relative path. If \code{NULL} (default), only
-#' \code{file} is used.
 #'
 #' @return nothing returned; a file is written.
 #' @export
@@ -70,9 +66,7 @@
 #' }
 midily <- function(midi_file, file, key = "c", absolute = FALSE,
                    quantize = NULL, explicit = FALSE, start_quant = NULL,
-                   allow_tuplet = c("4*2/3", "8*2/3", "16*2/3"),
-                   details = FALSE,
-                   lyric = FALSE, path = NULL){
+                   allow_tuplet = c("4*2/3", "8*2/3", "16*2/3"), lyric = FALSE){
   x <- paste0("--key=", .midily_key(key))
   if(absolute) x <- paste(x, "--absolute-pitches")
   if(!is.null(quantize)) x <- paste(x, paste0("--duration-quant=", quantize))
@@ -93,7 +87,7 @@ midily <- function(midi_file, file, key = "c", absolute = FALSE,
   if(midi2ly_path == "") midi2ly_path <- "midi2ly.py"
   system(paste0(
     "\"", py_path, "\" ", "\"", midi2ly_path, "\" ", x, " --output=\"",
-    .adjust_file_path(file, path)$lp, "\" \"", midi_file, "\""
+    .adjust_file_path(file)$lp, "\" \"", midi_file, "\""
   ))
   invisible()
 }
@@ -145,11 +139,8 @@ midily <- function(midi_file, file, key = "c", absolute = FALSE,
 #' or relative path.
 #' @param file character, output file ending in .pdf or .png.
 #' @param keep_ly logical, keep LilyPond file.
-#' @param path character, optional output directory prefixed to \code{file},
-#' may be an absolute or relative path. If \code{NULL} (default), only
-#' \code{file} is used.
 #' @param details logical, set to \code{FALSE} to disable printing of log
-#' output to console.
+#' output to console. Windows only.
 #' @param ... additional arguments passed to \code{\link{midily}}.
 #'
 #' @return nothing returned; a file is written.
@@ -164,12 +155,10 @@ midily <- function(midi_file, file, key = "c", absolute = FALSE,
 #'   miditab(midi, outfile, details = FALSE) # requires LilyPond installation
 #' }
 #' }
-miditab <- function(midi_file, file, keep_ly = FALSE, path = NULL,
-                    details = TRUE, ...){
-  fp <- .adjust_file_path(file, path)
+miditab <- function(midi_file, file, keep_ly = FALSE, details = TRUE, ...){
+  fp <- .adjust_file_path(file)
   if(details) cat("#### Engraving midi to", fp$tp, "####\n")
-  do.call(midily, c(list(midi_file = midi_file, file = basename(fp$lp),
-                         path = dirname(fp$lp)), list(...)))
+  do.call(midily, c(list(midi_file = midi_file, file = fp$lp), list(...)))
   lp_path <- tabr_options()$lilypond
   is_windows <- Sys.info()[["sysname"]] == "Windows"
   if(lp_path == ""){

@@ -221,24 +221,25 @@
 
     <pre class="usage"><span class='fu'>render_music</span>(<span class='no'>music</span>, <span class='no'>file</span>, <span class='kw'>staff</span> <span class='kw'>=</span> <span class='st'>"treble"</span>, <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>,
   <span class='kw'>no_tab</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>string_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+  <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>render_music_tc</span>(<span class='no'>music</span>, <span class='no'>file</span>, <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+  <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>render_music_bc</span>(<span class='no'>music</span>, <span class='no'>file</span>, <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+  <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>render_music_tab</span>(<span class='no'>music</span>, <span class='no'>file</span>, <span class='kw'>staff</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>,
   <span class='kw'>string_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+  <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>render_music_guitar</span>(<span class='no'>music</span>, <span class='no'>file</span>, <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>,
   <span class='kw'>string_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+  <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>render_music_bass</span>(<span class='no'>music</span>, <span class='no'>file</span>, <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"bass"</span>, <span class='kw'>string_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -285,6 +286,11 @@ See <code>lilypond</code> details.</p></td>
     <tr>
       <th>midi</th>
       <td><p>logical, also output an corresponding MIDI file.</p></td>
+    </tr>
+    <tr>
+      <th>colors</th>
+      <td><p>a named list of LilyPond element color global overrides. See
+<code>lilypond</code> for details.</p></td>
     </tr>
     <tr>
       <th>transparent</th>

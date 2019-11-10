@@ -212,7 +212,7 @@ LilyPond or subsequent editing outside of R." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Save score to LilyPond file</h1>
-    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/tab.R'><code>R/tab.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/lilypond.R'><code>R/lilypond.R</code></a></small>
     <div class="hidden name"><code>lilypond.Rd</code></div>
     </div>
 
@@ -223,7 +223,7 @@ LilyPond or subsequent editing outside of R.</p>
 
     <pre class="usage"><span class='fu'>lilypond</span>(<span class='no'>score</span>, <span class='no'>file</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>time</span> <span class='kw'>=</span> <span class='st'>"4/4"</span>, <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='st'>"2 = 60"</span>,
   <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>string_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>endbar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>crop_png</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>crop_png</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -275,10 +275,8 @@ force on or off completely.</p></td>
       <td><p>logical, add midi inclusion specification to LilyPond file.</p></td>
     </tr>
     <tr>
-      <th>path</th>
-      <td><p>character, optional output directory prefixed to <code>file</code>,
-may be an absolute or relative path. If <code>NULL</code> (default), only
-<code>file</code> is used.</p></td>
+      <th>colors</th>
+      <td><p>a named list of LilyPond element color overrides. See details.</p></td>
     </tr>
     <tr>
       <th>crop_png</th>
@@ -292,7 +290,17 @@ details.</p></td>
     <p>nothing returned; a file is written.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>All <code>header</code> list elements are character strings. The options for
+    <p>This function only writes a LilyPond file to disk. It does not require a
+LilyPond installation. It checks for the version number of an installation,
+but LilyPond is not required to be found.</p>
+<p>This function can be used directly but is commonly used by <code>render_*</code>
+functions, which call this function internally to create the LilyPond file
+and then call LilyPond to render that file to sheet music.</p>
+    <h2 class="hasAnchor" id="header-options"><a class="anchor" href="#header-options"></a>Header options</h2>
+
+    
+
+<p>All <code>header</code> list elements are character strings. The options for
 <code>header</code> include:</p><ul>
 <li><p><code>title</code></p></li>
 <li><p><code>subtitle</code></p></li>
@@ -307,6 +315,10 @@ details.</p></td>
 <li><p><code>copyright</code></p></li>
 <li><p><code>tagline</code></p></li>
 </ul>
+
+    <h2 class="hasAnchor" id="paper-options"><a class="anchor" href="#paper-options"></a>Paper options</h2>
+
+    
 
 <p>All <code>paper</code> list elements are numeric except <code>page_numbers</code> and
 <code>print_first_page_number</code>,
@@ -327,6 +339,10 @@ default values if not provided:</p><ul>
 <li><p><code>first_page_number = 1</code></p></li>
 </ul>
 
+    <h2 class="hasAnchor" id="png-related-options"><a class="anchor" href="#png-related-options"></a>PNG-related options</h2>
+
+    
+
 <p>By default <code>crop_png = TRUE</code>. This alters the template so that when
 the LilyPond output file is created, it contains specifications for cropping
 the image to the content when that file is rendered by LilyPond to png.
@@ -339,6 +355,39 @@ find you need to increase it beyond the default 150mm, generally as a result
 of using a large <code>fontsize</code>.
 Various <code>render_*</code> functions that wrap <code>lilypond</code> make use of this
 argument as well.</p>
+    <h2 class="hasAnchor" id="color-options"><a class="anchor" href="#color-options"></a>Color options</h2>
+
+    
+
+<p>When a named list of color overrides for specific sheet music elements is
+provides to the <code>colors</code> argument of <code>lilypond</code> or one of the
+associated rendering functions, these are considered global color overrides
+and affect the entire score. They are overwritten by the <code>colors</code> lists
+that can be provides to <code>track</code>.</p>
+<p>By default, everything is black. Overrides are only inserted into the
+generated LilyPond file if given. Values are character; either the hex color
+or a named R color. The named list options include:</p><ul>
+<li><p><code>color</code></p></li>
+<li><p><code>background</code></p></li>
+<li><p><code>staff_lines</code></p></li>
+<li><p><code>time</code></p></li>
+<li><p><code>clef</code></p></li>
+<li><p><code>beam</code></p></li>
+<li><p><code>head</code></p></li>
+<li><p><code>stem</code></p></li>
+<li><p><code>accidental</code></p></li>
+</ul>
+
+<p><code>color</code> is a global font color for the entire score. <code>background</code>
+controls the background color of the entire page. Do not use this if making
+a transparent background png with the <code>transparent</code> argument available
+in the various <code>render_*</code> functions. The other options are also global
+but override <code>color</code>. You can change the color of all elements with
+<code>color</code> and then change the color of specific elements using the other
+options.</p>
+<p>There are currently some limitations. Specifically, if you provide any
+<code>background</code> color override, most <code>header</code> elements will not
+display.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='tab.html'>tab</a></code>, <code><a href='render_chordchart.html'>render_chordchart</a></code>,
@@ -357,6 +406,10 @@ argument as well.</p>
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#details">Details</a></li>
+      <li><a href="#header-options">Header options</a></li>
+      <li><a href="#paper-options">Paper options</a></li>
+      <li><a href="#png-related-options">PNG-related options</a></li>
+      <li><a href="#color-options">Color options</a></li>
       <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>

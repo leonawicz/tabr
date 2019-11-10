@@ -223,7 +223,7 @@ file.</p>
 
     <pre class="usage"><span class='fu'>midily</span>(<span class='no'>midi_file</span>, <span class='no'>file</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>absolute</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>quantize</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>explicit</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>start_quant</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>allow_tuplet</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"4*2/3"</span>,
-  <span class='st'>"8*2/3"</span>, <span class='st'>"16*2/3"</span>), <span class='kw'>details</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>lyric</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+  <span class='st'>"8*2/3"</span>, <span class='st'>"16*2/3"</span>), <span class='kw'>details</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>lyric</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -262,18 +262,8 @@ or relative path.</p></td>
       <td><p>character vector, allow tuplet durations. See details.</p></td>
     </tr>
     <tr>
-      <th>details</th>
-      <td><p>logical, verbose detail.</p></td>
-    </tr>
-    <tr>
       <th>lyric</th>
       <td><p>logical, treat all text as lyrics.</p></td>
-    </tr>
-    <tr>
-      <th>path</th>
-      <td><p>character, optional output directory prefixed to <code>file</code>,
-may be an absolute or relative path. If <code>NULL</code> (default), only
-<code>file</code> is used.</p></td>
     </tr>
     </table>
 

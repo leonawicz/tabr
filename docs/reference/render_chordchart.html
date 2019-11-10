@@ -212,7 +212,7 @@ for a set of chords." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Render a chord chart with LilyPond</h1>
-    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/tab.R'><code>R/tab.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/lp_render.R'><code>R/lp_render.R</code></a></small>
     <div class="hidden name"><code>render_chordchart.Rd</code></div>
     </div>
 
@@ -222,7 +222,7 @@ for a set of chords.</p>
     </div>
 
     <pre class="usage"><span class='fu'>render_chordchart</span>(<span class='no'>chords</span>, <span class='no'>file</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1.2</span>, <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>keep_ly</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>crop_png</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>keep_ly</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>crop_png</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>details</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -257,6 +257,10 @@ See details.</p></td>
       <td><p>logical, keep intermediate LilyPond file.</p></td>
     </tr>
     <tr>
+      <th>colors</th>
+      <td><p>reserved; not yet implemented for this function.</p></td>
+    </tr>
+    <tr>
       <th>crop_png</th>
       <td><p>logical, see <code>lilypond</code> for details.</p></td>
     </tr>
@@ -280,22 +284,6 @@ output to console. Windows only.</p></td>
 fretboard diagram chart. It then passes the file to LilyPond for rendering.
 To plot specific fretboard diagrams in R using ggplot and with greater
 control, use <code>plot_fretboard</code>.</p>
-<p>All <code>header</code> list elements are character strings. The options for
-<code>header</code> include:</p><ul>
-<li><p><code>title</code></p></li>
-<li><p><code>subtitle</code></p></li>
-<li><p><code>composer</code></p></li>
-<li><p><code>album</code></p></li>
-<li><p><code>arranger</code></p></li>
-<li><p><code>instrument</code></p></li>
-<li><p><code>meter</code></p></li>
-<li><p><code>opus</code></p></li>
-<li><p><code>piece</code></p></li>
-<li><p><code>poet</code></p></li>
-<li><p><code>copyright</code></p></li>
-<li><p><code>tagline</code></p></li>
-</ul>
-
 <p>The options for <code>paper</code> include the following and have the following
 default values if not provided.</p>
 <ul>

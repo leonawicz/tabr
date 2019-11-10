@@ -219,8 +219,7 @@
     <p>Convert a MIDI file to  sheet music/guitar tablature.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>miditab</span>(<span class='no'>midi_file</span>, <span class='no'>file</span>, <span class='kw'>keep_ly</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>details</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>miditab</span>(<span class='no'>midi_file</span>, <span class='no'>file</span>, <span class='kw'>keep_ly</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>details</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -239,15 +238,9 @@ or relative path.</p></td>
       <td><p>logical, keep LilyPond file.</p></td>
     </tr>
     <tr>
-      <th>path</th>
-      <td><p>character, optional output directory prefixed to <code>file</code>,
-may be an absolute or relative path. If <code>NULL</code> (default), only
-<code>file</code> is used.</p></td>
-    </tr>
-    <tr>
       <th>details</th>
       <td><p>logical, set to <code>FALSE</code> to disable printing of log
-output to console.</p></td>
+output to console. Windows only.</p></td>
     </tr>
     <tr>
       <th>...</th>

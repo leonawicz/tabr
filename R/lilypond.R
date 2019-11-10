@@ -3,6 +3,16 @@
 #' Write a score to a LilyPond format (\code{.ly}) text file for later use by
 #' LilyPond or subsequent editing outside of R.
 #'
+#' @details
+#' This function only writes a LilyPond file to disk. It does not require a
+#' LilyPond installation. It checks for the version number of an installation,
+#' but LilyPond is not required to be found.
+#'
+#' This function can be used directly but is commonly used by \code{render_*}
+#' functions, which call this function internally to create the LilyPond file
+#' and then call LilyPond to render that file to sheet music.
+#'
+#' @section Header options:
 #' All \code{header} list elements are character strings. The options for
 #' \code{header} include:
 #' \itemize{
@@ -20,6 +30,7 @@
 #'   \item \code{tagline}
 #' }
 #'
+#' @section Paper options:
 #' All \code{paper} list elements are numeric except \code{page_numbers} and
 #' \code{print_first_page_number},
 #' which are logical. \code{page_numbers = FALSE} suppresses all page numbering.
@@ -41,6 +52,7 @@
 #'   \item \code{first_page_number = 1}
 #' }
 #'
+#' @section PNG-related options:
 #' By default \code{crop_png = TRUE}. This alters the template so that when
 #' the LilyPond output file is created, it contains specifications for cropping
 #' the image to the content when that file is rendered by LilyPond to png.
@@ -53,6 +65,40 @@
 #' of using a large \code{fontsize}.
 #' Various \code{render_*} functions that wrap \code{lilypond} make use of this
 #' argument as well.
+#'
+#' @section Color options:
+#' When a named list of color overrides for specific sheet music elements is
+#' provides to the \code{colors} argument of \code{lilypond} or one of the
+#' associated rendering functions, these are considered global color overrides
+#' and affect the entire score. They are overwritten by the \code{colors} lists
+#' that can be provides to \code{track}.
+#'
+#' By default, everything is black. Overrides are only inserted into the
+#' generated LilyPond file if given. Values are character; either the hex color
+#' or a named R color. The named list options include:
+#' \itemize{
+#'   \item \code{color}
+#'   \item \code{background}
+#'   \item \code{staff_lines}
+#'   \item \code{time}
+#'   \item \code{clef}
+#'   \item \code{beam}
+#'   \item \code{head}
+#'   \item \code{stem}
+#'   \item \code{accidental}
+#' }
+#'
+#' \code{color} is a global font color for the entire score. \code{background}
+#' controls the background color of the entire page. Do not use this if making
+#' a transparent background png with the \code{transparent} argument available
+#' in the various \code{render_*} functions. The other options are also global
+#' but override \code{color}. You can change the color of all elements with
+#' \code{color} and then change the color of specific elements using the other
+#' options.
+#'
+#' There are currently some limitations. Specifically, if you provide any
+#' \code{background} color override, most \code{header} elements will not
+#' display.
 #'
 #' @param score a score object.
 #' @param file character, LilyPond output file ending in \code{.ly}. May
@@ -70,9 +116,7 @@
 #' force on or off completely.
 #' @param endbar character, the end bar.
 #' @param midi logical, add midi inclusion specification to LilyPond file.
-#' @param path character, optional output directory prefixed to \code{file},
-#' may be an absolute or relative path. If \code{NULL} (default), only
-#' \code{file} is used.
+#' @param colors a named list of LilyPond element color overrides. See details.
 #' @param crop_png logical, alter template for cropped height. See
 #' details.
 #'
@@ -89,7 +133,7 @@
 #' lilypond(x, outfile)
 lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
                      header = NULL, paper = NULL, string_names = NULL,
-                     endbar = TRUE, midi = TRUE, path = NULL,
+                     endbar = TRUE, midi = TRUE, colors = NULL,
                      crop_png = TRUE){
   if(!is.null(paper$textheight)) crop_png <- FALSE
   crop_png_w <- if(crop_png & !length(header)) TRUE else FALSE
@@ -113,34 +157,29 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   chord_seq <- attributes(score)$chord_seq
   has_chord_seq <- !is.null(chord_seq)
   if(has_chords){
-    if(!has_chord_seq) chord_seq <- stats::setNames(rep(1, length(chords)),
-                                                    names(chords))
+    if(!has_chord_seq)
+      chord_seq <- stats::setNames(rep(1, length(chords)), names(chords))
     names(chords) <- .notesub(names(chords))
   }
   if(!is.null(chord_seq)) names(chord_seq) <- .notesub(names(chord_seq))
-  global <- .lp_global(time, key, mode, tempo, endbar)
   rel_tp <- ifelse(any(score$ms_transpose != 0), TRUE, FALSE)
-  top <- .lp_top(paper_args$fontsize, header, rel_tp)
-  if(has_chords){
-    top <- paste0(top, purrr::map_chr(
-      seq_along(chords), ~{
-        paste0("#(define fb", .x, " (make-fretboard-table))\n",
-               "\\storePredefinedDiagram #fb", .x, " \\chordmode{",
-               names(chords)[.x], "} #guitar-tuning \"", chords[[.x]], "\"\n")
-    }) %>%
-        paste(collapse = ""), "\n", collapse = "")
-  }
+  top <- .lp_top(paper_args$fontsize, header, rel_tp, colors, chords)
+  colors <- .lp_color_overrides(colors)
+  global <- .lp_global(time, key, mode, tempo, endbar, colors)
   cd <- .chord_diagram(chords, chord_seq)
   d <- split(score, score$tabstaff)
   melody0 <- split(score$phrase, score$tabstaff)
   melody_id <- paste0("melody", LETTERS[seq_along(melody0)])
   melody <- paste0(purrr::map_chr(seq_along(d), ~{
-    .set_melody(melody0[[.x]], d[[.x]], melody_id[.x])
+    .set_melody(
+      melody0[[.x]], d[[.x]], melody_id[.x],
+      inject_bg = list(bg = colors$bg, inject = .x == length(d))
+    )
   }), collapse = "")
   melody_id_final <- .get_melody_id(melody)
 
   score <- .set_score(d, melody_id, TRUE, NULL, NULL, tempo, has_chord_seq,
-                      string_names, rel_tp, raw_key)
+                      string_names, rel_tp, raw_key, colors$score)
 
   midi_tag <- paste0("  \\midi{\n    \\tempo ", tempo, "\n  }\n", collapse = "")
   midi_melody <- NULL
@@ -154,16 +193,28 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 
       melody_id2_final <- .get_melody_id(midi_melody)
       score2 <- .set_score(d, melody_id, FALSE, midi_tag, melody_id2_final,
-                           tempo, FALSE, NULL, rel_tp, raw_key)
+                           tempo, FALSE, NULL, rel_tp, raw_key, colors$score)
       melody <- paste0(melody, midi_melody, collapse = "\n\n")
     } else {
       score2 <- .set_score(d, melody_id, FALSE, midi_tag, melody_id_final,
-                           tempo, FALSE, NULL, rel_tp, raw_key)
+                           tempo, FALSE, NULL, rel_tp, raw_key, colors$score)
     }
     score <- paste0(score, score2, collapse = "\n")
   }
-  output <- paste(c(paper, top, global, cd, melody, score), collapse = "")
-  write(file = .adjust_file_path(file, path)$lp, output)
+  output <- paste(
+    c(.lp_version(), paper, top, global, cd, melody, score), collapse = "")
+  write(file = .adjust_file_path(file)$lp, output)
+}
+
+.lp_version <- function(){
+  v <- tryCatch(
+    system("lilypond.exe --version", intern = TRUE), error = function(e) NULL
+  )
+  if(!is.null(v)){
+    paste0("\\version \"", gsub("^GNU LilyPond (.*)", "\\1", v[1]), "\"\n")
+  } else {
+    ""
+  }
 }
 
 .get_melody_id <- function(x){
@@ -172,191 +223,49 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   x[idx]
 }
 
-#' Render sheet music with LilyPond
-#'
-#' Render sheet music/tablature from a music score with LilyPond.
-#'
-#' Generate a pdf or png of a music score using the LilyPond music engraving
-#' program.
-#' Output format is inferred from \code{file} extension. This function is a
-#' wrapper around \code{\link{lilypond}}, the function that creates the
-#' LilyPond (\code{.ly}) file.
-#'
-#' \code{render_score} renders \code{score} to pdf or png. \code{render_midi}
-#' renders a MIDI file based on \code{score}. This is still done via LilyPond.
-#' The sheet music is created automatically in the process behind the scenes
-#' but is deleted and only the MIDI output is retained.
-#'
-#' The original \code{tab} or \code{render_tab} (equivalent) produces both the
-#' sheet music and the MIDI file output by default and includes other arguments
-#' such as the tablature-relevant argument \code{string_names}.
-#' This is the all-purpose function. Also use this when you intend to create
-#' both a sheet music document and a MIDI file.
-#'
-#' Remember that whether a track contains a tablature staff, standard music
-#' staff, or both, is defined in each individual track object contained in
-#' \code{score}. It is the contents you have assembled in
-#' \code{score} that dictate what render function you should use.
-#' \code{render_tab} is general and always works, but \code{render_score} would
-#' not be the best choice when a tablature staff is present unless you accept
-#' the default string naming convention.
-#'
-#' \code{render_midi} is different from \code{midily} and \code{miditab}, whose
-#' purpose is to create sheet music from an existing MIDI file using a LilyPond
-#' command line utility.
-#'
-#' For Windows users, add the path to the LilyPond executable to the system
-#' path variable. For example, if the file is at
-#' \code{C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe},
-#' then add \code{C:/Program Files (x86)/LilyPond/usr/bin} to the system path.
-#'
-#' @param score a score object.
-#' @param file character, output file ending in .pdf or .png for sheet music or
-#' tablature for \code{score}. May include an absolute or relative path.
-#' For \code{render_midi}, a file ending in .mid.
-#' @param key character, key signature, e.g., \code{c}, \code{b_}, \code{f#m},
-#' etc.
-#' @param time character, defaults to \code{"4/4"}.
-#' @param tempo character, defaults to \code{"2 = 60"}. Set to \code{NULL} to
-#' suppress display of the time signature in the output.
-#' @param header a named list of arguments passed to the header of the
-#' LilyPond file. See \code{lilypond} for details.
-#' @param paper a named list of arguments for the LilyPond file page layout.
-#' See \code{lilypond} for details.
-#' @param string_names label strings at beginning of tab staff. \code{NULL}
-#' (default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for
-#' force on or off completely.
-#' @param endbar character, the end bar.
-#' @param midi logical, output midi file in addition to tablature.
-#' @param keep_ly logical, keep LilyPond file.
-#' @param path character, optional output directory prefixed to \code{file},
-#' may be an absolute or relative path. If \code{NULL} (default), only
-#' \code{file} is used.
-#' @param crop_png logical, see \code{lilypond} for details.
-#' @param transparent logical, transparent background, png only.
-#' @param details logical, set to \code{FALSE} to disable printing of log
-#' output to console. Windows only.
-#'
-#' @return nothing returned; a file is written.
-#' @export
-#' @seealso \code{\link{lilypond}}, \code{\link{render_chordchart}},
-#' \code{\link{miditab}}
-#'
-#' @examples
-#' if(tabr_options()$lilypond != ""){
-#'   x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
-#'   x <- track(x)
-#'   x <- score(x)
-#'   outfile <- file.path(tempdir(), "out.pdf")
-#'   tab(x, outfile, details = FALSE) # requires LilyPond installation
-#' }
-tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
-                header = NULL, paper = NULL, string_names = NULL, endbar = TRUE,
-                midi = TRUE, keep_ly = FALSE, path = NULL,
-                crop_png = TRUE, transparent = FALSE, details = TRUE){
-  fp <- .adjust_file_path(file, path)
-  ext <- if(fp$ext == "pdf") "--pdf" else "-dresolution=300 --png"
-  if(is.null(paper$textheight) & fp$ext == "png"){
-    png_args <- "\" -dbackend=eps "
-  } else {
-    png_args <-  "\" "
-  }
-  if(transparent & fp$ext == "png")
-    png_args <- paste(png_args, "\ -dpixmap-format=pngalpha ")
-  if(fp$ext == "pdf") crop_png <- FALSE
-  if(details) cat("#### Engraving score to", fp$tp, "####\n")
-  lilypond(score, basename(fp$lp), key, time, tempo, header, paper,
-           string_names, endbar, midi, dirname(fp$lp), crop_png)
-  lp_path <- tabr_options()$lilypond
-  is_windows <- Sys.info()[["sysname"]] == "Windows"
-  if(lp_path == ""){
-    lp_path <- if(is_windows) "lilypond.exe" else "lilypond"
-  }
-  call_string <- paste0("\"", lp_path, png_args, ext,
-                        " -dstrip-output-dir=#f \"", fp$lp, "\"")
-  if(is_windows){
-    system(call_string, show.output.on.console = details)
-  } else {
-    system(call_string)
-  }
-  if(!keep_ly) unlink(fp$lp)
-  .eps_cleanup(fp$tp)
-}
-
-#' @export
-#' @rdname tab
-render_tab <- tab
-
-#' @export
-#' @rdname tab
-render_score <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
-                         header = NULL, paper = NULL, endbar = TRUE,
-                         crop_png = TRUE){
-  tab(score, file, key, time, tempo, header, paper, FALSE, endbar, FALSE,
-      FALSE, NULL, FALSE, crop_png)
-}
-
-#' @export
-#' @rdname tab
-render_midi <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60"){
-  file0 <- gsub("\\.mid$", ".png", file)
-  tab(score, file0, key, tempo = tempo, midi = TRUE, keep_ly = FALSE,
-      details = FALSE)
-  unlink(file0, recursive = TRUE, force = TRUE)
-  invisible()
-}
-
-.adjust_file_path <- function(file, path){
-  make_path <- function(file, path){
-    ifelse(is.null(path), file, gsub("//", "/", file.path(path, file)))
-  }
+.adjust_file_path <- function(file){
   file <- gsub("\\\\", "/", file)
-  ext <- utils::tail(strsplit(file, "\\.")[[1]], 1)
-  lily <- gsub(ext, "ly", file)
-  if(!is.null(path) || basename(file) == file)
-    return(
-      list(tp = make_path(file, path), lp = make_path(lily, path), ext = ext)
-    )
-  file <- strsplit(file, "/")[[1]]
-  path <- paste(file[-length(file)], collapse = "/")
-  file <- file[length(file)]
-  lily <- gsub(ext, "ly", file)
-  list(tp = make_path(file, path), lp = make_path(lily, path), ext = ext)
+  ext <- gsub(".*\\.(.*)$", "\\1", file)
+  lily <- gsub(paste0(ext, "$"), "ly", file)
+  list(tp = file, lp = lily, ext = ext)
 }
 
 .lp_header <- function(title = "", subtitle = "", composer = "", arranger = "",
                        instrument = "", meter = "", opus = "", piece = "",
-                       poet = "", copyright = "", tagline = "", ...){
+                       poet = "", copyright = "", tagline = "", color = "",
+                       ...){
   x <- list(...)
   if(!is.null(subtitle) & !is.null(x$album)){
     subtitle <- paste(
-      "\\markup {",
-      gsub(x$album, paste0("\\\\italic \"", x$album, "\""), subtitle), "}"
+      if(color == "") "\\markup {" else
+        paste0(gsub("markup", "markup {", color), "{"),
+      gsub(x$album, paste0("\\\\italic \"", x$album, "\""), subtitle), "}",
+      if(color != "") "}"
     )
   } else {
-    subtitle <- paste0("\"", subtitle, "\"", collapse = "")
+    subtitle <- paste0(color, "\"", subtitle, "\"", collapse = "")
   }
   paste0(
-    "\\header {\n", "  title = \"", title, "\"\n", "  subtitle = ", subtitle,
-    "\n",
-    "  composer = \"", composer, "\"\n", "  arranger = \"", arranger, "\"\n",
-    "  instrument = \"", instrument, "\"\n", "  metre = \"", meter, "\"\n",
-    "  opus = \"", opus, "\"\n", "  piece = \"", piece, "\"\n",
-    "  poet = \"", poet, "\"\n", "  copyright = \"", copyright, "\"\n",
-    "  tagline = \"", tagline, "\"\n}\n")
+    "\\header {\n", "  title = ", color, "\"", title, "\"\n",
+    "  subtitle = ", subtitle, "\n",
+    "  composer = ", color, "\"", composer, "\"\n",
+    "  arranger = ", color, "\"", arranger, "\"\n",
+    "  instrument = ", color, "\"", instrument, "\"\n",
+    "  metre = ", color, "\"", meter, "\"\n",
+    "  opus = ", color, "\"", opus, "\"\n",
+    "  piece = ", color, "\"", piece, "\"\n",
+    "  poet = ", color, "\"", poet, "\"\n",
+    "  copyright = ", color, "\"", copyright, "\"\n",
+    "  tagline = ", color, "\"", tagline, "\"\n}\n")
 }
 
 .paper_defaults <- list(textheight = 220, linewidth = 150, indent = 0,
    fontsize = 10, page_numbers = TRUE,
    print_first_page_number = TRUE, first_page_number = 1)
 
-.keys <- list(
-  major = .notesub(dplyr::filter(.keydata, major)$key, simplify = TRUE),
-  minor = .notesub(gsub("m", "", dplyr::filter(.keydata, !major)$key),
-                   simplify = TRUE)
-)
-
-.set_melody <- function(x, d, id, midi = FALSE, rel_tp = FALSE, raw_key){
+.set_melody <- function(x, d, id, midi = FALSE, rel_tp = FALSE, raw_key,
+                        inject_bg = list(bg = "", inject = FALSE)){
+  bg <- if(inject_bg$inject) inject_bg$bg else ""
   multivoice <- length(unique(d$voice)) > 1
   if(!multivoice) x0 <- paste0(id, " = {\n  \\global\n  ")
   if(multivoice){
@@ -368,12 +277,14 @@ render_midi <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60"){
     }) %>%
       unlist()
     if(midi) x <- paste("\\unfoldRepeats {", x, "}")
+    x <- paste0(x, bg)
     x <- paste0(x0, "\\override StringNumber #'transparent = ##t\n  ",
                 gsub("\n\n", "\n", gsub("\\|", "\\|\n", x)), "}\n\n",
                 collapse = "\n")
   } else {
     x <- paste0(paste0(x, collapse = ""), "\n")
     if(midi) x <- paste("\\unfoldRepeats {", x, "}")
+    x <- paste0(x, bg)
     x <- paste0(x0, "\\override StringNumber #'transparent = ##t\n  ",
                 gsub("\n\n", "\n", gsub("\\|", "\\|\n", x)), "}\n\n")
   }
@@ -424,18 +335,52 @@ render_midi <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60"){
   )
 }
 
-.lp_global <- function(time, key, mode, tempo, endbar){
-  paste0("global = {\n  \\time ", time, "\n  \\key ", key, " ", mode,
-         "\n  \\tempo ", tempo,
-         if(endbar) "\n  \\bar \"|.\"", "\n}\n\n")
+.lp_override_all_colors <- paste0(
+  "#(define (override-color-for-all-grobs color)\n",
+  " (lambda (context)\n",
+  "  (let loop ((x all-grob-descriptions))\n",
+  "   (if (not (null? x))\n",
+  "    (let ((grob-name (caar x)))\n",
+  "     (ly:context-pushpop-property context grob-name 'color color)\n",
+  "      (loop (cdr x)))))))\n\n")
+
+.lp_global <- function(time, key, mode, tempo, endbar, colors){
+  x <- if(colors$score != "") .lp_override_all_colors else ""
+  paste0(x, "global = {\n  \\time ", time, "\n  \\key ", key, " ", mode,
+         "\n  \\tempo ", tempo, if(endbar) "\n  \\bar \"|.\"\n",
+         colors$overrides, "}\n\n")
 }
 
-.lp_top <- function(fontsize, header, rel_tp){
+.lp_top <- function(fontsize, header, rel_tp, colors, chords){
+  header <- .header_plus_colors(header, colors)
   if(is.null(header)) header <- list()
-  paste0(if(rel_tp) .ly_transpose_defs,
-         paste0("#(set-global-staff-size ", fontsize, ")\n"),
-         do.call(.lp_header, header),
-         "\\include \"predefined-guitar-fretboards.ly\"\n\n")
+  x <- paste0(if(rel_tp) .ly_transpose_defs,
+              paste0("#(set-global-staff-size ", fontsize, ")\n"),
+              do.call(.lp_header, header),
+              "\\include \"predefined-guitar-fretboards.ly\"\n\n")
+  if(!is.null(chords)){
+    x <- paste0(x, purrr::map_chr(
+      seq_along(chords), ~{
+        paste0("#(define fb", .x, " (make-fretboard-table))\n",
+               "\\storePredefinedDiagram #fb", .x, " \\chordmode{",
+               names(chords)[.x], "} #guitar-tuning \"", chords[[.x]], "\"\n")
+      }) %>%
+        paste(collapse = ""), "\n", collapse = "")
+  }
+  x
+}
+
+.header_plus_colors <- function(header, colors){
+  if(!is.null(header) && !is.null(colors) && !is.null(colors$color)){
+    header <- c(
+      header,
+      list(color = paste0(
+        "\\markup \\with-color #(rgb-color ",
+        paste(round(grDevices::col2rgb(colors$color) / 255, 4),
+              collapse = " "), ") "))
+    )
+  }
+  header
 }
 
 .chord_diagram <- function(chords, chord_seq){
@@ -476,7 +421,8 @@ render_midi <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60"){
 }
 
 .set_score <- function(d, id, layout, midi, midi_melody_id, tempo,
-                       has_chord_seq, string_names, rel_tp, raw_key){
+                       has_chord_seq, string_names, rel_tp, raw_key,
+                       color){
   if(rel_tp) key <- .notesub(raw_key)
   if(layout){
     clef <- purrr::map_chr(d, ~unique(.x$staff))
@@ -544,7 +490,7 @@ render_midi <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60"){
     }
     x <- paste0(paste0(midi_melody_id, collapse = "\n  "), "\n  ")
   }
-  paste0("\\score {  <<\n  ",
+  paste0("\\score {  <<\n  ", color,
          if(has_chord_seq) "\\new ChordNames \\chordNames\n  ", x, ">>\n",
          if(layout) "  \\layout{ }\n", if(!is.null(midi)) midi, "}")
 }
@@ -607,168 +553,146 @@ render_midi <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60"){
   invisible()
 }
 
-#' Render a chord chart with LilyPond
-#'
-#' Render a standalone chord chart of chord fretboard diagrams with LilyPond
-#' for a set of chords.
-#'
-#' This function uses a generates a LilyPond template for displaying only a
-#' fretboard diagram chart. It then passes the file to LilyPond for rendering.
-#' To plot specific fretboard diagrams in R using ggplot and with greater
-#' control, use \code{plot_fretboard}.
-#'
-#' All \code{header} list elements are character strings. The options for
-#' \code{header} include:
-#' \itemize{
-#'   \item \code{title}
-#'   \item \code{subtitle}
-#'   \item \code{composer}
-#'   \item \code{album}
-#'   \item \code{arranger}
-#'   \item \code{instrument}
-#'   \item \code{meter}
-#'   \item \code{opus}
-#'   \item \code{piece}
-#'   \item \code{poet}
-#'   \item \code{copyright}
-#'   \item \code{tagline}
-#' }
-#'
-#' The options for \code{paper} include the following and have the following
-#' default values if not provided.
-#'
-#' \itemize{
-#'   \item \code{textheight = 220}
-#'   \item \code{linewidth = 150}
-#'   \item \code{indent = 0}
-#'   \item \code{fontsize = 10}
-#'   \item \code{page_numbers = FALSE}
-#'   \item \code{print_first_page_number = TRUE}
-#'   \item \code{first_page_number = 1}
-#' }
-#'
-#' \code{fontsize} only controls the global font size. If you want to scale the
-#' size of the fretboard diagrams up or down use the the \code{size} argument
-#' rather than this \code{paper} value.
-#'
-#' Note that chord chart output must fit on a single page. If the full set of
-#' chord diagrams does not fit on one page then diagrams will be clipped in the
-#' rendered output. Use \code{size} to keep the output to one page or make
-#' multiple sheets separately.
-#'
-#' @param chords named character vector of valid formatting for LilyPond chord
-#' names and values. See examples.
-#' @param file output file.
-#' @param size numeric, size of fretboard diagrams (relative to paper font
-#' size). Use this to scale diagrams up or down.
-#' @param header a named list of arguments passed to the header of the
-#' LilyPond file. See details.
-#' @param paper a named list of arguments for the LilyPond file page layout.
-#' See details.
-#' @param keep_ly logical, keep intermediate LilyPond file.
-#' @param crop_png logical, see \code{lilypond} for details.
-#' @param transparent logical, transparent background, png only.
-#' @param details logical, set to \code{FALSE} to disable printing of log
-#' output to console. Windows only.
-#'
-#' @return writes files to disk
-#' @export
-#' @seealso \code{\link{plot_fretboard}}, \code{\link{lilypond}},
-#' \code{\link{tab}}
-#'
-#' @examples
-#' suppressPackageStartupMessages(library(dplyr))
-#'
-#' chords <- filter(
-#'   guitarChords, root %in% c("c", "f") & id %in% c("7", "M7", "m7") &
-#'   !grepl("#", notes) & root_fret <= 12) %>%
-#'   arrange(root, id)
-#' chords <- setNames(chords$fretboard, chords$lp_name)
-#' head(chords)
-#'
-#' # requires LilyPond installation
-#' if(tabr_options()$lilypond != ""){
-#'   outfile <- file.path(tempdir(), "out.pdf")
-#'   hdr <- list(
-#'     title = "Dominant 7th, major 7th and minor 7th chords",
-#'     subtitle = "C and F root"
-#'   )
-#'   render_chordchart(chords, outfile, 2, hdr, list(textheight = 175))
-#' }
-render_chordchart <- function(chords, file, size = 1.2, header = NULL,
-                              paper = NULL, keep_ly = FALSE,
-                              crop_png = TRUE, transparent = FALSE,
-                              details = FALSE){
-  i <- seq_along(chords)
-  id <- names(chords)
-  fp <- .adjust_file_path(file, NULL)
-  ext <- if(fp$ext == "pdf") "--pdf" else "-dresolution=300 --png"
-  if(is.null(paper$textheight) & fp$ext == "png"){
-    png_args <- "\" -dbackend=eps "
+
+.lp_color_elements <- c("color", "background", "staff", "time", "clef", "bar",
+                        "beam", "head", "stem", "accidental", "slur", "tabnote")
+
+.lp_color_overrides <- function(x){
+  if(is.null(x)) return(list(overrides = "", score = "", bg = ""))
+  idx <- which(!names(x) %in% .lp_color_elements)
+  if(length(idx)) x <- x[-idx]
+  if(!length(x)) return(list(overrides = "", score = "", bg = ""))
+  if("background" %in% names(x)){
+    bg <- x$background
+    x$background <- NULL
+    bg <- paste0(
+      "\n -\\tweak layer #-1\n", " -\\markup {",
+      " \\with-dimensions #'(0 . 0) #'(0 . 0)",
+      " \\with-color #(rgb-color ",
+      paste(round(grDevices::col2rgb(bg) / 255, 4), collapse = " "), ")",
+      " \\filled-box #'(-1000 . 1000) #'(-1000 . 4000) #0 }\n")
   } else {
-    png_args <-  "\" "
+    bg <- ""
   }
-  if(transparent & fp$ext == "png")
-    png_args <- paste(png_args, "\ -dpixmap-format=pngalpha ")
-  crop_png_w <- if(crop_png & !length(header)) TRUE else FALSE
-  paper_args <- .lp_paper_args2(paper, crop_png, crop_png_w)
-  paper <- do.call(.lp_paper, paper_args)
-  x <- paste0(
-    "#(set-global-staff-size ", paper_args$fontsize,
-    ")\n", do.call(.lp_header, if(is.null(header)) list() else header), "\n",
-    "\\include \"predefined-guitar-fretboards.ly\"\n"
-  )
-  def <- purrr::map_chr(i, ~.define_chord(.x, id[.x], chords[.x])) %>%
-    paste(collapse = "")
-  x <- paste0(x, "\n", def, "\nmychorddiagrams = \\chordmode {\n")
-  set <- purrr::map_chr(i, ~.set_chord(.x, id[.x])) %>% paste(collapse = "")
-  x <- paste0(x, set, "}\n\nchordNames = \\chordmode {\n",
-              "  \\override ChordName.font-size = #2\n  ",
-              paste(names(chords), collapse = " "), "\n}\n\n")
-  markup <- paste0(
-    "\\markup\\vspace #3\n", "\\markup \\fill-line {\n", "  \\score {\n",
-    "    <<\n", "      \\context ChordNames { \\mychorddiagrams }\n",
-    "      \\context FretBoards {\n",
-    "        \\override FretBoards.FretBoard.size = #", size, "\n",
-    "        \\mychorddiagrams\n", "      }\n", "    >>\n", "  \\layout {}\n",
-    "  }\n}\n\\markup\\vspace #3\n")
-  x <- paste0(paper, x, markup)
-  write(file = fp$lp, x)
-
-  lp_path <- tabr_options()$lilypond
-  is_windows <- Sys.info()[["sysname"]] == "Windows"
-  if(lp_path == ""){
-    lp_path <- if(is_windows) "lilypond.exe" else "lilypond"
-  }
-  call_string <- paste0("\"", lp_path, png_args, ext,
-                        " -dstrip-output-dir=#f \"", fp$lp, "\"")
-  if(is_windows){
-    system(call_string, show.output.on.console = details)
+  if("color" %in% names(x)){
+    score <- x$color
+    x$color <- NULL
+    score <- paste0(
+      "\\applyContext #(override-color-for-all-grobs (rgb-color ",
+      paste(round(grDevices::col2rgb(score) / 255, 4),
+            collapse = " "), "))\n  ")
   } else {
-    system(call_string)
+    score <- ""
   }
-  if(!keep_ly) unlink(fp$lp)
-  .eps_cleanup(file)
+  if(length(x)){
+    id <- purrr::map_chr(names(x), ~{
+      switch(
+        .x,
+        staff = "Staff.StaffSymbol.color",
+        time = "Staff.TimeSignature.color",
+        clef = "Staff.Clef.color",
+        bar = "Staff.BarLine.color",
+        beam = "Staff.Beam.color",
+        head = "Staff.NoteHead.color",
+        stem = "Staff.Stem.color",
+        accidental = "Staff.Accidental.color",
+        slur = "Staff.Slur.color",
+        tabnote = "Staff.TabNoteHead.color"
+      )
+    })
+    x <- purrr::map2_chr(x, id, ~{
+      x <- paste0(
+        "#(rgb-color ",
+        paste(round(grDevices::col2rgb(.x) / 255, 4), collapse = " "), ")")
+      paste("  \\override", .y, "=", x)
+    }) %>%
+      paste(collapse = "\n")
+    x <- paste0(x, "\n")
+  } else {
+    x <- ""
+  }
+  if(bg != "") x <- paste0(x, "  \\override Staff.TabNoteHead.whiteout = ##f\n")
+  list(overrides = x, score = score, bg = bg)
 }
 
-.paper_defaults2 <- list(textheight = 220, linewidth = 150, indent = 0,
-                        fontsize = 14, page_numbers = FALSE,
-                        print_first_page_number = TRUE, first_page_number = 1)
-
-.lp_paper_args2 <- function(x, crop, cropw){
-  y <- list(crop = crop, cropw = cropw)
-  if(is.null(x)) return(c(.paper_defaults2, y))
-  for(i in names(.paper_defaults2))
-    if(!i %in% names(x)) x[[i]] <- .paper_defaults2[[i]]
-  c(x, list(crop = crop, cropw = cropw))
+.octave_to_tick <- function(x){
+  x <- gsub("0", ",,,", x)
+  x <- gsub("1", ",,", x)
+  x <- gsub("2", ",", x)
+  x <- gsub("3", "", x)
+  x <- gsub("4", "'", x)
+  x <- gsub("5", "''", x)
+  x <- gsub("6", "'''", x)
+  x <- gsub("7", "''''", x)
+  x <- gsub("8", "'''''", x)
+  x <- gsub("9", "''''''", x)
+  x
 }
 
-.define_chord <- function(i, id, value){
-  paste0("#(define fb", i, " (make-fretboard-table))\n",
-         "\\storePredefinedDiagram #fb", i,
-         " \\chordmode{", id, "} #guitar-tuning \"", value, "\"\n")
+.octave_to_int <- function(x){
+  x <- gsub(",,,,", "_-1_", x)
+  x <- gsub(",,,", "0", x)
+  x <- gsub(",,", "1", x)
+  x <- gsub(",", "2", x)
+  x <- gsub("_-1_", ",,,,", x)
+  x <- gsub("''''''", "9", x)
+  x <- gsub("'''''", "8", x)
+  x <- gsub("''''", "7", x)
+  x <- gsub("'''", "6", x)
+  x <- gsub("''", "5", x)
+  x <- gsub("'", "4", x)
+  x
 }
 
-.set_chord <- function(i, id){
-  paste0("  \\set predefinedDiagramTable = #fb", i, " ", id, "\n")
+.notesub <- function(x, sharp = "#", flat = "_", simplify = FALSE){
+  x <- gsub(sharp[1], "is", x)
+  x <- gsub(flat[1], "es", x)
+  if(simplify) x <- gsub("ees", "es", gsub("aes", "as", x))
+  x
 }
+
+.tabsub <- function(x){
+  x <- strsplit(x, ";")[[1]]
+  x[1] <- gsub("-", "\\\\glissando", x[1])
+  x[1] <- gsub("x", "xDEADNOTEx", x[1])
+  x[1] <- .notesub(x[1])
+  x[1] <- gsub("\\]", "\\\\staccato", x[1])
+  if(length(x) == 2){
+    x[2] <- paste0(";", substr(x[2], 1, 1), gsub("_", " ", substring(x[2], 2)))
+    x <- paste0(x, collapse = "")
+  }
+  x
+}
+
+.strsub <- function(x){
+  if(any(is.na(x))) x[is.na(x)] <- "x"
+  f <- function(x){
+    strsplit(gsub("\\(", " \\(", gsub("\\)", " ", x)), " ")[[1]] %>%
+      purrr::map(~({
+        if(substr(.x, 1, 1) == "(") substring(.x, 2) else strsplit(.x, "")[[1]]
+      })) %>%
+      unlist() %>%
+      paste0(collapse = "_")
+  }
+  purrr::map_chr(x, f)
+}
+
+.noterev <- function(x){
+  purrr::map(strsplit(x, " ")[[1]], ~({
+    x <- gsub("as", "aes", .x)
+    x <- gsub("^es| es", "ees", x)
+    x <- .split_chord(x)
+    x <- gsub("is", "#", x)
+    x <- gsub("^as|^aes", "a_", x)
+    x <- gsub("^ees|^es", "e_", x)
+    x <- gsub("es", "_", x)
+    paste(x, collapse = "")
+  })) %>%
+    paste(collapse = " ")
+}
+
+.keys <- list(
+  major = .notesub(dplyr::filter(.keydata, major)$key, simplify = TRUE),
+  minor = .notesub(gsub("m", "", dplyr::filter(.keydata, !major)$key),
+                   simplify = TRUE)
+)

@@ -69,7 +69,6 @@ test_that("lilypond wrapper runs without error", {
   skip_on_appveyor()
   expect_is(lilypond(x1, out[1]), cl)
   expect_is(lilypond(x2, out[1]), cl)
-  expect_is(lilypond(x1, basename(out[1]), path = tempdir()), cl)
   purrr::walk(x, ~expect_is(lilypond(.x, out[1]), cl))
   expect_warning(lilypond(x10, out[1]),
                  paste("Multiple music staves with different transposed key",
@@ -82,11 +81,7 @@ test_that("tab wrapper runs without error", {
   skip_on_cran()
   include_midi <- TRUE
   expect_is(tab(x1, out[2], midi = include_midi), cl)
-  expect_is(
-    tab(x1, basename(out[2]), midi = include_midi, path = tempdir()), cl)
   expect_is(tab(x1, out[3], midi = include_midi), cl)
-  expect_is(
-    tab(x1, basename(out[3]), midi = include_midi, path = tempdir()), cl)
 
   purrr::walk(x, ~expect_is(
     tab(.x, out[2], midi = include_midi, details = FALSE), cl))
@@ -115,10 +110,10 @@ test_that("miditab and midily functions run without error", {
   expect_is(midily(midi, out[1]), cl)
   expect_is(midily(midi, out[1], key = "b_", absolute = TRUE, quantize = 8,
                    explicit = TRUE, start_quant = 8, allow_tuplet = "8*2/3",
-                   details = TRUE, lyric = TRUE, path = "."), cl)
+                   details = TRUE, lyric = TRUE), cl)
   expect_is(midily(midi, out[1], key = "cm", absolute = TRUE, quantize = 8,
                    explicit = TRUE, start_quant = 8, allow_tuplet = "8*2/3",
-                   details = TRUE, lyric = TRUE, path = "."), cl)
+                   details = TRUE, lyric = TRUE), cl)
   expect_is(miditab(midi, out[2]), cl)
   expect_is(miditab(midi, out[3], details = FALSE), cl)
   unlink(cleanup)
