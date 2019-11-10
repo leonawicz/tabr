@@ -110,10 +110,10 @@ test_that("miditab and midily functions run without error", {
   expect_is(midily(midi, out[1]), cl)
   expect_is(midily(midi, out[1], key = "b_", absolute = TRUE, quantize = 8,
                    explicit = TRUE, start_quant = 8, allow_tuplet = "8*2/3",
-                   details = TRUE, lyric = TRUE), cl)
+                   lyric = TRUE), cl)
   expect_is(midily(midi, out[1], key = "cm", absolute = TRUE, quantize = 8,
                    explicit = TRUE, start_quant = 8, allow_tuplet = "8*2/3",
-                   details = TRUE, lyric = TRUE), cl)
+                   lyric = TRUE), cl)
   expect_is(miditab(midi, out[2]), cl)
   expect_is(miditab(midi, out[3], details = FALSE), cl)
   unlink(cleanup)

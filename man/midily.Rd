@@ -6,7 +6,7 @@
 \usage{
 midily(midi_file, file, key = "c", absolute = FALSE, quantize = NULL,
   explicit = FALSE, start_quant = NULL, allow_tuplet = c("4*2/3",
-  "8*2/3", "16*2/3"), details = FALSE, lyric = FALSE)
+  "8*2/3", "16*2/3"), lyric = FALSE)
 }
 \arguments{
 \item{midi_file}{character, MIDI file (\code{.mid}). May include an absolute
