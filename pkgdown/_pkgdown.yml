@@ -33,6 +33,7 @@ reference:
   - note-metadata
   - note-summaries
   - note-coerce
+  - pitch_seq
   - note_slice
   - note-equivalence
   - transpose

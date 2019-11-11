@@ -268,7 +268,7 @@ scale_degree <- function(notes, key = "c", scale = "diatonic", use_root = TRUE,
   .check_noteworthy(notes)
   s <- paste0("scale_", gsub(" ", "_", scale))
   .check_scale_fun(s)
-  x <- .pitch_to_note(do.call(s, c(list(key))))
+  x <- .pitch_to_note(do.call(s, list(key)))
   if(note_has_flat(x)){
     a <- "flat"
   } else if(note_has_sharp(x)){
