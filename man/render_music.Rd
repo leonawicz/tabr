@@ -11,30 +11,30 @@
 \usage{
 render_music(music, file, staff = "treble", tuning = "standard",
   no_tab = TRUE, string_names = NULL, header = NULL, paper = NULL,
-  midi = FALSE, colors = NULL, transparent = FALSE,
+  midi = FALSE, colors = NULL, transparent = FALSE, res = 150,
   keep_ly = FALSE, simplify = TRUE)
 
 render_music_tc(music, file, header = NULL, paper = NULL,
-  midi = FALSE, colors = NULL, transparent = FALSE,
+  midi = FALSE, colors = NULL, transparent = FALSE, res = 150,
   keep_ly = FALSE, simplify = TRUE)
 
 render_music_bc(music, file, header = NULL, paper = NULL,
-  midi = FALSE, colors = NULL, transparent = FALSE,
+  midi = FALSE, colors = NULL, transparent = FALSE, res = 150,
   keep_ly = FALSE, simplify = TRUE)
 
 render_music_tab(music, file, staff = NA, tuning = "standard",
   string_names = NULL, header = NULL, paper = NULL, midi = FALSE,
-  colors = NULL, transparent = FALSE, keep_ly = FALSE,
+  colors = NULL, transparent = FALSE, res = 150, keep_ly = FALSE,
   simplify = TRUE)
 
 render_music_guitar(music, file, tuning = "standard",
   string_names = NULL, header = NULL, paper = NULL, midi = FALSE,
-  colors = NULL, transparent = FALSE, keep_ly = FALSE,
+  colors = NULL, transparent = FALSE, res = 150, keep_ly = FALSE,
   simplify = TRUE)
 
 render_music_bass(music, file, tuning = "bass", string_names = NULL,
   header = NULL, paper = NULL, midi = FALSE, colors = NULL,
-  transparent = FALSE, keep_ly = FALSE, simplify = TRUE)
+  transparent = FALSE, res = 150, keep_ly = FALSE, simplify = TRUE)
 }
 \arguments{
 \item{music}{a music object.}
@@ -66,6 +66,9 @@ See \code{lilypond} details.}
 \code{lilypond} for details.}
 
 \item{transparent}{logical, transparent background, png only.}
+
+\item{res}{numeric, resolution, png only. \code{transparent = TRUE} may fail
+when \code{res} exceeds ~150.}
 
 \item{keep_ly}{logical, keep the intermediary LilyPond file.}
 

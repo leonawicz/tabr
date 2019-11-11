@@ -222,12 +222,12 @@
     <pre class="usage"><span class='fu'>tab</span>(<span class='no'>score</span>, <span class='no'>file</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>time</span> <span class='kw'>=</span> <span class='st'>"4/4"</span>, <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='st'>"2 = 60"</span>,
   <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>string_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>endbar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>crop_png</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>keep_ly</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>simplify</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>details</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+  <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>150</span>, <span class='kw'>keep_ly</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>simplify</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>details</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>render_tab</span>(<span class='no'>score</span>, <span class='no'>file</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>time</span> <span class='kw'>=</span> <span class='st'>"4/4"</span>, <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='st'>"2 = 60"</span>,
   <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>string_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>endbar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>crop_png</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>keep_ly</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>simplify</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>details</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+  <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>150</span>, <span class='kw'>keep_ly</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>simplify</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>details</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>render_score</span>(<span class='no'>score</span>, <span class='no'>file</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>time</span> <span class='kw'>=</span> <span class='st'>"4/4"</span>, <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='st'>"2 = 60"</span>,
   <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>endbar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -299,6 +299,11 @@ force on or off completely.</p></td>
     <tr>
       <th>transparent</th>
       <td><p>logical, transparent background, png only.</p></td>
+    </tr>
+    <tr>
+      <th>res</th>
+      <td><p>numeric, resolution, png only. <code>transparent = TRUE</code> may fail
+when <code>res</code> exceeds ~150.</p></td>
     </tr>
     <tr>
       <th>keep_ly</th>

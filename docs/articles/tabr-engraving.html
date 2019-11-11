@@ -176,9 +176,14 @@
 
     
     
-<p>This section covers <code>lilypond</code> and <code>tab</code> for writing LilyPond files and engraving to sheet music with LilyPond, respectively. Examples of the various pieces of song metadata that can be passed to to these functions are provided.</p>
-<p>The examples focus on <code>tab</code> because this function generates the tablature whereas <code>lilypond</code> only creates the LilyPond file that <code>tab</code> renders via LilyPond. <code>tab</code> is a wrapper around <code>lilypond</code>. The two functions have the same arguments. <code>tab</code> passes these along to <code>lilypond</code> internally, except for one. <code>tab</code> has <code>keep_ly = FALSE</code> by default, which removes the <code>.ly</code> file created by <code>lilypond</code> following rendering of the file to pdf or png. To keep the LilyPond file, set this to <code>TRUE</code>. See the function documentation for details.</p>
-<p>By now you have seen many calls to <code>tab</code> in order to show full examples in early tutorial sections. With sufficient coverage of phrases, tracks and scores, and the progression through them, now it is time to go into detail on all the render time arguments that can be supplied that apply to the entire piece of tablature and any metadata or general song information associated with it.</p>
+<p>This section covers <code>lilypond</code> and <code>tab</code> for writing LilyPond files and engraving to sheet music with LilyPond, respectively. Examples of the various pieces of metadata that can be passed to to these functions are provided.</p>
+<div id="rendering" class="section level2">
+<h2 class="hasAnchor">
+<a href="#rendering" class="anchor"></a>Rendering</h2>
+<p>The <code>lilypond</code> function creates a LilyPond file (<code>.ly</code>). Various rendering functions wrap <code>lilypond</code> to combine the steps of creating an intermediary LilyPond file and rendering it to pdf or png. The most general render function is <code>tab</code>, which for naming consistency can also be called as <code>render_tab</code>. Other <code>render_*</code> functions exist including <code>render_score</code> and <code>render_midi</code>, which focus on rendering non-tablature, all-purpose sheet music and rendering only the corresponding MIDI file, respectively.</p>
+<p>The examples in this vignette focus on <code>tab</code>. You can set <code>keep_ly = TRUE</code> in render functions to retain the intermediary LilyPond file.</p>
+<p>By now you have seen many calls to <code>tab</code> throughout these vignettes in order to show full examples previously. With sufficient coverage of phrases, tracks and scores, and the progression through them, now it is time to go into more detail on the arguments that can be supplied as part of the rendering or engraving process that apply to the entire piece of sheet music.</p>
+</div>
 <div id="score-metadata" class="section level2">
 <h2 class="hasAnchor">
 <a href="#score-metadata" class="anchor"></a>Score metadata</h2>
@@ -263,7 +268,7 @@
 <div id="string-names" class="section level3">
 <h3 class="hasAnchor">
 <a href="#string-names" class="anchor"></a>String names</h3>
-<p>The <code>string_names</code> argument defaults to <code>NULL</code>. This means that standard tuning is never specified alongside the lines of a tab staff at the beginning of the tablature. However, any other tuning will be explicitly noted so the reader is aware of the alternate tuning of any applicable track. This can also be set to <code>TRUE</code> to force all tunings to be explicit including standard guitar tuning or <code>FALSE</code> to suppress them all (though it is unclear what value there is in the <code>FALSE</code> setting).</p>
+<p>The <code>string_names</code> is only relevant for tablature staves. argument defaults to <code>NULL</code>. This means that standard tuning is never specified alongside the lines of a tab staff at the beginning of the tablature. However, any other tuning will be explicitly noted so the reader is aware of the alternate tuning of any applicable track. This can also be set to <code>TRUE</code> to force all tunings to be explicit including standard guitar tuning or <code>FALSE</code> to suppress them all (though it is unclear what value there is in the <code>FALSE</code> setting).</p>
 </div>
 <div id="paper-and-color-settings" class="section level3">
 <h3 class="hasAnchor">
@@ -293,6 +298,27 @@
 <p>For more detail on these settings and others further above, see the help documentation, <code><a href="../reference/lilypond.html">?lilypond</a></code>.</p>
 </div>
 </div>
+<div id="png-output" class="section level2">
+<h2 class="hasAnchor">
+<a href="#png-output" class="anchor"></a>PNG output</h2>
+<p>Here are examples that make use of png-specific options and function behavior. First, when rendering to png instead of pdf, automatic cropping of the image is attempted. This removes the full page appearance for smaller snippets of sheet music. There are some limitations to this. For example, inclusion of header elements can disrupt this behavior.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/pitch_seq.html">pitch_seq</a></span>(<span class="st">"e,"</span>, <span class="dv">24</span>, <span class="dt">key =</span><span class="st">"c"</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/music.html">as_music</a></span>(<span class="dv">8</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/phrase.html">p</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/score.html">score</a></span>()</a>
+<a class="sourceLine" id="cb6-2" title="2"></a>
+<a class="sourceLine" id="cb6-3" title="3">ppr &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">linewidth =</span> <span class="dv">60</span>, <span class="dt">page_numbers =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb6-4" title="4">hdr &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">title =</span> <span class="st">"Notes in C on guitar"</span>, <span class="dt">subtitle =</span> <span class="st">"Standard tuning"</span>)</a>
+<a class="sourceLine" id="cb6-5" title="5"><span class="kw"><a href="../reference/tab.html">tab</a></span>(x, <span class="st">"ex_png1.png"</span>, <span class="dt">tempo =</span> <span class="ot">NULL</span>, <span class="dt">midi =</span> <span class="ot">FALSE</span>, <span class="dt">header =</span> hdr, <span class="dt">paper =</span> ppr)</a></code></pre></div>
+<p>
+<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex_33_png1.png?raw=true" class="centerimg" width="35%"></p>
+<p>Above, the height is automatically cropped because <code>file</code> type is a png. Providing <code>textheight</code> to <code>paper</code> overrides this behavior. The width would have also been cropped on its own. However, because of the inclusion of <code>header</code> arguments, this fails and explicit <code>linewidth</code> is needed. Similarly, if elements that describe footer content (still part of the LilyPond <code>header</code> block) that appear at the bottom of the page such as <code>tagline</code> or <code>copyright</code> were included, automatic height cropping would have also failed. In general, automatic cropping is the default for png output, but <code>header</code> disrupts this, requiring manual overrides to width and height.</p>
+<p>In the example below, remove the header content. You can make a transparent background png, though you won’t be able to see the difference here. Instead, create a dark mode example and increase the resolution.</p>
+<p>Since this is a single voice, single track, you do not need to explicitly call each function in the transcription pipeline. Use one of the convenient <code>render_music_*</code> functions to abstract this process, rendering sheet music directly from a <code>music</code> object. <code>render_music_guitar</code> has good default arguments for this example.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">colors &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">color =</span> <span class="st">"#e4e4e4"</span>, <span class="dt">background =</span> <span class="st">"gray10"</span>, <span class="dt">head =</span> <span class="st">"tomato"</span>, <span class="dt">tabhead =</span> <span class="st">"tomato"</span>)</a>
+<a class="sourceLine" id="cb7-2" title="2"></a>
+<a class="sourceLine" id="cb7-3" title="3">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/music.html">as_music</a></span>(<span class="kw"><a href="../reference/pitch_seq.html">pitch_seq</a></span>(<span class="st">"e,"</span>, <span class="dv">24</span>, <span class="dt">key =</span><span class="st">"c"</span>), <span class="dv">8</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-4" title="4"><span class="st">  </span><span class="kw"><a href="../reference/render_music.html">render_music_guitar</a></span>(<span class="st">"ex_png2.png"</span>, <span class="dt">colors =</span> colors, <span class="dt">res =</span> <span class="dv">300</span>)</a></code></pre></div>
+<p>
+<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex_png2.png?raw=true" class="centerimg" width="100%"></p>
+</div>
 <div id="the-lilypond-file" class="section level2">
 <h2 class="hasAnchor">
 <a href="#the-lilypond-file" class="anchor"></a>The LilyPond file</h2>
@@ -302,8 +328,8 @@
 <h3 class="hasAnchor">
 <a href="#original-syntax" class="anchor"></a>Original syntax</h3>
 <p>There are other simplifications but the most notable benefits are the removal of all the <code>&lt;&gt;</code> around single notes and not repeating consecutive durations if they are unchanged from previous timesteps.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw"><a href="../reference/lilypond.html">lilypond</a></span>(song, <span class="st">"song.ly"</span>, <span class="dt">simplify =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb6-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span>(<span class="st">"song.ly"</span>), <span class="dt">sep =</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw"><a href="../reference/lilypond.html">lilypond</a></span>(song, <span class="st">"song.ly"</span>, <span class="dt">simplify =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span>(<span class="st">"song.ly"</span>), <span class="dt">sep =</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; \version "2.18.2"
 #&gt; \paper{
 #&gt;   line-width=150\mm
@@ -450,8 +476,8 @@
 <h3 class="hasAnchor">
 <a href="#simplified-syntax" class="anchor"></a>Simplified syntax</h3>
 <p>Here you can see the changes to the notation. Since the music is so short in this example, most of the file remains the same.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw"><a href="../reference/lilypond.html">lilypond</a></span>(song, <span class="st">"song.ly"</span>)</a>
-<a class="sourceLine" id="cb7-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span>(<span class="st">"song.ly"</span>), <span class="dt">sep =</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="../reference/lilypond.html">lilypond</a></span>(song, <span class="st">"song.ly"</span>)</a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span>(<span class="st">"song.ly"</span>), <span class="dt">sep =</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; \version "2.18.2"
 #&gt; \paper{
 #&gt;   line-width=150\mm
@@ -603,9 +629,11 @@
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#score-metadata">Score metadata</a></li>
+<li><a href="#rendering">Rendering</a></li>
+      <li><a href="#score-metadata">Score metadata</a></li>
       <li><a href="#song-information">Song information</a></li>
       <li><a href="#other-settings">Other settings</a></li>
+      <li><a href="#png-output">PNG output</a></li>
       <li><a href="#the-lilypond-file">The LilyPond file</a></li>
       </ul>
 </div>

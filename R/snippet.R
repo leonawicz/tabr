@@ -81,6 +81,8 @@
 #' @param colors a named list of LilyPond element color global overrides. See
 #' \code{lilypond} for details.
 #' @param transparent logical, transparent background, png only.
+#' @param res numeric, resolution, png only. \code{transparent = TRUE} may fail
+#' when \code{res} exceeds ~150.
 #' @param keep_ly logical, keep the intermediary LilyPond file.
 #' @param simplify logical, uses \code{simplify_phrase} to convert to simpler,
 #' more efficient LilyPond syntax.
@@ -116,42 +118,43 @@
 render_music <- function(music, file, staff = "treble", tuning = "standard",
                          no_tab = TRUE, string_names = NULL, header = NULL,
                          paper = NULL, midi = FALSE, colors = NULL,
-                         transparent = FALSE, keep_ly = FALSE, simplify = TRUE){
+                         transparent = FALSE, res = 150, keep_ly = FALSE,
+                         simplify = TRUE){
   ktt <- .ktt(music)
   paper <- .paper_snippet(paper)
   phrase(music) %>%
     track(tuning, music_staff = staff, no_tab = no_tab) %>%
     score() %>%
     tab(file, ktt[1], ktt[2], ktt[3], header, paper, string_names, TRUE, midi,
-        colors, TRUE, transparent, keep_ly, simplify, FALSE)
+        colors, TRUE, transparent, res, keep_ly, simplify, FALSE)
 }
 
 #' @export
 #' @rdname render_music
 render_music_tc <- function(music, file, header = NULL, paper = NULL,
                             midi = FALSE, colors = NULL, transparent = FALSE,
-                            keep_ly = FALSE, simplify = TRUE){
+                            res = 150, keep_ly = FALSE, simplify = TRUE){
   ktt <- .ktt(music)
   paper <- .paper_snippet(paper)
   phrase(music) %>%
     track(music_staff = "treble", no_tab = TRUE) %>%
     score() %>%
     tab(file, ktt[1], ktt[2], ktt[3], header, paper, FALSE, TRUE, midi, colors,
-        TRUE, transparent, keep_ly, simplify, FALSE)
+        TRUE, transparent, res, keep_ly, simplify, FALSE)
 }
 
 #' @export
 #' @rdname render_music
 render_music_bc <- function(music, file, header = NULL, paper = NULL,
                             midi = FALSE, colors = NULL, transparent = FALSE,
-                            keep_ly = FALSE, simplify = TRUE){
+                            res = 150, keep_ly = FALSE, simplify = TRUE){
   ktt <- .ktt(music)
   paper <- .paper_snippet(paper)
   phrase(music) %>%
     track(music_staff = "bass", no_tab = TRUE) %>%
     score() %>%
     tab(file, ktt[1], ktt[2], ktt[3], header, paper, FALSE, TRUE, midi, colors,
-        TRUE, transparent, keep_ly, simplify, FALSE)
+        TRUE, transparent, res, keep_ly, simplify, FALSE)
 }
 
 #' @export
@@ -159,14 +162,14 @@ render_music_bc <- function(music, file, header = NULL, paper = NULL,
 render_music_tab <- function(music, file, staff = NA, tuning = "standard",
                              string_names = NULL, header = NULL, paper = NULL,
                              midi = FALSE, colors = NULL, transparent = FALSE,
-                             keep_ly = FALSE, simplify = TRUE){
+                             res = 150, keep_ly = FALSE, simplify = TRUE){
   ktt <- .ktt(music)
   paper <- .paper_snippet(paper)
   phrase(music) %>%
     track(tuning, music_staff = staff) %>%
     score() %>%
     tab(file, ktt[1], ktt[2], ktt[3], header, paper, string_names, TRUE, midi,
-        colors, TRUE, transparent, keep_ly, simplify, FALSE)
+        colors, TRUE, transparent, res, keep_ly, simplify, FALSE)
 }
 
 #' @export
@@ -174,7 +177,7 @@ render_music_tab <- function(music, file, staff = NA, tuning = "standard",
 render_music_guitar <- function(music, file, tuning = "standard",
                                 string_names = NULL, header = NULL,
                                 paper = NULL, midi = FALSE,
-                                colors = NULL, transparent = FALSE,
+                                colors = NULL, transparent = FALSE, res = 150,
                                 keep_ly = FALSE, simplify = TRUE){
   ktt <- .ktt(music)
   paper <- .paper_snippet(paper)
@@ -182,7 +185,7 @@ render_music_guitar <- function(music, file, tuning = "standard",
     track(tuning, music_staff = "treble_8") %>%
     score() %>%
     tab(file, ktt[1], ktt[2], ktt[3], header, paper, string_names, TRUE, midi,
-        colors, TRUE, transparent, keep_ly, simplify, FALSE)
+        colors, TRUE, transparent, res, keep_ly, simplify, FALSE)
 }
 
 #' @export
@@ -190,14 +193,14 @@ render_music_guitar <- function(music, file, tuning = "standard",
 render_music_bass <- function(music, file, tuning = "bass",
                               string_names = NULL, header = NULL, paper = NULL,
                               midi = FALSE, colors = NULL, transparent = FALSE,
-                              keep_ly = FALSE, simplify = TRUE){
+                              res = 150, keep_ly = FALSE, simplify = TRUE){
   ktt <- .ktt(music)
   paper <- .paper_snippet(paper)
   phrase(music) %>%
     track(tuning, music_staff = "bass_8") %>%
     score() %>%
     tab(file, ktt[1], ktt[2], ktt[3], header, paper, string_names, TRUE, midi,
-        colors, TRUE, transparent, keep_ly, simplify, FALSE)
+        colors, TRUE, transparent, res, keep_ly, simplify, FALSE)
 }
 
 .paper_snippet <- function(x){

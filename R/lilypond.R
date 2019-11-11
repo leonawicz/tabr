@@ -77,13 +77,16 @@
 #' \itemize{
 #'   \item \code{color}
 #'   \item \code{background}
-#'   \item \code{staff_lines}
+#'   \item \code{staff}
 #'   \item \code{time}
 #'   \item \code{clef}
+#'   \item \code{bar}
 #'   \item \code{beam}
 #'   \item \code{head}
 #'   \item \code{stem}
 #'   \item \code{accidental}
+#'   \item \code{slur}
+#'   \item \code{tabhead}
 #' }
 #'
 #' \code{color} is a global font color for the entire score. It affects staff
@@ -567,7 +570,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 
 
 .lp_color_elements <- c("color", "background", "staff", "time", "clef", "bar",
-                        "beam", "head", "stem", "accidental", "slur", "tabnote")
+                        "beam", "head", "stem", "accidental", "slur", "tabhead")
 
 .lp_color_overrides <- function(x){
   if(is.null(x)) return(list(overrides = "", score = "", bg = ""))
@@ -609,7 +612,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
         stem = "Staff.Stem.color",
         accidental = "Staff.Accidental.color",
         slur = "Staff.Slur.color",
-        tabnote = "Staff.TabNoteHead.color"
+        tabhead = "Staff.TabNoteHead.color"
       )
     })
     x <- purrr::map2_chr(x, id, ~{

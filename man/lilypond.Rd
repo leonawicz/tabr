@@ -131,13 +131,16 @@ or a named R color. The named list options include:
 \itemize{
   \item \code{color}
   \item \code{background}
-  \item \code{staff_lines}
+  \item \code{staff}
   \item \code{time}
   \item \code{clef}
+  \item \code{bar}
   \item \code{beam}
   \item \code{head}
   \item \code{stem}
   \item \code{accidental}
+  \item \code{slur}
+  \item \code{tabhead}
 }
 
 \code{color} is a global font color for the entire score. It affects staff

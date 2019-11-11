@@ -6,7 +6,7 @@
 \usage{
 render_chordchart(chords, file, size = 1.2, header = NULL,
   paper = NULL, colors = NULL, crop_png = TRUE,
-  transparent = FALSE, keep_ly = FALSE, details = FALSE)
+  transparent = FALSE, res = 150, keep_ly = FALSE, details = FALSE)
 }
 \arguments{
 \item{chords}{named character vector of valid formatting for LilyPond chord
@@ -28,6 +28,9 @@ See details.}
 \item{crop_png}{logical, see \code{lilypond} for details.}
 
 \item{transparent}{logical, transparent background, png only.}
+
+\item{res}{numeric, resolution, png only. \code{transparent = TRUE} may fail
+when \code{res} exceeds ~150.}
 
 \item{keep_ly}{logical, keep intermediate LilyPond file.}
 

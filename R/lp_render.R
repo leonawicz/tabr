@@ -58,6 +58,8 @@
 #' \code{lilypond} for details.
 #' @param crop_png logical, see \code{lilypond} for details.
 #' @param transparent logical, transparent background, png only.
+#' @param res numeric, resolution, png only. \code{transparent = TRUE} may fail
+#' when \code{res} exceeds ~150.
 #' @param keep_ly logical, keep the intermediary LilyPond file.
 #' @param simplify logical, uses \code{simplify_phrase} to convert to simpler,
 #' more efficient LilyPond syntax for the LilyPond file before rendering it.
@@ -80,17 +82,17 @@
 tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
                 header = NULL, paper = NULL, string_names = NULL, endbar = TRUE,
                 midi = TRUE, colors = NULL, crop_png = TRUE,
-                transparent = FALSE, keep_ly = FALSE, simplify = TRUE,
-                details = FALSE){
+                transparent = FALSE, res = 150, keep_ly = FALSE,
+                simplify = TRUE, details = FALSE){
   fp <- .adjust_file_path(file)
-  ext <- if(fp$ext == "pdf") "--pdf" else "-dresolution=600 --png"
+  ext <- if(fp$ext == "pdf") "--pdf" else paste0("-dresolution=", res, " --png")
   if(is.null(paper$textheight) & fp$ext == "png"){
     png_args <- "\" -dbackend=eps "
   } else {
     png_args <-  "\" "
   }
   if(transparent & fp$ext == "png")
-    png_args <- paste(png_args, "\ -dpixmap-format=pngalpha ")
+    png_args <- paste0(png_args, "\ -dpixmap-format=pngalpha ")
   if(fp$ext == "pdf") crop_png <- FALSE
   if(details) cat("#### Engraving score to", fp$tp, "####\n")
   lilypond(score, fp$lp, key, time, tempo, header, paper,
@@ -178,6 +180,8 @@ render_midi <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60"){
 #' @param colors reserved; not yet implemented for this function.
 #' @param crop_png logical, see \code{lilypond} for details.
 #' @param transparent logical, transparent background, png only.
+#' @param res numeric, resolution, png only. \code{transparent = TRUE} may fail
+#' when \code{res} exceeds ~150.
 #' @param keep_ly logical, keep intermediate LilyPond file.
 #' @param details logical, set to \code{TRUE} to print LilyPond log output to
 #' console. Windows only.
@@ -208,7 +212,7 @@ render_midi <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60"){
 #' }
 render_chordchart <- function(chords, file, size = 1.2, header = NULL,
                               paper = NULL, colors = NULL, crop_png = TRUE,
-                              transparent = FALSE, keep_ly = FALSE,
+                              transparent = FALSE, res = 150, keep_ly = FALSE,
                               details = FALSE){
   header <- .header_plus_colors(header, colors)
   colors <- .lp_color_overrides(colors)
@@ -221,14 +225,14 @@ render_chordchart <- function(chords, file, size = 1.2, header = NULL,
   i <- seq_along(chords)
   id <- names(chords)
   fp <- .adjust_file_path(file)
-  ext <- if(fp$ext == "pdf") "--pdf" else "-dresolution=600 --png"
+  ext <- if(fp$ext == "pdf") "--pdf" else paste0("-dresolution=", res, " --png")
   if(is.null(paper$textheight) & fp$ext == "png"){
     png_args <- "\" -dbackend=eps "
   } else {
     png_args <-  "\" "
   }
   if(transparent & fp$ext == "png")
-    png_args <- paste(png_args, "\ -dpixmap-format=pngalpha ")
+    png_args <- paste0(png_args, "\ -dpixmap-format=pngalpha ")
   crop_png_w <- if(crop_png & !length(header)) TRUE else FALSE
   paper_args <- .lp_paper_args2(paper, crop_png, crop_png_w)
   paper <- do.call(.lp_paper, paper_args)

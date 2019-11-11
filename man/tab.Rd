@@ -10,12 +10,12 @@
 tab(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   header = NULL, paper = NULL, string_names = NULL, endbar = TRUE,
   midi = TRUE, colors = NULL, crop_png = TRUE, transparent = FALSE,
-  keep_ly = FALSE, simplify = TRUE, details = FALSE)
+  res = 150, keep_ly = FALSE, simplify = TRUE, details = FALSE)
 
 render_tab(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   header = NULL, paper = NULL, string_names = NULL, endbar = TRUE,
   midi = TRUE, colors = NULL, crop_png = TRUE, transparent = FALSE,
-  keep_ly = FALSE, simplify = TRUE, details = FALSE)
+  res = 150, keep_ly = FALSE, simplify = TRUE, details = FALSE)
 
 render_score(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   header = NULL, paper = NULL, endbar = TRUE, colors = NULL,
@@ -59,6 +59,9 @@ force on or off completely.}
 \item{crop_png}{logical, see \code{lilypond} for details.}
 
 \item{transparent}{logical, transparent background, png only.}
+
+\item{res}{numeric, resolution, png only. \code{transparent = TRUE} may fail
+when \code{res} exceeds ~150.}
 
 \item{keep_ly}{logical, keep the intermediary LilyPond file.}
 

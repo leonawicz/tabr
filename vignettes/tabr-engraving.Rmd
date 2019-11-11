@@ -19,11 +19,15 @@ knitr::opts_chunk$set(
 library(tabr)
 ```
 
-This section covers `lilypond` and `tab` for writing LilyPond files and engraving to sheet music with LilyPond, respectively. Examples of the various pieces of song metadata that can be passed to to these functions are provided.
+This section covers `lilypond` and `tab` for writing LilyPond files and engraving to sheet music with LilyPond, respectively. Examples of the various pieces of metadata that can be passed to to these functions are provided.
 
-The examples focus on `tab` because this function generates the tablature whereas `lilypond` only creates the LilyPond file that `tab` renders via LilyPond. `tab` is a wrapper around `lilypond`. The two functions have the same arguments. `tab` passes these along to `lilypond` internally, except for one. `tab` has `keep_ly = FALSE` by default, which removes the `.ly` file created by `lilypond` following rendering of the file to pdf or png. To keep the LilyPond file, set this to `TRUE`. See the function documentation for details.
+## Rendering
 
-By now you have seen many calls to `tab` in order to show full examples in early tutorial sections. With sufficient coverage of phrases, tracks and scores, and the progression through them, now it is time to go into detail on all the render time arguments that can be supplied that apply to the entire piece of tablature and any metadata or general song information associated with it.
+The `lilypond` function creates a LilyPond file (`.ly`). Various rendering functions wrap `lilypond` to combine the steps of creating an intermediary LilyPond file and rendering it to pdf or png. The most general render function is `tab`, which for naming consistency can also be called as `render_tab`. Other `render_*` functions exist including `render_score` and `render_midi`, which focus on rendering non-tablature, all-purpose sheet music and rendering only the corresponding MIDI file, respectively.
+
+The examples in this vignette focus on `tab`. You can set `keep_ly = TRUE` in render functions to retain the intermediary LilyPond file.
+
+By now you have seen many calls to `tab` throughout these vignettes in order to show full examples previously. With sufficient coverage of phrases, tracks and scores, and the progression through them, now it is time to go into more detail on the arguments that can be supplied as part of the rendering or engraving process that apply to the entire piece of sheet music.
 
 ## Score metadata
 
@@ -105,7 +109,7 @@ Also, `tabr` is a package aimed at creating guitar tablature. It is not concerne
 
 ### String names
 
-The `string_names` argument defaults to `NULL`. This means that standard tuning is never specified alongside the lines of a tab staff at the beginning of the tablature. However, any other tuning will be explicitly noted so the reader is aware of the alternate tuning of any applicable track. This can also be set to `TRUE` to force all tunings to be explicit including standard guitar tuning or `FALSE` to suppress them all (though it is unclear what value there is in the `FALSE` setting).
+The `string_names` is only relevant for tablature staves. argument defaults to `NULL`. This means that standard tuning is never specified alongside the lines of a tab staff at the beginning of the tablature. However, any other tuning will be explicitly noted so the reader is aware of the alternate tuning of any applicable track. This can also be set to `TRUE` to force all tunings to be explicit including standard guitar tuning or `FALSE` to suppress them all (though it is unclear what value there is in the `FALSE` setting).
 
 ### Paper and color settings
 
@@ -133,6 +137,35 @@ There are also global color settings. You can pass a named list to `colors` with
 * `accidental`
 
 For more detail on these settings and others further above, see the help documentation, `?lilypond`.
+
+## PNG output
+
+Here are examples that make use of png-specific options and function behavior. First, when rendering to png instead of pdf, automatic cropping of the image is attempted. This removes the full page appearance for smaller snippets of sheet music. There are some limitations to this. For example, inclusion of header elements can disrupt this behavior.
+
+```{r png1, eval=FALSE}
+x <- pitch_seq("e,", 24, key ="c") %>% as_music(8) %>% p() %>% track() %>% score()
+
+ppr <- list(linewidth = 60, page_numbers = FALSE)
+hdr <- list(title = "Notes in C on guitar", subtitle = "Standard tuning")
+tab(x, "ex_png1.png", tempo = NULL, midi = FALSE, header = hdr, paper = ppr)
+```
+
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex_33_png1.png?raw=true" class="centerimg" width="35%"></p>
+
+Above, the height is automatically cropped because `file` type is a png. Providing `textheight` to `paper` overrides this behavior. The width would have also been cropped on its own. However, because of the inclusion of `header` arguments, this fails and explicit `linewidth` is needed. Similarly, if elements that describe footer content (still part of the LilyPond `header` block) that appear at the bottom of the page such as `tagline` or `copyright` were included, automatic height cropping would have also failed. In general, automatic cropping is the default for png output, but `header` disrupts this, requiring manual overrides to width and height.
+
+In the example below, remove the header content. You can make a transparent background png, though you won't be able to see the difference here. Instead, create a dark mode example and increase the resolution.
+
+Since this is a single voice, single track, you do not need to explicitly call each function in the transcription pipeline. Use one of the convenient `render_music_*` functions to abstract this process, rendering sheet music directly from a `music` object. `render_music_guitar` has good default arguments for this example.
+
+```{r png2, eval=FALSE}
+colors <- list(color = "#e4e4e4", background = "gray10", head = "tomato", tabhead = "tomato")
+
+x <- as_music(pitch_seq("e,", 24, key ="c"), 8) %>% 
+  render_music_guitar("ex_png2.png", colors = colors, res = 300)
+```
+
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex_png2.png?raw=true" class="centerimg" width="100%"></p>
 
 ## The LilyPond file
 
