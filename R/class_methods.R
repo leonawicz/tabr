@@ -428,6 +428,8 @@ length.lyrics <- function(x){
 c.noteworthy <- function(...){
   x <- list(...)
   cl <- sapply(lapply(x, class), "[", 1)
+  x <- x[cl != "NULL"]
+  cl <- cl[cl != "NULL"]
   if(any(!cl %in% c("noteworthy", "character")))
     stop("Cannot concatenate incompatible classes with 'noteworthy'.",
          call. = FALSE)
@@ -449,6 +451,8 @@ c.noteworthy <- function(...){
 c.noteinfo <- function(...){
   x <- list(...)
   cl <- sapply(lapply(x, class), "[", 1)
+  x <- x[cl != "NULL"]
+  cl <- cl[cl != "NULL"]
   if(any(!cl %in% c("noteinfo", "character")))
     stop("Cannot concatenate incompatible classes with 'noteinfo'.",
          call. = FALSE)
@@ -466,6 +470,8 @@ c.noteinfo <- function(...){
 c.music <- function(...){
   x <- list(...)
   cl <- sapply(lapply(x, class), "[", 1)
+  x <- x[cl != "NULL"]
+  cl <- cl[cl != "NULL"]
   if(any(!cl %in% c("music", "character")))
     stop("Cannot concatenate incompatible classes with 'music'.",
          call. = FALSE)
@@ -526,6 +532,8 @@ c.music <- function(...){
 c.lyrics <- function(...){
   x <- list(...)
   cl <- sapply(lapply(x, class), "[", 1)
+  x <- x[cl != "NULL"]
+  cl <- cl[cl != "NULL"]
   if(any(!cl %in% c("lyrics", "character")))
     stop("Cannot concatenate incompatible classes with 'lyrics'.",
          call. = FALSE)
@@ -543,6 +551,8 @@ c.lyrics <- function(...){
 c.phrase <- function(...){
   x <- list(...)
   cl <- sapply(lapply(x, class), "[", 1)
+  x <- x[cl != "NULL"]
+  cl <- cl[cl != "NULL"]
   if(any(!cl %in% c("phrase", "character")))
     stop("Cannot concatenate incompatible classes with 'phrase'.",
          call. = FALSE)
