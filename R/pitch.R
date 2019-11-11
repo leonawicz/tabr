@@ -22,6 +22,8 @@
 #' @param scale character, if you want to use a different scale in conjunction
 #' with the key/root note, you can provide it, e.g.,
 #' \code{scale = "harmonic minor"}. Ignored if \code{key = NULL}.
+#' @param format character, the timestep delimiter format, \code{"space"} or
+#' \code{"vector"}.
 #'
 #' @return noteworthy
 #' @export

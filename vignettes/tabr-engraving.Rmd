@@ -150,7 +150,7 @@ hdr <- list(title = "Notes in C on guitar", subtitle = "Standard tuning")
 tab(x, "ex_png1.png", tempo = NULL, midi = FALSE, header = hdr, paper = ppr)
 ```
 
-<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex_33_png1.png?raw=true" class="centerimg" width="35%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex_png1.png?raw=true" class="centerimg" width="35%"></p>
 
 Above, the height is automatically cropped because `file` type is a png. Providing `textheight` to `paper` overrides this behavior. The width would have also been cropped on its own. However, because of the inclusion of `header` arguments, this fails and explicit `linewidth` is needed. Similarly, if elements that describe footer content (still part of the LilyPond `header` block) that appear at the bottom of the page such as `tagline` or `copyright` were included, automatic height cropping would have also failed. In general, automatic cropping is the default for png output, but `header` disrupts this, requiring manual overrides to width and height.
 
