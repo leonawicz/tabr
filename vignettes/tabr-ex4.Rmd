@@ -188,6 +188,6 @@ trackbind(track1, track2, track3, track4) %>%
 
 There you have it! One of my favorites by one of my favorite musicians, transcribed with R code. Here is what page one looks like.
 
-<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex4-devil-in-me.png?raw=true" class="centerimg" width="100%"></p>
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex4-devil-in-me-p1.png?raw=true" class="centerimg" width="100%"></p>
 
 There are limitations. For example, rendering string bending in the output is technically challenging in LilyPond itself and doing it right requires a bit of hacking there. For that reason, there is only so much effort on the R side to support code for string bending, especially not things like bend and release, or bend, release and pull off. Also, the poorly engraved bend notation is just being used as a stand in for vibrato anyway. I think it's just vibrato in the song. But when I don't have a tremolo bar, a little bending is good enough. Basically, just play those parts the way you want. Same goes for the rhythm pattern. There is no need to follow it exactly. However accurate parts are, they are still just a guide.
