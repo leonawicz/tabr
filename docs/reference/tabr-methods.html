@@ -178,7 +178,10 @@ phrase class." />
       <a href="../articles/tabr-ex2.html">Multiple voices</a>
     </li>
     <li>
-      <a href="../articles/tabr-ex3.html">Ezio's family</a>
+      <a href="../articles/tabr-ex3.html">AC2 - Ezio's family</a>
+    </li>
+    <li>
+      <a href="../articles/tabr-ex4.html">Gin Wigmore - Devil in me</a>
     </li>
   </ul>
 </li>
@@ -324,6 +327,12 @@ like it is for the other classes. <code>rep</code> is restricted in that it can
 only repeat the entire phrase sequence, not the timesteps within. However,
 you can convert a phrase class back to <code>noteworthy</code> and <code>noteinfo</code>
 objects (under reasonable conditions). See <code><a href='phrase-checks.html'>notify</a></code>.</p>
+<p>One exception made for <code>phrase</code> with respect to concatenation is that
+an attempt to concatenate any combination of phrase and music objects, in
+any order, results in coercion to a new phrase. This happens even in a case
+where the first object in the sequence is a music object (thus calling
+<code>c.music</code> rather than <code>c.phrase</code>). It will subsequently fall back
+to <code>c.phrase</code> in that case.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='note-logic.html'>note-logic</a></code>, <code><a href='note-metadata.html'>note-metadata</a></code></p></div>
