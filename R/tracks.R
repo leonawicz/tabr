@@ -20,18 +20,22 @@
 #' ignored when the chord chart is generated.
 #'
 #' @param x character, n-string chord description from lowest to highest pitch,
-#' strings n through 1. E.g., \code{"xo221o"}. See details.
+#' strings n through 1. E.g., \code{"xo221o"}. You can use spaces or semicolons
+#' when 2-digit fret numbers are present, e.g., \code{"8 10 10 9 o"}. Do not
+#' mix formats. Leading \code{x} are inferred if the number of entries is less
+#' than \code{n}.
 #' @param id character, the name of the chord in LilyPond readable format,
 #' e.g., \code{"a:m"}. Ignored if \code{x} is already a named vector.
+#' @param n number of instrument strings.
 #'
 #' @return a named list.
 #' @export
 #'
 #' @examples
 #' chord_names <- c("e:m", "c", "d", "e:m", "d", "r", "s")
-#' chord_position <- c("xx997x", "x5553x", "x7775x", "ooo22o", "232oxx", NA, NA)
+#' chord_position <- c("997x", "5553x", "7775x", "ooo22o", "232oxx", NA, NA)
 #' chord_set(chord_position, chord_names)
-chord_set <- function(x, id = NULL){
+chord_set <- function(x, id = NULL, n = 6){
   if(!is.null(names(x))) id <- names(x)
   idx <- which(is.na(x))
   if(length(idx)){
@@ -41,13 +45,20 @@ chord_set <- function(x, id = NULL){
   x <- x[!is.na(x)]
   id <- id[!id %in% c("r", "s")]
   f <- function(x){
-    strsplit(gsub("\\(", " \\(", gsub("\\)", " ", x)), " ")[[1]] %>%
-      purrr::map(~({
-        if(substr(.x, 1, 1) == "(") substring(.x, 2) else strsplit(.x, "")[[1]]
-      })) %>%
-      unlist() %>%
-      paste(collapse = ";") %>%
-      paste0(";")
+    if(grepl(";", x)){
+      if(!grepl(";$")) x <- paste0(x, ";")
+    } else if(grepl(" ", x)){
+      x <- paste0(gsub(" ", ";", trimws(x)), ";")
+    } else {
+      x <- strsplit(x, "")[[1]]
+      x <- paste0(paste(x, collapse = ";"), ";")
+    }
+    n0 <- length(strsplit(x, ";")[[1]])
+    if(n0 > n)
+      stop("Cannot have more fret values than number of instrument strings.",
+           call. = FALSE)
+    if(n0 < n) x <- paste(c(rep("x", n - n0), x), collapse = ";")
+    gsub("0", "o", x)
   }
   x <- purrr::map_chr(x, f)
   names(x) <- id

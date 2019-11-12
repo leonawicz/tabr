@@ -13,7 +13,7 @@
 #' semicolons, to split fret numbers.
 #' Do not mix formats. For example, you can use \code{chord = "xo221o"},
 #' \code{chord = "x 8 10 10 9 8"} or \code{chord = "x;8;10;10;9;8"}.
-#' Trailing delimiters are ignored (Lilypond format: \code{"x;8;10;10;9;8;"}).
+#' Trailing delimiters are ignored (LilyPond format: \code{"x;8;10;10;9;8;"}).
 #' If there are fewer fret values than there are strings on the instrument, as
 #' inferred from \code{tuning}, then muted strings, \code{x}, are inferred for
 #' the remaining lower-pitch strings.

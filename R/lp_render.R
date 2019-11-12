@@ -122,9 +122,10 @@ render_tab <- tab
 render_score <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
                          header = NULL, paper = NULL, endbar = TRUE,
                          colors = NULL, crop_png = TRUE, transparent = FALSE,
-                         keep_ly = FALSE, simplify = TRUE){
+                         res = 150, keep_ly = FALSE, simplify = TRUE,
+                         details = FALSE){
   tab(score, file, key, time, tempo, header, paper, FALSE, endbar, FALSE,
-      colors, crop_png, transparent, keep_ly, simplify)
+      colors, crop_png, transparent, res, keep_ly, simplify, details)
 }
 
 #' @export

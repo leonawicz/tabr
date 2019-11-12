@@ -99,6 +99,13 @@ like it is for the other classes. \code{rep} is restricted in that it can
 only repeat the entire phrase sequence, not the timesteps within. However,
 you can convert a phrase class back to \code{noteworthy} and \code{noteinfo}
 objects (under reasonable conditions). See \code{\link{notify}}.
+
+One exception made for \code{phrase} with respect to concatenation is that
+an attempt to concatenate any combination of phrase and music objects, in
+any order, results in coercion to a new phrase. This happens even in a case
+where the first object in the sequence is a music object (thus calling
+\code{c.music} rather than \code{c.phrase}). It will subsequently fall back
+to \code{c.phrase} in that case.
 }
 
 \examples{

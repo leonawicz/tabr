@@ -19,8 +19,8 @@ render_tab(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 
 render_score(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   header = NULL, paper = NULL, endbar = TRUE, colors = NULL,
-  crop_png = TRUE, transparent = FALSE, keep_ly = FALSE,
-  simplify = TRUE)
+  crop_png = TRUE, transparent = FALSE, res = 150, keep_ly = FALSE,
+  simplify = TRUE, details = FALSE)
 
 render_midi(score, file, key = "c", time = "4/4", tempo = "2 = 60")
 }

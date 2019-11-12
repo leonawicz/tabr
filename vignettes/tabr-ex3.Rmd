@@ -1,8 +1,8 @@
 ---
-title: "Example: Ezio's family"
+title: "Example: AC2 - Ezio's family"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Example: Ezio's family}
+  %\VignetteIndexEntry{Example: AC2 - Ezio's family}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -40,7 +40,7 @@ header <- list(
 )
 
 txt <- "Tune down full step: DGCFAD (Dm). Let guitar 1 ring."
-outfile <- "jesper_kyd-ezios_family-custom-arrangement.pdf"
+outfile <- "jesper_kyd-ezios_family-custom_arrangement.pdf"
 ```
 
 ## Guitar 1 voice 1

@@ -11,7 +11,8 @@
 musical(x)
 
 as_music(notes, info = NULL, lyrics = NA, key = "c", time = "4/4",
-  tempo = "2 = 60", accidentals = NULL, format = NULL)
+  tempo = "2 = 60", accidentals = NULL, format = NULL,
+  labels = NULL, at = seq_along(labels))
 
 is_music(x)
 
@@ -40,6 +41,12 @@ Defaults to \code{"4/4"}. See details.}
 
 \item{format}{\code{NULL} or character, the timestep delimiter format,
 \code{"space"} or \code{"vector"}.}
+
+\item{labels}{character, text annotations to attach to timesteps using
+\code{notate}.}
+
+\item{at}{integer, timesteps for \code{labels}, defaults to starting from
+time one.}
 }
 \value{
 depends on the function

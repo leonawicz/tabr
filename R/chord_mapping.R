@@ -52,7 +52,9 @@ chord_def <- function(fret, id, optional = NA, tuning = "standard", ...){
   min_fret <- min(fret, na.rm = TRUE)
   idx <- which(!is.na(fret))
   root_fret <- fret[idx[1]]
-  bass_string <- (6:1)[min(idx)]
+  x <- strsplit(.map_tuning(tuning), " ")[[1]]
+  n <- length(x)
+  bass_string <- (n:1)[min(idx)]
 
   f <- function(x){
     if(is.na(x)){
@@ -66,10 +68,19 @@ chord_def <- function(fret, id, optional = NA, tuning = "standard", ...){
     }
   }
 
-  fret2 <- sapply(fret, f)
-  fretboard <- chord_set(paste(fret2, collapse = ""), id)
+  f2 <- function(x){
+    if(is.na(x)){
+      "x"
+    } else if(x == 0){
+      "o"
+    } else {
+      x
+    }
+  }
 
-  x <- strsplit(.map_tuning(tuning), " ")[[1]]
+  fret2 <- sapply(fret, f)
+  fret3 <- paste(sapply(fret, f2), collapse = " ")
+  fretboard <- chord_set(fret3, id, n = n)
   semitones <- fret + c(
     0,
     cumsum(sapply(1:(length(x) - 1),

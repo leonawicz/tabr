@@ -19,7 +19,7 @@ x4 <- trackbind(track(p1, voice = 1),
                 track(p2, voice = 2), tabstaff = c(1, 1)) %>% score()
 
 chord_prep <- c("b_:m" = "x13321", "c/g" = "332o1o",
-                "b:m/f#" = "(14)(12)(14)(14)(13)(12)", "r" = NA, "s" = NA)
+                "b:m/f#" = "14 12 14 14 13 12", "r" = NA, "s" = NA)
 chords <- chord_set(chord_prep)
 
 test_that("chord_set returns as expected", {

@@ -1,0 +1,193 @@
+---
+title: "Example: Gin Wigmore - Devil in me"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Example: Gin Wigmore - Devil in me}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+options(crayon.enabled = TRUE)
+sgr_wrap <- function(x, options){
+  paste0("<pre class=\"r-output\"><code>", fansi::sgr_to_html(x = htmltools::htmlEscape(x)), "</code></pre>")
+}
+knitr::knit_hooks$set(output = sgr_wrap)
+knitr::opts_chunk$set(
+  collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, out.width = "100%"
+)
+library(tabr)
+```
+
+## Overview
+
+This coding example demonstrates the creation of a complete arrangement of [Devil in me](https://www.youtube.com/watch?v=cC04hkIVrYs) by [Gin Wigmore](https://en.wikipedia.org/wiki/Gin_Wigmore), whose music was one of the original inspirations for writing the sheet music transcription code in `tabr`. This custom arrangement written in R code is for educational purposes.
+
+<div style="text-align:center">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/cC04hkIVrYs" frameborder="0" allowfullscreen></iframe>
+</div>
+
+While I enjoy playing Gin Wigmore's music on guitar, it was frustrating to not be able to find quality guitar tablature for reference. Of course, this is the case for the vast majority of music. Having tabs would have helped me figure out guitar parts that I found challenging to hear clearly when layered with other instruments and vocals. In the end, I had no recourse but to do my best at figuring out each guitar track by ear. It's not perfect, nor does this custom arrangement need to be exactly like the recording, but it's pretty close. And now I can reproduce the arrangement with code.
+
+This tutorial shows use of both the `phrase` class and the `music` class for entering the notes and chords and building up the score.
+
+## Setup
+
+First, enter some score metadata.
+
+```{r metadata}
+hdr <- list(
+  title = "Devil in me",
+  composer = "Words and music by Gin Wigmore",
+  performer = "Gin Wigmore",
+  album = "Gravel and Wine",
+  subtitle = "From the album Gravel and Wine by Gin Wigmore",
+  arranger = "Arranged by Matthew Leonawicz",
+  copyright = "2011 Island Records",
+  tagline = paste("Arranged by Matthew Leonawicz", Sys.Date())
+)
+
+out <- "gin_wigmore-devil_in_me-custom_arrangement.pdf"
+```
+
+Define some guitar chords with specific shapes and positions on the guitar neck that will be used several times.
+
+```{r chord_defs}
+d1 <- "dad'f'"
+f1 <- "f,cfac'f'"
+g1 <- "g,dgb_d'g'"
+a1 <- "a,eac#'e'"
+b_1 <- "b_,fb_d'f'"
+c1 <- "cegc'e'"
+b_2 <- "b_d'f'b_'"
+c2 <- "c'e'g'c''"
+f2 <- "c'f'a'c''"
+d2 <- "d'f'a'"
+f3 <- "c'f'a'"
+g2 <- "d'g'b_'"
+```
+
+## Chord chart and chord symbols above staff
+
+Next provide the code for fretboard diagrams that will compose the chord chart at the top of the first page of the sheet music. This requires fretted strings and chord symbols to identify each chord.
+
+Here is the code for defining the chord chart.
+
+```{r chord_chart}
+chord_names <- c("d:m", "f", "g:m", "a", "b_", "c", "s", "b_", "c", "f", "d:m", "f/c", "g:m/d")
+chord_positions <- c("o231", "133211", "355333", "o222o", "13331", "32o1o",
+                     NA, "8766", "10 9 8 8", "10 10 10 8", "765", "565", "786")
+chords <- chord_set(chord_positions, chord_names)
+```
+
+If you are wondering, the `NA` is because there is no value for the silent rest `s`. This is not important here but used below to indicate measures where no chord symbol is to be shown.
+
+That chord chart is pretty easy. The more cumbersome step is laying out chord symbols above the staff through time from measure to measure. For this, you need to know how you plan to annotate the staff at measure, while also accounting for any use of volta repeat sections, which effectively reduce the number of measures that display in the sheet music compared to how many really exist.
+
+Here is the code for defining the chord sequence.
+
+```{r chord_seq}
+intro <- rep(c(1:3, 1), each = 2)
+verse <- list(
+  c(rep(rep(1:3, each = 2), 2), rep(1:2, each = 2), 3, 4),
+  c(rep(1:3, each = 2), rep(1:2, each = 2), 3, 4)
+)
+chorus <- c(5:6, 2:1, 5:6)
+interlude <- list(rep(1:2, each = 2), rep(c(1, 2, 1, 2, 1, 5, 1, 4), each = 2))
+ending <- c(7, 1)
+name_seq <- chord_names[c(intro, verse[[1]], chorus, interlude[[1]],
+                          verse[[2]], chorus, interlude[[2]], chorus, ending)]
+measures <- length(c(intro, unlist(verse), rep(chorus, 3), unlist(interlude), ending))
+chord_seq <- rep(1, length(name_seq)) %>% setNames(name_seq)
+```
+
+## Guitar 1: melody and lead
+
+Now things get more interesting. It is time to to write code for the main guitar. This is the main melody. It includes the lead guitar bits and the guitar solo. Since this track will display in the tablature output as the first staff, use this one for including some text annotations.
+
+```{r guitar1a}
+txt <- c("Guitar 1 w/ tremolo. Guitars 3 and 4 rhythm figures played during intro.",
+         "Add guitar 3 intro rhythm figure during intro lead repeat.",
+         "Add guitar 4 intro rhythm figure until chorus.",
+         "Guitar solo. Add guitar 3 during solo.")
+```
+
+Putting the pieces together, I have done this using several phrases below.
+
+Notice that it is much easier to add annotations using `as_music`, which takes `labels` and `at` arguments. Also, when using `phrase` directly (actually the alias `p`), the notation is still provided in the same efficient single-string syntax used by the `music` class. If you provide this syntax, `phrase` will recognize it and treat it the same as if you had already created a music object with `as_music`. You can also concatenate both classes together, resulting in a new phrase object.
+
+The last step is to concatenate all these phrases in the proper order for the full track.
+
+```{r guitar1b}
+p1 <- purrr::map(txt[1:2], ~p(as_music("r4;5 a,8 c f;4 d a;3 f;4 b~16^;3 b~ b2..^", labels = .x)))
+p2 <- p("r4;4 a8 c';3 d' a;4 f';2 d';3 g'~16^;2 g'~ g'2.^")
+p2b <- gsub("\\.", "\\.\\.", p2)
+p3 <- p("f'8;2 g'2 a8;4 c';3 d' f';2 d'~1;3 d'")
+p4 <- p("r1;4*5 r4 g~2. g1 r4 d~2.;5 d1 r2.. c''16;1 c'' a'1;2 r r r4. f'2;3 d'~8 d'1 r2 r8 c''4;1 a'~8;2 a'1 r r")
+p5a <- p(pc(b_2, c2, f2, d2), 1, "4*3 3")
+p5 <- purrr::map(1:2, ~c(volta(p5a, .x), p(pc(b_2, c2), 1, 4)))
+p6 <- c(
+  p("r4.;3 f'4 d' f'~8 f'1 r2 r8 a'c''4.;2 a'1 r2. d''g''~4 d''g''1 r4. a'8 f'4;3 d' a1;4"),
+  as_music("r4 a'c''4.;2 c''4;1 a'8;2 f'1;3 r4 d''g''2.;2 r1", labels = txt[3])
+)
+p7 <- c(volta(p5a, 2), p(pc(b_2, tie(c2), c2, d1), 1, 4))
+
+solo <- c(
+  as_music("d2.;5 c8 d~ d a, c d g-;4 a- g f~ f2- d'8;3 f'4;2 c''8;1 a'2 a4;3 f;4", labels = txt[4]),
+  p("d2;5 d4 c8 d~ d a, c d g-;4 a- g f~ f2 r8 f';2*3 f'2 f'4 e'"),
+  p("d'2;3 d'4 c'8 d'~ d' f';2 a;4 c';3 d'4 c' b_2;4 b_4 c'8;3 d'~ d'2 a4 f;4"),
+  p("d2;5 d4 c8 d~ d a, c d g-;4 a- g a~;3 a2- e'a'16;3*4 e'a'e'';3*10 e'a'e''2 r8")
+)
+
+track1 <- track(c(p1[[1]], p2, p3, p4, p5[[1]], p1[[2]], p2b, p6, p5[[2]], solo, p7))
+```
+
+## Guitar 2 - 4: rhythm
+
+The rhythm guitar section is much simpler, though to anyone not working on the transcription themselves, no less cryptic at a glance. However, in this case much of the reason it looks opaque is because there is more opportunity to save on typing by creating a simple function that will repeat patterns efficiently.
+
+There are mainly two guitar parts. The lead above and this rhythm guitar here.
+
+```{r guitar2}
+f <- function(notes, strings, n = 1) pct(p(pn(notes, 8), "8 8x 8*3 8x 8 8", pn(strings, 8)), n - 1)
+p1a <- c(f(d1, 4, 2), f(f1, 6, 2), f(g1, 6, 2))
+p1 <- c(p1a, f(d1, 4), p(d1, "1]", 4))
+p2 <- c(p1a, p1a, f(d1, 4, 2), f(f1, 6, 2), f(g1, 6), rep(p(a1, 8, 5), 8))
+p3a <- c(f(b_1, 5), f(c1, 5), f(f1, 6), f(d1, 6))
+p3 <- c(volta(p3a, silent = TRUE), f(b_1, 5), p(c1, "1]", 5), f(d1, 4, 2), f(f1, 6), p(f1, "1]", 6))
+p4 <- c(f(d1, 4, 2), f(f1, 6, 2), f(g1, 6, 2), f(d1, 4, 2), f(f1, 6, 2), f(g1, 6), rep(p(a1, 8, 5), 8))
+p5 <- c(volta(p3a, 2, silent = TRUE), f(b_1, 5), p(c1, "1]", 5))
+p6 <- c(rep(c(f(d1, 4, 2), f(f1, 6, 2)), 2), f(d1, 4, 2), f(b_1, 5, 2), f(d1, 4, 2), f(a1, 5, 2))
+p7 <- c(volta(p3a, 2, silent = TRUE), f(b_1, 5), p(pc(c1, "r r"), "1] 1 1", 5))
+
+track2 <- track(pc(p1, p2, p3, p4, p5, p6, p7))
+```
+
+What I have chosen to call guitars 3 and 4 are actually pretty short pieces. I have arranged it this way to capture the few moments, mainly the opening, where it's not just two guitars. It can take decent speakers to pick it apart. My ears did the best they could do.
+
+```{r guitar34}
+f <- function(notes, n = 1) pct(p(pc("r", notes, "r", notes, "r"), "4 8] 4 8] 4", 3), n - 1)
+p1a <- pc(f(d2, 2), f(f3, 2), f(g2, 2), f(d2), p(pc(d2, "r"), "8] 2..", 3))
+p1b <- pc(f(d2, 2), f(f3), f(f3))
+track3 <- track(p1a)
+
+f <- function(notes, n = 1) pct(p(pc(notes, "r", notes, "r"), "8] 4 8] 2", 5), n - 1)
+p1 <- pc(f("da", 2), f("fc'", 2), f("gd'", 2), f("da", 1), p(pc("da r"), "4 2.", 5))
+track4 <- track(p1)
+```
+
+## Render the sheet music
+
+Now you can render the sheet music document by sending the score to LilyPond.
+
+```{r score}
+trackbind(track1, track2, track3, track4) %>%
+  score(chords, chord_seq) %>%
+  tab(out, key = "dm", tempo = "4 = 120", header = hdr)
+```
+
+There you have it! One of my favorites by one of my favorite musicians, transcribed with R code. Here is what page one looks like.
+
+<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex4-divil-in-me.png?raw=true" class="centerimg" width="100%"></p>
+
+There are limitations. For example, rendering string bending in the output is technically challenging in LilyPond itself and doing it right requires a bit of hacking there. For that reason, there is only so much effort on the R side to support code for string bending, especially not things like bend and release, or bend, release and pull off. Also, the poorly engraved bend notation is just being used as a stand in for vibrato anyway. I think it's just vibrato in the song. But when I don't have a tremolo bar, a little bending is good enough. Basically, just play those parts the way you want. Same goes for the rhythm pattern. There is no need to follow it exactly. However accurate parts are, they are still just a guide.

@@ -4,14 +4,19 @@
 \alias{chord_set}
 \title{Generate a chord set}
 \usage{
-chord_set(x, id = NULL)
+chord_set(x, id = NULL, n = 6)
 }
 \arguments{
 \item{x}{character, n-string chord description from lowest to highest pitch,
-strings n through 1. E.g., \code{"xo221o"}. See details.}
+strings n through 1. E.g., \code{"xo221o"}. You can use spaces or semicolons
+when 2-digit fret numbers are present, e.g., \code{"8 10 10 9 o"}. Do not
+mix formats. Leading \code{x} are inferred if the number of entries is less
+than \code{n}.}
 
 \item{id}{character, the name of the chord in LilyPond readable format,
 e.g., \code{"a:m"}. Ignored if \code{x} is already a named vector.}
+
+\item{n}{number of instrument strings.}
 }
 \value{
 a named list.
@@ -39,6 +44,6 @@ ignored when the chord chart is generated.
 }
 \examples{
 chord_names <- c("e:m", "c", "d", "e:m", "d", "r", "s")
-chord_position <- c("xx997x", "x5553x", "x7775x", "ooo22o", "232oxx", NA, NA)
+chord_position <- c("997x", "5553x", "7775x", "ooo22o", "232oxx", NA, NA)
 chord_set(chord_position, chord_names)
 }

@@ -66,6 +66,10 @@
 #' \code{"flat"} or \code{"sharp"}.
 #' @param format \code{NULL} or character, the timestep delimiter format,
 #' \code{"space"} or \code{"vector"}.
+#' @param labels character, text annotations to attach to timesteps using
+#' \code{notate}.
+#' @param at integer, timesteps for \code{labels}, defaults to starting from
+#' time one.
 #'
 #' @return depends on the function
 #' @export
@@ -102,7 +106,8 @@ musical <- function(x){
 #' @export
 #' @rdname music
 as_music <- function(notes, info = NULL, lyrics = NA, key = "c", time = "4/4",
-                     tempo = "2 = 60", accidentals = NULL, format = NULL){
+                     tempo = "2 = 60", accidentals = NULL, format = NULL,
+                     labels = NULL, at = seq_along(labels)){
   null_args <- is.null(accidentals) & is.null(format)
   if(inherits(notes, "music") && null_args && music_key(notes) == key &&
      music_time(notes) == time && music_tempo(notes) == tempo &&
@@ -121,11 +126,13 @@ as_music <- function(notes, info = NULL, lyrics = NA, key = "c", time = "4/4",
   }
   .check_format_arg(format)
   .check_accidentals_arg(accidentals)
-  .asmusic(notes, info, s, lyrics, key, time, tempo, accidentals, format)
+  .asmusic(notes, info, s, lyrics, key, time, tempo, accidentals, format,
+           labels, if(!length(at)) NULL else at)
 }
 
 .asmusic <- function(x, y, s, lyrics = NA, key = "c", time = "4/4",
-                     tempo = "2 = 60", accidentals = NULL, format = NULL){
+                     tempo = "2 = 60", accidentals = NULL, format = NULL,
+                     labels = NULL, at = NULL){
   x <- .asnw(x, "tick", accidentals, "vector")
   if(!is.null(s)) s <- .music_infer_strings(x, s)
   y <- .asni(y, "vector")
@@ -153,6 +160,9 @@ as_music <- function(notes, info = NULL, lyrics = NA, key = "c", time = "4/4",
   if(!is.null(s)) ax$string <- s
   attributes(x) <- ax[names(ax) != "class"]
   class(x) <- unique(c("music", class(x)))
+  if(inherits(labels, "character") & length(labels) == length(at)){
+    x[at] <- sapply(x[at], notate, text = labels)
+  }
   x
 }
 

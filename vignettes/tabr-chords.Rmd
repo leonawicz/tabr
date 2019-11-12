@@ -88,14 +88,14 @@ The next example highlights several facts about chord specification for fretboar
 
 *    There are other chord modifiers besides the common `m` that follow the `:` separator including chords such as suspended second and forth chords. See the first two chords below. Common modifiers include `m`, `7`, `m7`, `dim`, `dim7`, `maj7`, `6`, `sus2`, `sus4`, `aug`, `9`.
 *    Chord inversions, or simply any chord described as a chord combined with some alternate bass or root note, are examples of chords notated with a `/<note>`. This is suffixed to the the chord regardless of whether that places it against an otherwise unmodified chord or after a chord modifier. See the next two chords below.
-*    Chords played at higher frets, ten and above, require wrapping fret numbers in parentheses. For example, `(10)` means 10th fret for a given string. This makes it distinct from `10`, which is first fret and open position for two adjacent strings. See the fifth chord below.
+*    Leading `x` is inferred. See below. Chords including 2-digit fret numbers require using spaces or semicolons as a delimiter. Do not mix the two. See the fifth chord below.
 *    The same chord name can be assigned to different chord positions. See the next two chords below, both D minor.
 *    Number of strings on the instrument is inferred from the number of entries in the chord string. However, there is not currently support for different numbers of strings. See the final chord below, which attempts to add a seventh (unplayed) string, duplicating the first Asus2 chord. The `x` is marked in the output, but no string appears. Similarly, if fewer strings are indicated by the fret positions provided, such as for an instrument with fewer than six strings, this results in erroneously applying them to a subset of the six guitar strings in the fretboard diagram. More general support may come later.
 *    If a chord vector used for other purposes (see next section on chord sequences) happens to contain `r` or `s` entries for rests or silent rests, they are passed through by `chord_set` but ignored when generating chord charts. 
 *    The chord chart displays chords in the order they were defined.
 
 ```{r chord6, results="hide", eval=FALSE}
-chords <- c("xo22oo", "xo223o", "xxx565", "xxx786", "xx(10)(10)(10)8", "xxo231", "xxx765", "xxo22oo", NA, NA)
+chords <- c("xo22oo", "o223o", "xxx565", "786", "10 10 10 8", "o231", "765", "o22oo", NA, NA)
 names(chords) <- c("a:sus2", "a:sus4", "f/c", "g:m/d", "f", "d:m", "d:m", "a:sus2", "r", "s")
 chords <- chord_set(chords)
 p("r", 1) %>% track %>% score(chords) %>% tab("ex14.pdf")
@@ -115,7 +115,7 @@ info <- c("8*20 2", "4*20 1")
 strings <- pc(c(5:1, 2:4, 4:1, 4:1, 5:3, 4:5)) # almost not needed, but for 1st 2 notes of G chord
 p1 <- p(notes, info[1], strings)
 p2 <- p(notes, info[2], strings)
-chords <- chord_set(c(c = "x32o1o", f = "xx3211", g = "xx5433", r = NA, s = NA))
+chords <- chord_set(c(c = "32o1o", f = "3211", g = "5433", r = NA, s = NA))
 ```
 
 ### Chord sequence
