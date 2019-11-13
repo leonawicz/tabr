@@ -69,7 +69,8 @@ n_beats <- function(x, unit = 4){
 #' @rdname n_measures
 steps_per_measure <- function(x){
   .check_time_inputs(x)
-  x <- table(floor(cumsum(duration_to_ticks(info_duration(x)) / 1920)) + 1)
+  ticks <- duration_to_ticks(info_duration(x))
+  x <- table(floor((cumsum(ticks) - ticks) / 1920) + 1)
   tibble::tibble(measure = as.integer(names(x)), steps = as.integer(x))
 }
 
