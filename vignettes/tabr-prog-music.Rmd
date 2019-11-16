@@ -40,13 +40,15 @@ Here is a closer look at the music object.
 summary(x)
 ```
 
+Some of the summary information is the same as seen with noteworthy objects and more is added that is unique to music objects. Just to note, octave tick format is explicitly shown as it is with noteworthy objects, though it is the only valid format for music objects.
+
 ## Deconstructing a music object
 
 Music analysis generally requires disentangling time and sound. For this reason, building a music object from notes and note info is not directly useful for analysis. It is a convenient object structure, however.
 
 Aside from generic methods and a handful of other functions that make sense to apply to any of these three classes, most functions in the package that operate on noteworthy strings intentionally do not accept a music object directly. This helps keep in mind that it is not ideal to continually deconstruct and reconstruct a music object just to perform operations on one of the two main component parts.
 
-You can split a music object with `music_split` or you can extract the relevant piece with one of the other functions below.
+You can split a music object into a list with `music_split` or you can extract the relevant piece with one of the other functions below.
 
 ```{r music3}
 music_split(x)
@@ -93,15 +95,17 @@ However, music objects do lend themselves seamlessly to some transcription tasks
 x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"
 x <- as_music(x)
 x
-
 music_strings(x)
+```
 
+Lyrics data returns as `NA` when requested if a lyrics object was not provided during the construction of a music object. In contrast, string number information is not represented in the object at all if not provided when constructed, since it is not relevant to the general purpose of the class and is only used for specific transcription use cases.
+
+```{r music 5b}
 summary(x)
-
 music_split(x)
 ```
 
-As you can see, even the print statement does not change. But the other functions above reveal that the additional information is now contained in the music object.
+As you can see above, the print statement does not change. But the other functions above reveal that the additional information is now contained in the music object.
 
 ## Working with music objects
 
@@ -137,5 +141,7 @@ seconds_per_measure(x)
 seconds_per_step(x)
 steps_start_time(x)
 ```
+
+You may notice above that the table returned by `steps_per_measure` containing the number of timesteps per measure of music does not have an entry for measure six. There is a measure six. You can see from `n_measures` being greater than five that a sixth measure does begin even if the duration of all the time steps does not yield a complete sixth measure. The reason there is no entry in the table is because this measure has no timesteps. The final chord in the sequence lasts for a whole measure, beginning in measure five and carrying over to six, but no timestep starts in six.
 
 Combining note info with a tempo is powerful because it allows you to move from beats into real time. The music object is a convenient structure for keeping sound and time together and splitting and extracting parts of the object for independent computations is easy when using the various supporting functions.

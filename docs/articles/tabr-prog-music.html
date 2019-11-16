@@ -212,13 +212,14 @@
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #BBBB00;">8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">d</span><span style="color: #BBBB00;">8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #BBBB00;">8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">f</span><span style="color: #BBBB00;">8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #BBBB00;">8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">a</span><span style="color: #BBBB00;">8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">b</span><span style="color: #BBBB00;">8</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">ceg~</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">8</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">ceg</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">1</span><span>
 </span></code></pre>
+<p>Some of the summary information is the same as seen with noteworthy objects and more is added that is unique to music objects. Just to note, octave tick format is explicitly shown as it is with noteworthy objects, though it is the only valid format for music objects.</p>
 </div>
 <div id="deconstructing-a-music-object" class="section level2">
 <h2 class="hasAnchor">
 <a href="#deconstructing-a-music-object" class="anchor"></a>Deconstructing a music object</h2>
 <p>Music analysis generally requires disentangling time and sound. For this reason, building a music object from notes and note info is not directly useful for analysis. It is a convenient object structure, however.</p>
 <p>Aside from generic methods and a handful of other functions that make sense to apply to any of these three classes, most functions in the package that operate on noteworthy strings intentionally do not accept a music object directly. This helps keep in mind that it is not ideal to continually deconstruct and reconstruct a music object just to perform operations on one of the two main component parts.</p>
-<p>You can split a music object with <code>music_split</code> or you can extract the relevant piece with one of the other functions below.</p>
+<p>You can split a music object into a list with <code>music_split</code> or you can extract the relevant piece with one of the other functions below.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="../reference/music.html">music_split</a></span>(x)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; $notes
 #&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
@@ -299,13 +300,12 @@
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">a,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">a,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">a,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">a,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">a,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">b,</span><span style="color: #BBBB00;">4-</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">cgc'e'~</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">cgc'e'</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">1</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">e'</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">c'</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">ce'</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">1</span><span>
 </span></code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"></a>
-<a class="sourceLine" id="cb12-2" title="2"><span class="kw"><a href="../reference/music-helpers.html">music_strings</a></span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw"><a href="../reference/music-helpers.html">music_strings</a></span>(x)</a></code></pre></div>
 <pre class="r-output"><code>#&gt;  [1] "5"    "5"    "5"    "5"    "5"    "5"    "5"    "5432" "5432" "2"   
 #&gt; [11] "3"    "4"    "5"    "51"
 </code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"></a>
-<a class="sourceLine" id="cb13-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(x)</a></code></pre></div>
+<p>Lyrics data returns as <code>NA</code> when requested if a lyrics object was not provided during the construction of a music object. In contrast, string number information is not represented in the object at all if not provided when constructed, since it is not relevant to the general purpose of the class and is only used for specific transcription use cases.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(x)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Music string&gt;
 #&gt;   Timesteps: </span><span>14 (11 notes, 3 chords)</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Octaves: </span><span>tick</span><span style="color: #555555;font-weight: bold;">
@@ -318,8 +318,7 @@
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">a,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">a,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">a,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">a,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">a,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">b,</span><span style="color: #BBBB00;">4-</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">cgc'e'~</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">cgc'e'</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">1</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">e'</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">c'</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">ce'</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">1</span><span>
 </span></code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"></a>
-<a class="sourceLine" id="cb14-2" title="2"><span class="kw"><a href="../reference/music.html">music_split</a></span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw"><a href="../reference/music.html">music_split</a></span>(x)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; $notes
 #&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
@@ -346,7 +345,7 @@
 #&gt; $tempo
 #&gt; [1] "2 = 60"
 </span></code></pre>
-<p>As you can see, even the print statement does not change. But the other functions above reveal that the additional information is now contained in the music object.</p>
+<p>As you can see above, the print statement does not change. But the other functions above reveal that the additional information is now contained in the music object.</p>
 </div>
 </div>
 <div id="working-with-music-objects" class="section level2">
@@ -416,6 +415,7 @@
 #&gt;  [8] 1.7500000 2.7500000 3.7500000 4.5000000 4.7500000 5.2500000 5.7500000
 #&gt; [15] 6.0000000 6.2500000 6.5000000 6.7500000 8.7500000
 </code></pre>
+<p>You may notice above that the table returned by <code>steps_per_measure</code> containing the number of timesteps per measure of music does not have an entry for measure six. There is a measure six. You can see from <code>n_measures</code> being greater than five that a sixth measure does begin even if the duration of all the time steps does not yield a complete sixth measure. The reason there is no entry in the table is because this measure has no timesteps. The final chord in the sequence lasts for a whole measure, beginning in measure five and carrying over to six, but no timestep starts in six.</p>
 <p>Combining note info with a tempo is powerful because it allows you to move from beats into real time. The music object is a convenient structure for keeping sound and time together and splitting and extracting parts of the object for independent computations is easy when using the various supporting functions.</p>
 </div>
   </div>

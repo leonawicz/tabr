@@ -274,21 +274,13 @@
 <pre class="r-output"><code>#&gt;  [1] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE
 #&gt; [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 </code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw"><a href="../reference/noteinfo.html">info_single_dotted</a></span>(x)</a></code></pre></div>
-<pre class="r-output"><code>#&gt;  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE
-#&gt; [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="kw"><a href="../reference/noteinfo.html">info_double_dotted</a></span>(x)</a></code></pre></div>
-<pre class="r-output"><code>#&gt;  [1] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-#&gt; [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-</code></pre>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw"><a href="../reference/noteinfo.html">info_annotation</a></span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw"><a href="../reference/noteinfo.html">info_annotation</a></span>(x)</a></code></pre></div>
 <pre class="r-output"><code>#&gt;  [1] "Start here" NA           NA           NA           NA          
 #&gt;  [6] NA           NA           NA           NA           NA          
 #&gt; [11] NA           NA           NA           NA           NA          
 #&gt; [16] NA           NA           NA           NA
 </code></pre>
-<p><code>info_duration</code> is a handy function that strips away all information but note durations. The other functions return logical vectors indicating timesteps where certain types of information are present.</p>
+<p><code>info_duration</code> is a handy function that strips away all information but note durations. Most of the other functions return logical vectors indicating timesteps where certain types of information are present. <code>info_annotation</code> extracts text annotations at timesteps, returning <code>NA</code> where there is no annotation.</p>
 </div>
 <div id="use-cases" class="section level2">
 <h2 class="hasAnchor">

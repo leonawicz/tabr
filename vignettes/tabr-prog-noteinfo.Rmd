@@ -73,12 +73,10 @@ info_slur_on(x)
 info_slur_off(x)
 info_slide(x)
 info_dotted(x)
-info_single_dotted(x)
-info_double_dotted(x)
 info_annotation(x)
 ```
 
-`info_duration` is a handy function that strips away all information but note durations. The other functions return logical vectors indicating timesteps where certain types of information are present.
+`info_duration` is a handy function that strips away all information but note durations. Most of the other functions return logical vectors indicating timesteps where certain types of information are present. `info_annotation` extracts text annotations at timesteps, returning `NA` where there is no annotation.
 
 ## Use cases
 
