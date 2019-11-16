@@ -312,8 +312,8 @@ plot_music_tab <- function(music, staff = NA, tuning = "standard",
                            colors = NULL, res = 300){
   file <- tempfile(fileext = ".png")
   render_music_tab(music, file, staff, tuning, string_names, header, paper,
-                  midi = FALSE, colors, transparent = FALSE, res,
-                  keep_ly = FALSE, simplify = FALSE)
+                   midi = FALSE, colors, transparent = FALSE, res,
+                   keep_ly = FALSE, simplify = FALSE)
   .draw_image(file)
   unlink(file, recursive = TRUE, force = TRUE)
   invisible()
@@ -326,8 +326,8 @@ plot_music_guitar <- function(music, tuning = "standard", string_names = NULL,
                               res = 300){
   file <- tempfile(fileext = ".png")
   render_music_guitar(music, file, tuning, string_names, header, paper,
-                   midi = FALSE, colors, transparent = FALSE, res,
-                   keep_ly = FALSE, simplify = FALSE)
+                      midi = FALSE, colors, transparent = FALSE, res,
+                      keep_ly = FALSE, simplify = FALSE)
   .draw_image(file)
   unlink(file, recursive = TRUE, force = TRUE)
   invisible()
@@ -340,7 +340,7 @@ plot_music_bass <- function(music, tuning = "bass", string_names = FALSE,
                             res = 300){
   file <- tempfile(fileext = ".png")
   render_music_bass(music, file, tuning = "bass", string_names, header, paper,
-                      midi = FALSE, colors, transparent = FALSE, res,
+                    midi = FALSE, colors, transparent = FALSE, res,
                     keep_ly = FALSE, simplify = FALSE)
   .draw_image(file)
   unlink(file, recursive = TRUE, force = TRUE)
