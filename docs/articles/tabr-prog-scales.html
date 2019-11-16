@@ -81,6 +81,12 @@
       <a href="../articles/tabr-prog-chords.html">Chord functions</a>
     </li>
     <li>
+      <a href="../articles/tabr-prog-noteinfo.html">Time and note info</a>
+    </li>
+    <li>
+      <a href="../articles/tabr-prog-music.html">The music class</a>
+    </li>
+    <li>
       <a href="../articles/tabr-prog-converters.html">Syntax converters</a>
     </li>
     <li>
@@ -193,9 +199,9 @@
 </ul>
 <p>There are also the functions, <code>key_n_flats</code> and <code>key_n_sharps</code>, that give the number of respective accidentals in a key signature.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="../reference/keys.html">keys</a></span>()</a></code></pre></div>
-<pre class="r-output"><code>#&gt;  [1] "c"   "g"   "d"   "a"   "e"   "b"   "f#"  "c#"  "f"   "b_"  "e_" 
-#&gt; [12] "a_"  "d_"  "g_"  "c_"  "am"  "em"  "bm"  "f#m" "c#m" "g#m" "d#m"
-#&gt; [23] "a#m" "dm"  "gm"  "cm"  "fm"  "b_m" "e_m" "a_m"
+<pre class="r-output"><code>#&gt;  [1] "c"   "g"   "d"   "a"   "e"   "b"   "f#"  "c#"  "f"   "b_"  "e_"  "a_" 
+#&gt; [13] "d_"  "g_"  "c_"  "am"  "em"  "bm"  "f#m" "c#m" "g#m" "d#m" "a#m" "dm" 
+#&gt; [25] "gm"  "cm"  "fm"  "b_m" "e_m" "a_m"
 </code></pre>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"></a>
 <a class="sourceLine" id="cb2-2" title="2"><span class="kw"><a href="../reference/keys.html">key_is_flat</a></span>(<span class="st">"f"</span>)</a></code></pre></div>
@@ -342,18 +348,18 @@
 <p>Musical intervals can be referenced by a name or a numeric value defining the separation of two notes. <code>interval_semitones</code> returns a positive integer describing the number of semitones spanned by a common interval. It takes a name or abbreviation of a common interval as input. Essentially, any entry from any other column in the <code>mainIntervals</code> dataset can be used to obtain the interval in semitones. It’s a simple filter and match, but it is convenient to map between different representations of the same property in <code>tabr</code> without typing the extra bit of code to do so each time.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1">mainIntervals</a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 26 x 5</span><span>
-#&gt;    semitones mmp            mmp_abb ad                               ad_abb
-#&gt;        </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>          </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>                            </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> 
-#&gt; </span><span style="color: #555555;"> 1</span><span>         0 perfect unison P1      diminished second                d2    
-#&gt; </span><span style="color: #555555;"> 2</span><span>         1 minor second   m2      augmented unison                 A1    
-#&gt; </span><span style="color: #555555;"> 3</span><span>         2 major second   M2      diminished third                 d3    
-#&gt; </span><span style="color: #555555;"> 4</span><span>         3 minor third    m3      augmented second                 A2    
-#&gt; </span><span style="color: #555555;"> 5</span><span>         4 major third    M3      diminished fourth                d4    
-#&gt; </span><span style="color: #555555;"> 6</span><span>         5 perfect fourth P4      augmented third                  A3    
-#&gt; </span><span style="color: #555555;"> 7</span><span>         6 tritone        TT      diminished fifth/augmented four~ d5/A4 
-#&gt; </span><span style="color: #555555;"> 8</span><span>         7 perfect fifth  P5      diminished sixth                 d6    
-#&gt; </span><span style="color: #555555;"> 9</span><span>         8 minor sixth    m6      augmented fifth                  A5    
-#&gt; </span><span style="color: #555555;">10</span><span>         9 major sixth    M6      diminished seventh               d7    
+#&gt;    semitones mmp            mmp_abb ad                                ad_abb
+#&gt;        </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>          </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>                             </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> 
+#&gt; </span><span style="color: #555555;"> 1</span><span>         0 perfect unison P1      diminished second                 d2    
+#&gt; </span><span style="color: #555555;"> 2</span><span>         1 minor second   m2      augmented unison                  A1    
+#&gt; </span><span style="color: #555555;"> 3</span><span>         2 major second   M2      diminished third                  d3    
+#&gt; </span><span style="color: #555555;"> 4</span><span>         3 minor third    m3      augmented second                  A2    
+#&gt; </span><span style="color: #555555;"> 5</span><span>         4 major third    M3      diminished fourth                 d4    
+#&gt; </span><span style="color: #555555;"> 6</span><span>         5 perfect fourth P4      augmented third                   A3    
+#&gt; </span><span style="color: #555555;"> 7</span><span>         6 tritone        TT      diminished fifth/augmented fourth d5/A4 
+#&gt; </span><span style="color: #555555;"> 8</span><span>         7 perfect fifth  P5      diminished sixth                  d6    
+#&gt; </span><span style="color: #555555;"> 9</span><span>         8 minor sixth    m6      augmented fifth                   A5    
+#&gt; </span><span style="color: #555555;">10</span><span>         9 major sixth    M6      diminished seventh                d7    
 #&gt; </span><span style="color: #555555;"># ... with 16 more rows</span><span>
 </span></code></pre>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1"></a>

@@ -4,9 +4,14 @@
 \alias{as_music_df}
 \title{Noteworthy string to data frame}
 \usage{
-as_music_df(notes, info = NULL, key = NULL, scale = "diatonic",
-  chords = c("root", "list", "character"), si_format = c("mmp_abb",
-  "mmp", "ad_abb", "ad"))
+as_music_df(
+  notes,
+  info = NULL,
+  key = NULL,
+  scale = "diatonic",
+  chords = c("root", "list", "character"),
+  si_format = c("mmp_abb", "mmp", "ad_abb", "ad")
+)
 }
 \arguments{
 \item{notes}{character, a noteworthy string. Alternatively, a music object

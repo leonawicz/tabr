@@ -1,0 +1,141 @@
+---
+title: "The music class"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{The music class}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+options(crayon.enabled = TRUE)
+sgr_wrap <- function(x, options){
+  paste0("<pre class=\"r-output\"><code>", fansi::sgr_to_html(x = htmltools::htmlEscape(x)), "</code></pre>")
+}
+knitr::knit_hooks$set(output = sgr_wrap)
+knitr::opts_chunk$set(
+  collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, tidy = FALSE, out.width = "100%"
+)
+library(tabr)
+```
+
+Previous vignettes introduced the `noteworthy` and `noteinfo` classes.
+
+## Constructing a music object
+
+First create a music object from `noteworthy` and `notinfo` objects. An object of each class can be combined to form a `music`-class object.
+
+```{r music1}
+notes <- "c d e f g a b ceg~ ceg"
+info <- "8*8 1"
+x <- as_music(notes, info)
+x
+```
+
+`as_music` offers several additional arguments. Music objects also store key signature, time signature and tempo. They include default values: key of C, 4/4 common time, and 60 half note beats per measure. However, unless you are transcribing your data to sheet music, you can probably ignore these object attributes entirely. Optionally you can also include a lyrics object.
+
+Here is a closer look at the music object.
+
+```{r music2}
+summary(x)
+```
+
+## Deconstructing a music object
+
+Music analysis generally requires disentangling time and sound. For this reason, building a music object from notes and note info is not directly useful for analysis. It is a convenient object structure, however.
+
+Aside from generic methods and a handful of other functions that make sense to apply to any of these three classes, most functions in the package that operate on noteworthy strings intentionally do not accept a music object directly. This helps keep in mind that it is not ideal to continually deconstruct and reconstruct a music object just to perform operations on one of the two main component parts.
+
+You can split a music object with `music_split` or you can extract the relevant piece with one of the other functions below.
+
+```{r music3}
+music_split(x)
+
+music_notes(x)
+music_info(x)
+music_key(x)
+music_time(x)
+music_tempo(x)
+```
+
+## Constructing from character
+
+The real value is in building brand new music objects from a single character string input. This method of music object construction allows for relatively efficient data entry. There can potentially be a lot less typing involved when directly entering music syntax for a new piece of music if you do so with the music class rather than creating `noteworthy` and `noteinfo` objects separately.
+
+This is also a good place to mention that like with `noteworthy` and `noteinfo` strings, a handy adjective can be used to check the validity of the music input.
+
+```{r music4}
+x <- "a,4*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4 c' g c ce'1"
+musical(x)
+x <- as_music(x)
+x
+```
+
+### Details
+
+Notice that each timestep remains space-delimited (vectors are also allowed). At each timestep, the notes and the note info are bound together unambiguously with no delimiter. This is why tick octave numbering is required for music objects.
+
+You can see that the expansion operator `*` is still allowed and continues to be place at the right end of a timestep.
+
+Do not forget that tied notes indicated with the `~` are part of the note and not part of the note info! Order matters here.
+
+You can also include rests `r` and silent rests `s`.
+
+### Other efficiencies
+
+Another benefit to this approach for entering new data is that durations are inferred from the previous timesteps if not provided. You do not need to explicitly enter a duration value until there is a change. This is not possible with `noteinfo` because it could result in simply removing timesteps, but here there is always a note entry present to mark each timestep.
+
+This one is a bit of an aside, but if string numbers are provided for a stringed and fretted instrument context (see example below), there is also no need to specify more than the starting string number (lowest pitch/highest number) unless there are non-consecutive strings. The purpose of the `music` class is not transcription, but to corral related data together for analysis.
+
+However, music objects do lend themselves seamlessly to some transcription tasks, which is why string numbering is allowed even though it is not focused on. You can see an example here. It is the same as above, but string numbers are indicated following a semicolon delimiter. Like durations, string numbers also repeat silently. Any inferred repeated information across timesteps carries over rests, including string numbers. String numbers at a rest timestep are ignored gracefully.
+
+```{r music5}
+x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"
+x <- as_music(x)
+x
+
+music_strings(x)
+
+summary(x)
+
+music_split(x)
+```
+
+As you can see, even the print statement does not change. But the other functions above reveal that the additional information is now contained in the music object.
+
+## Working with music objects
+
+While many functions that perform operations on noteworthy and note info objects require those objects exclusively, meaning that you are supposed to use functions like `music_notes` and `music_info` to extract the given component from a music object, there are several functions that are sensible to apply directly to music objects.
+
+First and foremost, the same generic methods are implemented for music objects. Square bracket subsetting will even subset any lyrics or string numbers that are present in the object, not just the notes and note info.
+
+```{r music6}
+tail(x)
+x[8:9]
+y <- rep(x[9:10], each = 2)
+y
+music_strings(y)
+```
+
+There are several time functions that work nicely on music objects. They were note introduced in the vignette on note info because they are more relevant here. Most require the level of information contained in a music object because they deal in real time such as seconds. This works with music objects because they contain a tempo value. Note info objects do not contain this level of information. They can be passed to functions that require a tempo value, as long as you also pass a tempo to any function with a `tempo` argument.
+
+The example below is intended to be complex, including many changes in note duration and other note info. There is not much to be gained by writing it as a single string in this case. For clarity, it starts from separate notes and note info. See the help documentation for more examples and details.
+
+```{r music7}
+a <- notate("t8x", "Start here")
+notes <- "a, b, c d e f g# a r ac'e' a c' e' c' r*3 ac'e'~ ac'e'"
+info <- paste(a, "t8x t8] 16 4.. 16- 16 2^ 2 4. 8( 4)( 4) 8*4 1 1")
+x <- as_music(notes, info)
+
+n_measures(x)
+n_beats(x)
+bpm(x)
+
+seconds(x)
+steps_per_measure(x)
+seconds_per_measure(x)
+seconds_per_step(x)
+steps_start_time(x)
+```
+
+Combining note info with a tempo is powerful because it allows you to move from beats into real time. The music object is a convenient structure for keeping sound and time together and splitting and extracting parts of the object for independent computations is easy when using the various supporting functions.

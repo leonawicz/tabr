@@ -7,6 +7,8 @@
 \alias{bpm}
 \alias{seconds}
 \alias{seconds_per_measure}
+\alias{seconds_per_step}
+\alias{steps_start_time}
 \title{Summarize rhythm and time of music objects}
 \usage{
 n_measures(x)
@@ -20,6 +22,10 @@ bpm(x, unit = 4, tempo = NULL)
 seconds(x, tempo = NULL)
 
 seconds_per_measure(x, tempo = NULL)
+
+seconds_per_step(x, tempo = NULL)
+
+steps_start_time(x, tempo = NULL)
 }
 \arguments{
 \item{x}{note info or music object.}
@@ -80,4 +86,6 @@ seconds(x, "4 = 100")
 
 steps_per_measure(x)
 seconds_per_measure(x)
+seconds_per_step(x)
+steps_start_time(x)
 }

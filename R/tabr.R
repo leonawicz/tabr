@@ -144,3 +144,23 @@ NULL
     stop("Cannot coerce string to 'noteworthy' or 'music'.", call. = FALSE)
   }
 }
+
+.lp_version <- function(){
+  lp <- tabr_options()$lilypond
+  if(lp == ""){
+    lp <- if(Sys.info()[["sysname"]] == "Windows") "lilypond.exe" else
+      "lilypond"
+  }
+  x <- tryCatch(
+    system(paste(lp, "--version"), intern = TRUE), error = function(e) ""
+  )
+  if(!(length(x) == 1 && x != ""))
+    x <- paste0("\\version \"", gsub("^GNU LilyPond (.*)", "\\1", x[1]), "\"\n")
+  x
+}
+
+.check_lilypond <- function(){
+  if(.lp_version() == "")
+    stop("Cannot find LilyPond installation.", call. = FALSE)
+  invisible()
+}

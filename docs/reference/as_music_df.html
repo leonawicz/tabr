@@ -126,6 +126,12 @@ derivative variables." />
       <a href="../articles/tabr-prog-chords.html">Chord functions</a>
     </li>
     <li>
+      <a href="../articles/tabr-prog-noteinfo.html">Time and note info</a>
+    </li>
+    <li>
+      <a href="../articles/tabr-prog-music.html">The music class</a>
+    </li>
+    <li>
       <a href="../articles/tabr-prog-converters.html">Syntax converters</a>
     </li>
     <li>
@@ -224,9 +230,14 @@ derivative variables." />
 derivative variables.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>as_music_df</span>(<span class='no'>notes</span>, <span class='kw'>info</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"diatonic"</span>,
-  <span class='kw'>chords</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"root"</span>, <span class='st'>"list"</span>, <span class='st'>"character"</span>), <span class='kw'>si_format</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mmp_abb"</span>,
-  <span class='st'>"mmp"</span>, <span class='st'>"ad_abb"</span>, <span class='st'>"ad"</span>))</pre>
+    <pre class="usage"><span class='fu'>as_music_df</span>(
+  <span class='no'>notes</span>,
+  <span class='kw'>info</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"diatonic"</span>,
+  <span class='kw'>chords</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"root"</span>, <span class='st'>"list"</span>, <span class='st'>"character"</span>),
+  <span class='kw'>si_format</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mmp_abb"</span>, <span class='st'>"mmp"</span>, <span class='st'>"ad_abb"</span>, <span class='st'>"ad"</span>)
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

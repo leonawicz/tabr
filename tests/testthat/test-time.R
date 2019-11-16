@@ -20,7 +20,10 @@ test_that("time functions return as expected", {
   expect_equal(seconds(x, "4 = 100"), 12.9)
 
   d <- steps_per_measure(x)
-  expect_equal(dim(d), c(6, 2))
-  expect_equal(d$steps, c(7, 2, 4, 4, 1, 1))
+  expect_equal(dim(d), c(5, 2))
+  expect_equal(d$steps, c(8, 2, 4, 4, 1))
   expect_equal(seconds_per_measure(x, tempo = "8 = 200"), 2.4)
+
+  expect_equal(length(seconds_per_step(x)), length(x))
+  expect_equal(length(steps_start_time(x)), length(x))
 })

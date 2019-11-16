@@ -52,6 +52,7 @@ reference:
   desc: "Transcription shortcuts for music objects"
   contents:
   - render_music
+  - plot_music
 - title: "Song lyrics: lyrics objects"
   desc: "Functions for aligning lyrics with other objects by timestep"
   contents:
@@ -164,6 +165,10 @@ navbar:
           href: "articles/tabr-prog-notes.html"
         - text: "Chord functions"
           href: "articles/tabr-prog-chords.html"
+        - text: "Time and note info"
+          href: "articles/tabr-prog-noteinfo.html"
+        - text: "The music class"
+          href: "articles/tabr-prog-music.html"
         - text: "Syntax converters"
           href: "articles/tabr-prog-converters.html"
         - text: "Fretboard diagram plots"

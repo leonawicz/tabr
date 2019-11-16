@@ -124,6 +124,12 @@
       <a href="../articles/tabr-prog-chords.html">Chord functions</a>
     </li>
     <li>
+      <a href="../articles/tabr-prog-noteinfo.html">Time and note info</a>
+    </li>
+    <li>
+      <a href="../articles/tabr-prog-music.html">The music class</a>
+    </li>
+    <li>
       <a href="../articles/tabr-prog-converters.html">Syntax converters</a>
     </li>
     <li>
@@ -233,7 +239,8 @@
 <li>Added native triplet support in note info using the <code>t</code>-prefix, e.g., <code>4 4] t8 t8- t8^ 4</code>. Support extends to <code>music</code> objects and now also to <code>phrase</code>, which alleviates reliance on the <code>triplet</code> function and its limitations.</li>
 <li>Added <code>lyrics</code> class that parallels the structure and behavior of the other classes; added associated functions and generic method implementations.</li>
 <li>Added <code>lyrics</code> support to <code>music</code> object construction and transformations.</li>
-<li>Added <code>render_*</code> functions for making simple sheet music snippets directly from <code>music</code> objects. This abstracts the <code>phrase() %&gt;% track() [%&gt;% trackbind()] %&gt;% score() %&gt;% render_*()</code> pipeline from the user for simpler music that is essentially a single voice, single track.</li>
+<li>Added <code>render_music_*</code> functions for making simple sheet music snippets directly from <code>music</code> objects. This abstracts the <code>phrase() %&gt;% track() [%&gt;% trackbind()] %&gt;% score() %&gt;% render_*()</code> pipeline from the user for simpler music that is essentially a single voice, single track.</li>
+<li>Added <code>plot_music_*</code> function wrappers around corresponding <code>render_music_*</code> functions to further abstract the external LilyPond process.</li>
 <li>Added support for auto-cropping of rendered sheet music when the output format is png.</li>
 <li>Added transparent background png support.</li>
 <li>Added a <code>colors</code> argument that takes a named list of color overrides for <code>lilypond</code> and <code>render_*</code> functions.</li>

@@ -10,8 +10,7 @@ to_tabr(id, ...)
 
 from_chorrrds(x, key = "c", guitar = FALSE, gc_args = list())
 
-from_music21(x, accidentals = c("flat", "sharp"), output = c("music",
-  "list"))
+from_music21(x, accidentals = c("flat", "sharp"), output = c("music", "list"))
 }
 \arguments{
 \item{id}{character, suffix of \code{from_*} function, e.g.,

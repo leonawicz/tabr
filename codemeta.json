@@ -151,6 +151,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=tuneR"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "png",
+      "name": "png",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=png"
     }
   ],
   "softwareRequirements": [
@@ -266,6 +278,6 @@
     "music-programming"
   ],
   "relatedLink": "https://CRAN.R-project.org/package=tabr",
-  "fileSize": "362.163KB",
-  "developmentStatus": "http://www.repostatus.org/#active"
+  "developmentStatus": "http://www.repostatus.org/#active",
+  "fileSize": "366.464KB"
 }

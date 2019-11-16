@@ -126,6 +126,12 @@ file." />
       <a href="../articles/tabr-prog-chords.html">Chord functions</a>
     </li>
     <li>
+      <a href="../articles/tabr-prog-noteinfo.html">Time and note info</a>
+    </li>
+    <li>
+      <a href="../articles/tabr-prog-music.html">The music class</a>
+    </li>
+    <li>
       <a href="../articles/tabr-prog-converters.html">Syntax converters</a>
     </li>
     <li>
@@ -224,9 +230,17 @@ file." />
 file.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>midily</span>(<span class='no'>midi_file</span>, <span class='no'>file</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>absolute</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>quantize</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>explicit</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>start_quant</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>allow_tuplet</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"4*2/3"</span>,
-  <span class='st'>"8*2/3"</span>, <span class='st'>"16*2/3"</span>), <span class='kw'>lyric</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>midily</span>(
+  <span class='no'>midi_file</span>,
+  <span class='no'>file</span>,
+  <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>,
+  <span class='kw'>absolute</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>quantize</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>explicit</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>start_quant</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>allow_tuplet</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"4*2/3"</span>, <span class='st'>"8*2/3"</span>, <span class='st'>"16*2/3"</span>),
+  <span class='kw'>lyric</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

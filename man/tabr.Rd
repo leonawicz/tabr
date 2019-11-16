@@ -3,7 +3,6 @@
 \docType{package}
 \name{tabr}
 \alias{tabr}
-\alias{tabr-package}
 \title{tabr: Music notation syntax, manipulation, analysis and transcription in R.}
 \description{
 The \code{tabr} package provides a music notation syntax and a collection of

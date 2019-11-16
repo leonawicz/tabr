@@ -9,19 +9,36 @@
 \alias{is_in_scale}
 \title{Scale degrees and mappings}
 \usage{
-scale_degree(notes, key = "c", scale = "diatonic", use_root = TRUE,
-  strict_accidentals = TRUE, naturalize = FALSE, roman = FALSE)
+scale_degree(
+  notes,
+  key = "c",
+  scale = "diatonic",
+  use_root = TRUE,
+  strict_accidentals = TRUE,
+  naturalize = FALSE,
+  roman = FALSE
+)
 
 scale_note(deg, key = "c", scale = "diatonic", collapse = FALSE, ...)
 
-note_in_scale(notes, key = "c", scale = "diatonic", use_root = TRUE,
-  strict_accidentals = TRUE)
+note_in_scale(
+  notes,
+  key = "c",
+  scale = "diatonic",
+  use_root = TRUE,
+  strict_accidentals = TRUE
+)
 
-chord_degree(notes, key = "c", scale = "diatonic",
-  strict_accidentals = TRUE, naturalize = FALSE, roman = FALSE)
+chord_degree(
+  notes,
+  key = "c",
+  scale = "diatonic",
+  strict_accidentals = TRUE,
+  naturalize = FALSE,
+  roman = FALSE
+)
 
-is_in_scale(notes, key = "c", scale = "diatonic",
-  strict_accidentals = TRUE)
+is_in_scale(notes, key = "c", scale = "diatonic", strict_accidentals = TRUE)
 }
 \arguments{
 \item{notes}{character, a string of notes.}

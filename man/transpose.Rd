@@ -5,8 +5,7 @@
 \alias{tp}
 \title{Transpose pitch}
 \usage{
-transpose(notes, n = 0, octaves = NULL, accidentals = NULL,
-  key = NULL)
+transpose(notes, n = 0, octaves = NULL, accidentals = NULL, key = NULL)
 
 tp(notes, n = 0, octaves = NULL, accidentals = NULL, key = NULL)
 }

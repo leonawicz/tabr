@@ -125,6 +125,12 @@
       <a href="../articles/tabr-prog-chords.html">Chord functions</a>
     </li>
     <li>
+      <a href="../articles/tabr-prog-noteinfo.html">Time and note info</a>
+    </li>
+    <li>
+      <a href="../articles/tabr-prog-music.html">The music class</a>
+    </li>
+    <li>
       <a href="../articles/tabr-prog-converters.html">Syntax converters</a>
     </li>
     <li>
@@ -222,19 +228,36 @@
     <p>These functions assist with mapping between scale degrees, notes and chords.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scale_degree</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"diatonic"</span>, <span class='kw'>use_root</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>strict_accidentals</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>naturalize</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>roman</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>scale_degree</span>(
+  <span class='no'>notes</span>,
+  <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>,
+  <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"diatonic"</span>,
+  <span class='kw'>use_root</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>strict_accidentals</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>naturalize</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>roman</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
 <span class='fu'>scale_note</span>(<span class='no'>deg</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"diatonic"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
-<span class='fu'>note_in_scale</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"diatonic"</span>, <span class='kw'>use_root</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>strict_accidentals</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>note_in_scale</span>(
+  <span class='no'>notes</span>,
+  <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>,
+  <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"diatonic"</span>,
+  <span class='kw'>use_root</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>strict_accidentals</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)
 
-<span class='fu'>chord_degree</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"diatonic"</span>,
-  <span class='kw'>strict_accidentals</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>naturalize</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>roman</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>chord_degree</span>(
+  <span class='no'>notes</span>,
+  <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>,
+  <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"diatonic"</span>,
+  <span class='kw'>strict_accidentals</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>naturalize</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>roman</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
-<span class='fu'>is_in_scale</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"diatonic"</span>,
-  <span class='kw'>strict_accidentals</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+<span class='fu'>is_in_scale</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"diatonic"</span>, <span class='kw'>strict_accidentals</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

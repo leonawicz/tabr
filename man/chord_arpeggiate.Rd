@@ -4,8 +4,13 @@
 \alias{chord_arpeggiate}
 \title{Arpeggiate a chord}
 \usage{
-chord_arpeggiate(chord, n = 0, by = c("note", "chord"),
-  broken = FALSE, collapse = FALSE)
+chord_arpeggiate(
+  chord,
+  n = 0,
+  by = c("note", "chord"),
+  broken = FALSE,
+  collapse = FALSE
+)
 }
 \arguments{
 \item{chord}{character, a single chord.}

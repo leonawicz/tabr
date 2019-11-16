@@ -10,9 +10,18 @@
 \usage{
 musical(x)
 
-as_music(notes, info = NULL, lyrics = NA, key = "c", time = "4/4",
-  tempo = "2 = 60", accidentals = NULL, format = NULL,
-  labels = NULL, at = seq_along(labels))
+as_music(
+  notes,
+  info = NULL,
+  lyrics = NA,
+  key = "c",
+  time = "4/4",
+  tempo = "2 = 60",
+  accidentals = NULL,
+  format = NULL,
+  labels = NULL,
+  at = seq_along(labels)
+)
 
 is_music(x)
 

@@ -7,11 +7,25 @@
 \alias{sfn}
 \title{Create a musical phrase from string/fret combinations}
 \usage{
-sf_phrase(string, fret = NULL, info = NULL, key = "c",
-  tuning = "standard", to_notes = FALSE, bar = FALSE)
+sf_phrase(
+  string,
+  fret = NULL,
+  info = NULL,
+  key = "c",
+  tuning = "standard",
+  to_notes = FALSE,
+  bar = FALSE
+)
 
-sfp(string, fret = NULL, info = NULL, key = "c",
-  tuning = "standard", to_notes = FALSE, bar = FALSE)
+sfp(
+  string,
+  fret = NULL,
+  info = NULL,
+  key = "c",
+  tuning = "standard",
+  to_notes = FALSE,
+  bar = FALSE
+)
 
 sf_note(...)
 

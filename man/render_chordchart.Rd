@@ -4,9 +4,19 @@
 \alias{render_chordchart}
 \title{Render a chord chart with LilyPond}
 \usage{
-render_chordchart(chords, file, size = 1.2, header = NULL,
-  paper = NULL, colors = NULL, crop_png = TRUE,
-  transparent = FALSE, res = 150, keep_ly = FALSE, details = FALSE)
+render_chordchart(
+  chords,
+  file,
+  size = 1.2,
+  header = NULL,
+  paper = NULL,
+  colors = NULL,
+  crop_png = TRUE,
+  transparent = FALSE,
+  res = 150,
+  keep_ly = FALSE,
+  details = FALSE
+)
 }
 \arguments{
 \item{chords}{named character vector of valid formatting for LilyPond chord

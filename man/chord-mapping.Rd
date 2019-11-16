@@ -12,18 +12,47 @@
 \alias{gc_name_mod}
 \title{Chord mapping}
 \usage{
-gc_info(name, root_octave = NULL, root_fret = NULL, min_fret = NULL,
-  bass_string = NULL, open = NULL, key = "c", ignore_octave = TRUE)
+gc_info(
+  name,
+  root_octave = NULL,
+  root_fret = NULL,
+  min_fret = NULL,
+  bass_string = NULL,
+  open = NULL,
+  key = "c",
+  ignore_octave = TRUE
+)
 
-gc_fretboard(name, root_octave = NULL, root_fret = NULL,
-  min_fret = NULL, bass_string = NULL, open = NULL, key = "c",
-  ignore_octave = TRUE)
+gc_fretboard(
+  name,
+  root_octave = NULL,
+  root_fret = NULL,
+  min_fret = NULL,
+  bass_string = NULL,
+  open = NULL,
+  key = "c",
+  ignore_octave = TRUE
+)
 
-gc_notes_to_fb(notes, root_octave = NULL, root_fret = NULL,
-  min_fret = NULL, bass_string = NULL, open = NULL)
+gc_notes_to_fb(
+  notes,
+  root_octave = NULL,
+  root_fret = NULL,
+  min_fret = NULL,
+  bass_string = NULL,
+  open = NULL
+)
 
-gc_notes(name, root_octave = NULL, root_fret = NULL, min_fret = NULL,
-  bass_string = NULL, open = NULL, key = "c", ignore_octave = TRUE)
+gc_notes(
+  name,
+  root_octave = NULL,
+  root_fret = NULL,
+  min_fret = NULL,
+  bass_string = NULL,
+  open = NULL,
+  key = "c",
+  ignore_octave = TRUE
+)
 
 gc_is_known(notes)
 

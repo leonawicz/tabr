@@ -18,19 +18,25 @@ scale_major(key = "c", collapse = FALSE, ignore_octave = FALSE)
 
 scale_minor(key = "am", collapse = FALSE, ignore_octave = FALSE)
 
-scale_harmonic_minor(key = "am", collapse = FALSE,
-  ignore_octave = FALSE)
+scale_harmonic_minor(key = "am", collapse = FALSE, ignore_octave = FALSE)
 
-scale_hungarian_minor(key = "am", collapse = FALSE,
-  ignore_octave = FALSE)
+scale_hungarian_minor(key = "am", collapse = FALSE, ignore_octave = FALSE)
 
-scale_melodic_minor(key = "am", descending = FALSE, collapse = FALSE,
-  ignore_octave = FALSE)
+scale_melodic_minor(
+  key = "am",
+  descending = FALSE,
+  collapse = FALSE,
+  ignore_octave = FALSE
+)
 
 scale_jazz_minor(key = "am", collapse = FALSE, ignore_octave = FALSE)
 
-scale_chromatic(root = "c", collapse = FALSE, sharp = TRUE,
-  ignore_octave = FALSE)
+scale_chromatic(
+  root = "c",
+  collapse = FALSE,
+  sharp = TRUE,
+  ignore_octave = FALSE
+)
 }
 \arguments{
 \item{key}{character, key signature.}

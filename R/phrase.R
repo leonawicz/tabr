@@ -278,6 +278,8 @@ as_phrase <- function(phrase){
 #' @rdname phrase-checks
 phrasey <- function(phrase){
   if(!inherits(phrase, "phrase") & !inherits(phrase, "character")) return(FALSE)
+  clr <- "\\\\override (Notehead|Stem)\\.color #\\(rgb-color [ 0-9\\.]+\\) "
+  x <- gsub(clr, "", phrase)
   x <- gsub("\\^\".*\"", "", phrase)
   i1 <- sum(attr(gregexpr("<", x)[[1]], "match.length"))
   if(i1 < 1){

@@ -13,11 +13,20 @@ pitch_interval(notes1, notes2, use_root = TRUE)
 
 pitch_diff(notes, use_root = TRUE, n = 1, trim = FALSE)
 
-scale_interval(notes1, notes2, use_root = TRUE, format = c("mmp_abb",
-  "mmp", "ad_abb", "ad"))
+scale_interval(
+  notes1,
+  notes2,
+  use_root = TRUE,
+  format = c("mmp_abb", "mmp", "ad_abb", "ad")
+)
 
-scale_diff(notes, use_root = TRUE, n = 1, trim = FALSE,
-  format = c("mmp_abb", "mmp", "ad_abb", "ad"))
+scale_diff(
+  notes,
+  use_root = TRUE,
+  n = 1,
+  trim = FALSE,
+  format = c("mmp_abb", "mmp", "ad_abb", "ad")
+)
 
 tuning_intervals(tuning = "standard")
 }

@@ -81,6 +81,12 @@
       <a href="../articles/tabr-prog-chords.html">Chord functions</a>
     </li>
     <li>
+      <a href="../articles/tabr-prog-noteinfo.html">Time and note info</a>
+    </li>
+    <li>
+      <a href="../articles/tabr-prog-music.html">The music class</a>
+    </li>
+    <li>
       <a href="../articles/tabr-prog-converters.html">Syntax converters</a>
     </li>
     <li>
@@ -415,8 +421,8 @@
 #&gt;   id    lp_name root  octave root_fret min_fret bass_string notes frets
 #&gt;   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>       </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>
 #&gt; </span><span style="color: #555555;">1</span><span> m     a,:m    a          2         0        0           5 a,ea~ xo22~
-#&gt; </span><span style="color: #555555;"># ... with 4 more variables: semitones </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span style="color: #555555;">, optional </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span style="color: #555555;">,
-#&gt; #   fretboard </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span style="color: #555555;">, open </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>
+#&gt; </span><span style="color: #555555;"># ... with 4 more variables: semitones </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span style="color: #555555;">, optional </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span style="color: #555555;">, fretboard </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span style="color: #555555;">,
+#&gt; #   open </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>
 </span></code></pre>
 <p><code>guitarChords</code> does not currently contain the <code>optional</code> column, but this is a column where you can indicate optional chord notes, as shown above.</p>
 <p><code>chord_def</code> is scalar and defines a single chord, always returning a table with one row, but you can map over it however you need in order to define a collection of chords. Below, a set of chords is generated with sharps and again with flats.</p>
@@ -436,8 +442,8 @@
 #&gt; </span><span style="color: #555555;">10</span><span> m     g:m     g          3        10       10           5 gd'g~ x(10~
 #&gt; </span><span style="color: #555555;">11</span><span> m     a_:m    a_         3        11       11           5 a_e_~ x(11~
 #&gt; </span><span style="color: #555555;">12</span><span> m     a:m     a          3        12       12           5 ae'a~ x(12~
-#&gt; </span><span style="color: #555555;"># ... with 4 more variables: semitones </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span style="color: #555555;">, optional </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span style="color: #555555;">,
-#&gt; #   fretboard </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span style="color: #555555;">, open </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>
+#&gt; </span><span style="color: #555555;"># ... with 4 more variables: semitones </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span style="color: #555555;">, optional </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span style="color: #555555;">, fretboard </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span style="color: #555555;">,
+#&gt; #   open </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>
 </span></code></pre>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1">purrr<span class="op">::</span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map_dfr</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="op">~</span><span class="kw"><a href="../reference/chord_def.html">chord_def</a></span>(frets <span class="op">+</span><span class="st"> </span>.x, <span class="st">"m"</span>, <span class="dt">key =</span> <span class="st">"f"</span>)) <span class="co"># flats</span></a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 12 x 13</span><span>
@@ -455,8 +461,8 @@
 #&gt; </span><span style="color: #555555;">10</span><span> m     g:m     g          3        10       10           5 gd'g~ x(10~
 #&gt; </span><span style="color: #555555;">11</span><span> m     a_:m    a_         3        11       11           5 a_e_~ x(11~
 #&gt; </span><span style="color: #555555;">12</span><span> m     a:m     a          3        12       12           5 ae'a~ x(12~
-#&gt; </span><span style="color: #555555;"># ... with 4 more variables: semitones </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span style="color: #555555;">, optional </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span style="color: #555555;">,
-#&gt; #   fretboard </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span style="color: #555555;">, open </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>
+#&gt; </span><span style="color: #555555;"># ... with 4 more variables: semitones </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span style="color: #555555;">, optional </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span style="color: #555555;">, fretboard </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span style="color: #555555;">,
+#&gt; #   open </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>
 </span></code></pre>
 </div>
 <div id="related-helper-functions" class="section level3">

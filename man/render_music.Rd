@@ -9,39 +9,99 @@
 \alias{render_music_bass}
 \title{Render sheet music snippet with LilyPond}
 \usage{
-render_music(music, file, staff = "treble", tuning = "standard",
-  no_tab = TRUE, string_names = NULL, header = NULL, paper = NULL,
-  midi = FALSE, colors = NULL, transparent = FALSE, res = 150,
-  keep_ly = FALSE, simplify = TRUE)
+render_music(
+  music,
+  file,
+  staff = "treble",
+  tuning = "standard",
+  no_tab = TRUE,
+  string_names = NULL,
+  header = NULL,
+  paper = NULL,
+  midi = FALSE,
+  colors = NULL,
+  transparent = FALSE,
+  res = 150,
+  keep_ly = FALSE,
+  simplify = TRUE
+)
 
-render_music_tc(music, file, header = NULL, paper = NULL,
-  midi = FALSE, colors = NULL, transparent = FALSE, res = 150,
-  keep_ly = FALSE, simplify = TRUE)
+render_music_tc(
+  music,
+  file,
+  header = NULL,
+  paper = NULL,
+  midi = FALSE,
+  colors = NULL,
+  transparent = FALSE,
+  res = 150,
+  keep_ly = FALSE,
+  simplify = TRUE
+)
 
-render_music_bc(music, file, header = NULL, paper = NULL,
-  midi = FALSE, colors = NULL, transparent = FALSE, res = 150,
-  keep_ly = FALSE, simplify = TRUE)
+render_music_bc(
+  music,
+  file,
+  header = NULL,
+  paper = NULL,
+  midi = FALSE,
+  colors = NULL,
+  transparent = FALSE,
+  res = 150,
+  keep_ly = FALSE,
+  simplify = TRUE
+)
 
-render_music_tab(music, file, staff = NA, tuning = "standard",
-  string_names = NULL, header = NULL, paper = NULL, midi = FALSE,
-  colors = NULL, transparent = FALSE, res = 150, keep_ly = FALSE,
-  simplify = TRUE)
+render_music_tab(
+  music,
+  file,
+  staff = NA,
+  tuning = "standard",
+  string_names = NULL,
+  header = NULL,
+  paper = NULL,
+  midi = FALSE,
+  colors = NULL,
+  transparent = FALSE,
+  res = 150,
+  keep_ly = FALSE,
+  simplify = TRUE
+)
 
-render_music_guitar(music, file, tuning = "standard",
-  string_names = NULL, header = NULL, paper = NULL, midi = FALSE,
-  colors = NULL, transparent = FALSE, res = 150, keep_ly = FALSE,
-  simplify = TRUE)
+render_music_guitar(
+  music,
+  file,
+  tuning = "standard",
+  string_names = NULL,
+  header = NULL,
+  paper = NULL,
+  midi = FALSE,
+  colors = NULL,
+  transparent = FALSE,
+  res = 150,
+  keep_ly = FALSE,
+  simplify = TRUE
+)
 
-render_music_bass(music, file, tuning = "bass", string_names = NULL,
-  header = NULL, paper = NULL, midi = FALSE, colors = NULL,
-  transparent = FALSE, res = 150, keep_ly = FALSE, simplify = TRUE)
+render_music_bass(
+  music,
+  file,
+  tuning = "bass",
+  string_names = NULL,
+  header = NULL,
+  paper = NULL,
+  midi = FALSE,
+  colors = NULL,
+  transparent = FALSE,
+  res = 150,
+  keep_ly = FALSE,
+  simplify = TRUE
+)
 }
 \arguments{
 \item{music}{a music object.}
 
-\item{file}{character, output file ending in .pdf or .png for sheet music or
-tablature for \code{score}. May include an absolute or relative path.
-For \code{render_midi}, a file ending in .mid.}
+\item{file}{character, output file ending in .pdf or .png.}
 
 \item{staff}{character, music staff setting. See \code{track} for details.}
 
@@ -167,6 +227,6 @@ if(tabr_options()$lilypond != ""){ # requires LilyPond installation
 }
 }
 \seealso{
-\code{\link{phrase}}, \code{\link{track}}, \code{\link{score}},
-\code{\link{lilypond}}, \code{\link{tab}}
+\code{\link{plot_music}}, \code{\link{phrase}}, \code{\link{track}},
+\code{\link{score}}, \code{\link{lilypond}}, \code{\link{tab}}
 }

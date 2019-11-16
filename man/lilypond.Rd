@@ -4,9 +4,21 @@
 \alias{lilypond}
 \title{Save score to LilyPond file}
 \usage{
-lilypond(score, file, key = "c", time = "4/4", tempo = "2 = 60",
-  header = NULL, paper = NULL, string_names = NULL, endbar = TRUE,
-  midi = TRUE, colors = NULL, crop_png = TRUE, simplify = TRUE)
+lilypond(
+  score,
+  file,
+  key = "c",
+  time = "4/4",
+  tempo = "2 = 60",
+  header = NULL,
+  paper = NULL,
+  string_names = NULL,
+  endbar = TRUE,
+  midi = TRUE,
+  colors = NULL,
+  crop_png = TRUE,
+  simplify = TRUE
+)
 }
 \arguments{
 \item{score}{a score object.}

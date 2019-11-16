@@ -126,6 +126,12 @@ for a set of chords." />
       <a href="../articles/tabr-prog-chords.html">Chord functions</a>
     </li>
     <li>
+      <a href="../articles/tabr-prog-noteinfo.html">Time and note info</a>
+    </li>
+    <li>
+      <a href="../articles/tabr-prog-music.html">The music class</a>
+    </li>
+    <li>
       <a href="../articles/tabr-prog-converters.html">Syntax converters</a>
     </li>
     <li>
@@ -224,9 +230,19 @@ for a set of chords." />
 for a set of chords.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>render_chordchart</span>(<span class='no'>chords</span>, <span class='no'>file</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1.2</span>, <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>crop_png</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>150</span>, <span class='kw'>keep_ly</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>details</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>render_chordchart</span>(
+  <span class='no'>chords</span>,
+  <span class='no'>file</span>,
+  <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1.2</span>,
+  <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>crop_png</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>150</span>,
+  <span class='kw'>keep_ly</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>details</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

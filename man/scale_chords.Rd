@@ -4,8 +4,12 @@
 \alias{scale_chords}
 \title{Diatonic chords}
 \usage{
-scale_chords(root = "c", scale = "major", type = c("triad",
-  "seventh"), collapse = FALSE)
+scale_chords(
+  root = "c",
+  scale = "major",
+  type = c("triad", "seventh"),
+  collapse = FALSE
+)
 }
 \arguments{
 \item{root}{character, root note or starting position of scale.}

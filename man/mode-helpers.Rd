@@ -21,8 +21,12 @@ is_mode(notes, ignore_octave = FALSE)
 
 mode_rotate(notes, n = 0, ignore_octave = FALSE)
 
-mode_modern(mode = "ionian", key = "c", collapse = FALSE,
-  ignore_octave = FALSE)
+mode_modern(
+  mode = "ionian",
+  key = "c",
+  collapse = FALSE,
+  ignore_octave = FALSE
+)
 
 mode_ionian(key = "c", collapse = FALSE, ignore_octave = FALSE)
 

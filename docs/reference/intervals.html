@@ -125,6 +125,12 @@
       <a href="../articles/tabr-prog-chords.html">Chord functions</a>
     </li>
     <li>
+      <a href="../articles/tabr-prog-noteinfo.html">Time and note info</a>
+    </li>
+    <li>
+      <a href="../articles/tabr-prog-music.html">The music class</a>
+    </li>
+    <li>
       <a href="../articles/tabr-prog-converters.html">Syntax converters</a>
     </li>
     <li>
@@ -226,11 +232,20 @@
 
 <span class='fu'>pitch_diff</span>(<span class='no'>notes</span>, <span class='kw'>use_root</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>scale_interval</span>(<span class='no'>notes1</span>, <span class='no'>notes2</span>, <span class='kw'>use_root</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mmp_abb"</span>,
-  <span class='st'>"mmp"</span>, <span class='st'>"ad_abb"</span>, <span class='st'>"ad"</span>))
+<span class='fu'>scale_interval</span>(
+  <span class='no'>notes1</span>,
+  <span class='no'>notes2</span>,
+  <span class='kw'>use_root</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>format</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mmp_abb"</span>, <span class='st'>"mmp"</span>, <span class='st'>"ad_abb"</span>, <span class='st'>"ad"</span>)
+)
 
-<span class='fu'>scale_diff</span>(<span class='no'>notes</span>, <span class='kw'>use_root</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>format</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mmp_abb"</span>, <span class='st'>"mmp"</span>, <span class='st'>"ad_abb"</span>, <span class='st'>"ad"</span>))
+<span class='fu'>scale_diff</span>(
+  <span class='no'>notes</span>,
+  <span class='kw'>use_root</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>format</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mmp_abb"</span>, <span class='st'>"mmp"</span>, <span class='st'>"ad_abb"</span>, <span class='st'>"ad"</span>)
+)
 
 <span class='fu'>tuning_intervals</span>(<span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>)</pre>
 

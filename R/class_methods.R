@@ -177,7 +177,7 @@ NULL
   .asnw(x, o, a, format)
 }
 
-#' @name single-bracket
+#' @rdname single-bracket
 #' @export
 `[.noteinfo` <- function(x, i){
   if(all(i == 0)) stop("Cannot have zero timesteps.", call. = FALSE)
@@ -186,7 +186,7 @@ NULL
   .asni(x, format)
 }
 
-#' @name single-bracket
+#' @rdname single-bracket
 #' @export
 `[.music` <- function(x, i){
   if(all(i == 0)) stop("Cannot have zero timesteps.", call. = FALSE)
@@ -205,7 +205,7 @@ NULL
   .asmusic(notes, info, s, lyrics, key, time, tempo, a, format)
 }
 
-#' @name single-bracket
+#' @rdname single-bracket
 #' @export
 `[.lyrics` <- function(x, i){
   if(all(i == 0)) stop("Cannot have zero timesteps.", call. = FALSE)
@@ -214,7 +214,7 @@ NULL
   .aslyrics(x, format)
 }
 
-#' @name single-bracket
+#' @rdname single-bracket
 #' @export
 `[<-.noteworthy` <- function(x, i, value){
   o <- octave_type(x)
@@ -224,7 +224,7 @@ NULL
   .asnw(x, o, a, format)
 }
 
-#' @name single-bracket
+#' @rdname single-bracket
 #' @export
 `[<-.noteinfo` <- function(x, i, value){
   format <- if(time_format(x) == "space-delimited time") "space" else "vector"
@@ -232,7 +232,7 @@ NULL
   .asni(x, format)
 }
 
-#' @name single-bracket
+#' @rdname single-bracket
 #' @export
 `[<-.music` <- function(x, i, value){
   a <- accidental_type(x)
@@ -248,7 +248,7 @@ NULL
   .asmusic(notes, info, s, lyrics, key, time, tempo, a, format)
 }
 
-#' @name single-bracket
+#' @rdname single-bracket
 #' @export
 `[<-.lyrics` <- function(x, i, value){
   format <- if(time_format(x) == "space-delimited time") "space" else "vector"
@@ -287,31 +287,29 @@ NULL
 #' x[[3]]
 #' x[[3]] <- "c'e'g'8"
 #' x
-#' @name double-bracket
-#' @export
 `[[.noteworthy` <- function(x, i){
   .uncollapse(x)[[i]]
 }
 
-#' @name double-bracket
+#' @rdname double-bracket
 #' @export
 `[[.noteinfo` <- function(x, i){
   .uncollapse(x)[[i]]
 }
 
-#' @name double-bracket
+#' @rdname double-bracket
 #' @export
 `[[.music` <- function(x, i){
   .uncollapse(x)[[i]]
 }
 
-#' @name double-bracket
+#' @rdname double-bracket
 #' @export
 `[[.lyrics` <- function(x, i){
   .uncollapse(x)[[i]]
 }
 
-#' @name double-bracket
+#' @rdname double-bracket
 #' @export
 `[[<-.noteworthy` <- function(x, i, value){
   o <- octave_type(x)
@@ -321,7 +319,7 @@ NULL
   .asnw(x, o, a, format)
 }
 
-#' @name double-bracket
+#' @rdname double-bracket
 #' @export
 `[[<-.noteinfo` <- function(x, i, value){
   format <- if(time_format(x) == "space-delimited time") "space" else "vector"
@@ -329,7 +327,7 @@ NULL
   .asni(x, format)
 }
 
-#' @name double-bracket
+#' @rdname double-bracket
 #' @export
 `[[<-.music` <- function(x, i, value){
   a <- accidental_type(x)
@@ -346,7 +344,7 @@ NULL
 
 }
 
-#' @name double-bracket
+#' @rdname double-bracket
 #' @export
 `[[<-.lyrics` <- function(x, i, value){
   format <- if(time_format(x) == "space-delimited time") "space" else "vector"
@@ -386,19 +384,19 @@ length.noteworthy <- function(x){
   attr(x, "steps")
 }
 
-#' @name tabr-length
+#' @rdname tabr-length
 #' @export
 length.noteinfo <- function(x){
   attr(x, "steps")
 }
 
-#' @name tabr-length
+#' @rdname tabr-length
 #' @export
 length.music <- function(x){
   attr(x, "steps")
 }
 
-#' @name tabr-length
+#' @rdname tabr-length
 #' @export
 length.lyrics <- function(x){
   attr(x, "steps")
@@ -453,7 +451,7 @@ c.noteworthy <- function(...){
   .asnw(x, o, a, format)
 }
 
-#' @name tabr-c
+#' @rdname tabr-c
 #' @export
 c.noteinfo <- function(...){
   x <- list(...)
@@ -472,7 +470,7 @@ c.noteinfo <- function(...){
   .asni(x, format)
 }
 
-#' @name tabr-c
+#' @rdname tabr-c
 #' @export
 c.music <- function(...){
   x <- list(...)
@@ -535,7 +533,7 @@ c.music <- function(...){
   .asmusic(x$notes, x$info, s, lyrics, key[1], time[1], tempo[1], a, format)
 }
 
-#' @name tabr-c
+#' @rdname tabr-c
 #' @export
 c.lyrics <- function(...){
   x <- list(...)
@@ -554,7 +552,7 @@ c.lyrics <- function(...){
   .aslyrics(x, format)
 }
 
-#' @name tabr-c
+#' @rdname tabr-c
 #' @export
 c.phrase <- function(...){
   x <- list(...)
@@ -617,7 +615,7 @@ rep.noteworthy <- function(x, ...){
   .asnw(x, o, a, format)
 }
 
-#' @name tabr-rep
+#' @rdname tabr-rep
 #' @export
 rep.noteinfo <- function(x, ...){
   format <- time_format(x)
@@ -636,7 +634,7 @@ rep.noteinfo <- function(x, ...){
   .asni(x, format)
 }
 
-#' @name tabr-rep
+#' @rdname tabr-rep
 #' @export
 rep.music <- function(x, ...){
   a <- accidental_type(x)
@@ -655,7 +653,7 @@ rep.music <- function(x, ...){
   .asmusic(notes, info, s, lyrics, key, time, tempo, a, format)
 }
 
-#' @name tabr-rep
+#' @rdname tabr-rep
 #' @export
 rep.lyrics <- function(x, ...){
   format <- time_format(x)
@@ -674,7 +672,7 @@ rep.lyrics <- function(x, ...){
   .aslyrics(x, format)
 }
 
-#' @name tabr-rep
+#' @rdname tabr-rep
 #' @export
 rep.phrase <- function(x, ...){
   x <- as.character(x)
@@ -725,7 +723,7 @@ rev.noteworthy <- function(x){
   .asnw(x, o, a, format)
 }
 
-#' @name tabr-rev
+#' @rdname tabr-rev
 #' @export
 rev.noteinfo <- function(x){
   format <- time_format(x)
@@ -735,7 +733,7 @@ rev.noteinfo <- function(x){
   .asni(x, format)
 }
 
-#' @name tabr-rev
+#' @rdname tabr-rev
 #' @export
 rev.music <- function(x){
   a <- accidental_type(x)
@@ -754,7 +752,7 @@ rev.music <- function(x){
   .asmusic(notes, info, s, lyrics, key, time, tempo, a, format)
 }
 
-#' @name tabr-rev
+#' @rdname tabr-rev
 #' @export
 rev.lyrics <- function(x){
   format <- time_format(x)
@@ -804,7 +802,7 @@ head.noteworthy <- function(x, ...){
   .asnw(x, o, a, format)
 }
 
-#' @name tabr-head
+#' @rdname tabr-head
 #' @export
 head.noteinfo <- function(x, ...){
   format <- time_format(x)
@@ -814,7 +812,7 @@ head.noteinfo <- function(x, ...){
   .asni(x, format)
 }
 
-#' @name tabr-head
+#' @rdname tabr-head
 #' @export
 head.music <- function(x, ...){
   a <- accidental_type(x)
@@ -833,7 +831,7 @@ head.music <- function(x, ...){
   .asmusic(notes, info, s, lyrics, key, time, tempo, a, format)
 }
 
-#' @name tabr-head
+#' @rdname tabr-head
 #' @export
 head.lyrics <- function(x, ...){
   format <- time_format(x)
@@ -843,7 +841,7 @@ head.lyrics <- function(x, ...){
   .aslyrics(x, format)
 }
 
-#' @name tabr-head
+#' @rdname tabr-head
 #' @export
 tail.noteworthy <- function(x, ...){
   o <- octave_type(x)
@@ -855,7 +853,7 @@ tail.noteworthy <- function(x, ...){
   .asnw(x, o, a, format)
 }
 
-#' @name tabr-head
+#' @rdname tabr-head
 #' @export
 tail.noteinfo <- function(x, ...){
   format <- time_format(x)
@@ -865,7 +863,7 @@ tail.noteinfo <- function(x, ...){
   .asni(x, format)
 }
 
-#' @name tabr-head
+#' @rdname tabr-head
 #' @export
 tail.music <- function(x, ...){
   a <- accidental_type(x)
@@ -884,7 +882,7 @@ tail.music <- function(x, ...){
   .asmusic(notes, info, s, lyrics, key, time, tempo, a, format)
 }
 
-#' @name tabr-head
+#' @rdname tabr-head
 #' @export
 tail.lyrics <- function(x, ...){
   format <- time_format(x)

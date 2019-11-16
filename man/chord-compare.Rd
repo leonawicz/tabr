@@ -11,8 +11,7 @@ chord_rank(notes, pitch = c("min", "mean", "max"), ...)
 
 chord_order(notes, pitch = c("min", "mean", "max"), ...)
 
-chord_sort(notes, pitch = c("min", "mean", "max"), decreasing = FALSE,
-  ...)
+chord_sort(notes, pitch = c("min", "mean", "max"), decreasing = FALSE, ...)
 }
 \arguments{
 \item{notes}{character, a noteworthy string.}

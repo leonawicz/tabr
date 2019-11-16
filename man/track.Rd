@@ -8,13 +8,25 @@
 \alias{track_bass}
 \title{Create a music track}
 \usage{
-track(phrase, tuning = "standard", voice = 1L,
-  music_staff = "treble_8", ms_transpose = 0, ms_key = NA,
-  no_tab = FALSE)
+track(
+  phrase,
+  tuning = "standard",
+  voice = 1L,
+  music_staff = "treble_8",
+  ms_transpose = 0,
+  ms_key = NA,
+  no_tab = FALSE
+)
 
-track_guitar(phrase, tuning = "standard", voice = 1L,
-  music_staff = "treble_8", ms_transpose = 0, ms_key = NA,
-  no_tab = FALSE)
+track_guitar(
+  phrase,
+  tuning = "standard",
+  voice = 1L,
+  music_staff = "treble_8",
+  ms_transpose = 0,
+  ms_key = NA,
+  no_tab = FALSE
+)
 
 track_tc(phrase, voice = 1L, ms_transpose = 0, ms_key = NA)
 

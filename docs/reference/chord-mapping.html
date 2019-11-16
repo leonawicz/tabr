@@ -125,6 +125,12 @@
       <a href="../articles/tabr-prog-chords.html">Chord functions</a>
     </li>
     <li>
+      <a href="../articles/tabr-prog-noteinfo.html">Time and note info</a>
+    </li>
+    <li>
+      <a href="../articles/tabr-prog-music.html">The music class</a>
+    </li>
+    <li>
       <a href="../articles/tabr-prog-converters.html">Syntax converters</a>
     </li>
     <li>
@@ -222,18 +228,47 @@
     <p>Helper functions for chord mapping.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gc_info</span>(<span class='no'>name</span>, <span class='kw'>root_octave</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>root_fret</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>min_fret</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>bass_string</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>open</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+    <pre class="usage"><span class='fu'>gc_info</span>(
+  <span class='no'>name</span>,
+  <span class='kw'>root_octave</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>root_fret</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>min_fret</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>bass_string</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>open</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>,
+  <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)
 
-<span class='fu'>gc_fretboard</span>(<span class='no'>name</span>, <span class='kw'>root_octave</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>root_fret</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>min_fret</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bass_string</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>open</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>,
-  <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>gc_fretboard</span>(
+  <span class='no'>name</span>,
+  <span class='kw'>root_octave</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>root_fret</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>min_fret</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>bass_string</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>open</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>,
+  <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)
 
-<span class='fu'>gc_notes_to_fb</span>(<span class='no'>notes</span>, <span class='kw'>root_octave</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>root_fret</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>min_fret</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bass_string</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>open</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>gc_notes_to_fb</span>(
+  <span class='no'>notes</span>,
+  <span class='kw'>root_octave</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>root_fret</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>min_fret</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>bass_string</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>open</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)
 
-<span class='fu'>gc_notes</span>(<span class='no'>name</span>, <span class='kw'>root_octave</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>root_fret</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>min_fret</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>bass_string</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>open</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>gc_notes</span>(
+  <span class='no'>name</span>,
+  <span class='kw'>root_octave</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>root_fret</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>min_fret</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>bass_string</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>open</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>,
+  <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)
 
 <span class='fu'>gc_is_known</span>(<span class='no'>notes</span>)
 

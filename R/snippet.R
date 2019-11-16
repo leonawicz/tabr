@@ -63,9 +63,7 @@
 #' LilyPond behavior.
 #'
 #' @param music a music object.
-#' @param file character, output file ending in .pdf or .png for sheet music or
-#' tablature for \code{score}. May include an absolute or relative path.
-#' For \code{render_midi}, a file ending in .mid.
+#' @param file character, output file ending in .pdf or .png.
 #' @param header a named list of arguments passed to the header of the
 #' LilyPond file. See \code{lilypond} details.
 #' @param paper a named list of arguments for the LilyPond file page layout.
@@ -89,8 +87,8 @@
 #'
 #' @return nothing returned; a file is written.
 #' @export
-#' @seealso \code{\link{phrase}}, \code{\link{track}}, \code{\link{score}},
-#' \code{\link{lilypond}}, \code{\link{tab}}
+#' @seealso \code{\link{plot_music}}, \code{\link{phrase}}, \code{\link{track}},
+#' \code{\link{score}}, \code{\link{lilypond}}, \code{\link{tab}}
 #'
 #' @examples
 #' x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"
@@ -211,4 +209,164 @@ render_music_bass <- function(music, file, tuning = "bass",
 
 .ktt <- function(x){
   c(music_key(x), music_time(x), music_tempo(x))
+}
+
+#' Plot sheet music snippet with LilyPond
+#'
+#' These functions are wrappers around the \code{render_music_*} functions.
+#' They abstract the process of rendering a sheet music snippet to png and
+#' loading the rendered image back into R to be displayed as a plot in an open
+#' graphics device or inserted into an R markdown code chunk.
+#'
+#' While these functions abstract away the details of the process, this is not
+#' the same as making the plot completely in R. R is only displaying the
+#' intermediary png file. LilyPond is required to engrave the sheet music.
+#'
+#' For R markdown you can alternatively render the png using the corresponding
+#' \code{render_music_*} function and then place it in the document explicitly
+#' using \code{knitr::include_graphics}.
+#' See \code{\link{render_music}} for more details.
+#'
+#' @param music a music object.
+#' @param header a named list of arguments passed to the header of the
+#' LilyPond file. See \code{lilypond} details.
+#' @param paper a named list of arguments for the LilyPond file page layout.
+#' See \code{lilypond} details.
+#' @param staff character, music staff setting. See \code{track} for details.
+#' @param tuning character, string tuning, only applies to tablature. See
+#' \code{track}.
+#' @param no_tab logical, suppress tablature staff. See \code{track}.
+#' @param string_names label strings at beginning of tab staff. \code{NULL}
+#' (default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for
+#' force on or off completely.
+#' @param colors a named list of LilyPond element color global overrides. See
+#' \code{lilypond} for details.
+#' @param transparent logical, transparent background, png only.
+#' @param res numeric, resolution, png only. \code{transparent = TRUE} may fail
+#' when \code{res} exceeds ~150.
+#'
+#' @return a plot
+#' @export
+#' @seealso \code{render_music}, \code{\link{phrase}}, \code{\link{track}},
+#' \code{\link{score}}, \code{\link{lilypond}}, \code{\link{tab}}
+#'
+#' @examples
+#' x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"
+#' x <- as_music(x)
+#'
+#' y <- "a,,4;3*5 b,,4- c,4 c,g,c~4 c,g,c1 c4;1 g,;2 c,;3 g,;2 c,c1;31"
+#' y <- as_music(y)
+#'
+#' \dontrun{
+#' if(tabr_options()$lilypond != ""){ # requires LilyPond installation
+#'   plot_music(x)
+#'   plot_music(x, "treble_8", no_tab = FALSE, res = 300)
+#'
+#'   plot_music_tc(x)
+#'   plot_music_bc(x)
+#'
+#'   plot_music_tab(x)
+#'   plot_music_guitar(x)
+#'   plot_music_bass(y)
+#' }
+#' }
+plot_music <- function(music, staff = "treble", tuning = "standard",
+                       no_tab = TRUE, string_names = NULL, header = NULL,
+                       paper = NULL, colors = NULL, transparent = FALSE,
+                       res = 150){
+  file <- tempfile(fileext = ".png")
+  render_music(music, file, staff, tuning, no_tab, string_names, header, paper,
+               midi = FALSE, colors, transparent, res, keep_ly = FALSE,
+               simplify = FALSE)
+  .draw_image(file)
+  unlink(file, recursive = TRUE, force = TRUE)
+  invisible()
+}
+
+#' @export
+#' @rdname plot_music
+plot_music_tc <- function(music, header = NULL, paper = NULL,
+                          colors = NULL, transparent = FALSE, res = 150){
+  file <- tempfile(fileext = ".png")
+  render_music_tc(music, file, header, paper, midi = FALSE, colors, transparent,
+                  res, keep_ly = FALSE, simplify = FALSE)
+  .draw_image(file)
+  unlink(file, recursive = TRUE, force = TRUE)
+  invisible()
+}
+
+#' @export
+#' @rdname plot_music
+plot_music_bc <- function(music, header = NULL, paper = NULL, colors = NULL,
+                          transparent = FALSE, res = 150){
+  file <- tempfile(fileext = ".png")
+  render_music_bc(music, file, header, paper, midi = FALSE, colors, transparent,
+                  res, keep_ly = FALSE, simplify = FALSE)
+  .draw_image(file)
+  unlink(file, recursive = TRUE, force = TRUE)
+  invisible()
+}
+
+#' @export
+#' @rdname plot_music
+plot_music_tab <- function(music, staff = NA, tuning = "standard",
+                           string_names = NULL, header = NULL, paper = NULL,
+                           colors = NULL, transparent = FALSE, res = 150){
+  file <- tempfile(fileext = ".png")
+  render_music_tab(music, file, staff, tuning, string_names, header, paper,
+                  midi = FALSE, colors, transparent, res, keep_ly = FALSE,
+                  simplify = FALSE)
+  .draw_image(file)
+  unlink(file, recursive = TRUE, force = TRUE)
+  invisible()
+}
+
+#' @export
+#' @rdname plot_music
+plot_music_guitar <- function(music, tuning = "standard", string_names = NULL,
+                              header = NULL, paper = NULL, colors = NULL,
+                              transparent = FALSE, res = 150){
+  file <- tempfile(fileext = ".png")
+  render_music_guitar(music, file, tuning, string_names, header, paper,
+                   midi = FALSE, colors, transparent, res, keep_ly = FALSE,
+                   simplify = FALSE)
+  .draw_image(file)
+  unlink(file, recursive = TRUE, force = TRUE)
+  invisible()
+}
+
+#' @export
+#' @rdname plot_music
+plot_music_bass <- function(music, file, tuning = "bass", string_names = FALSE,
+                            header = NULL, paper = NULL, colors = NULL,
+                            transparent = FALSE, res = 150){
+  file <- tempfile(fileext = ".png")
+  render_music_bass(music, file, tuning = "bass", string_names, header, paper,
+                      midi = FALSE, colors, transparent, res, keep_ly = FALSE,
+                    simplify = FALSE)
+  .draw_image(file)
+  unlink(file, recursive = TRUE, force = TRUE)
+  invisible()
+}
+
+#' @importFrom graphics par plot.new rasterImage
+.draw_image <- function(file){
+  if(!requireNamespace("png")){
+    x <- "Please install the `png` package to read png files made by LilyPond."
+    message(x)
+    return(invisible())
+  }
+  img <- png::readPNG(file)
+  op <- par(mar = rep(0, 4))
+  plot.new()
+  u <- par()$usr
+  p <- par()$pin
+  asp <- dim(img)[1] / dim(img)[2]
+  width <- if(asp <= 1) 1 else 1 / asp
+  height <- (u[4] - u[3]) / p[2]
+  w <- width / (u[2] - u[1]) * p[1]
+  h <- if(asp <= 1) w * asp * height else 1
+  rasterImage(img, 0.5 - width / 2, 0.5 - h / 2, 0.5 + width / 2, 0.5 + h / 2,
+              interpolate = TRUE)
+  par(op)
 }

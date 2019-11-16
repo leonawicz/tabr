@@ -67,7 +67,7 @@ Information may be lost, garbled, or the function may fail.
 For example, this function is not advanced enough to unravel repeat notation
 or tuplets.
 
-\code{notable} returns \code{TRUE} or \code{FALSE} regarding whether a
+ \code{notable} returns \code{TRUE} or \code{FALSE} regarding whether a
  phrase can be converted back to character string inputs,
  not necessarily with complete correctness, but without simple failure.
  It checks for phrasiness. Then it tries to call \code{notify} and returns

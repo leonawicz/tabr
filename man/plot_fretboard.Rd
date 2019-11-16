@@ -5,19 +5,45 @@
 \alias{plot_chord}
 \title{Chord and fretboard diagram plots}
 \usage{
-plot_fretboard(string, fret, labels = NULL, mute = FALSE,
-  label_size = 10, label_color = "white", point_size = 10,
-  point_color = "black", point_fill = "black", group = NULL,
-  horizontal = FALSE, left_handed = FALSE, fret_range = NULL,
-  accidentals = c("flat", "sharp"), tuning = "standard",
-  show_tuning = FALSE, asp = NULL, base_size = 20)
+plot_fretboard(
+  string,
+  fret,
+  labels = NULL,
+  mute = FALSE,
+  label_size = 10,
+  label_color = "white",
+  point_size = 10,
+  point_color = "black",
+  point_fill = "black",
+  group = NULL,
+  horizontal = FALSE,
+  left_handed = FALSE,
+  fret_range = NULL,
+  accidentals = c("flat", "sharp"),
+  tuning = "standard",
+  show_tuning = FALSE,
+  asp = NULL,
+  base_size = 20
+)
 
-plot_chord(chord, labels = NULL, label_size = 10,
-  label_color = "white", point_size = 10, point_color = "black",
-  point_fill = "black", group = NULL, horizontal = FALSE,
-  left_handed = FALSE, fret_range = NULL, accidentals = c("flat",
-  "sharp"), tuning = "standard", show_tuning = FALSE, asp = NULL,
-  base_size = 20)
+plot_chord(
+  chord,
+  labels = NULL,
+  label_size = 10,
+  label_color = "white",
+  point_size = 10,
+  point_color = "black",
+  point_fill = "black",
+  group = NULL,
+  horizontal = FALSE,
+  left_handed = FALSE,
+  fret_range = NULL,
+  accidentals = c("flat", "sharp"),
+  tuning = "standard",
+  show_tuning = FALSE,
+  asp = NULL,
+  base_size = 20
+)
 }
 \arguments{
 \item{string}{integer or as a space-delimited character string; instrument

@@ -54,6 +54,8 @@
 #'
 #' steps_per_measure(x)
 #' seconds_per_measure(x)
+#' seconds_per_step(x)
+#' steps_start_time(x)
 n_measures <- function(x){
   n_beats(x, 1)
 }
@@ -95,6 +97,21 @@ seconds <- function(x, tempo = NULL){
 seconds_per_measure <- function(x, tempo = NULL){
   tempo <- .check_time_inputs(x, tempo, TRUE)
   seconds(x, tempo) / n_measures(x)
+}
+
+#' @export
+#' @rdname n_measures
+seconds_per_step <- function(x, tempo = NULL){
+  tempo <- .check_time_inputs(x, tempo, TRUE)
+  duration_to_ticks(info_duration(x)) / (480 * bpm(x, tempo = tempo) / 60)
+}
+
+#' @export
+#' @rdname n_measures
+steps_start_time <- function(x, tempo = NULL){
+  tempo <- .check_time_inputs(x, tempo, TRUE)
+  x <- seconds_per_step(x, tempo = tempo)
+  cumsum(x) - x
 }
 
 .tick_match <- function(unit){

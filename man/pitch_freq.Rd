@@ -18,13 +18,22 @@ chord_freq(notes, a4 = 440)
 
 chord_semitones(notes)
 
-freq_pitch(freq, octaves = c("tick", "integer"),
-  accidentals = c("flat", "sharp"), collapse = FALSE, a4 = 440)
+freq_pitch(
+  freq,
+  octaves = c("tick", "integer"),
+  accidentals = c("flat", "sharp"),
+  collapse = FALSE,
+  a4 = 440
+)
 
 freq_semitones(freq, a4 = 440)
 
-semitone_pitch(semitones, octaves = c("tick", "integer"),
-  accidentals = c("flat", "sharp"), collapse = FALSE)
+semitone_pitch(
+  semitones,
+  octaves = c("tick", "integer"),
+  accidentals = c("flat", "sharp"),
+  collapse = FALSE
+)
 }
 \arguments{
 \item{notes}{character, noteworthy string, space-delimited or vector of

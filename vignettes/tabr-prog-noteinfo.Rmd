@@ -1,0 +1,89 @@
+---
+title: "Note information"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Note information}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+options(crayon.enabled = TRUE)
+sgr_wrap <- function(x, options){
+  paste0("<pre class=\"r-output\"><code>", fansi::sgr_to_html(x = htmltools::htmlEscape(x)), "</code></pre>")
+}
+knitr::knit_hooks$set(output = sgr_wrap)
+knitr::opts_chunk$set(
+  collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, tidy = FALSE, out.width = "100%"
+)
+library(tabr)
+```
+
+Now that you have had an overview of the concept of noteworthy strings and the `noteworthy` class that provides this structure to objects, next consider the `noteinfo` class. `noteinfo` objects are similarly built from character strings. Note information is supplemental information that is stored in a `noteinfo` object. A note info string is generally a companion to a noteworthy string. They share many of the same properties as `noteworthy` objects and have similar generic method implementations.
+
+## The `noteinfo` class
+
+The data stored in a `noteinfo` object always includes duration, but can also consist of various other pieces of sheet music notation markup syntax; information that is distinct from the pitch itself, for example slurs or staccato notes. Because all the available information aside from note duration tends to be specifically relevant to sheet music transcription, you can find more details in the transcription vignettes that introduce the `phrase` class. It is worth browsing the table in the [phrases vignette](articles/tabr-phrases.html) if any note info notation below is unfamiliar.
+
+### Checking note info
+
+A string can be checked directly with `informable`.
+
+```{r informable}
+x <- "2. 4.. 8 t8] t8- t8^ 16"
+informable(x)
+informable("5")
+```
+
+This reports whether the entire string conforms to all requirements for it to be valid `noteinfo` syntax. In the special case where only durations are provided and no other information, and these durations do not include any triplets `"t"` or dotted notes `"."`, then an integer vector will suffice. Even so, a digit like `5` does not belong.
+
+### Coercion
+
+Use `as_noteinfo` to coerce to a `noteinfo` object. Here are the print and summary statements.
+
+```{r as_noteinfo}
+x <- as_noteinfo(x)
+x
+
+summary(x)
+```
+
+Similar to `noteworthy` object, here are some generic methods as applied to the `noteinfo` class.
+
+### Other methods
+
+```{r methods}
+length(x)
+rev(x)
+x[2:4]
+x[2:3] <- c("1(", "2)")
+x
+```
+
+## Note info functions
+
+As with the `noteworthy` class, there are helper functions available that make it convenient to extract and manipulate the data in `noteinfo` objects. Here are some examples.
+
+```{r funs}
+a <- notate("t8x", "Start here")
+x <- paste(a, "t8x t8] 16 4.. 16- 16 2^ 2 4. 8( 4)( 4) 8*4 1 1")
+
+info_duration(x)
+info_slur_on(x)
+info_slur_off(x)
+info_slide(x)
+info_dotted(x)
+info_single_dotted(x)
+info_double_dotted(x)
+info_annotation(x)
+```
+
+`info_duration` is a handy function that strips away all information but note durations. The other functions return logical vectors indicating timesteps where certain types of information are present.
+
+## Use cases
+
+It is unlikely to have reason to use `noteinfo` objects in isolation. They are meant to compliment `noteworthy` objects of the same timestep length. You will see them used in combination to construct phrases for sheet music transcription, but also to build a `music` object. Music objects are the subject of the next tutorial.
+
+The key takeaway here is that `noteworthy`- and `noteinfo`-class objects are intended to provide clean separation of sound and time, respectively. It is true that note information can be more than just duration, including notation markup that represents things that have an effect on how a note sounds, but the focus here is specifically on separating pitch from time (and everything else).
+
+There is much analysis that can be done on a sequence of pitches alone. The temporal information meant to be included in a `noteworthy` object is at the rank level. There is a temporal sequence; the object is built around timesteps. But interval/ratio level data is not part of the definition. When this is needed, `noteinfo` is paired with pitch.

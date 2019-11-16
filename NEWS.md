@@ -12,7 +12,8 @@
 * Added native triplet support in note info using the `t`-prefix, e.g., `4 4] t8 t8- t8^ 4`. Support extends to `music` objects and now also to `phrase`, which alleviates reliance on the `triplet` function and its limitations.
 * Added `lyrics` class that parallels the structure and behavior of the other classes; added associated functions and generic method implementations.
 * Added `lyrics` support to `music` object construction and transformations.
-* Added `render_*` functions for making simple sheet music snippets directly from `music` objects. This abstracts the `phrase() %>% track() [%>% trackbind()] %>% score() %>% render_*()` pipeline from the user for simpler music that is essentially a single voice, single track.
+* Added `render_music_*` functions for making simple sheet music snippets directly from `music` objects. This abstracts the `phrase() %>% track() [%>% trackbind()] %>% score() %>% render_*()` pipeline from the user for simpler music that is essentially a single voice, single track.
+* Added `plot_music_*` function wrappers around corresponding `render_music_*` functions to further abstract the external LilyPond process.
 * Added support for auto-cropping of rendered sheet music when the output format is png.
 * Added transparent background png support.
 * Added a `colors` argument that takes a named list of color overrides for `lilypond` and `render_*` functions.

@@ -81,6 +81,12 @@
       <a href="../articles/tabr-prog-chords.html">Chord functions</a>
     </li>
     <li>
+      <a href="../articles/tabr-prog-noteinfo.html">Time and note info</a>
+    </li>
+    <li>
+      <a href="../articles/tabr-prog-music.html">The music class</a>
+    </li>
+    <li>
       <a href="../articles/tabr-prog-converters.html">Syntax converters</a>
     </li>
     <li>
@@ -197,14 +203,14 @@
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="../reference/valid-notes.html">noteworthy</a></span>(<span class="st">"h"</span>)</a></code></pre></div>
 <pre class="r-output"><code>#&gt; [1] FALSE
 </code></pre>
-<p>This reports whether the entire string conforms to all requirements for it to be valid <code>tabr</code> syntax.</p>
+<p>This reports whether the entire string conforms to all requirements for it to be valid <code>noteworthy</code> syntax.</p>
 </div>
-<div id="optional-noteworthy-class" class="section level3">
+<div id="the-noteworthy-class" class="section level3">
 <h3 class="hasAnchor">
-<a href="#optional-noteworthy-class" class="anchor"></a>Optional noteworthy class</h3>
+<a href="#the-noteworthy-class" class="anchor"></a>The <code>noteworthy</code> class</h3>
 <p>Functions in <code>tabr</code> that take noteworthy strings as input perform internal checks of noteworthiness for you and will throw an error if you provide an unworthy string. These checks are skipped if the input already has the <code>noteworthy</code> class. If a function returns a noteworthy string, the class will also be <code>noteworthy</code>.</p>
 <p>It is important to understand that the notion of noteworthy strings is implemented throughout <code>tabr</code>. One purpose is thorough and strict input validation. This leads to more robust function behavior and consistent user programming experience by rejecting problematic string input early.</p>
-<p><code>as_noteworthy</code> can be used to coerce to the <code>noteworthy</code> class. Coercion will fail if the string is not noteworthy. Using the <code>noteworthy</code> class is generally not needed by the user explicitly, but is available and offers its own <code>print</code> and <code>summary</code> methods for noteworthy strings.</p>
+<p><code>as_noteworthy</code> can be used to coerce to the <code>noteworthy</code> class. Coercion will fail if the string is not noteworthy. The class offers its own <code>print</code> and <code>summary</code> methods for noteworthy strings as well as a number of other generic method implementations. While some functions are intended to aggressively interpret a character string as noteworthy, performing the check and coercion directly, many functions in the package require an explicit <code>noteworthy</code> object. This is especially true of any generics, which dispatch methods based on the class of the input object.</p>
 <p>Functions like <code>as_noteworthy</code> have the added benefit of conforming all notes to the same formatting. This will clean up any presence of combined flats and sharps and combined tick and integer octave numbering.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">x &lt;-<span class="st"> "a# b_*2 c, d'' e3*2 g_4 c2e_2g2*2"</span></a>
 <a class="sourceLine" id="cb3-2" title="2">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/valid-notes.html">as_noteworthy</a></span>(x)</a>
@@ -239,7 +245,7 @@
 #&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">b_</span><span> </span><span style="color: #00BBBB;font-weight: bold;">b_</span><span> </span><span style="color: #00BBBB;font-weight: bold;">b_</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">,</span><span> </span><span style="color: #00BBBB;font-weight: bold;">d</span><span style="color: #00BBBB;">''</span><span> </span><span style="color: #00BBBB;font-weight: bold;">e</span><span> </span><span style="color: #00BBBB;font-weight: bold;">e</span><span> </span><span style="color: #00BBBB;font-weight: bold;">g_</span><span style="color: #00BBBB;">'</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">,</span><span style="color: #00BBBB;font-weight: bold;">e_</span><span style="color: #00BBBB;">,</span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #00BBBB;">,</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">,</span><span style="color: #00BBBB;font-weight: bold;">e_</span><span style="color: #00BBBB;">,</span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #00BBBB;">,</span><span style="color: #BBBB00;">&gt;</span><span>
 </span></code></pre>
 <p>Some functions like <code>transpose</code> also expose these formatting arguments directly. For other functions, format is strictly inferred from the input notes, but you can always coerce to another format with <code>as_noteworthy</code>.</p>
-<p>As an aside, tick octave notation is not the default just because it is used by LilyPond. The vignettes on transcription show that conversion from integers to ticks for the <code>phrase</code> objects used in transcription is automatic. Another reason is that the tick format is more robust. In <code>tabr</code>, integer octaves cannot go below zero without leading to problematic syntax, but you can always add more commas as octaves decrease. An even more critical reason is that the <code>music</code> class, which assembles a <code>noteworthy</code> class object and a <code>noteinfo</code> class object together, strictly uses tick format for octave numbering because numbers are needed to unambiguously describe time.</p>
+<p>As an aside, tick octave notation is not the default just because it is used by LilyPond. The vignettes on transcription show that conversion from integers to ticks for the <code>phrase</code> objects used in transcription is automatic. Another reason to use the tick format regardless is that it is more robust. In <code>tabr</code>, integer octaves cannot go below zero without leading to problematic syntax, but you can always add more commas as octaves decrease. An even more critical reason is that the <code>music</code> class, which assembles a <code>noteworthy</code> class object and a <code>noteinfo</code> class object together, strictly uses tick format for octave numbering because numbers are needed to unambiguously describe time juxtaposed with octave numbering.</p>
 </div>
 <div id="stricter-note-and-chord-validation" class="section level3">
 <h3 class="hasAnchor">
@@ -262,7 +268,7 @@
 <p>Before moving on, briefly consider the quasi-counterpart to noteworthy strings: notable phrases. If you have used <code>tabr</code>, you are familiar with turning strings into phrases, assembling these phrases into tracks and scores, and sending them on to LilyPond to create sheet music. In this context, you might think of phrase objects as the fundamental unit of musical information and the strings from which you create them seem more like raw data.</p>
 <p><code>tabr</code> offers some ability to reverse direction and decompose phrases back into their component parts: <code>notes</code>, <code>info</code> and <code>string</code> character strings. This is done using <code>notify</code>, which returns a tibble data frame.</p>
 <p>For complex phrases, this can be challenging. There should be no expectation of true one to one functional transformation. For example, <code>notify</code> is not complex enough to handle unfolding repeat sections or text notations attached to notes inside phrases. Certainly, this will not work for LilyPond syntax that was originally created in LilyPond rather than with <code>tabr</code> because <code>tabr</code> only provides access to a tiny fraction of what LilyPond can do. But in many simpler cases, you can successfully invert a phrase previously created from strings in R. Such a phrase is considered <em>notable</em>.</p>
-<p><code>phrasey</code> can be used to check if a string at least loosely resembled the content of a valid phrase object. Additional related functions are shown below, which takes a phrase through a complete cycle of deconstruction and reconstruction.</p>
+<p><code>phrasey</code> can be used to check if a string at least loosely resembles the content of a valid phrase object. Additional related functions are shown below, which takes a phrase through a complete cycle of deconstruction and reconstruction.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/phrase.html">phrase</a></span>(<span class="st">"b, c d ec'g'~ ec'g'"</span>, <span class="st">"4( 4)- 2*3"</span>, <span class="st">"5*3 432*2"</span>)</a>
 <a class="sourceLine" id="cb9-2" title="2">p1</a></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;">&lt;</span><span style="color: #555555;font-weight: bold;">Musical phrase</span><span style="color: #555555;">&gt;</span><span>

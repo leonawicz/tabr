@@ -212,17 +212,6 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   write(file = .adjust_file_path(file)$lp, output)
 }
 
-.lp_version <- function(){
-  v <- tryCatch(
-    system("lilypond.exe --version", intern = TRUE), error = function(e) NULL
-  )
-  if(!is.null(v)){
-    paste0("\\version \"", gsub("^GNU LilyPond (.*)", "\\1", v[1]), "\"\n")
-  } else {
-    ""
-  }
-}
-
 .get_melody_id <- function(x){
   x <- strsplit(x, "[ =\n]")[[1]]
   idx <- grep("melody", x)

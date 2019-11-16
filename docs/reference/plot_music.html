@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Render sheet music with LilyPond — tab • tabr</title>
+<title>Plot sheet music snippet with LilyPond — plot_music • tabr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -44,8 +44,11 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Render sheet music with LilyPond — tab" />
-<meta property="og:description" content="Render sheet music/tablature from a music score with LilyPond." />
+<meta property="og:title" content="Plot sheet music snippet with LilyPond — plot_music" />
+<meta property="og:description" content="These functions are wrappers around the render_music_* functions.
+They abstract the process of rendering a sheet music snippet to png and
+loading the rendered image back into R to be displayed as a plot in an open
+graphics device or inserted into an R markdown code chunk." />
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -219,111 +222,103 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Render sheet music with LilyPond</h1>
-    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/lp_render.R'><code>R/lp_render.R</code></a></small>
-    <div class="hidden name"><code>tab.Rd</code></div>
+    <h1>Plot sheet music snippet with LilyPond</h1>
+    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/snippet.R'><code>R/snippet.R</code></a></small>
+    <div class="hidden name"><code>plot_music.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Render sheet music/tablature from a music score with LilyPond.</p>
+    <p>These functions are wrappers around the <code>render_music_*</code> functions.
+They abstract the process of rendering a sheet music snippet to png and
+loading the rendered image back into R to be displayed as a plot in an open
+graphics device or inserted into an R markdown code chunk.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tab</span>(
-  <span class='no'>score</span>,
-  <span class='no'>file</span>,
-  <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>,
-  <span class='kw'>time</span> <span class='kw'>=</span> <span class='st'>"4/4"</span>,
-  <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='st'>"2 = 60"</span>,
-  <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+    <pre class="usage"><span class='fu'>plot_music</span>(
+  <span class='no'>music</span>,
+  <span class='kw'>staff</span> <span class='kw'>=</span> <span class='st'>"treble"</span>,
+  <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>,
+  <span class='kw'>no_tab</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>string_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>endbar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>crop_png</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>150</span>,
-  <span class='kw'>keep_ly</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>simplify</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>details</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)
-
-<span class='fu'>render_tab</span>(
-  <span class='no'>score</span>,
-  <span class='no'>file</span>,
-  <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>,
-  <span class='kw'>time</span> <span class='kw'>=</span> <span class='st'>"4/4"</span>,
-  <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='st'>"2 = 60"</span>,
   <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>150</span>
+)
+
+<span class='fu'>plot_music_tc</span>(
+  <span class='no'>music</span>,
+  <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>150</span>
+)
+
+<span class='fu'>plot_music_bc</span>(
+  <span class='no'>music</span>,
+  <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>150</span>
+)
+
+<span class='fu'>plot_music_tab</span>(
+  <span class='no'>music</span>,
+  <span class='kw'>staff</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>,
   <span class='kw'>string_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>endbar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>crop_png</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>150</span>,
-  <span class='kw'>keep_ly</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>simplify</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>details</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)
-
-<span class='fu'>render_score</span>(
-  <span class='no'>score</span>,
-  <span class='no'>file</span>,
-  <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>,
-  <span class='kw'>time</span> <span class='kw'>=</span> <span class='st'>"4/4"</span>,
-  <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='st'>"2 = 60"</span>,
   <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>endbar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>crop_png</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>150</span>,
-  <span class='kw'>keep_ly</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>simplify</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>details</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>150</span>
 )
 
-<span class='fu'>render_midi</span>(<span class='no'>score</span>, <span class='no'>file</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>time</span> <span class='kw'>=</span> <span class='st'>"4/4"</span>, <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='st'>"2 = 60"</span>)</pre>
+<span class='fu'>plot_music_guitar</span>(
+  <span class='no'>music</span>,
+  <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>,
+  <span class='kw'>string_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>150</span>
+)
+
+<span class='fu'>plot_music_bass</span>(
+  <span class='no'>music</span>,
+  <span class='no'>file</span>,
+  <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"bass"</span>,
+  <span class='kw'>string_names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>150</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>score</th>
-      <td><p>a score object.</p></td>
+      <th>music</th>
+      <td><p>a music object.</p></td>
     </tr>
     <tr>
-      <th>file</th>
-      <td><p>character, output file ending in .pdf or .png for sheet music or
-tablature for <code>score</code>. May include an absolute or relative path.
-For <code>render_midi</code>, a file ending in .mid.</p></td>
+      <th>staff</th>
+      <td><p>character, music staff setting. See <code>track</code> for details.</p></td>
     </tr>
     <tr>
-      <th>key</th>
-      <td><p>character, key signature, e.g., <code>c</code>, <code>b_</code>, <code>f#m</code>,
-etc.</p></td>
+      <th>tuning</th>
+      <td><p>character, string tuning, only applies to tablature. See
+<code>track</code>.</p></td>
     </tr>
     <tr>
-      <th>time</th>
-      <td><p>character, defaults to <code>"4/4"</code>.</p></td>
-    </tr>
-    <tr>
-      <th>tempo</th>
-      <td><p>character, defaults to <code>"2 = 60"</code>. Set to <code>NULL</code> to
-suppress display of the time signature in the output.</p></td>
-    </tr>
-    <tr>
-      <th>header</th>
-      <td><p>a named list of arguments passed to the header of the
-LilyPond file. See <code>lilypond</code> for details.</p></td>
-    </tr>
-    <tr>
-      <th>paper</th>
-      <td><p>a named list of arguments for the LilyPond file page layout.
-See <code>lilypond</code> for details.</p></td>
+      <th>no_tab</th>
+      <td><p>logical, suppress tablature staff. See <code>track</code>.</p></td>
     </tr>
     <tr>
       <th>string_names</th>
@@ -332,21 +327,19 @@ See <code>lilypond</code> for details.</p></td>
 force on or off completely.</p></td>
     </tr>
     <tr>
-      <th>endbar</th>
-      <td><p>character, the end bar.</p></td>
+      <th>header</th>
+      <td><p>a named list of arguments passed to the header of the
+LilyPond file. See <code>lilypond</code> details.</p></td>
     </tr>
     <tr>
-      <th>midi</th>
-      <td><p>logical, output midi file in addition to tablature.</p></td>
+      <th>paper</th>
+      <td><p>a named list of arguments for the LilyPond file page layout.
+See <code>lilypond</code> details.</p></td>
     </tr>
     <tr>
       <th>colors</th>
-      <td><p>a named list of LilyPond element color overrides. See
+      <td><p>a named list of LilyPond element color global overrides. See
 <code>lilypond</code> for details.</p></td>
-    </tr>
-    <tr>
-      <th>crop_png</th>
-      <td><p>logical, see <code>lilypond</code> for details.</p></td>
     </tr>
     <tr>
       <th>transparent</th>
@@ -357,67 +350,44 @@ force on or off completely.</p></td>
       <td><p>numeric, resolution, png only. <code>transparent = TRUE</code> may fail
 when <code>res</code> exceeds ~150.</p></td>
     </tr>
-    <tr>
-      <th>keep_ly</th>
-      <td><p>logical, keep the intermediary LilyPond file.</p></td>
-    </tr>
-    <tr>
-      <th>simplify</th>
-      <td><p>logical, uses <code>simplify_phrase</code> to convert to simpler,
-more efficient LilyPond syntax for the LilyPond file before rendering it.</p></td>
-    </tr>
-    <tr>
-      <th>details</th>
-      <td><p>logical, set to <code>TRUE</code> to print LilyPond log output to
-console. Windows only.</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>nothing returned; a file is written.</p>
+    <p>a plot</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Generate a pdf or png of a music score using the LilyPond music engraving
-program.
-Output format is inferred from <code>file</code> extension. This function is a
-wrapper around <code><a href='lilypond.html'>lilypond</a></code>, the function that creates the
-LilyPond (<code>.ly</code>) file.</p>
-<p><code>render_score</code> renders <code>score</code> to pdf or png. <code>render_midi</code>
-renders a MIDI file based on <code>score</code>. This is still done via LilyPond.
-The sheet music is created automatically in the process behind the scenes
-but is deleted and only the MIDI output is retained.</p>
-<p>The original <code>tab</code> or <code>render_tab</code> (equivalent) produces both the
-sheet music and the MIDI file output by default and includes other arguments
-such as the tablature-relevant argument <code>string_names</code>.
-This is the all-purpose function. Also use this when you intend to create
-both a sheet music document and a MIDI file.</p>
-<p>Remember that whether a track contains a tablature staff, standard music
-staff, or both, is defined in each individual track object contained in
-<code>score</code>. It is the contents you have assembled in
-<code>score</code> that dictate what render function you should use.
-<code>render_tab</code> is general and always works, but <code>render_score</code> would
-not be the best choice when a tablature staff is present unless you accept
-the default string naming convention.</p>
-<p><code>render_midi</code> is different from <code>midily</code> and <code>miditab</code>, whose
-purpose is to create sheet music from an existing MIDI file using a LilyPond
-command line utility.</p>
-<p>For Windows users, add the path to the LilyPond executable to the system
-path variable. For example, if the file is at
-<code>C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe</code>,
-then add <code>C:/Program Files (x86)/LilyPond/usr/bin</code> to the system path.</p>
+    <p>While these functions abstract away the details of the process, this is not
+the same as making the plot completely in R. R is only displaying the
+intermediary png file. LilyPond is required to engrave the sheet music.</p>
+<p>For R markdown you can alternatively render the png using the corresponding
+<code>render_music_*</code> function and then place it in the document explicitly
+using <code><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>knitr::include_graphics</a></code>.
+See <code><a href='render_music.html'>render_music</a></code> for more details.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='lilypond.html'>lilypond</a></code>, <code><a href='render_chordchart.html'>render_chordchart</a></code>,
-<code><a href='miditab.html'>miditab</a></code></p></div>
+    <div class='dont-index'><p><code>render_music</code>, <code><a href='phrase.html'>phrase</a></code>, <code><a href='track.html'>track</a></code>,
+<code><a href='score.html'>score</a></code>, <code><a href='lilypond.html'>lilypond</a></code>, <code><a href='tab.html'>tab</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span>(<span class='fu'><a href='tabr_options.html'>tabr_options</a></span>()$<span class='no'>lilypond</span> <span class='kw'>!=</span> <span class='st'>""</span>){
-  <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='st'>"c ec'g' ec'g'"</span>, <span class='st'>"4 4 2"</span>, <span class='st'>"5 432 432"</span>)
-  <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='track.html'>track</a></span>(<span class='no'>x</span>)
-  <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='score.html'>score</a></span>(<span class='no'>x</span>)
-  <span class='no'>outfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='st'>"out.pdf"</span>)
-  <span class='fu'>tab</span>(<span class='no'>x</span>, <span class='no'>outfile</span>) <span class='co'># requires LilyPond installation</span>
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='music.html'>as_music</a></span>(<span class='no'>x</span>)
+
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='st'>"a,,4;3*5 b,,4- c,4 c,g,c~4 c,g,c1 c4;1 g,;2 c,;3 g,;2 c,c1;31"</span>
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='music.html'>as_music</a></span>(<span class='no'>y</span>)
+
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='kw'>if</span>(<span class='fu'><a href='tabr_options.html'>tabr_options</a></span>()$<span class='no'>lilypond</span> <span class='kw'>!=</span> <span class='st'>""</span>){ <span class='co'># requires LilyPond installation</span>
+  <span class='fu'>plot_music</span>(<span class='no'>x</span>)
+  <span class='fu'>plot_music</span>(<span class='no'>x</span>, <span class='st'>"treble_8"</span>, <span class='kw'>no_tab</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>300</span>)
+
+  <span class='fu'>plot_music_tc</span>(<span class='no'>x</span>)
+  <span class='fu'>plot_music_bc</span>(<span class='no'>x</span>)
+
+  <span class='fu'>plot_music_tab</span>(<span class='no'>x</span>)
+  <span class='fu'>plot_music_guitar</span>(<span class='no'>x</span>)
+  <span class='fu'>plot_music_bass</span>(<span class='no'>y</span>)
+}
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -136,6 +136,12 @@ once it is done being used to help derive notes." />
       <a href="../articles/tabr-prog-chords.html">Chord functions</a>
     </li>
     <li>
+      <a href="../articles/tabr-prog-noteinfo.html">Time and note info</a>
+    </li>
+    <li>
+      <a href="../articles/tabr-prog-music.html">The music class</a>
+    </li>
+    <li>
       <a href="../articles/tabr-prog-converters.html">Syntax converters</a>
     </li>
     <li>
@@ -244,11 +250,25 @@ known tuning and key signature to generate <code>notes</code> for
 once it is done being used to help derive <code>notes</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_phrase</span>(<span class='no'>string</span>, <span class='kw'>fret</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>info</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>,
-  <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>, <span class='kw'>to_notes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>bar</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>sf_phrase</span>(
+  <span class='no'>string</span>,
+  <span class='kw'>fret</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>info</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>,
+  <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>,
+  <span class='kw'>to_notes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>bar</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
-<span class='fu'>sfp</span>(<span class='no'>string</span>, <span class='kw'>fret</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>info</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>,
-  <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>, <span class='kw'>to_notes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>bar</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>sfp</span>(
+  <span class='no'>string</span>,
+  <span class='kw'>fret</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>info</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>,
+  <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>,
+  <span class='kw'>to_notes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>bar</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
 <span class='fu'>sf_note</span>(<span class='no'>...</span>)
 

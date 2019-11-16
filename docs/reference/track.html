@@ -125,6 +125,12 @@
       <a href="../articles/tabr-prog-chords.html">Chord functions</a>
     </li>
     <li>
+      <a href="../articles/tabr-prog-noteinfo.html">Time and note info</a>
+    </li>
+    <li>
+      <a href="../articles/tabr-prog-music.html">The music class</a>
+    </li>
+    <li>
       <a href="../articles/tabr-prog-converters.html">Syntax converters</a>
     </li>
     <li>
@@ -222,13 +228,25 @@
     <p>Create a music track from a collection of musical phrases.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>track</span>(<span class='no'>phrase</span>, <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>, <span class='kw'>voice</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
-  <span class='kw'>music_staff</span> <span class='kw'>=</span> <span class='st'>"treble_8"</span>, <span class='kw'>ms_transpose</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>ms_key</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>no_tab</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>track</span>(
+  <span class='no'>phrase</span>,
+  <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>,
+  <span class='kw'>voice</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
+  <span class='kw'>music_staff</span> <span class='kw'>=</span> <span class='st'>"treble_8"</span>,
+  <span class='kw'>ms_transpose</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>ms_key</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>no_tab</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
-<span class='fu'>track_guitar</span>(<span class='no'>phrase</span>, <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>, <span class='kw'>voice</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
-  <span class='kw'>music_staff</span> <span class='kw'>=</span> <span class='st'>"treble_8"</span>, <span class='kw'>ms_transpose</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>ms_key</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>no_tab</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>track_guitar</span>(
+  <span class='no'>phrase</span>,
+  <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>,
+  <span class='kw'>voice</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
+  <span class='kw'>music_staff</span> <span class='kw'>=</span> <span class='st'>"treble_8"</span>,
+  <span class='kw'>ms_transpose</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>ms_key</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>no_tab</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
 <span class='fu'>track_tc</span>(<span class='no'>phrase</span>, <span class='kw'>voice</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>ms_transpose</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>ms_key</span> <span class='kw'>=</span> <span class='fl'>NA</span>)
 

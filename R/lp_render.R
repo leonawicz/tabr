@@ -84,6 +84,7 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
                 midi = TRUE, colors = NULL, crop_png = TRUE,
                 transparent = FALSE, res = 150, keep_ly = FALSE,
                 simplify = TRUE, details = FALSE){
+  .check_lilypond()
   fp <- .adjust_file_path(file)
   ext <- if(fp$ext == "pdf") "--pdf" else paste0("-dresolution=", res, " --png")
   if(is.null(paper$textheight) & fp$ext == "png"){
@@ -215,6 +216,7 @@ render_chordchart <- function(chords, file, size = 1.2, header = NULL,
                               paper = NULL, colors = NULL, crop_png = TRUE,
                               transparent = FALSE, res = 150, keep_ly = FALSE,
                               details = FALSE){
+  .check_lilypond()
   header <- .header_plus_colors(header, colors)
   colors <- .lp_color_overrides(colors)
   if(colors$score != ""){

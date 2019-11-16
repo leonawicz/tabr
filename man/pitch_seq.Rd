@@ -4,8 +4,7 @@
 \alias{pitch_seq}
 \title{Create a sequence from pitch notation}
 \usage{
-pitch_seq(x, y, key = NULL, scale = NULL, format = c("space",
-  "vector"))
+pitch_seq(x, y, key = NULL, scale = NULL, format = c("space", "vector"))
 }
 \arguments{
 \item{x}{character, valid pitch notation, e.g., \code{"a2"} or \code{"a,"}.}

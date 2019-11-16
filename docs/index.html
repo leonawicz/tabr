@@ -93,6 +93,12 @@
       <a href="articles/tabr-prog-chords.html">Chord functions</a>
     </li>
     <li>
+      <a href="articles/tabr-prog-noteinfo.html">Time and note info</a>
+    </li>
+    <li>
+      <a href="articles/tabr-prog-music.html">The music class</a>
+    </li>
+    <li>
       <a href="articles/tabr-prog-converters.html">Syntax converters</a>
     </li>
     <li>
@@ -259,19 +265,18 @@
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">x &lt;-<span class="st"> "a,8 c e r r c a, g#, a ac'e'"</span></a>
 <a class="sourceLine" id="cb2-2" title="2"><span class="kw"><a href="reference/music.html">as_music</a></span>(x) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/as_music_df.html">as_music_df</a></span>()</a>
 <a class="sourceLine" id="cb2-3" title="3"><span class="co">#&gt; # A tibble: 10 x 12</span></a>
-<a class="sourceLine" id="cb2-4" title="4"><span class="co">#&gt;    duration pitch note  semitone octave  freq pitch_int scale_int slur </span></a>
-<a class="sourceLine" id="cb2-5" title="5"><span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;    &lt;int&gt;  &lt;int&gt; &lt;dbl&gt;     &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;</span></a>
-<a class="sourceLine" id="cb2-6" title="6"><span class="co">#&gt;  1 8        a,    a           57      2  110.        NA &lt;NA&gt;      &lt;NA&gt; </span></a>
-<a class="sourceLine" id="cb2-7" title="7"><span class="co">#&gt;  2 8        c     c           48      3  131.         3 m3        &lt;NA&gt; </span></a>
-<a class="sourceLine" id="cb2-8" title="8"><span class="co">#&gt;  3 8        e     e           52      3  165.         4 M3        &lt;NA&gt; </span></a>
-<a class="sourceLine" id="cb2-9" title="9"><span class="co">#&gt;  4 8        r     r           NA     NA   NA         NA &lt;NA&gt;      &lt;NA&gt; </span></a>
-<a class="sourceLine" id="cb2-10" title="10"><span class="co">#&gt;  5 8        r     r           NA     NA   NA         NA &lt;NA&gt;      &lt;NA&gt; </span></a>
-<a class="sourceLine" id="cb2-11" title="11"><span class="co">#&gt;  6 8        c     c           48      3  131.        -4 M3        &lt;NA&gt; </span></a>
-<a class="sourceLine" id="cb2-12" title="12"><span class="co">#&gt;  7 8        a,    a           57      2  110.        -3 m3        &lt;NA&gt; </span></a>
-<a class="sourceLine" id="cb2-13" title="13"><span class="co">#&gt;  8 8        g#,   g#          56      2  104.        -1 m2        &lt;NA&gt; </span></a>
-<a class="sourceLine" id="cb2-14" title="14"><span class="co">#&gt;  9 8        a     a           57      3  220.        13 m9        &lt;NA&gt; </span></a>
-<a class="sourceLine" id="cb2-15" title="15"><span class="co">#&gt; 10 8        ac'e' ace         57      3  220.         0 P1        &lt;NA&gt; </span></a>
-<a class="sourceLine" id="cb2-16" title="16"><span class="co">#&gt; # ... with 3 more variables: slide &lt;lgl&gt;, dotted &lt;int&gt;, annotation &lt;chr&gt;</span></a></code></pre></div>
+<a class="sourceLine" id="cb2-4" title="4"><span class="co">#&gt;    duration pitch note  semitone octave  freq pitch_int scale_int slur  slide dotted annotation</span></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;    &lt;int&gt;  &lt;int&gt; &lt;dbl&gt;     &lt;int&gt; &lt;chr&gt;     &lt;chr&gt; &lt;lgl&gt;  &lt;int&gt; &lt;chr&gt;     </span></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="co">#&gt;  1 8        a,    a           57      2  110.        NA &lt;NA&gt;      &lt;NA&gt;  FALSE      0 &lt;NA&gt;      </span></a>
+<a class="sourceLine" id="cb2-7" title="7"><span class="co">#&gt;  2 8        c     c           48      3  131.         3 m3        &lt;NA&gt;  FALSE      0 &lt;NA&gt;      </span></a>
+<a class="sourceLine" id="cb2-8" title="8"><span class="co">#&gt;  3 8        e     e           52      3  165.         4 M3        &lt;NA&gt;  FALSE      0 &lt;NA&gt;      </span></a>
+<a class="sourceLine" id="cb2-9" title="9"><span class="co">#&gt;  4 8        r     r           NA     NA   NA         NA &lt;NA&gt;      &lt;NA&gt;  FALSE      0 &lt;NA&gt;      </span></a>
+<a class="sourceLine" id="cb2-10" title="10"><span class="co">#&gt;  5 8        r     r           NA     NA   NA         NA &lt;NA&gt;      &lt;NA&gt;  FALSE      0 &lt;NA&gt;      </span></a>
+<a class="sourceLine" id="cb2-11" title="11"><span class="co">#&gt;  6 8        c     c           48      3  131.        -4 M3        &lt;NA&gt;  FALSE      0 &lt;NA&gt;      </span></a>
+<a class="sourceLine" id="cb2-12" title="12"><span class="co">#&gt;  7 8        a,    a           57      2  110.        -3 m3        &lt;NA&gt;  FALSE      0 &lt;NA&gt;      </span></a>
+<a class="sourceLine" id="cb2-13" title="13"><span class="co">#&gt;  8 8        g#,   g#          56      2  104.        -1 m2        &lt;NA&gt;  FALSE      0 &lt;NA&gt;      </span></a>
+<a class="sourceLine" id="cb2-14" title="14"><span class="co">#&gt;  9 8        a     a           57      3  220.        13 m9        &lt;NA&gt;  FALSE      0 &lt;NA&gt;      </span></a>
+<a class="sourceLine" id="cb2-15" title="15"><span class="co">#&gt; 10 8        ac'e' ace         57      3  220.         0 P1        &lt;NA&gt;  FALSE      0 &lt;NA&gt;</span></a></code></pre></div>
 <p>Several functions are available for mapping seamlessly between and manipulating these data structures and their representations of musical information.</p>
 </div>
 <div id="transcription" class="section level3">

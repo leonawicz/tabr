@@ -4,8 +4,14 @@
 \alias{dyad}
 \title{Construct a dyad}
 \usage{
-dyad(notes, interval, reverse = FALSE, octaves = c("tick", "integer"),
-  accidentals = c("flat", "sharp"), key = NULL)
+dyad(
+  notes,
+  interval,
+  reverse = FALSE,
+  octaves = c("tick", "integer"),
+  accidentals = c("flat", "sharp"),
+  key = NULL
+)
 }
 \arguments{
 \item{notes}{character, a noteworthy string, single notes only, no chords.

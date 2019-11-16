@@ -135,19 +135,18 @@ amounts of structured music data.
 x <- "a,8 c e r r c a, g#, a ac'e'"
 as_music(x) %>% as_music_df()
 #> # A tibble: 10 x 12
-#>    duration pitch note  semitone octave  freq pitch_int scale_int slur 
-#>    <chr>    <chr> <chr>    <int>  <int> <dbl>     <int> <chr>     <chr>
-#>  1 8        a,    a           57      2  110.        NA <NA>      <NA> 
-#>  2 8        c     c           48      3  131.         3 m3        <NA> 
-#>  3 8        e     e           52      3  165.         4 M3        <NA> 
-#>  4 8        r     r           NA     NA   NA         NA <NA>      <NA> 
-#>  5 8        r     r           NA     NA   NA         NA <NA>      <NA> 
-#>  6 8        c     c           48      3  131.        -4 M3        <NA> 
-#>  7 8        a,    a           57      2  110.        -3 m3        <NA> 
-#>  8 8        g#,   g#          56      2  104.        -1 m2        <NA> 
-#>  9 8        a     a           57      3  220.        13 m9        <NA> 
-#> 10 8        ac'e' ace         57      3  220.         0 P1        <NA> 
-#> # ... with 3 more variables: slide <lgl>, dotted <int>, annotation <chr>
+#>    duration pitch note  semitone octave  freq pitch_int scale_int slur  slide dotted annotation
+#>    <chr>    <chr> <chr>    <int>  <int> <dbl>     <int> <chr>     <chr> <lgl>  <int> <chr>     
+#>  1 8        a,    a           57      2  110.        NA <NA>      <NA>  FALSE      0 <NA>      
+#>  2 8        c     c           48      3  131.         3 m3        <NA>  FALSE      0 <NA>      
+#>  3 8        e     e           52      3  165.         4 M3        <NA>  FALSE      0 <NA>      
+#>  4 8        r     r           NA     NA   NA         NA <NA>      <NA>  FALSE      0 <NA>      
+#>  5 8        r     r           NA     NA   NA         NA <NA>      <NA>  FALSE      0 <NA>      
+#>  6 8        c     c           48      3  131.        -4 M3        <NA>  FALSE      0 <NA>      
+#>  7 8        a,    a           57      2  110.        -3 m3        <NA>  FALSE      0 <NA>      
+#>  8 8        g#,   g#          56      2  104.        -1 m2        <NA>  FALSE      0 <NA>      
+#>  9 8        a     a           57      3  220.        13 m9        <NA>  FALSE      0 <NA>      
+#> 10 8        ac'e' ace         57      3  220.         0 P1        <NA>  FALSE      0 <NA>
 ```
 
 Several functions are available for mapping seamlessly between and

@@ -67,6 +67,7 @@
 midily <- function(midi_file, file, key = "c", absolute = FALSE,
                    quantize = NULL, explicit = FALSE, start_quant = NULL,
                    allow_tuplet = c("4*2/3", "8*2/3", "16*2/3"), lyric = FALSE){
+  .check_lilypond()
   x <- paste0("--key=", .midily_key(key))
   if(absolute) x <- paste(x, "--absolute-pitches")
   if(!is.null(quantize)) x <- paste(x, paste0("--duration-quant=", quantize))
@@ -229,33 +230,32 @@ read_midi <- function(file, ticks_per_qtr = 480){
   if(!requireNamespace("tuneR")){
     message("Please install the `tuneR` package to read MIDI files.")
     return(invisible())
-  } else {
-    mx <- duration_to_ticks(1, ticks_per_qtr)
-    x <- tibble::as_tibble(tuneR::readMidi(file))
-    y <- tuneR::getMidiNotes(x)
-    bycols <- c("channel", "track", "time", parameter1 = "note")
-    d <- dplyr::left_join(x, y, by = bycols) %>%
-      dplyr::select(-c("notename")) %>%
-      dplyr::mutate(
-        pitch = semitone_pitch(.data[["parameter1"]]),
-        pitch = ifelse(.data[["event"]] == "Note On", .data[["pitch"]], NA),
-        duration = ticks_to_duration(.data[["length"]], ticks_per_qtr)) %>%
-      dplyr::select(c("time", "length", "duration", "event", "type", "channel",
-                      "parameter1", "parameter2",
-                      "parameterMetaSystem", "track", "pitch", "velocity"))
-    idx <- which(is.na(d$duration) & d$event == "Note On")
-    if(length(idx)){
-      d$duration[idx] <- purrr::map_chr(d$length[idx], ~{
-        y <- x <- .x
-        while(x > mx){
-          x <- x - mx
-          y <- c(x, y)
-        }
-        paste(ticks_to_duration(y, ticks_per_qtr), collapse = ";")
-      })
-    }
-    d
   }
+  mx <- duration_to_ticks(1, ticks_per_qtr)
+  x <- tibble::as_tibble(tuneR::readMidi(file))
+  y <- tuneR::getMidiNotes(x)
+  bycols <- c("channel", "track", "time", parameter1 = "note")
+  d <- dplyr::left_join(x, y, by = bycols) %>%
+    dplyr::select(-c("notename")) %>%
+    dplyr::mutate(
+      pitch = semitone_pitch(.data[["parameter1"]]),
+      pitch = ifelse(.data[["event"]] == "Note On", .data[["pitch"]], NA),
+      duration = ticks_to_duration(.data[["length"]], ticks_per_qtr)) %>%
+    dplyr::select(c("time", "length", "duration", "event", "type", "channel",
+                    "parameter1", "parameter2",
+                    "parameterMetaSystem", "track", "pitch", "velocity"))
+  idx <- which(is.na(d$duration) & d$event == "Note On")
+  if(length(idx)){
+    d$duration[idx] <- purrr::map_chr(d$length[idx], ~{
+      y <- x <- .x
+      while(x > mx){
+        x <- x - mx
+        y <- c(x, y)
+      }
+      paste(ticks_to_duration(y, ticks_per_qtr), collapse = ";")
+    })
+  }
+  d
 }
 
 #' @export
