@@ -243,27 +243,12 @@ graphics device or inserted into an R markdown code chunk.</p>
   <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>150</span>
+  <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>300</span>
 )
 
-<span class='fu'>plot_music_tc</span>(
-  <span class='no'>music</span>,
-  <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>150</span>
-)
+<span class='fu'>plot_music_tc</span>(<span class='no'>music</span>, <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>300</span>)
 
-<span class='fu'>plot_music_bc</span>(
-  <span class='no'>music</span>,
-  <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>150</span>
-)
+<span class='fu'>plot_music_bc</span>(<span class='no'>music</span>, <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>300</span>)
 
 <span class='fu'>plot_music_tab</span>(
   <span class='no'>music</span>,
@@ -273,8 +258,7 @@ graphics device or inserted into an R markdown code chunk.</p>
   <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>150</span>
+  <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>300</span>
 )
 
 <span class='fu'>plot_music_guitar</span>(
@@ -284,20 +268,17 @@ graphics device or inserted into an R markdown code chunk.</p>
   <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>150</span>
+  <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>300</span>
 )
 
 <span class='fu'>plot_music_bass</span>(
   <span class='no'>music</span>,
-  <span class='no'>file</span>,
   <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"bass"</span>,
   <span class='kw'>string_names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>150</span>
+  <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>300</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -342,13 +323,8 @@ See <code>lilypond</code> details.</p></td>
 <code>lilypond</code> for details.</p></td>
     </tr>
     <tr>
-      <th>transparent</th>
-      <td><p>logical, transparent background, png only.</p></td>
-    </tr>
-    <tr>
       <th>res</th>
-      <td><p>numeric, resolution, png only. <code>transparent = TRUE</code> may fail
-when <code>res</code> exceeds ~150.</p></td>
+      <td><p>numeric, resolution, png only. Defaults to 300.</p></td>
     </tr>
     </table>
 
@@ -362,8 +338,9 @@ the same as making the plot completely in R. R is only displaying the
 intermediary png file. LilyPond is required to engrave the sheet music.</p>
 <p>For R markdown you can alternatively render the png using the corresponding
 <code>render_music_*</code> function and then place it in the document explicitly
-using <code><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>knitr::include_graphics</a></code>.
-See <code><a href='render_music.html'>render_music</a></code> for more details.</p>
+using <code><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>knitr::include_graphics</a></code>. Transparency is not relevant to these
+wrapper functions since they are used only for plotting, not for overlays on
+existing. See <code><a href='render_music.html'>render_music</a></code> for more details.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code>render_music</code>, <code><a href='phrase.html'>phrase</a></code>, <code><a href='track.html'>track</a></code>,
@@ -379,7 +356,7 @@ See <code><a href='render_music.html'>render_music</a></code> for more details.<
 <span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='kw'>if</span>(<span class='fu'><a href='tabr_options.html'>tabr_options</a></span>()$<span class='no'>lilypond</span> <span class='kw'>!=</span> <span class='st'>""</span>){ <span class='co'># requires LilyPond installation</span>
   <span class='fu'>plot_music</span>(<span class='no'>x</span>)
-  <span class='fu'>plot_music</span>(<span class='no'>x</span>, <span class='st'>"treble_8"</span>, <span class='kw'>no_tab</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>300</span>)
+  <span class='fu'>plot_music</span>(<span class='no'>x</span>, <span class='st'>"treble_8"</span>, <span class='kw'>no_tab</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
   <span class='fu'>plot_music_tc</span>(<span class='no'>x</span>)
   <span class='fu'>plot_music_bc</span>(<span class='no'>x</span>)
