@@ -3,9 +3,10 @@ context("outputs")
 library(dplyr)
 
 notes <- "r s a2~ a2 c3 c f4 f' d a f ce_g ceg#"
-info <- "4. 4. 8*9 2. 4."
+info <- "4. 4. 4.. 4- 4..-. 8^ 8-^ 8-> 4.-! t4 t4[staccato] t4[accent] 2.."
 p1 <- pc(pct(p("a", 1)), rp(p(notes, info)))
-p2 <- volta(p("r s a~ a c' c4 f5 f'' d4 a4 f' c'e_'g' c'e'g#'", info))
+p2 <- volta(p("r s a~ a c' c4 f5 f'' d4 a4 f' c'e_'g' c'e'g#'",
+              "4. 4 8*9 2. 2"))
 x1 <- track(p1) %>% score()
 x2 <- track(p2, tuning = "DADGAD", ms_transpose = 1, ms_key = "flat") %>%
   score()

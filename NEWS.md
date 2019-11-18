@@ -29,6 +29,7 @@
 * Updated vignettes, readme and other documentation.
 * Made improvements to print method for phrase objects.
 * Added `rests` argument to some note metadata functions.
+* Breaking change: Added support for many articulations. Some have abbreviated syntax options beginning with a hyphen: `-.`, `--`, `-+`, etc. Otherwise spelled out in bracketed text: `-.` is the same as `[staccato]`. The break is that the old form of staccato `]` is no longer allowed. Switch to `-.` or `[staccato]`. The leading `-` does not cause conflict with the single `-`, which continues to represent slide notation.
 * No more need (or support for) the `s`-suffix string numbering. All instances of single string number inputs are assumed starting string and any additional strings are inferred consecutively.
 * Improvements to `plot_fretboard` (renamed from `fretboard_plot`) and added wrapper function `plot_chord` for more convenient chord diagrams.
 * Minor bug fixes.

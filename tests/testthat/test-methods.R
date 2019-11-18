@@ -64,8 +64,8 @@ test_that("noteinfo methods return as expected", {
 })
 
 test_that("music methods return as expected", {
-  x <- as_music("c,~4 c,1 c'e_'g'4]*4")
-  expect_equal(as.character(x[1:3]), "c,~4 c,1 c'e_'g'4]")
+  x <- as_music("c,~4 c,1 c'e_'g'4-!*4")
+  expect_equal(as.character(x[1:3]), "c,~4 c,1 c'e_'g'4-!")
   expect_equal(length(x[-c(1:2)]), 4)
   x[3:6] <- "c'e'g'8"
   expect_equal(as.character(x[3:6]), string_unfold("c'e'g'8*4"))
@@ -73,8 +73,8 @@ test_that("music methods return as expected", {
   x[[2]] <- "b_4"
   expect_equal(x[[2]], "b_4")
 
-  x <- as_music("c,~4 c,1 c'e_'g'4]*4")
-  y <- "c,~4 c,1 c'e_'g'4] c'e_'g'4] c'e_'g'4] c'e_'g'4]"
+  x <- as_music("c,~4 c,1 c'e_'g'4->*4")
+  y <- "c,~4 c,1 c'e_'g'4-> c'e_'g'4-> c'e_'g'4-> c'e_'g'4->"
   expect_equal(length(x), 6)
 
   expect_equal(as.character(c(x, x)), paste(y, y, sep = " "))

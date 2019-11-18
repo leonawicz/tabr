@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Repeat for tabr classes — tabr-rep • tabr</title>
+<title>Single note articulations and syntax — articulations • tabr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -44,10 +44,9 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Repeat for tabr classes — tabr-rep" />
-<meta property="og:description" content="Several methods are implemented for the classes noteworthy,
-noteinfo, and music. See tabr-methods for
-more details on methods for tabr classes." />
+<meta property="og:title" content="Single note articulations and syntax — articulations" />
+<meta property="og:description" content="A data frame containing categorized sets of articulations that can be used
+in phrase construction." />
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -221,70 +220,28 @@ more details on methods for tabr classes." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Repeat for tabr classes</h1>
-    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/class_methods.R'><code>R/class_methods.R</code></a></small>
-    <div class="hidden name"><code>tabr-rep.Rd</code></div>
+    <h1>Single note articulations and syntax</h1>
+    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/data.R'><code>R/data.R</code></a></small>
+    <div class="hidden name"><code>articulations.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Several methods are implemented for the classes <code>noteworthy</code>,
-<code>noteinfo</code>, and <code>music</code>. See <code><a href='tabr-methods.html'>tabr-methods</a></code> for
-more details on methods for tabr classes.</p>
+    <p>A data frame containing categorized sets of articulations that can be used
+in phrase construction.</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for noteworthy</span>
-<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='no'>articulations</span></pre>
 
-<span class='co'># S3 method for noteinfo</span>
-<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
-<span class='co'># S3 method for music</span>
-<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-<span class='co'># S3 method for lyrics</span>
-<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <p>A data frame with 3 column and 44 rows.</p>
 
-<span class='co'># S3 method for phrase</span>
-<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
-
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>x</th>
-      <td><p>object.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>additional arguments. Not accepted for phrase objects.</p></td>
-    </tr>
-    </table>
-
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='tabr-methods.html'>tabr-methods</a></code>, <code><a href='note-metadata.html'>note-metadata</a></code></p></div>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># noteworthy class examples</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"a b c"</span>
-<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='no'>x</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] "a b c" "a b c"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='valid-notes.html'>as_noteworthy</a></span>(<span class='no'>x</span>), <span class='fl'>2</span>)</div><div class='output co'>#&gt; <span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
-#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span></div><div class='input'>
-<span class='co'># noteinfo class examples</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"4x 4]*2 2"</span>
-<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='valid-noteinfo.html'>as_noteinfo</a></span>(<span class='no'>x</span>), <span class='kw'>times</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>))</div><div class='output co'>#&gt; <span class='error'>Error: Invalid note info found.</span></div><div class='input'>
-<span class='co'># music class examples</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"c,~4 c,1 c'e_'g'4]"</span>
-<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='music.html'>as_music</a></span>(<span class='no'>x</span>), <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; <span class='error'>Error: Invalid note info found.</span></div><div class='input'>
-<span class='co'># phrase class examples</span>
-<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='no'>x</span>), <span class='fl'>2</span>)</div><div class='output co'>#&gt; <span class='error'>Error: Invalid note info found.</span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
+      <li><a href="#format">Format</a></li>
     </ul>
 
   </div>

@@ -256,6 +256,7 @@
 <li>Updated vignettes, readme and other documentation.</li>
 <li>Made improvements to print method for phrase objects.</li>
 <li>Added <code>rests</code> argument to some note metadata functions.</li>
+<li>Breaking change: Added support for many articulations. Some have abbreviated syntax options beginning with a hyphen: <code>-.</code>, <code>--</code>, <code>-+</code>, etc. Otherwise spelled out in bracketed text: <code>-.</code> is the same as <code>[staccato]</code>. The break is that the old form of staccato <code>]</code> is no longer allowed. Switch to <code>-.</code> or <code>[staccato]</code>. The leading <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code> does not cause conflict with the single <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code>, which continues to represent slide notation.</li>
 <li>No more need (or support for) the <code>s</code>-suffix string numbering. All instances of single string number inputs are assumed starting string and any additional strings are inferred consecutively.</li>
 <li>Improvements to <code>plot_fretboard</code> (renamed from <code>fretboard_plot</code>) and added wrapper function <code>plot_chord</code> for more convenient chord diagrams.</li>
 <li>Minor bug fixes.</li>

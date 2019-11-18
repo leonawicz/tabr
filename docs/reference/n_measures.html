@@ -287,7 +287,7 @@ any even beat, triplet beat, dotted, or double dotted beat, from
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='notate.html'>notate</a></span>(<span class='st'>"t8x"</span>, <span class='st'>"Start here"</span>)
 <span class='no'>notes</span> <span class='kw'>&lt;-</span> <span class='st'>"a, b, c d e f g# a r ac'e' a c' e' c' r*3 ac'e'~ ac'e'"</span>
-<span class='no'>info</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='no'>a</span>, <span class='st'>"t8x t8] 16 4.. 16- 16 2^ 2 4. 8( 4)( 4) 8*4 1 1"</span>)
+<span class='no'>info</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='no'>a</span>, <span class='st'>"t8x t8-. 16 4.. 16- 16 2^ 2 4. 8( 4)( 4) 8*4 1 1"</span>)
 <span class='no'>info</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='valid-noteinfo.html'>as_noteinfo</a></span>(<span class='no'>info</span>)
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='music.html'>as_music</a></span>(<span class='no'>notes</span>, <span class='no'>info</span>)
 

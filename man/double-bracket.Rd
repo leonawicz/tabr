@@ -53,7 +53,7 @@ x[[3]] <- c("t8]")
 x
 
 # music class examples
-x <- as_music("c,~4 c,1 c'e_'g'4]*2")
+x <- as_music("c,~4 c,1 c'e_'g'4-.*2")
 x[[3]]
 x[[3]] <- "c'e'g'8"
 x

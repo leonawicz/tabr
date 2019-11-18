@@ -33,7 +33,7 @@
 #' @examples
 #' a <- notate("t8x", "Start here")
 #' notes <- "a, b, c d e f g# a r ac'e' a c' e' c' r*3 ac'e'~ ac'e'"
-#' info <- paste(a, "t8x t8] 16 4.. 16- 16 2^ 2 4. 8( 4)( 4) 8*4 1 1")
+#' info <- paste(a, "t8x t8-. 16 4.. 16- 16 2^ 2 4. 8( 4)( 4) 8*4 1 1")
 #' info <- as_noteinfo(info)
 #' x <- as_music(notes, info)
 #'

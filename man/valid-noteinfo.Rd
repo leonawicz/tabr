@@ -46,7 +46,7 @@ the default is space-delimited time.
 }
 \examples{
 a <- notate("8x", "Start here")
-x <- paste(a, "8] 8] 16 4.. 16- 16 2^ 2 4. 8( 4)( 4) 8*4 1 1")
+x <- paste(a, "8[stacatto] 8-. 16 4.. 16- 16 2^ 2 4. 8( 4)( 4) 8*4 1 1")
 
 informable(x) # is it of 'noteinfo' class; a validity check for any string
 x <- as_noteinfo(x) # coerce to 'noteinfo' class

@@ -3,8 +3,8 @@
 \docType{data}
 \name{mainIntervals}
 \alias{mainIntervals}
-\title{Main musical intervals.}
-\format{A data frame with 5 columns and 26 rows.}
+\title{Main musical intervals}
+\format{A data frame with 5 columns and 26 rows}
 \usage{
 mainIntervals
 }

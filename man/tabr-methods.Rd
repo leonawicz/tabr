@@ -132,7 +132,7 @@ c(x[1], x[2]) == c(x[1:2])
 head(rep(x, each = 2))
 
 # music class examples
-x <- as_music("c,~4 c,1 c'e_'g'4]*4")
+x <- as_music("c,~4 c,1 c'e_'g'4-.*4")
 x
 x[1:3]
 x[-c(1:2)]

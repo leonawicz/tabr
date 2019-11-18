@@ -65,7 +65,7 @@ as_music_df(x, key = "c", scale = "major")
 as_music_df(x, key = "am", scale = "harmonic_minor", si_format = "ad_abb")
 
 a <- notate("8", "Start here.")
-time <- paste(a, "8*2 16 4.. 16( 16)( 2) 2 4. t8- t8 t8- 8*4 1")
+time <- paste(a, "8^*2 16-_ 4.. 16( 16)( 2) 2 4. t8- t8 t8- 8[accent]*4 1")
 d1 <- as_music_df(x, time)
 d1
 
@@ -75,6 +75,6 @@ d2 <- as_music_df(m1)
 identical(d1, d2)
 
 # Go directly from phrase object to data frame
-p1 <- phrase("a b cgc'", "4 4 2", 5)
-identical(as_music_df(as_music("a4;5 b cgc'2")), as_music_df(p1))
+p1 <- phrase("a b cgc'", "4-+ 4[accent] 2", 5)
+identical(as_music_df(as_music("a4-+;5 b[accent] cgc'2")), as_music_df(p1))
 }

@@ -46,12 +46,12 @@ head(as_noteworthy(x), 2)
 tail(as_noteworthy(x), 2)
 
 # noteinfo class examples
-x <- "4x 4]*8 2 4"
+x <- "4x 4-.*8 2 4"
 head(as_noteinfo(x))
 tail(as_noteinfo(x))
 
 # music class examples
-x <- "c,~4 c,1 c'e_'g'4]"
+x <- "c,~4 c,1 c'e_'g'4-."
 head(as_music(x), 2)
 tail(as_music(x), 2)
 }

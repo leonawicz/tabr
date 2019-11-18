@@ -19,19 +19,14 @@ knitr::opts_chunk$set(
 library(tabr)
 ```
 
-```{r table1, echo=FALSE}
-knitr::kable(tunings, "html", escape = TRUE, align = "c") %>%
-  kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), position = "float_right", full_width = FALSE)
-```
-
 This section covers differently strung guitars and string instruments as well as non-standard tunings. Different tunings can be associated with individual music staves and are therefore specified when calling `track`.
 
 ## Predefined tunings
 
-The `tuning` argument to track accepts a variety of predefined commonly used string tunings, defaulting to `standard`. To the right is a table of predefined tunings for various instruments.
+The `tuning` argument to track accepts a variety of predefined commonly used string tunings, defaulting to `standard`. A table of 32 predefined tunings for various instruments is available.
 
-```{r table0, eval=FALSE}
-tunings
+```{r table0}
+head(tunings)
 ```
 
 ## Arbitrary tunings

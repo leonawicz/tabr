@@ -37,7 +37,7 @@ length(x)
 length(as_noteinfo(x))
 
 # music class examples
-x <- "c,~4 c,1 c'e_'g'4]*4"
+x <- "c,~4 c,1 c'e_'g'4-.*4"
 length(x)
 length(as_music(x))
 }

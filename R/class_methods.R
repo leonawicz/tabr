@@ -119,7 +119,7 @@
 #' head(rep(x, each = 2))
 #'
 #' # music class examples
-#' x <- as_music("c,~4 c,1 c'e_'g'4]*4")
+#' x <- as_music("c,~4 c,1 c'e_'g'4-.*4")
 #' x
 #' x[1:3]
 #' x[-c(1:2)]
@@ -163,7 +163,7 @@ NULL
 #' x[x == "4-"]
 #'
 #' # music class examples
-#' x <- as_music("c,~4 c,1 c'e_'g'4]*4")
+#' x <- as_music("c,~4 c,1 c'e_'g'4-.*4")
 #' x[1:3]
 #' x[-c(1:2)]
 #' x[3:6] <- "c'e'g'8"
@@ -283,7 +283,7 @@ NULL
 #' x
 #'
 #' # music class examples
-#' x <- as_music("c,~4 c,1 c'e_'g'4]*2")
+#' x <- as_music("c,~4 c,1 c'e_'g'4-.*2")
 #' x[[3]]
 #' x[[3]] <- "c'e'g'8"
 #' x
@@ -377,7 +377,7 @@ NULL
 #' length(as_noteinfo(x))
 #'
 #' # music class examples
-#' x <- "c,~4 c,1 c'e_'g'4]*4"
+#' x <- "c,~4 c,1 c'e_'g'4-.*4"
 #' length(x)
 #' length(as_music(x))
 length.noteworthy <- function(x){
@@ -425,7 +425,7 @@ length.lyrics <- function(x){
 #' c(as_noteinfo(x), x)
 #'
 #' # music class examples
-#' x <- "c,~4 c,1 c'e_'g'4]*2"
+#' x <- "c,~4 c,1 c'e_'g'4-.*2"
 #' c(as_music(x), x)
 #'
 #' # phrase class examples
@@ -587,11 +587,11 @@ c.phrase <- function(...){
 #' rep(as_noteworthy(x), 2)
 #'
 #' # noteinfo class examples
-#' x <- "4x 4]*2 2"
+#' x <- "4x 4-.*2 2"
 #' rep(as_noteinfo(x), times = c(2, 1, 1, 2))
 #'
 #' # music class examples
-#' x <- "c,~4 c,1 c'e_'g'4]"
+#' x <- "c,~4 c,1 c'e_'g'4-."
 #' rep(as_music(x), each = 2)
 #'
 #' # phrase class examples
@@ -707,11 +707,11 @@ rep.phrase <- function(x, ...){
 #' rev(as_noteworthy(x))
 #'
 #' # noteinfo class examples
-#' x <- "4x 4]*2 2"
+#' x <- "4x 4-.*2 2"
 #' rev(as_noteinfo(x))
 #'
 #' # music class examples
-#' x <- "c,~4 c,1 c'e_'g'4]"
+#' x <- "c,~4 c,1 c'e_'g'4-."
 #' rev(as_music(x))
 rev.noteworthy <- function(x){
   o <- octave_type(x)
@@ -784,12 +784,12 @@ rev.lyrics <- function(x){
 #' tail(as_noteworthy(x), 2)
 #'
 #' # noteinfo class examples
-#' x <- "4x 4]*8 2 4"
+#' x <- "4x 4-.*8 2 4"
 #' head(as_noteinfo(x))
 #' tail(as_noteinfo(x))
 #'
 #' # music class examples
-#' x <- "c,~4 c,1 c'e_'g'4]"
+#' x <- "c,~4 c,1 c'e_'g'4-."
 #' head(as_music(x), 2)
 #' tail(as_music(x), 2)
 head.noteworthy <- function(x, ...){

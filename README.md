@@ -3,7 +3,7 @@
 
 # tabr <img src="man/figures/logo.png" style="margin-left:10px;margin-bottom:5px;" width="120" align="right">
 
-**Author:** [Matthew Leonawicz](https://leonawicz.github.io/blog/)
+**Author:** [Matthew Leonawicz](https://github.com/leonawicz)
 <a href="https://orcid.org/0000-0001-9452-2771" target="orcid.widget">
 <image class="orcid" src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" height="16"></a>
 <br/> **License:** [MIT](https://opensource.org/licenses/MIT)<br/>
@@ -134,19 +134,19 @@ amounts of structured music data.
 ``` r
 x <- "a,8 c e r r c a, g#, a ac'e'"
 as_music(x) %>% as_music_df()
-#> # A tibble: 10 x 12
-#>    duration pitch note  semitone octave  freq pitch_int scale_int slur  slide dotted annotation
-#>    <chr>    <chr> <chr>    <int>  <int> <dbl>     <int> <chr>     <chr> <lgl>  <int> <chr>     
-#>  1 8        a,    a           57      2  110.        NA <NA>      <NA>  FALSE      0 <NA>      
-#>  2 8        c     c           48      3  131.         3 m3        <NA>  FALSE      0 <NA>      
-#>  3 8        e     e           52      3  165.         4 M3        <NA>  FALSE      0 <NA>      
-#>  4 8        r     r           NA     NA   NA         NA <NA>      <NA>  FALSE      0 <NA>      
-#>  5 8        r     r           NA     NA   NA         NA <NA>      <NA>  FALSE      0 <NA>      
-#>  6 8        c     c           48      3  131.        -4 M3        <NA>  FALSE      0 <NA>      
-#>  7 8        a,    a           57      2  110.        -3 m3        <NA>  FALSE      0 <NA>      
-#>  8 8        g#,   g#          56      2  104.        -1 m2        <NA>  FALSE      0 <NA>      
-#>  9 8        a     a           57      3  220.        13 m9        <NA>  FALSE      0 <NA>      
-#> 10 8        ac'e' ace         57      3  220.         0 P1        <NA>  FALSE      0 <NA>
+#> # A tibble: 10 x 14
+#>    duration pitch note  semitone octave  freq pitch_int scale_int slur  slide bend  dotted articulation annotation
+#>    <chr>    <chr> <chr>    <int>  <int> <dbl>     <int> <chr>     <chr> <lgl> <lgl>  <int> <chr>        <chr>     
+#>  1 8        a,    a           57      2  110.        NA <NA>      <NA>  FALSE FALSE      0 <NA>         <NA>      
+#>  2 8        c     c           48      3  131.         3 m3        <NA>  FALSE FALSE      0 <NA>         <NA>      
+#>  3 8        e     e           52      3  165.         4 M3        <NA>  FALSE FALSE      0 <NA>         <NA>      
+#>  4 8        r     r           NA     NA   NA         NA <NA>      <NA>  FALSE FALSE      0 <NA>         <NA>      
+#>  5 8        r     r           NA     NA   NA         NA <NA>      <NA>  FALSE FALSE      0 <NA>         <NA>      
+#>  6 8        c     c           48      3  131.        -4 M3        <NA>  FALSE FALSE      0 <NA>         <NA>      
+#>  7 8        a,    a           57      2  110.        -3 m3        <NA>  FALSE FALSE      0 <NA>         <NA>      
+#>  8 8        g#,   g#          56      2  104.        -1 m2        <NA>  FALSE FALSE      0 <NA>         <NA>      
+#>  9 8        a     a           57      3  220.        13 m9        <NA>  FALSE FALSE      0 <NA>         <NA>      
+#> 10 8        ac'e' ace         57      3  220.         0 P1        <NA>  FALSE FALSE      0 <NA>         <NA>
 ```
 
 Several functions are available for mapping seamlessly between and

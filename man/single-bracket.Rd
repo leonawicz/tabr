@@ -56,7 +56,7 @@ x
 x[x == "4-"]
 
 # music class examples
-x <- as_music("c,~4 c,1 c'e_'g'4]*4")
+x <- as_music("c,~4 c,1 c'e_'g'4-.*4")
 x[1:3]
 x[-c(1:2)]
 x[3:6] <- "c'e'g'8"

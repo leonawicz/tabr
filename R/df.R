@@ -44,7 +44,7 @@
 #' as_music_df(x, key = "am", scale = "harmonic_minor", si_format = "ad_abb")
 #'
 #' a <- notate("8", "Start here.")
-#' time <- paste(a, "8*2 16 4.. 16( 16)( 2) 2 4. t8- t8 t8- 8*4 1")
+#' time <- paste(a, "8^*2 16-_ 4.. 16( 16)( 2) 2 4. t8- t8 t8- 8[accent]*4 1")
 #' d1 <- as_music_df(x, time)
 #' d1
 #'
@@ -54,8 +54,8 @@
 #' identical(d1, d2)
 #'
 #' # Go directly from phrase object to data frame
-#' p1 <- phrase("a b cgc'", "4 4 2", 5)
-#' identical(as_music_df(as_music("a4;5 b cgc'2")), as_music_df(p1))
+#' p1 <- phrase("a b cgc'", "4-+ 4[accent] 2", 5)
+#' identical(as_music_df(as_music("a4-+;5 b[accent] cgc'2")), as_music_df(p1))
 as_music_df <- function(notes, info = NULL, key = NULL, scale = "diatonic",
                         chords = c("root", "list", "character"),
                         si_format = c("mmp_abb", "mmp", "ad_abb", "ad")){
@@ -95,12 +95,14 @@ as_music_df <- function(notes, info = NULL, key = NULL, scale = "diatonic",
     duration <- NA_character_
   } else {
     duration <- as.character(info_duration(info))
+    articulation <- info_articulation(info)
     slur <- rep(NA_character_, len)
     y <- info_slur_on(info)
     if(any(y)) slur[y] <- "on"
     y <- info_slur_off(info)
     if(any(y)) slur[y] <- ifelse(is.na(slur[y]), "off", "hold")
     slide <- info_slide(info)
+    bend <- info_bend(info)
     dotted <- rep(0L, len)
     y <- info_dotted(info)
     if(any(y)) dotted[y] <- 1L
@@ -136,8 +138,8 @@ as_music_df <- function(notes, info = NULL, key = NULL, scale = "diatonic",
     scale_int = scale_diff(x, TRUE, format = si_format))
   if(!is.null(info)){
     d <- dplyr::mutate(
-      d, slur = slur, slide = slide, dotted = dotted,
-      annotation = ann)
+      d, slur = slur, slide = slide, bend = bend, dotted = dotted,
+      articulation = articulation, annotation = ann)
   }
   if(!is.null(string)) d <- dplyr::mutate(d, string = string)
   d

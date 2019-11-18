@@ -115,7 +115,7 @@ retains only notes, note info and string numbers.
 }
 \examples{
 # note durations inherit from previous timestep if missing
-x <- "a#4] b_ c,x d''t8( e)( g_')- a4 c,e_,g, ce_g4. a~8 a1"
+x <- "a#4-+ b_[staccato] c,x d''t8( e)( g_')- a4 c,e_,g, ce_g4. a~8 a1"
 is_music(x)
 musical(x)
 x <- as_music(x)
@@ -130,7 +130,7 @@ x <- as_music(x, lyrics = y, accidentals = "sharp")
 summary(x)
 
 # Starting string = 5: use \\code{;5}. Carries over until an explicit change.
-x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"
+x <- "a,4;5*5 b,4-+ c4[staccato] cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"
 x <- as_music_df(as_music(x))
 x$string
 }

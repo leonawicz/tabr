@@ -648,19 +648,25 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   x
 }
 
-.notesub <- function(x, sharp = "#", flat = "_", simplify = FALSE){
-  x <- gsub(sharp[1], "is", x)
-  x <- gsub(flat[1], "es", x)
+.notesub <- function(x, simplify = FALSE){
+  x <- gsub("#", "is", x)
+  x <- gsub("([^-])_", "\\1es", x)
   if(simplify) x <- gsub("ees", "es", gsub("aes", "as", x))
   x
 }
 
 .tabsub <- function(x){
   x <- strsplit(x, ";")[[1]]
-  x[1] <- gsub("-", "\\\\glissando", x[1])
   x[1] <- gsub("x", "xDEADNOTEx", x[1])
   x[1] <- .notesub(x[1])
-  x[1] <- gsub("\\]", "\\\\staccato", x[1])
+  articulated <- grepl("\\[([a-z]+)\\]", x[1])
+  if(articulated){
+    if(!gsub(".*\\[([a-z]+)\\].*", "\\1", x[1]) %in% tabr::articulations$value)
+      stop("Invalid articulation.", call. = FALSE)
+  }
+  if(articulated) x[1] <- gsub("\\[([a-z]+)\\]", "\\\\\\1", x[1])
+  x[1] <- gsub("-([^->\\^_!\\.\\+]|$)", "\\\\glissando", x[1])
+  x[1] <- gsub("-\\\\glissando", "--", x[1])
   if(length(x) == 2){
     x[2] <- paste0(";", substr(x[2], 1, 1), gsub("_", " ", substring(x[2], 2)))
     x <- paste0(x, collapse = "")

@@ -236,13 +236,17 @@
 
 <span class='fu'>info_slide</span>(<span class='no'>x</span>)
 
+<span class='fu'>info_bend</span>(<span class='no'>x</span>)
+
 <span class='fu'>info_dotted</span>(<span class='no'>x</span>)
 
 <span class='fu'>info_single_dotted</span>(<span class='no'>x</span>)
 
 <span class='fu'>info_double_dotted</span>(<span class='no'>x</span>)
 
-<span class='fu'>info_annotation</span>(<span class='no'>x</span>)</pre>
+<span class='fu'>info_annotation</span>(<span class='no'>x</span>)
+
+<span class='fu'>info_articulation</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -268,7 +272,7 @@ tuplets and repeats.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='notate.html'>notate</a></span>(<span class='st'>"t8x"</span>, <span class='st'>"Start here"</span>)
 <span class='no'>notes</span> <span class='kw'>&lt;-</span> <span class='st'>"a, b, c d e f g# a r ac'e' a c' e' c' r*3 ac'e'~ ac'e'"</span>
-<span class='no'>info</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='no'>a</span>, <span class='st'>"t8x t8] 16 4.. 16- 16 2^ 2 4. 8( 4)( 4) 8*4 1 1"</span>)
+<span class='no'>info</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='no'>a</span>, <span class='st'>"t8x t8-. 16 4.. 16- 16 2^ 2 4. 8( 4)( 4) 8*4 1 1"</span>)
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='music.html'>as_music</a></span>(<span class='no'>notes</span>, <span class='no'>info</span>)
 
 <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
@@ -276,30 +280,52 @@ tuplets and repeats.</p>
   <span class='kw'>slur_on</span> <span class='kw'>=</span> <span class='fu'>info_slur_on</span>(<span class='no'>x</span>),
   <span class='kw'>slur_off</span> <span class='kw'>=</span> <span class='fu'>info_slur_off</span>(<span class='no'>x</span>),
   <span class='kw'>slide</span> <span class='kw'>=</span> <span class='fu'>info_slide</span>(<span class='no'>x</span>),
+  <span class='kw'>bend</span> <span class='kw'>=</span> <span class='fu'>info_bend</span>(<span class='no'>x</span>),
   <span class='kw'>dotted</span> <span class='kw'>=</span> <span class='fu'>info_dotted</span>(<span class='no'>x</span>),
   <span class='kw'>dotted1</span> <span class='kw'>=</span> <span class='fu'>info_single_dotted</span>(<span class='no'>x</span>),
   <span class='kw'>dotted2</span> <span class='kw'>=</span> <span class='fu'>info_double_dotted</span>(<span class='no'>x</span>),
-  <span class='kw'>annotation</span> <span class='kw'>=</span> <span class='fu'>info_annotation</span>(<span class='no'>x</span>)
-)</div><div class='output co'>#&gt;    duration slur_on slur_off slide dotted dotted1 dotted2 annotation
-#&gt; 1        t8   FALSE    FALSE FALSE  FALSE   FALSE   FALSE Start here
-#&gt; 2        t8   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 3        t8   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 4        16   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 5       4..   FALSE    FALSE FALSE   TRUE   FALSE    TRUE       &lt;NA&gt;
-#&gt; 6        16   FALSE    FALSE  TRUE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 7        16   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 8         2   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 9         2   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 10       4.   FALSE    FALSE FALSE   TRUE    TRUE   FALSE       &lt;NA&gt;
-#&gt; 11        8    TRUE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 12        4    TRUE     TRUE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 13        4   FALSE     TRUE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 14        8   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 15        8   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 16        8   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 17        8   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 18        1   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
-#&gt; 19        1   FALSE    FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;</div></pre>
+  <span class='kw'>annotation</span> <span class='kw'>=</span> <span class='fu'>info_annotation</span>(<span class='no'>x</span>),
+  <span class='kw'>articulation</span> <span class='kw'>=</span> <span class='fu'>info_articulation</span>(<span class='no'>x</span>)
+)</div><div class='output co'>#&gt;    duration slur_on slur_off slide  bend dotted dotted1 dotted2 annotation
+#&gt; 1        t8   FALSE    FALSE FALSE FALSE  FALSE   FALSE   FALSE Start here
+#&gt; 2        t8   FALSE    FALSE FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
+#&gt; 3        t8   FALSE    FALSE FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
+#&gt; 4        16   FALSE    FALSE FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
+#&gt; 5       4..   FALSE    FALSE FALSE FALSE   TRUE   FALSE    TRUE       &lt;NA&gt;
+#&gt; 6        16   FALSE    FALSE  TRUE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
+#&gt; 7        16   FALSE    FALSE FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
+#&gt; 8         2   FALSE    FALSE FALSE  TRUE  FALSE   FALSE   FALSE       &lt;NA&gt;
+#&gt; 9         2   FALSE    FALSE FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
+#&gt; 10       4.   FALSE    FALSE FALSE FALSE   TRUE    TRUE   FALSE       &lt;NA&gt;
+#&gt; 11        8    TRUE    FALSE FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
+#&gt; 12        4    TRUE     TRUE FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
+#&gt; 13        4   FALSE     TRUE FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
+#&gt; 14        8   FALSE    FALSE FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
+#&gt; 15        8   FALSE    FALSE FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
+#&gt; 16        8   FALSE    FALSE FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
+#&gt; 17        8   FALSE    FALSE FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
+#&gt; 18        1   FALSE    FALSE FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
+#&gt; 19        1   FALSE    FALSE FALSE FALSE  FALSE   FALSE   FALSE       &lt;NA&gt;
+#&gt;    articulation
+#&gt; 1          &lt;NA&gt;
+#&gt; 2          &lt;NA&gt;
+#&gt; 3            -.
+#&gt; 4          &lt;NA&gt;
+#&gt; 5          &lt;NA&gt;
+#&gt; 6          &lt;NA&gt;
+#&gt; 7          &lt;NA&gt;
+#&gt; 8          &lt;NA&gt;
+#&gt; 9          &lt;NA&gt;
+#&gt; 10         &lt;NA&gt;
+#&gt; 11         &lt;NA&gt;
+#&gt; 12         &lt;NA&gt;
+#&gt; 13         &lt;NA&gt;
+#&gt; 14         &lt;NA&gt;
+#&gt; 15         &lt;NA&gt;
+#&gt; 16         &lt;NA&gt;
+#&gt; 17         &lt;NA&gt;
+#&gt; 18         &lt;NA&gt;
+#&gt; 19         &lt;NA&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

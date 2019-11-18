@@ -35,7 +35,7 @@ and the inputs that it was built from.
 }
 \examples{
 notes <- "a~ a b c' c'e'g'~ c'e'g'"
-info <- "8.. 8.. 8- 8 4. 4."
+info <- "8.. 8..-. 8- 8-^ 4.^ 4."
 (x <- p(notes, info))
 as_phrase(simplify_phrase(x))
 

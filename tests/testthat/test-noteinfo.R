@@ -2,7 +2,7 @@ context("note info")
 
 test_that("expect note info helpers return as expected", {
   a <- notate("8x", "Start here")
-  x <- paste(a, "8] 8] 16 4.. 16- 16 2^ 2 4. 8( 4)( 4) 8*4 1 1")
+  x <- paste(a, "8-. 8-. 16 4.. 16- 16 2^ 2 4. 8( 4)( 4) 8*4 1 1")
 
   expect_true(informable(x))
   expect_false(informable("3"))
@@ -21,7 +21,7 @@ test_that("expect note info helpers return as expected", {
 
   a <- notate("8x", "Start here")
   notes <- "a, b, c d e f g# a r ac'e' a c' e' c' r*3 ac'e'~ ac'e'"
-  info <- paste(a, "8x 8] 16 4.. 16- 16 2^ 2 4. 8( 4)( 4) 8*4 1 1")
+  info <- paste(a, "8x 8-. 16 4.. 16- 16 2^ 2 4. 8( 4)( 4) 8*4 1 1")
   x <- phrase(notes, info)
 
   expect_is(info_duration(x), "noteinfo")

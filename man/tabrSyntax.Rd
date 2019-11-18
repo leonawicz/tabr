@@ -3,7 +3,7 @@
 \docType{data}
 \name{tabrSyntax}
 \alias{tabrSyntax}
-\title{tabr syntax.}
+\title{tabr syntax}
 \format{A data frame with 3 columns for syntax description, operators and
 examples.}
 \usage{

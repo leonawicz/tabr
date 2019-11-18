@@ -1,4 +1,4 @@
-#' Predefined instrument tunings.
+#' Predefined instrument tunings
 #'
 #' A data frame containing some predefined instrument tunings commonly used for
 #' guitar, bass, mandolin, banjo, ukulele and orchestral instruments.
@@ -14,7 +14,7 @@
   .octave_to_tick(x)
 }
 
-#' tabr syntax.
+#' tabr syntax
 #'
 #' A data frame containing descriptions of syntax used in phrase construction
 #' in tabr.
@@ -23,17 +23,25 @@
 #' examples.
 "tabrSyntax"
 
-#' Main musical intervals.
+#' Single note articulations and syntax
+#'
+#' A data frame containing categorized sets of articulations that can be used
+#' in phrase construction.
+#'
+#' @format A data frame with 3 column and 44 rows.
+"articulations"
+
+#' Main musical intervals
 #'
 #' A data frame containing descriptions of the main intervals, simple and
 #' compound.
 #'
-#' @format A data frame with 5 columns and 26 rows.
+#' @format A data frame with 5 columns and 26 rows
 "mainIntervals"
 
-#' Predefined guitar chords.
+#' Predefined guitar chords
 #'
 #' A data frame containing information for many predefined guitar chords.
 #'
-#' @format A data frame with 12 columns and 3,967 rows.
+#' @format A data frame with 12 columns and 3,967 rows
 "guitarChords"

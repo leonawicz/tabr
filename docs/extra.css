@@ -16,12 +16,6 @@ body, p, h1, h2, h3, h4, h5, h6{
   margin-right: auto;
 }
 
-.table {
-  width: auto !important;
-  float: right;
-  margin-left: 10px;
-}
-
 .navbar-default {
   background-color: #ff3030;
   border-color: #ff3030;

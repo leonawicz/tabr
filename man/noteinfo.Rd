@@ -6,10 +6,12 @@
 \alias{info_slur_on}
 \alias{info_slur_off}
 \alias{info_slide}
+\alias{info_bend}
 \alias{info_dotted}
 \alias{info_single_dotted}
 \alias{info_double_dotted}
 \alias{info_annotation}
+\alias{info_articulation}
 \title{Note info helpers}
 \usage{
 info_duration(x)
@@ -20,6 +22,8 @@ info_slur_off(x)
 
 info_slide(x)
 
+info_bend(x)
+
 info_dotted(x)
 
 info_single_dotted(x)
@@ -27,6 +31,8 @@ info_single_dotted(x)
 info_double_dotted(x)
 
 info_annotation(x)
+
+info_articulation(x)
 }
 \arguments{
 \item{x}{character, note info string normally accompanying a noteworthy
@@ -45,7 +51,7 @@ tuplets and repeats.
 \examples{
 a <- notate("t8x", "Start here")
 notes <- "a, b, c d e f g# a r ac'e' a c' e' c' r*3 ac'e'~ ac'e'"
-info <- paste(a, "t8x t8] 16 4.. 16- 16 2^ 2 4. 8( 4)( 4) 8*4 1 1")
+info <- paste(a, "t8x t8-. 16 4.. 16- 16 2^ 2 4. 8( 4)( 4) 8*4 1 1")
 x <- as_music(notes, info)
 
 data.frame(
@@ -53,10 +59,12 @@ data.frame(
   slur_on = info_slur_on(x),
   slur_off = info_slur_off(x),
   slide = info_slide(x),
+  bend = info_bend(x),
   dotted = info_dotted(x),
   dotted1 = info_single_dotted(x),
   dotted2 = info_double_dotted(x),
-  annotation = info_annotation(x)
+  annotation = info_annotation(x),
+  articulation = info_articulation(x)
 )
 }
 \seealso{

@@ -22,9 +22,15 @@
 tunings <- data.frame(id = names(.predefined_tunings), value = .predefined_tunings,
                       row.names = NULL, stringsAsFactors = FALSE)
 
-.syntax_desc <- c("note/pitch", "sharp", "flat", "drop or raise one octave", "octave number", "tied notes", "note duration", "dotted note", "slide", "bend", "staccato", "muted/dead note", "slur/hammer/pull off", "rest", "silent rest", "expansion operator")
-.syntax_id <- c("a b ... g", "#", "_", ", or '", "0 1 ...", "~", "2^n", ".", "-", "^", "]", "x", "()", "r", "s", "*")
-.syntax_example <- c("a", "a#", "a_", "a, a a'", "a2 a3 a4", "a~ a", "1 2 4 8 16", "2. 2..", "2-", "2^", "2]", "2x", "2( 2)", "r", "s", "ceg*8, 1*4")
+.syntax_desc <- c("note/pitch", "sharp", "flat", "drop or raise one octave",
+                  "octave number", "tied notes", "note duration", "dotted note",
+                  "slide", "bend", "muted/dead note", "slur/hammer/pull off",
+                  "rest", "silent rest", "expansion operator")
+.syntax_id <- c("a b ... g", "#", "_", ", or '", "0 1 ...", "~", "2^n", ".",
+                "-", "^", "x", "()", "r", "s", "*")
+.syntax_example <- c("a", "a#", "a_", "a, a a'", "a2 a3 a4", "a~ a",
+                     "1 2 4 8 16", "2. 2..", "2-", "2^", "2x", "2( 2)", "r",
+                     "s", "ceg*8, 1*4")
 tabrSyntax <- data.frame(description = .syntax_desc, syntax = .syntax_id, example = .syntax_example)
 
 mainIntervals <- data.frame(
@@ -54,7 +60,32 @@ mainIntervals <- data.frame(
   stringsAsFactors = FALSE
 )
 
-usethis::use_data(tunings, tabrSyntax, mainIntervals)
+articulations <- list(
+  standard = c("accent", "espressivo", "marcato", "portato", "staccatissimo",
+               "staccato", "tenuto"),
+  ornament = c("prall", "prallup", "pralldown", "upprall", "downprall",
+               "prallprall", "lineprall", "prallmordent", "mordent",
+               "upmordent", "downmordent", "trill", "turn", "reverseturn"),
+  fermata = c("shortfermata", "fermata", "longfermata", "verylongfermata"),
+  instrument = c("upbow", "downbow", "flageolet", "open", "halfopen", "lheel",
+                 "rheel", "ltoe", "rtoe", "snappizzicato", "stopped"),
+  repeats = c("segno", "coda", "varcoda"),
+  ancient = c("accentus", "circulus", "ictus", "semicirculus",
+              "signumcongruentiae")
+)
+
+articulations <- data.frame(
+  type = rep(c("standard", "ornament", "fermata", "instrument", "repeat",
+               "ancient"), times = sapply(articulations, length)),
+  value = unlist(articulations),
+  abb = NA_character_,
+  stringsAsFactors = FALSE,
+  row.names = NULL
+)
+
+articulations$abb[c(1, 3:7, 36)] <- c("->", "-^", "-_", "-!", "-.", "--", "-+")
+
+usethis::use_data(tunings, tabrSyntax, mainIntervals, articulations)
 
 library(tabr)
 .all_pitches_tick <- sapply(0:131, function(x) transpose("c,,,,", x, "tick", "flat"))

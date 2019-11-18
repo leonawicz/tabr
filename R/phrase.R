@@ -36,7 +36,7 @@
 #' \code{\link{music}}
 #'
 #' @examples
-#' phrase("c ec'g' ec'g'", "4 4 2") # no string arg (not recommended for tabs)
+#' phrase("c ec'g' ec'g'", "4- 4 2") # no string arg (not recommended for tabs)
 #' phrase("c ec4g4 ec4g4", "4 4 2") # same as above
 #' phrase("c b, c", "4. 8( 8)", "5 5 5") # direction implies hammer on
 #' phrase("b2 c d", "4( 4)- 2", "5 5 5") # hammer and slide
@@ -46,7 +46,7 @@
 #'
 #'
 #' n <- "a, b, c d e f g e f g a~ a"
-#' i <- "8- 8 8 8] t8( t8)( t8) t16( t16)( t16) 8 1"
+#' i <- "8- 8 8 8-. t8( t8)( t8) t16( t16)( t16) 8 1"
 #' m <- as_music(n, i)
 #'
 #' x <- p(n, i)
@@ -62,10 +62,12 @@ phrase <- function(notes, info = NULL, string = NULL, bar = FALSE){
     if(is.null(string)) string <- music_strings(notes)
     info <- .uncollapse(music_info(notes))
     notes <- music_notes(notes)
-    n <- length(notes)
   } else {
     notes <- as_noteworthy(notes)
     n <- length(notes)
+    if(is.character(info)) info <- as_noteinfo(info)
+    info <- .uncollapse(info)
+    if(length(info) == 1) info <- rep(info, n)
     if(length(string) == 1 && is.na(string)) string <- NULL
     if(!is.null(string)){
       string <- .uncollapse(string)
@@ -82,8 +84,6 @@ phrase <- function(notes, info = NULL, string = NULL, bar = FALSE){
   notes <- .uncollapse(notes)
   idx <- grep("\\d", notes)
   if(length(idx)) notes <- .octave_to_tick(notes)
-  info <- .uncollapse(info)
-  if(length(info) == 1) info <- rep(info, n)
   if(length(notes) != length(info))
     stop(paste("`info` must have the same number of timesteps as `notes`",
                "or a single value to repeat."), call. = FALSE)
@@ -130,7 +130,7 @@ p <- phrase
   notes <- purrr::map_chr(notes, .tabsub)
   info <- purrr::map_chr(info, .tabsub)
   bend <- which(purrr::map_int(info, ~{
-    length(grep("\\^", strsplit(.x, ";")[[1]][1]))
+    length(grep("[^-]\\^", strsplit(.x, ";")[[1]][1]))
   }) == 1)
   dead <- which(purrr::map_int(info, ~{
     length(grep("xDEADNOTEx", strsplit(.x, ";")[[1]][1]))
@@ -149,7 +149,8 @@ p <- phrase
         paste0("\\", .split_chord(string[.x], TRUE)), collapse = " "), ">"))
   notes <- gsub("<s>", "s", gsub("<r>", "r", notes))
   x <- paste0(notes, info)
-  if(length(bend)) x[bend] <- paste0(x[bend], .bend)
+  if(length(bend))
+    x[bend] <- gsub("\\^\\\\bend", "\\\\bend", paste0(x[bend], .bend))
   if(length(dead)) x[dead] <- paste("\\deadNote", x[dead])
   gsub("\\\\x", "", x)
 }
@@ -167,12 +168,15 @@ print.phrase <- function(x, ...){
                  "\\6\\7")
   x <- gsub(pat, repl, x)
   x <- gsub(pat, repl, x)
-  x <- gsub("(\\\\deadNote|\\\\staccato|\\\\glissando)", info("\\1"), x)
+  txt <- paste(c("\\\\deadNote|\\\\glissando",
+               paste0("\\\\", tabr::articulations$value)), collapse = "|")
+  x <- gsub(paste0("(", txt, ")"), info("\\1"), x)
+  x <- gsub("(-[->\\^_!\\.\\+])", info("\\1"), x)
   x <- gsub(">(\\d+)([\\.\\(\\)]+)( <|\\^|)",
             paste0(">", info("\\1\\2"), "\\3"), x)
   x <- gsub(">(\\d+|)(\\.+|)(\\\\[a-zA-Z]+|)",
             paste0(">", info("\\1\\2\\3")), x)
-  x <- gsub("(\\^\\\\bendAfter #\\+6)", info("\\1"), x)
+  x <- gsub("(bendAfter #\\+6)", info("\\1"), x)
   x <- gsub("(~)", info("\\1"), x)
   x <- gsub("(r|s)(\\d+)", paste0(notes("\\1"), info("\\2")), x)
   x <- gsub("(\\\\tuplet \\d/\\d \\d+ \\{|\\})", info("\\1"), x)
@@ -280,7 +284,7 @@ phrasey <- function(phrase){
   if(!inherits(phrase, "phrase") & !inherits(phrase, "character")) return(FALSE)
   clr <- "\\\\override (Notehead|Stem)\\.color #\\(rgb-color [ 0-9\\.]+\\) "
   x <- gsub(clr, "", phrase)
-  x <- gsub("\\^\".*\"", "", phrase)
+  x <- gsub("->|\\^\".*\"", "", phrase)
   i1 <- sum(attr(gregexpr("<", x)[[1]], "match.length"))
   if(i1 < 1){
     if(grepl("(r|s)\\d+(\\.|)(\\.|)", x)){
@@ -305,8 +309,9 @@ notify <- function(phrase){
   x <- .tag_rests(phrase)
   x <- gsub("\\\\deadNote ", "<\\\\deadNote ", x)
   x <- strsplit(x, " <")[[1]]
+  x <- gsub("\\\\bendAfter #\\+6", "^", x)
+  x <- gsub("\\\\(a-z)", "[\\1]", x)
   x <- gsub("\\\\glissando", "-", x)
-  x <- gsub("\\\\staccato", "]", x)
   x <- gsub("is", "#", x)
   x <- gsub("(^|<)([a|e])s", "\\2_", x)
   x <- gsub(" ([a|e])s", " \\1_", x)
@@ -329,9 +334,10 @@ notify <- function(phrase){
 
   if(length(idx2)) x <- x[-idx2]
 
-  x <- strsplit(x, ">")
+  x <- strsplit(x, "(?<=[^-])>", perl = TRUE)
   notes <- sapply(x, "[[", 1)
   info <- sapply(x, "[[", 2)
+  info <- gsub("\\\\([a-z]+)", "[\\1]", info)
 
   pat <- "\\\\\\d+"
   y <- gregexpr(pat, notes)
@@ -424,7 +430,7 @@ notable <- function(phrase){
 #'
 #' @examples
 #' notes <- "a~ a b c' c'e'g'~ c'e'g'"
-#' info <- "8.. 8.. 8- 8 4. 4."
+#' info <- "8.. 8..-. 8- 8-^ 4.^ 4."
 #' (x <- p(notes, info))
 #' as_phrase(simplify_phrase(x))
 #'
@@ -454,6 +460,7 @@ simplify_phrase <- function(phrase){
   x <- gsub(paste0(y, "(\\\\\\d)(\\d+|\\d+\\.+)"), "\\1\\2\\3\\4\\6\\5", x)
   x <- gsub("(~)(\\d+|\\d+\\.+)", "\\2\\1", x)
   x <- gsub("~(\\\\\\d|)>(\\d+|\\d+\\.+)", "\\1>\\2~", x)
-  x <- gsub("([a-gs,'])~(\\\\\\d) ", "\\1\\2~ ", x)
+  x <- gsub("([a-gs,']+)~(\\\\\\d|) ", "\\1\\2~ ", x)
+  x <- gsub("([a-gs,']+)~ ", "\\1 ", x)
   x
 }

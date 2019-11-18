@@ -80,7 +80,7 @@
 #'
 #' @examples
 #' # note durations inherit from previous timestep if missing
-#' x <- "a#4] b_ c,x d''t8( e)( g_')- a4 c,e_,g, ce_g4. a~8 a1"
+#' x <- "a#4-+ b_[staccato] c,x d''t8( e)( g_')- a4 c,e_,g, ce_g4. a~8 a1"
 #' is_music(x)
 #' musical(x)
 #' x <- as_music(x)
@@ -95,7 +95,7 @@
 #' summary(x)
 #'
 #' # Starting string = 5: use \code{;5}. Carries over until an explicit change.
-#' x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"
+#' x <- "a,4;5*5 b,4-+ c4[staccato] cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"
 #' x <- as_music_df(as_music(x))
 #' x$string
 musical <- function(x){
@@ -231,7 +231,7 @@ music_split <- function(x){
     if(is.null(s)) s <- NA
   }
   e1 <- "Invalid notes or note info found."
-  y <- gsub(";\\^\".*\"", "", x)
+  y <- gsub("\\[[a-z]+\\]|;\\^\".*\"", "", x)
   if(any(grepl("[A-Zh-quvwyz]", y))){
     if(err) stop(e1, call. = FALSE) else return(FALSE)
   }
@@ -322,12 +322,14 @@ summary.music <- function(object, ...){
   idx <- grepl(";\\^\"", info)
   if(any(idx)){
     info[idx] <- purrr::map_chr(strsplit(info[idx], ";\\^\""), ~{
-      x <- gsub("([-0-9t~x\\.\\(\\)]+|\\])", col3("\\1"), .x[1])
+      pat <- "([0-9t~x\\.\\(\\)]+|-([->\\^_!\\.\\+]|)|\\[[a-z]+\\])"
+      x <- gsub(pat, col3("\\1"), .x[1])
       paste(paste0(x, col3(";^")), col1(paste0("\"", .x[2])), sep = "")
     })
   }
   if(any(!idx)){
-    info[!idx] <- gsub("([-0-9t~x\\.\\(\\)^]+|\\])", col3("\\1"), info[!idx])
+    pat <- "([0-9t~x\\.\\(\\)^]+|-([->\\^_!\\.\\+]|)|\\[[a-z]+\\])"
+    info[!idx] <- gsub(pat, col3("\\1"), info[!idx])
   }
   paste(paste0(notes, info), collapse = " ")
 }

@@ -3,8 +3,8 @@
 \docType{data}
 \name{guitarChords}
 \alias{guitarChords}
-\title{Predefined guitar chords.}
-\format{A data frame with 12 columns and 3,967 rows.}
+\title{Predefined guitar chords}
+\format{A data frame with 12 columns and 3,967 rows}
 \usage{
 guitarChords
 }

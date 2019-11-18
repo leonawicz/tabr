@@ -31,11 +31,11 @@ rev(x)
 rev(as_noteworthy(x))
 
 # noteinfo class examples
-x <- "4x 4]*2 2"
+x <- "4x 4-.*2 2"
 rev(as_noteinfo(x))
 
 # music class examples
-x <- "c,~4 c,1 c'e_'g'4]"
+x <- "c,~4 c,1 c'e_'g'4-."
 rev(as_music(x))
 }
 \seealso{

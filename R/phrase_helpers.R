@@ -212,7 +212,7 @@ hp <- function(...){
 #' triplet("c c# d", 8)
 #' tuplet("c c# d c c# d", 4, a = 6, b = 4)
 #'
-#' p1 <- phrase("c c# d", "8] 8( 8)", "5*3")
+#' p1 <- phrase("c c# d", "8-. 8( 8)", "5*3")
 #' tuplet(p1, 8)
 tuplet <- function(x, n, string = NULL, a = 3, b = 2){
   if("phrase" %in% class(x)){

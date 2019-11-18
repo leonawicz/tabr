@@ -1,7 +1,7 @@
 context("music")
 
 test_that("music functions return as expected", {
-  x <- "a#4] b_ c,x d''t8( e)( g_')- a4 c,e_,g, ce_g4. a~8 a1"
+  x <- "a#4-. b_ c,x d''t8( e)( g_')- a4 c,e_,g, ce_g4. a~8 a1"
   expect_false(is_music(x))
   expect_true(musical(x))
   x <- as_music(x)

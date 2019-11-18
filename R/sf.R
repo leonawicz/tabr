@@ -165,7 +165,7 @@ sf_phrase <- function(string, fret = NULL, info = NULL, key = "c",
     string <- .uncollapse(string)
     n <- length(string)
     fret <- .uncollapse(fret)
-    info <- .uncollapse(info)
+    info <- .uncollapse(as_noteinfo(info))
     if(length(fret) == 1) fret <- rep(fret, n)
     if(length(fret) != n)
       stop(paste("`fret` must have the same number of timesteps as `string`",

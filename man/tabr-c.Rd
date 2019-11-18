@@ -38,7 +38,7 @@ x <- "4- t8( t8)( t8) 4*2"
 c(as_noteinfo(x), x)
 
 # music class examples
-x <- "c,~4 c,1 c'e_'g'4]*2"
+x <- "c,~4 c,1 c'e_'g'4-.*2"
 c(as_music(x), x)
 
 # phrase class examples

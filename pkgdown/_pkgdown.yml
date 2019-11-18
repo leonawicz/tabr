@@ -143,6 +143,7 @@ reference:
 - title: Datasets
   contents:
   - tabrSyntax
+  - articulations
   - tunings
   - mainIntervals
   - guitarChords

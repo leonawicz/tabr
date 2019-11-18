@@ -36,15 +36,15 @@ test_that("helpers return as expected.", {
     as.character(tuplet("b2 c3 c# e f3 f#3", 4, "5*3 4*3", a = 6, b = 4)),
     "\\tuplet 6/4 1 { <b,\\5>4 <c\\5> <cis\\5> <e\\4> <f\\4> <fis\\4> }"
   )
-  p1 <- p("c c# d c c# d", "8( 8)( 8) 8] 8- 8", 5)
+  p1 <- p("c c# d c c# d", "8( 8)( 8) 8-. 8- 8", 5)
   expect_equal(as.character(tuplet(p1, 8)),
                paste("\\tuplet 3/2 4 { <c\\5>8( <cis\\5>8)( <d\\5>8)",
-                     "<c\\5>8\\staccato <cis\\5>8\\glissando <d\\5>8 }"))
+                     "<c\\5>8-. <cis\\5>8\\glissando <d\\5>8 }"))
   expect_equal(triplet(p1, 8), tuplet(p1, 8))
   expect_equal(
     as.character(tuplet(p1, 4, a = 6, b = 4)),
     paste("\\tuplet 6/4 1 { <c\\5>8( <cis\\5>8)( <d\\5>8)",
-          "<c\\5>8\\staccato <cis\\5>8\\glissando <d\\5>8 }")
+          "<c\\5>8-. <cis\\5>8\\glissando <d\\5>8 }")
   )
   expect_equal(as.character(triplet("c c# d", 8, string = 5)),
                "\\tuplet 3/2 4 { <c\\5>8 <cis\\5> <d\\5> }")

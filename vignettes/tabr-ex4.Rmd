@@ -151,14 +151,14 @@ There are mainly two guitar parts. The lead above and this rhythm guitar here.
 ```{r guitar2}
 f <- function(notes, strings, n = 1) pct(p(pn(notes, 8), "8 8x 8*3 8x 8 8", pn(strings, 8)), n - 1)
 p1a <- c(f(d1, 4, 2), f(f1, 6, 2), f(g1, 6, 2))
-p1 <- c(p1a, f(d1, 4), p(d1, "1]", 4))
+p1 <- c(p1a, f(d1, 4), p(d1, "1-.", 4))
 p2 <- c(p1a, p1a, f(d1, 4, 2), f(f1, 6, 2), f(g1, 6), rep(p(a1, 8, 5), 8))
 p3a <- c(f(b_1, 5), f(c1, 5), f(f1, 6), f(d1, 6))
-p3 <- c(volta(p3a, silent = TRUE), f(b_1, 5), p(c1, "1]", 5), f(d1, 4, 2), f(f1, 6), p(f1, "1]", 6))
+p3 <- c(volta(p3a, silent = TRUE), f(b_1, 5), p(c1, "1-.", 5), f(d1, 4, 2), f(f1, 6), p(f1, "1-.", 6))
 p4 <- c(f(d1, 4, 2), f(f1, 6, 2), f(g1, 6, 2), f(d1, 4, 2), f(f1, 6, 2), f(g1, 6), rep(p(a1, 8, 5), 8))
-p5 <- c(volta(p3a, 2, silent = TRUE), f(b_1, 5), p(c1, "1]", 5))
+p5 <- c(volta(p3a, 2, silent = TRUE), f(b_1, 5), p(c1, "1-.", 5))
 p6 <- c(rep(c(f(d1, 4, 2), f(f1, 6, 2)), 2), f(d1, 4, 2), f(b_1, 5, 2), f(d1, 4, 2), f(a1, 5, 2))
-p7 <- c(volta(p3a, 2, silent = TRUE), f(b_1, 5), p(pc(c1, "r r"), "1] 1 1", 5))
+p7 <- c(volta(p3a, 2, silent = TRUE), f(b_1, 5), p(pc(c1, "r r"), "1-. 1 1", 5))
 
 track2 <- track(pc(p1, p2, p3, p4, p5, p6, p7))
 ```
@@ -166,12 +166,12 @@ track2 <- track(pc(p1, p2, p3, p4, p5, p6, p7))
 What I have chosen to call guitars 3 and 4 are actually pretty short pieces. I have arranged it this way to capture the few moments, mainly the opening, where it's not just two guitars. It can take decent speakers to pick it apart. My ears did the best they could do.
 
 ```{r guitar34}
-f <- function(notes, n = 1) pct(p(pc("r", notes, "r", notes, "r"), "4 8] 4 8] 4", 3), n - 1)
-p1a <- pc(f(d2, 2), f(f3, 2), f(g2, 2), f(d2), p(pc(d2, "r"), "8] 2..", 3))
+f <- function(notes, n = 1) pct(p(pc("r", notes, "r", notes, "r"), "4 8-. 4 8-. 4", 3), n - 1)
+p1a <- pc(f(d2, 2), f(f3, 2), f(g2, 2), f(d2), p(pc(d2, "r"), "8-. 2..", 3))
 p1b <- pc(f(d2, 2), f(f3), f(f3))
 track3 <- track(p1a)
 
-f <- function(notes, n = 1) pct(p(pc(notes, "r", notes, "r"), "8] 4 8] 2", 5), n - 1)
+f <- function(notes, n = 1) pct(p(pc(notes, "r", notes, "r"), "8-. 4 8-. 2", 5), n - 1)
 p1 <- pc(f("da", 2), f("fc'", 2), f("gd'", 2), f("da", 1), p(pc("da r"), "4 2.", 5))
 track4 <- track(p1)
 ```

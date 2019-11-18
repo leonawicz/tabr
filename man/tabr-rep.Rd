@@ -36,11 +36,11 @@ rep(x, 2)
 rep(as_noteworthy(x), 2)
 
 # noteinfo class examples
-x <- "4x 4]*2 2"
+x <- "4x 4-.*2 2"
 rep(as_noteinfo(x), times = c(2, 1, 1, 2))
 
 # music class examples
-x <- "c,~4 c,1 c'e_'g'4]"
+x <- "c,~4 c,1 c'e_'g'4-."
 rep(as_music(x), each = 2)
 
 # phrase class examples

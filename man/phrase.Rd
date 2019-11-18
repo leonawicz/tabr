@@ -48,7 +48,7 @@ See the help documentation on \code{noteworthy}, \code{noteinfo}, and
 The function \code{p} is a convenient shorthand wrapper for \code{phrase}.
 }
 \examples{
-phrase("c ec'g' ec'g'", "4 4 2") # no string arg (not recommended for tabs)
+phrase("c ec'g' ec'g'", "4- 4 2") # no string arg (not recommended for tabs)
 phrase("c ec4g4 ec4g4", "4 4 2") # same as above
 phrase("c b, c", "4. 8( 8)", "5 5 5") # direction implies hammer on
 phrase("b2 c d", "4( 4)- 2", "5 5 5") # hammer and slide
@@ -58,7 +58,7 @@ p("c ec'g' ec'g'", 1, "5 4 4") # same as above
 
 
 n <- "a, b, c d e f g e f g a~ a"
-i <- "8- 8 8 8] t8( t8)( t8) t16( t16)( t16) 8 1"
+i <- "8- 8 8 8-. t8( t8)( t8) t16( t16)( t16) 8 1"
 m <- as_music(n, i)
 
 x <- p(n, i)

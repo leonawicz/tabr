@@ -19,25 +19,31 @@ knitr::opts_chunk$set(
 library(tabr)
 ```
 
+## Overview
+
+This section goes into deeper detail on building musical phrases out of individual notes using the syntax available for phrase construction. It also describes how to add note information to the notes in a phrase.
+
+As mentioned in the last section, "phrase" in `tabr` does not require a strict definition. It is recommended to keep phrases short enough that they do not too much cognitive load. They should also represent meaningful or convenient segments of music, for example whole measures, a particular rhythm section, or an identifiable section of a longer solo. 
+
+Writing music notation in R code is not intended to replace LilyPond markup. You can always write LilyPond markup directly and this will give you more options and greater control. The motivation for `tabr` is primarily music data analysis from a notation perspective, but to the degree that various types of notation are supported, it also allows you to transcribe your data to sheet music or tablature. Working from a programming language like R is also very different from writing static markup files. While the API is far more limited than writing LilyPond markup directly, generating music notation programmatically and creating sheet music dynamically is an entirely different use case from writing markup for a specific song.
+
+The opening section showed a basic example using a single, and very simple, phrase. This section will cover phrases that include notes and rests of different duration, slides, hammer ons and pull offs, simple string bends, and various other elements. Phrases will become longer and more visually complex. There is no way around this fact. But with proper care they can be kept manageable and interpretable, depending on your comfort level with music theory, notation and R programming.
+
+Before diving in, take a look at the tables below for an overview of some common syntax and operators that are used throughout this section.
+
 ```{r syntax, echo=FALSE}
 x <- tabrSyntax
 x$syntax <- gsub("\\-", "\\\\-", gsub("\\*", "\\\\*", x$syntax))
 x$example <- gsub("\\*", "\\\\*", x$example)
-x %>% knitr::kable("html", escape = TRUE, align = "c", caption = "tabr::tabrSyntax") %>%
-  kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), position = "float_right", full_width = FALSE)
+x %>% knitr::kable(caption = "tabr::tabrSyntax") %>%
+  kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), position = "center", full_width = FALSE)
 ```
 
-## Overview
+There are additional single-note articulations that can be specified, such as accented or staccato notes. This can be provided using the name in square brackets, e.g., `[accent]` or `[staccato]`. In special cases an abbreviated syntax is available, e.g., `-^` or `-.`. There are many options. Some of the most common ones are shown. See the `articulations` dataset.
 
-This section goes into deeper detail on building musical phrases out of individual notes using the various component parts available for phrase construction. It also describes how to add information, note metadata, to the notes in a phrase so that the phrase is defined unambiguously.
-
-As mentioned in the last section, phrases in `tabr` do not require a strict definition. It is recommended to keep phrases short enough that they do not cause you difficulty dissecting them again visually. They should also represent meaningful or at least convenient segments of music, for example whole measures, a particular rhythm section, or an identifiable section of a longer solo. 
-
-Writing out music in R code is not intended to be any more readable than writing out LilyPond markup. The driving motivation here is a preference for avoiding writing LilyPond markup directly, aimed at people who specifically want to do this from R. Care must still be taken to not write phrases that are so long and complex that even you can not adequately parse their information by eye afterward.
-
-The opening section showed a basic example using a single, and very simple, phrase. This section will cover phrases that include notes and rests of different duration, slides, hammer ons and pull offs, simple string bends, and various other elements. Phrases will become longer and more visually complex. There is no way around this fact. But with proper care they can be kept manageable and interpretable, depending on your comfort level with music theory, notation and R programming.
-
-Before diving in, take a look at the table to the right for an overview of some syntax and operators that are used throughout this section.
+```{r syntax2}
+head(articulations)
+```
 
 ## Notes
 
