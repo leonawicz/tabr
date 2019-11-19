@@ -265,8 +265,8 @@ more details on methods for tabr classes.</p>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"4- t8( t8)( t8) 4*2"</span>
 <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 1</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='fu'><a href='valid-noteinfo.html'>as_noteinfo</a></span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; [1] 6</div><div class='input'>
 <span class='co'># music class examples</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"c,~4 c,1 c'e_'g'4]*4"</span>
-<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 1</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='fu'><a href='music.html'>as_music</a></span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; <span class='error'>Error: Invalid note info found.</span></div></pre>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"c,~4 c,1 c'e_'g'4-.*4"</span>
+<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 1</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='fu'><a href='music.html'>as_music</a></span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; [1] 6</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -934,6 +934,50 @@ note_arpeggiate <- function(notes, n = 0, step = 12){
   .asnw(x, z$o, z$a, format)
 }
 
+#' Note/chord n-gram
+#'
+#' Convert a noteworthy string to a list of noteworthy n-grams.
+#'
+#' @param notes a noteworthy string.
+#' @param n Number of grams. Must be >= 1 and <= number of timesteps in
+#' \code{notes}.
+#' @param tally logical, tally n-grams in a data frame. Otherwise a list.
+#' @param rests logical, exclude rests. Affects the number of timesteps.
+#'
+#' @return list of noteworthy objects or a tibble
+#' @export
+#'
+#' @examples
+#' x <- as_noteworthy("c r ceg dfa ceg dfa")
+#' note_ngram(x)
+#' (x <- note_ngram(x, tally = TRUE))
+#' x$ngram <- as.character(x$ngram)
+#' x
+note_ngram <- function(notes, n = 2, tally = FALSE, rests = FALSE){
+  if(is_noteworthy(notes)){
+    o <- octave_type(notes)
+    a <- accidental_type(notes)
+  } else {
+    .check_noteworthy(notes)
+    o <- a <- NULL
+  }
+  x <- .uncollapse(notes)
+  if(!rests) x <- x[!x %in% c("r", "s")]
+  if(n < 1 | n > length(x))
+    stop("`n` must be >= 1 and <= number of timesteps.", call. = FALSE)
+  i2 <- seq_along(x)
+  i <- (i2 - n + 1)
+  i[i < 1] <- 1
+  x <- lapply(mapply(`:`, i, i2), function(j) .asnw(x[j], o, a, "space"))
+  if(tally){
+    x <- table(as.character(x))
+    y <- lapply(names(x), function(j) .asnw(j, o, a, "space"))
+    tibble::tibble(ngram = y, n = as.integer(x))
+  } else {
+    x
+  }
+}
+
 #' Check note and chord validity
 #'
 #' Check whether a string is comprised exclusively of valid note and/or chord

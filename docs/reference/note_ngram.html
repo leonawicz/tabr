@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Head and tail for tabr classes — tabr-head • tabr</title>
+<title>Note/chord n-gram — note_ngram • tabr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -44,10 +44,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Head and tail for tabr classes — tabr-head" />
-<meta property="og:description" content="Several methods are implemented for the classes noteworthy,
-noteinfo, and music. See tabr-methods for
-more details on methods for tabr classes." />
+<meta property="og:title" content="Note/chord n-gram — note_ngram" />
+<meta property="og:description" content="Convert a noteworthy string to a list of noteworthy n-grams." />
 <meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -221,86 +219,89 @@ more details on methods for tabr classes." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Head and tail for tabr classes</h1>
-    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/class_methods.R'><code>R/class_methods.R</code></a></small>
-    <div class="hidden name"><code>tabr-head.Rd</code></div>
+    <h1>Note/chord n-gram</h1>
+    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tabr/blob/master/R/notes.R'><code>R/notes.R</code></a></small>
+    <div class="hidden name"><code>note_ngram.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Several methods are implemented for the classes <code>noteworthy</code>,
-<code>noteinfo</code>, and <code>music</code>. See <code><a href='tabr-methods.html'>tabr-methods</a></code> for
-more details on methods for tabr classes.</p>
+    <p>Convert a noteworthy string to a list of noteworthy n-grams.</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for noteworthy</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for noteinfo</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for music</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for lyrics</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for noteworthy</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for noteinfo</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for music</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for lyrics</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>note_ngram</span>(<span class='no'>notes</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>tally</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>rests</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>object.</p></td>
+      <th>notes</th>
+      <td><p>a noteworthy string.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>number of elements to return.</p></td>
+      <th>n</th>
+      <td><p>Number of grams. Must be &gt;= 1 and &lt;= number of timesteps in
+<code>notes</code>.</p></td>
+    </tr>
+    <tr>
+      <th>tally</th>
+      <td><p>logical, tally n-grams in a data frame. Otherwise a list.</p></td>
+    </tr>
+    <tr>
+      <th>rests</th>
+      <td><p>logical, exclude rests. Affects the number of timesteps.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <div class='dont-index'><p><code><a href='tabr-methods.html'>tabr-methods</a></code>, <code><a href='note-metadata.html'>note-metadata</a></code></p></div>
+    <p>list of noteworthy objects or a tibble</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># noteworthy class examples</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"a b c d e f g"</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>x</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] "a b c d e f g"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'><a href='valid-notes.html'>as_noteworthy</a></span>(<span class='no'>x</span>), <span class='fl'>2</span>)</div><div class='output co'>#&gt; <span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='valid-notes.html'>as_noteworthy</a></span>(<span class='st'>"c r ceg dfa ceg dfa"</span>)
+<span class='fu'>note_ngram</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; <span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b</span><span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span>(<span class='fu'><a href='valid-notes.html'>as_noteworthy</a></span>(<span class='no'>x</span>), <span class='fl'>2</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span>
+#&gt; 
+#&gt; [[2]]
+#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>f</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>g</span><span></div><div class='input'>
-<span class='co'># noteinfo class examples</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"4x 4-.*8 2 4"</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'><a href='valid-noteinfo.html'>as_noteinfo</a></span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Note info string&gt;
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>ceg</span><span style='color: #BBBB00;'>&gt;</span><span>
+#&gt; 
+#&gt; [[3]]
+#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #BBBB00;'>x</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #BBBB00;'>-.</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #BBBB00;'>-.</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #BBBB00;'>-.</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #BBBB00;'>-.</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #BBBB00;'>-.</span><span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span>(<span class='fu'><a href='valid-noteinfo.html'>as_noteinfo</a></span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Note info string&gt;
+#&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>ceg</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>dfa</span><span style='color: #BBBB00;'>&gt;</span><span>
+#&gt; 
+#&gt; [[4]]
+#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #BBBB00;'>-.</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #BBBB00;'>-.</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #BBBB00;'>-.</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #BBBB00;'>-.</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>2</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span></div><div class='input'>
-<span class='co'># music class examples</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"c,~4 c,1 c'e_'g'4-."</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'><a href='music.html'>as_music</a></span>(<span class='no'>x</span>), <span class='fl'>2</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Music string&gt;
+#&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>dfa</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>ceg</span><span style='color: #BBBB00;'>&gt;</span><span>
+#&gt; 
+#&gt; [[5]]
+#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>c,~</span><span style='color: #BBBB00;'>4</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>c,</span><span style='color: #BBBB00;'>1</span><span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span>(<span class='fu'><a href='music.html'>as_music</a></span>(<span class='no'>x</span>), <span class='fl'>2</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Music string&gt;
-#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>c,</span><span style='color: #BBBB00;'>1</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>c'e_'g'</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>4-.</span><span></div></span></pre>
+#&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>ceg</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>dfa</span><span style='color: #BBBB00;'>&gt;</span><span>
+#&gt; </div><div class='input'>(<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>note_ngram</span>(<span class='no'>x</span>, <span class='kw'>tally</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 2</span><span>
+#&gt;   ngram          n
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>&lt;notwrthy&gt;</span><span>     1
+#&gt; </span><span style='color: #555555;'>2</span><span> </span><span style='color: #555555;'>&lt;notwrthy&gt;</span><span>     1
+#&gt; </span><span style='color: #555555;'>3</span><span> </span><span style='color: #555555;'>&lt;notwrthy&gt;</span><span>     2
+#&gt; </span><span style='color: #555555;'>4</span><span> </span><span style='color: #555555;'>&lt;notwrthy&gt;</span><span>     1</div><div class='input'><span class='no'>x</span>$<span class='no'>ngram</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span>(<span class='no'>x</span>$<span class='no'>ngram</span>)
+<span class='no'>x</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 2</span><span>
+#&gt;   ngram       n
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> c           1
+#&gt; </span><span style='color: #555555;'>2</span><span> c ceg       1
+#&gt; </span><span style='color: #555555;'>3</span><span> ceg dfa     2
+#&gt; </span><span style='color: #555555;'>4</span><span> dfa ceg     1</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#see-also">See also</a></li>
+      <li><a href="#value">Value</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

@@ -37,6 +37,7 @@ reference:
   - note_slice
   - note-equivalence
   - transpose
+  - note_ngram
 - title: "Time and other information: noteinfo objects"
   desc: "Create, inspect and manipulate  note info strings"
   contents:
