@@ -9,6 +9,10 @@ test_that("noteworthy logical operators return as expected", {
   expect_identical(x > y, rep(FALSE, 4))
   expect_identical(x <= y, !(x > y))
   expect_identical(x >= y, !(x < y))
+
+  err <- "Left and right hand side must both be `noteworthy` class."
+  expect_error(x < 1, err)
+  expect_error(1 >= x, err)
 })
 
 test_that("other noteworthy methods return as expected", {
@@ -36,6 +40,16 @@ test_that("other noteworthy methods return as expected", {
                as_noteworthy("a b c d e f"))
   expect_equal(tail(as_noteworthy("a b c d e f g")),
                as_noteworthy("b c d e f g"))
+
+  err <- "Cannot have zero timesteps."
+  expect_error(x <- x[0], err)
+  expect_error(rep(x, 0), err)
+
+  x <- as_noteworthy("a")
+  expect_equal(c("b", x), c("b", "a"))
+  expect_equal(c(x, "b"), as_noteworthy("a b"))
+  expect_error(c(x, 1),
+               "Cannot concatenate incompatible classes with 'noteworthy'.")
 })
 
 test_that("noteinfo methods return as expected", {
@@ -61,6 +75,16 @@ test_that("noteinfo methods return as expected", {
   expect_identical(rev(as_noteinfo("1 2")), as_noteinfo("2 1"))
   expect_equal(head(as_noteinfo("4 4 4 4 8 8 8 8")), as_noteinfo("4 4 4 4 8 8"))
   expect_equal(tail(as_noteinfo("4 4 4 4 8 8 8 8")), as_noteinfo("4 4 8 8 8 8"))
+
+  err <- "Cannot have zero timesteps."
+  expect_error(x <- x[0], err)
+  expect_error(rep(x, 0), err)
+
+  x <- as_noteinfo(1)
+  expect_equal(c(2, x), c("2", "1"))
+  expect_equal(c(x, "2"), as_noteinfo("1 2"))
+  expect_error(c(x, 2),
+               "Cannot concatenate incompatible classes with 'noteinfo'.")
 })
 
 test_that("music methods return as expected", {
@@ -107,6 +131,23 @@ test_that("music methods return as expected", {
   expect_equal(music_strings(tail(z, 2)), tail(s, 2))
   expect_equal(music_strings(rev(z)), rev(s))
   expect_equal(music_strings(z[2:3]), s[2:3])
+
+  err <- "Cannot have zero timesteps."
+  expect_error(z <- z[0], err)
+  expect_error(rep(z, 0), err)
+
+  l <- lyrics_template(z)
+  l[2:4] <- c("x", "y", "z")
+  z <- as_music(z, lyrics = l)
+  z <- z[2:5]
+  expect_equal(music_lyrics(z), as_lyrics("x y z ."))
+  expect_equal(music_lyrics(tail(z)), as_lyrics("x y z ."))
+  expect_equal(music_lyrics(rev(z)), as_lyrics(". z y x"))
+
+  x <- as_music("a,4")
+  expect_equal(c("b,t8", x), c("b,t8", "a,4"))
+  expect_equal(c(x, "b,t8"), as_music("a,4 b,t8"))
+  expect_error(c(x, 1), "Cannot concatenate incompatible classes with 'music'.")
 })
 
 test_that("lyrics methods return as expected", {
@@ -136,6 +177,16 @@ test_that("lyrics methods return as expected", {
   expect_identical(rev(as_lyrics("a1 b2")), as_lyrics("b2 a1"))
   expect_equal(head(as_lyrics("a8 b c d e f g")), as_lyrics("a8 b c d e f"))
   expect_equal(tail(as_lyrics("a8 b c d e f g")), as_lyrics("b c d e f g"))
+
+  err <- "Cannot have zero timesteps."
+  expect_error(y <- y[0], err)
+  expect_error(rep(y, 0), err)
+
+  x <- as_lyrics("a")
+  expect_equal(c("b", x), c("b", "a"))
+  expect_equal(c(x, "b"), as_lyrics("a b"))
+  expect_error(c(x, 1),
+               "Cannot concatenate incompatible classes with 'lyrics'.")
 })
 
 test_that("phrase methods return as expected", {
@@ -144,4 +195,14 @@ test_that("phrase methods return as expected", {
   expect_equal(x2, rep(x, 2))
   expect_error(rep(x, each = 2), "Cannot use `each` with a phrase.")
   expect_error(rep(x, times = 1), "Cannot use `times` with a phrase.")
+
+  expect_equal(
+    c("b", x),
+    c("b", "<a\\5>4 <b\\5>4 <c'\\5 g'\\4 c''\\3>4 <c'\\5 g'\\4 c''\\3>4"))
+  expect_equal(
+    c(x, "r1"),
+    as_phrase("<a\\5>4 <b\\5>4 <c'\\5 g'\\4 c''\\3>4 <c'\\5 g'\\4 c''\\3>4 r1"))
+  expect_error(c(x, 1),
+               "Cannot concatenate incompatible classes with 'phrase'.")
+  expect_error(rep(x, 0), "Cannot have zero timesteps.")
 })

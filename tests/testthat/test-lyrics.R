@@ -7,6 +7,8 @@ test_that("lyrics functions return as expected", {
   y <- as_lyrics(x)
   expect_is(y, "lyrics")
   expect_true(is_lyrics(y))
+  expect_true(lyrical(y))
+  expect_equal(as_lyrics(y), y)
 
   x2 <- c("These", "are", "the", "ly-", "rics",
          "", ".", NA, "to", "this", "song") #
@@ -27,4 +29,11 @@ test_that("lyrics functions return as expected", {
   expect_is(summary(z), "NULL")
   expect_is(print.lyrics(z), "NULL")
   expect_equal(length(attributes(z)), 5)
+
+  expect_equal(lyrics_template(5), as_lyrics(rep(".", 5)))
+  expect_error(
+    lyrics_template("a"),
+    "`x` must be an integer, or `noteworthy`, `noteinfo` or `music`.")
+
+  expect_error(as_lyrics(1), "Lyrics do not inherit from character.")
 })

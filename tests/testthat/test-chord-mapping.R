@@ -31,6 +31,15 @@ test_that("chord mapping returns as expected", {
     as.character(x),
     "a,eac#'e' a,eac#'e'a' a,c#eac#'a' b,f#bd#'f#' b,f#bd#'f#'b' b,d#f#bd#'b'")
 
+  x <- gc_notes_to_fb("a,eac'e' cgc'e'g'")
+  expect_identical(as.character(x), c("x;o;2;2;1;o;", "x;3;5;5;5;3;"))
+  expect_equal(names(x), c("a,:m", "c:5"))
+  x <- gc_notes_to_fb("a,eac'e' cgc'e'g'", root_octave = 2, root_fret = 0,
+                      min_fret = 0, bass_string = 5, open = TRUE)
+  expect_identical(as.character(x), c("x;o;2;2;1;o;", NA))
+  expect_equal(names(x), c("a,:m", NA))
+  expect_identical(gc_notes_to_fb(c("a", "b")), rep(NA_character_, 2))
+
   expect_equal(nrow(gc_info("a", bass_string = 4)), 1)
   expect_equal(nrow(gc_info("a,m", open = TRUE)), 1)
 })

@@ -320,7 +320,7 @@ gc_notes_to_fb <- function(notes, root_octave = NULL, root_fret = NULL,
 
   rows <- match(x, d$notes)
   idx <- !is.na(rows)
-  if(!any(idx)) return(rows)
+  if(!any(idx)) return(as.character(rows))
   d <- dplyr::slice(d, rows[idx])
   x[idx] <- d$fretboard
   if(any(!idx)) x[!idx] <- NA_character_

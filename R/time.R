@@ -125,7 +125,7 @@ steps_start_time <- function(x, tempo = NULL){
   if(!is_music(x) & !is_noteinfo(x))
     stop("`x` must be a noteinfo or music object.", call. = FALSE)
   if(check_tempo & !is_music(x) & is.null(tempo))
-    stop("`x` must provide `tempo` to supplment a noteinfo object.",
+    stop("Must provide `tempo` to supplement a noteinfo object.",
          call. = FALSE)
   if(check_tempo & is.null(tempo)) tempo <- music_tempo(x)
   tempo

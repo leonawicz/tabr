@@ -14,7 +14,7 @@ Description: Provides a music notation syntax and a collection of music programm
     The package generates 'LilyPond' files from R code and can pass them to 'LilyPond' to be rendered into sheet music pdf files.
     The package offers nominal MIDI file output support in conjunction with rendering sheet music. 
     The package can read MIDI files and attempts to structure the MIDI data to integrate as best as possible with the data structures and functionality found throughout the package.
-Authors@R: person("Matthew", "Leonawicz", email = "matt_leonawicz@esource.com", role = c("aut", "cre"))
+Authors@R: person("Matthew", "Leonawicz", email = "matt_leonawicz@esource.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0001-9452-2771"))
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

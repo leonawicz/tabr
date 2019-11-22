@@ -29,7 +29,8 @@
       "@type": "Person",
       "givenName": "Matthew",
       "familyName": "Leonawicz",
-      "email": "matt_leonawicz@esource.com"
+      "email": "matt_leonawicz@esource.com",
+      "@id": "https://orcid.org/0000-0001-9452-2771"
     }
   ],
   "contributor": {},
@@ -40,7 +41,8 @@
       "@type": "Person",
       "givenName": "Matthew",
       "familyName": "Leonawicz",
-      "email": "matt_leonawicz@esource.com"
+      "email": "matt_leonawicz@esource.com",
+      "@id": "https://orcid.org/0000-0001-9452-2771"
     }
   ],
   "softwareSuggestions": [
@@ -279,5 +281,5 @@
   ],
   "relatedLink": "https://CRAN.R-project.org/package=tabr",
   "developmentStatus": "http://www.repostatus.org/#active",
-  "fileSize": "368.458KB"
+  "fileSize": "370.17KB"
 }

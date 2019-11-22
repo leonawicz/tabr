@@ -46,19 +46,19 @@ pitch_seq <- function(x, y, key = NULL, scale = NULL,
   format <- match.arg(format)
   x <- as_noteworthy(x)
   if(length(x) > 1) stop("`x` must be a single pitch.", call. = FALSE)
+  if(length(y) > 1)
+    stop("`y` must be a single pitch or single number.", call. = FALSE)
   if(is.numeric(y)){
     y <- as.integer(y)
     if(y == 0) stop("Cannot have zero timesteps.", call. = FALSE)
   } else {
     y <- as_noteworthy(y)
   }
-  if(length(y) > 1)
-    stop("`y` must be a single pitch or single number.", call. = FALSE)
   .pitch_seq(x, y, key, scale, format)
 }
 
 .pitch_seq <- function(x, y, key, scale, format){
-  err <- "Pitches semitones must range from 0 to 131."
+  err <- "Pitch semitones must range from 0 to 131."
   z <- c(x, if(is_noteworthy(y)) y)
   o <- if(note_has_integer(z) & !note_has_tick(z)) "integer" else "tick"
   sharp <- note_has_sharp(z) & !note_has_flat(z)

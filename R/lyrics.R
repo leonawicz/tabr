@@ -66,13 +66,12 @@ as_lyrics <- function(x, format = NULL){
   .aslyrics(x, format)
 }
 
-.aslyrics <- function(x, format = NULL){
+.aslyrics <- function(x, format = "space"){
   x <- .uncollapse(x)
   x[is.na(x) | x == ""] <- "."
   steps <- length(x)
   npause <- length(which(x == "."))
   nlyric <- steps - npause
-  if(is.null(format)) format <- "space"
   if(format == "space"){
     if(length(x) > 1) x <- paste(x, collapse = " ")
     format <- "space-delimited time"
@@ -107,7 +106,7 @@ lyrics_template <- function(x, format = NULL){
     if(is.null(format)) format <- if(is_space_time(x)) "space" else "vector"
     as_lyrics(rep(".", length(x)), format)
   } else {
-    stop("`x` must be an integer, or `noteworthy`, `noteinfo` or `music`",
+    stop("`x` must be an integer, or `noteworthy`, `noteinfo` or `music`.",
          call. = FALSE)
   }
 }

@@ -26,4 +26,9 @@ test_that("time functions return as expected", {
 
   expect_equal(length(seconds_per_step(x)), length(x))
   expect_equal(length(steps_start_time(x)), length(x))
+
+  expect_error(bpm(1), "`x` must be a noteinfo or music object.")
+  expect_error(bpm(as_noteinfo(1)),
+               "Must provide `tempo` to supplement a noteinfo object.")
+  expect_error(bpm(x, "a"), "Invalid `unit`.")
 })
