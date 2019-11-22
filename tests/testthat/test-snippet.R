@@ -27,6 +27,8 @@ test_that("render functions run as expected", {
 })
 
 test_that("plot wrappers run as expected", {
+  skip_on_appveyor()
+  skip_on_cran()
   if(require(png)){
     png(outfile2)
     expect_is(plot_music(x), "NULL")
