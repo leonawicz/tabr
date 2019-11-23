@@ -15,11 +15,14 @@ test_that("pitch_seq returns as expected", {
   )
   expect_equal(pitch_seq("a", 8, "am", "harmonic minor"),
                as_noteworthy("a b c' d' e' f' g#' a'"))
+  expect_equal(pitch_seq("a'", -2), as_noteworthy("a' a_'"))
 
   expect_error(pitch_seq(c("a", "b")), "`x` must be a single pitch.")
   expect_error(pitch_seq("a", 0), "Cannot have zero timesteps.")
   expect_error(pitch_seq("a", 1:2),
                "`y` must be a single pitch or single number.")
+  expect_error(pitch_seq("b,,,,,", 1),
+               "Pitch semitones must range from 0 to 131.")
   expect_error(pitch_seq("a'", -71), "Semitones must range from 0 to 131.")
   expect_error(pitch_seq("a'", "b,,,,,"),
                "Pitch semitones must range from 0 to 131.")

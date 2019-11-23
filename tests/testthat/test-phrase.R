@@ -117,3 +117,8 @@ test_that("notification works as expected", {
   identical(x, x2)
   expect_error(notify("a b>"), "`phrase` is not phrasey.")
 })
+
+test_that("Other functions work on phrases as expected", {
+  expect_equal(info_articulation(phrase("a b", "4-+ 4.[staccato]")),
+               c("-+", "staccato"))
+})

@@ -148,6 +148,11 @@ test_that("music methods return as expected", {
   expect_equal(c("b,t8", x), c("b,t8", "a,4"))
   expect_equal(c(x, "b,t8"), as_music("a,4 b,t8"))
   expect_error(c(x, 1), "Cannot concatenate incompatible classes with 'music'.")
+
+  expect_is(c(z, z), "music")
+  expect_is(c(z, phrase(z)), "phrase")
+  expect_identical(c(z, z), rep(z, 2))
+  expect_identical(head(z), z)
 })
 
 test_that("lyrics methods return as expected", {
