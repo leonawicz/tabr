@@ -20,6 +20,9 @@ test_that("expect that as_music_df works as expected", {
   d2 <- as_music_df(p1)
   expect_identical(d1, d2)
 
+  d3 <- as_music_df(as_music(x, time))
+  expect_identical(d1, d3)
+
   expect_equal(dim(as_music_df("a b", 4)), c(2, 14))
   d <- as_music_df("a2 ceg", 4, chords = "character")
   expect_equal(d$semitone, c("57", "48:52:55"))
@@ -29,6 +32,8 @@ test_that("expect that as_music_df works as expected", {
   expect_equal(d$semitone, list(57, c(48, 52, 55)))
   expect_equal(d$octave, list(2, rep(3, 3)))
   expect_is(d$freq, "list")
+
+  expect_true("string" %in% names(as_music_df(as_music("a,8;5"))))
 
   expect_error(
     as_music_df("a b", "4 4 4"),

@@ -196,7 +196,7 @@ NULL
   tempo <- music_tempo(x)
   lyrics <- music_lyrics(x)
   s <- music_strings(x)
-  if(!is.na(lyrics)) lyrics <- lyrics[i]
+  if(!all(is.na(lyrics))) lyrics <- lyrics[i]
   if(!is.null(s)) s <- s[i]
   format <- if(time_format(x) == "space-delimited time") "space" else "vector"
   x <- .Primitive("[")(.uncollapse(x), i)
@@ -500,7 +500,7 @@ c.music <- function(...){
   a <- if(!any(a == "flat")) "sharp" else "flat"
   format <- if(!any(format == "space-delimited time")) "vector" else "space"
   lyrics <- lapply(x, music_lyrics)
-  lyrics_na <- sapply(lyrics, is.na)
+  lyrics_na <- sapply(lyrics, function(x) all(is.na(x)))
   if(all(lyrics_na)){
     lyrics <- NA
   } else {
@@ -644,7 +644,7 @@ rep.music <- function(x, ...){
   tempo <- music_tempo(x)
   lyrics <- music_lyrics(x)
   s <- music_strings(x)
-  if(!is.na(lyrics)) lyrics <- rep(lyrics, ...)
+  if(!all(is.na(lyrics))) lyrics <- rep(lyrics, ...)
   if(!is.null(s)) s <- rep(s, ...)
   format <- if(format == "space-delimited time") "space" else "vector"
   x <- .uncollapse(x)
@@ -742,7 +742,7 @@ rev.music <- function(x){
   tempo <- music_tempo(x)
   lyrics <- music_lyrics(x)
   s <- music_strings(x)
-  if(!is.na(lyrics)) lyrics <- rev(lyrics)
+  if(!all(is.na(lyrics))) lyrics <- rev(lyrics)
   if(!is.null(s)) s <- rev(s)
   format <- time_format(x)
   format <- if(format == "space-delimited time") "space" else "vector"
@@ -821,7 +821,7 @@ head.music <- function(x, ...){
   tempo <- music_tempo(x)
   lyrics <- music_lyrics(x)
   s <- music_strings(x)
-  if(!is.na(lyrics)) lyrics <- head(lyrics, ...)
+  if(!all(is.na(lyrics))) lyrics <- head(lyrics, ...)
   if(!is.null(s)) s <- head(s, ...)
   format <- time_format(x)
   format <- if(format == "space-delimited time") "space" else "vector"
@@ -872,7 +872,7 @@ tail.music <- function(x, ...){
   tempo <- music_tempo(x)
   lyrics <- music_lyrics(x)
   s <- music_strings(x)
-  if(!is.na(lyrics)) lyrics <- tail(lyrics, ...)
+  if(!all(is.na(lyrics))) lyrics <- tail(lyrics, ...)
   if(!is.null(s)) s <- tail(s, ...)
   format <- time_format(x)
   format <- if(format == "space-delimited time") "space" else "vector"

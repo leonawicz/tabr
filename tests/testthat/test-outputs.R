@@ -25,8 +25,12 @@ chords <- chord_set(chord_prep)
 
 test_that("chord_set returns as expected", {
   expect_equal(names(chords), names(chord_prep))
-  expect_equal(chord_set(c("b_:m" = "x;1;3;3;2;1;")),
-               chord_set(c("b_:m" = "x 1 3 3 2 1")))
+  z <- chord_set(c("b_:m" = "x;1;3;3;2;1;"))
+  expect_equal(z, chord_set(c("b_:m" = "x;1;3;3;2;1")))
+  expect_equal(z, chord_set(c("b_:m" = "x 1 3 3 2 1")))
+  expect_equal(z, chord_set(c("b_:m" = "1 3 3 2 1")))
+  expect_equal(z, chord_set(c("b_:m" = "x13321")))
+  expect_equal(z, chord_set(c("b_:m" = "13321")))
   expect_error(
     chord_set(c("b_:m" = "x 1 3 3 2 1"), n = 5),
     "Cannot have more fret values than number of instrument strings.")
@@ -108,9 +112,13 @@ test_that("tab wrapper runs without error", {
   skip_on_appveyor()
   skip_on_cran()
   include_midi <- TRUE
-  expect_is(tab(x1, out[2], midi = include_midi, details = TRUE), cl)
-  expect_is(tab(x1, out[3], midi = include_midi), cl)
-  expect_is(tab(x1, out[3], midi = include_midi, transparent = TRUE), cl)
+  expect_is(tab(x1, out[2], midi = include_midi, header = list(title = "Title"),
+                colors = list(x = 2), details = TRUE), cl)
+  expect_is(tab(x1, out[3], midi = include_midi, header = list(title = "Title"),
+                colors = list(color = "#FF3030", staff = "red", x = 2)), cl)
+  expect_is(tab(x1, out[3], midi = include_midi, header = list(title = "Title"),
+                colors = list(color = "#FF3030", staff = "red", x = 2),
+                transparent = TRUE), cl)
   expect_is(render_tab(x1, out[3], midi = include_midi, transparent = TRUE), cl)
   expect_is(
     render_score(x1, out[3], transparent = TRUE,

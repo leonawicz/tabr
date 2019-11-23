@@ -16,6 +16,8 @@ test_that("pitch_seq returns as expected", {
   expect_equal(pitch_seq("a", 8, "am", "harmonic minor"),
                as_noteworthy("a b c' d' e' f' g#' a'"))
   expect_equal(pitch_seq("a'", -2), as_noteworthy("a' a_'"))
+  expect_equal(pitch_seq("a'", -8, key = "a"),
+               as_noteworthy("a' g#' f#' e' d' c#' b a"))
 
   expect_error(pitch_seq(c("a", "b")), "`x` must be a single pitch.")
   expect_error(pitch_seq("a", 0), "Cannot have zero timesteps.")

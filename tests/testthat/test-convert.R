@@ -28,11 +28,18 @@ test_that("syntax conversions are as expected", {
                as_noteworthy("e_g_b_ b_,e_g_"))
   expect_error(to_tabr("c", "a"), "Function `tabr::from_c` not found.")
 
-  x <- "2/2 CC#FF4.. trip{c#8eg# d'- e-' f g a'} D4~# D E F r B16"
+  x <- "2/2 CC#FF4.. trip{c#8eg# d'- e-' f g a'} D4~# D E F r B16 B16"
   y <- from_music21(x)
   expect_equal(music_time(y), "2/2")
   expect_is(from_music21(x, accidentals = "sharp"), "music")
   z <- from_music21(x, output = "list")
   expect_identical(music_split(y), z)
   expect_error(from_music21("--"), "Double flat/sharp currently not allowed")
+
+  z <- from_music21(strsplit(x, " ")[[1]])
+  expect_identical(y, z)
+
+  x <- gsub("2/2 ", "", x)
+  y <- from_music21(x)
+  expect_equal(music_time(y), "4/4")
 })

@@ -18,6 +18,13 @@ test_that("expect note info helpers return as expected", {
   expect_is(summary.noteinfo(y), "NULL")
   expect_false(informable(character(0)))
 
+  expect_equal(as_vector_time(4), as_noteinfo(4, "vector"))
+  expect_true(is_space_time(4))
+  expect_false(is_vector_time(4))
+  expect_true(is_space_time("4"))
+  expect_false(is_vector_time("t8"))
+  expect_error(is_vector_time(5), "Invalid note info found.")
+
   expect_true(is_space_time(y))
   expect_false(is_vector_time(y))
   expect_true(is_space_time(as.character(y)))

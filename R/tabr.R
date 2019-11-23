@@ -148,8 +148,11 @@ NULL
 .lp_version <- function(){
   lp <- tabr_options()$lilypond
   if(lp == ""){
-    lp <- if(Sys.info()[["sysname"]] == "Windows") "lilypond.exe" else
-      "lilypond"
+    if(Sys.info()[["sysname"]] == "Windows"){
+      lp <- "lilypond.exe"
+    } else {
+      lp <- "lilypond"
+    }
   }
   x <- tryCatch(
     system(paste(lp, "--version"), intern = TRUE), error = function(e) ""

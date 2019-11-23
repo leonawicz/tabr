@@ -93,7 +93,7 @@ pitch_seq <- function(x, y, key = NULL, scale = NULL,
         x <- idx[i:(i + y - 1)]
       } else {
         i <- rev(which(idx - x <= 0))[1]
-        x <- idx[(i - y + 1):i]
+        x <- idx[i:(i + y + 1)]
       }
       x <- semitone_pitch(x, accidentals = a)
     }

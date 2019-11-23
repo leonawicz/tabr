@@ -36,4 +36,5 @@ test_that("lyrics functions return as expected", {
     "`x` must be an integer, or `noteworthy`, `noteinfo` or `music`.")
 
   expect_error(as_lyrics(1), "Lyrics do not inherit from character.")
+  expect_false(lyrical(1))
 })

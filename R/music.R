@@ -231,8 +231,9 @@ music_split <- function(x){
     if(is.null(s)) s <- NA
   }
   e1 <- "Invalid notes or note info found."
-  y <- gsub("\\[[a-z]+\\]|;\\^\".*\"", "", x)
-  if(any(grepl("[A-Zh-quvwyz]", y))){
+  art <- paste(tabr::articulations$value, collapse = "|")
+  y <- gsub(paste0("\\[(", art, ")\\]|;\\^\".*\""), "", x)
+  if(any(grepl("\\[.*\\]", y))){
     if(err) stop(e1, call. = FALSE) else return(FALSE)
   }
   if(err){

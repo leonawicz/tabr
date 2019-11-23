@@ -50,6 +50,11 @@ test_that("phrase returns as expected", {
   )
 
   expect_equal(.notesub("ees", simplify = TRUE), "es")
+  expect_identical(p("a", 1), p("a", 1, NA))
+  expect_identical(
+    p("c d e f g a b c'", 8),
+    gsub(" \\|$", "", p("c d e f g a b c'", 8, bar = TRUE))
+  )
 })
 
 p1 <- phrase("c ec'g' ec'g'", "4 4 2") # no explicit strings (not recommended)
@@ -116,9 +121,12 @@ test_that("notification works as expected", {
   })
   identical(x, x2)
   expect_error(notify("a b>"), "`phrase` is not phrasey.")
+  expect_error(notify(p(as_music("at8"))),
+               "Cannot notify phrases containing tuplets.")
 })
 
 test_that("Other functions work on phrases as expected", {
   expect_equal(info_articulation(phrase("a b", "4-+ 4.[staccato]")),
                c("-+", "staccato"))
+  expect_error(simplify_phrase(1), "Not a phrase.")
 })

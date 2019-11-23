@@ -32,6 +32,8 @@ test_that("music functions return as expected", {
   expect_equal(as_space_time(as.character(x)), x)
   expect_equal(as_vector_time(as.character(x)),
                as_music(x, format = "vector"))
+  expect_true(is_space_time("a,4"))
+  expect_true(is_vector_time(c("a4", "b4")))
 
   expect_error(as_music("a b4"), "First timestep must have a duration value.")
 
@@ -59,6 +61,17 @@ test_that("music functions return as expected", {
   expect_true(all(is.na(info_annotation(x))))
   expect_equal(info_articulation(x), c("-.", rep(NA, 10)))
 
+  expect_identical(c(as_space_time(x), x), as_space_time(c(x, x)))
+
+  y[1:11] <- letters[1:11]
+
+  x <- as_music(x, lyrics = y, labels = "some text", at = 2)
+  x[3] <- "c,4[staccato]"
+
+  expect_equal(info_annotation(x)[2], "some text")
+  expect_is(print.music(x), "NULL")
+  expect_is(summary(x), "NULL")
+
   x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"
   s <- as.character(c(rep(5, 7), 5432, 5432, 2, 3, 4, 5, 51))
   x <- as_music(x)
@@ -75,4 +88,8 @@ test_that("music functions return as expected", {
     "Number of strings and notes must match at each non-rest timestep.")
   expect_error(as_music("a", "4 4"),
                "`notes` and `info` have unequal number of timesteps.")
+  expect_error(music_split("a4 b4;^\"some_text\" c'8[hello world]"),
+               "Invalid notes or chords found.")
+  expect_error(music_split("a4 b4;^\"some_text\" c'8[hello_world]"),
+               "Invalid notes or note info found.")
 })

@@ -176,7 +176,7 @@ from_music21 <- function(x, accidentals = c("flat", "sharp"),
 }
 
 .convert_music21 <- function(x, a, out){
-  tsig <- .music21_timesig(x)
+  tsig <- .music21_timesig(x[1])
   x <- .music21_uncollapse(.music21_strip_timesig(x))
   time <- .music21_time(x)
   x <- gsub("t\\d+|\\d+|\\.+", "", x)
@@ -193,14 +193,20 @@ from_music21 <- function(x, accidentals = c("flat", "sharp"),
 
 .music21_timesig <- function(x){
   idx <- grep("(\\d+/\\d+).*", x)
-  if(!length(idx)) return(NA_character_)
+  if(!length(idx)) return("4/4")
   x <- gsub("(\\d+/\\d+|).*", "\\1", x)
   x <- x[x != ""]
-  if(length(x)) x else NA_character_
+  if(length(x)) x else "4/4"
 }
 
 .music21_strip_timesig <- function(x){
-  gsub("^\\d+/\\d+ (.*)", "\\1", x)
+  if(length(x) > 1 & grepl("^\\d+/\\d+$", x[1])){
+    x[-1]
+  } else if(length(x) > 1){
+    x
+  } else {
+    gsub("^\\d+/\\d+ (.*)", "\\1", x)
+  }
 }
 
 .music21_tuplets <- function(x, sep = "+"){
