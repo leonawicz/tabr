@@ -117,12 +117,15 @@ test_that("tab wrapper runs without error", {
   expect_is(tab(x1, out[3], midi = include_midi, header = list(title = "Title"),
                 colors = list(color = "#FF3030", staff = "red", x = 2)), cl)
   expect_is(tab(x1, out[3], midi = include_midi, header = list(title = "Title"),
-                colors = list(color = "#FF3030", staff = "red", x = 2),
+                colors = list(
+                  color = "#FF3030", staff = "red", time = "red", clef = "red",
+                  bar = "red", beam = "red", head = "red", stem = "red",
+                  accidental = "red", slur = "red", tabhead = "red", x = 2),
                 transparent = TRUE), cl)
   expect_is(render_tab(x1, out[3], midi = include_midi, transparent = TRUE), cl)
   expect_is(
     render_score(x1, out[3], transparent = TRUE,
-                 colors = list(color = "blue", background = "#888888")), cl)
+                 colors = list(background = "#888888", staff = "red")), cl)
   expect_is(render_midi(x1, out[4]), cl)
 
   purrr::walk(x, ~expect_is(
