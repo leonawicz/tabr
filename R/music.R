@@ -144,7 +144,6 @@ as_music <- function(notes, info = NULL, lyrics = NA, key = "c", time = "4/4",
   }
   ax <- c(attributes(x), list(key = key, time = time, tempo = tempo))
   x <- as.character(paste(x, y, sep = ""))
-  if(is.null(format)) format <- "space"
   if(format == "space"){
     x <- paste(x, collapse = " ")
     ax$format <- "space-delimited time"

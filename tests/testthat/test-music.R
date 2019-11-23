@@ -34,6 +34,7 @@ test_that("music functions return as expected", {
                as_music(x, format = "vector"))
   expect_true(is_space_time("a,4"))
   expect_true(is_vector_time(c("a4", "b4")))
+  expect_equal(as.character(as_music(c("a", "b"), 2)), c("a2", "b2"))
 
   expect_error(as_music("a b4"), "First timestep must have a duration value.")
 
@@ -81,6 +82,7 @@ test_that("music functions return as expected", {
   expect_equal(y[[3]], y$string)
   expect_equal(y$string, s)
   expect_equal(music_strings(x), s)
+  expect_is(summary(x), "NULL")
 
   expect_error(as_music("ab4;0"), "Invalid string number < 1.")
   expect_error(
