@@ -88,6 +88,11 @@ test_that("plot_chord runs successfully", {
     "ggplot")
   expect_is(plot_chord("355433", horizontal = TRUE, show_tuning = TRUE),
             "ggplot")
+  expect_is(plot_chord("55433", horizontal = TRUE, show_tuning = TRUE),
+            "ggplot")
+  expect_is(plot_chord("55433", horizontal = TRUE, show_tuning = TRUE,
+                       fret_range = c(3, 6)),
+            "ggplot")
   expect_is(plot_chord("0;2;3;1;"), "ggplot")
   expect_is(plot_chord("0 2 3 1"), "ggplot")
   expect_error(plot_chord(c("xo221o", "xo221o")),

@@ -38,7 +38,8 @@ p_list <- list(
 
 test_that("sf_phrase and phrase calls are equivalanet", {
   err <- c("Number of strings and frets must match at each non-rest timestep.",
-           "Rest mismatch.", "Tied note mismatch.")
+           "Rest mismatch.", "Tied note mismatch.",
+           "Invalid string number < 1.")
   expect_is(sfp("6 6", "1", 1), "phrase")
   expect_error(sfp("66", "1", 1), err[1])
   expect_error(sfp("s", "r", 1), err[2])
@@ -48,6 +49,7 @@ test_that("sf_phrase and phrase calls are equivalanet", {
   expect_error(sfp("6~ 6", "1 1", 1), err[3])
   expect_error(sfp("r 6~ 6", "s 1 1", 1), err[2])
   expect_error(sfp("r 6~ 6 s", "r 1 1 s", 1), err[3])
+  expect_error(sfp("1", "22", "4."), err[4])
 
   purrr::walk2(sf_list, p_list, ~expect_identical(.x, .y))
   purrr::walk2(sf_list2, p_list, ~expect_identical(.x, .y))
