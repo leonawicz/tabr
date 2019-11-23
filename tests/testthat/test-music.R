@@ -32,9 +32,11 @@ test_that("music functions return as expected", {
   expect_equal(as_space_time(as.character(x)), x)
   expect_equal(as_vector_time(as.character(x)),
                as_music(x, format = "vector"))
-  expect_true(is_space_time("a,4"))
-  expect_true(is_vector_time(c("a4", "b4")))
+  expect_true(is_space_time("a,4--"))
+  expect_true(is_vector_time(c("a4--", "b4-+")))
   expect_equal(as.character(as_music(c("a", "b"), 2)), c("a2", "b2"))
+  expect_equal(time_format("a,4"), "space-delimited time")
+  expect_equal(time_format(c("a,4", "b,4")), "vectorized time")
 
   expect_error(as_music("a b4"), "First timestep must have a duration value.")
 
