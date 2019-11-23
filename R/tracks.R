@@ -107,6 +107,14 @@ chord_set <- function(x, id = NULL, n = 6){
 #' \code{key = "flat"} or \code{key = "sharp"}. The exact key signature is not
 #' required; it is merely more clear and informative for the user.
 #'
+#' \code{lyrics} should only be used for simple tracks that do not contain
+#' repeats. You also need to ensure the timesteps for \code{lyrics} align with
+#' those of \code{phrase} in advance. Additionally, LilyPond does not engrave
+#' lyrics at rests so if \code{phrase} contains rests then lyrics object
+#' should be subset to exclude these timesteps as well. This is in contrast to
+#' using \code{render_music*} functions, which handle this automatically for
+#' music objects.
+#'
 #' @param phrase a phrase object.
 #' @param tuning character, space-delimited pitches describing the instrument
 #' string tuning or a predefined tuning ID (see \code{\link{tunings}}).
@@ -126,6 +134,7 @@ chord_set <- function(x, id = NULL, n = 6){
 #' @param no_tab logical, suppress the default guitar tablature so that only a
 #' standard music staff is associated with the track. Ignored if
 #' \code{music_staff = NA}.
+#' @param lyrics a lyrics object or \code{NA}. See details.
 #'
 #' @return a track table.
 #' @export
@@ -140,7 +149,7 @@ chord_set <- function(x, id = NULL, n = 6){
 #' track_bass(x) # includes tab staff and standard bass tuning
 track <- function(phrase, tuning = "standard", voice = 1L,
                   music_staff = "treble_8", ms_transpose = 0, ms_key = NA,
-                  no_tab = FALSE){
+                  no_tab = FALSE, lyrics = NA){
   if(!"phrase" %in% class(phrase))
     stop("`phrase` is not a phrase object.", call. = FALSE)
   if(is.na(music_staff) & no_tab)
@@ -165,11 +174,13 @@ track <- function(phrase, tuning = "standard", voice = 1L,
              call. = FALSE)
     }
   }
+  if(is_lyrics(lyrics)) lyrics <- as_space_time(lyrics)
+  lyrics <- as.character(lyrics)
 
   x <- tibble::tibble(
     phrase, tuning = tuning, voice = as.integer(voice),
     staff = as.character(music_staff), ms_transpose = as.integer(ms_transpose),
-    ms_key = as.character(ms_key), tab = !no_tab)
+    ms_key = as.character(ms_key), tab = !no_tab, lyrics = lyrics)
   x$phrase <- purrr::map(x$phrase, ~as_phrase(.x))
   class(x) <- unique(c("track", class(x)))
   x
@@ -181,20 +192,23 @@ track_guitar <- track
 
 #' @export
 #' @rdname track
-track_tc <- function(phrase, voice = 1L, ms_transpose = 0, ms_key = NA){
-  track(phrase, "standard", voice, "treble", ms_transpose, ms_key, TRUE)
+track_tc <- function(phrase, voice = 1L, ms_transpose = 0, ms_key = NA,
+                     lyrics = NA){
+  track(phrase, "standard", voice, "treble", ms_transpose, ms_key, TRUE, lyrics)
 }
 
 #' @export
 #' @rdname track
-track_bc <- function(phrase, voice = 1L, ms_transpose = 0, ms_key = NA){
-  track(phrase, "standard", voice, "bass", ms_transpose, ms_key, TRUE)
+track_bc <- function(phrase, voice = 1L, ms_transpose = 0, ms_key = NA,
+                     lyrics = NA){
+  track(phrase, "standard", voice, "bass", ms_transpose, ms_key, TRUE, lyrics)
 }
 
 #' @export
 #' @rdname track
-track_bass <- function(phrase, voice = 1L, ms_transpose = 0, ms_key = NA){
-  track(phrase, "bass", voice, "bass_8", ms_transpose, ms_key, FALSE)
+track_bass <- function(phrase, voice = 1L, ms_transpose = 0, ms_key = NA,
+                       lyrics = NA){
+  track(phrase, "bass", voice, "bass_8", ms_transpose, ms_key, FALSE, lyrics)
 }
 
 #' Bind track tables

@@ -153,6 +153,7 @@ or a named R color. The named list options include:
   \item \code{accidental}
   \item \code{slur}
   \item \code{tabhead}
+  \item \code{lyrics}
 }
 
 \code{color} is a global font color for the entire score. It affects staff

@@ -62,6 +62,15 @@
 #' \code{linewidth} and \code{textheight}. This is all based on underlying
 #' LilyPond behavior.
 #'
+#' If \code{music} contains lyrics and there are rests in the note sequence,
+#' note-lyric alignment is maintained automatically when these functions
+#' remove the lyric timesteps corresponding to the rests prior to sending to
+#' LilyPond. LilyPond skips rests when engraving lyrics and expects a shortened
+#' lyrics sequence in comparison to how \code{tabr} matches by timestep
+#' including rests. This is in contrast to \code{track}, for which you have to
+#' shorten the lyrics object yourself prior to combining with a phrase object
+#' that has rests.
+#'
 #' @param music a music object.
 #' @param file character, output file ending in .pdf or .png.
 #' @param header a named list of arguments passed to the header of the
@@ -91,11 +100,13 @@
 #' \code{\link{score}}, \code{\link{lilypond}}, \code{\link{tab}}
 #'
 #' @examples
-#' x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"
+#' x <- "a,4;5*5 b,- c cgc'e'~ cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"
 #' x <- as_music(x)
 #'
-#' y <- "a,,4;3*5 b,,4- c,4 c,g,c~4 c,g,c1 c4;1 g,;2 c,;3 g,;2 c,c1;31"
+#' y <- "a,,4;3*5 b,,- c, c,g,c~ c,g,c1 c4;1 g,;2 c,;3 g,;2 c,c1;31"
 #' y <- as_music(y)
+#'
+#' z <- as_music("a,4 b, r c~ c2 d", lyrics = as_lyrics("A2 B2 Rest C3 . D3"))
 #'
 #' \dontrun{
 #' if(tabr_options()$lilypond != ""){ # requires LilyPond installation
@@ -111,6 +122,9 @@
 #'   render_music_tab(x, outfile)
 #'   render_music_guitar(x, outfile)
 #'   render_music_bass(y, outfile)
+#'
+#'   # lyrics example
+#'   render_music_guitar(z, outfile)
 #' }
 #' }
 render_music <- function(music, file, staff = "treble", tuning = "standard",
@@ -120,8 +134,9 @@ render_music <- function(music, file, staff = "treble", tuning = "standard",
                          simplify = TRUE){
   ktt <- .ktt(music)
   paper <- .paper_snippet(paper)
+  lyrics <- .drop_rest_lyrics(music)
   phrase(music) %>%
-    track(tuning, music_staff = staff, no_tab = no_tab) %>%
+    track(tuning, music_staff = staff, no_tab = no_tab, lyrics = lyrics) %>%
     score() %>%
     tab(file, ktt[1], ktt[2], ktt[3], header, paper, string_names, TRUE, midi,
         colors, TRUE, transparent, res, keep_ly, simplify, FALSE)
@@ -134,8 +149,9 @@ render_music_tc <- function(music, file, header = NULL, paper = NULL,
                             res = 150, keep_ly = FALSE, simplify = TRUE){
   ktt <- .ktt(music)
   paper <- .paper_snippet(paper)
+  lyrics <- .drop_rest_lyrics(music)
   phrase(music) %>%
-    track(music_staff = "treble", no_tab = TRUE) %>%
+    track(music_staff = "treble", no_tab = TRUE, lyrics = lyrics) %>%
     score() %>%
     tab(file, ktt[1], ktt[2], ktt[3], header, paper, FALSE, TRUE, midi, colors,
         TRUE, transparent, res, keep_ly, simplify, FALSE)
@@ -148,8 +164,9 @@ render_music_bc <- function(music, file, header = NULL, paper = NULL,
                             res = 150, keep_ly = FALSE, simplify = TRUE){
   ktt <- .ktt(music)
   paper <- .paper_snippet(paper)
+  lyrics <- .drop_rest_lyrics(music)
   phrase(music) %>%
-    track(music_staff = "bass", no_tab = TRUE) %>%
+    track(music_staff = "bass", no_tab = TRUE, lyrics = lyrics) %>%
     score() %>%
     tab(file, ktt[1], ktt[2], ktt[3], header, paper, FALSE, TRUE, midi, colors,
         TRUE, transparent, res, keep_ly, simplify, FALSE)
@@ -163,8 +180,9 @@ render_music_tab <- function(music, file, staff = NA, tuning = "standard",
                              res = 150, keep_ly = FALSE, simplify = TRUE){
   ktt <- .ktt(music)
   paper <- .paper_snippet(paper)
+  lyrics <- .drop_rest_lyrics(music)
   phrase(music) %>%
-    track(tuning, music_staff = staff) %>%
+    track(tuning, music_staff = staff, lyrics = lyrics) %>%
     score() %>%
     tab(file, ktt[1], ktt[2], ktt[3], header, paper, string_names, TRUE, midi,
         colors, TRUE, transparent, res, keep_ly, simplify, FALSE)
@@ -179,8 +197,9 @@ render_music_guitar <- function(music, file, tuning = "standard",
                                 keep_ly = FALSE, simplify = TRUE){
   ktt <- .ktt(music)
   paper <- .paper_snippet(paper)
+  lyrics <- .drop_rest_lyrics(music)
   phrase(music) %>%
-    track(tuning, music_staff = "treble_8") %>%
+    track(tuning, music_staff = "treble_8", lyrics = lyrics) %>%
     score() %>%
     tab(file, ktt[1], ktt[2], ktt[3], header, paper, string_names, TRUE, midi,
         colors, TRUE, transparent, res, keep_ly, simplify, FALSE)
@@ -194,11 +213,19 @@ render_music_bass <- function(music, file, tuning = "bass",
                               res = 150, keep_ly = FALSE, simplify = TRUE){
   ktt <- .ktt(music)
   paper <- .paper_snippet(paper)
+  lyrics <- .drop_rest_lyrics(music)
   phrase(music) %>%
-    track(tuning, music_staff = "bass_8") %>%
+    track(tuning, music_staff = "bass_8", lyrics = lyrics) %>%
     score() %>%
     tab(file, ktt[1], ktt[2], ktt[3], header, paper, string_names, TRUE, midi,
         colors, TRUE, transparent, res, keep_ly, simplify, FALSE)
+}
+
+.drop_rest_lyrics <- function(x){
+  y <- music_lyrics(x)
+  if(is.na(y)) return(y)
+  x <- note_is_rest(x)
+  y[!x]
 }
 
 .paper_snippet <- function(x){

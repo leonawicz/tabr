@@ -537,7 +537,7 @@ note_has_integer <- function(notes){
 #' @export
 #' @rdname note-metadata
 note_is_rest <- function(notes){
-  grepl("[rs]", (.uncollapse(notes)))
+  grepl("^[rs]", (.uncollapse(notes)))
 }
 
 #' @export

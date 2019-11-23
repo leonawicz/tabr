@@ -235,7 +235,8 @@
   <span class='kw'>music_staff</span> <span class='kw'>=</span> <span class='st'>"treble_8"</span>,
   <span class='kw'>ms_transpose</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>ms_key</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>no_tab</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>no_tab</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>lyrics</span> <span class='kw'>=</span> <span class='fl'>NA</span>
 )
 
 <span class='fu'>track_guitar</span>(
@@ -245,14 +246,15 @@
   <span class='kw'>music_staff</span> <span class='kw'>=</span> <span class='st'>"treble_8"</span>,
   <span class='kw'>ms_transpose</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>ms_key</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>no_tab</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>no_tab</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>lyrics</span> <span class='kw'>=</span> <span class='fl'>NA</span>
 )
 
-<span class='fu'>track_tc</span>(<span class='no'>phrase</span>, <span class='kw'>voice</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>ms_transpose</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>ms_key</span> <span class='kw'>=</span> <span class='fl'>NA</span>)
+<span class='fu'>track_tc</span>(<span class='no'>phrase</span>, <span class='kw'>voice</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>ms_transpose</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>ms_key</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>lyrics</span> <span class='kw'>=</span> <span class='fl'>NA</span>)
 
-<span class='fu'>track_bc</span>(<span class='no'>phrase</span>, <span class='kw'>voice</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>ms_transpose</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>ms_key</span> <span class='kw'>=</span> <span class='fl'>NA</span>)
+<span class='fu'>track_bc</span>(<span class='no'>phrase</span>, <span class='kw'>voice</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>ms_transpose</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>ms_key</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>lyrics</span> <span class='kw'>=</span> <span class='fl'>NA</span>)
 
-<span class='fu'>track_bass</span>(<span class='no'>phrase</span>, <span class='kw'>voice</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>ms_transpose</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>ms_key</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
+<span class='fu'>track_bass</span>(<span class='no'>phrase</span>, <span class='kw'>voice</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>ms_transpose</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>ms_key</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>lyrics</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -297,6 +299,10 @@ staff. See details.</p></td>
 standard music staff is associated with the track. Ignored if
 <code>music_staff = NA</code>.</p></td>
     </tr>
+    <tr>
+      <th>lyrics</th>
+      <td><p>a lyrics object or <code>NA</code>. See details.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -337,24 +343,31 @@ correct selection of accidentals in the output.
 As with the <code><a href='transpose.html'>transpose</a></code> function, you can simply specify
 <code>key = "flat"</code> or <code>key = "sharp"</code>. The exact key signature is not
 required; it is merely more clear and informative for the user.</p>
+<p><code>lyrics</code> should only be used for simple tracks that do not contain
+repeats. You also need to ensure the timesteps for <code>lyrics</code> align with
+those of <code>phrase</code> in advance. Additionally, LilyPond does not engrave
+lyrics at rests so if <code>phrase</code> contains rests then lyrics object
+should be subset to exclude these timesteps as well. This is in contrast to
+using <code>render_music*</code> functions, which handle this automatically for
+music objects.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='st'>"c ec'g' ec'g'"</span>, <span class='st'>"4 4 2"</span>, <span class='st'>"5 4 4"</span>)
-<span class='fu'>track</span>(<span class='no'>x</span>) <span class='co'># same as track_guitar(x); 8va treble clef above tab staff</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1 x 7</span><span>
-#&gt;   phrase   tuning         voice staff    ms_transpose ms_key tab  
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>&lt;phrase&gt;</span><span> e, a, d g b e'     1 treble_8            0 </span><span style='color: #BB0000;'>NA</span><span>     TRUE </div><div class='input'><span class='fu'>track_tc</span>(<span class='no'>x</span>) <span class='co'># treble clef sheet music, no tab staff</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 7</span><span>
-#&gt;   phrase   tuning         voice staff  ms_transpose ms_key tab  
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>&lt;phrase&gt;</span><span> e, a, d g b e'     1 treble            0 </span><span style='color: #BB0000;'>NA</span><span>     FALSE</div><div class='input'><span class='fu'>track_bc</span>(<span class='no'>x</span>) <span class='co'># bass clef sheet music, no tab staff</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 7</span><span>
-#&gt;   phrase   tuning         voice staff ms_transpose ms_key tab  
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>&lt;phrase&gt;</span><span> e, a, d g b e'     1 bass             0 </span><span style='color: #BB0000;'>NA</span><span>     FALSE</div><div class='input'>
+<span class='fu'>track</span>(<span class='no'>x</span>) <span class='co'># same as track_guitar(x); 8va treble clef above tab staff</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1 x 8</span><span>
+#&gt;   phrase   tuning         voice staff    ms_transpose ms_key tab   lyrics
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
+#&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>&lt;phrase&gt;</span><span> e, a, d g b e'     1 treble_8            0 </span><span style='color: #BB0000;'>NA</span><span>     TRUE  </span><span style='color: #BB0000;'>NA</span><span>    </div><div class='input'><span class='fu'>track_tc</span>(<span class='no'>x</span>) <span class='co'># treble clef sheet music, no tab staff</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 8</span><span>
+#&gt;   phrase   tuning         voice staff  ms_transpose ms_key tab   lyrics
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
+#&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>&lt;phrase&gt;</span><span> e, a, d g b e'     1 treble            0 </span><span style='color: #BB0000;'>NA</span><span>     FALSE </span><span style='color: #BB0000;'>NA</span><span>    </div><div class='input'><span class='fu'>track_bc</span>(<span class='no'>x</span>) <span class='co'># bass clef sheet music, no tab staff</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 8</span><span>
+#&gt;   phrase   tuning         voice staff ms_transpose ms_key tab   lyrics
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
+#&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>&lt;phrase&gt;</span><span> e, a, d g b e'     1 bass             0 </span><span style='color: #BB0000;'>NA</span><span>     FALSE </span><span style='color: #BB0000;'>NA</span><span>    </div><div class='input'>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='st'>"c, g,c g,c"</span>, <span class='st'>"4 4 2"</span>, <span class='st'>"3 2 2"</span>)
-<span class='fu'>track_bass</span>(<span class='no'>x</span>) <span class='co'># includes tab staff and standard bass tuning</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 7</span><span>
-#&gt;   phrase   tuning        voice staff  ms_transpose ms_key tab  
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>&lt;phrase&gt;</span><span> e,, a,, d, g,     1 bass_8            0 </span><span style='color: #BB0000;'>NA</span><span>     TRUE </div></span></pre>
+<span class='fu'>track_bass</span>(<span class='no'>x</span>) <span class='co'># includes tab staff and standard bass tuning</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 8</span><span>
+#&gt;   phrase   tuning        voice staff  ms_transpose ms_key tab   lyrics
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
+#&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>&lt;phrase&gt;</span><span> e,, a,, d, g,     1 bass_8            0 </span><span style='color: #BB0000;'>NA</span><span>     TRUE  </span><span style='color: #BB0000;'>NA</span><span>    </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

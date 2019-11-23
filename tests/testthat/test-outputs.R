@@ -154,6 +154,48 @@ test_that("tab wrapper runs without error", {
   unlink(cleanup)
 })
 
+test_that("tab wrapper including lyrics runs without error", {
+  skip_on_appveyor()
+  skip_on_cran()
+
+  s1 <- score(
+    trackbind(
+      track(p("a e'", 4)),
+      track(p("c' g'", 4), voice = 2, lyrics = as_lyrics(". G")),
+      tabstaff = 1)
+  )
+
+  s2 <- score(
+    trackbind(
+      track(p("a e'", 4), lyrics = as_lyrics("A E")),
+      track(p("c' g'", 4), voice = 2, lyrics = as_lyrics(". G")),
+      tabstaff = 1)
+  )
+
+  s3 <- score(
+    trackbind(
+      track(p("a e'", 4), lyrics = as_lyrics("A .")),
+      track(p("c' g'", 4), lyrics = as_lyrics(". G"))
+    )
+  )
+
+  s4 <- score(
+    trackbind(
+      track(p("a e' s s a e' a e'", 4), lyrics = as_lyrics("1 2 3 4 5 . 7 .")),
+      track(p("r g' c' g'", 4), lyrics = as_lyrics(". G C G"))
+    )
+  )
+
+  m1 <- as_music("a,4 b, r c~ c2 d", lyrics = as_lyrics("A2 B2 Rest C3 . D3"))
+
+  expect_is(render_score(s1, out[2]), cl)
+  expect_is(render_tab(s2, out[2]), cl)
+  expect_is(render_tab(s3, out[3]), cl)
+  expect_is(render_tab(s4, out[3]), cl)
+  expect_is(render_music_guitar(m1, out[3], colors = list(lyrics = "red")), cl)
+  unlink(cleanup)
+})
+
 test_that("miditab and midily functions run without error", {
   skip_on_appveyor()
   skip_on_cran()

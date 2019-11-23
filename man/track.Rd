@@ -15,7 +15,8 @@ track(
   music_staff = "treble_8",
   ms_transpose = 0,
   ms_key = NA,
-  no_tab = FALSE
+  no_tab = FALSE,
+  lyrics = NA
 )
 
 track_guitar(
@@ -25,14 +26,15 @@ track_guitar(
   music_staff = "treble_8",
   ms_transpose = 0,
   ms_key = NA,
-  no_tab = FALSE
+  no_tab = FALSE,
+  lyrics = NA
 )
 
-track_tc(phrase, voice = 1L, ms_transpose = 0, ms_key = NA)
+track_tc(phrase, voice = 1L, ms_transpose = 0, ms_key = NA, lyrics = NA)
 
-track_bc(phrase, voice = 1L, ms_transpose = 0, ms_key = NA)
+track_bc(phrase, voice = 1L, ms_transpose = 0, ms_key = NA, lyrics = NA)
 
-track_bass(phrase, voice = 1L, ms_transpose = 0, ms_key = NA)
+track_bass(phrase, voice = 1L, ms_transpose = 0, ms_key = NA, lyrics = NA)
 }
 \arguments{
 \item{phrase}{a phrase object.}
@@ -60,6 +62,8 @@ staff. See details.}
 \item{no_tab}{logical, suppress the default guitar tablature so that only a
 standard music staff is associated with the track. Ignored if
 \code{music_staff = NA}.}
+
+\item{lyrics}{a lyrics object or \code{NA}. See details.}
 }
 \value{
 a track table.
@@ -104,6 +108,14 @@ correct selection of accidentals in the output.
 As with the \code{\link{transpose}} function, you can simply specify
 \code{key = "flat"} or \code{key = "sharp"}. The exact key signature is not
 required; it is merely more clear and informative for the user.
+
+\code{lyrics} should only be used for simple tracks that do not contain
+repeats. You also need to ensure the timesteps for \code{lyrics} align with
+those of \code{phrase} in advance. Additionally, LilyPond does not engrave
+lyrics at rests so if \code{phrase} contains rests then lyrics object
+should be subset to exclude these timesteps as well. This is in contrast to
+using \code{render_music*} functions, which handle this automatically for
+music objects.
 }
 \examples{
 x <- phrase("c ec'g' ec'g'", "4 4 2", "5 4 4")

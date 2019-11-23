@@ -442,17 +442,27 @@ remaining a full page. See <code>lilypond</code> for details.</p>
 cropping in both direction, which must then be done manually with
 <code>linewidth</code> and <code>textheight</code>. This is all based on underlying
 LilyPond behavior.</p>
+<p>If <code>music</code> contains lyrics and there are rests in the note sequence,
+note-lyric alignment is maintained automatically when these functions
+remove the lyric timesteps corresponding to the rests prior to sending to
+LilyPond. LilyPond skips rests when engraving lyrics and expects a shortened
+lyrics sequence in comparison to how <code>tabr</code> matches by timestep
+including rests. This is in contrast to <code>track</code>, for which you have to
+shorten the lyrics object yourself prior to combining with a phrase object
+that has rests.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='plot_music.html'>plot_music</a></code>, <code><a href='phrase.html'>phrase</a></code>, <code><a href='track.html'>track</a></code>,
 <code><a href='score.html'>score</a></code>, <code><a href='lilypond.html'>lilypond</a></code>, <code><a href='tab.html'>tab</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"</span>
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"a,4;5*5 b,- c cgc'e'~ cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='music.html'>as_music</a></span>(<span class='no'>x</span>)
 
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='st'>"a,,4;3*5 b,,4- c,4 c,g,c~4 c,g,c1 c4;1 g,;2 c,;3 g,;2 c,c1;31"</span>
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='st'>"a,,4;3*5 b,,- c, c,g,c~ c,g,c1 c4;1 g,;2 c,;3 g,;2 c,c1;31"</span>
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='music.html'>as_music</a></span>(<span class='no'>y</span>)
+
+<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='music.html'>as_music</a></span>(<span class='st'>"a,4 b, r c~ c2 d"</span>, <span class='kw'>lyrics</span> <span class='kw'>=</span> <span class='fu'><a href='lyrics.html'>as_lyrics</a></span>(<span class='st'>"A2 B2 Rest C3 . D3"</span>))
 
 <span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='kw'>if</span>(<span class='fu'><a href='tabr_options.html'>tabr_options</a></span>()$<span class='no'>lilypond</span> <span class='kw'>!=</span> <span class='st'>""</span>){ <span class='co'># requires LilyPond installation</span>
@@ -468,6 +478,9 @@ LilyPond behavior.</p>
   <span class='fu'>render_music_tab</span>(<span class='no'>x</span>, <span class='no'>outfile</span>)
   <span class='fu'>render_music_guitar</span>(<span class='no'>x</span>, <span class='no'>outfile</span>)
   <span class='fu'>render_music_bass</span>(<span class='no'>y</span>, <span class='no'>outfile</span>)
+
+  <span class='co'># lyrics example</span>
+  <span class='fu'>render_music_guitar</span>(<span class='no'>z</span>, <span class='no'>outfile</span>)
 }
 }</div></pre>
   </div>

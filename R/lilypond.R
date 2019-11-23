@@ -87,6 +87,7 @@
 #'   \item \code{accidental}
 #'   \item \code{slur}
 #'   \item \code{tabhead}
+#'   \item \code{lyrics}
 #' }
 #'
 #' \code{color} is a global font color for the entire score. It affects staff
@@ -281,6 +282,23 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
     x <- paste0(x0, "\\override StringNumber #'transparent = ##t\n  ",
                 gsub("\n\n", "\n", gsub("\\|", "\\|\n", x)), "}\n\n",
                 collapse = "\n")
+
+    lyrics <- split(d$lyrics, d$voice)
+    lyrics <- purrr::map(seq_along(lyrics), ~{
+      x <- lyrics[[.x]]
+      if(is.na(x)) return(NA)
+      x <- strsplit(x, " ")[[1]]
+      idx <- grep("\\d", x)
+      if(length(idx)) x[idx] <- paste0("\"", x[idx], "\"")
+      x <- paste(x, collapse = " ")
+      x <- gsub("\\.", "\\\\skip 1", x)
+      paste0(gsub("melody", "lyrics", id), LETTERS[.x], " = \\lyricmode {\n  ",
+             x, "\n}\n")
+    }) %>%
+      unlist()
+    lyrics <- lyrics[!is.na(lyrics)]
+    if(length(lyrics) > 1) lyrics <- paste(lyrics, collapse = "\n")
+    if(length(lyrics)) x <- paste0(x, lyrics, "\n")
   } else {
     x <- paste0(paste0(x, collapse = ""), "\n")
     if(midi) x <- paste("\\unfoldRepeats {", x, "}")
@@ -291,8 +309,16 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
     x <- paste0(x, bg)
     x <- paste0(x0, "\\override StringNumber #'transparent = ##t\n  ",
                 gsub("\n\n", "\n", gsub("\\|", "\\|\n", x)), "}\n\n")
+    if(!is.na(d$lyrics)){
+      lyrics <- strsplit(d$lyrics, " ")[[1]]
+      idx <- grep("\\d", lyrics)
+      if(length(idx)) lyrics[idx] <- paste0("\"", lyrics[idx], "\"")
+      lyrics <- paste(lyrics, collapse = " ")
+      x <- paste0(x, gsub("melody", "lyrics", id), " = \\lyricmode {\n  ",
+                  gsub("\\.", "\\\\skip 1", lyrics), "\n}\n\n")
+    }
   }
-  gsub("  ", "", gsub("  ", " ", x))
+  gsub("\n\n\n", "\n\n", gsub("  ", "", gsub("  ", " ", x)))
 }
 
 .lp_paper_args <- function(x, crop, cropw){
@@ -436,6 +462,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
     ms_tp <- purrr::map_int(d, ~unique(.x$ms_transpose))
     ms_key <- purrr::map_chr(d, ~unique(.x$ms_key))
     show_tab <- purrr::map_lgl(d, ~unique(.x$tab))
+    lyrics <- purrr::map(d, ~unique(.x$lyrics))
     x <- paste0(
       purrr::map_chr(seq_along(clef), ~({
         tp_wrap <- ms_tp[.x] != 0
@@ -458,10 +485,18 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
                        x0[2], "\" \\", x0[2], if(tp_wrap) " }")
           x2 <- paste0("\\context TabVoice = \"", x0[1], "\" \\", x0[1],
                        " \\context TabVoice = \"", x0[2], "\" \\", x0[2])
+          lyrics1 <- .set_score_lyrics(lyrics[[.x]][1], x0[1])
+          lyrics2 <- .set_score_lyrics(lyrics[[.x]][2], x0[2])
+          lyrics <- paste0(lyrics1, lyrics2)
+        } else {
+          lyrics <- .set_score_lyrics(lyrics[[.x]], id[.x])
         }
+        if(lyrics != "" & !multivoice)
+          x1 <- paste0("\\context Voice = \"", gsub("\\\\", "", x1), "\" ", x1)
         paste0(
           if(!is.na(clef[.x])) paste0("\\new Staff << \\clef \"", clef[.x],
                                       "\" ", x1, " >>\n  ", collapse = ""),
+          lyrics,
           if(show_tab[.x]){
             paste0("\\new TabStaff \\with { stringTunings = \\stringTuning <",
                    .notesub(tuning[.x]), "> } <<\n    ",
@@ -497,6 +532,15 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   paste0("\\score {  <<\n  ", color,
          if(has_chord_seq) "\\new ChordNames \\chordNames\n  ", x, ">>\n",
          if(layout) "  \\layout{ }\n", if(!is.null(midi)) midi, "}")
+}
+
+.set_score_lyrics <- function(lyrics, melody){
+  if(is.na(lyrics)){
+    ""
+  } else {
+    paste0("\\new Lyrics \\lyricsto \"", melody, "\" { \\",
+           gsub("melody", "lyrics", melody), " }\n  ")
+  }
 }
 
 .tunelab <- function(x){
@@ -559,7 +603,8 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 
 
 .lp_color_elements <- c("color", "background", "staff", "time", "clef", "bar",
-                        "beam", "head", "stem", "accidental", "slur", "tabhead")
+                        "beam", "head", "stem", "accidental", "slur", "tabhead",
+                        "lyrics")
 
 .lp_color_overrides <- function(x){
   if(is.null(x)) return(list(overrides = "", score = "", bg = ""))
@@ -601,7 +646,8 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
         stem = "Staff.Stem.color",
         accidental = "Staff.Accidental.color",
         slur = "Staff.Slur.color",
-        tabhead = "Staff.TabNoteHead.color"
+        tabhead = "Staff.TabNoteHead.color",
+        lyrics = "Lyrics.LyricText.color"
       )
     })
     x <- purrr::map2_chr(x, id, ~{
