@@ -46,7 +46,7 @@ chord_set <- function(x, id = NULL, n = 6){
   id <- id[!id %in% c("r", "s")]
   f <- function(x){
     if(grepl(";", x)){
-      if(!grepl(";$")) x <- paste0(x, ";")
+      if(!grepl(";$", x)) x <- paste0(x, ";")
     } else if(grepl(" ", x)){
       x <- paste0(gsub(" ", ";", trimws(x)), ";")
     } else {

@@ -17,6 +17,15 @@ test_that("expect note info helpers return as expected", {
   expect_is(print.noteinfo(y), "NULL")
   expect_is(summary.noteinfo(y), "NULL")
 
+  expect_true(is_space_time(y))
+  expect_false(is_vector_time(y))
+  expect_true(is_space_time(as.character(y)))
+  expect_false(is_vector_time(as.character(y)))
+  expect_equal(as_space_time(y), y)
+  expect_equal(as_vector_time(y), as_noteinfo(y, "vector"))
+  expect_equal(as_space_time(as.character(y)), y)
+  expect_equal(as_vector_time(as.character(y)), as_noteinfo(y, "vector"))
+
   expect_error(.check_noteinfo("3"), "Invalid note info found.")
 
   a <- notate("8x", "Start here")
@@ -39,4 +48,5 @@ test_that("expect note info helpers return as expected", {
   expect_error(n_steps("1( 5."),
                paste("Cannot coerce string to any of class",
                "'noteworthy', 'noteinfo', or 'music'."))
+  expect_equal(n_steps(4), 1)
 })

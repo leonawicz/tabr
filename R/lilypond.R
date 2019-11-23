@@ -311,7 +311,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   if(!is.logical(ppn)) stop("`page_numbers` must be logical.", call. = FALSE)
   pfpn <- x$print_first_page_number
   if(!is.logical(pfpn))
-    stop("`Print_first_page_number` must be logical.", call. = FALSE)
+    stop("`print_first_page_number` must be logical.", call. = FALSE)
   if(!ppn) pfpn <- FALSE
   fpn <- x$first_page_number
   if(!is.numeric(fpn))

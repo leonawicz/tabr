@@ -40,4 +40,8 @@ test_that("repeat functions return as expected", {
                paste0("\\repeat volta 5 { <c\\5>4",
                       "^\"Play 5 times.\"",
                       " <e\\4 c'\\3 g'\\2>4 <e\\4 c'\\3 g'\\2>2 | }\n"))
+
+  expect_error(volta(x, endings = 1:2),
+               "`endings` must be a list of phrases or a single phrase.")
+  expect_is(volta(x, 4, e1), "phrase")
 })

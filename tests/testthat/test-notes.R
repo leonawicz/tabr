@@ -25,6 +25,14 @@ test_that("note helpers return as expected", {
     )
   expect_error(note_slice(notes, 8), "Index out of bounds.")
 
+  y <- as_noteworthy("a r")
+  expect_true(note_has_rest(y))
+  expect_equal(as_space_time(y), y)
+  expect_equal(as_vector_time(y), as_noteworthy(y, format = "vector"))
+  expect_equal(as_space_time(as.character(y)), y)
+  expect_equal(as_vector_time(as.character(y)),
+               as_noteworthy(y, format = "vector"))
+
   expect_identical(note_rotate(notes, 3), as_noteworthy("d# e_ f g a b c,e_g'"))
   expect_identical(note_rotate(notes, 0), notes)
   expect_identical(note_rotate(notes, 3), as_noteworthy("d# e_ f g a b c,e_g'"))
@@ -224,4 +232,17 @@ test_that("note equivalence functions return as expected", {
   expect_equal(octave_is_identical(x, y), c(F, T, T, F, T))
   expect_equal(octave_is_identical(x, y, single_octave = TRUE),
                c(F, T, F, F, T))
+})
+
+test_that("note_ngram returns as expected", {
+  x <- as_noteworthy("a, ceg")
+  y <- note_ngram(x)
+  expect_equal(length(y), 2)
+  expect_equal(sapply(y, length), c(1, 2))
+
+  y <- note_ngram(x, tally = TRUE)
+  expect_equal(dim(y), c(2, 2))
+
+  expect_error(note_ngram("a", n = 0),
+               "`n` must be >= 1 and <= number of timesteps.")
 })

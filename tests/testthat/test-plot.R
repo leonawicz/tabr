@@ -12,6 +12,12 @@ test_that("plot_fretboard runs successfully", {
                            horizontal = TRUE), "ggplot")
   expect_is(plot_fretboard(string = 6:1, fret = c(0, 2, 2, 0, 0, 0),
                            left_handed = TRUE), "ggplot")
+  expect_is(plot_fretboard(string = 6:1, fret = c(0, 2, 2, 0, 0, 0), mute = 6,
+                           fret_range = 1:2),
+            "ggplot")
+  expect_is(plot_fretboard(string = 6:1, fret = c(1, 2, 2, 1, 1, 1), mute = 6,
+                           fret_range = 1:2),
+            "ggplot")
   expect_is(
     plot_fretboard(6:1, c(0, 2, 2, 0, 0, 0), c("G", "U", "I", "T", "A", "R")),
     "ggplot")
@@ -82,7 +88,13 @@ test_that("plot_chord runs successfully", {
     "ggplot")
   expect_is(plot_chord("355433", horizontal = TRUE, show_tuning = TRUE),
             "ggplot")
-  expect_is(plot_chord("0231"), "ggplot")
+  expect_is(plot_chord("0;2;3;1;"), "ggplot")
+  expect_is(plot_chord("0 2 3 1"), "ggplot")
+  expect_error(plot_chord(c("xo221o", "xo221o")),
+               "Length of chord must be one.")
+  expect_error(
+    plot_chord("022300", tuning = "bass"),
+    "Cannot have more fret values than number of instrument strings.")
 
   unlink(file, recursive = TRUE, force = TRUE)
 })

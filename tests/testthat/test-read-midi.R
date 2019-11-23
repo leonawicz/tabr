@@ -23,5 +23,7 @@ test_that("Read midi files as expected", {
     x <- midi_notes(x, channel = 0, track = 2)
     expect_equal(dim(x), c(14, 2))
     expect_equal(names(x), c("duration", "pitch"))
+
+    expect_error(duration_to_ticks("a"), "Invalid durations found.")
   }
 })

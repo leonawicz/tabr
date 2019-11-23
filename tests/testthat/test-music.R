@@ -23,6 +23,16 @@ test_that("music functions return as expected", {
   expect_equal(music_lyrics(x), NA)
   expect_equal(music_strings(x), NULL)
 
+  expect(n_steps(x), 11)
+  expect(n_steps(as.character(x)), 11)
+  expect_true(is_space_time(x))
+  expect_false(is_vector_time(x))
+  expect_equal(as_space_time(x), x)
+  expect_equal(as_vector_time(x), as_music(x, format = "vector"))
+  expect_equal(as_space_time(as.character(x)), x)
+  expect_equal(as_vector_time(as.character(x)),
+               as_music(x, format = "vector"))
+
   expect_error(as_music("a b4"), "First timestep must have a duration value.")
 
   z <- music_split("a4")

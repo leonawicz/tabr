@@ -22,4 +22,4 @@ notifications:
     on_start: never
 
 after_success:
-    - Rscript -e 'covr::codecov(function_exclusions = "\\.onLoad$", line_exclusions = list("R/tab.R" = c(273, 278, 741, 746), "R/midi.R" = c(84, 165, 170, 230:231)))'
+    - Rscript -e 'covr::codecov(function_exclusions = "\\.onLoad$", line_exclusions = list("R/lp_render.R" = c(104, 109, 267, 272), "R/midi.R" = c(85, 166, 171, 231:232)))'

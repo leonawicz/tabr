@@ -25,6 +25,11 @@ chords <- chord_set(chord_prep)
 
 test_that("chord_set returns as expected", {
   expect_equal(names(chords), names(chord_prep))
+  expect_equal(chord_set(c("b_:m" = "x;1;3;3;2;1;")),
+               chord_set(c("b_:m" = "x 1 3 3 2 1")))
+  expect_error(
+    chord_set(c("b_:m" = "x 1 3 3 2 1"), n = 5),
+    "Cannot have more fret values than number of instrument strings.")
 })
 
 chord_seq <- setNames(c(4, 4, 2), names(chords[1:3]))
@@ -61,10 +66,17 @@ header <- list(
 paper <- list(textheight = 230, linewidth = 160, indent = 20, fontsize = 16,
               first_page_number = 10, page_numbers = FALSE)
 
-out <- file.path(tempdir(), c("out.ly", "out.pdf", "out.png"))
+out <- file.path(tempdir(), c("out.ly", "out.pdf", "out.png", "out.mid"))
 cleanup <- file.path(tempdir(), c("out.mid", "out.pdf", "out.png", "out.log",
                                   "out.ly"))
 cl <- "NULL"
+
+test_that("track wrappers return as expected", {
+  z <- phrase("a", 1)
+  expect_false(track_tc(z)$tab)
+  expect_equal(track_bc(z)$staff, "bass")
+  expect_equal(track_bass(z)$staff, "bass_8")
+})
 
 test_that("lilypond wrapper runs without error", {
   skip_on_appveyor()
@@ -77,6 +89,18 @@ test_that("lilypond wrapper runs without error", {
                        "signatures. MIDI output not transposed."))
   expect_error(lilypond(NULL, tempo = NULL, midi = TRUE),
                "Set an explicit `tempo` if `midi = TRUE`.")
+  expect_is(lilypond(x1, out[1], tempo = NULL, midi = FALSE), cl)
+  expect_is(lilypond(x1, out[1], header = list(title = "Title"),
+                     colors = list(x = 2)), cl)
+  expect_is(lilypond(x1, out[1], header = list(title = "Title"),
+                     colors = list(color = "#FF3030", staff = "red", x = 2)),
+            cl)
+  expect_error(lilypond(x1, out[1], paper = list(print_first_page_number = 1)),
+               "`print_first_page_number` must be logical.")
+  expect_error(lilypond(x1, out[1], paper = list(page_numbers = 1)),
+               "`page_numbers` must be logical.")
+  expect_error(lilypond(x1, out[1], paper = list(first_page_number = TRUE)),
+               "`first_page_number` must be a number.")
   unlink(cleanup)
 })
 
@@ -91,6 +115,7 @@ test_that("tab wrapper runs without error", {
   expect_is(
     render_score(x1, out[3], transparent = TRUE,
                  colors = list(color = "blue", background = "#888888")), cl)
+  expect_is(render_midi(x1, out[4]), cl)
 
   purrr::walk(x, ~expect_is(
     tab(.x, out[2], midi = include_midi), cl))
