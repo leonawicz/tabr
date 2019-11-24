@@ -134,7 +134,7 @@ render_music <- function(music, file, staff = "treble", tuning = "standard",
                          simplify = TRUE){
   ktt <- .ktt(music)
   paper <- .paper_snippet(paper)
-  lyrics <- .drop_rest_lyrics(music)
+  lyrics <- .prep_lyrics(music)
   phrase(music) %>%
     track(tuning, music_staff = staff, no_tab = no_tab, lyrics = lyrics) %>%
     score() %>%
@@ -149,7 +149,7 @@ render_music_tc <- function(music, file, header = NULL, paper = NULL,
                             res = 150, keep_ly = FALSE, simplify = TRUE){
   ktt <- .ktt(music)
   paper <- .paper_snippet(paper)
-  lyrics <- .drop_rest_lyrics(music)
+  lyrics <- .prep_lyrics(music)
   phrase(music) %>%
     track(music_staff = "treble", no_tab = TRUE, lyrics = lyrics) %>%
     score() %>%
@@ -164,7 +164,7 @@ render_music_bc <- function(music, file, header = NULL, paper = NULL,
                             res = 150, keep_ly = FALSE, simplify = TRUE){
   ktt <- .ktt(music)
   paper <- .paper_snippet(paper)
-  lyrics <- .drop_rest_lyrics(music)
+  lyrics <- .prep_lyrics(music)
   phrase(music) %>%
     track(music_staff = "bass", no_tab = TRUE, lyrics = lyrics) %>%
     score() %>%
@@ -180,7 +180,7 @@ render_music_tab <- function(music, file, staff = NA, tuning = "standard",
                              res = 150, keep_ly = FALSE, simplify = TRUE){
   ktt <- .ktt(music)
   paper <- .paper_snippet(paper)
-  lyrics <- .drop_rest_lyrics(music)
+  lyrics <- .prep_lyrics(music)
   phrase(music) %>%
     track(tuning, music_staff = staff, lyrics = lyrics) %>%
     score() %>%
@@ -197,7 +197,7 @@ render_music_guitar <- function(music, file, tuning = "standard",
                                 keep_ly = FALSE, simplify = TRUE){
   ktt <- .ktt(music)
   paper <- .paper_snippet(paper)
-  lyrics <- .drop_rest_lyrics(music)
+  lyrics <- .prep_lyrics(music)
   phrase(music) %>%
     track(tuning, music_staff = "treble_8", lyrics = lyrics) %>%
     score() %>%
@@ -213,7 +213,7 @@ render_music_bass <- function(music, file, tuning = "bass",
                               res = 150, keep_ly = FALSE, simplify = TRUE){
   ktt <- .ktt(music)
   paper <- .paper_snippet(paper)
-  lyrics <- .drop_rest_lyrics(music)
+  lyrics <- .prep_lyrics(music)
   phrase(music) %>%
     track(tuning, music_staff = "bass_8", lyrics = lyrics) %>%
     score() %>%
@@ -221,11 +221,15 @@ render_music_bass <- function(music, file, tuning = "bass",
         colors, TRUE, transparent, res, keep_ly, simplify, FALSE)
 }
 
-.drop_rest_lyrics <- function(x){
-  y <- music_lyrics(x)
-  if(is.na(y)) return(y)
-  x <- note_is_rest(x)
-  y[!x]
+.prep_lyrics <- function(x){
+  i1 <- which(note_is_rest(x))
+  i2 <- grep("~", as_vector_time(x))
+  if(length(i2)){
+    i2 <- i2 + 1
+    i2 <- i2[i2 %in% seq_along(x)]
+    i1 <- unique(c(i1, i2))
+  }
+  if(length(i1)) music_lyrics(x)[-i1] else music_lyrics(x)
 }
 
 .paper_snippet <- function(x){

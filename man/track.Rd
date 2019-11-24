@@ -112,10 +112,11 @@ required; it is merely more clear and informative for the user.
 \code{lyrics} should only be used for simple tracks that do not contain
 repeats. You also need to ensure the timesteps for \code{lyrics} align with
 those of \code{phrase} in advance. Additionally, LilyPond does not engrave
-lyrics at rests so if \code{phrase} contains rests then lyrics object
-should be subset to exclude these timesteps as well. This is in contrast to
-using \code{render_music*} functions, which handle this automatically for
-music objects.
+lyrics at rests or tied notes (excluding first note in tied sequence) so if
+Therefore, if \code{phrase} contains rests and tied notes then the lyrics
+object should be subset to exclude these timesteps as well.
+This is in contrast to using \code{render_music*} functions, which handle
+this automatically for music objects.
 }
 \examples{
 x <- phrase("c ec'g' ec'g'", "4 4 2", "5 4 4")
