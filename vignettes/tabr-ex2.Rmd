@@ -19,9 +19,7 @@ knitr::opts_chunk$set(
 library(tabr)
 ```
 
-The previous example used a fingerstyle arrangement based on guitar patterns in *Devil's got you beat*. This example picks up from there, regenerating the exact same guitar tab, but this time properly acknowledging the two guitar voices: the part played by with the thumb and the part played with the other fingers.
-
-The setup is the same as before, but as a part of this code refactor, simplify some of the code where possible. For instance, this particular melody uses lowest fret numbers and open strings because the tuning is done in a way to allow for much faster playing. This means that a most of the notes are in the second or third octave. Here, most are in the third, which is the central octave and it is not necessary to specify all those `3` characters. They are removed from the entire song further below. The tuning is a common one so you can use the predefined tuning.
+The previous example used a fingerstyle arrangement based on guitar patterns in *Devil's got you beat*. This example picks up from there, regenerating the same guitar tab, but this time properly acknowledging the two guitar voices: the part played by with the thumb and the part played with the other fingers.
 
 ```{r p1, eval=FALSE}
 header <- list(
@@ -58,11 +56,11 @@ The last thing to note is that for the same reason there are a lot of octave `3`
 
 ```{r voices, eval=FALSE}
 # melody 1: voice 1
-p1 <- paste(p(pc(pn("s a d4", 3), "s"), "4. 16 16 4. 16 16 8 16 16 4"),
+p1 <- paste(p(c(pn("s a d'", 3), "s"), "4. 16 16 4. 16 16 8 16 16 4"),
             c(p("s a d s", "8 16 16 4"), p("s a d4 s s", "8 16 16 4 1")))
 
 # melody 1: voice 2
-notes <- c(pc(pn("f d c d s", 2), "f g s f d c a2"), "d s c a2 f2 d2", "d s c a2 f2 e2 d2")
+notes <- c(c(pn("f d c d s", 2), "f g s f d c a,"), "d s c a, f, d,", "d s c a, f, e, d,")
 info <- purrr::map_chr(c("16(", notate("16(", txt)), ~pc(.x, "16) 8*3 16( 16) 8*3 16- 16 8 16*4"))
 p2 <- paste(unlist(purrr::map(info[c(2, 1, 1)], ~p(notes[1], .x))),
             c(rep(p(notes[2], "8 8 16( 16) 16( 16)"), 2), 
@@ -73,23 +71,25 @@ p2 <- gsub("<g>", "<g\\\\4>", p2) # force string for one note
 p3 <- volta(pct(p("s a d4 s", "8 16 16 4"), 3))
 p4 <- volta(pct(p("d s f d c", "8 8 16 16 8"), 3))
 
-t1 <- pc(pct(p1[1], 3), p3, p1[1], p1[2]) %>% track(tuning, 1, ms_transpose = 1, ms_key = "e_m")
-t2 <- pc(pct(p2[1], 3), p4, p2[2], p2[3]) %>% track(tuning, 2, ms_transpose = 1, ms_key = "e_m")
-trackbind(t1, t2, tabstaff = c(1, 1)) %>% score() %>% tab("out.pdf", "dm", "4/4", "4 = 115", header)
+t1 <- pc(pct(p1[1], 3), p3, p1[1], p1[2]) %>% 
+  track(key = "e_m", tuning = tuning, voice = 1)
+t2 <- pc(pct(p2[1], 3), p4, p2[2], p2[3]) %>% 
+  track(key = "e_m", tuning = tuning, voice = 2)
+trackbind(t1, t2, id = c(1, 1)) %>% score() %>% 
+  tab("out.pdf", "dm", "4/4", "4 = 115", header)
 ```
 
 ## Refactor recap
 
-Notice the 1 and 2 passed to the respective calls to `track` for the voice ID. Subsequently, in the call to `trackbind` the two tracks are assigned the same staff ID, `tabstaff = c(1, 1)`. By default, not providing `tabstaff` leads to a unique staff per track. This is the more common usage. Providing non-unique staff IDs will throw an error if the voice IDs for a single staff ID are also not unique. Every track must be directed into a unique voice/staff combination. `t1` and `t2` are also transposed up one semitone to E flat minor for use with another instrument that do not use tabs.
+Notice the 1 and 2 passed to the respective calls to `track` for the voice ID. Subsequently, in the call to `trackbind` the two tracks are assigned the same track or staff ID, `id = c(1, 1)`. By default, not providing `id` leads to a unique staff per track. This is the more common usage. Providing non-unique staff IDs will throw an error if the voice IDs for a single staff ID are also not unique. Every track must be directed into a unique voice/staff combination. `t1` and `t2` are also transposed up one semitone to E flat minor for use with another instrument.
 
 A recap of the code reduction:
 
-*    Reduce code by removing all the `3` characters for all notes in octave three, which is many.
-*    Reduce code by concatenating phrases and their slightly different endings more efficiently.
-*    Ensure the code for both voices is written in such a way that it is relatively easy to keep them lined up in time: note how the `t1` and `t2` track assignments turned out.
-*    There is one pesky note that is the only one in the entire arrangement whose default string in LilyPond based on the instrument stringing and tuning is not that intended string. Stepping outside of `tabr` space for a moment, the fourth string is forced with a simple character substitution using `gsub`. Mo' music, mo' problems. There is often going to be something frustrating going on. Doing this substitution here prevents having to specify all the string numbers for the phrase.
+* Reduce code by concatenating phrases and their slightly different endings more efficiently.
+* Ensure the code for both voices is written in such a way that it is relatively easy to keep them lined up in time: note how the `t1` and `t2` track assignments turned out.
+* There is one note in the arrangement whose default string in LilyPond based on the instrument stringing and tuning is not the desired string. Instead of specifying all strings, the fourth string is forced with a simple character substitution using `gsub`.
 
-Make sure to inspect all the objects above so get a good understanding of the phrases being produced and how they are efficiently connected. This can look opaque and complex if you have not done this a number of times, but becomes easier to read and write with practice.
+Make sure to inspect all the objects above to get a good understanding of the phrases being produced and how they are connected. This can look opaque and complex if you have not done this a number of times, but becomes easier to read and write with practice.
 
 ## Result
 

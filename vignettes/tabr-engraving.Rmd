@@ -31,7 +31,11 @@ By now you have seen many calls to `tab` throughout these vignettes in order to 
 
 ## Score metadata
 
-These are the most critical components that can be supplied to `lilypond`. These are the three arguments immediately after the input `score` and output `file`. While they have default values, they will almost invariably need to be changed for just about any song. `key` specifies the key signature, e.g. `key ="dm"`. Key changes in the middle of a song are not supported, but you can always edit the LilyPond file by hand to make highly customized changes. `time` gives the time signature, defaulting to common time, or 4/4 time. `tempo` provides the song tempo, defaulting to `tempo = "2 = 60"`. Note that `key` takes the `tabr` consistent key signature notation whereas `time` and `tempo` take literal LilyPond strings. Look up options for these strings if you are not familiar with them in LilyPond.
+These are the most critical components that can be supplied to `lilypond`. `key` specifies the global key signature, e.g. `key ="dm"`. Key signatures set for individual track override the global key, but the global key is used for any track whose key is `NA`. Key changes in the middle of a song are not supported, but you can always edit the LilyPond file directly to make custom changes. 
+
+`time` gives the time signature, defaulting to common time, `"4/4"`. `tempo` provides the song tempo, defaulting to `tempo = "2 = 60"`, which is the LilyPond default. This can be read as 60 half note beats per minute.
+
+Note that `key` takes the `tabr` key signature notation, but `time` and `tempo` which are used mostly in a transcription context like this, take values that match LilyPond format.
 
 Throughout this tutorial section, the guitar and bass example from the section on tracks and scores is reused. The chord chart and chord sequence are retained to provide the most complete illustration of a rendered score. For completeness, here is what you have so far.
 
@@ -46,18 +50,18 @@ bass <- rp(p("c2e2*4 g1*2 f1*2 c2e2*3", "4*10 2", "32*4 4*4 32*3"), 2)
 
 t1 <- track(voice1, voice = 1)
 t2 <- track(voice2, voice = 2)
-t3 <- track(bass, tuning = "bass", music_staff = "bass_8")
+t3 <- track(bass, clef = "bass_8", tuning = "bass")
 
 chords <- chord_set(c(c = "x32o1o", g = "355433", f = "133211"))
 chord_seq <- rep(setNames(c(1, 2, 2, 1), names(chords)[c(1:3, 1)]), 3)
 chords
 chord_seq
 
-song <- trackbind(t1, t2, t3, tabstaff = c(1, 1, 2)) %>% score(chords, chord_seq)
+song <- trackbind(t1, t2, t3, id = c(1, 1, 2)) %>% score(chords, chord_seq)
 song
 ```
 
-This time, when rendering the song, use settings for the three arguments discussed above. Given what is written, it doesn't make sense to change them all. For example, this won't fit well as a waltz (time = "3/4"). But for illustration purposes, pretend the song is actually in the key of D minor (F major). This key has one flat, B, so this will force the B note in the G chord to be annotated as an accidental. Change the time to `2/2` just for the sake of changing it, which won't really be any different from `4/4` except you will see a line through the common time symbol. Finally, change the tempo to `4 = 120`, which is also equivalent to the default, but will show up in the output slightly differently as well.
+This time when rendering the song, use settings for the three arguments discussed above. Given what is written, it doesn't make sense to change them all. For example, this won't fit well as a waltz (`time = "3/4"`). But for illustration purposes, pretend the song is actually in the key of D minor (F major). This key has one flat, Bb, so this will affect the display of the B note in the G chord. Change the time to `2/2` just for the sake of changing it, which won't really be any different from `4/4` except you will see a line through the common time symbol. Finally, change the tempo to `4 = 120`, which is also equivalent to the default, but will show up in the output slightly differently as well.
 
 ```{r metadata, results="hide", eval=FALSE}
 lilypond(song, "ex32.ly", "dm", "2/2", "4 = 120")

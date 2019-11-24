@@ -73,17 +73,19 @@
 #'
 #' @param music a music object.
 #' @param file character, output file ending in .pdf or .png.
+#' @param clef character, include a music staff with the given clef.
+#' \code{NA} to suppress. See \code{track} for details.
+#' @param tab logical, include tablature staff. \code{NA} to suppress. See
+#' \code{track}.
+#' @param tuning character, string tuning, only applies to tablature. See
+#' \code{track}.
+#' @param string_names label strings at beginning of tab staff. \code{NULL}
+#' (default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for
+#' force on or off completely.
 #' @param header a named list of arguments passed to the header of the
 #' LilyPond file. See \code{lilypond} details.
 #' @param paper a named list of arguments for the LilyPond file page layout.
 #' See \code{lilypond} details.
-#' @param staff character, music staff setting. See \code{track} for details.
-#' @param tuning character, string tuning, only applies to tablature. See
-#' \code{track}.
-#' @param no_tab logical, suppress tablature staff. See \code{track}.
-#' @param string_names label strings at beginning of tab staff. \code{NULL}
-#' (default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for
-#' force on or off completely.
 #' @param midi logical, also output an corresponding MIDI file.
 #' @param colors a named list of LilyPond element color global overrides. See
 #' \code{lilypond} for details.
@@ -106,7 +108,7 @@
 #' y <- "a,,4;3*5 b,,- c, c,g,c~ c,g,c1 c4;1 g,;2 c,;3 g,;2 c,c1;31"
 #' y <- as_music(y)
 #'
-#' z <- as_music("a,4 b, r c~ c2 d", lyrics = as_lyrics("A2 B2 Rest C3 . D3"))
+#' z <- as_music("a,4 b, r c~ c2 d", lyrics = as_lyrics("A2 B2 . C3 . D3"))
 #'
 #' \dontrun{
 #' if(tabr_options()$lilypond != ""){ # requires LilyPond installation
@@ -114,7 +116,7 @@
 #'   render_music(x, outfile)
 #'
 #'   outfile <- file.path(tempdir(), "out.png")
-#'   render_music(x, outfile, "treble_8", no_tab = FALSE)
+#'   render_music(x, outfile, "treble_8", tab = TRUE)
 #'
 #'   render_music_tc(x, outfile)
 #'   render_music_bc(x, outfile)
@@ -127,16 +129,16 @@
 #'   render_music_guitar(z, outfile)
 #' }
 #' }
-render_music <- function(music, file, staff = "treble", tuning = "standard",
-                         no_tab = TRUE, string_names = NULL, header = NULL,
-                         paper = NULL, midi = FALSE, colors = NULL,
-                         transparent = FALSE, res = 150, keep_ly = FALSE,
-                         simplify = TRUE){
+render_music <- function(music, file, clef = "treble", tab = FALSE,
+                         tuning = "standard", string_names = NULL,
+                         header = NULL, paper = NULL, midi = FALSE,
+                         colors = NULL, transparent = FALSE, res = 150,
+                         keep_ly = FALSE, simplify = TRUE){
   ktt <- .ktt(music)
   paper <- .paper_snippet(paper)
   lyrics <- .prep_lyrics(music)
   phrase(music) %>%
-    track(tuning, music_staff = staff, no_tab = no_tab, lyrics = lyrics) %>%
+    track(clef = clef, tab = tab, tuning = tuning, lyrics = lyrics) %>%
     score() %>%
     tab(file, ktt[1], ktt[2], ktt[3], header, paper, string_names, TRUE, midi,
         colors, TRUE, transparent, res, keep_ly, simplify, FALSE)
@@ -151,7 +153,7 @@ render_music_tc <- function(music, file, header = NULL, paper = NULL,
   paper <- .paper_snippet(paper)
   lyrics <- .prep_lyrics(music)
   phrase(music) %>%
-    track(music_staff = "treble", no_tab = TRUE, lyrics = lyrics) %>%
+    track(clef = "treble", tab = FALSE, lyrics = lyrics) %>%
     score() %>%
     tab(file, ktt[1], ktt[2], ktt[3], header, paper, FALSE, TRUE, midi, colors,
         TRUE, transparent, res, keep_ly, simplify, FALSE)
@@ -166,7 +168,7 @@ render_music_bc <- function(music, file, header = NULL, paper = NULL,
   paper <- .paper_snippet(paper)
   lyrics <- .prep_lyrics(music)
   phrase(music) %>%
-    track(music_staff = "bass", no_tab = TRUE, lyrics = lyrics) %>%
+    track(clef = "bass", tab = FALSE, lyrics = lyrics) %>%
     score() %>%
     tab(file, ktt[1], ktt[2], ktt[3], header, paper, FALSE, TRUE, midi, colors,
         TRUE, transparent, res, keep_ly, simplify, FALSE)
@@ -174,7 +176,7 @@ render_music_bc <- function(music, file, header = NULL, paper = NULL,
 
 #' @export
 #' @rdname render_music
-render_music_tab <- function(music, file, staff = NA, tuning = "standard",
+render_music_tab <- function(music, file, clef = NA, tuning = "standard",
                              string_names = NULL, header = NULL, paper = NULL,
                              midi = FALSE, colors = NULL, transparent = FALSE,
                              res = 150, keep_ly = FALSE, simplify = TRUE){
@@ -182,7 +184,7 @@ render_music_tab <- function(music, file, staff = NA, tuning = "standard",
   paper <- .paper_snippet(paper)
   lyrics <- .prep_lyrics(music)
   phrase(music) %>%
-    track(tuning, music_staff = staff, lyrics = lyrics) %>%
+    track(clef = clef, tuning = tuning, lyrics = lyrics) %>%
     score() %>%
     tab(file, ktt[1], ktt[2], ktt[3], header, paper, string_names, TRUE, midi,
         colors, TRUE, transparent, res, keep_ly, simplify, FALSE)
@@ -199,7 +201,7 @@ render_music_guitar <- function(music, file, tuning = "standard",
   paper <- .paper_snippet(paper)
   lyrics <- .prep_lyrics(music)
   phrase(music) %>%
-    track(tuning, music_staff = "treble_8", lyrics = lyrics) %>%
+    track(clef = "treble_8", tuning = tuning, lyrics = lyrics) %>%
     score() %>%
     tab(file, ktt[1], ktt[2], ktt[3], header, paper, string_names, TRUE, midi,
         colors, TRUE, transparent, res, keep_ly, simplify, FALSE)
@@ -215,7 +217,7 @@ render_music_bass <- function(music, file, tuning = "bass",
   paper <- .paper_snippet(paper)
   lyrics <- .prep_lyrics(music)
   phrase(music) %>%
-    track(tuning, music_staff = "bass_8", lyrics = lyrics) %>%
+    track(clef = "bass_8", tuning = tuning, lyrics = lyrics) %>%
     score() %>%
     tab(file, ktt[1], ktt[2], ktt[3], header, paper, string_names, TRUE, midi,
         colors, TRUE, transparent, res, keep_ly, simplify, FALSE)
@@ -264,10 +266,12 @@ render_music_bass <- function(music, file, tuning = "bass",
 #' LilyPond file. See \code{lilypond} details.
 #' @param paper a named list of arguments for the LilyPond file page layout.
 #' See \code{lilypond} details.
-#' @param staff character, music staff setting. See \code{track} for details.
+#' @param clef character, include a music staff with the given clef.
+#' \code{NA} to suppress. See \code{track} for details.
+#' @param tab logical, include tablature staff. \code{NA} to suppress. See
+#' \code{track}.
 #' @param tuning character, string tuning, only applies to tablature. See
 #' \code{track}.
-#' @param no_tab logical, suppress tablature staff. See \code{track}.
 #' @param string_names label strings at beginning of tab staff. \code{NULL}
 #' (default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for
 #' force on or off completely.
@@ -290,7 +294,7 @@ render_music_bass <- function(music, file, tuning = "bass",
 #' \dontrun{
 #' if(tabr_options()$lilypond != ""){ # requires LilyPond installation
 #'   plot_music(x)
-#'   plot_music(x, "treble_8", no_tab = FALSE)
+#'   plot_music(x, "treble_8", tab = TRUE)
 #'
 #'   plot_music_tc(x)
 #'   plot_music_bc(x)
@@ -300,11 +304,11 @@ render_music_bass <- function(music, file, tuning = "bass",
 #'   plot_music_bass(y)
 #' }
 #' }
-plot_music <- function(music, staff = "treble", tuning = "standard",
-                       no_tab = TRUE, string_names = NULL, header = NULL,
-                       paper = NULL, colors = NULL, res = 300){
+plot_music <- function(music, clef = "treble", tab = FALSE, tuning = "standard",
+                       string_names = NULL, header = NULL, paper = NULL,
+                       colors = NULL, res = 300){
   file <- tempfile(fileext = ".png")
-  render_music(music, file, staff, tuning, no_tab, string_names, header, paper,
+  render_music(music, file, clef, tab, tuning, string_names, header, paper,
                midi = FALSE, colors, transparent = FALSE, res, keep_ly = FALSE,
                simplify = FALSE)
   .draw_image(file)
@@ -338,11 +342,11 @@ plot_music_bc <- function(music, header = NULL, paper = NULL, colors = NULL,
 
 #' @export
 #' @rdname plot_music
-plot_music_tab <- function(music, staff = NA, tuning = "standard",
+plot_music_tab <- function(music, clef = NA, tuning = "standard",
                            string_names = NULL, header = NULL, paper = NULL,
                            colors = NULL, res = 300){
   file <- tempfile(fileext = ".png")
-  render_music_tab(music, file, staff, tuning, string_names, header, paper,
+  render_music_tab(music, file, clef, tuning, string_names, header, paper,
                    midi = FALSE, colors, transparent = FALSE, res,
                    keep_ly = FALSE, simplify = FALSE)
   .draw_image(file)

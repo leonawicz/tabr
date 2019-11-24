@@ -53,7 +53,7 @@ octave numbering in result.}
 
 \item{semitones}{integer values of pitches.}
 
-\item{...}{other arguments passed to \code{tranpose}, specifically
+\item{...}{other arguments passed to \code{transpose}, specifically
 \code{key} and \code{style}.}
 }
 \value{

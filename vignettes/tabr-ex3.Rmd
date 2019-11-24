@@ -257,7 +257,7 @@ names(chord_seq) <- chord_names[x]
 Finally, bind the three tracks together, specifying the two tab staves the two guitars are assigned to. Each guitar also has a music staff above its tab staff. The bound tracks are passed to `score`, where the chords and chord sequence are provided to include a chord chart and chord names above the staff. The score is passed to `tab` along with the metadata and the tablature is rendered by LilyPond.
 
 ```{r score}
-trackbind(track1a, track1b, track2, tabstaff = c(1, 1, 2)) %>%
+trackbind(track1a, track1b, track2, id = c(1, 1, 2)) %>%
   score(chords, chord_seq) %>%
   tab(outfile, key = "em", time = "4/4", tempo = "4 = 120", header)
 ```

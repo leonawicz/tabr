@@ -140,10 +140,12 @@ tuplet(pn(x, 4), 8) # multiple tuplets, one call
 Like `phrase`, these functions accept a `string` number argument, which is critical as usual for guitar tablature (try engraving the final phrase below without explicit string numbers and see the mess you get). This example includes some rests.
 
 ```{r tuplet2, results="hide", eval=FALSE}
-p1 <- pc(triplet("c4 r e4", 8, "4 3 3"), 
-           tuplet("f4 g4 a4 b4 c5 b4", 8, "3 2 2 1 1 1", 6, 4), 
-           tuplet("a4 r f4 g4 r e4 f4 e4 d4 e4 d4 c4", 16, "2 2 3 2 3*7 4"),
-           tuplet("b a g f e", 16, "4 4 5*3", 5, 4))
+p1 <- c(
+  triplet("c4 r e4", 8, "4 3 3"), 
+  tuplet("f4 g4 a4 b4 c5 b4", 8, "3 2 2 1 1 1", 6, 4), 
+  tuplet("a4 r f4 g4 r e4 f4 e4 d4 e4 d4 c4", 16, "2 2 3 2 3*7 4"),
+  tuplet("b a g f e", 16, "4 4 5*3", 5, 4)
+)
 track(pc(p1, p("d c", "8 4.", "6 6"))) %>% score %>% tab("ex12.pdf")
 ```
 

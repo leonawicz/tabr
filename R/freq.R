@@ -21,7 +21,7 @@
 #' @param accidentals \code{NULL} or character, represent accidentals,
 #' \code{"flat"} or \code{"sharp"}.
 #' @param collapse logical, collapse result into a single string.
-#' @param ... other arguments passed to \code{tranpose}, specifically
+#' @param ... other arguments passed to \code{transpose}, specifically
 #' \code{key} and \code{style}.
 #'
 #' @return numeric vector

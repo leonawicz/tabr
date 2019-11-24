@@ -12,9 +12,9 @@
 render_music(
   music,
   file,
-  staff = "treble",
+  clef = "treble",
+  tab = FALSE,
   tuning = "standard",
-  no_tab = TRUE,
   string_names = NULL,
   header = NULL,
   paper = NULL,
@@ -55,7 +55,7 @@ render_music_bc(
 render_music_tab(
   music,
   file,
-  staff = NA,
+  clef = NA,
   tuning = "standard",
   string_names = NULL,
   header = NULL,
@@ -103,12 +103,14 @@ render_music_bass(
 
 \item{file}{character, output file ending in .pdf or .png.}
 
-\item{staff}{character, music staff setting. See \code{track} for details.}
+\item{clef}{character, include a music staff with the given clef.
+\code{NA} to suppress. See \code{track} for details.}
+
+\item{tab}{logical, include tablature staff. \code{NA} to suppress. See
+\code{track}.}
 
 \item{tuning}{character, string tuning, only applies to tablature. See
 \code{track}.}
-
-\item{no_tab}{logical, suppress tablature staff. See \code{track}.}
 
 \item{string_names}{label strings at beginning of tab staff. \code{NULL}
 (default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for
@@ -218,7 +220,7 @@ x <- as_music(x)
 y <- "a,,4;3*5 b,,- c, c,g,c~ c,g,c1 c4;1 g,;2 c,;3 g,;2 c,c1;31"
 y <- as_music(y)
 
-z <- as_music("a,4 b, r c~ c2 d", lyrics = as_lyrics("A2 B2 Rest C3 . D3"))
+z <- as_music("a,4 b, r c~ c2 d", lyrics = as_lyrics("A2 B2 . C3 . D3"))
 
 \dontrun{
 if(tabr_options()$lilypond != ""){ # requires LilyPond installation
@@ -226,7 +228,7 @@ if(tabr_options()$lilypond != ""){ # requires LilyPond installation
   render_music(x, outfile)
 
   outfile <- file.path(tempdir(), "out.png")
-  render_music(x, outfile, "treble_8", no_tab = FALSE)
+  render_music(x, outfile, "treble_8", tab = TRUE)
 
   render_music_tc(x, outfile)
   render_music_bc(x, outfile)

@@ -78,34 +78,15 @@ chord_set <- function(x, id = NULL, n = 6){
 #' table. This is row binding that also properly preserves phrase and track
 #' classes.
 #'
-#' The default for an additional music staff is \code{"treble_8"} for 8va
-#' treble clef, which is commonly displayed in guitar tablature above
-#' the tablature staff to include precise rhythm and timing information.
-#' Note that guitar is a transposing instrument. For this reason, the default
-#' ID is \code{"treble_8"}, not \code{"treble"}. However, there are other
-#' \code{track_*} functions that have different default arguments. See examples.
-#'
-#' Set \code{music_staff = NA} to suppress the additional music staff above
-#' the tablature staff.
-#' This is appropriate for simple patterns where there are already multiple
-#' tracks and the additional space required for two staves per instrument is
-#' unnecessary and wasteful.
-#'
-#' The arguments \code{ms_transpose} and \code{ms_key} pertain to the
-#' transposition of the music staff relative to the tab staff if
-#' \code{music_staff} is not \code{NA}. These arguments default to 0 and
-#' \code{NA}, respectively.
-#' The transposition and new key are simply stored in the \code{ms_transpose}
-#' and \code{ms_key} columns in the resulting track table.
-#' This information is used by \code{lilypond} or \code{tab} to transpose the
-#' music staff relative to the tab staff at the time of LilyPond file
-#' generation.
-#' Non-zero semitone transposition works without providing an explicit new key
-#' signature, but it is recommended to specify because it helps ensure the
-#' correct selection of accidentals in the output.
-#' As with the \code{\link{transpose}} function, you can simply specify
-#' \code{key = "flat"} or \code{key = "sharp"}. The exact key signature is not
-#' required; it is merely more clear and informative for the user.
+#' There are various \code{track_*} functions offering sensible defaults based
+#' on the function suffix. The original \code{track} function is equivalent to
+#' \code{track_guitar}. See examples. Setting \code{clef = NA} or
+#' \code{tab = NA} suppresses the music staff or tablature staff,
+#' respectively. By default \code{key = NA}, in which
+#' case its inherits the global key from the \code{key} argument of various
+#' sheet music rendering functions. If planning to bind two tracks as one where
+#' they are given \code{voice = 1} and \code{voice = 2}, respectively, they
+#' must also have a common key, even if \code{key = NA}.
 #'
 #' \code{lyrics} should only be used for simple tracks that do not contain
 #' repeats. You also need to ensure the timesteps for \code{lyrics} align with
@@ -117,28 +98,22 @@ chord_set <- function(x, id = NULL, n = 6){
 #' this automatically for music objects.
 #'
 #' @param phrase a phrase object.
-#' @param tuning character, space-delimited pitches describing the instrument
-#' string tuning or a predefined tuning ID (see \code{\link{tunings}}).
-#' Defaults to standard guitar tuning. Tick or integer octave numbering
-#' accepted for custom tuning entries. Not relevant if tablature staff is
+#' @param clef character, include a music staff with the given clef.
+#' \code{NA} to suppress. See details.
+#' @param key character, key signature for music staff. See details.
+#' @param tab logical, include tablature staff. \code{NA} to suppress.
+#' @param tuning character, pitches describing the instrument string tuning or
+#' a predefined tuning ID (see \code{\link{tunings}}).
+#' Defaults to standard guitar tuning; not relevant if tablature staff is
 #' suppressed.
 #' @param voice integer, ID indicating the unique voice \code{phrase} belongs
 #' to within a single track (another track may share the same tab/music staff
-#' but have a different voice ID).
-#' @param music_staff add a standard sheet music staff above the tablature
-#' staff. See details.
-#' @param ms_transpose integer, positive or negative number of semitones to
-#' transpose an included music staff relative to the tablature staff.
-#' See details.
-#' @param ms_key character, specify the new key signature for a transposed music
-#' staff. See details.
-#' @param no_tab logical, suppress the default guitar tablature so that only a
-#' standard music staff is associated with the track. Ignored if
-#' \code{music_staff = NA}.
+#' but have a different voice ID). Up to two voices are supported per track.
 #' @param lyrics a lyrics object or \code{NA}. See details.
 #'
-#' @return a track table.
+#' @return a tibble data frame
 #' @export
+#' @seealso \code{\link{phrase}}, \code{\link{score}}
 #'
 #' @examples
 #' x <- phrase("c ec'g' ec'g'", "4 4 2", "5 4 4")
@@ -148,17 +123,49 @@ chord_set <- function(x, id = NULL, n = 6){
 #'
 #' x <- phrase("c, g,c g,c", "4 4 2", "3 2 2")
 #' track_bass(x) # includes tab staff and standard bass tuning
-track <- function(phrase, tuning = "standard", voice = 1L,
-                  music_staff = "treble_8", ms_transpose = 0, ms_key = NA,
-                  no_tab = FALSE, lyrics = NA){
+track <- function(phrase, clef = "treble_8", key = NA, tab = TRUE,
+                  tuning = "standard", voice = 1, lyrics = NA){
   if(!"phrase" %in% class(phrase))
     stop("`phrase` is not a phrase object.", call. = FALSE)
-  if(is.na(music_staff) & no_tab)
-    stop("Cannot have both `music_staff` = NA and `no_tab` = TRUE.",
-         call. = FALSE)
-
+  if(is.na(clef) & !tab)
+    stop("Cannot have both `clef = NA` and `tab = FALSE`.", call. = FALSE)
   tuning <- .map_tuning(tuning)
-  n <- length(strsplit(tuning, " ")[[1]])
+  .check_phrase_strings(phrase, tuning)
+  if(is_lyrics(lyrics)) lyrics <- as_space_time(lyrics)
+  lyrics <- as.character(lyrics)
+
+  x <- tibble::tibble(
+    phrase, clef = as.character(clef), key = as.character(key), tab = tab,
+    tuning = tuning, voice = as.integer(voice), lyrics = lyrics)
+  x$phrase <- purrr::map(x$phrase, ~as_phrase(.x))
+  class(x) <- unique(c("track", class(x)))
+  x
+}
+
+#' @export
+#' @rdname track
+track_guitar <- track
+
+#' @export
+#' @rdname track
+track_tc <- function(phrase, key = NA, voice = 1, lyrics = NA){
+  track(phrase, "treble", key, FALSE, "standard", voice, lyrics)
+}
+
+#' @export
+#' @rdname track
+track_bc <- function(phrase, key = NA, voice = 1, lyrics = NA){
+  track(phrase, "bass", key, FALSE, "standard", voice, lyrics)
+}
+
+#' @export
+#' @rdname track
+track_bass <- function(phrase, key = NA, voice = 1, lyrics = NA){
+  track(phrase, "bass_8", key, FALSE, "bass", voice, lyrics)
+}
+
+.check_phrase_strings <- function(phrase, tuning){
+  n <- length(.split_chords(tuning))
   ps <- tryCatch(phrase_strings(phrase, TRUE), error = function(e) NULL)
   if(is.null(ps)){
     p2 <- gsub("\\\\repeat (unfold|percent|volta) \\d+ \\{ | \\}|\n", "",
@@ -175,41 +182,6 @@ track <- function(phrase, tuning = "standard", voice = 1L,
              call. = FALSE)
     }
   }
-  if(is_lyrics(lyrics)) lyrics <- as_space_time(lyrics)
-  lyrics <- as.character(lyrics)
-
-  x <- tibble::tibble(
-    phrase, tuning = tuning, voice = as.integer(voice),
-    staff = as.character(music_staff), ms_transpose = as.integer(ms_transpose),
-    ms_key = as.character(ms_key), tab = !no_tab, lyrics = lyrics)
-  x$phrase <- purrr::map(x$phrase, ~as_phrase(.x))
-  class(x) <- unique(c("track", class(x)))
-  x
-}
-
-#' @export
-#' @rdname track
-track_guitar <- track
-
-#' @export
-#' @rdname track
-track_tc <- function(phrase, voice = 1L, ms_transpose = 0, ms_key = NA,
-                     lyrics = NA){
-  track(phrase, "standard", voice, "treble", ms_transpose, ms_key, TRUE, lyrics)
-}
-
-#' @export
-#' @rdname track
-track_bc <- function(phrase, voice = 1L, ms_transpose = 0, ms_key = NA,
-                     lyrics = NA){
-  track(phrase, "standard", voice, "bass", ms_transpose, ms_key, TRUE, lyrics)
-}
-
-#' @export
-#' @rdname track
-track_bass <- function(phrase, voice = 1L, ms_transpose = 0, ms_key = NA,
-                       lyrics = NA){
-  track(phrase, "bass", voice, "bass_8", ms_transpose, ms_key, FALSE, lyrics)
 }
 
 #' Bind track tables
@@ -218,51 +190,57 @@ track_bass <- function(phrase, voice = 1L, ms_transpose = 0, ms_key = NA,
 #'
 #' This function appends multiple track tables into a single track table for
 #' preparation of generating a multi-track score.
-#' \code{tabstaff} is used to separate music staves in the sheet
-#' music/tablature output. A track's \code{voice} is used to separate distinct
-#' voices within a common music staff.
+#' \code{id} is used to separate staves in the sheet music/tablature output.
+#' A track's \code{voice} is used to separate distinct voices within a common
+#' music staff.
 #'
-#' If not provided, the \code{tabstaff} ID automatically propagates \code{1:n}
+#' If not provided, \code{id} automatically propagates \code{1:n}
 #' for \code{n} tracks passed to \code{...} when binding these tracks together.
-#' This expresses the default assumption of one tab staff per track.
-#' This is the typical use case where each single \code{track} object being
-#' bound into a multi-\code{track} object is a fully separated track on its own
-#' staff.
+#' This expresses the default assumption of one staff or music/tab staff pair
+#' per track. This is the typical use case.
 #'
-#' However, some tracks represent different voices that share the same staff.
-#' These should be assigned the same staff ID value, in which case you must
-#' provide the \code{tabstaff} argument.
+#' Some tracks represent different voices that share the same staff.
+#' These should be assigned the same \code{id}, in which case you must
+#' provide the \code{id} argument. Up to two voices per track are supported.
 #' An error will be thrown if any two tracks have both the same \code{voice}
-#' and the same \code{tabstaff}. The pair must be unique. E.g.,
-#' provide \code{tabstaff = c(1, 1)} when you have two tracks with \code{voice}
+#' and the same \code{id}. The pair must be unique. E.g.,
+#' provide \code{id = c(1, 1)} when you have two tracks with \code{voice}
 #' equal to 1 and 2. See examples.
 #'
 #' Note that the actual ID values assigned to each track do not matter;
 #' only the order in which tracks are bound, first to last.
 #'
-#' @param ... track tables.
-#' @param tabstaff integer, ID vector indicating the tablature staff for each
-#' track. See details.
+#' @param ... single-entry track data frames.
+#' @param id integer, ID vector indicating distinct tracks corresponding to
+#' distinct sheet music staves. See details.
 #'
-#' @return a track table.
+#' @return a tibble data frame
 #' @export
+#' @seealso \code{\link{phrase}}, \code{\link{track}}, \code{\link{score}}
 #'
 #' @examples
 #' x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
 #' x1 <- track(x)
 #' x2 <- track(x, voice = 2)
 #' trackbind(x1, x1)
-#' trackbind(x1, x2, tabstaff = c(1, 1))
-trackbind <- function(..., tabstaff){
+#' trackbind(x1, x2, id = c(1, 1))
+trackbind <- function(..., id){
   x <- list(...)
   if(!all(purrr::map_lgl(x, ~any(class(.x) == "track"))))
     stop("All arguments must be `track` tables.", call. = FALSE)
-  y <- if(missing(tabstaff)) seq_along(x) else tabstaff
-  x <- purrr::map2(x, y, ~dplyr::mutate(.x, tabstaff = as.integer(.y)))
+  y <- if(missing(id)) seq_along(x) else id
+  x <- purrr::map2(x, y, ~dplyr::mutate(.x, id = as.integer(.y)))
   x <- suppressWarnings(dplyr::bind_rows(x))
-  if(nrow(dplyr::distinct(x, .data[["voice"]], .data[["tabstaff"]])) < nrow(x))
-    stop(paste("track `voice` and `tabstaff` ID combination must be unique",
+  d <- dplyr::distinct(x, .data[["voice"]], .data[["id"]])
+  if(nrow(d) < nrow(x))
+    stop(paste("track `voice` and `id` ID combination must be unique",
                "across track rows."), call. = FALSE)
+  n <- purrr::map_int(split(x, x$id), ~{
+    nrow(dplyr::distinct(.x, .data[["id"]], .data[["key"]]))
+  })
+  if(any(n > 1))
+    stop(paste("A single track with two voices must have a common key."),
+         call. = FALSE)
   x$phrase <- purrr::map(x$phrase, ~as_phrase(.x))
   class(x) <- unique(c("track", class(x)))
   x
@@ -285,8 +263,9 @@ trackbind <- function(..., tabstaff){
 #' @param chord_seq an optional named vector of chords and their durations, for
 #' placing chord diagrams above staves in time.
 #'
-#' @return a score table.
+#' @return a tibble data frame
 #' @export
+#' @seealso \code{\link{phrase}}, \code{\link{track}}, \code{\link{trackbind}}
 #'
 #' @examples
 #' x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
@@ -295,7 +274,7 @@ trackbind <- function(..., tabstaff){
 score <- function(track, chords = NULL, chord_seq = NULL){
   cl <- class(track)
   if(!"track" %in% cl) stop("`track` is not a `track` table.", call. = FALSE)
-  if(!"tabstaff" %in% names(track)) track <- dplyr::mutate(track, tabstaff = 1L)
+  if(!"id" %in% names(track)) track <- dplyr::mutate(track, id = 1L)
   class(track) <- unique(c("score", cl))
   attr(track, "chords") <- chords
   attr(track, "chord_seq") <- chord_seq

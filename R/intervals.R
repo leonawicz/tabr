@@ -163,7 +163,7 @@ scale_diff <- function(notes, use_root = TRUE, n = 1, trim = FALSE,
 #' @export
 #' @rdname intervals
 tuning_intervals <- function(tuning = "standard"){
-  x <- strsplit(.map_tuning(tuning), " ")[[1]]
+  x <- .split_chords(.map_tuning(tuning))
   as.integer(c(0, cumsum(sapply(1:(length(x) - 1),
                                 function(i) pitch_interval(x[i], x[i + 1])))))
 }

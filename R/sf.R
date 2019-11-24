@@ -177,7 +177,7 @@ sf_phrase <- function(string, fret = NULL, info = NULL, key = "c",
   }
   string <- .sfp_infer_strings(fret, string)
   tuning <- .map_tuning(tuning)
-  open_notes <- rev(strsplit(tuning, " ")[[1]])
+  open_notes <- rev(.split_chords(tuning))
   str_num <- rev(seq_along(open_notes))
   notes <- purrr::map2(string, fret, ~({
     string_tie <- grepl("~", .x)

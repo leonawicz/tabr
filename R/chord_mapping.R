@@ -52,7 +52,7 @@ chord_def <- function(fret, id, optional = NA, tuning = "standard", ...){
   min_fret <- min(fret, na.rm = TRUE)
   idx <- which(!is.na(fret))
   root_fret <- fret[idx[1]]
-  x <- strsplit(.map_tuning(tuning), " ")[[1]]
+  x <- .split_chords(.map_tuning(tuning))
   n <- length(x)
   bass_string <- (n:1)[min(idx)]
 

@@ -236,9 +236,9 @@ graphics device or inserted into an R markdown code chunk.</p>
 
     <pre class="usage"><span class='fu'>plot_music</span>(
   <span class='no'>music</span>,
-  <span class='kw'>staff</span> <span class='kw'>=</span> <span class='st'>"treble"</span>,
+  <span class='kw'>clef</span> <span class='kw'>=</span> <span class='st'>"treble"</span>,
+  <span class='kw'>tab</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>,
-  <span class='kw'>no_tab</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>string_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -252,7 +252,7 @@ graphics device or inserted into an R markdown code chunk.</p>
 
 <span class='fu'>plot_music_tab</span>(
   <span class='no'>music</span>,
-  <span class='kw'>staff</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>clef</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>,
   <span class='kw'>string_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -289,17 +289,19 @@ graphics device or inserted into an R markdown code chunk.</p>
       <td><p>a music object.</p></td>
     </tr>
     <tr>
-      <th>staff</th>
-      <td><p>character, music staff setting. See <code>track</code> for details.</p></td>
+      <th>clef</th>
+      <td><p>character, include a music staff with the given clef.
+<code>NA</code> to suppress. See <code>track</code> for details.</p></td>
+    </tr>
+    <tr>
+      <th>tab</th>
+      <td><p>logical, include tablature staff. <code>NA</code> to suppress. See
+<code>track</code>.</p></td>
     </tr>
     <tr>
       <th>tuning</th>
       <td><p>character, string tuning, only applies to tablature. See
 <code>track</code>.</p></td>
-    </tr>
-    <tr>
-      <th>no_tab</th>
-      <td><p>logical, suppress tablature staff. See <code>track</code>.</p></td>
     </tr>
     <tr>
       <th>string_names</th>
@@ -356,7 +358,7 @@ existing. See <code><a href='render_music.html'>render_music</a></code> for more
 <span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='kw'>if</span>(<span class='fu'><a href='tabr_options.html'>tabr_options</a></span>()$<span class='no'>lilypond</span> <span class='kw'>!=</span> <span class='st'>""</span>){ <span class='co'># requires LilyPond installation</span>
   <span class='fu'>plot_music</span>(<span class='no'>x</span>)
-  <span class='fu'>plot_music</span>(<span class='no'>x</span>, <span class='st'>"treble_8"</span>, <span class='kw'>no_tab</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+  <span class='fu'>plot_music</span>(<span class='no'>x</span>, <span class='st'>"treble_8"</span>, <span class='kw'>tab</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
   <span class='fu'>plot_music_tc</span>(<span class='no'>x</span>)
   <span class='fu'>plot_music_bc</span>(<span class='no'>x</span>)

@@ -196,7 +196,9 @@
 <div id="score-metadata" class="section level2">
 <h2 class="hasAnchor">
 <a href="#score-metadata" class="anchor"></a>Score metadata</h2>
-<p>These are the most critical components that can be supplied to <code>lilypond</code>. These are the three arguments immediately after the input <code>score</code> and output <code>file</code>. While they have default values, they will almost invariably need to be changed for just about any song. <code>key</code> specifies the key signature, e.g. <code>key ="dm"</code>. Key changes in the middle of a song are not supported, but you can always edit the LilyPond file by hand to make highly customized changes. <code>time</code> gives the time signature, defaulting to common time, or 4/4 time. <code>tempo</code> provides the song tempo, defaulting to <code>tempo = "2 = 60"</code>. Note that <code>key</code> takes the <code>tabr</code> consistent key signature notation whereas <code>time</code> and <code>tempo</code> take literal LilyPond strings. Look up options for these strings if you are not familiar with them in LilyPond.</p>
+<p>These are the most critical components that can be supplied to <code>lilypond</code>. <code>key</code> specifies the global key signature, e.g. <code>key ="dm"</code>. Key signatures set for individual track override the global key, but the global key is used for any track whose key is <code>NA</code>. Key changes in the middle of a song are not supported, but you can always edit the LilyPond file directly to make custom changes.</p>
+<p><code>time</code> gives the time signature, defaulting to common time, <code>"4/4"</code>. <code>tempo</code> provides the song tempo, defaulting to <code>tempo = "2 = 60"</code>, which is the LilyPond default. This can be read as 60 half note beats per minute.</p>
+<p>Note that <code>key</code> takes the <code>tabr</code> key signature notation, but <code>time</code> and <code>tempo</code> which are used mostly in a transcription context like this, take values that match LilyPond format.</p>
 <p>Throughout this tutorial section, the guitar and bass example from the section on tracks and scores is reused. The chord chart and chord sequence are retained to provide the most complete illustration of a rendered score. For completeness, here is what you have so far.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">voice1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/repeats.html">rp</a></span>(<span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"c5 d5 e5 f5 g5"</span>, <span class="st">"1 2 4 4 1"</span>, <span class="st">"1*5"</span>), <span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb1-2" title="2"></a>
@@ -208,7 +210,7 @@
 <a class="sourceLine" id="cb1-8" title="8"></a>
 <a class="sourceLine" id="cb1-9" title="9">t1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(voice1, <span class="dt">voice =</span> <span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb1-10" title="10">t2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(voice2, <span class="dt">voice =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb1-11" title="11">t3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(bass, <span class="dt">tuning =</span> <span class="st">"bass"</span>, <span class="dt">music_staff =</span> <span class="st">"bass_8"</span>)</a>
+<a class="sourceLine" id="cb1-11" title="11">t3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(bass, <span class="dt">clef =</span> <span class="st">"bass_8"</span>, <span class="dt">tuning =</span> <span class="st">"bass"</span>)</a>
 <a class="sourceLine" id="cb1-12" title="12"></a>
 <a class="sourceLine" id="cb1-13" title="13">chords &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chord_set.html">chord_set</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">c =</span> <span class="st">"x32o1o"</span>, <span class="dt">g =</span> <span class="st">"355433"</span>, <span class="dt">f =</span> <span class="st">"133211"</span>))</a>
 <a class="sourceLine" id="cb1-14" title="14">chord_seq &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="kw"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>), <span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(chords)[<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">1</span>)]), <span class="dv">3</span>)</a>
@@ -221,16 +223,16 @@
 #&gt; 1 2 2 1 1 2 2 1 1 2 2 1
 </code></pre>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"></a>
-<a class="sourceLine" id="cb3-2" title="2">song &lt;-<span class="st"> </span><span class="kw"><a href="../reference/trackbind.html">trackbind</a></span>(t1, t2, t3, <span class="dt">tabstaff =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/score.html">score</a></span>(chords, chord_seq)</a>
+<a class="sourceLine" id="cb3-2" title="2">song &lt;-<span class="st"> </span><span class="kw"><a href="../reference/trackbind.html">trackbind</a></span>(t1, t2, t3, <span class="dt">id =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/score.html">score</a></span>(chords, chord_seq)</a>
 <a class="sourceLine" id="cb3-3" title="3">song</a></code></pre></div>
-<pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 3 x 9</span><span>
-#&gt;   phrase   tuning        voice staff   ms_transpose ms_key tab   lyrics tabstaff
-#&gt;   </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>         </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>          </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span>
-#&gt; </span><span style="color: #555555;">1</span><span> </span><span style="color: #555555;">&lt;phrase&gt;</span><span> e, a, d g b ~     1 treble~            0 </span><span style="color: #BB0000;">NA</span><span>     TRUE  </span><span style="color: #BB0000;">NA</span><span>            1
-#&gt; </span><span style="color: #555555;">2</span><span> </span><span style="color: #555555;">&lt;phrase&gt;</span><span> e, a, d g b ~     2 treble~            0 </span><span style="color: #BB0000;">NA</span><span>     TRUE  </span><span style="color: #BB0000;">NA</span><span>            1
-#&gt; </span><span style="color: #555555;">3</span><span> </span><span style="color: #555555;">&lt;phrase&gt;</span><span> e,, a,, d, g,     1 bass_8             0 </span><span style="color: #BB0000;">NA</span><span>     TRUE  </span><span style="color: #BB0000;">NA</span><span>            2
+<pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 3 x 8</span><span>
+#&gt;   phrase   clef     key   tab   tuning     voice lyrics    id
+#&gt;   </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>      </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span>
+#&gt; </span><span style="color: #555555;">1</span><span> </span><span style="color: #555555;">&lt;phrase&gt;</span><span> treble_8 </span><span style="color: #BB0000;">NA</span><span>    TRUE  e,a,dgbe'      1 </span><span style="color: #BB0000;">NA</span><span>         1
+#&gt; </span><span style="color: #555555;">2</span><span> </span><span style="color: #555555;">&lt;phrase&gt;</span><span> treble_8 </span><span style="color: #BB0000;">NA</span><span>    TRUE  e,a,dgbe'      2 </span><span style="color: #BB0000;">NA</span><span>         1
+#&gt; </span><span style="color: #555555;">3</span><span> </span><span style="color: #555555;">&lt;phrase&gt;</span><span> bass_8   </span><span style="color: #BB0000;">NA</span><span>    TRUE  e,,a,,d,g,     1 </span><span style="color: #BB0000;">NA</span><span>         2
 </span></code></pre>
-<p>This time, when rendering the song, use settings for the three arguments discussed above. Given what is written, it doesn’t make sense to change them all. For example, this won’t fit well as a waltz (time = “3/4”). But for illustration purposes, pretend the song is actually in the key of D minor (F major). This key has one flat, B, so this will force the B note in the G chord to be annotated as an accidental. Change the time to <code>2/2</code> just for the sake of changing it, which won’t really be any different from <code>4/4</code> except you will see a line through the common time symbol. Finally, change the tempo to <code>4 = 120</code>, which is also equivalent to the default, but will show up in the output slightly differently as well.</p>
+<p>This time when rendering the song, use settings for the three arguments discussed above. Given what is written, it doesn’t make sense to change them all. For example, this won’t fit well as a waltz (<code>time = "3/4"</code>). But for illustration purposes, pretend the song is actually in the key of D minor (F major). This key has one flat, Bb, so this will affect the display of the B note in the G chord. Change the time to <code>2/2</code> just for the sake of changing it, which won’t really be any different from <code>4/4</code> except you will see a line through the common time symbol. Finally, change the tempo to <code>4 = 120</code>, which is also equivalent to the default, but will show up in the output slightly differently as well.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="../reference/lilypond.html">lilypond</a></span>(song, <span class="st">"ex32.ly"</span>, <span class="st">"dm"</span>, <span class="st">"2/2"</span>, <span class="st">"4 = 120"</span>)</a>
 <a class="sourceLine" id="cb4-2" title="2"><span class="kw"><a href="../reference/tab.html">tab</a></span>(song, <span class="st">"ex32.pdf"</span>, <span class="st">"dm"</span>, <span class="st">"2/2"</span>, <span class="st">"4 = 120"</span>)</a></code></pre></div>
 <p>
@@ -377,9 +379,12 @@
 #&gt; 
 #&gt; global = {
 #&gt;   \time 4/4
-#&gt;   \key c \major
 #&gt;   \tempo 2 = 60
 #&gt;   \bar "|."
+#&gt; }
+#&gt; 
+#&gt; global_key = {
+#&gt;  \key c \major 
 #&gt; }
 #&gt; 
 #&gt; mychorddiagrams = \chordmode {
@@ -412,54 +417,49 @@
 #&gt; melodyAA = {
 #&gt;  \global
 #&gt;  \override StringNumber #'transparent = ##t
-#&gt; \voiceOne \repeat unfold 3 { &lt;c''\1&gt;1 &lt;d''\1&gt;2 &lt;e''\1&gt;4 &lt;f''\1&gt;4 &lt;g''\1&gt;1 }
+#&gt;  \voiceOne \repeat unfold 3 { &lt;c''\1&gt;1 &lt;d''\1&gt;2 &lt;e''\1&gt;4 &lt;f''\1&gt;4 &lt;g''\1&gt;1 }
 #&gt; }
 #&gt; 
 #&gt; melodyAB = {
 #&gt;  \global
 #&gt;  \override StringNumber #'transparent = ##t
-#&gt; \voiceTwo \repeat unfold 3 { &lt;c\5&gt;8 &lt;e\4&gt;8 &lt;g\3&gt;8 &lt;c'\2&gt;8 &lt;e'\1&gt;8 &lt;c'\2&gt;8 &lt;g\3&gt;8 &lt;e\4&gt;8 &lt;g\4&gt;8 &lt;b\3&gt;8 &lt;d'\2&gt;8 &lt;g'\1&gt;8 &lt;f\4&gt;8 &lt;a\3&gt;8 &lt;c'\2&gt;8 &lt;f'\1&gt;8 &lt;c\5&gt;8 &lt;e\4&gt;8 &lt;g\3&gt;8 &lt;e\4&gt;8 &lt;c\5&gt;2 
-#&gt; }
+#&gt;  \voiceTwo \repeat unfold 3 { &lt;c\5&gt;8 &lt;e\4&gt;8 &lt;g\3&gt;8 &lt;c'\2&gt;8 &lt;e'\1&gt;8 &lt;c'\2&gt;8 &lt;g\3&gt;8 &lt;e\4&gt;8 &lt;g\4&gt;8 &lt;b\3&gt;8 &lt;d'\2&gt;8 &lt;g'\1&gt;8 &lt;f\4&gt;8 &lt;a\3&gt;8 &lt;c'\2&gt;8 &lt;f'\1&gt;8 &lt;c\5&gt;8 &lt;e\4&gt;8 &lt;g\3&gt;8 &lt;e\4&gt;8 &lt;c\5&gt;2 }
 #&gt; }
 #&gt; 
 #&gt; melodyB = {
 #&gt;  \global
 #&gt;  \override StringNumber #'transparent = ##t
-#&gt;  \repeat unfold 3 { &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;g,,\4&gt;4 &lt;g,,\4&gt;4 &lt;f,,\4&gt;4 &lt;f,,\4&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;2 
-#&gt; }
+#&gt;  \repeat unfold 3 { &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;g,,\4&gt;4 &lt;g,,\4&gt;4 &lt;f,,\4&gt;4 &lt;f,,\4&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;2 }
 #&gt; }
 #&gt; 
 #&gt; midimelodyAA = {
 #&gt;  \global
 #&gt;  \override StringNumber #'transparent = ##t
-#&gt;  \unfoldRepeats {\voiceOne \repeat unfold 3 { &lt;c''\1&gt;1 &lt;d''\1&gt;2 &lt;e''\1&gt;4 &lt;f''\1&gt;4 &lt;g''\1&gt;1 }
+#&gt;  \unfoldRepeats { \voiceOne \repeat unfold 3 { &lt;c''\1&gt;1 &lt;d''\1&gt;2 &lt;e''\1&gt;4 &lt;f''\1&gt;4 &lt;g''\1&gt;1 }
 #&gt;  }}
 #&gt; 
 #&gt; midimelodyAB = {
 #&gt;  \global
 #&gt;  \override StringNumber #'transparent = ##t
-#&gt;  \unfoldRepeats {\voiceTwo \repeat unfold 3 { &lt;c\5&gt;8 &lt;e\4&gt;8 &lt;g\3&gt;8 &lt;c'\2&gt;8 &lt;e'\1&gt;8 &lt;c'\2&gt;8 &lt;g\3&gt;8 &lt;e\4&gt;8 &lt;g\4&gt;8 &lt;b\3&gt;8 &lt;d'\2&gt;8 &lt;g'\1&gt;8 &lt;f\4&gt;8 &lt;a\3&gt;8 &lt;c'\2&gt;8 &lt;f'\1&gt;8 &lt;c\5&gt;8 &lt;e\4&gt;8 &lt;g\3&gt;8 &lt;e\4&gt;8 &lt;c\5&gt;2 }
-#&gt;  
-#&gt; }
-#&gt; }
+#&gt;  \unfoldRepeats { \voiceTwo \repeat unfold 3 { &lt;c\5&gt;8 &lt;e\4&gt;8 &lt;g\3&gt;8 &lt;c'\2&gt;8 &lt;e'\1&gt;8 &lt;c'\2&gt;8 &lt;g\3&gt;8 &lt;e\4&gt;8 &lt;g\4&gt;8 &lt;b\3&gt;8 &lt;d'\2&gt;8 &lt;g'\1&gt;8 &lt;f\4&gt;8 &lt;a\3&gt;8 &lt;c'\2&gt;8 &lt;f'\1&gt;8 &lt;c\5&gt;8 &lt;e\4&gt;8 &lt;g\3&gt;8 &lt;e\4&gt;8 &lt;c\5&gt;2 }
+#&gt;  }}
 #&gt; 
 #&gt; midimelodyB = {
 #&gt;  \global
 #&gt;  \override StringNumber #'transparent = ##t
 #&gt;  \unfoldRepeats { \repeat unfold 3 { &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;g,,\4&gt;4 &lt;g,,\4&gt;4 &lt;f,,\4&gt;4 &lt;f,,\4&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;2 }
-#&gt;  
-#&gt; }
+#&gt;  }
 #&gt; }
 #&gt; 
 #&gt; \score {  &lt;&lt;
 #&gt;   \new ChordNames \chordNames
-#&gt;   \new Staff &lt;&lt; \clef "treble_8" \context Voice = "melodyAA" \melodyAA \context Voice = "melodyAB" \melodyAB &gt;&gt;
+#&gt;   \new Staff &lt;&lt; \clef "treble_8" \global_key \context Voice = "melodyAA" \melodyAA \context Voice = "melodyAB" \melodyAB &gt;&gt;
 #&gt;   \new TabStaff \with { stringTunings = \stringTuning &lt;e, a, d g b e'&gt; } &lt;&lt;
 #&gt;     \override Stem #'transparent = ##t
 #&gt;     \override Beam #'transparent = ##t
 #&gt;     \context TabVoice = "melodyAA" \melodyAA \context TabVoice = "melodyAB" \melodyAB
 #&gt;   &gt;&gt;
-#&gt;   \new Staff &lt;&lt; \clef "bass_8" \melodyB &gt;&gt;
+#&gt;   \new Staff &lt;&lt; \clef "bass_8" \global_key \melodyB &gt;&gt;
 #&gt;   \new TabStaff \with { stringTunings = \stringTuning &lt;e,, a,, d, g,&gt; } &lt;&lt;
 #&gt;     \set TabStaff.instrumentName = \markup  { \hspace #7 \override #'(baseline-skip . 1.5)  \column \fontsize #-4.5 \sans { G D A E } }
 #&gt;     \override Stem #'transparent = ##t
@@ -468,7 +468,9 @@
 #&gt;   &gt;&gt;
 #&gt;   &gt;&gt;
 #&gt;   \layout{ }
-#&gt; }\score {  &lt;&lt;
+#&gt; }
+#&gt; 
+#&gt; \score {  &lt;&lt;
 #&gt;   \midimelodyAA
 #&gt;   \midimelodyAB
 #&gt;   \midimelodyB
@@ -523,9 +525,12 @@
 #&gt; 
 #&gt; global = {
 #&gt;   \time 4/4
-#&gt;   \key c \major
 #&gt;   \tempo 2 = 60
 #&gt;   \bar "|."
+#&gt; }
+#&gt; 
+#&gt; global_key = {
+#&gt;  \key c \major 
 #&gt; }
 #&gt; 
 #&gt; mychorddiagrams = \chordmode {
@@ -558,54 +563,49 @@
 #&gt; melodyAA = {
 #&gt;  \global
 #&gt;  \override StringNumber #'transparent = ##t
-#&gt; \voiceOne \repeat unfold 3 { c''1\1 d''2\1 e''4\1 f''\1 g''1\1 }
+#&gt;  \voiceOne \repeat unfold 3 { c''1\1 d''2\1 e''4\1 f''\1 g''1\1 }
 #&gt; }
 #&gt; 
 #&gt; melodyAB = {
 #&gt;  \global
 #&gt;  \override StringNumber #'transparent = ##t
-#&gt; \voiceTwo \repeat unfold 3 { c8\5 e\4 g\3 c'\2 e'\1 c'\2 g\3 e\4 g\4 b\3 d'\2 g'\1 f\4 a\3 c'\2 f'\1 c\5 e\4 g\3 e\4 c2\5 
-#&gt; }
+#&gt;  \voiceTwo \repeat unfold 3 { c8\5 e\4 g\3 c'\2 e'\1 c'\2 g\3 e\4 g\4 b\3 d'\2 g'\1 f\4 a\3 c'\2 f'\1 c\5 e\4 g\3 e\4 c2\5 }
 #&gt; }
 #&gt; 
 #&gt; melodyB = {
 #&gt;  \global
 #&gt;  \override StringNumber #'transparent = ##t
-#&gt;  \repeat unfold 3 { &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt; g,,\4 g,,\4 f,,\4 f,,\4 &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt;2 
-#&gt; }
+#&gt;  \repeat unfold 3 { &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt; g,,\4 g,,\4 f,,\4 f,,\4 &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt;2 }
 #&gt; }
 #&gt; 
 #&gt; midimelodyAA = {
 #&gt;  \global
 #&gt;  \override StringNumber #'transparent = ##t
-#&gt;  \unfoldRepeats {\voiceOne \repeat unfold 3 { c''1\1 d''2\1 e''4\1 f''\1 g''1\1 }
+#&gt;  \unfoldRepeats { \voiceOne \repeat unfold 3 { c''1\1 d''2\1 e''4\1 f''\1 g''1\1 }
 #&gt;  }}
 #&gt; 
 #&gt; midimelodyAB = {
 #&gt;  \global
 #&gt;  \override StringNumber #'transparent = ##t
-#&gt;  \unfoldRepeats {\voiceTwo \repeat unfold 3 { c8\5 e\4 g\3 c'\2 e'\1 c'\2 g\3 e\4 g\4 b\3 d'\2 g'\1 f\4 a\3 c'\2 f'\1 c\5 e\4 g\3 e\4 c2\5 }
-#&gt;  
-#&gt; }
-#&gt; }
+#&gt;  \unfoldRepeats { \voiceTwo \repeat unfold 3 { c8\5 e\4 g\3 c'\2 e'\1 c'\2 g\3 e\4 g\4 b\3 d'\2 g'\1 f\4 a\3 c'\2 f'\1 c\5 e\4 g\3 e\4 c2\5 }
+#&gt;  }}
 #&gt; 
 #&gt; midimelodyB = {
 #&gt;  \global
 #&gt;  \override StringNumber #'transparent = ##t
 #&gt;  \unfoldRepeats { \repeat unfold 3 { &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt; g,,\4 g,,\4 f,,\4 f,,\4 &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt;2 }
-#&gt;  
-#&gt; }
+#&gt;  }
 #&gt; }
 #&gt; 
 #&gt; \score {  &lt;&lt;
 #&gt;   \new ChordNames \chordNames
-#&gt;   \new Staff &lt;&lt; \clef "treble_8" \context Voice = "melodyAA" \melodyAA \context Voice = "melodyAB" \melodyAB &gt;&gt;
+#&gt;   \new Staff &lt;&lt; \clef "treble_8" \global_key \context Voice = "melodyAA" \melodyAA \context Voice = "melodyAB" \melodyAB &gt;&gt;
 #&gt;   \new TabStaff \with { stringTunings = \stringTuning &lt;e, a, d g b e'&gt; } &lt;&lt;
 #&gt;     \override Stem #'transparent = ##t
 #&gt;     \override Beam #'transparent = ##t
 #&gt;     \context TabVoice = "melodyAA" \melodyAA \context TabVoice = "melodyAB" \melodyAB
 #&gt;   &gt;&gt;
-#&gt;   \new Staff &lt;&lt; \clef "bass_8" \melodyB &gt;&gt;
+#&gt;   \new Staff &lt;&lt; \clef "bass_8" \global_key \melodyB &gt;&gt;
 #&gt;   \new TabStaff \with { stringTunings = \stringTuning &lt;e,, a,, d, g,&gt; } &lt;&lt;
 #&gt;     \set TabStaff.instrumentName = \markup  { \hspace #7 \override #'(baseline-skip . 1.5)  \column \fontsize #-4.5 \sans { G D A E } }
 #&gt;     \override Stem #'transparent = ##t
@@ -614,7 +614,9 @@
 #&gt;   &gt;&gt;
 #&gt;   &gt;&gt;
 #&gt;   \layout{ }
-#&gt; }\score {  &lt;&lt;
+#&gt; }
+#&gt; 
+#&gt; \score {  &lt;&lt;
 #&gt;   \midimelodyAA
 #&gt;   \midimelodyAB
 #&gt;   \midimelodyB

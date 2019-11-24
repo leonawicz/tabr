@@ -60,9 +60,11 @@ The next example shows three different tablature staves: six string guitar in st
 guitar <- tuplet("e, a, d g b e'", 4)
 bass <- p("e,, a,, d, g,", 4)
 one_string <- p("c' d' e' f'", 4)
-tracks <- trackbind(track(guitar, music_staff = NA), 
-                    track(bass, "bass", music_staff = NA), 
-                    track(one_string, "c'", music_staff = NA))
+tracks <- trackbind(
+  track(guitar, clef = NA), 
+  track(bass, clef = NA, tuning = "bass"), 
+  track(one_string, clef = NA, tuning = "c'")
+)
 tracks
 ```
 
@@ -77,9 +79,11 @@ Notice that for tunings other than standard guitar, the default is to show the n
 Take another look at the same example, but this time including music staves. Because of the different octave ranges of the different instruments, it is best to use an appropriate clef. Recall the default (used for guitar) is `treble_8` because guitar is a transposing instrument. Compare this with `treble` used for the third instrument that is in a higher octave. These different notations help prevent difficult to read transcriptions where the notes go far above or below the staff lines.
 
 ```{r tuning3}
-tracks <- trackbind(track(guitar), 
-                    track(bass, "bass", music_staff = "bass_8"), 
-                    track(one_string, "c'", music_staff = "treble"))
+tracks <- trackbind(
+  track(guitar), 
+  track(bass, clef = "bass_8", tuning = "bass"), 
+  track(one_string, clef = "treble", tuning = "c'")
+)
 tracks
 ```
 

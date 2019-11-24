@@ -10,63 +10,53 @@
 \usage{
 track(
   phrase,
+  clef = "treble_8",
+  key = NA,
+  tab = TRUE,
   tuning = "standard",
-  voice = 1L,
-  music_staff = "treble_8",
-  ms_transpose = 0,
-  ms_key = NA,
-  no_tab = FALSE,
+  voice = 1,
   lyrics = NA
 )
 
 track_guitar(
   phrase,
+  clef = "treble_8",
+  key = NA,
+  tab = TRUE,
   tuning = "standard",
-  voice = 1L,
-  music_staff = "treble_8",
-  ms_transpose = 0,
-  ms_key = NA,
-  no_tab = FALSE,
+  voice = 1,
   lyrics = NA
 )
 
-track_tc(phrase, voice = 1L, ms_transpose = 0, ms_key = NA, lyrics = NA)
+track_tc(phrase, key = NA, voice = 1, lyrics = NA)
 
-track_bc(phrase, voice = 1L, ms_transpose = 0, ms_key = NA, lyrics = NA)
+track_bc(phrase, key = NA, voice = 1, lyrics = NA)
 
-track_bass(phrase, voice = 1L, ms_transpose = 0, ms_key = NA, lyrics = NA)
+track_bass(phrase, key = NA, voice = 1, lyrics = NA)
 }
 \arguments{
 \item{phrase}{a phrase object.}
 
-\item{tuning}{character, space-delimited pitches describing the instrument
-string tuning or a predefined tuning ID (see \code{\link{tunings}}).
-Defaults to standard guitar tuning. Tick or integer octave numbering
-accepted for custom tuning entries. Not relevant if tablature staff is
+\item{clef}{character, include a music staff with the given clef.
+\code{NA} to suppress. See details.}
+
+\item{key}{character, key signature for music staff. See details.}
+
+\item{tab}{logical, include tablature staff. \code{NA} to suppress.}
+
+\item{tuning}{character, pitches describing the instrument string tuning or
+a predefined tuning ID (see \code{\link{tunings}}).
+Defaults to standard guitar tuning; not relevant if tablature staff is
 suppressed.}
 
 \item{voice}{integer, ID indicating the unique voice \code{phrase} belongs
 to within a single track (another track may share the same tab/music staff
-but have a different voice ID).}
-
-\item{music_staff}{add a standard sheet music staff above the tablature
-staff. See details.}
-
-\item{ms_transpose}{integer, positive or negative number of semitones to
-transpose an included music staff relative to the tablature staff.
-See details.}
-
-\item{ms_key}{character, specify the new key signature for a transposed music
-staff. See details.}
-
-\item{no_tab}{logical, suppress the default guitar tablature so that only a
-standard music staff is associated with the track. Ignored if
-\code{music_staff = NA}.}
+but have a different voice ID). Up to two voices are supported per track.}
 
 \item{lyrics}{a lyrics object or \code{NA}. See details.}
 }
 \value{
-a track table.
+a tibble data frame
 }
 \description{
 Create a music track from a collection of musical phrases.
@@ -80,34 +70,15 @@ See \code{\link{trackbind}} for merging single tracks into a multi-track
 table. This is row binding that also properly preserves phrase and track
 classes.
 
-The default for an additional music staff is \code{"treble_8"} for 8va
-treble clef, which is commonly displayed in guitar tablature above
-the tablature staff to include precise rhythm and timing information.
-Note that guitar is a transposing instrument. For this reason, the default
-ID is \code{"treble_8"}, not \code{"treble"}. However, there are other
-\code{track_*} functions that have different default arguments. See examples.
-
-Set \code{music_staff = NA} to suppress the additional music staff above
-the tablature staff.
-This is appropriate for simple patterns where there are already multiple
-tracks and the additional space required for two staves per instrument is
-unnecessary and wasteful.
-
-The arguments \code{ms_transpose} and \code{ms_key} pertain to the
-transposition of the music staff relative to the tab staff if
-\code{music_staff} is not \code{NA}. These arguments default to 0 and
-\code{NA}, respectively.
-The transposition and new key are simply stored in the \code{ms_transpose}
-and \code{ms_key} columns in the resulting track table.
-This information is used by \code{lilypond} or \code{tab} to transpose the
-music staff relative to the tab staff at the time of LilyPond file
-generation.
-Non-zero semitone transposition works without providing an explicit new key
-signature, but it is recommended to specify because it helps ensure the
-correct selection of accidentals in the output.
-As with the \code{\link{transpose}} function, you can simply specify
-\code{key = "flat"} or \code{key = "sharp"}. The exact key signature is not
-required; it is merely more clear and informative for the user.
+There are various \code{track_*} functions offering sensible defaults based
+on the function suffix. The original \code{track} function is equivalent to
+\code{track_guitar}. See examples. Setting \code{clef = NA} or
+\code{tab = NA} suppresses the music staff or tablature staff,
+respectively. By default \code{key = NA}, in which
+case its inherits the global key from the \code{key} argument of various
+sheet music rendering functions. If planning to bind two tracks as one where
+they are given \code{voice = 1} and \code{voice = 2}, respectively, they
+must also have a common key, even if \code{key = NA}.
 
 \code{lyrics} should only be used for simple tracks that do not contain
 repeats. You also need to ensure the timesteps for \code{lyrics} align with
@@ -126,4 +97,7 @@ track_bc(x) # bass clef sheet music, no tab staff
 
 x <- phrase("c, g,c g,c", "4 4 2", "3 2 2")
 track_bass(x) # includes tab staff and standard bass tuning
+}
+\seealso{
+\code{\link{phrase}}, \code{\link{score}}
 }

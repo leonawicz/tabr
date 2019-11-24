@@ -230,31 +230,29 @@
 
     <pre class="usage"><span class='fu'>track</span>(
   <span class='no'>phrase</span>,
+  <span class='kw'>clef</span> <span class='kw'>=</span> <span class='st'>"treble_8"</span>,
+  <span class='kw'>key</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>tab</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>,
-  <span class='kw'>voice</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
-  <span class='kw'>music_staff</span> <span class='kw'>=</span> <span class='st'>"treble_8"</span>,
-  <span class='kw'>ms_transpose</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>ms_key</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>no_tab</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>voice</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>lyrics</span> <span class='kw'>=</span> <span class='fl'>NA</span>
 )
 
 <span class='fu'>track_guitar</span>(
   <span class='no'>phrase</span>,
+  <span class='kw'>clef</span> <span class='kw'>=</span> <span class='st'>"treble_8"</span>,
+  <span class='kw'>key</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>tab</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>,
-  <span class='kw'>voice</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
-  <span class='kw'>music_staff</span> <span class='kw'>=</span> <span class='st'>"treble_8"</span>,
-  <span class='kw'>ms_transpose</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>ms_key</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>no_tab</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>voice</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>lyrics</span> <span class='kw'>=</span> <span class='fl'>NA</span>
 )
 
-<span class='fu'>track_tc</span>(<span class='no'>phrase</span>, <span class='kw'>voice</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>ms_transpose</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>ms_key</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>lyrics</span> <span class='kw'>=</span> <span class='fl'>NA</span>)
+<span class='fu'>track_tc</span>(<span class='no'>phrase</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>voice</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>lyrics</span> <span class='kw'>=</span> <span class='fl'>NA</span>)
 
-<span class='fu'>track_bc</span>(<span class='no'>phrase</span>, <span class='kw'>voice</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>ms_transpose</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>ms_key</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>lyrics</span> <span class='kw'>=</span> <span class='fl'>NA</span>)
+<span class='fu'>track_bc</span>(<span class='no'>phrase</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>voice</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>lyrics</span> <span class='kw'>=</span> <span class='fl'>NA</span>)
 
-<span class='fu'>track_bass</span>(<span class='no'>phrase</span>, <span class='kw'>voice</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>ms_transpose</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>ms_key</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>lyrics</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
+<span class='fu'>track_bass</span>(<span class='no'>phrase</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>voice</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>lyrics</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -264,40 +262,30 @@
       <td><p>a phrase object.</p></td>
     </tr>
     <tr>
+      <th>clef</th>
+      <td><p>character, include a music staff with the given clef.
+<code>NA</code> to suppress. See details.</p></td>
+    </tr>
+    <tr>
+      <th>key</th>
+      <td><p>character, key signature for music staff. See details.</p></td>
+    </tr>
+    <tr>
+      <th>tab</th>
+      <td><p>logical, include tablature staff. <code>NA</code> to suppress.</p></td>
+    </tr>
+    <tr>
       <th>tuning</th>
-      <td><p>character, space-delimited pitches describing the instrument
-string tuning or a predefined tuning ID (see <code><a href='tunings.html'>tunings</a></code>).
-Defaults to standard guitar tuning. Tick or integer octave numbering
-accepted for custom tuning entries. Not relevant if tablature staff is
+      <td><p>character, pitches describing the instrument string tuning or
+a predefined tuning ID (see <code><a href='tunings.html'>tunings</a></code>).
+Defaults to standard guitar tuning; not relevant if tablature staff is
 suppressed.</p></td>
     </tr>
     <tr>
       <th>voice</th>
       <td><p>integer, ID indicating the unique voice <code>phrase</code> belongs
 to within a single track (another track may share the same tab/music staff
-but have a different voice ID).</p></td>
-    </tr>
-    <tr>
-      <th>music_staff</th>
-      <td><p>add a standard sheet music staff above the tablature
-staff. See details.</p></td>
-    </tr>
-    <tr>
-      <th>ms_transpose</th>
-      <td><p>integer, positive or negative number of semitones to
-transpose an included music staff relative to the tablature staff.
-See details.</p></td>
-    </tr>
-    <tr>
-      <th>ms_key</th>
-      <td><p>character, specify the new key signature for a transposed music
-staff. See details.</p></td>
-    </tr>
-    <tr>
-      <th>no_tab</th>
-      <td><p>logical, suppress the default guitar tablature so that only a
-standard music staff is associated with the track. Ignored if
-<code>music_staff = NA</code>.</p></td>
+but have a different voice ID). Up to two voices are supported per track.</p></td>
     </tr>
     <tr>
       <th>lyrics</th>
@@ -307,7 +295,7 @@ standard music staff is associated with the track. Ignored if
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a track table.</p>
+    <p>a tibble data frame</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Musical phrases generated by <code><a href='phrase.html'>phrase</a></code> are fortified in a track
@@ -317,32 +305,15 @@ table consists of a single track.
 See <code><a href='trackbind.html'>trackbind</a></code> for merging single tracks into a multi-track
 table. This is row binding that also properly preserves phrase and track
 classes.</p>
-<p>The default for an additional music staff is <code>"treble_8"</code> for 8va
-treble clef, which is commonly displayed in guitar tablature above
-the tablature staff to include precise rhythm and timing information.
-Note that guitar is a transposing instrument. For this reason, the default
-ID is <code>"treble_8"</code>, not <code>"treble"</code>. However, there are other
-<code>track_*</code> functions that have different default arguments. See examples.</p>
-<p>Set <code>music_staff = NA</code> to suppress the additional music staff above
-the tablature staff.
-This is appropriate for simple patterns where there are already multiple
-tracks and the additional space required for two staves per instrument is
-unnecessary and wasteful.</p>
-<p>The arguments <code>ms_transpose</code> and <code>ms_key</code> pertain to the
-transposition of the music staff relative to the tab staff if
-<code>music_staff</code> is not <code>NA</code>. These arguments default to 0 and
-<code>NA</code>, respectively.
-The transposition and new key are simply stored in the <code>ms_transpose</code>
-and <code>ms_key</code> columns in the resulting track table.
-This information is used by <code>lilypond</code> or <code>tab</code> to transpose the
-music staff relative to the tab staff at the time of LilyPond file
-generation.
-Non-zero semitone transposition works without providing an explicit new key
-signature, but it is recommended to specify because it helps ensure the
-correct selection of accidentals in the output.
-As with the <code><a href='transpose.html'>transpose</a></code> function, you can simply specify
-<code>key = "flat"</code> or <code>key = "sharp"</code>. The exact key signature is not
-required; it is merely more clear and informative for the user.</p>
+<p>There are various <code>track_*</code> functions offering sensible defaults based
+on the function suffix. The original <code>track</code> function is equivalent to
+<code>track_guitar</code>. See examples. Setting <code>clef = NA</code> or
+<code>tab = NA</code> suppresses the music staff or tablature staff,
+respectively. By default <code>key = NA</code>, in which
+case its inherits the global key from the <code>key</code> argument of various
+sheet music rendering functions. If planning to bind two tracks as one where
+they are given <code>voice = 1</code> and <code>voice = 2</code>, respectively, they
+must also have a common key, even if <code>key = NA</code>.</p>
 <p><code>lyrics</code> should only be used for simple tracks that do not contain
 repeats. You also need to ensure the timesteps for <code>lyrics</code> align with
 those of <code>phrase</code> in advance. Additionally, LilyPond does not engrave
@@ -351,24 +322,27 @@ Therefore, if <code>phrase</code> contains rests and tied notes then the lyrics
 object should be subset to exclude these timesteps as well.
 This is in contrast to using <code>render_music*</code> functions, which handle
 this automatically for music objects.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='phrase.html'>phrase</a></code>, <code><a href='score.html'>score</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='st'>"c ec'g' ec'g'"</span>, <span class='st'>"4 4 2"</span>, <span class='st'>"5 4 4"</span>)
-<span class='fu'>track</span>(<span class='no'>x</span>) <span class='co'># same as track_guitar(x); 8va treble clef above tab staff</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 x 8</span><span>
-#&gt;   phrase   tuning         voice staff    ms_transpose ms_key tab   lyrics
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> </span><span style='color: #949494;'>&lt;phrase&gt;</span><span> e, a, d g b e'     1 treble_8            0 </span><span style='color: #BB0000;'>NA</span><span>     TRUE  </span><span style='color: #BB0000;'>NA</span><span>    </div><div class='input'><span class='fu'>track_tc</span>(<span class='no'>x</span>) <span class='co'># treble clef sheet music, no tab staff</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 1 x 8</span><span>
-#&gt;   phrase   tuning         voice staff  ms_transpose ms_key tab   lyrics
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> </span><span style='color: #949494;'>&lt;phrase&gt;</span><span> e, a, d g b e'     1 treble            0 </span><span style='color: #BB0000;'>NA</span><span>     FALSE </span><span style='color: #BB0000;'>NA</span><span>    </div><div class='input'><span class='fu'>track_bc</span>(<span class='no'>x</span>) <span class='co'># bass clef sheet music, no tab staff</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 1 x 8</span><span>
-#&gt;   phrase   tuning         voice staff ms_transpose ms_key tab   lyrics
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> </span><span style='color: #949494;'>&lt;phrase&gt;</span><span> e, a, d g b e'     1 bass             0 </span><span style='color: #BB0000;'>NA</span><span>     FALSE </span><span style='color: #BB0000;'>NA</span><span>    </div><div class='input'>
+<span class='fu'>track</span>(<span class='no'>x</span>) <span class='co'># same as track_guitar(x); 8va treble clef above tab staff</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1 x 7</span><span>
+#&gt;   phrase   clef     key   tab   tuning    voice lyrics
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
+#&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>&lt;phrase&gt;</span><span> treble_8 </span><span style='color: #BB0000;'>NA</span><span>    TRUE  e,a,dgbe'     1 </span><span style='color: #BB0000;'>NA</span><span>    </div><div class='input'><span class='fu'>track_tc</span>(<span class='no'>x</span>) <span class='co'># treble clef sheet music, no tab staff</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 7</span><span>
+#&gt;   phrase   clef   key   tab   tuning    voice lyrics
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
+#&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>&lt;phrase&gt;</span><span> treble </span><span style='color: #BB0000;'>NA</span><span>    FALSE e,a,dgbe'     1 </span><span style='color: #BB0000;'>NA</span><span>    </div><div class='input'><span class='fu'>track_bc</span>(<span class='no'>x</span>) <span class='co'># bass clef sheet music, no tab staff</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 7</span><span>
+#&gt;   phrase   clef  key   tab   tuning    voice lyrics
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
+#&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>&lt;phrase&gt;</span><span> bass  </span><span style='color: #BB0000;'>NA</span><span>    FALSE e,a,dgbe'     1 </span><span style='color: #BB0000;'>NA</span><span>    </div><div class='input'>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='st'>"c, g,c g,c"</span>, <span class='st'>"4 4 2"</span>, <span class='st'>"3 2 2"</span>)
-<span class='fu'>track_bass</span>(<span class='no'>x</span>) <span class='co'># includes tab staff and standard bass tuning</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 1 x 8</span><span>
-#&gt;   phrase   tuning        voice staff  ms_transpose ms_key tab   lyrics
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> </span><span style='color: #949494;'>&lt;phrase&gt;</span><span> e,, a,, d, g,     1 bass_8            0 </span><span style='color: #BB0000;'>NA</span><span>     TRUE  </span><span style='color: #BB0000;'>NA</span><span>    </div></span></pre>
+<span class='fu'>track_bass</span>(<span class='no'>x</span>) <span class='co'># includes tab staff and standard bass tuning</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 7</span><span>
+#&gt;   phrase   clef   key   tab   tuning     voice lyrics
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
+#&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>&lt;phrase&gt;</span><span> bass_8 </span><span style='color: #BB0000;'>NA</span><span>    FALSE e,,a,,d,g,     1 </span><span style='color: #BB0000;'>NA</span><span>    </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -376,6 +350,7 @@ this automatically for music objects.</p>
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#details">Details</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

@@ -227,6 +227,7 @@
 <a href="#tabr-0399000" class="anchor"></a>tabr 0.3.9.9000<small> Unreleased </small>
 </h1>
 <ul>
+<li>Breaking change: major refactor of <code>track</code> function. No more relative transposed keys. Now takes an explicit <code>key</code> argument that overrides the global <code>key</code> from sheet music render functions. Other arguments simplified and rearranged.</li>
 <li>Refactored many package functions. Most behavior unchanged, but some breaking changes were made based on intentional shifts in perspective about what some functions should do and how the user should interact with them. This included changes to function arguments as well as some redefinition of what certain functions do.</li>
 <li>Substantial code optimization was done, overhauling much of the package in the process.</li>
 <li>Vectorized functions that previously only operated note by note.</li>

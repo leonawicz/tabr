@@ -53,7 +53,7 @@
 #' (default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for
 #' force on or off completely.
 #' @param endbar character, the end bar.
-#' @param midi logical, output midi file in addition to tablature.
+#' @param midi logical, output midi file in addition to sheet music.
 #' @param colors a named list of LilyPond element color overrides. See
 #' \code{lilypond} for details.
 #' @param crop_png logical, see \code{lilypond} for details.

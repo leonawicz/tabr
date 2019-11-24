@@ -8,16 +8,16 @@ p1 <- pc(pct(p("a", 1)), rp(p(notes, info)))
 p2 <- volta(p("r s a~ a c' c4 f5 f'' d4 a4 f' c'e_'g' c'e'g#'",
               "4. 4 8*9 2. 2"))
 x1 <- track(p1) %>% score()
-x2 <- track(p2, tuning = "DADGAD", ms_transpose = 1, ms_key = "flat") %>%
-  score()
-x3 <- track(pc(p1, p2), music_staff = NA) %>% score()
+x2 <- track(p2, tuning = "DADGAD", key = "c#") %>% score()
+x3 <- track(pc(p1, p2), clef = NA) %>% score()
 
 notes <- "a, b, c d e f g a"
 p1 <- p(notes, 8)
 p2 <- p(tp(notes, 7), 8)
 p3 <- p(tp(notes, -12), 8)
 x4 <- trackbind(track(p1, voice = 1),
-                track(p2, voice = 2), tabstaff = c(1, 1)) %>% score()
+                track(p2, voice = 2), id = c(1, 1)) %>% score()
+x5 <- trackbind(track(p1, key = "b_"), track(p2, key = "c#")) %>% score()
 
 chord_prep <- c("b_:m" = "x13321", "c/g" = "332o1o",
                 "b:m/f#" = "14 12 14 14 13 12", "r" = NA, "s" = NA)
@@ -37,30 +37,32 @@ test_that("chord_set returns as expected", {
 })
 
 chord_seq <- setNames(c(4, 4, 2), names(chords[1:3]))
-t1 <- trackbind(track(p1), track(p3, tuning = "bass", music_staff = "bass_8"))
+t1 <- trackbind(
+  track(p1, key = "f"),
+  track(p3, clef = "bass_8", key = "g", tuning = "bass")
+)
 
-x5 <- score(t1)
-x6 <- score(t1, chords)
-x7 <- score(t1, chord_seq = chord_seq)
-x8 <- score(t1, chords, chord_seq)
+x6 <- score(t1)
+x7 <- score(t1, chords)
+x8 <- score(t1, chord_seq = chord_seq)
+x9 <- score(t1, chords, chord_seq)
 
-x9 <- trackbind(
-  track(p1, voice = 1, no_tab = TRUE),
-  track(p2, voice = 2, no_tab = TRUE),
-  track(p3, tuning = "bass", music_staff = NA),
-  track(p3, tuning = "bass", music_staff = "bass_8", no_tab = TRUE),
-  tabstaff = c(1, 1, 2, 3)
+x10 <- trackbind(
+  track(p1, key = "d", tab = FALSE, voice = 1),
+  track(p2, key = "d", tab = FALSE, voice = 2),
+  track(p3, clef = NA, key = "g", tuning = "bass"),
+  track(p3, clef = "bass_8", key = "a", tab = FALSE, tuning = "bass"),
+  id = c(1, 1, 2, 3)
   ) %>%
   score()
 
-x10 <- trackbind(
-  track(p3, tuning = "bass", ms_transpose = 1, ms_key = "sharp"),
-  track(p3, tuning = "bass", music_staff = "bass_8", ms_transpose = 2,
-        ms_key = "sharp", no_tab = TRUE)
+x11 <- trackbind(
+  track(p3, key = "d#m", tuning = "bass"),
+  track(p3, clef = "bass_8", tab = FALSE, key = "e_", tuning = "bass")
 ) %>%
   score()
 
-x <- list(x1, x2, x3, x4, x5, x6, x7, x8, x9)
+x <- list(x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11)
 
 header <- list(
   title = "my title", subtitle = "subtitle", composer = "composer",
@@ -78,8 +80,8 @@ cl <- "NULL"
 test_that("track wrappers return as expected", {
   z <- phrase("a", 1)
   expect_false(track_tc(z)$tab)
-  expect_equal(track_bc(z)$staff, "bass")
-  expect_equal(track_bass(z)$staff, "bass_8")
+  expect_equal(track_bc(z)$clef, "bass")
+  expect_equal(track_bass(z)$clef, "bass_8")
 })
 
 test_that("lilypond wrapper runs without error", {
@@ -88,9 +90,6 @@ test_that("lilypond wrapper runs without error", {
   expect_is(lilypond(x2, out[1]), cl)
   purrr::walk(x, ~expect_is(lilypond(.x, out[1]), cl))
   purrr::walk(x, ~expect_is(lilypond(.x, out[1], simplify = FALSE), cl))
-  expect_warning(lilypond(x10, out[1]),
-                 paste("Multiple music staves with different transposed key",
-                       "signatures. MIDI output not transposed."))
   expect_error(lilypond(NULL, tempo = NULL, midi = TRUE),
                "Set an explicit `tempo` if `midi = TRUE`.")
   expect_is(lilypond(x1, out[1], tempo = NULL, midi = FALSE), cl)
@@ -143,11 +142,15 @@ test_that("tab wrapper runs without error", {
         string_names = FALSE, paper = paper, endbar = FALSE, midi = FALSE,
         keep_ly = FALSE), cl))
   purrr::walk(keys(), ~expect_is(
-    tab(x8, out[2], .x, "4/4", "4 = 120", header = header,
+    tab(x10, out[2], .x, "4/4", "4 = 120", header = header,
         string_names = TRUE, paper = paper, midi = FALSE,
         keep_ly = FALSE, simplify = FALSE), cl))
 
-  expect_is(tab(x8, out[2], "c#", "2/2", "4 = 110",
+  expect_is(tab(x7, out[2], "c#", "2/2", "4 = 110",
+                header = c(header[c(1, 3, 4)], metre = "meter"),
+                string_names = TRUE, paper = paper[1:5], endbar = FALSE,
+                midi = FALSE, keep_ly = FALSE), cl)
+  expect_is(tab(x10, out[2], "c#", "2/2", "4 = 110",
                 header = c(header[c(1, 3, 4)], metre = "meter"),
                 string_names = TRUE, paper = paper[1:5], endbar = FALSE,
                 midi = FALSE, keep_ly = FALSE), cl)
@@ -162,14 +165,14 @@ test_that("tab wrapper including lyrics runs without error", {
     trackbind(
       track(p("a e'", 4)),
       track(p("c' g'", 4), voice = 2, lyrics = as_lyrics(". G")),
-      tabstaff = 1)
+      id = 1)
   )
 
   s2 <- score(
     trackbind(
       track(p("a e'", 4), lyrics = as_lyrics("A E")),
       track(p("c' g'", 4), voice = 2, lyrics = as_lyrics(". G")),
-      tabstaff = 1)
+      id = 1)
   )
 
   s3 <- score(

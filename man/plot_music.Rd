@@ -11,9 +11,9 @@
 \usage{
 plot_music(
   music,
-  staff = "treble",
+  clef = "treble",
+  tab = FALSE,
   tuning = "standard",
-  no_tab = TRUE,
   string_names = NULL,
   header = NULL,
   paper = NULL,
@@ -27,7 +27,7 @@ plot_music_bc(music, header = NULL, paper = NULL, colors = NULL, res = 300)
 
 plot_music_tab(
   music,
-  staff = NA,
+  clef = NA,
   tuning = "standard",
   string_names = NULL,
   header = NULL,
@@ -59,12 +59,14 @@ plot_music_bass(
 \arguments{
 \item{music}{a music object.}
 
-\item{staff}{character, music staff setting. See \code{track} for details.}
+\item{clef}{character, include a music staff with the given clef.
+\code{NA} to suppress. See \code{track} for details.}
+
+\item{tab}{logical, include tablature staff. \code{NA} to suppress. See
+\code{track}.}
 
 \item{tuning}{character, string tuning, only applies to tablature. See
 \code{track}.}
-
-\item{no_tab}{logical, suppress tablature staff. See \code{track}.}
 
 \item{string_names}{label strings at beginning of tab staff. \code{NULL}
 (default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for
@@ -111,7 +113,7 @@ y <- as_music(y)
 \dontrun{
 if(tabr_options()$lilypond != ""){ # requires LilyPond installation
   plot_music(x)
-  plot_music(x, "treble_8", no_tab = FALSE)
+  plot_music(x, "treble_8", tab = TRUE)
 
   plot_music_tc(x)
   plot_music_bc(x)

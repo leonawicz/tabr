@@ -228,61 +228,62 @@
     <p>Bind together track tables by row.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>trackbind</span>(<span class='no'>...</span>, <span class='no'>tabstaff</span>)</pre>
+    <pre class="usage"><span class='fu'>trackbind</span>(<span class='no'>...</span>, <span class='no'>id</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p>track tables.</p></td>
+      <td><p>single-entry track data frames.</p></td>
     </tr>
     <tr>
-      <th>tabstaff</th>
-      <td><p>integer, ID vector indicating the tablature staff for each
-track. See details.</p></td>
+      <th>id</th>
+      <td><p>integer, ID vector indicating distinct tracks corresponding to
+distinct sheet music staves. See details.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a track table.</p>
+    <p>a tibble data frame</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function appends multiple track tables into a single track table for
 preparation of generating a multi-track score.
-<code>tabstaff</code> is used to separate music staves in the sheet
-music/tablature output. A track's <code>voice</code> is used to separate distinct
-voices within a common music staff.</p>
-<p>If not provided, the <code>tabstaff</code> ID automatically propagates <code>1:n</code>
+<code>id</code> is used to separate staves in the sheet music/tablature output.
+A track's <code>voice</code> is used to separate distinct voices within a common
+music staff.</p>
+<p>If not provided, <code>id</code> automatically propagates <code>1:n</code>
 for <code>n</code> tracks passed to <code>...</code> when binding these tracks together.
-This expresses the default assumption of one tab staff per track.
-This is the typical use case where each single <code>track</code> object being
-bound into a multi-<code>track</code> object is a fully separated track on its own
-staff.</p>
-<p>However, some tracks represent different voices that share the same staff.
-These should be assigned the same staff ID value, in which case you must
-provide the <code>tabstaff</code> argument.
+This expresses the default assumption of one staff or music/tab staff pair
+per track. This is the typical use case.</p>
+<p>Some tracks represent different voices that share the same staff.
+These should be assigned the same <code>id</code>, in which case you must
+provide the <code>id</code> argument. Up to two voices per track are supported.
 An error will be thrown if any two tracks have both the same <code>voice</code>
-and the same <code>tabstaff</code>. The pair must be unique. E.g.,
-provide <code>tabstaff = c(1, 1)</code> when you have two tracks with <code>voice</code>
+and the same <code>id</code>. The pair must be unique. E.g.,
+provide <code>id = c(1, 1)</code> when you have two tracks with <code>voice</code>
 equal to 1 and 2. See examples.</p>
 <p>Note that the actual ID values assigned to each track do not matter;
 only the order in which tracks are bound, first to last.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='phrase.html'>phrase</a></code>, <code><a href='track.html'>track</a></code>, <code><a href='score.html'>score</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='st'>"c ec'g' ec'g'"</span>, <span class='st'>"4 4 2"</span>, <span class='st'>"5 432 432"</span>)
 <span class='no'>x1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='track.html'>track</a></span>(<span class='no'>x</span>)
 <span class='no'>x2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='track.html'>track</a></span>(<span class='no'>x</span>, <span class='kw'>voice</span> <span class='kw'>=</span> <span class='fl'>2</span>)
-<span class='fu'>trackbind</span>(<span class='no'>x1</span>, <span class='no'>x1</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 9</span><span>
-#&gt;   phrase   tuning        voice staff   ms_transpose ms_key tab   lyrics tabstaff
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>&lt;phrase&gt;</span><span> e, a, d g b ~     1 treble~            0 </span><span style='color: #BB0000;'>NA</span><span>     TRUE  </span><span style='color: #BB0000;'>NA</span><span>            1
-#&gt; </span><span style='color: #555555;'>2</span><span> </span><span style='color: #555555;'>&lt;phrase&gt;</span><span> e, a, d g b ~     1 treble~            0 </span><span style='color: #BB0000;'>NA</span><span>     TRUE  </span><span style='color: #BB0000;'>NA</span><span>            2</div><div class='input'><span class='fu'>trackbind</span>(<span class='no'>x1</span>, <span class='no'>x2</span>, <span class='kw'>tabstaff</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 9</span><span>
-#&gt;   phrase   tuning        voice staff   ms_transpose ms_key tab   lyrics tabstaff
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>&lt;phrase&gt;</span><span> e, a, d g b ~     1 treble~            0 </span><span style='color: #BB0000;'>NA</span><span>     TRUE  </span><span style='color: #BB0000;'>NA</span><span>            1
-#&gt; </span><span style='color: #555555;'>2</span><span> </span><span style='color: #555555;'>&lt;phrase&gt;</span><span> e, a, d g b ~     2 treble~            0 </span><span style='color: #BB0000;'>NA</span><span>     TRUE  </span><span style='color: #BB0000;'>NA</span><span>            1</div></span></pre>
+<span class='fu'>trackbind</span>(<span class='no'>x1</span>, <span class='no'>x1</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 8</span><span>
+#&gt;   phrase   clef     key   tab   tuning    voice lyrics    id
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>&lt;phrase&gt;</span><span> treble_8 </span><span style='color: #BB0000;'>NA</span><span>    TRUE  e,a,dgbe'     1 </span><span style='color: #BB0000;'>NA</span><span>         1
+#&gt; </span><span style='color: #555555;'>2</span><span> </span><span style='color: #555555;'>&lt;phrase&gt;</span><span> treble_8 </span><span style='color: #BB0000;'>NA</span><span>    TRUE  e,a,dgbe'     1 </span><span style='color: #BB0000;'>NA</span><span>         2</div><div class='input'><span class='fu'>trackbind</span>(<span class='no'>x1</span>, <span class='no'>x2</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 8</span><span>
+#&gt;   phrase   clef     key   tab   tuning    voice lyrics    id
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>&lt;phrase&gt;</span><span> treble_8 </span><span style='color: #BB0000;'>NA</span><span>    TRUE  e,a,dgbe'     1 </span><span style='color: #BB0000;'>NA</span><span>         1
+#&gt; </span><span style='color: #555555;'>2</span><span> </span><span style='color: #555555;'>&lt;phrase&gt;</span><span> treble_8 </span><span style='color: #BB0000;'>NA</span><span>    TRUE  e,a,dgbe'     2 </span><span style='color: #BB0000;'>NA</span><span>         1</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -290,6 +291,7 @@ only the order in which tracks are bound, first to last.</p>
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#details">Details</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

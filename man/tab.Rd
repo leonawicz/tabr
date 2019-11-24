@@ -94,7 +94,7 @@ force on or off completely.}
 
 \item{endbar}{character, the end bar.}
 
-\item{midi}{logical, output midi file in addition to tablature.}
+\item{midi}{logical, output midi file in addition to sheet music.}
 
 \item{colors}{a named list of LilyPond element color overrides. See
 \code{lilypond} for details.}

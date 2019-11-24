@@ -17,7 +17,7 @@ chart.}
 placing chord diagrams above staves in time.}
 }
 \value{
-a score table.
+a tibble data frame
 }
 \description{
 Create a music score from a collection of tracks.
@@ -33,4 +33,7 @@ single track as a score object that can be rendered by \code{\link{tab}}.
 x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
 x <- track(x)
 score(x)
+}
+\seealso{
+\code{\link{phrase}}, \code{\link{track}}, \code{\link{trackbind}}
 }

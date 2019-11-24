@@ -49,22 +49,23 @@ header <- list(
 )
 
 txt <- c("DADGAD tuning with capo on 1st fret. Fingerpicking. Let ring.")
-tuning <- "d2 a2 d3 g3 a3 d4"
+tuning <- "d, a, d g a d'"
 
 # melody 1
-notes <- pc(pn("f3 d3 c3 d3 a3 d4", 2), "f3 g3 a3 d4 f3 d3 c3 a2")
+notes <- c(pn("f d c d a d'", 2), "f g a d' f d c a,")
 info <- purrr::map_chr(c("16(", notate("16(", txt)),
                        ~pc(.x, "16) 8 8 16 16 16( 16) 8 8 16 16 16- 16*7"))
 strings <- "4 4 5 4 2 1 4 4 5 4 2 1 4 4 2 1 4 4 5 5"
 p1 <-purrr::map(info, ~p(notes, .x, strings))
-e1 <- p("d3 a3 d4 c3 a2 f2 d2", "8 16 16 16( 16) 16( 16)", "4 2 1 5 5 6 6")
-e2 <- p("d3 a3 d4 c3 a2 f2 e2 d2", "8 16 16 16( 16) 16- 16( 1)", "4 2 1 5 5 6 6 6")
+e1 <- p("d a d' c a, f, d,", "8 16 16 16( 16) 16( 16)", "4 2 1 5 5 6 6")
+e2 <- p("d a d' c a, f, e, d,", "8 16 16 16( 16) 16- 16( 1)", "4 2 1 5 5 6 6 6")
 
 #melody 2
-p2 <- p("d3 a3 d4 f3 d3 c3", "8 16 16 16 16 8", "4 2 1 4 4 5")
+p2 <- p("d a d' f d c", "8 16*4 8", "4 2 1 4 4 5")
 
-p_all <- pc(pct(pc(p1[[2]], e1), 3), volta(pct(p2, 3), 1), p1[[1]], e1, p1[[1]], e2)
-track(p_all, tuning) %>% score() %>% tab("out.pdf", "dm", "4/4", "4 = 115", header)
+p_all <- c(pct(c(p1[[2]], e1), 3), volta(pct(p2, 3), 1), p1[[1]], e1, p1[[1]], e2)
+track(p_all, tuning = tuning) %>% score() %>% 
+  tab("out.pdf", "dm", "4/4", "4 = 115", header)
 ```
 
 You can see above that `notate` can often obstruct otherwise convenient opportunities for code reduction. Avoiding repeating the annotation means avoiding repeating whatever it is bound to.

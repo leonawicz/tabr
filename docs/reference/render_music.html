@@ -231,9 +231,9 @@
     <pre class="usage"><span class='fu'>render_music</span>(
   <span class='no'>music</span>,
   <span class='no'>file</span>,
-  <span class='kw'>staff</span> <span class='kw'>=</span> <span class='st'>"treble"</span>,
+  <span class='kw'>clef</span> <span class='kw'>=</span> <span class='st'>"treble"</span>,
+  <span class='kw'>tab</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>,
-  <span class='kw'>no_tab</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>string_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -274,7 +274,7 @@
 <span class='fu'>render_music_tab</span>(
   <span class='no'>music</span>,
   <span class='no'>file</span>,
-  <span class='kw'>staff</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>clef</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>,
   <span class='kw'>string_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -329,17 +329,19 @@
       <td><p>character, output file ending in .pdf or .png.</p></td>
     </tr>
     <tr>
-      <th>staff</th>
-      <td><p>character, music staff setting. See <code>track</code> for details.</p></td>
+      <th>clef</th>
+      <td><p>character, include a music staff with the given clef.
+<code>NA</code> to suppress. See <code>track</code> for details.</p></td>
+    </tr>
+    <tr>
+      <th>tab</th>
+      <td><p>logical, include tablature staff. <code>NA</code> to suppress. See
+<code>track</code>.</p></td>
     </tr>
     <tr>
       <th>tuning</th>
       <td><p>character, string tuning, only applies to tablature. See
 <code>track</code>.</p></td>
-    </tr>
-    <tr>
-      <th>no_tab</th>
-      <td><p>logical, suppress tablature staff. See <code>track</code>.</p></td>
     </tr>
     <tr>
       <th>string_names</th>
@@ -462,7 +464,7 @@ that has rests.</p>
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='st'>"a,,4;3*5 b,,- c, c,g,c~ c,g,c1 c4;1 g,;2 c,;3 g,;2 c,c1;31"</span>
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='music.html'>as_music</a></span>(<span class='no'>y</span>)
 
-<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='music.html'>as_music</a></span>(<span class='st'>"a,4 b, r c~ c2 d"</span>, <span class='kw'>lyrics</span> <span class='kw'>=</span> <span class='fu'><a href='lyrics.html'>as_lyrics</a></span>(<span class='st'>"A2 B2 Rest C3 . D3"</span>))
+<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='music.html'>as_music</a></span>(<span class='st'>"a,4 b, r c~ c2 d"</span>, <span class='kw'>lyrics</span> <span class='kw'>=</span> <span class='fu'><a href='lyrics.html'>as_lyrics</a></span>(<span class='st'>"A2 B2 . C3 . D3"</span>))
 
 <span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='kw'>if</span>(<span class='fu'><a href='tabr_options.html'>tabr_options</a></span>()$<span class='no'>lilypond</span> <span class='kw'>!=</span> <span class='st'>""</span>){ <span class='co'># requires LilyPond installation</span>
@@ -470,7 +472,7 @@ that has rests.</p>
   <span class='fu'>render_music</span>(<span class='no'>x</span>, <span class='no'>outfile</span>)
 
   <span class='no'>outfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='st'>"out.png"</span>)
-  <span class='fu'>render_music</span>(<span class='no'>x</span>, <span class='no'>outfile</span>, <span class='st'>"treble_8"</span>, <span class='kw'>no_tab</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+  <span class='fu'>render_music</span>(<span class='no'>x</span>, <span class='no'>outfile</span>, <span class='st'>"treble_8"</span>, <span class='kw'>tab</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
   <span class='fu'>render_music_tc</span>(<span class='no'>x</span>, <span class='no'>outfile</span>)
   <span class='fu'>render_music_bc</span>(<span class='no'>x</span>, <span class='no'>outfile</span>)

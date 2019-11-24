@@ -12,7 +12,7 @@ outfile2 <- file.path(tempdir(), "out.png")
 test_that("render functions run as expected", {
   expect_is(render_music(x, outfile1), "NULL")
 
-  expect_is(render_music(x, outfile2, "treble_8", no_tab = FALSE), "NULL")
+  expect_is(render_music(x, outfile2, "treble_8", tab = TRUE), "NULL")
 
   expect_is(render_music_tc(x, outfile2), "NULL")
   expect_is(render_music_bc(x, outfile2), "NULL")
@@ -33,7 +33,7 @@ test_that("plot wrappers run as expected", {
     png(outfile2)
     expect_is(plot_music(x), "NULL")
 
-    expect_is(plot_music(x, "treble_8", no_tab = FALSE), "NULL")
+    expect_is(plot_music(x, "treble_8", tab = TRUE), "NULL")
 
     expect_is(plot_music_tc(x), "NULL")
     expect_is(plot_music_bc(x), "NULL")

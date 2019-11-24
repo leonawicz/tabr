@@ -91,7 +91,7 @@ plot_fretboard <- function(string, fret, labels = NULL, mute = FALSE,
   if(length(string) != length(fret))
     stop("`string` and `fret` must have equal number of entries.",
          call. = FALSE)
-  o <- strsplit(.map_tuning(tuning), " ")[[1]]
+  o <- .split_chords(.map_tuning(tuning))
   if(is.logical(mute) & length(mute) == 1) mute <- rep(mute, length(string))
   if(is.numeric(mute)){
     mute0 <- mute
@@ -246,7 +246,7 @@ plot_chord <- function(chord, labels = NULL, label_size = 10,
     chord <- strsplit(chord, "")[[1]]
   }
   n <- length(chord)
-  n_strings <- length(strsplit(.map_tuning(tuning), " ")[[1]])
+  n_strings <- length(.split_chords(.map_tuning(tuning)))
   if(n > n_strings)
     stop("Cannot have more fret values than number of instrument strings.",
          call. = FALSE)

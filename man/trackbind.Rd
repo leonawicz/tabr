@@ -4,16 +4,16 @@
 \alias{trackbind}
 \title{Bind track tables}
 \usage{
-trackbind(..., tabstaff)
+trackbind(..., id)
 }
 \arguments{
-\item{...}{track tables.}
+\item{...}{single-entry track data frames.}
 
-\item{tabstaff}{integer, ID vector indicating the tablature staff for each
-track. See details.}
+\item{id}{integer, ID vector indicating distinct tracks corresponding to
+distinct sheet music staves. See details.}
 }
 \value{
-a track table.
+a tibble data frame
 }
 \description{
 Bind together track tables by row.
@@ -21,23 +21,21 @@ Bind together track tables by row.
 \details{
 This function appends multiple track tables into a single track table for
 preparation of generating a multi-track score.
-\code{tabstaff} is used to separate music staves in the sheet
-music/tablature output. A track's \code{voice} is used to separate distinct
-voices within a common music staff.
+\code{id} is used to separate staves in the sheet music/tablature output.
+A track's \code{voice} is used to separate distinct voices within a common
+music staff.
 
-If not provided, the \code{tabstaff} ID automatically propagates \code{1:n}
+If not provided, \code{id} automatically propagates \code{1:n}
 for \code{n} tracks passed to \code{...} when binding these tracks together.
-This expresses the default assumption of one tab staff per track.
-This is the typical use case where each single \code{track} object being
-bound into a multi-\code{track} object is a fully separated track on its own
-staff.
+This expresses the default assumption of one staff or music/tab staff pair
+per track. This is the typical use case.
 
-However, some tracks represent different voices that share the same staff.
-These should be assigned the same staff ID value, in which case you must
-provide the \code{tabstaff} argument.
+Some tracks represent different voices that share the same staff.
+These should be assigned the same \code{id}, in which case you must
+provide the \code{id} argument. Up to two voices per track are supported.
 An error will be thrown if any two tracks have both the same \code{voice}
-and the same \code{tabstaff}. The pair must be unique. E.g.,
-provide \code{tabstaff = c(1, 1)} when you have two tracks with \code{voice}
+and the same \code{id}. The pair must be unique. E.g.,
+provide \code{id = c(1, 1)} when you have two tracks with \code{voice}
 equal to 1 and 2. See examples.
 
 Note that the actual ID values assigned to each track do not matter;
@@ -48,5 +46,8 @@ x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
 x1 <- track(x)
 x2 <- track(x, voice = 2)
 trackbind(x1, x1)
-trackbind(x1, x2, tabstaff = c(1, 1))
+trackbind(x1, x2, id = c(1, 1))
+}
+\seealso{
+\code{\link{phrase}}, \code{\link{track}}, \code{\link{score}}
 }
