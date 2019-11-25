@@ -1,10 +1,13 @@
 context("snippet")
 
-x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"
+x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 r g;4 c;5 ce'1;51"
 x <- as_music(x)
 
-y <- "a,,4;3*5 b,,4- c,4 c,g,c~4 c,g,c1 c4;1 g,;2 c,;3 g,;2 c,c1;31"
+y <- "a,,4;3*5 b,,4- c,4 c,g,c4 c,g,c1 c4;1 g,;2 c,;3 g,;2 c,c1;31"
 y <- as_music(y)
+l <- lyrics_template(y)
+l[2:3] <- c("some", "lyrics")
+y <- as_music(y, lyrics = l)
 
 outfile1 <- file.path(tempdir(), "out.pdf")
 outfile2 <- file.path(tempdir(), "out.png")
