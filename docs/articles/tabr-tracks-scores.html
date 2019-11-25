@@ -226,7 +226,7 @@
 <div id="multiple-tracks" class="section level2">
 <h2 class="hasAnchor">
 <a href="#multiple-tracks" class="anchor"></a>Multiple tracks</h2>
-<p>In general, multiple tracks are automatically designated for unique staves. The default when track binding is to iterate the <code>id</code> entries for each track table row unless you specify otherwise and to keep a constant single <code>voice</code> in each staff.</p>
+<p>Multiple tracks are automatically designated for unique staves. The default when track binding is to iterate the <code>id</code> entries for each track table row unless you specify otherwise and to keep a constant single <code>voice</code> in each staff.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">t1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"c'' d'' e'' f'' g''"</span>, <span class="st">"1 2 4 4 1"</span>, <span class="dv">5</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>()</a>
 <a class="sourceLine" id="cb4-2" title="2">t2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(p1)</a>
 <a class="sourceLine" id="cb4-3" title="3"><span class="kw"><a href="../reference/trackbind.html">trackbind</a></span>(t1, t2)</a></code></pre></div>
