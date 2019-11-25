@@ -54,7 +54,7 @@ trackbind(track(p1, clef = NA), track(p1, key = "g", tab = FALSE))
 
 ## Multiple tracks
 
-In general, multiple tracks are automatically designated for unique tablature and corresponding music staves. The default when track binding is to iterate the `id` entries for each track table row unless you specify otherwise and to keep a constant single `voice` in each music staff.
+In general, multiple tracks are automatically designated for unique staves. The default when track binding is to iterate the `id` entries for each track table row unless you specify otherwise and to keep a constant single `voice` in each staff.
 
 ```{r track2}
 t1 <- p("c'' d'' e'' f'' g''", "1 2 4 4 1", 5) %>% track()
