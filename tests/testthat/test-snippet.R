@@ -13,6 +13,8 @@ outfile1 <- file.path(tempdir(), "out.pdf")
 outfile2 <- file.path(tempdir(), "out.png")
 
 test_that("render functions run as expected", {
+  skip_on_appveyor()
+  skip_on_cran()
   expect_is(render_music(x, outfile1), "NULL")
 
   expect_is(render_music(x, outfile2, "treble_8", tab = TRUE), "NULL")
