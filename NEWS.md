@@ -1,4 +1,4 @@
-# tabr 0.3.9.9000
+# tabr 0.4.0
 
 * Breaking change: major refactor of `track` function. No more relative transposed keys. Now takes an explicit `key` argument that overrides the global `key` from sheet music render functions. Other arguments simplified and rearranged.
 * Refactored many package functions. Most behavior unchanged, but some breaking changes were made based on intentional shifts in perspective about what some functions should do and how the user should interact with them. This included changes to function arguments as well as some redefinition of what certain functions do.

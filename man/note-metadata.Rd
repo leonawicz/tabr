@@ -115,8 +115,8 @@ n_chords(x)
 n_octaves(x)
 chord_size(x)
 
-# Type is mixed in \\code{x} but is inferred under default conversion rules.
-# These check \\code{x} once validated and coerced to 'noteworthy' class.
+# Type is mixed in \code{x} but is inferred under default conversion rules.
+# These check \code{x} once validated and coerced to 'noteworthy' class.
 octave_type(x)
 accidental_type(x)
 # The default is tick octaves and flats

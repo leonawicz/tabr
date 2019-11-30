@@ -40,7 +40,7 @@ Note that while lyrics always shows as an attribute even when \code{NA},
 object construction from a new character string.
 }
 \examples{
-# Starting string = 5: use \\code{;5}. Carries over until an explicit change.
+# Starting string = 5: use ';5'. Carries over until an explicit change.
 x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"
 x <- as_music(x)
 

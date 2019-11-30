@@ -57,7 +57,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -400,7 +400,7 @@
 <a class="sourceLine" id="cb5-35" title="35"><span class="co">#&gt;   Values: a2 c# e a c#4 e4</span></a>
 <a class="sourceLine" id="cb5-36" title="36"><span class="kw"><a href="reference/note-summaries.html">distinct_pitches</a></span>(x) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/pitch_freq.html">pitch_freq</a></span>() <span class="co"># in Hz</span></a>
 <a class="sourceLine" id="cb5-37" title="37"><span class="co">#&gt; [1] 110.0000 138.5913 164.8138 220.0000 277.1826 329.6276</span></a></code></pre></div>
-<p>There is also a <code>noteinfo</code> class and a <code>music</code> class. You can learn more in the vignettes.</p>
+<p>There is also a <code>noteinfo</code> class and a <code>music</code> class. You can learn more in the vignettes. The <code>music</code> class is particularly useful for efficient music data entry and basic transcription tasks.</p>
 </div>
 <div id="tidy-music-analysis" class="section level2">
 <h2 class="hasAnchor">
@@ -463,11 +463,10 @@
 <div id="constructing-a-musical-phrase" class="section level3">
 <h3 class="hasAnchor">
 <a href="#constructing-a-musical-phrase" class="anchor"></a>Constructing a musical phrase</h3>
-<p>A phrase here does not require a strict definition. Think of it as the smallest piece of musical structure you intend to string together. The first argument to <code>phrase</code> is a string describing notes of a specific pitch (or rests: “r”), separated in time by spaces. For chords, just remove spaces to indicate simultaneous notes. Integers are appended to indicate the octave number so that the pitch is unambiguous. For example, a rest followed by a sequence of notes might be given by <code>notes = "r a2 c3 f3 d3 a3 f3"</code>.</p>
+<p>A phrase here does not require a strict definition. Think of it as the smallest piece of musical structure you intend to string together. The first argument to <code>phrase</code> is a string describing notes of a specific pitch (or rests: “r”), separated in time by spaces. For chords, just remove spaces to indicate simultaneous notes. Integers are appended to indicate the octave number so that the pitch is unambiguous. For example, a rest followed by a sequence of notes might be given by <code>notes = "r a, c f d a f"</code>.</p>
 <p>The second argument is a similar string giving note metadata. In this example there is nothing to add but the time durations. Whole notes taking up an entire measure of music are given by 1, half notes by 2, quarter notes 4, eighth notes 8, and so on. To specify a quarter note rest followed by a sequence of eighth notes, use <code>info = "4 8 8 8 8 8 8"</code> (or shorten to just <code>info = "4 8*6"</code>). This basic example does not require specifying additional note information such as dotted notes for different fractions of time, staccato notes, ties/slurs, slides, bends, hammer ons and pull offs, etc. These specifications are covered in the vignette tutorials.</p>
-<p>The third argument, <code>string</code>, is optional but very important for accurate guitar tablature. For general sheet music, this argument can be ignored. In similar format, it specifies the strings of the guitar (or other stringed, fretted instrument) on which notes are played. Providing this information fixes the fret-string combinations so that LilyPond does not have to guess what position on the neck of the guitar to play a specific note. An inability to specify this in various tablature notation software (or laziness by the user), is a common cause of inaccurate tabs scouring the internet, where even when the notes are correct they are written in the tab suggesting they be played in positions no one would sensibly use. Note that the <code>x</code> shown below is just a placeholder indicating no need to specify a string for the quarter note rest.</p>
-<p>The example below employs a couple shortcuts to further reduce typing. The first is to use the <code><a href="https://rdrr.io/r/base/Arithmetic.html">*</a></code> in-string expansion operator mentioned above to avoid typing a long series of eighth notes. Second, it drops explicit reference to octave number three since octave 3 is the default octave in LilyPond where it similarly does not need to be written explicitly. This applies to all but the first note below.</p>
-<p>While explicit string numbers are not needed for this example, they are provided anyway for full context. Dropping the <code>string</code> argument would further reduce typing.</p>
+<p>The third argument, <code>string</code> only applies to fretted string instruments and is always optional. In this example it specifies the strings of a guitar. Providing this information in conjunction with the pitch fixes the frets so that LilyPond does not have to guess them. Note that the <code>x</code> shown below is just a placeholder indicating no need to specify a string for the quarter note rest. You can put a string number there but it is ignored.</p>
+<p>Explicit string numbers are not needed for this example since is uses lowest fret numbers (the default). They are provided for a more complete example.</p>
 <p>This is the general approach, but there are multiple ways to create equivalent phrase objects in <code>tabr</code>.</p>
 </div>
 <div id="score-metadata-and-accessing-lilypond" class="section level3">
@@ -481,7 +480,7 @@
 <a href="#minimal-r-code-example" class="anchor"></a>Minimal R code example</h3>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tabr)</a>
 <a class="sourceLine" id="cb9-2" title="2"></a>
-<a class="sourceLine" id="cb9-3" title="3"><span class="kw"><a href="reference/phrase.html">p</a></span>(<span class="st">"r a2 c f d a f"</span>, <span class="st">"4 8*6"</span>, <span class="st">"x 5 5 4 4 3 4"</span>) <span class="op">%&gt;%</span><span class="st"> </span>track <span class="op">%&gt;%</span><span class="st"> </span>score <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="kw"><a href="reference/phrase.html">p</a></span>(<span class="st">"r a, c f d a f"</span>, <span class="st">"4 8*6"</span>, <span class="st">"x 5 5 4 4 3 4"</span>) <span class="op">%&gt;%</span><span class="st"> </span>track <span class="op">%&gt;%</span><span class="st"> </span>score <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb9-4" title="4"><span class="st">  </span><span class="kw"><a href="reference/tab.html">tab</a></span>(<span class="st">"phrase.pdf"</span>, <span class="dt">key =</span> <span class="st">"dm"</span>, <span class="dt">time =</span> <span class="st">"4/4"</span>, <span class="dt">tempo =</span> <span class="st">"4 = 120"</span>)</a></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="co">#&gt; #### Engraving score to phrase.pdf ####</span></a>
 <a class="sourceLine" id="cb10-2" title="2"><span class="co">#&gt; GNU LilyPond 2.18.2</span></a>
@@ -501,12 +500,6 @@
 <p>
 
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex00.png?raw=true" class="centerimg" width="50%"></p>
-<p>For comparison, if you use string-fret specification to construct the above phrase, one way to do so is the following.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw"><a href="reference/sf_phrase.html">sfp</a></span>(<span class="st">"r;r;4 5;0;8 3 4;3; 0 3;2; 4;3;"</span>)</a>
-<a class="sourceLine" id="cb11-2" title="2"><span class="co">#&gt; &lt;Musical phrase&gt;</span></a>
-<a class="sourceLine" id="cb11-3" title="3"><span class="co">#&gt; r4 &lt;a,\5&gt;8 &lt;c\5&gt;8 &lt;f\4&gt;8 &lt;d\4&gt;8 &lt;a\3&gt;8 &lt;f\4&gt;8</span></a></code></pre></div>
-<p>It may not look particularly beneficial here, but for more complex music it can be easier to reason about the phrase under construction when using this format to bind information by time step rather by information type. See <code><a href="reference/sf_phrase.html">?sf_phrase</a></code> for a comparison with <code>phrase</code> and the various ways you can do phrase construction in <code>tabr</code> for equivalent results. If you are looking to do quick, easy and basic tabbing, you may want to consider using the single-argument input method of the <code>sf_phrase</code> function. The package vignettes focus on general use cases using the <code>phrase</code> function rather than <code>sf_phrase</code>.</p>
-<p>Note above that <code>tabr</code> also exports the pipe <code><a href="reference/pipe.html">%&gt;%</a></code> operator. Even given the hierarchy of objects involved in the series of steps to move from a phrase to a rendered pdf, a short example like this does not even require a single assignment. While music can be quite complex and a full score will be much longer, <code>tabr</code> strives to minimize the work while still forcing some sense of interpretable, organized structure. For long and complex music, it can require some effort and practice to ensure your approach to transcription in your R code is not opaque.</p>
 </div>
 </div>
 <div id="references-and-resources" class="section level2">
@@ -541,7 +534,7 @@ provides package introductions and examples.
 <li>The <a href="https://CRAN.R-project.org/package=tuneR">tuneR</a> package for analysis of music and speech by Uwe Ligges, Sebastian Krey, Olaf Mersmann, and Sarah Schnackenberg.</li>
 </ul>
 <hr>
-<p>Please note that the <code>tabr</code> project is released with a <a href="https://leonawicz.github.io/tabr/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+<p>Please note that the <code>tabr</code> project is released with a <a href="https://github.com/leonawicz/tabr/blob/master/CODE_OF_CONDUCT.md">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
 </div>
 </div>

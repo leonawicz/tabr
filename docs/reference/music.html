@@ -91,7 +91,7 @@ noteworthy string and a note info string." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -379,7 +379,7 @@ retains only notes, note info and string numbers.</p>
 #&gt;   Lyrics: </span><span>. . These are some song ly- rics . ...</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>a#</span><span style='color: #BBBB00;'>4-+</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>a#</span><span style='color: #BBBB00;'>4[staccato]</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>c,</span><span style='color: #BBBB00;'>4x</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>d''</span><span style='color: #BBBB00;'>t8(</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>e</span><span style='color: #BBBB00;'>t8)(</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>f#'</span><span style='color: #BBBB00;'>t8)-</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #BBBB00;'>4</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>c,d#,g,</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>4</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>cd#g</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>4.</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>a~</span><span style='color: #BBBB00;'>8</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #BBBB00;'>1</span><span></div><div class='input'>
-<span class='co'># Starting string = 5: use \code{;5}. Carries over until an explicit change.</span>
+<span class='co'># Starting string = 5: use ';5'. Carries over until an explicit change.</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"a,4;5*5 b,4-+ c4[staccato] cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as_music_df.html'>as_music_df</a></span>(<span class='fu'>as_music</span>(<span class='no'>x</span>))
 <span class='no'>x</span>$<span class='no'>string</span></div><div class='output co'>#&gt;  [1] "5"    "5"    "5"    "5"    "5"    "5"    "5"    "5432" "5432" "2"   

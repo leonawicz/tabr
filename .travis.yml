@@ -10,16 +10,14 @@ before_install:
     - wget -q http://download.linuxaudio.org/lilypond/binaries/linux-64/lilypond-2.18.2-1.linux-64.sh
     - sudo sh lilypond-2.18.2-1.linux-64.sh --batch
 
-r_packages:
-    - formatR
-
-notifications:
-  webhooks:
-    urls:
-      - https://webhooks.gitter.im/e/070543d2c2d6a3d016d4
-    on_success: change
-    on_failure: always
-    on_start: never
-
-after_success:
-    - Rscript -e 'covr::codecov(function_exclusions = "\\.onLoad$", line_exclusions = list("R/tabr.R" = c(151:155, 167), "R/snippet.R" = 388:390, "R/lp_render.R" = c(104, 109, 267, 272), "R/midi.R" = c(85, 166, 171, 231:232)))'
+matrix:
+  include:
+   - r: release
+     after_success:
+       - Rscript -e 'covr::codecov(function_exclusions = "\\.onLoad$", line_exclusions = list("R/tabr.R" = c(151:155, 167), "R/snippet.R" = 388:390, "R/lp_render.R" = c(104, 109, 267, 272), "R/midi.R" = c(85, 166, 171, 231:232)))'
+   - r: devel
+     r_build_args: --no-build-vignettes
+     r_check_args: --ignore-vignettes --no-examples
+   - r: oldrel
+     r_build_args: --no-build-vignettes
+     r_check_args: --ignore-vignettes --no-examples

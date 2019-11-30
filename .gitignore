@@ -4,13 +4,9 @@
 .Ruserdata
 inst/doc
 testing
-phrase.*
 docs/*.mid
 docs/*.pdf
-phrase.mid
-phrase.pdf
 docs/reference/out.ly
-docs/clone_notes.html
 vignettes/jesper*
 vignettes/Gin*
 README.html

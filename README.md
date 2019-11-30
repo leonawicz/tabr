@@ -380,7 +380,8 @@ distinct_pitches(x) %>% pitch_freq() # in Hz
 ```
 
 There is also a `noteinfo` class and a `music` class. You can learn more
-in the vignettes.
+in the vignettes. The `music` class is particularly useful for efficient
+music data entry and basic transcription tasks.
 
 ## Tidy music analysis
 
@@ -496,7 +497,7 @@ pitch (or rests: “r”), separated in time by spaces. For chords, just
 remove spaces to indicate simultaneous notes. Integers are appended to
 indicate the octave number so that the pitch is unambiguous. For
 example, a rest followed by a sequence of notes might be given by `notes
-= "r a2 c3 f3 d3 a3 f3"`.
+= "r a, c f d a f"`.
 
 The second argument is a similar string giving note metadata. In this
 example there is nothing to add but the time durations. Whole notes
@@ -509,30 +510,17 @@ dotted notes for different fractions of time, staccato notes,
 ties/slurs, slides, bends, hammer ons and pull offs, etc. These
 specifications are covered in the vignette tutorials.
 
-The third argument, `string`, is optional but very important for
-accurate guitar tablature. For general sheet music, this argument can be
-ignored. In similar format, it specifies the strings of the guitar (or
-other stringed, fretted instrument) on which notes are played. Providing
-this information fixes the fret-string combinations so that LilyPond
-does not have to guess what position on the neck of the guitar to play a
-specific note. An inability to specify this in various tablature
-notation software (or laziness by the user), is a common cause of
-inaccurate tabs scouring the internet, where even when the notes are
-correct they are written in the tab suggesting they be played in
-positions no one would sensibly use. Note that the `x` shown below is
-just a placeholder indicating no need to specify a string for the
-quarter note rest.
+The third argument, `string` only applies to fretted string instruments
+and is always optional. In this example it specifies the strings of a
+guitar. Providing this information in conjunction with the pitch fixes
+the frets so that LilyPond does not have to guess them. Note that the
+`x` shown below is just a placeholder indicating no need to specify a
+string for the quarter note rest. You can put a string number there but
+it is ignored.
 
-The example below employs a couple shortcuts to further reduce typing.
-The first is to use the `*` in-string expansion operator mentioned above
-to avoid typing a long series of eighth notes. Second, it drops explicit
-reference to octave number three since octave 3 is the default octave in
-LilyPond where it similarly does not need to be written explicitly. This
-applies to all but the first note below.
-
-While explicit string numbers are not needed for this example, they are
-provided anyway for full context. Dropping the `string` argument would
-further reduce typing.
+Explicit string numbers are not needed for this example since is uses
+lowest fret numbers (the default). They are provided for a more complete
+example.
 
 This is the general approach, but there are multiple ways to create
 equivalent phrase objects in `tabr`.
@@ -556,7 +544,7 @@ LilyPond executable is at `C:/Program Files
 ``` r
 library(tabr)
 
-p("r a2 c f d a f", "4 8*6", "x 5 5 4 4 3 4") %>% track %>% score %>%
+p("r a, c f d a f", "4 8*6", "x 5 5 4 4 3 4") %>% track %>% score %>%
   tab("phrase.pdf", key = "dm", time = "4/4", tempo = "4 = 120")
 ```
 
@@ -582,34 +570,6 @@ The pdf output looks like this:
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex00.png?raw=true" class="centerimg" width="50%">
 
 </p>
-
-For comparison, if you use string-fret specification to construct the
-above phrase, one way to do so is the following.
-
-``` r
-sfp("r;r;4 5;0;8 3 4;3; 0 3;2; 4;3;")
-#> <Musical phrase>
-#> r4 <a,\5>8 <c\5>8 <f\4>8 <d\4>8 <a\3>8 <f\4>8
-```
-
-It may not look particularly beneficial here, but for more complex music
-it can be easier to reason about the phrase under construction when
-using this format to bind information by time step rather by information
-type. See `?sf_phrase` for a comparison with `phrase` and the various
-ways you can do phrase construction in `tabr` for equivalent results. If
-you are looking to do quick, easy and basic tabbing, you may want to
-consider using the single-argument input method of the `sf_phrase`
-function. The package vignettes focus on general use cases using the
-`phrase` function rather than `sf_phrase`.
-
-Note above that `tabr` also exports the pipe `%>%` operator. Even given
-the hierarchy of objects involved in the series of steps to move from a
-phrase to a rendered pdf, a short example like this does not even
-require a single assignment. While music can be quite complex and a full
-score will be much longer, `tabr` strives to minimize the work while
-still forcing some sense of interpretable, organized structure. For long
-and complex music, it can require some effort and practice to ensure
-your approach to transcription in your R code is not opaque.
 
 ## References and resources
 
@@ -648,5 +608,6 @@ provides package introductions and examples.
 -----
 
 Please note that the `tabr` project is released with a [Contributor Code
-of Conduct](https://leonawicz.github.io/tabr/CODE_OF_CONDUCT.html). By
-contributing to this project, you agree to abide by its terms.
+of
+Conduct](https://github.com/leonawicz/tabr/blob/master/CODE_OF_CONDUCT.md).
+By contributing to this project, you agree to abide by its terms.
