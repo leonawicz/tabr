@@ -34,26 +34,27 @@ A phrase here does not require a strict definition. Think of it as the smallest 
 
 The second argument is a similar string giving note metadata. In this example there is nothing to add but the time durations. Whole notes taking up an entire measure of music are given by 1, half notes by 2, quarter notes 4, eighth notes 8, and so on. To specify a quarter note rest followed by a sequence of eighth notes, use `info = "4 8 8 8 8 8 8"` (or shorten to just `info = "4 8*6"`). This basic example does not require specifying additional note information such as dotted notes for different fractions of time, staccato notes, ties/slurs, slides, bends, hammer ons and pull offs, etc. These specifications are covered in the vignette tutorials.
 
-The third argument, `string` only applies to fretted string instruments and is always optional. In this example it specifies the strings of a guitar. Providing this information in conjunction with the pitch fixes the frets so that LilyPond does not have to guess them. Note that the `x` shown below is just a placeholder indicating no need to specify a string for the quarter note rest. You can put a string number there but it is ignored.
+The third argument, `string` only applies to fretted string instruments and is always optional. In this example it specifies the strings of a guitar. Providing this information in conjunction with the pitch fixes the frets so that LilyPond does not have to guess them. This only applies for tablature output. Note that the `x` shown below is just a placeholder indicating no need to specify a string for the quarter note rest. You can put a string number there but it is ignored.
 
 Explicit string numbers are not needed for this example since is uses lowest fret numbers (the default). They are provided for a more complete example.
 
 This is the general approach, but there are multiple ways to create equivalent phrase objects in `tabr`.
 
 ```{r p1}
-phrase(notes = "r a2 c3 f3 d3 a3 f3", info = "4 8 8 8 8 8 8", string = "x 5 5 4 4 3 4")
+p1 <- phrase(notes = "r a, c f d a f", info = "4 8*6", string = "x 5 5 4 4 3 4")
+p1
 ```
-The print method for `phrase` uses `cat` rather than `print`. The phrase strings print more cleanly this way, given the preponderance of backslashes. This result shows (one way) how to write the LilyPond markup.
 
-Before going further, a brief aside on how there is no free lunch, no way to be completely unambiguous with the music notation while greatly restricting the amount of typing. Ultimately, every song is unique and must be written out differently in R just as in LilyPond or elsewhere. While doing this programmatically can be highly efficient for writing out new sections or editing existing sections of music that are highly repetitive, there will always be just as many instances of musical sequences that are not sufficiently repetitive, incorporating subtle deviations, or highly unpatterned sections like a guitar solo.
+As an aside, if you are working with the `music` class, you can enter notes, note info, and optionally string numbers if applicable, all in a single string. This is not only potentially much more efficient for data entry, but can also be easier to follow because it binds these otherwise separate arguments by timestep. See the vignettes and help documentation relating to music objects for more details on working with these objects.
 
-There is no way around it; even in cases where using `tabr` as a wrapper is much more convenient than typing out a LilyPond file directly, there can still be plenty of typing. Generic coding to avoid code duplication is helpful, but is never going to be a magical solution enabling extreme code reduction when writing all but the simplest and most boring musical scores.
+The phrase above can be constructed using the single-string input syntax that is used for music objects. `phrase` understands this syntax and interprets the `notes` argument as music syntax if the `info` argument is not provided (`info = NULL`). The phrase above could have been created as follows, with or without the optional explicit string numbering.
 
-In the interest of minimizing typing, there are several shortcuts available in `tabr`. The example below reproduces the same phrase. The first shortcut is to use the `*` in-string expansion operator mentioned above to avoid typing a long series of eighth notes. Second, drop explicit reference to octave number three since this central octave is the default octave in LilyPond. This applies to all but the first note. Explicit string numbers are also not needed for this phrase. Another thing that you can do is use the alias `p` for `phrase`. It is also fine to drop the argument names, as they will be used often and remembering them will not be difficult. Use all these shortcuts and store the phrase:
-
-```{r p2}
-p1 <- p("r a2 c f d a f", "4 8*6")
+```{r music}
+p("r4 a,8 c f d a f")
+p("r4;5 a,8 c f;4 d a;3 f;4")
 ```
+
+Notice how each timestep is complete within the single character string inputs above. Also, durations and string numbers can repeat implicitly until and explicit change occurs. String numbers are ignored when they carry over rests. This is often a more convenient way to construct phrases. If you already have a music object, it can be passed directly to `phrase`.
 
 ## Tracks
 

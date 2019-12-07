@@ -892,9 +892,9 @@ tail.lyrics <- function(x, ...){
   .aslyrics(x, format)
 }
 
-#' Logical operators for noteworthy class
+#' Relational operators for noteworthy class
 #'
-#' Logical operators for comparing two noteworthy class objects.
+#' Relational operators for comparing two noteworthy class objects.
 #'
 #' Equality is assessed in the same manner as used for \code{\link{note_sort}}
 #' when sorting pitches. What matters is the underlying semitone value

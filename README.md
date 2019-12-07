@@ -513,10 +513,10 @@ specifications are covered in the vignette tutorials.
 The third argument, `string` only applies to fretted string instruments
 and is always optional. In this example it specifies the strings of a
 guitar. Providing this information in conjunction with the pitch fixes
-the frets so that LilyPond does not have to guess them. Note that the
-`x` shown below is just a placeholder indicating no need to specify a
-string for the quarter note rest. You can put a string number there but
-it is ignored.
+the frets so that LilyPond does not have to guess them. This only
+applies for tablature output. Note that the `x` shown below is just a
+placeholder indicating no need to specify a string for the quarter note
+rest. You can put a string number there but it is ignored.
 
 Explicit string numbers are not needed for this example since is uses
 lowest fret numbers (the default). They are provided for a more complete
@@ -570,6 +570,39 @@ The pdf output looks like this:
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex00.png?raw=true" class="centerimg" width="50%">
 
 </p>
+
+### Music syntax
+
+As an aside, if you are working with the `music` class, you can enter
+notes, note info, and optionally string numbers if applicable, all in a
+single string. This is not only potentially much more efficient for data
+entry, but can also be easier to follow because it binds these otherwise
+separate arguments by timestep. See the vignettes and help documentation
+relating to music objects for more details on working with these
+objects.
+
+The phrase above can be constructed using the single-string input syntax
+that is used for music objects. `phrase` understands this syntax and
+interprets the `notes` argument as music syntax if the `info` argument
+is not provided (`info = NULL`). The phrase above could have been
+created as follows, with or without the optional explicit string
+numbering.
+
+``` r
+p("r4 a,8 c f d a f")
+#> <Musical phrase>
+#> r4 <a,>8 <c>8 <f>8 <d>8 <a>8 <f>8
+p("r4;5 a,8 c f;4 d a;3 f;4")
+#> <Musical phrase>
+#> r4 <a,\5>8 <c\5>8 <f\4>8 <d\4>8 <a\3>8 <f\4>8
+```
+
+Notice how each timestep is complete within the single character string
+inputs above. Also, durations and string numbers can repeat implicitly
+until and explicit change occurs. String numbers are ignored when they
+carry over rests. This is often a more convenient way to construct
+phrases. If you already have a music object, it can be passed directly
+to `phrase`.
 
 ## References and resources
 

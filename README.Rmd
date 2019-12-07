@@ -241,7 +241,7 @@ A phrase here does not require a strict definition. Think of it as the smallest 
 
 The second argument is a similar string giving note metadata. In this example there is nothing to add but the time durations. Whole notes taking up an entire measure of music are given by 1, half notes by 2, quarter notes 4, eighth notes 8, and so on. To specify a quarter note rest followed by a sequence of eighth notes, use `info = "4 8 8 8 8 8 8"` (or shorten to just `info = "4 8*6"`). This basic example does not require specifying additional note information such as dotted notes for different fractions of time, staccato notes, ties/slurs, slides, bends, hammer ons and pull offs, etc. These specifications are covered in the vignette tutorials.
 
-The third argument, `string` only applies to fretted string instruments and is always optional. In this example it specifies the strings of a guitar. Providing this information in conjunction with the pitch fixes the frets so that LilyPond does not have to guess them. Note that the `x` shown below is just a placeholder indicating no need to specify a string for the quarter note rest. You can put a string number there but it is ignored.
+The third argument, `string` only applies to fretted string instruments and is always optional. In this example it specifies the strings of a guitar. Providing this information in conjunction with the pitch fixes the frets so that LilyPond does not have to guess them. This only applies for tablature output. Note that the `x` shown below is just a placeholder indicating no need to specify a string for the quarter note rest. You can put a string number there but it is ignored.
 
 Explicit string numbers are not needed for this example since is uses lowest fret numbers (the default). They are provided for a more complete example.
 
@@ -254,10 +254,6 @@ Finally, specify some song metadata to reproduce the original staff: the key of 
 If LilyPond is installed on your system (and added to your system path variable on Windows systems), `tab` should call it successfully. Windows users are recommended to just add LilyPond's `bin` directory to the system path. This will take care of LilyPond as well as its bundled Python and MIDI support. As an example for Windows users, if the LilyPond executable is at `C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe`, then add `C:/Program Files (x86)/LilyPond/usr/bin` to the system path.
 
 ### Minimal R code example
-
-```{r opts, echo=FALSE}
-library(tabr)
-```
 
 ```{r ex1, results="hide", eval=FALSE}
 library(tabr)
@@ -288,6 +284,19 @@ cat(
 The pdf output looks like this:
 
 <p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex00.png?raw=true" class="centerimg" width="50%"></p>
+
+### Music syntax
+
+As an aside, if you are working with the `music` class, you can enter notes, note info, and optionally string numbers if applicable, all in a single string. This is not only potentially much more efficient for data entry, but can also be easier to follow because it binds these otherwise separate arguments by timestep. See the vignettes and help documentation relating to music objects for more details on working with these objects.
+
+The phrase above can be constructed using the single-string input syntax that is used for music objects. `phrase` understands this syntax and interprets the `notes` argument as music syntax if the `info` argument is not provided (`info = NULL`). The phrase above could have been created as follows, with or without the optional explicit string numbering.
+
+```{r music}
+p("r4 a,8 c f d a f")
+p("r4;5 a,8 c f;4 d a;3 f;4")
+```
+
+Notice how each timestep is complete within the single character string inputs above. Also, durations and string numbers can repeat implicitly until and explicit change occurs. String numbers are ignored when they carry over rests. This is often a more convenient way to construct phrases. If you already have a music object, it can be passed directly to `phrase`.
 
 ## References and resources
 

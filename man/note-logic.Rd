@@ -8,7 +8,7 @@
 \alias{<=.noteworthy}
 \alias{>.noteworthy}
 \alias{>=.noteworthy}
-\title{Logical operators for noteworthy class}
+\title{Relational operators for noteworthy class}
 \usage{
 \method{==}{noteworthy}(e1, e2)
 
@@ -31,7 +31,7 @@
 logical vector
 }
 \description{
-Logical operators for comparing two noteworthy class objects.
+Relational operators for comparing two noteworthy class objects.
 }
 \details{
 Equality is assessed in the same manner as used for \code{\link{note_sort}}
