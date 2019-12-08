@@ -224,6 +224,8 @@ render_music_bass <- function(music, file, tuning = "bass",
 }
 
 .prep_lyrics <- function(x){
+  y <- music_lyrics(x)
+  if(all(is.na(y))) return(y)
   i1 <- which(note_is_rest(x))
   i2 <- grep("~", as_vector_time(x))
   if(length(i2)){
@@ -231,7 +233,7 @@ render_music_bass <- function(music, file, tuning = "bass",
     i2 <- i2[i2 %in% seq_along(x)]
     i1 <- unique(c(i1, i2))
   }
-  if(length(i1)) music_lyrics(x)[-i1] else music_lyrics(x)
+  if(length(i1)) y[-i1] else y
 }
 
 .paper_snippet <- function(x){

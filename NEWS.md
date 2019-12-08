@@ -1,3 +1,9 @@
+# tabr 0.4.1
+
+* Fixed bug relating to multiple labels to `as_music`.
+* Fixed bug where lyrics were not parsed correctly when rests present for music object rendering functions.
+* Documentation updates.
+
 # tabr 0.4.0
 
 * Breaking change: major refactor of `track` function. No more relative transposed keys. Now takes an explicit `key` argument that overrides the global `key` from sheet music render functions. Other arguments simplified and rearranged.

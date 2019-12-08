@@ -160,7 +160,7 @@ as_music <- function(notes, info = NULL, lyrics = NA, key = "c", time = "4/4",
   attributes(x) <- ax[names(ax) != "class"]
   class(x) <- unique(c("music", class(x)))
   if(inherits(labels, "character") & length(labels) == length(at)){
-    x[at] <- sapply(x[at], notate, text = labels)
+    x[at] <- purrr::map2_chr(as_vector_time(x)[at], labels, ~notate(.x, .y))
   }
   x
 }
