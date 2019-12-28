@@ -88,7 +88,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
       </span>
     </div>
 
@@ -222,9 +222,27 @@
       <small>Source: <a href='https://github.com/leonawicz/tabr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="tabr-041" class="section level1">
+<h1 class="page-header">
+<a href="#tabr-041" class="anchor"></a>tabr 0.4.1<small> Unreleased </small>
+</h1>
+<ul>
+<li>Fixed bug relating to multiple labels to <code>as_music</code>.</li>
+<li>Fixed bug where lyrics were not parsed correctly when rests present for music object rendering functions.</li>
+<li>Fixed bug where an explicitly added bar inside quotes failed due to a line break inside the string.</li>
+<li>Added better support for a variety of line breaks.
+<ul>
+<li>The <code>bar</code> argument to <code>phrase</code> (and associated functions) is now <code>NULL</code> by default, or character, rather than simply <code>TRUE</code> or <code>FALSE</code>. If a string is provided, it is interpreted as LilyPond bar notation. E.g., <code>bar = "|"</code> adds the LilyPond syntax <code>\bar "|"</code> to the end of a phrase.</li>
+<li>If only a bar check is desired, <code>TRUE</code> is still accepted and will insert a bar check only rather than a literal bar. <code>FALSE</code> is treated as <code>NULL</code> for completeness.</li>
+</ul>
+</li>
+<li>Unit test updates.</li>
+<li>Documentation updates.</li>
+</ul>
+</div>
     <div id="tabr-040" class="section level1">
 <h1 class="page-header">
-<a href="#tabr-040" class="anchor"></a>tabr 0.4.0<small> Unreleased </small>
+<a href="#tabr-040" class="anchor"></a>tabr 0.4.0<small> 2019-12-03 </small>
 </h1>
 <ul>
 <li>Breaking change: major refactor of <code>track</code> function. No more relative transposed keys. Now takes an explicit <code>key</code> argument that overrides the global <code>key</code> from sheet music render functions. Other arguments simplified and rearranged.</li>
@@ -384,6 +402,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#tabr-041">0.4.1</a></li>
         <li><a href="#tabr-040">0.4.0</a></li>
         <li><a href="#tabr-035">0.3.5</a></li>
         <li><a href="#tabr-031">0.3.1</a></li>

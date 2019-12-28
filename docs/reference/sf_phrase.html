@@ -100,7 +100,7 @@ once it is done being used to help derive notes." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
       </span>
     </div>
 
@@ -257,7 +257,7 @@ once it is done being used to help derive <code>notes</code>.</p>
   <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>,
   <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>,
   <span class='kw'>to_notes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>bar</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>bar</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )
 
 <span class='fu'>sfp</span>(
@@ -267,7 +267,7 @@ once it is done being used to help derive <code>notes</code>.</p>
   <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>,
   <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>,
   <span class='kw'>to_notes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>bar</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>bar</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )
 
 <span class='fu'>sf_note</span>(<span class='no'>...</span>)
@@ -311,7 +311,9 @@ rather than the entire phrase object.</p></td>
     </tr>
     <tr>
       <th>bar</th>
-      <td><p>logical, insert a bar check at the end of the phrase.</p></td>
+      <td><p>character or <code>NULL</code> (default). Terminates the phrase with a
+bar or bar check. See details for <code><a href='phrase.html'>phrase</a></code>. Also see the
+LilyPond help documentation on bar notation for all the valid options.</p></td>
     </tr>
     <tr>
       <th>...</th>
