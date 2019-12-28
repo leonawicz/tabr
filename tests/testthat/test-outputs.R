@@ -139,8 +139,8 @@ test_that("tab wrapper runs without error", {
 
   purrr::walk(keys(), ~expect_is(
     tab(x8, out[2], .x, "2/2", "4 = 110", header = header,
-        string_names = FALSE, paper = paper, endbar = FALSE, midi = FALSE,
-        keep_ly = FALSE), cl))
+        string_names = FALSE, paper = paper, midi = FALSE, keep_ly = FALSE),
+    cl))
   purrr::walk(keys(), ~expect_is(
     tab(x10, out[2], .x, "4/4", "4 = 120", header = header,
         string_names = TRUE, paper = paper, midi = FALSE,
@@ -148,12 +148,12 @@ test_that("tab wrapper runs without error", {
 
   expect_is(tab(x7, out[2], "c#", "2/2", "4 = 110",
                 header = c(header[c(1, 3, 4)], metre = "meter"),
-                string_names = TRUE, paper = paper[1:5], endbar = FALSE,
-                midi = FALSE, keep_ly = FALSE), cl)
+                string_names = TRUE, paper = paper[1:5], midi = FALSE,
+                keep_ly = FALSE), cl)
   expect_is(tab(x10, out[2], "c#", "2/2", "4 = 110",
                 header = c(header[c(1, 3, 4)], metre = "meter"),
-                string_names = TRUE, paper = paper[1:5], endbar = FALSE,
-                midi = FALSE, keep_ly = FALSE), cl)
+                string_names = TRUE, paper = paper[1:5], midi = FALSE,
+                keep_ly = FALSE), cl)
   unlink(cleanup)
 })
 

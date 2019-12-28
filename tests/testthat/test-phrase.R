@@ -52,8 +52,16 @@ test_that("phrase returns as expected", {
   expect_equal(.notesub("ees", simplify = TRUE), "es")
   expect_identical(p("a", 1), p("a", 1, NA))
   expect_identical(
+    p("c d e f g a b c'", 8, bar = NULL),
+    p("c d e f g a b c'", 8, bar = FALSE)
+  )
+  expect_identical(
     p("c d e f g a b c'", 8),
     gsub(" \\|$", "", p("c d e f g a b c'", 8, bar = TRUE))
+  )
+  expect_identical(
+    p("c d e f g a b c'", 8),
+    gsub(" \\\\bar \"\\|\\.\"$", "", p("c d e f g a b c'", 8, bar = "|."))
   )
 })
 

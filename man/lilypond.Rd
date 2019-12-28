@@ -13,7 +13,7 @@ lilypond(
   header = NULL,
   paper = NULL,
   string_names = NULL,
-  endbar = TRUE,
+  endbar = "|.",
   midi = TRUE,
   colors = NULL,
   crop_png = TRUE,
@@ -43,7 +43,7 @@ See details.}
 (default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for
 force on or off completely.}
 
-\item{endbar}{character, the end bar.}
+\item{endbar}{character, the global end bar.}
 
 \item{midi}{logical, add midi inclusion specification to LilyPond file.}
 

@@ -118,7 +118,7 @@
 #' @param string_names label strings at beginning of tab staff. \code{NULL}
 #' (default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for
 #' force on or off completely.
-#' @param endbar character, the end bar.
+#' @param endbar character, the global end bar.
 #' @param midi logical, add midi inclusion specification to LilyPond file.
 #' @param colors a named list of LilyPond element color overrides. See details.
 #' @param crop_png logical, alter template for cropped height. See
@@ -139,7 +139,7 @@
 #' lilypond(x, outfile)
 lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
                      header = NULL, paper = NULL, string_names = NULL,
-                     endbar = TRUE, midi = TRUE, colors = NULL,
+                     endbar = "|.", midi = TRUE, colors = NULL,
                      crop_png = TRUE, simplify = TRUE){
   if(!is.null(paper$textheight)) crop_png <- FALSE
   crop_png_w <- if(crop_png & !length(header)) TRUE else FALSE
@@ -285,7 +285,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
       unlist()
     if(midi) x <- paste("\\unfoldRepeats {", x, "}")
     x <- paste0(x0, "\\override StringNumber #'transparent = ##t\n  ",
-                gsub("\n\n", "\n", gsub("\\|", "\\|\n", x)), "}\n\n",
+                gsub("\n\n", "\n", x), "}\n\n",
                 collapse = "\n")
 
     lyrics <- split(d$lyrics, d$voice)
@@ -313,7 +313,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
     }
     x <- paste0(x, bg)
     x <- paste0(x0, "\\override StringNumber #'transparent = ##t\n  ",
-                gsub("\n\n", "\n", gsub("\\|", "\\|\n", x)), "}\n\n")
+                gsub("\n\n", "\n", x), "}\n\n")
     if(!is.na(d$lyrics)){
       lyrics <- strsplit(d$lyrics, " ")[[1]]
       idx <- grep("\\d", lyrics)
@@ -386,7 +386,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 .lp_global <- function(time, key, tempo, endbar, colors){
   x <- if(colors$score != "") .lp_override_all_colors else ""
   paste0(x, "global = {\n  \\time ", time, "\n  \\tempo ", tempo,
-         if(endbar) "\n  \\bar \"|.\"\n", colors$overrides, "}\n\n",
+         "\n  \\bar \"", endbar, "\"\n", colors$overrides, "}\n\n",
          "global_key = {\n ", key, "\n}\n\n")
 }
 

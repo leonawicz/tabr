@@ -14,7 +14,7 @@ sf_phrase(
   key = "c",
   tuning = "standard",
   to_notes = FALSE,
-  bar = FALSE
+  bar = NULL
 )
 
 sfp(
@@ -24,7 +24,7 @@ sfp(
   key = "c",
   tuning = "standard",
   to_notes = FALSE,
-  bar = FALSE
+  bar = NULL
 )
 
 sf_note(...)
@@ -52,7 +52,9 @@ durations) giving metadata associated with notes. Same number of timesteps as
 \item{to_notes}{logical, return only the mapped notes character string
 rather than the entire phrase object.}
 
-\item{bar}{logical, insert a bar check at the end of the phrase.}
+\item{bar}{character or \code{NULL} (default). Terminates the phrase with a
+bar or bar check. See details for \code{\link{phrase}}. Also see the
+LilyPond help documentation on bar notation for all the valid options.}
 
 \item{...}{arguments passed to \code{sf_phrase}.}
 }

@@ -128,7 +128,9 @@
 #' @param tuning character, instrument tuning.
 #' @param to_notes logical, return only the mapped notes character string
 #' rather than the entire phrase object.
-#' @param bar logical, insert a bar check at the end of the phrase.
+#' @param bar character or \code{NULL} (default). Terminates the phrase with a
+#' bar or bar check. See details for \code{\link{phrase}}. Also see the
+#' LilyPond help documentation on bar notation for all the valid options.
 #' @param ... arguments passed to \code{sf_phrase}.
 #'
 #' @return a phrase.
@@ -152,7 +154,7 @@
 #'
 #' identical(p1, p2)
 sf_phrase <- function(string, fret = NULL, info = NULL, key = "c",
-                      tuning = "standard", to_notes = FALSE, bar = FALSE){
+                      tuning = "standard", to_notes = FALSE, bar = NULL){
   if((is.null(fret) & !is.null(info)) | (!is.null(fret) & is.null(info)))
     stop("`fret` and `info` must both be provided or both be NULL.",
          call. = FALSE)

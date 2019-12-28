@@ -14,6 +14,8 @@ n <- c("b_, f b_ d' f'", "a#, f a# d' f'", "b_2 f b_ c4 e_4",
 sf_list <- list(
   sf_phrase(s[1], f[1], i[1], key = "b_"),
   sf_phrase(s[1], f[1], i[1], key = "sharp"),
+  sf_phrase(s[1], f[1], i[1], tuning = "DADGAD", key = "flat", bar = "|"),
+  sf_phrase(s[1], f[1], i[1], tuning = "DADGAD", key = "flat", bar = "|."),
   sf_phrase(s[1], f[1], i[1], tuning = "DADGAD", key = "flat", bar = TRUE),
   sf_phrase(s[2], f[2], i[2], key = "f"),
   sfp(s[3], f[3], i[3], tuning = "dropD", key = "d"),
@@ -22,6 +24,8 @@ sf_list <- list(
 sf_list2 <- list(
   sf_phrase(x[1], key = "b_"),
   sf_phrase(x[1], key = "sharp"),
+  sf_phrase(x[1], tuning = "DADGAD", key = "flat", bar = "|"),
+  sf_phrase(x[1], tuning = "DADGAD", key = "flat", bar = "|."),
   sf_phrase(x[1], tuning = "DADGAD", key = "flat", bar = TRUE),
   sf_phrase(x[2], key = "f"),
   sfp(x[3], tuning = "dropD", key = "d"),
@@ -30,6 +34,8 @@ sf_list2 <- list(
 p_list <- list(
   p(n[1], i[1], s[1]),
   p(n[2], i[1], s[1]),
+  p(n[3], i[1], s[1], bar = "|"),
+  p(n[3], i[1], s[1], bar = "|."),
   p(n[3], i[1], s[1], bar = TRUE),
   p(n[4], i[2], s[2]),
   p(n[5], i[3], s[3]),

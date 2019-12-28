@@ -16,7 +16,7 @@ tab(
   header = NULL,
   paper = NULL,
   string_names = NULL,
-  endbar = TRUE,
+  endbar = "|.",
   midi = TRUE,
   colors = NULL,
   crop_png = TRUE,
@@ -36,7 +36,7 @@ render_tab(
   header = NULL,
   paper = NULL,
   string_names = NULL,
-  endbar = TRUE,
+  endbar = "|.",
   midi = TRUE,
   colors = NULL,
   crop_png = TRUE,
@@ -55,7 +55,7 @@ render_score(
   tempo = "2 = 60",
   header = NULL,
   paper = NULL,
-  endbar = TRUE,
+  endbar = "|.",
   colors = NULL,
   crop_png = TRUE,
   transparent = FALSE,
@@ -92,7 +92,7 @@ See \code{lilypond} for details.}
 (default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for
 force on or off completely.}
 
-\item{endbar}{character, the end bar.}
+\item{endbar}{character, the global end bar.}
 
 \item{midi}{logical, output midi file in addition to sheet music.}
 

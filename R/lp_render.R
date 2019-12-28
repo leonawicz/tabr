@@ -52,7 +52,7 @@
 #' @param string_names label strings at beginning of tab staff. \code{NULL}
 #' (default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for
 #' force on or off completely.
-#' @param endbar character, the end bar.
+#' @param endbar character, the global end bar.
 #' @param midi logical, output midi file in addition to sheet music.
 #' @param colors a named list of LilyPond element color overrides. See
 #' \code{lilypond} for details.
@@ -80,7 +80,7 @@
 #'   tab(x, outfile) # requires LilyPond installation
 #' }
 tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
-                header = NULL, paper = NULL, string_names = NULL, endbar = TRUE,
+                header = NULL, paper = NULL, string_names = NULL, endbar = "|.",
                 midi = TRUE, colors = NULL, crop_png = TRUE,
                 transparent = FALSE, res = 150, keep_ly = FALSE,
                 simplify = TRUE, details = FALSE){
@@ -121,7 +121,7 @@ render_tab <- tab
 #' @export
 #' @rdname tab
 render_score <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
-                         header = NULL, paper = NULL, endbar = TRUE,
+                         header = NULL, paper = NULL, endbar = "|.",
                          colors = NULL, crop_png = TRUE, transparent = FALSE,
                          res = 150, keep_ly = FALSE, simplify = TRUE,
                          details = FALSE){

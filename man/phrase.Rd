@@ -5,9 +5,9 @@
 \alias{p}
 \title{Create a musical phrase}
 \usage{
-phrase(notes, info = NULL, string = NULL, bar = FALSE)
+phrase(notes, info = NULL, string = NULL, bar = NULL)
 
-p(notes, info = NULL, string = NULL, bar = FALSE)
+p(notes, info = NULL, string = NULL, bar = NULL)
 }
 \arguments{
 \item{notes, info}{noteworthy and note info strings. When \code{info = NULL},
@@ -18,7 +18,9 @@ as such.}
 if simple string numbers). This is an optional argument that specifies which
 instrument strings to play for each specific timestep. Otherwise \code{NULL}.}
 
-\item{bar}{logical, insert a bar check at the end of the phrase.}
+\item{bar}{character or \code{NULL} (default). Terminates the phrase with a
+bar or bar check. See details. Also see the LilyPond help documentation
+on bar notation for all the valid options.}
 }
 \value{
 a phrase.
@@ -46,6 +48,11 @@ retains only notes, note info and string numbers.
 See the help documentation on \code{noteworthy}, \code{noteinfo}, and
 \code{music} classes for an understanding of the input data structures.
 The function \code{p} is a convenient shorthand wrapper for \code{phrase}.
+
+If a string is provided to \code{bar}, it is interpreted as LilyPond bar
+notation. E.g., \code{bar = "|"} adds the LilyPond syntax \code{\\bar "|"}
+to the end of a phrase. If only a bar check is desired, use
+\code{bar = TRUE}. \code{FALSE} is treated as {NULL} for completeness.
 }
 \examples{
 phrase("c ec'g' ec'g'", "4- 4 2") # no string arg (not recommended for tabs)
@@ -68,6 +75,10 @@ identical(x, p(m))
 x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"
 p(x)
 identical(p(x), p(as_music(x)))
+
+x <- p("a b", 2, bar = "|.")
+x2 <- pc(p("a b", 2), '\\\\bar "|."')
+identical(x, x2)
 }
 \seealso{
 \code{\link{valid-notes}}, \code{\link{valid-noteinfo}},

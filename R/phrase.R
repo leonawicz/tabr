@@ -22,13 +22,20 @@
 #' \code{music} classes for an understanding of the input data structures.
 #' The function \code{p} is a convenient shorthand wrapper for \code{phrase}.
 #'
+#' If a string is provided to \code{bar}, it is interpreted as LilyPond bar
+#' notation. E.g., \code{bar = "|"} adds the LilyPond syntax \code{\\bar "|"}
+#' to the end of a phrase. If only a bar check is desired, use
+#' \code{bar = TRUE}. \code{FALSE} is treated as {NULL} for completeness.
+#'
 #' @param notes,info noteworthy and note info strings. When \code{info = NULL},
 #' it is assumed that \code{notes} refers to a music object or string formatted
 #' as such.
 #' @param string space-delimited character string or vector (or integer vector
 #' if simple string numbers). This is an optional argument that specifies which
 #' instrument strings to play for each specific timestep. Otherwise \code{NULL}.
-#' @param bar logical, insert a bar check at the end of the phrase.
+#' @param bar character or \code{NULL} (default). Terminates the phrase with a
+#' bar or bar check. See details. Also see the LilyPond help documentation
+#' on bar notation for all the valid options.
 #'
 #' @return a phrase.
 #' @export
@@ -56,7 +63,11 @@
 #' x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"
 #' p(x)
 #' identical(p(x), p(as_music(x)))
-phrase <- function(notes, info = NULL, string = NULL, bar = FALSE){
+#'
+#' x <- p("a b", 2, bar = "|.")
+#' x2 <- pc(p("a b", 2), '\\bar "|."')
+#' identical(x, x2)
+phrase <- function(notes, info = NULL, string = NULL, bar = NULL){
   if(is.null(info)){
     if(!inherits(notes, "music")) notes <- as_music(notes)
     if(is.null(string)) string <- music_strings(notes)
@@ -92,6 +103,8 @@ phrase <- function(notes, info = NULL, string = NULL, bar = FALSE){
   trp <- gsub("t", "", gsub("^\\d+(\\.+|)$", "", dur))
   rl <- rle(trp)
 
+  if(is.logical(bar) && !bar) bar <- NULL
+
   x <- purrr::map(seq_along(rl$values), ~{
     idx2 <- sum(rl$lengths[1:.x])
     idx1 <- idx2 - rl$lengths[.x] + 1
@@ -103,7 +116,10 @@ phrase <- function(notes, info = NULL, string = NULL, bar = FALSE){
     p0 <- .phrase(x, y, z)
     if(!is.na(v)){
       p0 <- paste(p0, collapse = " ")
-      if(bar) p0 <- paste(p0, "|")
+      if(!is.null(bar)){
+        p0 <- if(is.logical(bar)) p0 <- paste(p0, "|") else
+          paste0(p0, " \\bar \"", bar, "\"")
+      }
       p0 <- gsub("\\| \\|", "\\|", p0)
       p0 <- gsub(">t", ">", triplet(as_phrase(p0), v))
     }
@@ -114,8 +130,11 @@ phrase <- function(notes, info = NULL, string = NULL, bar = FALSE){
   if(length(idx)){
     x[idx] <- purrr::map(x[idx], ~{
       x <- paste(.x, collapse = " ")
-      if(bar) x <- paste(x, "|")
-      x <- gsub("\\| \\|", "\\|", x)
+      if(!is.null(bar)){
+        x <- if(is.logical(bar)) paste(x, "|") else
+          paste0(x, " \\bar \"", bar, "\"")
+      }
+      x <- gsub(" \\| \\|", " \\|", x)
       as_phrase(x)
     })
   }
