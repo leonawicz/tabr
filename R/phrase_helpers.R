@@ -124,7 +124,7 @@ pc <- function(...){
   classes <- unlist(lapply(x, class))
   any_phrase <- any(classes == "phrase")
   nw <- any(sapply(unlist(x), noteworthy))
-  x <- paste(unlist(x), collapse = " ")
+  x <- trimws(gsub("\\s\\s+", " ", paste(unlist(x), collapse = " ")))
   if(any_phrase){
     class(x) <- unique(c("phrase", class(x)))
   } else if(nw){
@@ -138,7 +138,7 @@ pc <- function(...){
 #' @rdname append_phrases
 pn <- function(x, n = 1){
   if(n == 0) n <- 1
-  y <- paste(rep(x, n), collapse = " ")
+  y <- trimws(gsub("\\s\\s+", " ", paste(rep(x, n), collapse = " ")))
   if("phrase" %in% class(x)){
     class(y) <- unique(c("phrase", class(y)))
   } else if(is.character(x) && noteworthy(x)){

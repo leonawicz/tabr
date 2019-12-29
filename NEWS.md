@@ -6,6 +6,7 @@
 * Added better support for a variety of line breaks.
     * The `bar` argument to `phrase` (and associated functions) is now `NULL` by default, or character, rather than simply `TRUE` or `FALSE`. If a string is provided, it is interpreted as LilyPond bar notation. E.g., `bar = "|"` adds the LilyPond syntax `\bar "|"` to the end of a phrase. 
     * If only a bar check is desired, `TRUE` is still accepted and will insert a bar check only rather than a literal bar. `FALSE` is treated as `NULL` for completeness.
+* Handle extra whitespace in `pc` and `pn`.
 * Unit test updates.
 * Documentation updates.
 
