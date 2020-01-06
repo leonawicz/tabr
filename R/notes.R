@@ -1049,7 +1049,7 @@ is_note <- function(x, na.rm = FALSE){
     if(!is.character(x)) x <- as.character(x)
   }
   x <- .uncollapse(x)
-  y1 <- grepl("[a-grs]", x) & !grepl("[h-qt-zA-Z]", x)
+  y1 <- grepl("[a-grs^]", x) & !grepl("[h-qt-zA-Z]", x)
   y2 <- gsub("\\d|,|'|_|#|~|\\*", "", x)
   y1 & nchar(y2) == 1 & y2 == substr(x, 1, 1) & !grepl("(r|s)\\d", x)
 }

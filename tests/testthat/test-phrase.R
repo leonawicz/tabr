@@ -138,3 +138,34 @@ test_that("Other functions work on phrases as expected", {
                c("-+", "staccato"))
   expect_error(simplify_phrase(1), "Not a phrase.")
 })
+
+notes1 = "a ^1 b ^2 c" ; info1= "4 1 4 1 4 " ; string1 = "1 x 2 x 3"
+notes2 = "a ^1 b ^2 c" ; info2= "4" ; string2 = "1"
+# notes3 = "a ^  b ^  c" ; info3= "4" ; string3 = "1"
+notes4 = "a ^ b ^ c"   ; info4= "4" ; string4 = "1"
+notes5 = "a b"   ; info5= "4" ; string5 = "1"
+notes6 = "a ^1 b ^2 c5" ; info6= "4 1 4 1 4" ; string6 = "1 x 2 x 6"
+
+test_that("phrase works for hook ^", {
+  expect_equal(class(p(notes1,info1,string1)),
+              c("phrase", "character") )
+  expect_equal(as.character(p(notes1,info1,string1)),
+              "<a\\1>4 ^1 <b\\2>4 ^2 <c\\3>4" )
+  expect_equal(as.character(p(notes2,info2,string2)),
+               "<a\\1>4 ^1 <b\\1>4 ^2 <c\\1>4" )
+  # expect_error(as.character(p(notes3,info3,string3)),
+  #              "Invalid notes or chords found." )
+  expect_equal(as.character(p(notes4,info4,string4)),
+               "<a\\1>4 ^ <b\\1>4 ^ <c\\1>4" )
+  expect_equal(as.character(p(notes5,info5,string5)),
+               "<a\\1>4 <b\\1>4" )
+  expect_equal(as.character(p(notes6,info6,string6)),
+               "<a\\1>4 ^1 <b\\2>4 ^2 <c''\\6>4" )
+})
+
+test_that("phrasey works for hook ^", {
+  expect_true(phrasey("<a\\1>3 ^1 <b\\2>4"))
+  expect_true(phrasey("<a\\1>3 ^ <b\\2>4"))
+})
+
+

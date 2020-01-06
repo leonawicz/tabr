@@ -93,8 +93,10 @@ phrase <- function(notes, info = NULL, string = NULL, bar = NULL){
     }
   }
   notes <- .uncollapse(notes)
-  idx <- grep("\\d", notes)
-  if(length(idx)) notes <- .octave_to_tick(notes)
+  idx1 <- grepl("\\d", notes) # 'notes' that have octave numbers ?
+  idx2 <- !grepl("\\^", notes) # 'notes' that are no hooks
+  idx  <- idx1 & idx2 # no-hook notes with octave numbers
+  notes[idx] <- .octave_to_tick(notes[idx]) # only for non-hook notes
   if(length(notes) != length(info))
     stop(paste("`info` must have the same number of timesteps as `notes`",
                "or a single value to repeat."), call. = FALSE)
@@ -160,6 +162,12 @@ p <- phrase
   .bend <- "\\bendAfter #+6"
   s <- !is.null(string)
   if(s) string <- .strsub(string)
+  notes2 <- notes # make copy
+  idx <- !grepl("\\^", notes2) # locate non-hook notes
+  notes <- notes[idx]   # select non-hook notes
+  info <- info[idx]     # corresponding info
+  string <- string[idx] # corresponding strings
+  # no corresponding info and strings information for hooks !
   notes <- purrr::map_chr(
     seq_along(notes),
     ~paste0("<", paste0(
@@ -168,10 +176,11 @@ p <- phrase
         paste0("\\", .split_chord(string[.x], TRUE)), collapse = " "), ">"))
   notes <- gsub("<s>", "s", gsub("<r>", "r", notes))
   x <- paste0(notes, info)
+  notes2[idx] = x      # replace non-hook note-info
   if(length(bend))
-    x[bend] <- gsub("\\^\\\\bend", "\\\\bend", paste0(x[bend], .bend))
-  if(length(dead)) x[dead] <- paste("\\deadNote", x[dead])
-  gsub("\\\\x", "", x)
+    notes2[bend] <- gsub("\\^\\\\bend", "\\\\bend", paste0(notes2[bend], .bend))
+  if(length(dead)) notes2[dead] <- paste("\\deadNote", notes2[dead])
+  gsub("\\\\x", "", notes2)
 }
 
 #' @export
@@ -303,6 +312,7 @@ phrasey <- function(phrase){
   if(!inherits(phrase, "phrase") & !inherits(phrase, "character")) return(FALSE)
   clr <- "\\\\override (Notehead|Stem)\\.color #\\(rgb-color [ 0-9\\.]+\\) "
   x <- gsub(clr, "", phrase)
+  # previous 2 lines no longer necessary ?
   x <- gsub("->|\\^\".*\"", "", phrase)
   i1 <- sum(attr(gregexpr("<", x)[[1]], "match.length"))
   if(i1 < 1){
