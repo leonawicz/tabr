@@ -72,6 +72,8 @@ test_that("other scale helpers return as expected", {
   expect_equal(scale_note(c(1, 3, 8), "d", collapse = TRUE),
                as_noteworthy("d f# d"))
   expect_true(all(sapply(list(4, "IV", as.roman(4)), scale_note) == "f"))
+  expect_equal(scale_note(1:8, "e"),
+               as_noteworthy("e f# g# a b c# d# e", format = "vector"))
 
   expect_equal(is_diatonic("f2#a3c#' r s f#ac", "a"), c(T, NA, NA, F)) # nolint
 

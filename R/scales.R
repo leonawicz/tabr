@@ -307,6 +307,7 @@ scale_note <- function(deg, key = "c", scale = "diatonic", collapse = FALSE,
   }
   if(any(deg < 1)) stop("`deg` should be >= 1.", call. = FALSE)
   deg <- deg %% length(x)
+  deg[deg == 0] <- length(x)
   x <- x[deg]
   if(collapse) x <- .asnw(paste0(x, collapse = " "))
   x
