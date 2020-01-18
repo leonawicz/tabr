@@ -46,7 +46,7 @@
 
 <meta property="og:title" content="Define chords — chord_def" />
 <meta property="og:description" content="Function for creating new chord definition tables." />
-<meta property="og:image" content="http://leonawicz.github.io/tabr/logo.png" />
+<meta property="og:image" content="https://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -61,16 +61,6 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-46129458-3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-46129458-3');
-</script>
 
 
   </head>
@@ -293,21 +283,21 @@ chord.</p>
 <span class='fu'>chord_def</span>(<span class='no'>frets</span>, <span class='st'>"m"</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1 x 13</span><span>
 #&gt;   id    lp_name root  octave root_fret min_fret bass_string notes frets
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> m     a,:m    a          2         0        0           5 a,ea… xo22…
-#&gt; </span><span style='color: #555555;'># … with 4 more variables: semitones </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span style='color: #555555;'>, optional </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, fretboard </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,
+#&gt; </span><span style='color: #555555;'>1</span><span> m     a,:m    a          2         0        0           5 a,ea~ xo22~
+#&gt; </span><span style='color: #555555;'># ... with 4 more variables: semitones </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span style='color: #555555;'>, optional </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, fretboard </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,
 #&gt; #   open </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span></div><div class='input'><span class='fu'>chord_def</span>(<span class='no'>frets</span>, <span class='st'>"m"</span>, <span class='fl'>6</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 13</span><span>
 #&gt;   id    lp_name root  octave root_fret min_fret bass_string notes frets
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> m     a,:m    a          2         0        0           5 a,ea… xo22…
-#&gt; </span><span style='color: #555555;'># … with 4 more variables: semitones </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span style='color: #555555;'>, optional </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, fretboard </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,
+#&gt; </span><span style='color: #555555;'>1</span><span> m     a,:m    a          2         0        0           5 a,ea~ xo22~
+#&gt; </span><span style='color: #555555;'># ... with 4 more variables: semitones </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span style='color: #555555;'>, optional </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, fretboard </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,
 #&gt; #   open </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span></div><div class='input'>
 <span class='kw pkg'>purrr</span><span class='kw ns'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map_dfr</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>2</span>, <span class='fl'>3</span>), ~<span class='fu'>chord_def</span>(<span class='no'>frets</span> + <span class='no'>.x</span>, <span class='st'>"m"</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 13</span><span>
 #&gt;   id    lp_name root  octave root_fret min_fret bass_string notes frets
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> m     a,:m    a          2         0        0           5 a,ea… xo22…
-#&gt; </span><span style='color: #555555;'>2</span><span> m     b,:m    b          2         2        2           5 b,g_… x244…
-#&gt; </span><span style='color: #555555;'>3</span><span> m     c:m     c          3         3        3           5 cgc'… x355…
-#&gt; </span><span style='color: #555555;'># … with 4 more variables: semitones </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span style='color: #555555;'>, optional </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, fretboard </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,
+#&gt; </span><span style='color: #555555;'>1</span><span> m     a,:m    a          2         0        0           5 a,ea~ xo22~
+#&gt; </span><span style='color: #555555;'>2</span><span> m     b,:m    b          2         2        2           5 b,g_~ x244~
+#&gt; </span><span style='color: #555555;'>3</span><span> m     c:m     c          3         3        3           5 cgc'~ x355~
+#&gt; </span><span style='color: #555555;'># ... with 4 more variables: semitones </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span style='color: #555555;'>, optional </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, fretboard </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,
 #&gt; #   open </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -325,7 +315,7 @@ chord.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://leonawicz.github.io/'>Matthew Leonawicz</a>.</p>
+  <p>Developed by <a href='https://github.com/leonawicz'>Matthew Leonawicz</a>.</p>
 </div>
 
 <div class="pkgdown">
