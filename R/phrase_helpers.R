@@ -48,7 +48,8 @@ rest <- function(x, n = 1){
 #' Add text to music staff
 #'
 #' Annotate a music staff, vertically aligned above or below the music staff at
-#' a specific note/time.
+#' a specific note/time. If \code{x} is a phrase, the annotation will be added
+#' to the first note in the phrase.
 #'
 #' This function binds text annotation in LilyPond syntax to a note's
 #' associated \code{info} entry.
@@ -56,7 +57,7 @@ rest <- function(x, n = 1){
 #' unambiguously to LilyPond syntax with respect to the rest of the note info
 #' substring when it is fed to \code{phrase} for musical phrase assembly.
 #'
-#' @param x character.
+#' @param x character or phrase.
 #' @param text character.
 #' @param position character, top or bottom.
 #'
@@ -66,10 +67,29 @@ rest <- function(x, n = 1){
 #' @examples
 #' notate("8", "Solo")
 #' phrase("c'~ c' d' e'", pc(notate(8, "First solo"), "8 8 4."), "5 5 5 5")
-notate <- function(x, text, position = "top"){
+#'
+#' scale <- phrase("c d e f g a b c'", "4*8", "5 4 4 4 3 3 3 2")
+#' notate(scale, "C major")
+
+notate <- function(x, text, position = "top") {
+  UseMethod("notate", x)
+}
+
+
+notate.default <- function(x, text, position = "top") {
   pos <- switch(position, top = "^", bottom = "_")
   paste0(x, ";", pos, "\"", gsub(" ", "_", text), "\"", collapse = " ")
 }
+
+
+notate.phrase <- function(x, text, position = "top") {
+  pos <- switch(position, top = "^", bottom = "_")
+  # Find first note in phrase, and append notation
+  sub("(<\\S+>.)", paste0("\\1", pos, "\"", gsub(" ", "_", text), "\"", collapse = " "), x)
+}
+
+
+
 
 #' Concatenate and repeat
 #'

@@ -94,6 +94,9 @@ test_that("phrasey returns as expected", {
   expect_true(
     phrasey(p("a b r", pc(4, notate(4, "Note 1"), notate("4..", "Note 2"))))
   )
+  expect_true(
+    phrasey(notate(phrase("c e g c'", "4*4", "5 4 3 2"), "C major"))
+  )
 })
 
 test_that("as_phrase returns as expected", {

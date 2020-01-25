@@ -17,6 +17,13 @@ test_that("helpers return as expected.", {
     "<c'~\\5>8^\"First solo\" <c'\\5>8 <d'\\5>8 <e'\\5>4."
   )
 
+  expect_equal(
+    as.character(
+      notate(phrase("c d e f g a b c'", "4*8", "5 4 4 4 3 3 3 2"), "C major")
+    ),
+    "<c\\5>4^\"C_major\" <d\\4>4 <e\\4>4 <f\\4>4 <g\\3>4 <a\\3>4 <b\\3>4 <c'\\2>4"
+  )
+
   expect_equal(pc(8, "16-", "8^"), "8 16- 8^")
   expect_equal(pn(1, 2), "1 1")
   expect_equal(pn("a", 1), pn("a", 0))
