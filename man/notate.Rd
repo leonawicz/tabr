@@ -7,7 +7,7 @@
 notate(x, text, position = "top")
 }
 \arguments{
-\item{x}{character.}
+\item{x}{character or phrase.}
 
 \item{text}{character.}
 
@@ -18,7 +18,8 @@ a character string.
 }
 \description{
 Annotate a music staff, vertically aligned above or below the music staff at
-a specific note/time.
+a specific note/time. If \code{x} is a phrase, the annotation will be added
+to the first note in the phrase.
 }
 \details{
 This function binds text annotation in LilyPond syntax to a note's
@@ -30,4 +31,7 @@ substring when it is fed to \code{phrase} for musical phrase assembly.
 \examples{
 notate("8", "Solo")
 phrase("c'~ c' d' e'", pc(notate(8, "First solo"), "8 8 4."), "5 5 5 5")
+
+scale <- phrase("c d e f g a b c'", "4*8", "5 4 4 4 3 3 3 2")
+notate(scale, "C major")
 }
