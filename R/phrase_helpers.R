@@ -75,13 +75,13 @@ notate <- function(x, text, position = "top") {
   UseMethod("notate", x)
 }
 
-
+#' @export
 notate.default <- function(x, text, position = "top") {
   pos <- switch(position, top = "^", bottom = "_")
   paste0(x, ";", pos, "\"", gsub(" ", "_", text), "\"", collapse = " ")
 }
 
-
+#' @export
 notate.phrase <- function(x, text, position = "top") {
   pos <- switch(position, top = "^", bottom = "_")
   # Find first note in phrase, and append notation
