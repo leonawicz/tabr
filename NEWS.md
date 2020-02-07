@@ -1,5 +1,6 @@
 # tabr 0.4.1
 
+* Fixed `pitch_freq` documentation error.
 * Fixed bug relating to multiple labels to `as_music`.
 * Fixed bug where lyrics were not parsed correctly when rests present for music object rendering functions.
 * Fixed bug where an explicitly added bar inside quotes failed due to a line break inside the string.

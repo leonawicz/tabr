@@ -49,12 +49,10 @@ octave numbering in result.}
 \item{accidentals}{\code{NULL} or character, represent accidentals,
 \code{"flat"} or \code{"sharp"}.}
 
-\item{collapse}{logical, collapse result into a single string.}
+\item{collapse}{logical, collapse result into a single string.
+\code{key} and \code{style}.}
 
 \item{semitones}{integer values of pitches.}
-
-\item{...}{other arguments passed to \code{transpose}, specifically
-\code{key} and \code{style}.}
 }
 \value{
 numeric vector

@@ -11,7 +11,7 @@
 
 ## This is an update release.
 
-* Bug fixes, documentation and unit test updates.
+* Bug fixes, function improvements, documentation and unit test updates.
 
 ## Downstream dependencies
 
