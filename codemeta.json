@@ -10,7 +10,7 @@
   "codeRepository": "https://github.com/leonawicz/tabr",
   "issueTracker": "https://github.com/leonawicz/tabr/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -281,5 +281,5 @@
   ],
   "relatedLink": "https://CRAN.R-project.org/package=tabr",
   "developmentStatus": "http://www.repostatus.org/#active",
-  "fileSize": "370.917KB"
+  "fileSize": "333.11KB"
 }

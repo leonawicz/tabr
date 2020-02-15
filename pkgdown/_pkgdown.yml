@@ -140,6 +140,10 @@ reference:
   desc: "More functions for reading and writing between various formats"
   contents:
   - read_midi
+- title: "Utilities"
+  desc: "Exported utility functions"
+  contents:
+  - lilypond_root
 - title: Datasets
   contents:
   - tabrSyntax
