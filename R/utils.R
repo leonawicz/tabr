@@ -22,7 +22,7 @@ lilypond_root <- function(){
 #' @rdname lilypond_root
 #' @export
 lilypond_version <- function(){
-  x <- capture.output(system("lilypond -v"))
+  x <- utils::capture.output(system("lilypond -v"))
   if(x != "[1] 0") return(message(.lp_not_found))
 }
 
