@@ -72,7 +72,7 @@
 #' @export
 #'
 #' @examples
-#' # chorrds package output
+#' # chorrrds package output
 #' chords <- c("Bb", "Bbm", "Bbm7", "Bbm7(b5)", "Bb7(#5)/G", "Bb7(#5)/Ab")
 #' from_chorrrds(chords)
 #' to_tabr(id = "chorrrds", x = chords)
