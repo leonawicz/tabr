@@ -528,8 +528,8 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 .tunelab <- function(x){
   x <- gsub("[,']", "", x)
   x <- toupper(x)
-  x <- gsub("(.*)(IS)", "\"\\1#\"", x)
   x <- strsplit(x, " ")[[1]]
+  x <- gsub("(.*)(IS)", "\"\\1#\"", x)
   x <- gsub("^(A|E)S$", "\\1b", x)
   x <- gsub("ES", "b", x)
   paste(rev(x), collapse = " ")
