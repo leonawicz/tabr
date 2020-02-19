@@ -9,7 +9,6 @@ knitr::opts_chunk$set(
   collapse = TRUE, comment = "#>", fig.path = "man/figures/README-",
   message = FALSE, warning = FALSE, error = FALSE, tidy = FALSE, out.width = "100%"
 )
-library(tabr)
 ```
 
 # tabr <img src="man/figures/logo.png" style="margin-left:10px;margin-bottom:5px;" width="120" align="right">
@@ -29,7 +28,9 @@ library(tabr)
 
 [![Donate](https://img.shields.io/badge/Donate-Buy%20me%20a%20coffee-yellowgreen.svg)](https://ko-fi.com/leonawicz)
 
-## Overview <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/tabr_logo.png?raw=true" width=320 style="float:right;margin-left:10px;width:320px;">
+<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/tabr_logo.png?raw=true" width=320 style="float:right;margin-left:10px;width:320px;">
+
+## Overview
 
 The `tabr` package provides a music notation syntax and a collection of music programming functions for generating, manipulating, organizing and analyzing musical information in R. 
 
@@ -39,13 +40,34 @@ The music notation framework facilitates creating and analyzing music data in no
 *If you enjoy my R community contributions, consider* ***[buying me a coffee in Ko-fi](https://ko-fi.com/leonawicz)*** *so I can keep developing and maintaining this and other packages :)*
 <hr>
 
-### Music data structures
+## Installation
+
+Install the CRAN release of `tabr` with
+
+```r
+install.packages("tabr")
+```
+
+Install the development version from GitHub with
+
+```r
+# install.packages("remotes")
+remotes::install_github("leonawicz/tabr")
+```
+
+## Music data structures
+
+It's easiest to begin with a high level view using some basic examples.
 
 Music data can be viewed, manipulated and analyzed while in different forms of representation based around different data structures: strings and data frames. Each representation offers advantages over the other for different use cases.
 
-Music syntax can be entered directly and represented in character strings to minimize the formatting overhead of data entry by using simple data structures, for example when wanting to quickly enter and transcribe short pieces of music syntax in R into sheet music or tablature files. You can also enter sound and time together for the `music` class, and no need to repeat consecutive durations until a change.
+Music syntax can be entered directly and represented in character strings to minimize the formatting overhead of data entry by using simple data structures, for example when wanting to quickly enter and transcribe short pieces of music syntax in R into sheet music or tablature files. You can also enter sound and time together with the `music` class, and no need to repeat consecutive durations until a change.
+
+Here is an example of making a string of pitches *noteworthy* and a string of combined pitch and duration into a music object. Such objects carry various musical information based on the syntax of an input string.
 
 ```{r music-data1}
+library(tabr)
+
 x <- "a, c e g# a ac'e' ac'e'~ ac'e' a c' e' a'"
 x <- as_noteworthy(x)
 x
@@ -72,9 +94,86 @@ as_music(x) %>% as_music_df()
 
 Several functions are available for mapping seamlessly between and manipulating these data structures and their representations of musical information.
 
-### Transcription
+## Noteworthy strings
 
-Music programming in the notation syntax provided by `tabr` can be used for a variety of purposes, but it also integrates cohesively with the package's transcription functions. The package also provides API wrapper functions for transcribing music notation in R into guitar tablature ("tabs") and basic sheet music using [LilyPond](http://lilypond.org/).
+It is helpful to have a deeper understanding of how this music notation syntax informs data structures and operations integrated throughout the package.
+
+As a quick introduction and to get oriented to the music notation syntax offered by `tabr`, consider the concept of a noteworthy string. This is like any other character string, except that what makes a string noteworthy is that its content consists strictly of valid `tabr` music notation syntax. It can be parsed unambiguously and meaningfully as input by package functions that inspect and manipulate musical information.
+
+### A bit about basic syntax
+
+A simple character string like `"c e g"`, or alternatively as a vector, `c("c", "e", "g")`, is a noteworthy string. The single lowercase letter `"a"` is noteworthy. So are `"a_"` and `"a#"` (flat and sharp). However, `"A"` is not (case sensitivity), nor is `"z"`. Of course, as seen above, there is more valid syntax than just the lowercase musical note letters `a` through `g` and sharp and flat notation.
+
+An important piece of syntax is the octave. In conjunction with a note, specifying a unique pitch requires the octave number, either in tick format (recommended; comma and single quote, e.g., `c,` or `c'`) or integer format (not recommended, more limited utility, e.g. `c2` or `c4`). Octave 3 is the implicit default; there is no tick and explicitly stating `c3` is equivalent to `c`.
+
+For all available syntax specifications and related details see the package vignettes.
+
+### The noteworthy class
+
+Noteworthiness can be checked on any character string. When defining noteworthy strings you can define them like any other character vector. However, you will notice that package functions that operate on noteworthy strings and whose output is another noteworthy string will yield a string with the supplemental `noteworthy` class. This has its own print and summary methods.
+
+Several other generic methods are also implemented for the noteworthy class, making it easy to perform simple but powerful operations on these objects in a familiar way. While many functions will attempt to coerce a string to `noteworthy`, not all will and some methods are implemented specifically for the class.
+
+```{r nw}
+x <- "g#, c d# g#c'd#'"
+as_noteworthy(x)
+
+x <- "g#2 c d# g#c4d#4" # equivalent octave numbering
+as_noteworthy(x)
+
+is_note(x)
+is_chord(x)
+chord_is_major(x)
+(x <- transpose(x, 1))
+
+summary(x)
+
+distinct_pitches(x)
+distinct_pitches(x) %>% pitch_freq() # in Hz
+```
+
+These are just a few examples. There are many more functions in `tabr` that intuitively operate on noteworthy strings, abstracting the interpretation of relatively simple symbolic text specifications as quantitative and/or structured musical information.
+
+There is also a `noteinfo` class, and a `music` class (seen above). You can learn more in the vignettes. The `music` class is particularly useful for efficient music data entry and basic transcription tasks.
+
+## Tidy music analysis
+
+Ideally music data already exists in a data frame format. But if it doesn't, or if you just wrote out a new note sequence like below, getting this data into a data frame for a more tidy approach to analysis is easy. Conversion can also populate several derivative variables in the process.
+
+In the earlier example you saw the result of calling `as_music_df` on a noteworthy string.
+
+```{r df1, eval=FALSE}
+x <- "a, c e r r c a, g#, a ac'e'"
+as_music_df(x)
+```
+
+You may have noticed that rests (`r`) are allowed for timesteps and that functions that compute lagged intervals respect these gaps. Since `as_music_df` was only provided with a string of pitches, there are no explicit time variables in the data frame. However, discrete timesteps still exist and they do not have to contain notes.
+
+There are a number of derivative columns. If you are working with a large sequence of music, there is no need to carry all of these variables along through your analysis if you do not need them. They can be created using various package functions and you can build onto your data frame and transform variables later with a function like `mutate` from `dplyr`.
+
+```{r df2}
+library(dplyr)
+x <- "a, c e r r c a, g#, a ac'e'"
+tibble(pitch = as_vector_time(x)) %>% 
+  mutate(scale_int = scale_diff(pitch))
+```
+
+In fact, it's much more powerful to create the columns according to your needs using specific functions and their various arguments. But `as_music_df` is convenient and also offers some additional arguments. Adding `key` and `scale` allows for scale degrees. `scale` is diatonic by default but does not have to be.
+
+```{r df3}
+x <- "g g#"
+as_music_df(x, key = "am") %>% 
+  select(pitch, key, scale, scale_deg)
+
+as_music_df(x, key = "am", scale = "harmonic_minor") %>% 
+  select(pitch, key, scale, scale_deg)
+```
+
+`tabr` offers many functions for manipulating and analyzing music data and working in music notation. See the collection of vignettes for more information on music programming and analysis.
+
+## Transcription
+
+Music programming in the notation syntax provided by `tabr` can be used for a variety of purposes, but it also integrates cohesively with the package's transcription functions. The package also provides API wrapper functions for transcribing music notation in R into basic sheet music and guitar tablature ("tabs") using [LilyPond](http://lilypond.org/).
 
 LilyPond is an open source music engraving program for generating high quality sheet music based on markup syntax. `tabr` generates LilyPond files from R code and can pass them to LilyPond to be rendered into sheet music pdf files. While LilyPond caters to sheet music in general and `tabr` can be used to create basic sheet music, the transcription functions focus on leveraging LilyPond specifically for creating quality guitar tablature. You do not need to use it for guitar tablature, but for vocal or other instrument tracks, you can change settings, such as suppressing a tab staff from your sheet music.
 
@@ -86,7 +185,7 @@ While LilyPond is listed as a system requirement for `tabr`, you can use the pac
 
 However, if you are generating music notation programmatically, `tabr` provides the ability to do so in R and offers the added benefit of converting what you write in R code to the LilyPond file format to be rendered as printable sheet music.
 
-With ongoing development, the music programming side of `tabr` will likely continue to grow much more than the transcription functionality.
+With ongoing development, the music programming side of `tabr` will continue to grow much more than the transcription functionality. While transcription represents about half of this introduction, this is only to provide a thorough context and overview of features. Transcription is a wonderful option to have fully integrated into the package, but it is an optional use case, and working with music data is the broader primary thrust of the package.
 
 ### Why LilyPond for transcription?
 
@@ -121,104 +220,6 @@ The `tabr` package offers the following for transcription:
 * Chord fretboard diagrams and chord chart at top of score.
 * A variety of layout control options covering settings from score attributions to font size.
 * Optional alternative input format allowing the user to provide string/fret combinations (along with key signature and instrument tuning) to map to pitch.
-
-### MIDI support
-
-The package offers nominal MIDI file output support in conjunction with rendering sheet music. MIDI file writing is still handled by LilyPond, which means it must be based on a valid LilyPond file output created by `tabr`.
-
-You can read MIDI files into R. This support relies on the `tuneR` package to read MIDI files and attempts to structure the MIDI data to integrate as best as possible with the data structures and functionality found throughout `tabr`.
-
-An existing MIDI file can also be passed through directly to LilyPond to attempt to create sheet music from the MIDI file if possible, using one of LilyPond's command line utilities for MIDI to LilyPond conversion followed by rendering the generated LilyPond file to sheet music.
-
-## Installation
-
-### Upcoming v0.4.0 release
-
-Music data analysis has been expanding significantly since version 0.3.0, which brought many new functions to `tabr`. Version 0.3.5 brought even more as well as an alternative input format for guitar tab transcription.
-
-The upcoming version 0.4.0 is a huge release. There is so much more in terms of data analysis. There is also better MIDI file support. There are more functions for tidy analysis. Several internal and user-facing functions have been vectorized. Other functions have been generalized that previously lacked an approach to chords in certain contexts. The entire package has been significantly optimized for better performance over previous versions.
-
-More can be done with music notation syntax converters, moving to and from data frames, and between classes. New classes `noteinfo` and `music` have been added along with accompanying functions. Support for triplets have been integrated into `noteinfo` using the `t`-prefix notation, which is supported in turn now by `music` and by `phrase`.
-
-Since it's still in early versions, several aspects of the package and its approaches to working with musical information have been reimagined, corrected, enhanced and made more resilient while keeping to the simple syntax and premises.
-
-All things considered, the next release of `tabr` is the one to use. You can get many of these developments now by installing version 0.3.9.9000 from GitHub, which all the current online documentation is updated for (this document, the `pkgdown` website, help files and vignettes).
-
-Install the CRAN release of `tabr` with
-
-```r
-install.packages("tabr")
-```
-
-Install the development version from GitHub with
-
-```r
-# install.packages("remotes")
-remotes::install_github("leonawicz/tabr")
-```
-
-## Noteworthy strings
-
-As a quick introduction and to get oriented to the music notation syntax offered by `tabr`, consider the concept of a noteworthy string. This is like any other character string, except that what makes a string noteworthy is that its content consists strictly of valid `tabr` music notation syntax. It can be parsed unambiguously and meaningfully into a musical phrase (see next section) and can be processed as input to the various package functions that inspect and manipulate musical information.
-
-A simple character string like `"c e g"`, or alternatively as a vector, `c("c", "e", "g")`, is a noteworthy string. The single lowercase letter `"a"` is noteworthy. So are `"a_"` and `"a#"` (flat and sharp). However, `"A"` is not, nor is `"z"`. There are other pieces of valid syntax than just the lowercase letters `a` through `g` and sharp and flat notation. The most important for specifying pitch is to indicate the octave number, either in tick (recommended; comma and single quote) or integer format (not recommended, more limited utility). For all the available syntax specifications and related details see the package vignettes.
-
-Noteworthiness can be checked on any character string. When defining noteworthy strings you can define them like any other character vector. However, you will notice that package functions that operate on noteworthy strings and whose output is another noteworthy string will yield a string with the supplemental `noteworthy` class. This has its own print and summary methods. Several other generic methods are also implemented. While many functions will attempt to coerce a string to `noteworthy`, not all will and some methods are implemented specifically for the class.
-
-```{r nw}
-x <- "g#, c d# g#c'd#'"
-as_noteworthy(x)
-
-x <- "g#2 c d# g#c4d#4" # equivalent octave numbering
-as_noteworthy(x)
-
-is_note(x)
-is_chord(x)
-chord_is_major(x)
-(x <- transpose(x, 1))
-
-summary(x)
-
-distinct_pitches(x)
-distinct_pitches(x) %>% pitch_freq() # in Hz
-```
-
-There is also a `noteinfo` class and a `music` class. You can learn more in the vignettes. The `music` class is particularly useful for efficient music data entry and basic transcription tasks.
-
-## Tidy music analysis
-
-Ideally music data already exists in a data frame format. But if it doesn't, or if you just wrote out a new note sequence like below, getting this data into a data frame for a more tidy approach to analysis is easy. Conversion can also populate several derivative variables in the process.
-
-In the earlier example you saw the result of calling `as_music_df` on a noteworthy string.
-
-```{r df1, eval=FALSE}
-x <- "a, c e r r c a, g#, a ac'e'"
-as_music_df(x)
-```
-
-You may have noticed that rests (`r`) are allowed for timesteps and that functions that compute lagged intervals respect these gaps. Since all that was provided to `as_music_df` was a string of pitches, there are no time variables in the current data frame. However, discrete timesteps still exist and they do not have to contain notes.
-
-There are a number of derivative columns. If you are working with a large sequence of music, there is no need to carry all of these along through your analysis if you do not need them. They can be created using various package functions and you can build onto your data frame and transform variables later with `mutate`.
-
-```{r df2}
-library(dplyr)
-x <- "a, c e r r c a, g#, a ac'e'"
-tibble(pitch = as_vector_time(x)) %>% 
-  mutate(scale_int = scale_diff(pitch))
-```
-
-In fact, it's much more powerful to create the columns according to your needs using specific functions and their various arguments. But `as_music_df` is convenient and also offers some additional arguments. Adding `key` and `scale` allows for scale degrees. `scale` is diatonic by default but does not have to be.
-
-```{r df3}
-x <- "g g#"
-as_music_df(x, key = "am") %>% 
-  select(pitch, key, scale, scale_deg)
-
-as_music_df(x, key = "am", scale = "harmonic_minor") %>% 
-  select(pitch, key, scale, scale_deg)
-```
-
-`tabr` offers many functions for manipulating and analyzing music data and working in music notation. See the collection of vignettes for more information on music programming and analysis.
 
 ## Basic transcription example
 
@@ -296,7 +297,15 @@ p("r4 a,8 c f d a f")
 p("r4;5 a,8 c f;4 d a;3 f;4")
 ```
 
-Notice how each timestep is complete within the single character string inputs above. Also, durations and string numbers can repeat implicitly until and explicit change occurs. String numbers are ignored when they carry over rests. This is often a more convenient way to construct phrases. If you already have a music object, it can be passed directly to `phrase`.
+Notice how each timestep is complete within the single character string inputs above. Also, durations and string numbers can repeat implicitly until an explicit change occurs. String numbers are ignored when they carry over rests. This is often a more convenient way to construct phrases. If you already have a music object, it can be passed directly to `phrase`.
+
+## MIDI support
+
+The package offers nominal MIDI file output support in conjunction with rendering sheet music. MIDI file writing is still handled by LilyPond, which means it must be based on a valid LilyPond file output created by `tabr`.
+
+You can read MIDI files into R. This support relies on the `tuneR` package to read MIDI files and attempts to structure the MIDI data to integrate as best as possible with the data structures and functionality found throughout `tabr`.
+
+An existing MIDI file can also be passed through directly to LilyPond to attempt to create sheet music from the MIDI file if possible, using one of LilyPond's command line utilities for MIDI to LilyPond conversion followed by rendering the generated LilyPond file to sheet music.
 
 ## References and resources
 

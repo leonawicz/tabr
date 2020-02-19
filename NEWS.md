@@ -2,6 +2,7 @@
 
 * Added utility functions for retrieving LilyPond version and installation directory and `tabr` LilyPond API details.
 * Fixed bug where multiple sharps in tuning broke tab staff string label LilyPond syntax.
+* Updated documentation.
 
 # tabr 0.4.1
 
