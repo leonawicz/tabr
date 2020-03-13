@@ -11,7 +11,7 @@ assignees: ''
 Before filing an issue:
 
 First, restart R and retest the issue.
-Second, install the latest CRAN release: `install.packages("shiny")`. Retest the issue.
+Second, install the latest CRAN release: `install.packages("tabr")`. Retest the issue.
 -->
 
 ### System details
@@ -27,7 +27,7 @@ Output of `sessionInfo()`:
 <!-- This example should be simplified to very few lines of code  --> 
 
 ```R
-# Minimal, self-contained example app code goes here
+# Minimal, self-contained example code goes here
 ```
 
 ### Describe the problem in detail
