@@ -16,6 +16,7 @@
 ^README\.html$
 ^codemeta\.json$
 ^CODE_OF_CONDUCT\.md$
+^\.github$
 ^vignettes/tabr-ex.*
 ^vignettes/jesper.*
 ^vignettes/Gin.*
