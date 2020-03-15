@@ -4,8 +4,10 @@
 \name{tunings}
 \alias{tunings}
 \title{Predefined instrument tunings}
-\format{A data frame with 2 columns for the tuning ID and corresponding
-pitches and 32 rows for all predefined tunings.}
+\format{
+A data frame with 2 columns for the tuning ID and corresponding
+pitches and 32 rows for all predefined tunings.
+}
 \usage{
 tunings
 }

@@ -97,6 +97,7 @@ reference:
   desc: "Map music notation and other quantities like semitones and frequency"
   contents:
   - pitch_freq
+  - freq_ratio
 - title: Plots (non-tablature visualizations)
   desc: "Functions for musical plots and diagrams"
   contents:
@@ -159,7 +160,6 @@ navbar:
       icon: fa-home
       href: index.html
     - text: "Tutorials"
-      icon: fa-info-circle
       menu:
         - text: "Programming"
         - text: "Noteworthiness"
@@ -209,7 +209,6 @@ navbar:
         - text: "Gin Wigmore - Devil in me"
           href: "articles/tabr-ex4.html"
     - text: "Reference"
-      icon: fa-book
       href: "reference/index.html"
     - text: "Changelog"
       href: "news/index.html"

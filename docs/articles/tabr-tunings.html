@@ -54,8 +54,6 @@
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-info-circle"></span>
-     
     Tutorials
      
     <span class="caret"></span>
@@ -139,11 +137,7 @@
   </ul>
 </li>
 <li>
-  <a href="../reference/index.html">
-    <span class="fa fa-book"></span>
-     
-    Reference
-  </a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -184,7 +178,7 @@
 <h2 class="hasAnchor">
 <a href="#predefined-tunings" class="anchor"></a>Predefined tunings</h2>
 <p>The <code>tuning</code> argument to track accepts a variety of predefined commonly used string tunings, defaulting to <code>standard</code>. A table of 32 predefined tunings for various instruments is available.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(tunings)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(tunings)</span></code></pre></div>
 <pre class="r-output"><code>#&gt;         id        value
 #&gt; 1 standard    e,a,dgbe'
 #&gt; 2    seven b,,e,a,dgbe'
@@ -201,20 +195,20 @@
 <p>Any of the explicit tunings shown in the <code>tunings</code> table can be supplied to <code>track</code> exactly as shown instead of using the given names, or any other explicit tuning. Tuning can be provided using tick or integer octave numbering style.</p>
 <p>When providing a tuning, names are checked first against the IDs in <code>tunings</code>. If there is no match, it is assumed to be an explicit tuning already. Some additional checks are performed to catch common user errors in entering a tuning.</p>
 <p>Tuning for a track defaults to standard tuning on a six string guitar. The following calls are equivalent and result in the same explicit tuning stored in each of the the track tables.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"a"</span>, <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb2-2" title="2"><span class="kw"><a href="../reference/track.html">track</a></span>(p1, <span class="dt">tuning =</span> <span class="st">"standard"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"a"</span>, <span class="dv">1</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw"><a href="../reference/track.html">track</a></span>(p1, <span class="dt">tuning =</span> <span class="st">"standard"</span>)</span></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 1 x 7</span><span>
 #&gt;   phrase   clef     key   tab   tuning    voice lyrics
 #&gt;   </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> 
 #&gt; </span><span style="color: #555555;">1</span><span> </span><span style="color: #555555;">&lt;phrase&gt;</span><span> treble_8 </span><span style="color: #BB0000;">NA</span><span>    TRUE  e,a,dgbe'     1 </span><span style="color: #BB0000;">NA</span><span>
 </span></code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="../reference/track.html">track</a></span>(p1, <span class="dt">tuning =</span> <span class="st">"e2 a2 d g b e4"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw"><a href="../reference/track.html">track</a></span>(p1, <span class="dt">tuning =</span> <span class="st">"e2 a2 d g b e4"</span>)</span></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 1 x 7</span><span>
 #&gt;   phrase   clef     key   tab   tuning    voice lyrics
 #&gt;   </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> 
 #&gt; </span><span style="color: #555555;">1</span><span> </span><span style="color: #555555;">&lt;phrase&gt;</span><span> treble_8 </span><span style="color: #BB0000;">NA</span><span>    TRUE  e,a,dgbe'     1 </span><span style="color: #BB0000;">NA</span><span>
 </span></code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="../reference/track.html">track</a></span>(p1, <span class="dt">tuning =</span> <span class="st">"e, a, d g b e'"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw"><a href="../reference/track.html">track</a></span>(p1, <span class="dt">tuning =</span> <span class="st">"e, a, d g b e'"</span>)</span></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 1 x 7</span><span>
 #&gt;   phrase   clef     key   tab   tuning    voice lyrics
 #&gt;   </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> 
@@ -228,15 +222,15 @@
 <p>A convenient approach taken by <code>tabr</code> is that the number of strings an instrument has, and in turn the number of horizontal lines in a rendered tablature staff, is inferred directly from the explicit tuning.</p>
 <p>Take the predefined <code>bass</code> tuning (standard bass tuning) or the explicit tuning it is converted to by <code>track</code>, which is <code>e,, a,, d, g,</code>. This is a tuning that specifies four strings. This is all <code>tabr</code> needs to know and pass along to LilyPond to yield a tablature staff with four staff lines as opposed to the standard six line staff used for typical guitar tabs.</p>
 <p>The next example shows three different tablature staves: six string guitar in standard tuning, four string bass in standard tuning, and just for illustration, a one string instrument tuning to the fourth octave C note.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">guitar &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tuplet.html">tuplet</a></span>(<span class="st">"e, a, d g b e'"</span>, <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb5-2" title="2">bass &lt;-<span class="st"> </span><span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"e,, a,, d, g,"</span>, <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb5-3" title="3">one_string &lt;-<span class="st"> </span><span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"c' d' e' f'"</span>, <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb5-4" title="4">tracks &lt;-<span class="st"> </span><span class="kw"><a href="../reference/trackbind.html">trackbind</a></span>(</a>
-<a class="sourceLine" id="cb5-5" title="5">  <span class="kw"><a href="../reference/track.html">track</a></span>(guitar, <span class="dt">clef =</span> <span class="ot">NA</span>), </a>
-<a class="sourceLine" id="cb5-6" title="6">  <span class="kw"><a href="../reference/track.html">track</a></span>(bass, <span class="dt">clef =</span> <span class="ot">NA</span>, <span class="dt">tuning =</span> <span class="st">"bass"</span>), </a>
-<a class="sourceLine" id="cb5-7" title="7">  <span class="kw"><a href="../reference/track.html">track</a></span>(one_string, <span class="dt">clef =</span> <span class="ot">NA</span>, <span class="dt">tuning =</span> <span class="st">"c'"</span>)</a>
-<a class="sourceLine" id="cb5-8" title="8">)</a>
-<a class="sourceLine" id="cb5-9" title="9">tracks</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>guitar &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tuplet.html">tuplet</a></span>(<span class="st">"e, a, d g b e'"</span>, <span class="dv">4</span>)</span>
+<span id="cb5-2"><a href="#cb5-2"></a>bass &lt;-<span class="st"> </span><span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"e,, a,, d, g,"</span>, <span class="dv">4</span>)</span>
+<span id="cb5-3"><a href="#cb5-3"></a>one_string &lt;-<span class="st"> </span><span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"c' d' e' f'"</span>, <span class="dv">4</span>)</span>
+<span id="cb5-4"><a href="#cb5-4"></a>tracks &lt;-<span class="st"> </span><span class="kw"><a href="../reference/trackbind.html">trackbind</a></span>(</span>
+<span id="cb5-5"><a href="#cb5-5"></a>  <span class="kw"><a href="../reference/track.html">track</a></span>(guitar, <span class="dt">clef =</span> <span class="ot">NA</span>), </span>
+<span id="cb5-6"><a href="#cb5-6"></a>  <span class="kw"><a href="../reference/track.html">track</a></span>(bass, <span class="dt">clef =</span> <span class="ot">NA</span>, <span class="dt">tuning =</span> <span class="st">"bass"</span>), </span>
+<span id="cb5-7"><a href="#cb5-7"></a>  <span class="kw"><a href="../reference/track.html">track</a></span>(one_string, <span class="dt">clef =</span> <span class="ot">NA</span>, <span class="dt">tuning =</span> <span class="st">"c'"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8"></a>)</span>
+<span id="cb5-9"><a href="#cb5-9"></a>tracks</span></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 3 x 8</span><span>
 #&gt;   phrase   clef  key   tab   tuning     voice lyrics    id
 #&gt;   </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>      </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span>
@@ -244,17 +238,17 @@
 #&gt; </span><span style="color: #555555;">2</span><span> </span><span style="color: #555555;">&lt;phrase&gt;</span><span> </span><span style="color: #BB0000;">NA</span><span>    </span><span style="color: #BB0000;">NA</span><span>    TRUE  e,,a,,d,g,     1 </span><span style="color: #BB0000;">NA</span><span>         2
 #&gt; </span><span style="color: #555555;">3</span><span> </span><span style="color: #555555;">&lt;phrase&gt;</span><span> </span><span style="color: #BB0000;">NA</span><span>    </span><span style="color: #BB0000;">NA</span><span>    TRUE  c'             1 </span><span style="color: #BB0000;">NA</span><span>         3
 </span></code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw"><a href="../reference/score.html">score</a></span>(tracks) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"out.pdf"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw"><a href="../reference/score.html">score</a></span>(tracks) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"out.pdf"</span>)</span></code></pre></div>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex34.png?raw=true" class="centerimg" width="40%"></p>
 <p>Notice that for tunings other than standard guitar, the default is to show the note each string is tuned to at the start of the tablature staff. These can be turning off in <code>score</code> using <code>string_names = FALSE</code>. For example, when making a pure bass tab in standard tuning, you might opt to exclude this. There must still be some familiarity with the instrument of course. In the case of the made up one string instrument, no one would know which octave the open C belongs to, but the person with such an instrument would surely know what to expect.</p>
 <p>Take another look at the same example, but this time including music staves. Because of the different octave ranges of the different instruments, it is best to use an appropriate clef. Recall the default (used for guitar) is <code>treble_8</code> because guitar is a transposing instrument. Compare this with <code>treble</code> used for the third instrument that is in a higher octave. These different notations help prevent difficult to read transcriptions where the notes go far above or below the staff lines.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">tracks &lt;-<span class="st"> </span><span class="kw"><a href="../reference/trackbind.html">trackbind</a></span>(</a>
-<a class="sourceLine" id="cb7-2" title="2">  <span class="kw"><a href="../reference/track.html">track</a></span>(guitar), </a>
-<a class="sourceLine" id="cb7-3" title="3">  <span class="kw"><a href="../reference/track.html">track</a></span>(bass, <span class="dt">clef =</span> <span class="st">"bass_8"</span>, <span class="dt">tuning =</span> <span class="st">"bass"</span>), </a>
-<a class="sourceLine" id="cb7-4" title="4">  <span class="kw"><a href="../reference/track.html">track</a></span>(one_string, <span class="dt">clef =</span> <span class="st">"treble"</span>, <span class="dt">tuning =</span> <span class="st">"c'"</span>)</a>
-<a class="sourceLine" id="cb7-5" title="5">)</a>
-<a class="sourceLine" id="cb7-6" title="6">tracks</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>tracks &lt;-<span class="st"> </span><span class="kw"><a href="../reference/trackbind.html">trackbind</a></span>(</span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="kw"><a href="../reference/track.html">track</a></span>(guitar), </span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="kw"><a href="../reference/track.html">track</a></span>(bass, <span class="dt">clef =</span> <span class="st">"bass_8"</span>, <span class="dt">tuning =</span> <span class="st">"bass"</span>), </span>
+<span id="cb7-4"><a href="#cb7-4"></a>  <span class="kw"><a href="../reference/track.html">track</a></span>(one_string, <span class="dt">clef =</span> <span class="st">"treble"</span>, <span class="dt">tuning =</span> <span class="st">"c'"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5"></a>)</span>
+<span id="cb7-6"><a href="#cb7-6"></a>tracks</span></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 3 x 8</span><span>
 #&gt;   phrase   clef     key   tab   tuning     voice lyrics    id
 #&gt;   </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>      </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span>
@@ -262,7 +256,7 @@
 #&gt; </span><span style="color: #555555;">2</span><span> </span><span style="color: #555555;">&lt;phrase&gt;</span><span> bass_8   </span><span style="color: #BB0000;">NA</span><span>    TRUE  e,,a,,d,g,     1 </span><span style="color: #BB0000;">NA</span><span>         2
 #&gt; </span><span style="color: #555555;">3</span><span> </span><span style="color: #555555;">&lt;phrase&gt;</span><span> treble   </span><span style="color: #BB0000;">NA</span><span>    TRUE  c'             1 </span><span style="color: #BB0000;">NA</span><span>         3
 </span></code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw"><a href="../reference/score.html">score</a></span>(tracks) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"out.pdf"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw"><a href="../reference/score.html">score</a></span>(tracks) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"out.pdf"</span>)</span></code></pre></div>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex35.png?raw=true" class="centerimg" width="40%"></p>
 </div>

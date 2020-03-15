@@ -4,7 +4,9 @@
 \name{articulations}
 \alias{articulations}
 \title{Single note articulations and syntax}
-\format{A data frame with 3 column and 44 rows.}
+\format{
+A data frame with 3 column and 44 rows.
+}
 \usage{
 articulations
 }

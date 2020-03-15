@@ -8,6 +8,7 @@
 \alias{freq_pitch}
 \alias{freq_semitones}
 \alias{semitone_pitch}
+\alias{semitone_freq}
 \title{Pitch conversions}
 \usage{
 pitch_freq(notes, a4 = 440)
@@ -34,6 +35,8 @@ semitone_pitch(
   accidentals = c("flat", "sharp"),
   collapse = FALSE
 )
+
+semitone_freq(semitones, a4 = 440)
 }
 \arguments{
 \item{notes}{character, noteworthy string, space-delimited or vector of
@@ -55,10 +58,10 @@ octave numbering in result.}
 \item{semitones}{integer values of pitches.}
 }
 \value{
-numeric vector
+integer, numeric or noteworthy vector
 }
 \description{
-Convert between pitch and other quantities.
+Convert between pitches, chords, semitones and frequencies.
 }
 \details{
 Frequencies are in Hertz. Values are based on the 12-tone equal-tempered

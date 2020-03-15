@@ -95,8 +95,6 @@ for a set of chords." />
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-info-circle"></span>
-     
     Tutorials
      
     <span class="caret"></span>
@@ -180,11 +178,7 @@ for a set of chords." />
   </ul>
 </li>
 <li>
-  <a href="../reference/index.html">
-    <span class="fa fa-book"></span>
-     
-    Reference
-  </a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -323,8 +317,7 @@ multiple sheets separately.</p>
 <code><a href='tab.html'>tab</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/message.html'>suppressPackageStartupMessages</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>))
-
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/message.html'>suppressPackageStartupMessages</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: package 'dplyr' was built under R version 3.6.3</span></div><div class='input'>
 <span class='no'>chords</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(
   <span class='no'>guitarChords</span>, <span class='no'>root</span> <span class='kw'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"c"</span>, <span class='st'>"f"</span>) <span class='kw'>&amp;</span> <span class='no'>id</span> <span class='kw'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"7"</span>, <span class='st'>"M7"</span>, <span class='st'>"m7"</span>) <span class='kw'>&amp;</span>
   !<span class='fu'><a href='https://rdrr.io/r/base/grep.html'>grepl</a></span>(<span class='st'>"#"</span>, <span class='no'>notes</span>) <span class='kw'>&amp;</span> <span class='no'>root_fret</span> <span class='kw'>&lt;=</span> <span class='fl'>12</span>) <span class='kw'>%&gt;%</span>

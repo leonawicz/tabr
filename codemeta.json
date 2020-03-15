@@ -14,10 +14,10 @@
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.6.2",
+    "version": "3.6.3",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.6.2 (2019-12-12)",
+  "runtimePlatform": "R version 3.6.3 (2020-02-29)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -281,5 +281,5 @@
   ],
   "relatedLink": "https://CRAN.R-project.org/package=tabr",
   "developmentStatus": "http://www.repostatus.org/#active",
-  "fileSize": "333.11KB"
+  "fileSize": "334.826KB"
 }

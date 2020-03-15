@@ -54,8 +54,6 @@
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-info-circle"></span>
-     
     Tutorials
      
     <span class="caret"></span>
@@ -139,11 +137,7 @@
   </ul>
 </li>
 <li>
-  <a href="../reference/index.html">
-    <span class="fa fa-book"></span>
-     
-    Reference
-  </a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -191,18 +185,18 @@
 <li>the chords do not contain sharps</li>
 <li>and the fret number of the root note is no higher than 12</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a>
-<a class="sourceLine" id="cb1-2" title="2"></a>
-<a class="sourceLine" id="cb1-3" title="3">chords &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(</a>
-<a class="sourceLine" id="cb1-4" title="4">  guitarChords, </a>
-<a class="sourceLine" id="cb1-5" title="5">  root <span class="op">%in%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"c"</span>, <span class="st">"f"</span>) <span class="op">&amp;</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-6" title="6"><span class="st">    </span>id <span class="op">%in%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"7"</span>, <span class="st">"M7"</span>, <span class="st">"m7"</span>) <span class="op">&amp;</span></a>
-<a class="sourceLine" id="cb1-7" title="7"><span class="st">    </span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span>(<span class="st">"#"</span>, notes) <span class="op">&amp;</span><span class="st"> </span>root_fret <span class="op">&lt;=</span><span class="st"> </span><span class="dv">12</span></a>
-<a class="sourceLine" id="cb1-8" title="8">  ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1-9" title="9"><span class="st">  </span><span class="kw">arrange</span>(root, id)</a>
-<a class="sourceLine" id="cb1-10" title="10"></a>
-<a class="sourceLine" id="cb1-11" title="11">chords &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span>(chords<span class="op">$</span>fretboard, chords<span class="op">$</span>lp_name)</a>
-<a class="sourceLine" id="cb1-12" title="12"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(chords)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a>chords &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(</span>
+<span id="cb1-4"><a href="#cb1-4"></a>  guitarChords, </span>
+<span id="cb1-5"><a href="#cb1-5"></a>  root <span class="op">%in%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"c"</span>, <span class="st">"f"</span>) <span class="op">&amp;</span><span class="st"> </span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="st">    </span>id <span class="op">%in%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"7"</span>, <span class="st">"M7"</span>, <span class="st">"m7"</span>) <span class="op">&amp;</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="st">    </span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span>(<span class="st">"#"</span>, notes) <span class="op">&amp;</span><span class="st"> </span>root_fret <span class="op">&lt;=</span><span class="st"> </span><span class="dv">12</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="st">  </span><span class="kw">arrange</span>(root, id)</span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a>chords &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span>(chords<span class="op">$</span>fretboard, chords<span class="op">$</span>lp_name)</span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(chords)</span></code></pre></div>
 <pre class="r-output"><code>#&gt;              c:7              c:7              c:7              c:7 
 #&gt;   "x;3;2;3;1;x;"   "x;3;5;3;5;3;"   "x;3;2;3;1;3;"  "8;10;8;9;8;8;" 
 #&gt;              c:7             c':7 
@@ -213,11 +207,11 @@
 <h2 class="hasAnchor">
 <a href="#render-chord-chart" class="anchor"></a>Render chord chart</h2>
 <p>The filtering above results in 41 chords. The size of the fretboard diagrams is increased below with <code>size = 2</code>. Like <code>lilypond</code> and the <code>render_*</code> functions that wrap around it for rendering music scores, <code>render_chordchart</code> also takes the <code>header</code> and <code>paper</code> named list arguments. Once the named chord vector is ready, rendering the chord chart is as simple as the following.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">hdr &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
-<a class="sourceLine" id="cb2-2" title="2">  <span class="dt">title =</span> <span class="st">"Dominant 7th, major 7th and minor 7th chords"</span>,</a>
-<a class="sourceLine" id="cb2-3" title="3">  <span class="dt">subtitle =</span> <span class="st">"C and F root"</span></a>
-<a class="sourceLine" id="cb2-4" title="4">)</a>
-<a class="sourceLine" id="cb2-5" title="5"><span class="kw"><a href="../reference/render_chordchart.html">render_chordchart</a></span>(chords, <span class="st">"out.png"</span>, <span class="dv">2</span>, hdr, <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">textheight =</span> <span class="dv">175</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>hdr &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="dt">title =</span> <span class="st">"Dominant 7th, major 7th and minor 7th chords"</span>,</span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="dt">subtitle =</span> <span class="st">"C and F root"</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>)</span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="kw"><a href="../reference/render_chordchart.html">render_chordchart</a></span>(chords, <span class="st">"out.png"</span>, <span class="dv">2</span>, hdr, <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">textheight =</span> <span class="dv">175</span>))</span></code></pre></div>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex36.png?raw=true" class="centerimg" width="100%"></p>
 <p>The chord chart template must be kept to one page.</p>

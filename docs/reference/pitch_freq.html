@@ -45,7 +45,7 @@
   
 
 <meta property="og:title" content="Pitch conversions — pitch_freq" />
-<meta property="og:description" content="Convert between pitch and other quantities." />
+<meta property="og:description" content="Convert between pitches, chords, semitones and frequencies." />
 <meta property="og:image" content="https://leonawicz.github.io/tabr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -94,8 +94,6 @@
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-info-circle"></span>
-     
     Tutorials
      
     <span class="caret"></span>
@@ -179,11 +177,7 @@
   </ul>
 </li>
 <li>
-  <a href="../reference/index.html">
-    <span class="fa fa-book"></span>
-     
-    Reference
-  </a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -215,7 +209,7 @@
     </div>
 
     <div class="ref-description">
-    <p>Convert between pitch and other quantities.</p>
+    <p>Convert between pitches, chords, semitones and frequencies.</p>
     </div>
 
     <pre class="usage"><span class='fu'>pitch_freq</span>(<span class='no'>notes</span>, <span class='kw'>a4</span> <span class='kw'>=</span> <span class='fl'>440</span>)
@@ -241,7 +235,9 @@
   <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"tick"</span>, <span class='st'>"integer"</span>),
   <span class='kw'>accidentals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"flat"</span>, <span class='st'>"sharp"</span>),
   <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+)
+
+<span class='fu'>semitone_freq</span>(<span class='no'>semitones</span>, <span class='kw'>a4</span> <span class='kw'>=</span> <span class='fl'>440</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -282,7 +278,7 @@ octave numbering in result.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>numeric vector</p>
+    <p>integer, numeric or noteworthy vector</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Frequencies are in Hertz. Values are based on the 12-tone equal-tempered

@@ -66,8 +66,6 @@
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-info-circle"></span>
-     
     Tutorials
      
     <span class="caret"></span>
@@ -151,11 +149,7 @@
   </ul>
 </li>
 <li>
-  <a href="reference/index.html">
-    <span class="fa fa-book"></span>
-     
-    Reference
-  </a>
+  <a href="reference/index.html">Reference</a>
 </li>
 <li>
   <a href="news/index.html">Changelog</a>
@@ -202,10 +196,10 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Install the CRAN release of <code>tabr</code> with</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"tabr"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"tabr"</span>)</span></code></pre></div>
 <p>Install the development version from GitHub with</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="co"># install.packages("remotes")</span></a>
-<a class="sourceLine" id="cb2-2" title="2">remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"leonawicz/tabr"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># install.packages("remotes")</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>remotes<span class="op">::</span><span class="kw"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"leonawicz/tabr"</span>)</span></code></pre></div>
 </div>
 <div id="music-data-structures" class="section level2">
 <h2 class="hasAnchor">
@@ -214,77 +208,77 @@
 <p>Music data can be viewed, manipulated and analyzed while in different forms of representation based around different data structures: strings and data frames. Each representation offers advantages over the other for different use cases.</p>
 <p>Music syntax can be entered directly and represented in character strings to minimize the formatting overhead of data entry by using simple data structures, for example when wanting to quickly enter and transcribe short pieces of music syntax in R into sheet music or tablature files. You can also enter sound and time together with the <code>music</code> class, and no need to repeat consecutive durations until a change.</p>
 <p>Here is an example of making a string of pitches <em>noteworthy</em> and a string of combined pitch and duration into a music object. Such objects carry various musical information based on the syntax of an input string.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tabr)</a>
-<a class="sourceLine" id="cb3-2" title="2"></a>
-<a class="sourceLine" id="cb3-3" title="3">x &lt;-<span class="st"> "a, c e g# a ac'e' ac'e'~ ac'e' a c' e' a'"</span></a>
-<a class="sourceLine" id="cb3-4" title="4">x &lt;-<span class="st"> </span><span class="kw"><a href="reference/valid-notes.html">as_noteworthy</a></span>(x)</a>
-<a class="sourceLine" id="cb3-5" title="5">x</a>
-<a class="sourceLine" id="cb3-6" title="6"><span class="co">#&gt; &lt;Noteworthy string&gt;</span></a>
-<a class="sourceLine" id="cb3-7" title="7"><span class="co">#&gt;   Format: space-delimited time</span></a>
-<a class="sourceLine" id="cb3-8" title="8"><span class="co">#&gt;   Values: a, c e g# a &lt;ac'e'&gt; &lt;ac'e'~&gt; &lt;ac'e'&gt; a c' e' a'</span></a>
-<a class="sourceLine" id="cb3-9" title="9"></a>
-<a class="sourceLine" id="cb3-10" title="10"><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(x)</a>
-<a class="sourceLine" id="cb3-11" title="11"><span class="co">#&gt; &lt;Noteworthy string&gt;</span></a>
-<a class="sourceLine" id="cb3-12" title="12"><span class="co">#&gt;   Timesteps: 12 (9 notes, 3 chords)</span></a>
-<a class="sourceLine" id="cb3-13" title="13"><span class="co">#&gt;   Octaves: tick</span></a>
-<a class="sourceLine" id="cb3-14" title="14"><span class="co">#&gt;   Accidentals: sharp</span></a>
-<a class="sourceLine" id="cb3-15" title="15"><span class="co">#&gt;   Format: space-delimited time</span></a>
-<a class="sourceLine" id="cb3-16" title="16"><span class="co">#&gt;   Values: a, c e g# a &lt;ac'e'&gt; &lt;ac'e'~&gt; &lt;ac'e'&gt; a c' e' a'</span></a>
-<a class="sourceLine" id="cb3-17" title="17"></a>
-<a class="sourceLine" id="cb3-18" title="18">y &lt;-<span class="st"> "a,8 c et8 g# a ac'e'4. ac'e'~8 ac'e'4 at4 c' e' a'1"</span></a>
-<a class="sourceLine" id="cb3-19" title="19">y &lt;-<span class="st"> </span><span class="kw"><a href="reference/music.html">as_music</a></span>(y)</a>
-<a class="sourceLine" id="cb3-20" title="20"><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(y)</a>
-<a class="sourceLine" id="cb3-21" title="21"><span class="co">#&gt; &lt;Music string&gt;</span></a>
-<a class="sourceLine" id="cb3-22" title="22"><span class="co">#&gt;   Timesteps: 12 (9 notes, 3 chords)</span></a>
-<a class="sourceLine" id="cb3-23" title="23"><span class="co">#&gt;   Octaves: tick</span></a>
-<a class="sourceLine" id="cb3-24" title="24"><span class="co">#&gt;   Accidentals: sharp</span></a>
-<a class="sourceLine" id="cb3-25" title="25"><span class="co">#&gt;   Key signature: c</span></a>
-<a class="sourceLine" id="cb3-26" title="26"><span class="co">#&gt;   Time signature: 4/4</span></a>
-<a class="sourceLine" id="cb3-27" title="27"><span class="co">#&gt;   Tempo: 2 = 60</span></a>
-<a class="sourceLine" id="cb3-28" title="28"><span class="co">#&gt;   Lyrics: NA</span></a>
-<a class="sourceLine" id="cb3-29" title="29"><span class="co">#&gt;   Format: space-delimited time</span></a>
-<a class="sourceLine" id="cb3-30" title="30"><span class="co">#&gt;   Values: a,8 c8 et8 g#t8 at8 &lt;ac'e'&gt;4. &lt;ac'e'~&gt;8 &lt;ac'e'&gt;4 at4 c't4 e't4 a'1</span></a>
-<a class="sourceLine" id="cb3-31" title="31"></a>
-<a class="sourceLine" id="cb3-32" title="32"><span class="kw"><a href="reference/music.html">music_split</a></span>(y)</a>
-<a class="sourceLine" id="cb3-33" title="33"><span class="co">#&gt; $notes</span></a>
-<a class="sourceLine" id="cb3-34" title="34"><span class="co">#&gt; &lt;Noteworthy string&gt;</span></a>
-<a class="sourceLine" id="cb3-35" title="35"><span class="co">#&gt;   Format: space-delimited time</span></a>
-<a class="sourceLine" id="cb3-36" title="36"><span class="co">#&gt;   Values: a, c e g# a &lt;ac'e'&gt; &lt;ac'e'~&gt; &lt;ac'e'&gt; a c' e' a'</span></a>
-<a class="sourceLine" id="cb3-37" title="37"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb3-38" title="38"><span class="co">#&gt; $info</span></a>
-<a class="sourceLine" id="cb3-39" title="39"><span class="co">#&gt; &lt;Note info string&gt;</span></a>
-<a class="sourceLine" id="cb3-40" title="40"><span class="co">#&gt;   Format: space-delimited time</span></a>
-<a class="sourceLine" id="cb3-41" title="41"><span class="co">#&gt;   Values: 8 8 t8 t8 t8 4. 8 4 t4 t4 t4 1</span></a>
-<a class="sourceLine" id="cb3-42" title="42"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb3-43" title="43"><span class="co">#&gt; $lyrics</span></a>
-<a class="sourceLine" id="cb3-44" title="44"><span class="co">#&gt; [1] NA</span></a>
-<a class="sourceLine" id="cb3-45" title="45"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb3-46" title="46"><span class="co">#&gt; $key</span></a>
-<a class="sourceLine" id="cb3-47" title="47"><span class="co">#&gt; [1] "c"</span></a>
-<a class="sourceLine" id="cb3-48" title="48"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb3-49" title="49"><span class="co">#&gt; $time</span></a>
-<a class="sourceLine" id="cb3-50" title="50"><span class="co">#&gt; [1] "4/4"</span></a>
-<a class="sourceLine" id="cb3-51" title="51"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb3-52" title="52"><span class="co">#&gt; $tempo</span></a>
-<a class="sourceLine" id="cb3-53" title="53"><span class="co">#&gt; [1] "2 = 60"</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tabr)</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a>x &lt;-<span class="st"> "a, c e g# a ac'e' ac'e'~ ac'e' a c' e' a'"</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>x &lt;-<span class="st"> </span><span class="kw"><a href="reference/valid-notes.html">as_noteworthy</a></span>(x)</span>
+<span id="cb3-5"><a href="#cb3-5"></a>x</span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt; &lt;Noteworthy string&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt;   Format: space-delimited time</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt;   Values: a, c e g# a &lt;ac'e'&gt; &lt;ac'e'~&gt; &lt;ac'e'&gt; a c' e' a'</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(x)</span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt; &lt;Noteworthy string&gt;</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt;   Timesteps: 12 (9 notes, 3 chords)</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="co">#&gt;   Octaves: tick</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="co">#&gt;   Accidentals: sharp</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="co">#&gt;   Format: space-delimited time</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a><span class="co">#&gt;   Values: a, c e g# a &lt;ac'e'&gt; &lt;ac'e'~&gt; &lt;ac'e'&gt; a c' e' a'</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a></span>
+<span id="cb3-18"><a href="#cb3-18"></a>y &lt;-<span class="st"> "a,8 c et8 g# a ac'e'4. ac'e'~8 ac'e'4 at4 c' e' a'1"</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a>y &lt;-<span class="st"> </span><span class="kw"><a href="reference/music.html">as_music</a></span>(y)</span>
+<span id="cb3-20"><a href="#cb3-20"></a><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(y)</span>
+<span id="cb3-21"><a href="#cb3-21"></a><span class="co">#&gt; &lt;Music string&gt;</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a><span class="co">#&gt;   Timesteps: 12 (9 notes, 3 chords)</span></span>
+<span id="cb3-23"><a href="#cb3-23"></a><span class="co">#&gt;   Octaves: tick</span></span>
+<span id="cb3-24"><a href="#cb3-24"></a><span class="co">#&gt;   Accidentals: sharp</span></span>
+<span id="cb3-25"><a href="#cb3-25"></a><span class="co">#&gt;   Key signature: c</span></span>
+<span id="cb3-26"><a href="#cb3-26"></a><span class="co">#&gt;   Time signature: 4/4</span></span>
+<span id="cb3-27"><a href="#cb3-27"></a><span class="co">#&gt;   Tempo: 2 = 60</span></span>
+<span id="cb3-28"><a href="#cb3-28"></a><span class="co">#&gt;   Lyrics: NA</span></span>
+<span id="cb3-29"><a href="#cb3-29"></a><span class="co">#&gt;   Format: space-delimited time</span></span>
+<span id="cb3-30"><a href="#cb3-30"></a><span class="co">#&gt;   Values: a,8 c8 et8 g#t8 at8 &lt;ac'e'&gt;4. &lt;ac'e'~&gt;8 &lt;ac'e'&gt;4 at4 c't4 e't4 a'1</span></span>
+<span id="cb3-31"><a href="#cb3-31"></a></span>
+<span id="cb3-32"><a href="#cb3-32"></a><span class="kw"><a href="reference/music.html">music_split</a></span>(y)</span>
+<span id="cb3-33"><a href="#cb3-33"></a><span class="co">#&gt; $notes</span></span>
+<span id="cb3-34"><a href="#cb3-34"></a><span class="co">#&gt; &lt;Noteworthy string&gt;</span></span>
+<span id="cb3-35"><a href="#cb3-35"></a><span class="co">#&gt;   Format: space-delimited time</span></span>
+<span id="cb3-36"><a href="#cb3-36"></a><span class="co">#&gt;   Values: a, c e g# a &lt;ac'e'&gt; &lt;ac'e'~&gt; &lt;ac'e'&gt; a c' e' a'</span></span>
+<span id="cb3-37"><a href="#cb3-37"></a><span class="co">#&gt; </span></span>
+<span id="cb3-38"><a href="#cb3-38"></a><span class="co">#&gt; $info</span></span>
+<span id="cb3-39"><a href="#cb3-39"></a><span class="co">#&gt; &lt;Note info string&gt;</span></span>
+<span id="cb3-40"><a href="#cb3-40"></a><span class="co">#&gt;   Format: space-delimited time</span></span>
+<span id="cb3-41"><a href="#cb3-41"></a><span class="co">#&gt;   Values: 8 8 t8 t8 t8 4. 8 4 t4 t4 t4 1</span></span>
+<span id="cb3-42"><a href="#cb3-42"></a><span class="co">#&gt; </span></span>
+<span id="cb3-43"><a href="#cb3-43"></a><span class="co">#&gt; $lyrics</span></span>
+<span id="cb3-44"><a href="#cb3-44"></a><span class="co">#&gt; [1] NA</span></span>
+<span id="cb3-45"><a href="#cb3-45"></a><span class="co">#&gt; </span></span>
+<span id="cb3-46"><a href="#cb3-46"></a><span class="co">#&gt; $key</span></span>
+<span id="cb3-47"><a href="#cb3-47"></a><span class="co">#&gt; [1] "c"</span></span>
+<span id="cb3-48"><a href="#cb3-48"></a><span class="co">#&gt; </span></span>
+<span id="cb3-49"><a href="#cb3-49"></a><span class="co">#&gt; $time</span></span>
+<span id="cb3-50"><a href="#cb3-50"></a><span class="co">#&gt; [1] "4/4"</span></span>
+<span id="cb3-51"><a href="#cb3-51"></a><span class="co">#&gt; </span></span>
+<span id="cb3-52"><a href="#cb3-52"></a><span class="co">#&gt; $tempo</span></span>
+<span id="cb3-53"><a href="#cb3-53"></a><span class="co">#&gt; [1] "2 = 60"</span></span></code></pre></div>
 <p>Functions exist for directly performing various mathematical, logical and organizational operations and musical transformations on strings like the one above by checking their music syntax validity and adding custom classes and methods to these strings (more on this below). <code>tabr</code> offers special object classes that facilitate working with music data and notation in ways that are natural to R, robust, tidy, and lend themselves well to transcription as well as analysis.</p>
 <p>Of course, none of this will work on character strings that are not “noteworthy” or “musical”, for example. Invalid, unworthy syntax is rejected early with an error, preventing corrupted music syntax from causing unexpected issues later on.</p>
 <p>The same music data can also be organized in tidy data frames, allowing for a more familiar and powerful approach to the analysis of large amounts of structured music data.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">x &lt;-<span class="st"> "a,8 c e r r c a, g#, a ac'e'"</span></a>
-<a class="sourceLine" id="cb4-2" title="2"><span class="kw"><a href="reference/music.html">as_music</a></span>(x) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/as_music_df.html">as_music_df</a></span>()</a>
-<a class="sourceLine" id="cb4-3" title="3"><span class="co">#&gt; # A tibble: 10 x 14</span></a>
-<a class="sourceLine" id="cb4-4" title="4"><span class="co">#&gt;    duration pitch note  semitone octave  freq pitch_int scale_int slur  slide bend  dotted articulation annotation</span></a>
-<a class="sourceLine" id="cb4-5" title="5"><span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;    &lt;int&gt;  &lt;int&gt; &lt;dbl&gt;     &lt;int&gt; &lt;chr&gt;     &lt;chr&gt; &lt;lgl&gt; &lt;lgl&gt;  &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;     </span></a>
-<a class="sourceLine" id="cb4-6" title="6"><span class="co">#&gt;  1 8        a,    a           57      2  110.        NA &lt;NA&gt;      &lt;NA&gt;  FALSE FALSE      0 &lt;NA&gt;         &lt;NA&gt;      </span></a>
-<a class="sourceLine" id="cb4-7" title="7"><span class="co">#&gt;  2 8        c     c           48      3  131.         3 m3        &lt;NA&gt;  FALSE FALSE      0 &lt;NA&gt;         &lt;NA&gt;      </span></a>
-<a class="sourceLine" id="cb4-8" title="8"><span class="co">#&gt;  3 8        e     e           52      3  165.         4 M3        &lt;NA&gt;  FALSE FALSE      0 &lt;NA&gt;         &lt;NA&gt;      </span></a>
-<a class="sourceLine" id="cb4-9" title="9"><span class="co">#&gt;  4 8        r     r           NA     NA   NA         NA &lt;NA&gt;      &lt;NA&gt;  FALSE FALSE      0 &lt;NA&gt;         &lt;NA&gt;      </span></a>
-<a class="sourceLine" id="cb4-10" title="10"><span class="co">#&gt;  5 8        r     r           NA     NA   NA         NA &lt;NA&gt;      &lt;NA&gt;  FALSE FALSE      0 &lt;NA&gt;         &lt;NA&gt;      </span></a>
-<a class="sourceLine" id="cb4-11" title="11"><span class="co">#&gt;  6 8        c     c           48      3  131.        -4 M3        &lt;NA&gt;  FALSE FALSE      0 &lt;NA&gt;         &lt;NA&gt;      </span></a>
-<a class="sourceLine" id="cb4-12" title="12"><span class="co">#&gt;  7 8        a,    a           57      2  110.        -3 m3        &lt;NA&gt;  FALSE FALSE      0 &lt;NA&gt;         &lt;NA&gt;      </span></a>
-<a class="sourceLine" id="cb4-13" title="13"><span class="co">#&gt;  8 8        g#,   g#          56      2  104.        -1 m2        &lt;NA&gt;  FALSE FALSE      0 &lt;NA&gt;         &lt;NA&gt;      </span></a>
-<a class="sourceLine" id="cb4-14" title="14"><span class="co">#&gt;  9 8        a     a           57      3  220.        13 m9        &lt;NA&gt;  FALSE FALSE      0 &lt;NA&gt;         &lt;NA&gt;      </span></a>
-<a class="sourceLine" id="cb4-15" title="15"><span class="co">#&gt; 10 8        ac'e' ace         57      3  220.         0 P1        &lt;NA&gt;  FALSE FALSE      0 &lt;NA&gt;         &lt;NA&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>x &lt;-<span class="st"> "a,8 c e r r c a, g#, a ac'e'"</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="kw"><a href="reference/music.html">as_music</a></span>(x) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/as_music_df.html">as_music_df</a></span>()</span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co">#&gt; # A tibble: 10 x 14</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="co">#&gt;    duration pitch note  semitone octave  freq pitch_int scale_int slur  slide bend  dotted articulation annotation</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;    &lt;int&gt;  &lt;int&gt; &lt;dbl&gt;     &lt;int&gt; &lt;chr&gt;     &lt;chr&gt; &lt;lgl&gt; &lt;lgl&gt;  &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;     </span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt;  1 8        a,    a           57      2  110.        NA &lt;NA&gt;      &lt;NA&gt;  FALSE FALSE      0 &lt;NA&gt;         &lt;NA&gt;      </span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt;  2 8        c     c           48      3  131.         3 m3        &lt;NA&gt;  FALSE FALSE      0 &lt;NA&gt;         &lt;NA&gt;      </span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt;  3 8        e     e           52      3  165.         4 M3        &lt;NA&gt;  FALSE FALSE      0 &lt;NA&gt;         &lt;NA&gt;      </span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt;  4 8        r     r           NA     NA   NA         NA &lt;NA&gt;      &lt;NA&gt;  FALSE FALSE      0 &lt;NA&gt;         &lt;NA&gt;      </span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt;  5 8        r     r           NA     NA   NA         NA &lt;NA&gt;      &lt;NA&gt;  FALSE FALSE      0 &lt;NA&gt;         &lt;NA&gt;      </span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt;  6 8        c     c           48      3  131.        -4 M3        &lt;NA&gt;  FALSE FALSE      0 &lt;NA&gt;         &lt;NA&gt;      </span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt;  7 8        a,    a           57      2  110.        -3 m3        &lt;NA&gt;  FALSE FALSE      0 &lt;NA&gt;         &lt;NA&gt;      </span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt;  8 8        g#,   g#          56      2  104.        -1 m2        &lt;NA&gt;  FALSE FALSE      0 &lt;NA&gt;         &lt;NA&gt;      </span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt;  9 8        a     a           57      3  220.        13 m9        &lt;NA&gt;  FALSE FALSE      0 &lt;NA&gt;         &lt;NA&gt;      </span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt; 10 8        ac'e' ace         57      3  220.         0 P1        &lt;NA&gt;  FALSE FALSE      0 &lt;NA&gt;         &lt;NA&gt;</span></span></code></pre></div>
 <p>Several functions are available for mapping seamlessly between and manipulating these data structures and their representations of musical information.</p>
 </div>
 <div id="noteworthy-strings" class="section level2">
@@ -304,43 +298,43 @@
 <a href="#the-noteworthy-class" class="anchor"></a>The noteworthy class</h3>
 <p>Noteworthiness can be checked on any character string. When defining noteworthy strings you can define them like any other character vector. However, you will notice that package functions that operate on noteworthy strings and whose output is another noteworthy string will yield a string with the supplemental <code>noteworthy</code> class. This has its own print and summary methods.</p>
 <p>Several other generic methods are also implemented for the noteworthy class, making it easy to perform simple but powerful operations on these objects in a familiar way. While many functions will attempt to coerce a string to <code>noteworthy</code>, not all will and some methods are implemented specifically for the class.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">x &lt;-<span class="st"> "g#, c d# g#c'd#'"</span></a>
-<a class="sourceLine" id="cb5-2" title="2"><span class="kw"><a href="reference/valid-notes.html">as_noteworthy</a></span>(x)</a>
-<a class="sourceLine" id="cb5-3" title="3"><span class="co">#&gt; &lt;Noteworthy string&gt;</span></a>
-<a class="sourceLine" id="cb5-4" title="4"><span class="co">#&gt;   Format: space-delimited time</span></a>
-<a class="sourceLine" id="cb5-5" title="5"><span class="co">#&gt;   Values: g#, c d# &lt;g#c'd#'&gt;</span></a>
-<a class="sourceLine" id="cb5-6" title="6"></a>
-<a class="sourceLine" id="cb5-7" title="7">x &lt;-<span class="st"> "g#2 c d# g#c4d#4"</span> <span class="co"># equivalent octave numbering</span></a>
-<a class="sourceLine" id="cb5-8" title="8"><span class="kw"><a href="reference/valid-notes.html">as_noteworthy</a></span>(x)</a>
-<a class="sourceLine" id="cb5-9" title="9"><span class="co">#&gt; &lt;Noteworthy string&gt;</span></a>
-<a class="sourceLine" id="cb5-10" title="10"><span class="co">#&gt;   Format: space-delimited time</span></a>
-<a class="sourceLine" id="cb5-11" title="11"><span class="co">#&gt;   Values: g#2 c d# &lt;g#c4d#4&gt;</span></a>
-<a class="sourceLine" id="cb5-12" title="12"></a>
-<a class="sourceLine" id="cb5-13" title="13"><span class="kw"><a href="reference/valid-notes.html">is_note</a></span>(x)</a>
-<a class="sourceLine" id="cb5-14" title="14"><span class="co">#&gt; [1]  TRUE  TRUE  TRUE FALSE</span></a>
-<a class="sourceLine" id="cb5-15" title="15"><span class="kw"><a href="reference/valid-notes.html">is_chord</a></span>(x)</a>
-<a class="sourceLine" id="cb5-16" title="16"><span class="co">#&gt; [1] FALSE FALSE FALSE  TRUE</span></a>
-<a class="sourceLine" id="cb5-17" title="17"><span class="kw"><a href="reference/chord_is_major.html">chord_is_major</a></span>(x)</a>
-<a class="sourceLine" id="cb5-18" title="18"><span class="co">#&gt; [1]   NA   NA   NA TRUE</span></a>
-<a class="sourceLine" id="cb5-19" title="19">(x &lt;-<span class="st"> </span><span class="kw"><a href="reference/transpose.html">transpose</a></span>(x, <span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb5-20" title="20"><span class="co">#&gt; &lt;Noteworthy string&gt;</span></a>
-<a class="sourceLine" id="cb5-21" title="21"><span class="co">#&gt;   Format: space-delimited time</span></a>
-<a class="sourceLine" id="cb5-22" title="22"><span class="co">#&gt;   Values: a2 c# e &lt;ac#4e4&gt;</span></a>
-<a class="sourceLine" id="cb5-23" title="23"></a>
-<a class="sourceLine" id="cb5-24" title="24"><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(x)</a>
-<a class="sourceLine" id="cb5-25" title="25"><span class="co">#&gt; &lt;Noteworthy string&gt;</span></a>
-<a class="sourceLine" id="cb5-26" title="26"><span class="co">#&gt;   Timesteps: 4 (3 notes, 1 chord)</span></a>
-<a class="sourceLine" id="cb5-27" title="27"><span class="co">#&gt;   Octaves: integer</span></a>
-<a class="sourceLine" id="cb5-28" title="28"><span class="co">#&gt;   Accidentals: sharp</span></a>
-<a class="sourceLine" id="cb5-29" title="29"><span class="co">#&gt;   Format: space-delimited time</span></a>
-<a class="sourceLine" id="cb5-30" title="30"><span class="co">#&gt;   Values: a2 c# e &lt;ac#4e4&gt;</span></a>
-<a class="sourceLine" id="cb5-31" title="31"></a>
-<a class="sourceLine" id="cb5-32" title="32"><span class="kw"><a href="reference/note-summaries.html">distinct_pitches</a></span>(x)</a>
-<a class="sourceLine" id="cb5-33" title="33"><span class="co">#&gt; &lt;Noteworthy string&gt;</span></a>
-<a class="sourceLine" id="cb5-34" title="34"><span class="co">#&gt;   Format: space-delimited time</span></a>
-<a class="sourceLine" id="cb5-35" title="35"><span class="co">#&gt;   Values: a2 c# e a c#4 e4</span></a>
-<a class="sourceLine" id="cb5-36" title="36"><span class="kw"><a href="reference/note-summaries.html">distinct_pitches</a></span>(x) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/pitch_freq.html">pitch_freq</a></span>() <span class="co"># in Hz</span></a>
-<a class="sourceLine" id="cb5-37" title="37"><span class="co">#&gt; [1] 110.0000 138.5913 164.8138 220.0000 277.1826 329.6276</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>x &lt;-<span class="st"> "g#, c d# g#c'd#'"</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="kw"><a href="reference/valid-notes.html">as_noteworthy</a></span>(x)</span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="co">#&gt; &lt;Noteworthy string&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co">#&gt;   Format: space-delimited time</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="co">#&gt;   Values: g#, c d# &lt;g#c'd#'&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a></span>
+<span id="cb5-7"><a href="#cb5-7"></a>x &lt;-<span class="st"> "g#2 c d# g#c4d#4"</span> <span class="co"># equivalent octave numbering</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="kw"><a href="reference/valid-notes.html">as_noteworthy</a></span>(x)</span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="co">#&gt; &lt;Noteworthy string&gt;</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="co">#&gt;   Format: space-delimited time</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="co">#&gt;   Values: g#2 c d# &lt;g#c4d#4&gt;</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a></span>
+<span id="cb5-13"><a href="#cb5-13"></a><span class="kw"><a href="reference/valid-notes.html">is_note</a></span>(x)</span>
+<span id="cb5-14"><a href="#cb5-14"></a><span class="co">#&gt; [1]  TRUE  TRUE  TRUE FALSE</span></span>
+<span id="cb5-15"><a href="#cb5-15"></a><span class="kw"><a href="reference/valid-notes.html">is_chord</a></span>(x)</span>
+<span id="cb5-16"><a href="#cb5-16"></a><span class="co">#&gt; [1] FALSE FALSE FALSE  TRUE</span></span>
+<span id="cb5-17"><a href="#cb5-17"></a><span class="kw"><a href="reference/chord_is_major.html">chord_is_major</a></span>(x)</span>
+<span id="cb5-18"><a href="#cb5-18"></a><span class="co">#&gt; [1]   NA   NA   NA TRUE</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a>(x &lt;-<span class="st"> </span><span class="kw"><a href="reference/transpose.html">transpose</a></span>(x, <span class="dv">1</span>))</span>
+<span id="cb5-20"><a href="#cb5-20"></a><span class="co">#&gt; &lt;Noteworthy string&gt;</span></span>
+<span id="cb5-21"><a href="#cb5-21"></a><span class="co">#&gt;   Format: space-delimited time</span></span>
+<span id="cb5-22"><a href="#cb5-22"></a><span class="co">#&gt;   Values: a2 c# e &lt;ac#4e4&gt;</span></span>
+<span id="cb5-23"><a href="#cb5-23"></a></span>
+<span id="cb5-24"><a href="#cb5-24"></a><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(x)</span>
+<span id="cb5-25"><a href="#cb5-25"></a><span class="co">#&gt; &lt;Noteworthy string&gt;</span></span>
+<span id="cb5-26"><a href="#cb5-26"></a><span class="co">#&gt;   Timesteps: 4 (3 notes, 1 chord)</span></span>
+<span id="cb5-27"><a href="#cb5-27"></a><span class="co">#&gt;   Octaves: integer</span></span>
+<span id="cb5-28"><a href="#cb5-28"></a><span class="co">#&gt;   Accidentals: sharp</span></span>
+<span id="cb5-29"><a href="#cb5-29"></a><span class="co">#&gt;   Format: space-delimited time</span></span>
+<span id="cb5-30"><a href="#cb5-30"></a><span class="co">#&gt;   Values: a2 c# e &lt;ac#4e4&gt;</span></span>
+<span id="cb5-31"><a href="#cb5-31"></a></span>
+<span id="cb5-32"><a href="#cb5-32"></a><span class="kw"><a href="reference/note-summaries.html">distinct_pitches</a></span>(x)</span>
+<span id="cb5-33"><a href="#cb5-33"></a><span class="co">#&gt; &lt;Noteworthy string&gt;</span></span>
+<span id="cb5-34"><a href="#cb5-34"></a><span class="co">#&gt;   Format: space-delimited time</span></span>
+<span id="cb5-35"><a href="#cb5-35"></a><span class="co">#&gt;   Values: a2 c# e a c#4 e4</span></span>
+<span id="cb5-36"><a href="#cb5-36"></a><span class="kw"><a href="reference/note-summaries.html">distinct_pitches</a></span>(x) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/pitch_freq.html">pitch_freq</a></span>() <span class="co"># in Hz</span></span>
+<span id="cb5-37"><a href="#cb5-37"></a><span class="co">#&gt; [1] 110.0000 138.5913 164.8138 220.0000 277.1826 329.6276</span></span></code></pre></div>
 <p>These are just a few examples. There are many more functions in <code>tabr</code> that intuitively operate on noteworthy strings, abstracting the interpretation of relatively simple symbolic text specifications as quantitative and/or structured musical information.</p>
 <p>There is also a <code>noteinfo</code> class, and a <code>music</code> class (seen above). You can learn more in the vignettes. The <code>music</code> class is particularly useful for efficient music data entry and basic transcription tasks.</p>
 </div>
@@ -350,44 +344,44 @@
 <a href="#tidy-music-analysis" class="anchor"></a>Tidy music analysis</h2>
 <p>Ideally music data already exists in a data frame format. But if it doesn’t, or if you just wrote out a new note sequence like below, getting this data into a data frame for a more tidy approach to analysis is easy. Conversion can also populate several derivative variables in the process.</p>
 <p>In the earlier example you saw the result of calling <code>as_music_df</code> on a noteworthy string.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">x &lt;-<span class="st"> "a, c e r r c a, g#, a ac'e'"</span></a>
-<a class="sourceLine" id="cb6-2" title="2"><span class="kw"><a href="reference/as_music_df.html">as_music_df</a></span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>x &lt;-<span class="st"> "a, c e r r c a, g#, a ac'e'"</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="kw"><a href="reference/as_music_df.html">as_music_df</a></span>(x)</span></code></pre></div>
 <p>You may have noticed that rests (<code>r</code>) are allowed for timesteps and that functions that compute lagged intervals respect these gaps. Since <code>as_music_df</code> was only provided with a string of pitches, there are no explicit time variables in the data frame. However, discrete timesteps still exist and they do not have to contain notes.</p>
 <p>There are a number of derivative columns. If you are working with a large sequence of music, there is no need to carry all of these variables along through your analysis if you do not need them. They can be created using various package functions and you can build onto your data frame and transform variables later with a function like <code>mutate</code> from <code>dplyr</code>.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a>
-<a class="sourceLine" id="cb7-2" title="2">x &lt;-<span class="st"> "a, c e r r c a, g#, a ac'e'"</span></a>
-<a class="sourceLine" id="cb7-3" title="3"><span class="kw">tibble</span>(<span class="dt">pitch =</span> <span class="kw"><a href="reference/note-coerce.html">as_vector_time</a></span>(x)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb7-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">scale_int =</span> <span class="kw"><a href="reference/intervals.html">scale_diff</a></span>(pitch))</a>
-<a class="sourceLine" id="cb7-5" title="5"><span class="co">#&gt; # A tibble: 10 x 2</span></a>
-<a class="sourceLine" id="cb7-6" title="6"><span class="co">#&gt;    pitch      scale_int</span></a>
-<a class="sourceLine" id="cb7-7" title="7"><span class="co">#&gt;    &lt;notwrthy&gt; &lt;chr&gt;    </span></a>
-<a class="sourceLine" id="cb7-8" title="8"><span class="co">#&gt;  1 a,         &lt;NA&gt;     </span></a>
-<a class="sourceLine" id="cb7-9" title="9"><span class="co">#&gt;  2 c          m3       </span></a>
-<a class="sourceLine" id="cb7-10" title="10"><span class="co">#&gt;  3 e          M3       </span></a>
-<a class="sourceLine" id="cb7-11" title="11"><span class="co">#&gt;  4 r          &lt;NA&gt;     </span></a>
-<a class="sourceLine" id="cb7-12" title="12"><span class="co">#&gt;  5 r          &lt;NA&gt;     </span></a>
-<a class="sourceLine" id="cb7-13" title="13"><span class="co">#&gt;  6 c          M3       </span></a>
-<a class="sourceLine" id="cb7-14" title="14"><span class="co">#&gt;  7 a,         m3       </span></a>
-<a class="sourceLine" id="cb7-15" title="15"><span class="co">#&gt;  8 g#,        m2       </span></a>
-<a class="sourceLine" id="cb7-16" title="16"><span class="co">#&gt;  9 a          m9       </span></a>
-<a class="sourceLine" id="cb7-17" title="17"><span class="co">#&gt; 10 ac'e'      P1</span></a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</span>
+<span id="cb7-2"><a href="#cb7-2"></a>x &lt;-<span class="st"> "a, c e r r c a, g#, a ac'e'"</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="kw">tibble</span>(<span class="dt">pitch =</span> <span class="kw"><a href="reference/note-coerce.html">as_vector_time</a></span>(x)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">scale_int =</span> <span class="kw"><a href="reference/intervals.html">scale_diff</a></span>(pitch))</span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="co">#&gt; # A tibble: 10 x 2</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="co">#&gt;    pitch      scale_int</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="co">#&gt;    &lt;notwrthy&gt; &lt;chr&gt;    </span></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="co">#&gt;  1 a,         &lt;NA&gt;     </span></span>
+<span id="cb7-9"><a href="#cb7-9"></a><span class="co">#&gt;  2 c          m3       </span></span>
+<span id="cb7-10"><a href="#cb7-10"></a><span class="co">#&gt;  3 e          M3       </span></span>
+<span id="cb7-11"><a href="#cb7-11"></a><span class="co">#&gt;  4 r          &lt;NA&gt;     </span></span>
+<span id="cb7-12"><a href="#cb7-12"></a><span class="co">#&gt;  5 r          &lt;NA&gt;     </span></span>
+<span id="cb7-13"><a href="#cb7-13"></a><span class="co">#&gt;  6 c          M3       </span></span>
+<span id="cb7-14"><a href="#cb7-14"></a><span class="co">#&gt;  7 a,         m3       </span></span>
+<span id="cb7-15"><a href="#cb7-15"></a><span class="co">#&gt;  8 g#,        m2       </span></span>
+<span id="cb7-16"><a href="#cb7-16"></a><span class="co">#&gt;  9 a          m9       </span></span>
+<span id="cb7-17"><a href="#cb7-17"></a><span class="co">#&gt; 10 ac'e'      P1</span></span></code></pre></div>
 <p>In fact, it’s much more powerful to create the columns according to your needs using specific functions and their various arguments. But <code>as_music_df</code> is convenient and also offers some additional arguments. Adding <code>key</code> and <code>scale</code> allows for scale degrees. <code>scale</code> is diatonic by default but does not have to be.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">x &lt;-<span class="st"> "g g#"</span></a>
-<a class="sourceLine" id="cb8-2" title="2"><span class="kw"><a href="reference/as_music_df.html">as_music_df</a></span>(x, <span class="dt">key =</span> <span class="st">"am"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb8-3" title="3"><span class="st">  </span><span class="kw">select</span>(pitch, key, scale, scale_deg)</a>
-<a class="sourceLine" id="cb8-4" title="4"><span class="co">#&gt; # A tibble: 2 x 4</span></a>
-<a class="sourceLine" id="cb8-5" title="5"><span class="co">#&gt;   pitch key   scale    scale_deg</span></a>
-<a class="sourceLine" id="cb8-6" title="6"><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;        &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb8-7" title="7"><span class="co">#&gt; 1 g     am    diatonic         7</span></a>
-<a class="sourceLine" id="cb8-8" title="8"><span class="co">#&gt; 2 g#    am    diatonic        NA</span></a>
-<a class="sourceLine" id="cb8-9" title="9"></a>
-<a class="sourceLine" id="cb8-10" title="10"><span class="kw"><a href="reference/as_music_df.html">as_music_df</a></span>(x, <span class="dt">key =</span> <span class="st">"am"</span>, <span class="dt">scale =</span> <span class="st">"harmonic_minor"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb8-11" title="11"><span class="st">  </span><span class="kw">select</span>(pitch, key, scale, scale_deg)</a>
-<a class="sourceLine" id="cb8-12" title="12"><span class="co">#&gt; # A tibble: 2 x 4</span></a>
-<a class="sourceLine" id="cb8-13" title="13"><span class="co">#&gt;   pitch key   scale          scale_deg</span></a>
-<a class="sourceLine" id="cb8-14" title="14"><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;              &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb8-15" title="15"><span class="co">#&gt; 1 g     am    harmonic_minor        NA</span></a>
-<a class="sourceLine" id="cb8-16" title="16"><span class="co">#&gt; 2 g#    am    harmonic_minor         7</span></a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>x &lt;-<span class="st"> "g g#"</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="kw"><a href="reference/as_music_df.html">as_music_df</a></span>(x, <span class="dt">key =</span> <span class="st">"am"</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="st">  </span><span class="kw">select</span>(pitch, key, scale, scale_deg)</span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co">#&gt; # A tibble: 2 x 4</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="co">#&gt;   pitch key   scale    scale_deg</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;        &lt;int&gt;</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="co">#&gt; 1 g     am    diatonic         7</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="co">#&gt; 2 g#    am    diatonic        NA</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a></span>
+<span id="cb8-10"><a href="#cb8-10"></a><span class="kw"><a href="reference/as_music_df.html">as_music_df</a></span>(x, <span class="dt">key =</span> <span class="st">"am"</span>, <span class="dt">scale =</span> <span class="st">"harmonic_minor"</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-11"><a href="#cb8-11"></a><span class="st">  </span><span class="kw">select</span>(pitch, key, scale, scale_deg)</span>
+<span id="cb8-12"><a href="#cb8-12"></a><span class="co">#&gt; # A tibble: 2 x 4</span></span>
+<span id="cb8-13"><a href="#cb8-13"></a><span class="co">#&gt;   pitch key   scale          scale_deg</span></span>
+<span id="cb8-14"><a href="#cb8-14"></a><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;              &lt;int&gt;</span></span>
+<span id="cb8-15"><a href="#cb8-15"></a><span class="co">#&gt; 1 g     am    harmonic_minor        NA</span></span>
+<span id="cb8-16"><a href="#cb8-16"></a><span class="co">#&gt; 2 g#    am    harmonic_minor         7</span></span></code></pre></div>
 <p><code>tabr</code> offers many functions for manipulating and analyzing music data and working in music notation. See the collection of vignettes for more information on music programming and analysis.</p>
 </div>
 <div id="transcription" class="section level2">
@@ -473,24 +467,24 @@
 <div id="minimal-r-code-example" class="section level3">
 <h3 class="hasAnchor">
 <a href="#minimal-r-code-example" class="anchor"></a>Minimal R code example</h3>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tabr)</a>
-<a class="sourceLine" id="cb9-2" title="2"></a>
-<a class="sourceLine" id="cb9-3" title="3"><span class="kw"><a href="reference/phrase.html">p</a></span>(<span class="st">"r a, c f d a f"</span>, <span class="st">"4 8*6"</span>, <span class="st">"x 5 5 4 4 3 4"</span>) <span class="op">%&gt;%</span><span class="st"> </span>track <span class="op">%&gt;%</span><span class="st"> </span>score <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-4" title="4"><span class="st">  </span><span class="kw"><a href="reference/tab.html">tab</a></span>(<span class="st">"phrase.pdf"</span>, <span class="dt">key =</span> <span class="st">"dm"</span>, <span class="dt">time =</span> <span class="st">"4/4"</span>, <span class="dt">tempo =</span> <span class="st">"4 = 120"</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="co">#&gt; #### Engraving score to phrase.pdf ####</span></a>
-<a class="sourceLine" id="cb10-2" title="2"><span class="co">#&gt; GNU LilyPond 2.18.2</span></a>
-<a class="sourceLine" id="cb10-3" title="3"><span class="co">#&gt; Processing `./phrase.ly'</span></a>
-<a class="sourceLine" id="cb10-4" title="4"><span class="co">#&gt; Parsing...</span></a>
-<a class="sourceLine" id="cb10-5" title="5"><span class="co">#&gt; Interpreting music...</span></a>
-<a class="sourceLine" id="cb10-6" title="6"><span class="co">#&gt; Preprocessing graphical objects...</span></a>
-<a class="sourceLine" id="cb10-7" title="7"><span class="co">#&gt; Interpreting music...</span></a>
-<a class="sourceLine" id="cb10-8" title="8"><span class="co">#&gt; MIDI output to `./phrase.mid'...</span></a>
-<a class="sourceLine" id="cb10-9" title="9"><span class="co">#&gt; Finding the ideal number of pages...</span></a>
-<a class="sourceLine" id="cb10-10" title="10"><span class="co">#&gt; Fitting music on 1 page...</span></a>
-<a class="sourceLine" id="cb10-11" title="11"><span class="co">#&gt; Drawing systems...</span></a>
-<a class="sourceLine" id="cb10-12" title="12"><span class="co">#&gt; Layout output to `./phrase.ps'...</span></a>
-<a class="sourceLine" id="cb10-13" title="13"><span class="co">#&gt; Converting to `./phrase.pdf'...</span></a>
-<a class="sourceLine" id="cb10-14" title="14"><span class="co">#&gt; Success: compilation successfully completed</span></a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tabr)</span>
+<span id="cb9-2"><a href="#cb9-2"></a></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="kw"><a href="reference/phrase.html">p</a></span>(<span class="st">"r a, c f d a f"</span>, <span class="st">"4 8*6"</span>, <span class="st">"x 5 5 4 4 3 4"</span>) <span class="op">%&gt;%</span><span class="st"> </span>track <span class="op">%&gt;%</span><span class="st"> </span>score <span class="op">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="st">  </span><span class="kw"><a href="reference/tab.html">tab</a></span>(<span class="st">"phrase.pdf"</span>, <span class="dt">key =</span> <span class="st">"dm"</span>, <span class="dt">time =</span> <span class="st">"4/4"</span>, <span class="dt">tempo =</span> <span class="st">"4 = 120"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co">#&gt; #### Engraving score to phrase.pdf ####</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="co">#&gt; GNU LilyPond 2.18.2</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="co">#&gt; Processing `./phrase.ly'</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="co">#&gt; Parsing...</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="co">#&gt; Interpreting music...</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="co">#&gt; Preprocessing graphical objects...</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="co">#&gt; Interpreting music...</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a><span class="co">#&gt; MIDI output to `./phrase.mid'...</span></span>
+<span id="cb10-9"><a href="#cb10-9"></a><span class="co">#&gt; Finding the ideal number of pages...</span></span>
+<span id="cb10-10"><a href="#cb10-10"></a><span class="co">#&gt; Fitting music on 1 page...</span></span>
+<span id="cb10-11"><a href="#cb10-11"></a><span class="co">#&gt; Drawing systems...</span></span>
+<span id="cb10-12"><a href="#cb10-12"></a><span class="co">#&gt; Layout output to `./phrase.ps'...</span></span>
+<span id="cb10-13"><a href="#cb10-13"></a><span class="co">#&gt; Converting to `./phrase.pdf'...</span></span>
+<span id="cb10-14"><a href="#cb10-14"></a><span class="co">#&gt; Success: compilation successfully completed</span></span></code></pre></div>
 <p>The pdf output looks like this:</p>
 <p>
 
@@ -501,12 +495,12 @@
 <a href="#music-syntax" class="anchor"></a>Music syntax</h3>
 <p>As an aside, if you are working with the <code>music</code> class, you can enter notes, note info, and optionally string numbers if applicable, all in a single string. This is not only potentially much more efficient for data entry, but can also be easier to follow because it binds these otherwise separate arguments by timestep. See the vignettes and help documentation relating to music objects for more details on working with these objects.</p>
 <p>The phrase above can be constructed using the single-string input syntax that is used for music objects. <code>phrase</code> understands this syntax and interprets the <code>notes</code> argument as music syntax if the <code>info</code> argument is not provided (<code>info = NULL</code>). The phrase above could have been created as follows, with or without the optional explicit string numbering.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw"><a href="reference/phrase.html">p</a></span>(<span class="st">"r4 a,8 c f d a f"</span>)</a>
-<a class="sourceLine" id="cb11-2" title="2"><span class="co">#&gt; &lt;Musical phrase&gt;</span></a>
-<a class="sourceLine" id="cb11-3" title="3"><span class="co">#&gt; r4 &lt;a,&gt;8 &lt;c&gt;8 &lt;f&gt;8 &lt;d&gt;8 &lt;a&gt;8 &lt;f&gt;8</span></a>
-<a class="sourceLine" id="cb11-4" title="4"><span class="kw"><a href="reference/phrase.html">p</a></span>(<span class="st">"r4;5 a,8 c f;4 d a;3 f;4"</span>)</a>
-<a class="sourceLine" id="cb11-5" title="5"><span class="co">#&gt; &lt;Musical phrase&gt;</span></a>
-<a class="sourceLine" id="cb11-6" title="6"><span class="co">#&gt; r4 &lt;a,\5&gt;8 &lt;c\5&gt;8 &lt;f\4&gt;8 &lt;d\4&gt;8 &lt;a\3&gt;8 &lt;f\4&gt;8</span></a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw"><a href="reference/phrase.html">p</a></span>(<span class="st">"r4 a,8 c f d a f"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="co">#&gt; &lt;Musical phrase&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="co">#&gt; r4 &lt;a,&gt;8 &lt;c&gt;8 &lt;f&gt;8 &lt;d&gt;8 &lt;a&gt;8 &lt;f&gt;8</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="kw"><a href="reference/phrase.html">p</a></span>(<span class="st">"r4;5 a,8 c f;4 d a;3 f;4"</span>)</span>
+<span id="cb11-5"><a href="#cb11-5"></a><span class="co">#&gt; &lt;Musical phrase&gt;</span></span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="co">#&gt; r4 &lt;a,\5&gt;8 &lt;c\5&gt;8 &lt;f\4&gt;8 &lt;d\4&gt;8 &lt;a\3&gt;8 &lt;f\4&gt;8</span></span></code></pre></div>
 <p>Notice how each timestep is complete within the single character string inputs above. Also, durations and string numbers can repeat implicitly until an explicit change occurs. String numbers are ignored when they carry over rests. This is often a more convenient way to construct phrases. If you already have a music object, it can be passed directly to <code>phrase</code>.</p>
 </div>
 </div>
