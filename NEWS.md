@@ -1,3 +1,7 @@
+# tabr 0.4.3
+
+* Bug fix for dyads in `freq_ratio`.
+
 # tabr 0.4.2
 
 * Added `freq_ratio` generic for generating a data frame of frequency ratios from frequencies, noteworthy objects, or music objects.

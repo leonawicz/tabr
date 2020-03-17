@@ -195,7 +195,7 @@ freq_ratio.numeric <- function(x, ...){
 #' @export
 freq_ratio.default <- function(x, ...){
   r <- .freq_ratio_args(...)$r
-  freq_ratio.noteworthy(as_noteworthy(x), r)
+  freq_ratio.noteworthy(as_noteworthy(x), ratios = r)
 }
 
 .freq_ratio <- function(x, r, o, a){
@@ -212,6 +212,7 @@ freq_ratio.default <- function(x, ...){
   }
   x <- utils::combn(x, 2)
   if(r == "root") x <- x[, x[1, ] == x[1, 1]]
+  if(!is.matrix(x)) x <- matrix(x, ncol = 1)
   ratio <- x[2, ] / x[1, ]
   f <- function(x, y, o, a){
     gsub("NA", "", paste0(freq_pitch(x, o, a), freq_pitch(y, o, a)))
