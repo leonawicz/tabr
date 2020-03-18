@@ -98,6 +98,7 @@ reference:
   contents:
   - pitch_freq
   - freq_ratio
+  - ratio_to_cents
 - title: Plots (non-tablature visualizations)
   desc: "Functions for musical plots and diagrams"
   contents:

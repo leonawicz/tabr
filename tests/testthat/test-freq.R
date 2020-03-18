@@ -27,6 +27,14 @@ test_that("frequency conversions return as expected", {
 })
 
 test_that("frequency ratios compile correctly", {
+  x <- c(0.5, 1, 1.5, 2)
+  y <- c(-1200, 0, 701.955, 1200)
+
+  expect_equal(ratio_to_cents(x), y)
+  expect_equal(ratio_to_cents(x),
+               ratio_to_cents(rep(220, 4), c(110, 220, 330, 440)))
+  expect_equal(x, cents_to_ratio(y))
+
   x <- as_music("c4 e_g c'e_'g'")
   fr <- freq_ratio(x)
 
