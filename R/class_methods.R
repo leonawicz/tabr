@@ -169,6 +169,7 @@ NULL
 #' x[3:6] <- "c'e'g'8"
 #' x
 `[.noteworthy` <- function(x, i){
+  if(!length(i) || any(is.na(i))) i <- seq_along(.uncollapse(x))
   if(all(i == 0)) stop("Cannot have zero timesteps.", call. = FALSE)
   o <- octave_type(x)
   a <- accidental_type(x)
@@ -180,6 +181,7 @@ NULL
 #' @rdname single-bracket
 #' @export
 `[.noteinfo` <- function(x, i){
+  if(!length(i) || any(is.na(i))) i <- seq_along(.uncollapse(x))
   if(all(i == 0)) stop("Cannot have zero timesteps.", call. = FALSE)
   format <- if(time_format(x) == "space-delimited time") "space" else "vector"
   x <- .Primitive("[")(.uncollapse(x), i)
@@ -189,6 +191,7 @@ NULL
 #' @rdname single-bracket
 #' @export
 `[.music` <- function(x, i){
+  if(!length(i) || any(is.na(i))) i <- seq_along(.uncollapse(x))
   if(all(i == 0)) stop("Cannot have zero timesteps.", call. = FALSE)
   a <- accidental_type(x)
   key <- music_key(x)
@@ -208,6 +211,7 @@ NULL
 #' @rdname single-bracket
 #' @export
 `[.lyrics` <- function(x, i){
+  if(!length(i) || any(is.na(i))) i <- seq_along(.uncollapse(x))
   if(all(i == 0)) stop("Cannot have zero timesteps.", call. = FALSE)
   format <- if(time_format(x) == "space-delimited time") "space" else "vector"
   x <- .Primitive("[")(.uncollapse(x), i)

@@ -12,21 +12,21 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Tracks and scores">
-<meta property="og:description" content="">
+<meta property="og:description" content="tabr">
 <meta property="og:image" content="https://leonawicz.github.io/tabr/logo.png">
-<meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.3</span>
       </span>
     </div>
 
@@ -163,7 +163,7 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Tracks and scores</h1>
+      <h1 data-toc-skip>Tracks and scores</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/leonawicz/tabr/blob/master/vignettes/tabr-tracks-scores.Rmd"><code>vignettes/tabr-tracks-scores.Rmd</code></a></small>
@@ -179,17 +179,17 @@
 <h2 class="hasAnchor">
 <a href="#adding-phrases-to-a-track" class="anchor"></a>Adding phrases to a track</h2>
 <p>Phrases are added to a track using the first argument to <code>track</code>, which strictly accepts a phrase object. Except for the briefest examples, you will typically concatenate a sequence of multiple phrases and rests into a longer section of music, usually lasting the full duration of the piece. This new single phrase object is passed to <code>track</code>. Taking an earlier example and breaking it up as though it were multiple phrases for illustration.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>notesC &lt;-<span class="st"> "c e g c' e' c' g e g b d' g' f a c' f' c e g e c"</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a>strings &lt;-<span class="st"> "5 4 3 2 1 2 3 4 4 3 2 1 4 3 2 1 5 4 3 4 5"</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a>p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/phrase.html">p</a></span>(notesC, <span class="st">"8*20 2"</span>, strings) </span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="kw"><a href="../reference/track.html">track</a></span>(p1)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="no">notesC</span> <span class="kw">&lt;-</span> <span class="st">"c e g c' e' c' g e g b d' g' f a c' f' c e g e c"</span>
+<span class="no">strings</span> <span class="kw">&lt;-</span> <span class="st">"5 4 3 2 1 2 3 4 4 3 2 1 4 3 2 1 5 4 3 4 5"</span>
+<span class="no">p1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/phrase.html">p</a></span>(<span class="no">notesC</span>, <span class="st">"8*20 2"</span>, <span class="no">strings</span>)
+<span class="fu"><a href="../reference/track.html">track</a></span>(<span class="no">p1</span>)</pre></body></html></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 1 x 7</span><span>
 #&gt;   phrase   clef     key   tab   tuning    voice lyrics
 #&gt;   </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> 
 #&gt; </span><span style="color: #555555;">1</span><span> </span><span style="color: #555555;">&lt;phrase&gt;</span><span> treble_8 </span><span style="color: #BB0000;">NA</span><span>    TRUE  e,a,dgbe'     1 </span><span style="color: #BB0000;">NA</span><span>
 </span></code></pre>
 <p>This general process has been seen many times already. Below, examples are given that use the various arguments available in these functions, beginning with tracks. Briefly before exploring these arguments, note that <code>track</code> is equivalent to <code>track_guitar</code> and has appropriate default arguments. However, other wrappers around <code>track</code> are available that take different defaults. <code>track_bass</code> defaults to standard four-string bass tuning and includes the tab staff. For sheet music treble clef and bass clef tracks without any tablature staff, you can use <code>track_tc</code> and <code>track_bc</code>, respectively.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw"><a href="../reference/trackbind.html">trackbind</a></span>(<span class="kw"><a href="../reference/track.html">track_tc</a></span>(p1), <span class="kw"><a href="../reference/track.html">track_bc</a></span>(p1))</span></code></pre></div>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="../reference/trackbind.html">trackbind</a></span>(<span class="fu"><a href="../reference/track.html">track_tc</a></span>(<span class="no">p1</span>), <span class="fu"><a href="../reference/track.html">track_bc</a></span>(<span class="no">p1</span>))</pre></body></html></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 2 x 8</span><span>
 #&gt;   phrase   clef   key   tab   tuning    voice lyrics    id
 #&gt;   </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span>
@@ -203,7 +203,7 @@
 <p>By default, a phrase passed to a <code>track_*</code> function is treated as part of a single voice. See below for multiple voices. These functions assign the integer ID <code>1</code> to the voice of the phrase being transformed into a track. This can be ignored for now.</p>
 <p>Other arguments, depending on the context of the particular track function, include <code>clef</code>, <code>key</code>, <code>tab</code>, <code>tuning</code> and <code>lyrics</code>. For most use cases, tracks are likely to contain a single voice.</p>
 <p>You can suppress the tablature staff with <code>tab = FALSE</code> or the music staff with <code>clef = NA</code>, but not both. When both are included the music staff with the given clef symbol appears above the tablature staff. <code>key</code> specifies the key signature of the music staff, ignored when the staff is suppressed. <code>tab = FALSE</code> suppresses the tab staff. <code>tuning</code> specifies the string tuning of the tab staff, ignored when the staff is suppressed.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw"><a href="../reference/trackbind.html">trackbind</a></span>(<span class="kw"><a href="../reference/track.html">track</a></span>(p1, <span class="dt">clef =</span> <span class="ot">NA</span>), <span class="kw"><a href="../reference/track.html">track</a></span>(p1, <span class="dt">key =</span> <span class="st">"g"</span>, <span class="dt">tab =</span> <span class="ot">FALSE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/trackbind.html">trackbind</a></span>(<span class="fu"><a href="../reference/track.html">track</a></span>(<span class="no">p1</span>, <span class="kw">clef</span> <span class="kw">=</span> <span class="fl">NA</span>), <span class="fu"><a href="../reference/track.html">track</a></span>(<span class="no">p1</span>, <span class="kw">key</span> <span class="kw">=</span> <span class="st">"g"</span>, <span class="kw">tab</span> <span class="kw">=</span> <span class="fl">FALSE</span>))</pre></body></html></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 2 x 8</span><span>
 #&gt;   phrase   clef     key   tab   tuning    voice lyrics    id
 #&gt;   </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span>
@@ -215,9 +215,9 @@
 <h2 class="hasAnchor">
 <a href="#multiple-tracks" class="anchor"></a>Multiple tracks</h2>
 <p>Multiple tracks are automatically designated for unique staves. The default when track binding is to iterate the <code>id</code> entries for each track table row unless you specify otherwise and to keep a constant single <code>voice</code> in each staff.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>t1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"c'' d'' e'' f'' g''"</span>, <span class="st">"1 2 4 4 1"</span>, <span class="dv">5</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>()</span>
-<span id="cb4-2"><a href="#cb4-2"></a>t2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(p1)</span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="kw"><a href="../reference/trackbind.html">trackbind</a></span>(t1, t2)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">t1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/phrase.html">p</a></span>(<span class="st">"c'' d'' e'' f'' g''"</span>, <span class="st">"1 2 4 4 1"</span>, <span class="fl">5</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/track.html">track</a></span>()
+<span class="no">t2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/track.html">track</a></span>(<span class="no">p1</span>)
+<span class="fu"><a href="../reference/trackbind.html">trackbind</a></span>(<span class="no">t1</span>, <span class="no">t2</span>)</pre></body></html></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 2 x 8</span><span>
 #&gt;   phrase   clef     key   tab   tuning    voice lyrics    id
 #&gt;   </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span>
@@ -225,15 +225,15 @@
 #&gt; </span><span style="color: #555555;">2</span><span> </span><span style="color: #555555;">&lt;phrase&gt;</span><span> treble_8 </span><span style="color: #BB0000;">NA</span><span>    TRUE  e,a,dgbe'     1 </span><span style="color: #BB0000;">NA</span><span>         2
 </span></code></pre>
 <p>Here is the output containing two tracks; in this case two sets of music/tab staff pairs since no staves have been suppressed for either track.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw"><a href="../reference/trackbind.html">trackbind</a></span>(t1, t2) <span class="op">%&gt;%</span><span class="st"> </span>score <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex22.pdf"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="../reference/trackbind.html">trackbind</a></span>(<span class="no">t1</span>, <span class="no">t2</span>) <span class="kw">%&gt;%</span> <span class="no">score</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex22.pdf"</span>)</pre></body></html></div>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex22.png?raw=true" class="centerimg" width="100%"></p>
 <p>In the example below, assume the song is in the key of C. The guitar is played with standard tuning and a capo on the second fret. This means that while the tablature is written relative to the capo and appears to be in C based on the chord shapes and fret numbers, it sounds like it is in D, two semitones up. However, say you want the music staff to be written in D as heard. This requires two tracks, but in this case, suppress the music staff for one track and the tab staff for the other track.</p>
 <p>The necessary first step is to transpose notes with <code>transpose</code> prior to converting them to LilyPond syntax with <code>phrase</code>.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>p2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/transpose.html">tp</a></span>(notesC, <span class="dv">2</span>, <span class="dt">key =</span> <span class="st">"d"</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"8*20 2"</span>, strings)</span>
-<span id="cb6-2"><a href="#cb6-2"></a>t1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(p2, <span class="dt">key =</span> <span class="st">"d"</span>, <span class="dt">tab =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb6-3"><a href="#cb6-3"></a>t2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(p1, <span class="dt">clef =</span> <span class="ot">NA</span>)</span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="kw"><a href="../reference/trackbind.html">trackbind</a></span>(t1, t2)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">p2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/transpose.html">tp</a></span>(<span class="no">notesC</span>, <span class="fl">2</span>, <span class="kw">key</span> <span class="kw">=</span> <span class="st">"d"</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/phrase.html">p</a></span>(<span class="st">"8*20 2"</span>, <span class="no">strings</span>)
+<span class="no">t1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/track.html">track</a></span>(<span class="no">p2</span>, <span class="kw">key</span> <span class="kw">=</span> <span class="st">"d"</span>, <span class="kw">tab</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<span class="no">t2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/track.html">track</a></span>(<span class="no">p1</span>, <span class="kw">clef</span> <span class="kw">=</span> <span class="fl">NA</span>)
+<span class="fu"><a href="../reference/trackbind.html">trackbind</a></span>(<span class="no">t1</span>, <span class="no">t2</span>)</pre></body></html></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 2 x 8</span><span>
 #&gt;   phrase   clef     key   tab   tuning    voice lyrics    id
 #&gt;   </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span>
@@ -241,7 +241,7 @@
 #&gt; </span><span style="color: #555555;">2</span><span> </span><span style="color: #555555;">&lt;phrase&gt;</span><span> </span><span style="color: #BB0000;">NA</span><span>       </span><span style="color: #BB0000;">NA</span><span>    TRUE  e,a,dgbe'     1 </span><span style="color: #BB0000;">NA</span><span>         2
 </span></code></pre>
 <p>Here is how it looks when rendered. The tab staff remains in C, written with respect to capo 2. The key of D is inferred. However, the music staff now shows the the transposition of the music to D, which has two sharps. The notes have moved on the staff accordingly. Simply setting the key signature of the staff with <code>key</code> would not have transposed the notes themselves.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw"><a href="../reference/trackbind.html">trackbind</a></span>(t1, t2) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/score.html">score</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex23.pdf"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="../reference/trackbind.html">trackbind</a></span>(<span class="no">t1</span>, <span class="no">t2</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/score.html">score</a></span>() <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex23.pdf"</span>)</pre></body></html></div>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex23.png?raw=true" class="centerimg" width="100%"></p>
 </div>
@@ -250,10 +250,10 @@
 <a href="#multiple-voices" class="anchor"></a>Multiple voices</h2>
 <p>Multiple voices are a special case of multiple tracks where the tab staff ID is constant and the voice ID varies, allowing the voices to be transcribed distinctly on a single staff. Phrase objects may be associated with different voices, but still part of the same track. For example, it is standard to transcribe fingerstyle guitar using two voices: one for the thumb that plays the bass line and one for the fingers that play the higher melody.</p>
 <p>These voices belong on the same music staff and tab staff and therefore must share the same track ID in <code>tabr</code>. The phrase objects corresponding to each voice must still be transformed into two unique track objects. The only change is that one must be explicitly assigned the voice ID <code>2</code>. Make a second voice. Let the new, higher voice be voice one.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>p2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"c'' d'' e'' f'' g''"</span>, <span class="st">"1 2 4 4 1"</span>, <span class="dv">5</span>)</span>
-<span id="cb8-2"><a href="#cb8-2"></a>t1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(p2, <span class="dt">voice =</span> <span class="dv">1</span>)</span>
-<span id="cb8-3"><a href="#cb8-3"></a>t2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(p1, <span class="dt">voice =</span> <span class="dv">2</span>)</span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="kw"><a href="../reference/trackbind.html">trackbind</a></span>(t1, t2)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">p2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/phrase.html">p</a></span>(<span class="st">"c'' d'' e'' f'' g''"</span>, <span class="st">"1 2 4 4 1"</span>, <span class="fl">5</span>)
+<span class="no">t1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/track.html">track</a></span>(<span class="no">p2</span>, <span class="kw">voice</span> <span class="kw">=</span> <span class="fl">1</span>)
+<span class="no">t2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/track.html">track</a></span>(<span class="no">p1</span>, <span class="kw">voice</span> <span class="kw">=</span> <span class="fl">2</span>)
+<span class="fu"><a href="../reference/trackbind.html">trackbind</a></span>(<span class="no">t1</span>, <span class="no">t2</span>)</pre></body></html></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 2 x 8</span><span>
 #&gt;   phrase   clef     key   tab   tuning    voice lyrics    id
 #&gt;   </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span>
@@ -261,7 +261,7 @@
 #&gt; </span><span style="color: #555555;">2</span><span> </span><span style="color: #555555;">&lt;phrase&gt;</span><span> treble_8 </span><span style="color: #BB0000;">NA</span><span>    TRUE  e,a,dgbe'     2 </span><span style="color: #BB0000;">NA</span><span>         2
 </span></code></pre>
 <p>The is the first use shown of <code>trackbind</code> to combine tracks (single-row track tables) into multi-row track tables. The result above is not the intended result. The two voices are intended to share the same staff, but notice that by default they are assigned incremental track IDs in the <code>id</code> column, just as in previous examples. The <code>voice</code> increments as intended based on the values supplied to each <code>track</code> call. However, to force these voices to share the same staff, it is necessary to override the track ID as follows.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw"><a href="../reference/trackbind.html">trackbind</a></span>(t1, t2, <span class="dt">id =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="../reference/trackbind.html">trackbind</a></span>(<span class="no">t1</span>, <span class="no">t2</span>, <span class="kw">id</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">1</span>))</pre></body></html></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 2 x 8</span><span>
 #&gt;   phrase   clef     key   tab   tuning    voice lyrics    id
 #&gt;   </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span>
@@ -269,7 +269,7 @@
 #&gt; </span><span style="color: #555555;">2</span><span> </span><span style="color: #555555;">&lt;phrase&gt;</span><span> treble_8 </span><span style="color: #BB0000;">NA</span><span>    TRUE  e,a,dgbe'     2 </span><span style="color: #BB0000;">NA</span><span>         1
 </span></code></pre>
 <p>Also note that <code>trackbind</code> takes any number of tracks via the <code>...</code> argument. If providing <code>id</code> as above, it must be as a named argument. The two voices are distinguished here by different stem direction on the notes. The first voice by ID value is stem up and the second is stem down.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw"><a href="../reference/trackbind.html">trackbind</a></span>(t1, t2, <span class="dt">id =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, <span class="dv">1</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/score.html">score</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex24.pdf"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="../reference/trackbind.html">trackbind</a></span>(<span class="no">t1</span>, <span class="no">t2</span>, <span class="kw">id</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">1</span>)) <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/score.html">score</a></span>() <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex24.pdf"</span>)</pre></body></html></div>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex24.png?raw=true" class="centerimg" width="100%"></p>
 </div>
@@ -280,11 +280,11 @@
 <p>Below is an example with multiple tracks. The first two tracks combine as two voices on one staff set. The third track goes on a unique staff. Since the bottom track (track three) is so simple, suppress the music staff. Even though this means the bottom tab staff does not have any rhythm information associated with it, the rhythm can at least be inferred from the tab staff note spacing with respect to the notes in the first tab staff, which do have explicit rhythm information provided by the treble clef staff.</p>
 <p>Some information is still going to be absent from the bottom staff, such as whether this rhythm is staccato, or made up of eighth notes or quarter notes. Of course, you provide this in the definition of <code>t3</code> below, but it doesn’t change the fact that no one else looking at the sheet music will know for sure. Suppressing the music staves is generally a trade off between being unambiguous and saving space.</p>
 <p>Remember to specify <code>id</code> in <code>trackbind</code> since multiple voices per staff means you cannot rely on the automatic iterated track IDs.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>t1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(p2, <span class="dt">voice =</span> <span class="dv">1</span>)</span>
-<span id="cb11-2"><a href="#cb11-2"></a>t2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(p1, <span class="dt">voice =</span> <span class="dv">2</span>)</span>
-<span id="cb11-3"><a href="#cb11-3"></a>t3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(<span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"ce*4 g,*2 f,*2 ce*3"</span>, <span class="st">"4*10 2"</span>, <span class="st">"54*4 6*4 54*3"</span>), <span class="dt">clef =</span> <span class="ot">NA</span>)</span>
-<span id="cb11-4"><a href="#cb11-4"></a>t_all &lt;-<span class="st"> </span><span class="kw"><a href="../reference/trackbind.html">trackbind</a></span>(t1, t2, t3, <span class="dt">id =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb11-5"><a href="#cb11-5"></a>t_all</span></code></pre></div>
+<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">t1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/track.html">track</a></span>(<span class="no">p2</span>, <span class="kw">voice</span> <span class="kw">=</span> <span class="fl">1</span>)
+<span class="no">t2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/track.html">track</a></span>(<span class="no">p1</span>, <span class="kw">voice</span> <span class="kw">=</span> <span class="fl">2</span>)
+<span class="no">t3</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/track.html">track</a></span>(<span class="fu"><a href="../reference/phrase.html">p</a></span>(<span class="st">"ce*4 g,*2 f,*2 ce*3"</span>, <span class="st">"4*10 2"</span>, <span class="st">"54*4 6*4 54*3"</span>), <span class="kw">clef</span> <span class="kw">=</span> <span class="fl">NA</span>)
+<span class="no">t_all</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/trackbind.html">trackbind</a></span>(<span class="no">t1</span>, <span class="no">t2</span>, <span class="no">t3</span>, <span class="kw">id</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>))
+<span class="no">t_all</span></pre></body></html></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 3 x 8</span><span>
 #&gt;   phrase   clef     key   tab   tuning    voice lyrics    id
 #&gt;   </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span>
@@ -292,7 +292,7 @@
 #&gt; </span><span style="color: #555555;">2</span><span> </span><span style="color: #555555;">&lt;phrase&gt;</span><span> treble_8 </span><span style="color: #BB0000;">NA</span><span>    TRUE  e,a,dgbe'     2 </span><span style="color: #BB0000;">NA</span><span>         1
 #&gt; </span><span style="color: #555555;">3</span><span> </span><span style="color: #555555;">&lt;phrase&gt;</span><span> </span><span style="color: #BB0000;">NA</span><span>       </span><span style="color: #BB0000;">NA</span><span>    TRUE  e,a,dgbe'     1 </span><span style="color: #BB0000;">NA</span><span>         2
 </span></code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw"><a href="../reference/score.html">score</a></span>(t_all) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex25.pdf"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="../reference/score.html">score</a></span>(<span class="no">t_all</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex25.pdf"</span>)</pre></body></html></div>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex25.png?raw=true" class="centerimg" width="100%"></p>
 <p>Another important fact worth mentioning is that while multiple simultaneous tracks can be bound vertically, they are never bound horizontally, or sequentially in time. Tracks are always complete segments of music with a fixed beginning and end and are never concatenated serially like phrase objects.</p>
@@ -300,10 +300,10 @@
 <h3 class="hasAnchor">
 <a href="#string-tuning" class="anchor"></a>String tuning</h3>
 <p>String tuning can be unique to each track, but this is intended to translate to a tab staff. This means that entirely different tracks (destined for different tab staves in the output) may be tuned differently. However, distinct voices that share the same staff should not be be passed different tunings in their respective <code>track</code> calls. The next example shows the change to the tuning for the first tab staff.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"e, b, e g b e'"</span>, <span class="dv">8</span>)</span>
-<span id="cb13-2"><a href="#cb13-2"></a>t1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(x)</span>
-<span id="cb13-3"><a href="#cb13-3"></a>t2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(x, <span class="dt">tuning =</span> <span class="st">"dropD"</span>)</span>
-<span id="cb13-4"><a href="#cb13-4"></a>t3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(x, <span class="dt">tuning =</span> <span class="st">"dropC"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/phrase.html">p</a></span>(<span class="st">"e, b, e g b e'"</span>, <span class="fl">8</span>)
+<span class="no">t1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/track.html">track</a></span>(<span class="no">x</span>)
+<span class="no">t2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/track.html">track</a></span>(<span class="no">x</span>, <span class="kw">tuning</span> <span class="kw">=</span> <span class="st">"dropD"</span>)
+<span class="no">t3</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/track.html">track</a></span>(<span class="no">x</span>, <span class="kw">tuning</span> <span class="kw">=</span> <span class="st">"dropC"</span>)</pre></body></html></div>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex26.png?raw=true" class="centerimg" width="100%"></p>
 <p>Rendering each of these tracks, all three look as expected given the different string tuning. By default a staff based on a non-standard tunings indicates the tuning at the beginning of the staff. For more on tunings, see the later tutorial section on non-standard tunings. Some control over display of alternate tunings for the whole score in the rendered sheet music is available via the various rendering functions.</p>
@@ -339,12 +339,12 @@
 <li>The guitar and bass are in their respective standard tunings, which means the four strings of the bass match the bottom four of the guitar in terms of notes: E A D G. This makes it a simple shift of string numbers for the phrase; the bottom string is now string four.</li>
 </ul>
 <p>Finally, repeat every phrase two additional times by wrapping each phrase in <code>rp</code> with <code>n = 2</code> for two unfolded repeats or three plays. This is simply to provide a better sense of what a rendered score tends to look like by allowing these short phrases to actually extend across a full page width of sheet music. In this first example, there is still no chord chart or chord sequence.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>t1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(<span class="kw"><a href="../reference/repeats.html">rp</a></span>(p2, <span class="dv">2</span>), <span class="dt">voice =</span> <span class="dv">1</span>)</span>
-<span id="cb14-2"><a href="#cb14-2"></a>t2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(<span class="kw"><a href="../reference/repeats.html">rp</a></span>(p1, <span class="dv">2</span>), <span class="dt">voice =</span> <span class="dv">2</span>)</span>
-<span id="cb14-3"><a href="#cb14-3"></a>t3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track.html">track</a></span>(<span class="kw"><a href="../reference/repeats.html">rp</a></span>(<span class="kw"><a href="../reference/phrase.html">p</a></span>(<span class="st">"c,e,*4 g,,*2 f,,*2 c,e,*3"</span>, <span class="st">"4*10 2"</span>, <span class="st">"32*4 4*4 32*3"</span>), <span class="dv">2</span>), </span>
-<span id="cb14-4"><a href="#cb14-4"></a>            <span class="dt">clef =</span> <span class="st">"bass_8"</span>, <span class="dt">tuning =</span> <span class="st">"bass"</span>)</span>
-<span id="cb14-5"><a href="#cb14-5"></a>t_all &lt;-<span class="st"> </span><span class="kw"><a href="../reference/trackbind.html">trackbind</a></span>(t1, t2, t3, <span class="dt">id =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb14-6"><a href="#cb14-6"></a>t_all</span></code></pre></div>
+<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">t1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/track.html">track</a></span>(<span class="fu"><a href="../reference/repeats.html">rp</a></span>(<span class="no">p2</span>, <span class="fl">2</span>), <span class="kw">voice</span> <span class="kw">=</span> <span class="fl">1</span>)
+<span class="no">t2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/track.html">track</a></span>(<span class="fu"><a href="../reference/repeats.html">rp</a></span>(<span class="no">p1</span>, <span class="fl">2</span>), <span class="kw">voice</span> <span class="kw">=</span> <span class="fl">2</span>)
+<span class="no">t3</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/track.html">track</a></span>(<span class="fu"><a href="../reference/repeats.html">rp</a></span>(<span class="fu"><a href="../reference/phrase.html">p</a></span>(<span class="st">"c,e,*4 g,,*2 f,,*2 c,e,*3"</span>, <span class="st">"4*10 2"</span>, <span class="st">"32*4 4*4 32*3"</span>), <span class="fl">2</span>),
+            <span class="kw">clef</span> <span class="kw">=</span> <span class="st">"bass_8"</span>, <span class="kw">tuning</span> <span class="kw">=</span> <span class="st">"bass"</span>)
+<span class="no">t_all</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/trackbind.html">trackbind</a></span>(<span class="no">t1</span>, <span class="no">t2</span>, <span class="no">t3</span>, <span class="kw">id</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>))
+<span class="no">t_all</span></pre></body></html></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 3 x 8</span><span>
 #&gt;   phrase   clef     key   tab   tuning     voice lyrics    id
 #&gt;   </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>      </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span>
@@ -352,55 +352,44 @@
 #&gt; </span><span style="color: #555555;">2</span><span> </span><span style="color: #555555;">&lt;phrase&gt;</span><span> treble_8 </span><span style="color: #BB0000;">NA</span><span>    TRUE  e,a,dgbe'      2 </span><span style="color: #BB0000;">NA</span><span>         1
 #&gt; </span><span style="color: #555555;">3</span><span> </span><span style="color: #555555;">&lt;phrase&gt;</span><span> bass_8   </span><span style="color: #BB0000;">NA</span><span>    TRUE  e,,a,,d,g,     1 </span><span style="color: #BB0000;">NA</span><span>         2
 </span></code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw"><a href="../reference/score.html">score</a></span>(t_all) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex28.pdf"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="fu"><a href="../reference/score.html">score</a></span>(<span class="no">t_all</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex28.pdf"</span>)</pre></body></html></div>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex28.png?raw=true" class="centerimg" width="100%"></p>
 <p>Notice the bass tuning automatically leads to a four line tab.</p>
 <p><code>t_all</code> remains unchanged from here forward. In the next examples, all that is needed is to alter the <code>chords</code> and <code>chord_seq</code> arguments to <code>score</code>. First, define these named vectors. The chord progression is C G F C. The C chords last over measures one and three. The F and G chords split the second measure, one half each.</p>
 <p>You can define these chords however you like. They do not necessarily have to refer to the broken chords represented by the second voice of the guitar track in the output, though that would be common. Let’s say the chords in the chord chart refer generally to chords you can use to strum along, but this generic strumming is not actually shown in the tab as an explicit track because the pattern is meant to be whatever you want to make of it. Let the C chord be the open C chord, matching the melody in voice two, but the F and G chords refer to six string bar chords.</p>
 <p>Remember that the order of the chords in <code>chords</code> is the order they appear in the chord chart. It is customary to show them in the order in which they first appear in a song, so C G F here, but this is certainly not a rule. The important part is that you have complete control over this. Also, because you repeated the who piece of music, you have to repeat the named chord sequence of integers similarly or the sequence chord symbols above the top staff will terminate prematurely.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>chords &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chord_set.html">chord_set</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">c =</span> <span class="st">"x32o1o"</span>, <span class="dt">g =</span> <span class="st">"355433"</span>, <span class="dt">f =</span> <span class="st">"133211"</span>))</span>
-<span id="cb16-2"><a href="#cb16-2"></a>chord_seq &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="kw"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>), <span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(chords)[<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">1</span>)]), <span class="dv">3</span>)</span>
-<span id="cb16-3"><a href="#cb16-3"></a>chords</span></code></pre></div>
+<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">chords</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/chord_set.html">chord_set</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">c</span> <span class="kw">=</span> <span class="st">"x32o1o"</span>, <span class="kw">g</span> <span class="kw">=</span> <span class="st">"355433"</span>, <span class="kw">f</span> <span class="kw">=</span> <span class="st">"133211"</span>))
+<span class="no">chord_seq</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">1</span>), <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">chords</span>)[<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>:<span class="fl">3</span>, <span class="fl">1</span>)]), <span class="fl">3</span>)
+<span class="no">chords</span></pre></body></html></div>
 <pre class="r-output"><code>#&gt;              c              g              f 
 #&gt; "x;3;2;o;1;o;" "3;5;5;4;3;3;" "1;3;3;2;1;1;"
 </code></pre>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>chord_seq</span></code></pre></div>
+<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="no">chord_seq</span></pre></body></html></div>
 <pre class="r-output"><code>#&gt; c g f c c g f c c g f c 
 #&gt; 1 2 2 1 1 2 2 1 1 2 2 1
 </code></pre>
 <p>Now create a version that only adds a chord chart.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw"><a href="../reference/score.html">score</a></span>(t_all, <span class="dt">chords =</span> chords) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex29.pdf"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu"><a href="../reference/score.html">score</a></span>(<span class="no">t_all</span>, <span class="kw">chords</span> <span class="kw">=</span> <span class="no">chords</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex29.pdf"</span>)</pre></body></html></div>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex29.png?raw=true" class="centerimg" width="100%"></p>
 <p>The chart in the example above matches the order in which you defined your chord positions. Next, remake the score adding only the chord symbol sequence over the top staff. Remove the chord chart.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw"><a href="../reference/score.html">score</a></span>(t_all, <span class="dt">chord_seq =</span> chord_seq) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex30.pdf"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="fu"><a href="../reference/score.html">score</a></span>(<span class="no">t_all</span>, <span class="kw">chord_seq</span> <span class="kw">=</span> <span class="no">chord_seq</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex30.pdf"</span>)</pre></body></html></div>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex30.png?raw=true" class="centerimg" width="100%"></p>
 <p>Finally, combine both.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw"><a href="../reference/score.html">score</a></span>(t_all, chords, chord_seq) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex31.pdf"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="fu"><a href="../reference/score.html">score</a></span>(<span class="no">t_all</span>, <span class="no">chords</span>, <span class="no">chord_seq</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/tab.html">tab</a></span>(<span class="st">"ex31.pdf"</span>)</pre></body></html></div>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex31.png?raw=true" class="centerimg" width="100%"></p>
 <p>These examples demonstrate the level of control you have over this type of content, which you can elect to include or exclude depending on your preferences and how important or helpful the supplemental information is for a given song.</p>
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-<li><a href="#adding-phrases-to-a-track">Adding phrases to a track</a></li>
-      <li><a href="#single-voice">Single voice</a></li>
-      <li><a href="#multiple-tracks">Multiple tracks</a></li>
-      <li><a href="#multiple-voices">Multiple voices</a></li>
-      <li><a href="#putting-it-all-together">Putting it all together</a></li>
-      <li><a href="#adding-tracks-to-a-score">Adding tracks to a score</a></li>
-      <li><a href="#score-examples">Score examples</a></li>
-      </ul>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
 </div>
-      </div>
 
 </div>
 
@@ -411,7 +400,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

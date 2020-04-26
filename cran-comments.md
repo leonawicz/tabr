@@ -11,10 +11,4 @@
 
 ## This is an update release.
 
-* New functions, documentation and unit tests.
-
-## Downstream dependencies
-
-I have also run R CMD check on downstream dependencies of rtrek 
-(https://github.com/leonawicz/rtrek/blob/master/revdep/checks.rds). 
-All packages passed.
+* New functions, documentation and unit tests; changes related to `dplyr` updates.

@@ -1,6 +1,7 @@
 # tabr 0.4.3
 
 * Bug fix for dyads in `freq_ratio`.
+* Updated some generic method implementations required for working with `dplyr` 1.0+.
 
 # tabr 0.4.2
 
