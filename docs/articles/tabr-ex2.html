@@ -108,6 +108,9 @@
       <a href="../articles/tabr-engraving.html">Render scores</a>
     </li>
     <li>
+      <a href="../articles/tabr-snippets.html">Music snippets</a>
+    </li>
+    <li>
       <a href="../articles/tabr-chordchart.html">Render chord chart</a>
     </li>
     <li>
@@ -160,7 +163,8 @@
 
       
 
-      </header><div class="row">
+      </header><script src="tabr-ex2_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="tabr-ex2_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="tabr-ex2_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Example: multiple voices</h1>
@@ -174,18 +178,19 @@
     
     
 <p>The previous example used a fingerstyle arrangement based on guitar patterns in <em>Devil’s got you beat</em>. This example picks up from there, regenerating the same guitar tab, but this time properly acknowledging the two guitar voices: the part played by with the thumb and the part played with the other fingers.</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="no">header</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(
-  <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Devil's got you beat"</span>,
-  <span class="kw">composer</span> <span class="kw">=</span> <span class="st">"Words and music Blues Saraceno"</span>,
-  <span class="kw">performer</span> <span class="kw">=</span> <span class="st">"Blues Saraceno"</span>,
-  <span class="kw">album</span> <span class="kw">=</span> <span class="st">"Dark Country 4"</span>,
-  <span class="kw">subtitle</span> <span class="kw">=</span> <span class="st">"From the album Dark Country 4 by Blues Saraceno"</span>,
-  <span class="kw">arranger</span> <span class="kw">=</span> <span class="st">"Two picking patterns arranged by Matthew Leonawicz"</span>,
-  <span class="kw">copyright</span> <span class="kw">=</span> <span class="st">"2016 Extreme Music"</span>
-)
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="va">header</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+  title <span class="op">=</span> <span class="st">"Devil's got you beat"</span>,
+  composer <span class="op">=</span> <span class="st">"Words and music Blues Saraceno"</span>,
+  performer <span class="op">=</span> <span class="st">"Blues Saraceno"</span>,
+  album <span class="op">=</span> <span class="st">"Dark Country 4"</span>,
+  subtitle <span class="op">=</span> <span class="st">"From the album Dark Country 4 by Blues Saraceno"</span>,
+  arranger <span class="op">=</span> <span class="st">"Two picking patterns arranged by Matthew Leonawicz"</span>,
+  copyright <span class="op">=</span> <span class="st">"2016 Extreme Music"</span>
+<span class="op">)</span>
 
-<span class="no">txt</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"DADGAD tuning with capo on 1st fret. Fingerpicking. Let ring."</span>)
-<span class="no">tuning</span> <span class="kw">&lt;-</span> <span class="st">"DADGAD"</span></pre></body></html></div>
+<span class="va">txt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"DADGAD tuning with capo on 1st fret. Fingerpicking. Let ring."</span><span class="op">)</span>
+<span class="va">tuning</span> <span class="op">&lt;-</span> <span class="st">"DADGAD"</span></pre></div>
 <div id="multiple-voices" class="section level2">
 <h2 class="hasAnchor">
 <a href="#multiple-voices" class="anchor"></a>Multiple voices</h2>
@@ -203,28 +208,29 @@
 <h2 class="hasAnchor">
 <a href="#final-notes" class="anchor"></a>Final notes</h2>
 <p>The last thing to note is that for the same reason there are a lot of octave <code>3</code> characters that can be omitted, there is no need to specify the <code>string</code> argument. The default chosen by LilyPond turns out to be exactly what is wanted. The creates even more room for code reduction compared to previous example. Some phrases are also conveniently listed using <code>paste</code> <code>c</code> and <code>rep</code>, which coerce these phrases to character strings, but this is okay as long as they are eventually combined with other phrase objects using <code>pc</code> or wrapped in other calls like <code>volta</code> or <code>pct</code> because <code>tabr</code> is aggressive for the phrase class and will convert them back.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="co"># melody 1: voice 1</span>
-<span class="no">p1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="fu"><a href="../reference/phrase.html">p</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="../reference/append_phrases.html">pn</a></span>(<span class="st">"s a d'"</span>, <span class="fl">3</span>), <span class="st">"s"</span>), <span class="st">"4. 16 16 4. 16 16 8 16 16 4"</span>),
-            <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="../reference/phrase.html">p</a></span>(<span class="st">"s a d s"</span>, <span class="st">"8 16 16 4"</span>), <span class="fu"><a href="../reference/phrase.html">p</a></span>(<span class="st">"s a d4 s s"</span>, <span class="st">"8 16 16 4 1"</span>)))
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="co"># melody 1: voice 1</span>
+<span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="../reference/append_phrases.html">pn</a></span><span class="op">(</span><span class="st">"s a d'"</span>, <span class="fl">3</span><span class="op">)</span>, <span class="st">"s"</span><span class="op">)</span>, <span class="st">"4. 16 16 4. 16 16 8 16 16 4"</span><span class="op">)</span>,
+            <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"s a d s"</span>, <span class="st">"8 16 16 4"</span><span class="op">)</span>, <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"s a d4 s s"</span>, <span class="st">"8 16 16 4 1"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># melody 1: voice 2</span>
-<span class="no">notes</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="../reference/append_phrases.html">pn</a></span>(<span class="st">"f d c d s"</span>, <span class="fl">2</span>), <span class="st">"f g s f d c a,"</span>), <span class="st">"d s c a, f, d,"</span>, <span class="st">"d s c a, f, e, d,"</span>)
-<span class="no">info</span> <span class="kw">&lt;-</span> <span class="kw pkg">purrr</span><span class="kw ns">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"16("</span>, <span class="fu"><a href="../reference/notate.html">notate</a></span>(<span class="st">"16("</span>, <span class="no">txt</span>)), ~<span class="fu"><a href="../reference/append_phrases.html">pc</a></span>(<span class="no">.x</span>, <span class="st">"16) 8*3 16( 16) 8*3 16- 16 8 16*4"</span>))
-<span class="no">p2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(<span class="kw pkg">purrr</span><span class="kw ns">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(<span class="no">info</span>[<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">1</span>)], ~<span class="fu"><a href="../reference/phrase.html">p</a></span>(<span class="no">notes</span>[<span class="fl">1</span>], <span class="no">.x</span>))),
-            <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fu"><a href="../reference/phrase.html">p</a></span>(<span class="no">notes</span>[<span class="fl">2</span>], <span class="st">"8 8 16( 16) 16( 16)"</span>), <span class="fl">2</span>),
-              <span class="fu"><a href="../reference/phrase.html">p</a></span>(<span class="no">notes</span>[<span class="fl">3</span>], <span class="st">"8 8 16( 16) 16- 16( 1)"</span>)))
-<span class="no">p2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span>(<span class="st">"&lt;g&gt;"</span>, <span class="st">"&lt;g\\\\4&gt;"</span>, <span class="no">p2</span>) <span class="co"># force string for one note</span>
+<span class="va">notes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="../reference/append_phrases.html">pn</a></span><span class="op">(</span><span class="st">"f d c d s"</span>, <span class="fl">2</span><span class="op">)</span>, <span class="st">"f g s f d c a,"</span><span class="op">)</span>, <span class="st">"d s c a, f, d,"</span>, <span class="st">"d s c a, f, e, d,"</span><span class="op">)</span>
+<span class="va">info</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"16("</span>, <span class="fu"><a href="../reference/notate.html">notate</a></span><span class="op">(</span><span class="st">"16("</span>, <span class="va">txt</span><span class="op">)</span><span class="op">)</span>, <span class="op">~</span><span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="va">.x</span>, <span class="st">"16) 8*3 16( 16) 8*3 16- 16 8 16*4"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">info</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">]</span>, <span class="op">~</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="va">notes</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">.x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,
+            <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="va">notes</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="st">"8 8 16( 16) 16( 16)"</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span>, 
+              <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="va">notes</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="st">"8 8 16( 16) 16- 16( 1)"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"&lt;g&gt;"</span>, <span class="st">"&lt;g\\\\4&gt;"</span>, <span class="va">p2</span><span class="op">)</span> <span class="co"># force string for one note</span>
 
 <span class="co"># melody 2: voices 1 and 2</span>
-<span class="no">p3</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/repeats.html">volta</a></span>(<span class="fu"><a href="../reference/repeats.html">pct</a></span>(<span class="fu"><a href="../reference/phrase.html">p</a></span>(<span class="st">"s a d4 s"</span>, <span class="st">"8 16 16 4"</span>), <span class="fl">3</span>))
-<span class="no">p4</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/repeats.html">volta</a></span>(<span class="fu"><a href="../reference/repeats.html">pct</a></span>(<span class="fu"><a href="../reference/phrase.html">p</a></span>(<span class="st">"d s f d c"</span>, <span class="st">"8 8 16 16 8"</span>), <span class="fl">3</span>))
+<span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/repeats.html">volta</a></span><span class="op">(</span><span class="fu"><a href="../reference/repeats.html">pct</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"s a d4 s"</span>, <span class="st">"8 16 16 4"</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
+<span class="va">p4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/repeats.html">volta</a></span><span class="op">(</span><span class="fu"><a href="../reference/repeats.html">pct</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"d s f d c"</span>, <span class="st">"8 8 16 16 8"</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
 
-<span class="no">t1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/append_phrases.html">pc</a></span>(<span class="fu"><a href="../reference/repeats.html">pct</a></span>(<span class="no">p1</span>[<span class="fl">1</span>], <span class="fl">3</span>), <span class="no">p3</span>, <span class="no">p1</span>[<span class="fl">1</span>], <span class="no">p1</span>[<span class="fl">2</span>]) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/track.html">track</a></span>(<span class="kw">key</span> <span class="kw">=</span> <span class="st">"e_m"</span>, <span class="kw">tuning</span> <span class="kw">=</span> <span class="no">tuning</span>, <span class="kw">voice</span> <span class="kw">=</span> <span class="fl">1</span>)
-<span class="no">t2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/append_phrases.html">pc</a></span>(<span class="fu"><a href="../reference/repeats.html">pct</a></span>(<span class="no">p2</span>[<span class="fl">1</span>], <span class="fl">3</span>), <span class="no">p4</span>, <span class="no">p2</span>[<span class="fl">2</span>], <span class="no">p2</span>[<span class="fl">3</span>]) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/track.html">track</a></span>(<span class="kw">key</span> <span class="kw">=</span> <span class="st">"e_m"</span>, <span class="kw">tuning</span> <span class="kw">=</span> <span class="no">tuning</span>, <span class="kw">voice</span> <span class="kw">=</span> <span class="fl">2</span>)
-<span class="fu"><a href="../reference/trackbind.html">trackbind</a></span>(<span class="no">t1</span>, <span class="no">t2</span>, <span class="kw">id</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">1</span>)) <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/score.html">score</a></span>() <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/tab.html">tab</a></span>(<span class="st">"out.pdf"</span>, <span class="st">"dm"</span>, <span class="st">"4/4"</span>, <span class="st">"4 = 115"</span>, <span class="no">header</span>)</pre></body></html></div>
+<span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="fu"><a href="../reference/repeats.html">pct</a></span><span class="op">(</span><span class="va">p1</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">3</span><span class="op">)</span>, <span class="va">p3</span>, <span class="va">p1</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">p1</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/track.html">track</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"e_m"</span>, tuning <span class="op">=</span> <span class="va">tuning</span>, voice <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<span class="va">t2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="fu"><a href="../reference/repeats.html">pct</a></span><span class="op">(</span><span class="va">p2</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">3</span><span class="op">)</span>, <span class="va">p4</span>, <span class="va">p2</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">p2</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/track.html">track</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"e_m"</span>, tuning <span class="op">=</span> <span class="va">tuning</span>, voice <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+<span class="fu"><a href="../reference/trackbind.html">trackbind</a></span><span class="op">(</span><span class="va">t1</span>, <span class="va">t2</span>, id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/score.html">score</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"out.pdf"</span>, <span class="st">"dm"</span>, <span class="st">"4/4"</span>, <span class="st">"4 = 115"</span>, <span class="va">header</span><span class="op">)</span></pre></div>
 </div>
 <div id="refactor-recap" class="section level2">
 <h2 class="hasAnchor">
@@ -263,7 +269,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

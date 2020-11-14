@@ -152,6 +152,9 @@ phrase objects." />
       <a href="../articles/tabr-engraving.html">Render scores</a>
     </li>
     <li>
+      <a href="../articles/tabr-snippets.html">Music snippets</a>
+    </li>
+    <li>
       <a href="../articles/tabr-chordchart.html">Render chord chart</a>
     </li>
     <li>
@@ -217,19 +220,19 @@ phrase objects." />
 phrase objects.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>as_phrase</span>(<span class='no'>phrase</span>)
+    <pre class="usage"><span class='fu'>as_phrase</span><span class='op'>(</span><span class='va'>phrase</span><span class='op'>)</span>
 
-<span class='fu'>phrasey</span>(<span class='no'>phrase</span>)
+<span class='fu'>phrasey</span><span class='op'>(</span><span class='va'>phrase</span><span class='op'>)</span>
 
-<span class='fu'>notify</span>(<span class='no'>phrase</span>)
+<span class='fu'>notify</span><span class='op'>(</span><span class='va'>phrase</span><span class='op'>)</span>
 
-<span class='fu'>phrase_notes</span>(<span class='no'>phrase</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>phrase_notes</span><span class='op'>(</span><span class='va'>phrase</span>, collapse <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='fu'>phrase_info</span>(<span class='no'>phrase</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>annotations</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>phrase_info</span><span class='op'>(</span><span class='va'>phrase</span>, collapse <span class='op'>=</span> <span class='cn'>TRUE</span>, annotations <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='fu'>phrase_strings</span>(<span class='no'>phrase</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>phrase_strings</span><span class='op'>(</span><span class='va'>phrase</span>, collapse <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>notable</span>(<span class='no'>phrase</span>)</pre>
+<span class='fu'>notable</span><span class='op'>(</span><span class='va'>phrase</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -284,23 +287,30 @@ or tuplets.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Create a list of phrase objects</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='st'>"c ec'g' ec'g'"</span>, <span class='st'>"4 4 2"</span>) <span class='co'># no string numbers (not recommended)</span>
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='st'>"c ec4g4 ec4g4"</span>, <span class='st'>"4 4 2"</span>) <span class='co'># same as above</span>
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='st'>"c b, c"</span>, <span class='st'>"4. 8( 8)"</span>, <span class='st'>"5 5 5"</span>) <span class='co'># direction implies hammer on</span>
-<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='st'>"b2 c d"</span>, <span class='st'>"4( 4)- 2"</span>, <span class='st'>"5 5 5"</span>) <span class='co'># hammer and slide</span>
-<span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='st'>"c ec'g'~ ec'g'"</span>, <span class='fl'>1</span>, <span class='st'>"5 432 432"</span>) <span class='co'># tied chord</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>p1</span>, <span class='no'>p2</span>, <span class='no'>p3</span>, <span class='no'>p4</span>, <span class='no'>p5</span>)
+<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span><span class='op'>(</span><span class='st'>"c ec'g' ec'g'"</span>, <span class='st'>"4 4 2"</span><span class='op'>)</span> <span class='co'># no string numbers (not recommended)</span>
+<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span><span class='op'>(</span><span class='st'>"c ec4g4 ec4g4"</span>, <span class='st'>"4 4 2"</span><span class='op'>)</span> <span class='co'># same as above</span>
+<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span><span class='op'>(</span><span class='st'>"c b, c"</span>, <span class='st'>"4. 8( 8)"</span>, <span class='st'>"5 5 5"</span><span class='op'>)</span> <span class='co'># direction implies hammer on</span>
+<span class='va'>p4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span><span class='op'>(</span><span class='st'>"b2 c d"</span>, <span class='st'>"4( 4)- 2"</span>, <span class='st'>"5 5 5"</span><span class='op'>)</span> <span class='co'># hammer and slide</span>
+<span class='va'>p5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span><span class='op'>(</span><span class='st'>"c ec'g'~ ec'g'"</span>, <span class='fl'>1</span>, <span class='st'>"5 432 432"</span><span class='op'>)</span> <span class='co'># tied chord</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>p1</span>, <span class='va'>p2</span>, <span class='va'>p3</span>, <span class='va'>p4</span>, <span class='va'>p5</span><span class='op'>)</span>
 
 <span class='co'># Check if phrases and strings are phrasey</span>
-<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='no'>x</span>, <span class='no'>phrasey</span>)</div><div class='output co'>#&gt; [1] TRUE TRUE TRUE TRUE TRUE</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span>(<span class='no'>x</span>), <span class='no'>phrasey</span>, <span class='kw'>USE.NAMES</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] TRUE TRUE TRUE TRUE TRUE</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>phrasey</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE TRUE TRUE TRUE TRUE</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, <span class='va'>phrasey</span>, USE.NAMES <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE TRUE TRUE TRUE TRUE</div><div class='input'>
 <span class='co'># Coerce character string representation to phrase and compare with original</span>
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span>(<span class='no'>x</span>), <span class='no'>as_phrase</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, <span class='va'>as_phrase</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 <span class='co'># Check if notable</span>
-<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='no'>x</span>, <span class='no'>notable</span>)</div><div class='output co'>#&gt; [1] TRUE TRUE TRUE TRUE TRUE</div><div class='input'><span class='fu'>notable</span>(<span class='fu'><a href='phrase.html'>p</a></span>(<span class='st'>"a b c"</span>, <span class='fl'>1</span>))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>notable</span>(<span class='st'>"a b x"</span>) <span class='co'># note: not constructible as a phrase in the first place</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>notable</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE TRUE TRUE TRUE TRUE</div><div class='input'><span class='fu'>notable</span><span class='op'>(</span><span class='fu'><a href='phrase.html'>p</a></span><span class='op'>(</span><span class='st'>"a b c"</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>notable</span><span class='op'>(</span><span class='st'>"a b x"</span><span class='op'>)</span> <span class='co'># note: not constructible as a phrase in the first place</span>
+</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
 <span class='co'># Notify phrases</span>
-<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span>(<span class='no'>rbind</span>, <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>x</span>, <span class='no'>notify</span>))
-<span class='no'>d</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 15 x 3</span><span>
+<span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span><span class='op'>(</span><span class='va'>rbind</span>, <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>notify</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>d</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 15 x 3</span><span>
 #&gt;    notes    info  string
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
 #&gt; </span><span style='color: #555555;'> 1</span><span> c        4     </span><span style='color: #BB0000;'>NA</span><span>    
@@ -319,16 +329,20 @@ or tuplets.</p>
 #&gt; </span><span style='color: #555555;'>14</span><span> e~c'~g'~ 1     432   
 #&gt; </span><span style='color: #555555;'>15</span><span> ec'g'    1     432   </div><div class='input'>
 <span class='co'># Wrappers around notify extract components, default to collapsed strings</span>
-<span class='fu'>phrase_notes</span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+<span class='fu'>phrase_notes</span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>e</span><span style='color: #BBBB00;'>~</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>~</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>~&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>ec</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>phrase_info</span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Note info string&gt;
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>e</span><span style='color: #BBBB00;'>~</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>~</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>~&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>ec</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>phrase_info</span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Note info string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>1</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>1</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>1</span><span></div><div class='input'><span class='fu'>phrase_strings</span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; [1] "5"   "432" "432"</div><div class='input'>
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>1</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>1</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>1</span><span></div><div class='input'><span class='fu'>phrase_strings</span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "5"   "432" "432"</div><div class='input'>
 <span class='co'># If phrase decomposition works well, coercion is one to one</span>
-<span class='no'>x2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>x</span>,
-  <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='phrase.html'>p</a></span>(<span class='fu'>phrase_notes</span>(<span class='no'>x</span>), <span class='fu'>phrase_info</span>(<span class='no'>x</span>), <span class='fu'>phrase_strings</span>(<span class='no'>x</span>))
-)
-<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='no'>x</span>, <span class='no'>x2</span>)</div><div class='output co'>#&gt; [1] TRUE</div></span></pre>
+<span class='va'>x2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>x</span>,
+  <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='phrase.html'>p</a></span><span class='op'>(</span><span class='fu'>phrase_notes</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, <span class='fu'>phrase_info</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, <span class='fu'>phrase_strings</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>x2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -344,7 +358,7 @@ or tuplets.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

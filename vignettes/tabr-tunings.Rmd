@@ -2,7 +2,7 @@
 title: "Strings and tunings"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Non-standard tuning}
+  %\VignetteIndexEntry{Strings and tunings}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

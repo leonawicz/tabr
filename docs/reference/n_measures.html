@@ -151,6 +151,9 @@
       <a href="../articles/tabr-engraving.html">Render scores</a>
     </li>
     <li>
+      <a href="../articles/tabr-snippets.html">Music snippets</a>
+    </li>
+    <li>
       <a href="../articles/tabr-chordchart.html">Render chord chart</a>
     </li>
     <li>
@@ -215,21 +218,21 @@
     <p>These functions assist with summarizing temporal data for music objects.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>n_measures</span>(<span class='no'>x</span>)
+    <pre class="usage"><span class='fu'>n_measures</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>n_beats</span>(<span class='no'>x</span>, <span class='kw'>unit</span> <span class='kw'>=</span> <span class='fl'>4</span>)
+<span class='fu'>n_beats</span><span class='op'>(</span><span class='va'>x</span>, unit <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
 
-<span class='fu'>steps_per_measure</span>(<span class='no'>x</span>)
+<span class='fu'>steps_per_measure</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>bpm</span>(<span class='no'>x</span>, <span class='kw'>unit</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>bpm</span><span class='op'>(</span><span class='va'>x</span>, unit <span class='op'>=</span> <span class='fl'>4</span>, tempo <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
-<span class='fu'>seconds</span>(<span class='no'>x</span>, <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>seconds</span><span class='op'>(</span><span class='va'>x</span>, tempo <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
-<span class='fu'>seconds_per_measure</span>(<span class='no'>x</span>, <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>seconds_per_measure</span><span class='op'>(</span><span class='va'>x</span>, tempo <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
-<span class='fu'>seconds_per_step</span>(<span class='no'>x</span>, <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>seconds_per_step</span><span class='op'>(</span><span class='va'>x</span>, tempo <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
-<span class='fu'>steps_start_time</span>(<span class='no'>x</span>, <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+<span class='fu'>steps_start_time</span><span class='op'>(</span><span class='va'>x</span>, tempo <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -272,26 +275,41 @@ any even beat, triplet beat, dotted, or double dotted beat, from
 <code>steps_per_measure</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='notate.html'>notate</a></span>(<span class='st'>"t8x"</span>, <span class='st'>"Start here"</span>)
-<span class='no'>notes</span> <span class='kw'>&lt;-</span> <span class='st'>"a, b, c d e f g# a r ac'e' a c' e' c' r*3 ac'e'~ ac'e'"</span>
-<span class='no'>info</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='no'>a</span>, <span class='st'>"t8x t8-. 16 4.. 16- 16 2^ 2 4. 8( 4)( 4) 8*4 1 1"</span>)
-<span class='no'>info</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='valid-noteinfo.html'>as_noteinfo</a></span>(<span class='no'>info</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='music.html'>as_music</a></span>(<span class='no'>notes</span>, <span class='no'>info</span>)
+    <pre class="examples"><div class='input'><span class='va'>a</span> <span class='op'>&lt;-</span> <span class='fu'><a href='notate.html'>notate</a></span><span class='op'>(</span><span class='st'>"t8x"</span>, <span class='st'>"Start here"</span><span class='op'>)</span>
+<span class='va'>notes</span> <span class='op'>&lt;-</span> <span class='st'>"a, b, c d e f g# a r ac'e' a c' e' c' r*3 ac'e'~ ac'e'"</span>
+<span class='va'>info</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>a</span>, <span class='st'>"t8x t8-. 16 4.. 16- 16 2^ 2 4. 8( 4)( 4) 8*4 1 1"</span><span class='op'>)</span>
+<span class='va'>info</span> <span class='op'>&lt;-</span> <span class='fu'><a href='valid-noteinfo.html'>as_noteinfo</a></span><span class='op'>(</span><span class='va'>info</span><span class='op'>)</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='music.html'>as_music</a></span><span class='op'>(</span><span class='va'>notes</span>, <span class='va'>info</span><span class='op'>)</span>
 
-<span class='fu'>n_measures</span>(<span class='no'>info</span>) <span class='co'># fraction indicates incomplete final measure</span></div><div class='output co'>#&gt; [1] 5.375</div><div class='input'><span class='fu'>n_measures</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 5.375</div><div class='input'>
-<span class='fu'>n_beats</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 21.5</div><div class='input'><span class='fu'>n_beats</span>(<span class='no'>x</span>, <span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] 5.375</div><div class='input'><span class='fu'>n_beats</span>(<span class='no'>x</span>, <span class='st'>"t16"</span>)</div><div class='output co'>#&gt; [1] 129</div><div class='input'>
-<span class='fu'>bpm</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 120</div><div class='input'><span class='fu'>bpm</span>(<span class='no'>x</span>, <span class='st'>"t8"</span>)</div><div class='output co'>#&gt; [1] 360</div><div class='input'>
-<span class='fu'>seconds</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 10.75</div><div class='input'><span class='fu'>seconds</span>(<span class='no'>info</span>, <span class='st'>"4 = 120"</span>)</div><div class='output co'>#&gt; [1] 10.75</div><div class='input'><span class='fu'>seconds</span>(<span class='no'>info</span>, <span class='st'>"2 = 60"</span>)</div><div class='output co'>#&gt; [1] 10.75</div><div class='input'><span class='fu'>seconds</span>(<span class='no'>x</span>, <span class='st'>"4 = 100"</span>)</div><div class='output co'>#&gt; [1] 12.9</div><div class='input'>
-<span class='fu'>steps_per_measure</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 5 x 2</span><span>
+<span class='fu'>n_measures</span><span class='op'>(</span><span class='va'>info</span><span class='op'>)</span> <span class='co'># fraction indicates incomplete final measure</span>
+</div><div class='output co'>#&gt; [1] 5.375</div><div class='input'><span class='fu'>n_measures</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 5.375</div><div class='input'>
+<span class='fu'>n_beats</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 21.5</div><div class='input'><span class='fu'>n_beats</span><span class='op'>(</span><span class='va'>x</span>, <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 5.375</div><div class='input'><span class='fu'>n_beats</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"t16"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 129</div><div class='input'>
+<span class='fu'>bpm</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 120</div><div class='input'><span class='fu'>bpm</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"t8"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 360</div><div class='input'>
+<span class='fu'>seconds</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 10.75</div><div class='input'><span class='fu'>seconds</span><span class='op'>(</span><span class='va'>info</span>, <span class='st'>"4 = 120"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 10.75</div><div class='input'><span class='fu'>seconds</span><span class='op'>(</span><span class='va'>info</span>, <span class='st'>"2 = 60"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 10.75</div><div class='input'><span class='fu'>seconds</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"4 = 100"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 12.9</div><div class='input'>
+<span class='fu'>steps_per_measure</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 5 x 2</span><span>
 #&gt;   measure steps
 #&gt;     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span>       1     8
 #&gt; </span><span style='color: #555555;'>2</span><span>       2     2
 #&gt; </span><span style='color: #555555;'>3</span><span>       3     4
 #&gt; </span><span style='color: #555555;'>4</span><span>       4     4
-#&gt; </span><span style='color: #555555;'>5</span><span>       5     1</div><div class='input'><span class='fu'>seconds_per_measure</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 2</div><div class='input'><span class='fu'>seconds_per_step</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt;  [1] 0.1666667 0.1666667 0.1666667 0.1250000 0.8750000 0.1250000 0.1250000
+#&gt; </span><span style='color: #555555;'>5</span><span>       5     1</div><div class='input'><span class='fu'>seconds_per_measure</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 2</div><div class='input'><span class='fu'>seconds_per_step</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1] 0.1666667 0.1666667 0.1666667 0.1250000 0.8750000 0.1250000 0.1250000
 #&gt;  [8] 1.0000000 1.0000000 0.7500000 0.2500000 0.5000000 0.5000000 0.2500000
-#&gt; [15] 0.2500000 0.2500000 0.2500000 2.0000000 2.0000000</div><div class='input'><span class='fu'>steps_start_time</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt;  [1] 0.0000000 0.1666667 0.3333333 0.5000000 0.6250000 1.5000000 1.6250000
+#&gt; [15] 0.2500000 0.2500000 0.2500000 2.0000000 2.0000000</div><div class='input'><span class='fu'>steps_start_time</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1] 0.0000000 0.1666667 0.3333333 0.5000000 0.6250000 1.5000000 1.6250000
 #&gt;  [8] 1.7500000 2.7500000 3.7500000 4.5000000 4.7500000 5.2500000 5.7500000
 #&gt; [15] 6.0000000 6.2500000 6.5000000 6.7500000 8.7500000</div></span></pre>
   </div>
@@ -309,7 +327,7 @@ any even beat, triplet beat, dotted, or double dotted beat, from
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -152,6 +152,9 @@ derivative variables." />
       <a href="../articles/tabr-engraving.html">Render scores</a>
     </li>
     <li>
+      <a href="../articles/tabr-snippets.html">Music snippets</a>
+    </li>
+    <li>
       <a href="../articles/tabr-chordchart.html">Render chord chart</a>
     </li>
     <li>
@@ -217,14 +220,14 @@ derivative variables." />
 derivative variables.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>as_music_df</span>(
-  <span class='no'>notes</span>,
-  <span class='kw'>info</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"diatonic"</span>,
-  <span class='kw'>chords</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"root"</span>, <span class='st'>"list"</span>, <span class='st'>"character"</span>),
-  <span class='kw'>si_format</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mmp_abb"</span>, <span class='st'>"mmp"</span>, <span class='st'>"ad_abb"</span>, <span class='st'>"ad"</span>)
-)</pre>
+    <pre class="usage"><span class='fu'>as_music_df</span><span class='op'>(</span>
+  <span class='va'>notes</span>,
+  info <span class='op'>=</span> <span class='cn'>NULL</span>,
+  key <span class='op'>=</span> <span class='cn'>NULL</span>,
+  scale <span class='op'>=</span> <span class='st'>"diatonic"</span>,
+  chords <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"root"</span>, <span class='st'>"list"</span>, <span class='st'>"character"</span><span class='op'>)</span>,
+  si_format <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mmp_abb"</span>, <span class='st'>"mmp"</span>, <span class='st'>"ad_abb"</span>, <span class='st'>"ad"</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -284,8 +287,9 @@ readily visible when printing the table, but information is not stripped and
 can be recovered without recomputing from the original pitches.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"a, b, c d e f g# a r ac'e' a c' e' c' r r r a"</span>
-<span class='fu'>as_music_df</span>(<span class='no'>x</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"major"</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 18 x 11</span><span>
+    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='st'>"a, b, c d e f g# a r ac'e' a c' e' c' r r r a"</span>
+<span class='fu'>as_music_df</span><span class='op'>(</span><span class='va'>x</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, scale <span class='op'>=</span> <span class='st'>"major"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 18 x 11</span><span>
 #&gt;    duration pitch note  semitone octave  freq key   scale scale_deg pitch_int
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> </span><span style='color: #BB0000;'>NA</span><span>       a,    a           57      2  110. c     major         6        </span><span style='color: #BB0000;'>NA</span><span>
@@ -306,7 +310,8 @@ can be recovered without recomputing from the original pitches.</p>
 #&gt; </span><span style='color: #555555;'>16</span><span> </span><span style='color: #BB0000;'>NA</span><span>       r     r           </span><span style='color: #BB0000;'>NA</span><span>     </span><span style='color: #BB0000;'>NA</span><span>   </span><span style='color: #BB0000;'>NA</span><span>  c     major        </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='color: #BB0000;'>NA</span><span>
 #&gt; </span><span style='color: #555555;'>17</span><span> </span><span style='color: #BB0000;'>NA</span><span>       r     r           </span><span style='color: #BB0000;'>NA</span><span>     </span><span style='color: #BB0000;'>NA</span><span>   </span><span style='color: #BB0000;'>NA</span><span>  c     major        </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='color: #BB0000;'>NA</span><span>
 #&gt; </span><span style='color: #555555;'>18</span><span> </span><span style='color: #BB0000;'>NA</span><span>       a     a           57      3  220. c     major         6        -</span><span style='color: #BB0000;'>3</span><span>
-#&gt; </span><span style='color: #555555;'># ... with 1 more variable: scale_int </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'><span class='fu'>as_music_df</span>(<span class='no'>x</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"am"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"harmonic_minor"</span>, <span class='kw'>si_format</span> <span class='kw'>=</span> <span class='st'>"ad_abb"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 18 x 11</span><span>
+#&gt; </span><span style='color: #555555;'># ... with 1 more variable: scale_int </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'><span class='fu'>as_music_df</span><span class='op'>(</span><span class='va'>x</span>, key <span class='op'>=</span> <span class='st'>"am"</span>, scale <span class='op'>=</span> <span class='st'>"harmonic_minor"</span>, si_format <span class='op'>=</span> <span class='st'>"ad_abb"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 18 x 11</span><span>
 #&gt;    duration pitch note  semitone octave  freq key   scale scale_deg pitch_int
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> </span><span style='color: #BB0000;'>NA</span><span>       a,    a           57      2  110. am    harm~         1        </span><span style='color: #BB0000;'>NA</span><span>
@@ -328,10 +333,11 @@ can be recovered without recomputing from the original pitches.</p>
 #&gt; </span><span style='color: #555555;'>17</span><span> </span><span style='color: #BB0000;'>NA</span><span>       r     r           </span><span style='color: #BB0000;'>NA</span><span>     </span><span style='color: #BB0000;'>NA</span><span>   </span><span style='color: #BB0000;'>NA</span><span>  am    harm~        </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='color: #BB0000;'>NA</span><span>
 #&gt; </span><span style='color: #555555;'>18</span><span> </span><span style='color: #BB0000;'>NA</span><span>       a     a           57      3  220. am    harm~         1        -</span><span style='color: #BB0000;'>3</span><span>
 #&gt; </span><span style='color: #555555;'># ... with 1 more variable: scale_int </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'>
-<span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='notate.html'>notate</a></span>(<span class='st'>"8"</span>, <span class='st'>"Start here."</span>)
-<span class='no'>time</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='no'>a</span>, <span class='st'>"8^*2 16-_ 4.. 16( 16)( 2) 2 4. t8- t8 t8- 8[accent]*4 1"</span>)
-<span class='no'>d1</span> <span class='kw'>&lt;-</span> <span class='fu'>as_music_df</span>(<span class='no'>x</span>, <span class='no'>time</span>)
-<span class='no'>d1</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 18 x 14</span><span>
+<span class='va'>a</span> <span class='op'>&lt;-</span> <span class='fu'><a href='notate.html'>notate</a></span><span class='op'>(</span><span class='st'>"8"</span>, <span class='st'>"Start here."</span><span class='op'>)</span>
+<span class='va'>time</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>a</span>, <span class='st'>"8^*2 16-_ 4.. 16( 16)( 2) 2 4. t8- t8 t8- 8[accent]*4 1"</span><span class='op'>)</span>
+<span class='va'>d1</span> <span class='op'>&lt;-</span> <span class='fu'>as_music_df</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>time</span><span class='op'>)</span>
+<span class='va'>d1</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 18 x 14</span><span>
 #&gt;    duration pitch note  semitone octave  freq pitch_int scale_int slur  slide
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 8        a,    a           57      2  110.        </span><span style='color: #BB0000;'>NA</span><span> </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='color: #BB0000;'>NA</span><span>    FALSE
@@ -355,12 +361,14 @@ can be recovered without recomputing from the original pitches.</p>
 #&gt; </span><span style='color: #555555;'># ... with 4 more variables: bend </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, dotted </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, articulation </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,</span><span>
 #&gt; </span><span style='color: #555555;'>#   annotation </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'>
 <span class='co'># Go directly from music object to data frame</span>
-<span class='no'>m1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='music.html'>as_music</a></span>(<span class='no'>x</span>, <span class='no'>time</span>)
-<span class='no'>d2</span> <span class='kw'>&lt;-</span> <span class='fu'>as_music_df</span>(<span class='no'>m1</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='no'>d1</span>, <span class='no'>d2</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='va'>m1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='music.html'>as_music</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>time</span><span class='op'>)</span>
+<span class='va'>d2</span> <span class='op'>&lt;-</span> <span class='fu'>as_music_df</span><span class='op'>(</span><span class='va'>m1</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='va'>d1</span>, <span class='va'>d2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 <span class='co'># Go directly from phrase object to data frame</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='st'>"a b cgc'"</span>, <span class='st'>"4-+ 4[accent] 2"</span>, <span class='fl'>5</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='fu'>as_music_df</span>(<span class='fu'><a href='music.html'>as_music</a></span>(<span class='st'>"a4-+;5 b[accent] cgc'2"</span>)), <span class='fu'>as_music_df</span>(<span class='no'>p1</span>))</div><div class='output co'>#&gt; [1] TRUE</div></span></pre>
+<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span><span class='op'>(</span><span class='st'>"a b cgc'"</span>, <span class='st'>"4-+ 4[accent] 2"</span>, <span class='fl'>5</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='fu'>as_music_df</span><span class='op'>(</span><span class='fu'><a href='music.html'>as_music</a></span><span class='op'>(</span><span class='st'>"a4-+;5 b[accent] cgc'2"</span><span class='op'>)</span><span class='op'>)</span>, <span class='fu'>as_music_df</span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -376,7 +384,7 @@ can be recovered without recomputing from the original pitches.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

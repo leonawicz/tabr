@@ -1,0 +1,80 @@
+---
+title: "Music snippets in R markdown"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Music snippets in R markdown}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+options(crayon.enabled = TRUE)
+sgr_wrap <- function(x, options){
+  paste0("<pre class=\"r-output\"><code>", fansi::sgr_to_html(x = htmltools::htmlEscape(x)), "</code></pre>")
+}
+knitr::knit_hooks$set(output = sgr_wrap)
+knitr::opts_chunk$set(
+  collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, tidy = FALSE, 
+  out.width = "100%", fig.height=2, fig.width=7
+)
+library(tabr)
+```
+
+This section demonstrates how to create sheet music snippets in R markdown documents using the LilyPond backend. To do this, use the set of `plot_music_*` functions that wrap around the `render_music_*` functions.
+
+These abstract the process of rendering a sheet music snippet to png and loading the rendered image back into R to be displayed as a plot in an open graphics device or inserted into an R markdown code chunk.
+
+While these functions abstract away the details of the process, this is not the same as making the plot completely in R. R is only displaying the intermediary png file. LilyPond is required to engrave the sheet music.
+
+For R markdown you can alternatively render the png using the corresponding `render_music_*` function and then place it in the document explicitly using `knitr::include_graphics`. See `?render_music` for more details. Below are some example snippets for guitar and bass.
+
+## Music objects
+
+```{r music}
+g <- as_music("a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51")
+b <- as_music("a,,4;3*5 b,,4- c,4 c,g,c~4 c,g,c1 c4;1 g,;2 c,;3 g,;2 c,c1;31")
+summary(g)
+summary(b)
+```
+
+## Snippet in R markdown chunk
+
+The defaults for `plot_music` include treble clef and no tab staff. Plot the music object, `g`. As you can see, this appears off by an octave because the guitar transcription should use `clef = "treble_8"` instead of the default `clef = "treble"`.
+
+```{r, snippet1}
+plot_music(g)
+```
+
+Above you can see the call to `plot_music(g)`in the document since `echo = TRUE` for the code chunk. In an interactive R session, this call draws the plot to the active graphics device. The R markdown code chunk for inserting the above plot into this document looks like this in the Rmd file.
+
+````
+```{r}`r ''`
+plot_music(g)
+```
+````
+
+The image will scale properly in R so that it does not distort. However, the graphics device dimensions still matter. If you want to avoid excessive whitespace for example, you may want to specifiy `knitr` figure options, e.g. `fig.height=2, fig.width=7`, globally or in a code chunk.
+
+The values you choose depend on how tall your sheet music snippet is. If you enter a long snippet in code, LilyPond may wrap this around to multiple lines in the png file it creates. Therefore, this may require some trial and error. Sheet music snippets are intended to be curated one-offs for inserting in documents.
+
+## Additional wrappers
+
+There are various wrapper functions offering convenient, sensible default arguments based on the function name.
+
+```{r, snippet2}
+plot_music_tab(g) # tab staff only
+```
+
+```{r, snippet3, fig.height=3, fig.width=7}
+plot_music_guitar(g) # 8va treble clef for guitar, plus tab staff
+```
+
+```{r, snippet4}
+plot_music_bc(b) # bass clef
+```
+
+```{r, snippet5, fig.height=2.5, fig.width=7}
+plot_music_bass(b) # bass clef and tab staff
+```
+
+Depending on the function, additional relevant arguments include `clef`, `tab`, `tuning` and `string_names`. Layout arguments include `header`, `paper`, `colors`, `transparent` and `res`. The function `plot_music_tc` is equivalent to `plot_music`.

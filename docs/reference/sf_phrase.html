@@ -162,6 +162,9 @@ once it is done being used to help derive notes." />
       <a href="../articles/tabr-engraving.html">Render scores</a>
     </li>
     <li>
+      <a href="../articles/tabr-snippets.html">Music snippets</a>
+    </li>
+    <li>
       <a href="../articles/tabr-chordchart.html">Render chord chart</a>
     </li>
     <li>
@@ -237,29 +240,29 @@ known tuning and key signature to generate <code>notes</code> for
 once it is done being used to help derive <code>notes</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_phrase</span>(
-  <span class='no'>string</span>,
-  <span class='kw'>fret</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>info</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>,
-  <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>,
-  <span class='kw'>to_notes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>bar</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-)
+    <pre class="usage"><span class='fu'>sf_phrase</span><span class='op'>(</span>
+  <span class='va'>string</span>,
+  fret <span class='op'>=</span> <span class='cn'>NULL</span>,
+  info <span class='op'>=</span> <span class='cn'>NULL</span>,
+  key <span class='op'>=</span> <span class='st'>"c"</span>,
+  tuning <span class='op'>=</span> <span class='st'>"standard"</span>,
+  to_notes <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  bar <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span>
 
-<span class='fu'>sfp</span>(
-  <span class='no'>string</span>,
-  <span class='kw'>fret</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>info</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>,
-  <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>,
-  <span class='kw'>to_notes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>bar</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-)
+<span class='fu'>sfp</span><span class='op'>(</span>
+  <span class='va'>string</span>,
+  fret <span class='op'>=</span> <span class='cn'>NULL</span>,
+  info <span class='op'>=</span> <span class='cn'>NULL</span>,
+  key <span class='op'>=</span> <span class='st'>"c"</span>,
+  tuning <span class='op'>=</span> <span class='st'>"standard"</span>,
+  to_notes <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  bar <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span>
 
-<span class='fu'>sf_note</span>(<span class='no'>...</span>)
+<span class='fu'>sf_note</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>sfn</span>(<span class='no'>...</span>)</pre>
+<span class='fu'>sfn</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -335,7 +338,7 @@ than the string and fret.
 The <code>key</code> is additionally important because it is the only way to
 indicate if accidentals should be notated as sharps or flats.</p>
 <p>This wrapper also increases redundancy and typing. In order to specify rests
-<code>r</code>, silent rests <code>s</code>, and tied notes <code>~</code>, these must now be
+<code>r</code>, silent rests <code>s</code>, and tied notes <code><a href='https://rdrr.io/r/base/tilde.html'>~</a></code>, these must now be
 providing in parallel in both the <code>string</code> and <code>fret</code> arguments,
 whereas in the standard method using <code>phrase</code>, they need only be
 provided once to <code>notes</code>.
@@ -403,7 +406,7 @@ semicolon. This type of indexing was chosen over using two different
 delimiters.</p>
 <p>If a rest, <code>r</code> or <code>s</code>, is provided for the <code>fret</code> entry,
 then the <code>string</code> entry is ignored.
-When using this input method, ties <code>~</code> are given in the info entry.</p>
+When using this input method, ties <code><a href='https://rdrr.io/r/base/tilde.html'>~</a></code> are given in the info entry.</p>
 <p>See the examples for a comparison of two identical phrases specified using
 both input methods for <code>sf_phrase</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -411,21 +414,25 @@ both input methods for <code>sf_phrase</code>.</p>
     <div class='dont-index'><p><code><a href='phrase.html'>phrase</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>sf_phrase</span>(<span class='st'>"5 4 3 2 1"</span>, <span class='st'>"1 3 3 3 1"</span>, <span class='st'>"8*4 1"</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"b_"</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'>&lt;</span><span style='color: #555555;font-weight: bold;'>Musical phrase</span><span style='color: #555555;'>&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>bes</span><span style='color: #00BBBB;'>,</span><span style='color: #BB0000;'>\5</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>8</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #BB0000;'>\4</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>8</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>bes</span><span style='color: #BB0000;'>\3</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>8</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #00BBBB;'>'</span><span style='color: #BB0000;'>\2</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>8</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #00BBBB;'>'</span><span style='color: #BB0000;'>\1</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>1</span><span></div><div class='input'><span class='fu'>sf_phrase</span>(<span class='st'>"6 6 12 1 21"</span>, <span class='st'>"133211 355333 11 (13) (13)(13)"</span>, <span class='st'>"4 4 8 8 4"</span>,
-          <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"f"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'>&lt;</span><span style='color: #555555;font-weight: bold;'>Musical phrase</span><span style='color: #555555;'>&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #00BBBB;'>,</span><span style='color: #BB0000;'>\6</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #BB0000;'>\5</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #BB0000;'>\4</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #BB0000;'>\3</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>'</span><span style='color: #BB0000;'>\2</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #00BBBB;'>'</span><span style='color: #BB0000;'>\1</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>4</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>,</span><span style='color: #BB0000;'>\6</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #BB0000;'>\5</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #BB0000;'>\4</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>bes</span><span style='color: #BB0000;'>\3</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #00BBBB;'>'</span><span style='color: #BB0000;'>\2</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>'</span><span style='color: #BB0000;'>\1</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>4</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #00BBBB;'>'</span><span style='color: #BB0000;'>\1</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>'</span><span style='color: #BB0000;'>\2</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>8</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #00BBBB;'>''</span><span style='color: #BB0000;'>\1</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>8</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>''</span><span style='color: #BB0000;'>\2</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #00BBBB;'>''</span><span style='color: #BB0000;'>\1</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>4</span><span></div><div class='input'><span class='fu'>sfp</span>(<span class='st'>"6*2 1*4"</span>, <span class='st'>"000232*2 2*4"</span>, <span class='st'>"4 4 8*4"</span>, <span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"dropD"</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"d"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'>&lt;</span><span style='color: #555555;font-weight: bold;'>Musical phrase</span><span style='color: #555555;'>&gt;</span><span>
+    <pre class="examples"><div class='input'><span class='fu'>sf_phrase</span><span class='op'>(</span><span class='st'>"5 4 3 2 1"</span>, <span class='st'>"1 3 3 3 1"</span>, <span class='st'>"8*4 1"</span>, key <span class='op'>=</span> <span class='st'>"b_"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'>&lt;</span><span style='color: #555555;font-weight: bold;'>Musical phrase</span><span style='color: #555555;'>&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>bes</span><span style='color: #00BBBB;'>,</span><span style='color: #BB0000;'>\5</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>8</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #BB0000;'>\4</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>8</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>bes</span><span style='color: #BB0000;'>\3</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>8</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #00BBBB;'>'</span><span style='color: #BB0000;'>\2</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>8</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #00BBBB;'>'</span><span style='color: #BB0000;'>\1</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>1</span><span></div><div class='input'><span class='fu'>sf_phrase</span><span class='op'>(</span><span class='st'>"6 6 12 1 21"</span>, <span class='st'>"133211 355333 11 (13) (13)(13)"</span>, <span class='st'>"4 4 8 8 4"</span>,
+          key <span class='op'>=</span> <span class='st'>"f"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'>&lt;</span><span style='color: #555555;font-weight: bold;'>Musical phrase</span><span style='color: #555555;'>&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #00BBBB;'>,</span><span style='color: #BB0000;'>\6</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #BB0000;'>\5</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #BB0000;'>\4</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #BB0000;'>\3</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>'</span><span style='color: #BB0000;'>\2</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #00BBBB;'>'</span><span style='color: #BB0000;'>\1</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>4</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>,</span><span style='color: #BB0000;'>\6</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #BB0000;'>\5</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #BB0000;'>\4</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>bes</span><span style='color: #BB0000;'>\3</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #00BBBB;'>'</span><span style='color: #BB0000;'>\2</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>'</span><span style='color: #BB0000;'>\1</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>4</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #00BBBB;'>'</span><span style='color: #BB0000;'>\1</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>'</span><span style='color: #BB0000;'>\2</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>8</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #00BBBB;'>''</span><span style='color: #BB0000;'>\1</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>8</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>''</span><span style='color: #BB0000;'>\2</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #00BBBB;'>''</span><span style='color: #BB0000;'>\1</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>4</span><span></div><div class='input'><span class='fu'>sfp</span><span class='op'>(</span><span class='st'>"6*2 1*4"</span>, <span class='st'>"000232*2 2*4"</span>, <span class='st'>"4 4 8*4"</span>, tuning <span class='op'>=</span> <span class='st'>"dropD"</span>, key <span class='op'>=</span> <span class='st'>"d"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'>&lt;</span><span style='color: #555555;font-weight: bold;'>Musical phrase</span><span style='color: #555555;'>&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #00BBBB;'>,</span><span style='color: #BB0000;'>\6</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #00BBBB;'>,</span><span style='color: #BB0000;'>\5</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #BB0000;'>\4</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #BB0000;'>\3</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #00BBBB;'>'</span><span style='color: #BB0000;'>\2</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>fis</span><span style='color: #00BBBB;'>'</span><span style='color: #BB0000;'>\1</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>4</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #00BBBB;'>,</span><span style='color: #BB0000;'>\6</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #00BBBB;'>,</span><span style='color: #BB0000;'>\5</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #BB0000;'>\4</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #BB0000;'>\3</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #00BBBB;'>'</span><span style='color: #BB0000;'>\2</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>fis</span><span style='color: #00BBBB;'>'</span><span style='color: #BB0000;'>\1</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>4</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>fis</span><span style='color: #00BBBB;'>'</span><span style='color: #BB0000;'>\1</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>8</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>fis</span><span style='color: #00BBBB;'>'</span><span style='color: #BB0000;'>\1</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>8</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>fis</span><span style='color: #00BBBB;'>'</span><span style='color: #BB0000;'>\1</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>8</span><span style='color: #555555;'> &lt;</span><span style='color: #00BBBB;font-weight: bold;'>fis</span><span style='color: #00BBBB;'>'</span><span style='color: #BB0000;'>\1</span><span style='color: #555555;'>&gt;</span><span style='color: #BBBB00;'>8</span><span></div><div class='input'>
 <span class='co'># compare with single-argument input</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='st'>"3*5 53~*3 543*2 643"</span>
-<span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='st'>"987*2 775 553 335 77~*3 545 325 210"</span>
-<span class='no'>i</span> <span class='kw'>&lt;-</span> <span class='st'>"2*3 4. 16 4.*3 4*3"</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'>sfp</span>(<span class='no'>s</span>, <span class='no'>f</span>, <span class='no'>i</span>)
+<span class='va'>s</span> <span class='op'>&lt;-</span> <span class='st'>"3*5 53~*3 543*2 643"</span>
+<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='st'>"987*2 775 553 335 77~*3 545 325 210"</span>
+<span class='va'>i</span> <span class='op'>&lt;-</span> <span class='st'>"2*3 4. 16 4.*3 4*3"</span>
+<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'>sfp</span><span class='op'>(</span><span class='va'>s</span>, <span class='va'>f</span>, <span class='va'>i</span><span class='op'>)</span>
 
 <span class='co'># Nominally shorter syntax, but potentially much easier to reason about</span>
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'>sfp</span>(<span class='st'>"3;987;2*2 775 ;553;4. ;335;16 5;7x7;4.~*3 ;545;4 325 6;2x10;"</span>)
+<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'>sfp</span><span class='op'>(</span><span class='st'>"3;987;2*2 775 ;553;4. ;335;16 5;7x7;4.~*3 ;545;4 325 6;2x10;"</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='no'>p1</span>, <span class='no'>p2</span>)</div><div class='output co'>#&gt; [1] TRUE</div></span></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='va'>p1</span>, <span class='va'>p2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -441,7 +448,7 @@ both input methods for <code>sf_phrase</code>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

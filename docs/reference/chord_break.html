@@ -151,6 +151,9 @@
       <a href="../articles/tabr-engraving.html">Render scores</a>
     </li>
     <li>
+      <a href="../articles/tabr-snippets.html">Music snippets</a>
+    </li>
+    <li>
       <a href="../articles/tabr-chordchart.html">Render chord chart</a>
     </li>
     <li>
@@ -215,7 +218,7 @@
     <p>Convert chords in a noteworthy string or vector to broken chords.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>chord_break</span>(<span class='no'>notes</span>)</pre>
+    <pre class="usage"><span class='fu'>chord_break</span><span class='op'>(</span><span class='va'>notes</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -231,7 +234,8 @@
     <p>character</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>chord_break</span>(<span class='st'>"c e g ceg ceg"</span>)</div><div class='output co'>#&gt; <span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+    <pre class="examples"><div class='input'><span class='fu'>chord_break</span><span class='op'>(</span><span class='st'>"c e g ceg ceg"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>g</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>g</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>g</span><span></div></span></pre>
   </div>
@@ -249,7 +253,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

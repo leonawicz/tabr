@@ -259,9 +259,8 @@ render_music_bass <- function(music, file, tuning = "bass",
 #'
 #' For R markdown you can alternatively render the png using the corresponding
 #' \code{render_music_*} function and then place it in the document explicitly
-#' using \code{knitr::include_graphics}. Transparency is not relevant to these
-#' wrapper functions since they are used only for plotting, not for overlays on
-#' existing. See \code{\link{render_music}} for more details.
+#' using \code{knitr::include_graphics}.
+#' See \code{\link{render_music}} for more details.
 #'
 #' @param music a music object.
 #' @param header a named list of arguments passed to the header of the
@@ -279,6 +278,7 @@ render_music_bass <- function(music, file, tuning = "bass",
 #' force on or off completely.
 #' @param colors a named list of LilyPond element color global overrides. See
 #' \code{lilypond} for details.
+#' @param transparent logical, transparent background for intermediate png file.
 #' @param res numeric, resolution, png only. Defaults to 300.
 #'
 #' @return a plot
@@ -308,10 +308,10 @@ render_music_bass <- function(music, file, tuning = "bass",
 #' }
 plot_music <- function(music, clef = "treble", tab = FALSE, tuning = "standard",
                        string_names = NULL, header = NULL, paper = NULL,
-                       colors = NULL, res = 300){
+                       colors = NULL, transparent = FALSE, res = 300){
   file <- tempfile(fileext = ".png")
   render_music(music, file, clef, tab, tuning, string_names, header, paper,
-               midi = FALSE, colors, transparent = FALSE, res, keep_ly = FALSE,
+               midi = FALSE, colors, transparent, res, keep_ly = FALSE,
                simplify = FALSE)
   .draw_image(file)
   unlink(file, recursive = TRUE, force = TRUE)
@@ -321,10 +321,10 @@ plot_music <- function(music, clef = "treble", tab = FALSE, tuning = "standard",
 #' @export
 #' @rdname plot_music
 plot_music_tc <- function(music, header = NULL, paper = NULL, colors = NULL,
-                          res = 300){
+                          transparent = FALSE, res = 300){
   file <- tempfile(fileext = ".png")
   render_music_tc(music, file, header, paper, midi = FALSE, colors,
-                  transparent = FALSE, res, keep_ly = FALSE, simplify = FALSE)
+                  transparent, res, keep_ly = FALSE, simplify = FALSE)
   .draw_image(file)
   unlink(file, recursive = TRUE, force = TRUE)
   invisible()
@@ -333,10 +333,10 @@ plot_music_tc <- function(music, header = NULL, paper = NULL, colors = NULL,
 #' @export
 #' @rdname plot_music
 plot_music_bc <- function(music, header = NULL, paper = NULL, colors = NULL,
-                          res = 300){
+                          transparent = FALSE, res = 300){
   file <- tempfile(fileext = ".png")
   render_music_bc(music, file, header, paper, midi = FALSE, colors,
-                  transparent = FALSE, res, keep_ly = FALSE, simplify = FALSE)
+                  transparent, res, keep_ly = FALSE, simplify = FALSE)
   .draw_image(file)
   unlink(file, recursive = TRUE, force = TRUE)
   invisible()
@@ -346,11 +346,11 @@ plot_music_bc <- function(music, header = NULL, paper = NULL, colors = NULL,
 #' @rdname plot_music
 plot_music_tab <- function(music, clef = NA, tuning = "standard",
                            string_names = NULL, header = NULL, paper = NULL,
-                           colors = NULL, res = 300){
+                           colors = NULL, transparent = FALSE, res = 300){
   file <- tempfile(fileext = ".png")
   render_music_tab(music, file, clef, tuning, string_names, header, paper,
-                   midi = FALSE, colors, transparent = FALSE, res,
-                   keep_ly = FALSE, simplify = FALSE)
+                   midi = FALSE, colors, transparent, res, keep_ly = FALSE,
+                   simplify = FALSE)
   .draw_image(file)
   unlink(file, recursive = TRUE, force = TRUE)
   invisible()
@@ -360,11 +360,11 @@ plot_music_tab <- function(music, clef = NA, tuning = "standard",
 #' @rdname plot_music
 plot_music_guitar <- function(music, tuning = "standard", string_names = NULL,
                               header = NULL, paper = NULL, colors = NULL,
-                              res = 300){
+                              transparent = FALSE, res = 300){
   file <- tempfile(fileext = ".png")
   render_music_guitar(music, file, tuning, string_names, header, paper,
-                      midi = FALSE, colors, transparent = FALSE, res,
-                      keep_ly = FALSE, simplify = FALSE)
+                      midi = FALSE, colors, transparent, res, keep_ly = FALSE,
+                      simplify = FALSE)
   .draw_image(file)
   unlink(file, recursive = TRUE, force = TRUE)
   invisible()
@@ -374,11 +374,11 @@ plot_music_guitar <- function(music, tuning = "standard", string_names = NULL,
 #' @rdname plot_music
 plot_music_bass <- function(music, tuning = "bass", string_names = FALSE,
                             header = NULL, paper = NULL, colors = NULL,
-                            res = 300){
+                            transparent = FALSE, res = 300){
   file <- tempfile(fileext = ".png")
   render_music_bass(music, file, tuning = "bass", string_names, header, paper,
-                    midi = FALSE, colors, transparent = FALSE, res,
-                    keep_ly = FALSE, simplify = FALSE)
+                    midi = FALSE, colors, transparent, res, keep_ly = FALSE,
+                    simplify = FALSE)
   .draw_image(file)
   unlink(file, recursive = TRUE, force = TRUE)
   invisible()

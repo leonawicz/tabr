@@ -195,6 +195,8 @@ navbar:
           href: "articles/tabr-tracks-scores.html"
         - text: "Render scores"
           href: "articles/tabr-engraving.html"
+        - text: "Music snippets"
+          href: "articles/tabr-snippets.html"
         - text: "Render chord chart"
           href: "articles/tabr-chordchart.html"
         - text: "Strings and tunings"

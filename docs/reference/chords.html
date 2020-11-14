@@ -151,6 +151,9 @@
       <a href="../articles/tabr-engraving.html">Render scores</a>
     </li>
     <li>
+      <a href="../articles/tabr-snippets.html">Music snippets</a>
+    </li>
+    <li>
       <a href="../articles/tabr-chordchart.html">Render chord chart</a>
     </li>
     <li>
@@ -215,121 +218,121 @@
     <p>These functions construct basic chord string notation from root <code>notes</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>chord_min</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+    <pre class="usage"><span class='fu'>chord_min</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>chord_maj</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>chord_maj</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>chord_min7</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>chord_min7</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>chord_dom7</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>chord_dom7</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>chord_7s5</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>chord_7s5</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>chord_maj7</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>chord_maj7</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>chord_min6</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>chord_min6</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>chord_maj6</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>chord_maj6</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>chord_dim</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>chord_dim</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>chord_dim7</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>chord_dim7</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>chord_m7b5</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>chord_m7b5</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>chord_aug</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>chord_aug</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>chord_5</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>chord_5</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>chord_sus2</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>chord_sus2</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>chord_sus4</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>chord_sus4</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>chord_dom9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>chord_dom9</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>chord_7s9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>chord_7s9</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>chord_maj9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>chord_maj9</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>chord_add9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>chord_add9</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>chord_min9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>chord_min9</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>chord_madd9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>chord_madd9</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>chord_min11</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>chord_min11</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>chord_7s11</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>chord_7s11</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>chord_maj7s11</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>chord_maj7s11</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>chord_11</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>chord_11</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>chord_maj11</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>chord_maj11</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>chord_13</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>chord_13</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>chord_min13</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>chord_min13</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>chord_maj13</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>chord_maj13</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>xm</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>xm</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>xM</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>xM</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>xm7</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>xm7</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>x7</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>x7</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>x7s5</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>x7s5</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>xM7</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>xM7</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>xm6</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>xm6</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>xM6</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>xM6</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>xdim</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>xdim</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>xdim7</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>xdim7</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>xm7b5</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>xm7b5</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>xaug</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>xaug</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>x5</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>x5</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>xs2</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>xs2</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>xs4</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>xs4</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>x9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>x9</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>x7s9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>x7s9</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>xM9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>xM9</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>xadd9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>xadd9</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>xm9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>xm9</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>xma9</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>xma9</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>xm11</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>xm11</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>x7s11</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>x7s11</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>xM7s11</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>xM7s11</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>x_11</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>x_11</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>xM11</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>xM11</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>x_13</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>x_13</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>xm13</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)
+<span class='fu'>xm13</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span>
 
-<span class='fu'>xM13</span>(<span class='no'>notes</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='st'>"tick"</span>)</pre>
+<span class='fu'>xM13</span><span class='op'>(</span><span class='va'>notes</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, octaves <span class='op'>=</span> <span class='st'>"tick"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -356,7 +359,7 @@
     <p>Providing a <code>key</code> signature is used only to ensure flats or sharps for
 accidentals.
 An additional set of aliases with efficient names, of the
-form <code>x*</code> where <code>*</code> is a chord modifier abbreviation, is provided
+form <code>x*</code> where <code><a href='https://rdrr.io/r/base/Arithmetic.html'>*</a></code> is a chord modifier abbreviation, is provided
 to complement the set of <code>chord_*</code> functions.</p>
 <p>These functions create standard chords, not the multi-octave spanning types
 of chords commonly played on guitar.</p>
@@ -365,15 +368,20 @@ of chords commonly played on guitar.</p>
     <div class='dont-index'><p><code><a href='transpose.html'>transpose</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>chord_min</span>(<span class='st'>"d"</span>)</div><div class='output co'>#&gt; <span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+    <pre class="examples"><div class='input'><span class='fu'>chord_min</span><span class='op'>(</span><span class='st'>"d"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>dfa</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>chord_maj</span>(<span class='st'>"d"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>dfa</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>chord_maj</span><span class='op'>(</span><span class='st'>"d"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>dg_a</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>xM</span>(<span class='st'>"d"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>dg_a</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>xM</span><span class='op'>(</span><span class='st'>"d"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>dg_a</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>xm</span>(<span class='st'>"c f g"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>dg_a</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>xm</span><span class='op'>(</span><span class='st'>"c f g"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>ce_g</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>fa_c</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>gb_d</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>xm</span>(<span class='st'>"c, f, g,"</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"e_"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>ce_g</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>fa_c</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>gb_d</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>xm</span><span class='op'>(</span><span class='st'>"c, f, g,"</span>, key <span class='op'>=</span> <span class='st'>"e_"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>,</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>f</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>,</span><span style='color: #00BBBB;font-weight: bold;'>d</span><span style='color: #BBBB00;'>&gt;</span><span></div></span></pre>
   </div>
@@ -391,7 +399,7 @@ of chords commonly played on guitar.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

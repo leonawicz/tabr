@@ -152,6 +152,9 @@ other related functions." />
       <a href="../articles/tabr-engraving.html">Render scores</a>
     </li>
     <li>
+      <a href="../articles/tabr-snippets.html">Music snippets</a>
+    </li>
+    <li>
       <a href="../articles/tabr-chordchart.html">Render chord chart</a>
     </li>
     <li>
@@ -217,17 +220,17 @@ other related functions." />
 other related functions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>note_is_equal</span>(<span class='no'>notes1</span>, <span class='no'>notes2</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+    <pre class="usage"><span class='fu'>note_is_equal</span><span class='op'>(</span><span class='va'>notes1</span>, <span class='va'>notes2</span>, ignore_octave <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='fu'>note_is_identical</span>(<span class='no'>notes1</span>, <span class='no'>notes2</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>note_is_identical</span><span class='op'>(</span><span class='va'>notes1</span>, <span class='va'>notes2</span>, ignore_octave <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='fu'>pitch_is_equal</span>(<span class='no'>notes1</span>, <span class='no'>notes2</span>)
+<span class='fu'>pitch_is_equal</span><span class='op'>(</span><span class='va'>notes1</span>, <span class='va'>notes2</span><span class='op'>)</span>
 
-<span class='fu'>pitch_is_identical</span>(<span class='no'>notes1</span>, <span class='no'>notes2</span>)
+<span class='fu'>pitch_is_identical</span><span class='op'>(</span><span class='va'>notes1</span>, <span class='va'>notes2</span><span class='op'>)</span>
 
-<span class='fu'>octave_is_equal</span>(<span class='no'>notes1</span>, <span class='no'>notes2</span>)
+<span class='fu'>octave_is_equal</span><span class='op'>(</span><span class='va'>notes1</span>, <span class='va'>notes2</span><span class='op'>)</span>
 
-<span class='fu'>octave_is_identical</span>(<span class='no'>notes1</span>, <span class='no'>notes2</span>, <span class='kw'>single_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>octave_is_identical</span><span class='op'>(</span><span class='va'>notes1</span>, <span class='va'>notes2</span>, single_octave <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -303,23 +306,32 @@ Alternatively, for <code>octave_is_identical</code> only, setting
 chords being compared at a given timestep share a single octave.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"b_2 ce_g"</span>
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='st'>"b_ cd#g"</span>
-<span class='fu'>note_is_equal</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; [1] TRUE TRUE</div><div class='input'><span class='fu'>note_is_identical</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; [1]  TRUE FALSE</div><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"b_2 ce_g"</span>
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='st'>"b_2 cd#g"</span>
-<span class='fu'>pitch_is_equal</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; [1] TRUE TRUE</div><div class='input'><span class='fu'>pitch_is_identical</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; [1]  TRUE FALSE</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='st'>"b_2 ce_g"</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='st'>"b_ cd#g"</span>
+<span class='fu'>note_is_equal</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE TRUE</div><div class='input'><span class='fu'>note_is_identical</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1]  TRUE FALSE</div><div class='input'>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='st'>"b_2 ce_g"</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='st'>"b_2 cd#g"</span>
+<span class='fu'>pitch_is_equal</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE TRUE</div><div class='input'><span class='fu'>pitch_is_identical</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1]  TRUE FALSE</div><div class='input'>
 <span class='co'># same number of same notes, same order: unequal sequence length</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"b_2 ce_g b_"</span>
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='st'>"b_2 ce_gb_"</span>
-<span class='fu'>note_is_equal</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; [1] NA</div><div class='input'>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='st'>"b_2 ce_g b_"</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='st'>"b_2 ce_gb_"</span>
+<span class='fu'>note_is_equal</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] NA</div><div class='input'>
 <span class='co'># same number of same notes, order, equal length: unequal number per timestep</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"b_2 ce_g b_"</span>
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='st'>"b_2 ce_ gb_"</span>
-<span class='fu'>note_is_equal</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; [1]  TRUE FALSE FALSE</div><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"a1 b_2 a1b2c3 a1b4 g1a1b1"</span>
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='st'>"a_2 g#2 d1e1f2g3 a1b2b4 d1e1"</span>
-<span class='fu'>octave_is_equal</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; [1] FALSE  TRUE  TRUE  TRUE  TRUE</div><div class='input'><span class='fu'>octave_is_identical</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; [1] FALSE  TRUE  TRUE FALSE  TRUE</div><div class='input'><span class='fu'>octave_is_identical</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>single_octave</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] FALSE  TRUE FALSE FALSE  TRUE</div></pre>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='st'>"b_2 ce_g b_"</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='st'>"b_2 ce_ gb_"</span>
+<span class='fu'>note_is_equal</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1]  TRUE FALSE FALSE</div><div class='input'>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='st'>"a1 b_2 a1b2c3 a1b4 g1a1b1"</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='st'>"a_2 g#2 d1e1f2g3 a1b2b4 d1e1"</span>
+<span class='fu'>octave_is_equal</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] FALSE  TRUE  TRUE  TRUE  TRUE</div><div class='input'><span class='fu'>octave_is_identical</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] FALSE  TRUE  TRUE FALSE  TRUE</div><div class='input'><span class='fu'>octave_is_identical</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, single_octave <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] FALSE  TRUE FALSE FALSE  TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -335,7 +347,7 @@ chords being compared at a given timestep share a single octave.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

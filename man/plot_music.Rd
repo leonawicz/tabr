@@ -18,12 +18,27 @@ plot_music(
   header = NULL,
   paper = NULL,
   colors = NULL,
+  transparent = FALSE,
   res = 300
 )
 
-plot_music_tc(music, header = NULL, paper = NULL, colors = NULL, res = 300)
+plot_music_tc(
+  music,
+  header = NULL,
+  paper = NULL,
+  colors = NULL,
+  transparent = FALSE,
+  res = 300
+)
 
-plot_music_bc(music, header = NULL, paper = NULL, colors = NULL, res = 300)
+plot_music_bc(
+  music,
+  header = NULL,
+  paper = NULL,
+  colors = NULL,
+  transparent = FALSE,
+  res = 300
+)
 
 plot_music_tab(
   music,
@@ -33,6 +48,7 @@ plot_music_tab(
   header = NULL,
   paper = NULL,
   colors = NULL,
+  transparent = FALSE,
   res = 300
 )
 
@@ -43,6 +59,7 @@ plot_music_guitar(
   header = NULL,
   paper = NULL,
   colors = NULL,
+  transparent = FALSE,
   res = 300
 )
 
@@ -53,6 +70,7 @@ plot_music_bass(
   header = NULL,
   paper = NULL,
   colors = NULL,
+  transparent = FALSE,
   res = 300
 )
 }
@@ -81,6 +99,8 @@ See \code{lilypond} details.}
 \item{colors}{a named list of LilyPond element color global overrides. See
 \code{lilypond} for details.}
 
+\item{transparent}{logical, transparent background for intermediate png file.}
+
 \item{res}{numeric, resolution, png only. Defaults to 300.}
 }
 \value{
@@ -99,9 +119,8 @@ intermediary png file. LilyPond is required to engrave the sheet music.
 
 For R markdown you can alternatively render the png using the corresponding
 \code{render_music_*} function and then place it in the document explicitly
-using \code{knitr::include_graphics}. Transparency is not relevant to these
-wrapper functions since they are used only for plotting, not for overlays on
-existing. See \code{\link{render_music}} for more details.
+using \code{knitr::include_graphics}.
+See \code{\link{render_music}} for more details.
 }
 \examples{
 x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"

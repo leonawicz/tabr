@@ -14,10 +14,9 @@
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.6.3",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.6.3 (2020-02-29)",
+  "runtimePlatform": "R version 4.0.3 (2020-10-10)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -261,11 +260,7 @@
   ],
   "releaseNotes": "https://github.com/leonawicz/tabr/blob/master/NEWS.md",
   "readme": "https://github.com/leonawicz/tabr/blob/master/README.md",
-  "contIntegration": [
-    "https://travis-ci.org/leonawicz/tabr",
-    "https://ci.appveyor.com/project/leonawicz/tabr",
-    "https://codecov.io/github/leonawicz/tabr?branch=master"
-  ],
+  "contIntegration": ["https://travis-ci.org/leonawicz/tabr", "https://ci.appveyor.com/project/leonawicz/tabr", "https://codecov.io/github/leonawicz/tabr?branch=master"],
   "keywords": [
     "r-package",
     "guitar-tablature",
@@ -281,5 +276,5 @@
   ],
   "relatedLink": "https://CRAN.R-project.org/package=tabr",
   "developmentStatus": "http://www.repostatus.org/#active",
-  "fileSize": "335.357KB"
+  "fileSize": "11807.821KB"
 }

@@ -151,6 +151,9 @@
       <a href="../articles/tabr-engraving.html">Render scores</a>
     </li>
     <li>
+      <a href="../articles/tabr-snippets.html">Music snippets</a>
+    </li>
+    <li>
       <a href="../articles/tabr-chordchart.html">Render chord chart</a>
     </li>
     <li>
@@ -215,21 +218,21 @@
     <p>Helper functions for key signature information.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>keys</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"all"</span>, <span class='st'>"sharp"</span>, <span class='st'>"flat"</span>))
+    <pre class="usage"><span class='fu'>keys</span><span class='op'>(</span>type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"all"</span>, <span class='st'>"sharp"</span>, <span class='st'>"flat"</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>key_is_natural</span>(<span class='no'>key</span>)
+<span class='fu'>key_is_natural</span><span class='op'>(</span><span class='va'>key</span><span class='op'>)</span>
 
-<span class='fu'>key_is_sharp</span>(<span class='no'>key</span>)
+<span class='fu'>key_is_sharp</span><span class='op'>(</span><span class='va'>key</span><span class='op'>)</span>
 
-<span class='fu'>key_is_flat</span>(<span class='no'>key</span>)
+<span class='fu'>key_is_flat</span><span class='op'>(</span><span class='va'>key</span><span class='op'>)</span>
 
-<span class='fu'>key_n_sharps</span>(<span class='no'>key</span>)
+<span class='fu'>key_n_sharps</span><span class='op'>(</span><span class='va'>key</span><span class='op'>)</span>
 
-<span class='fu'>key_n_flats</span>(<span class='no'>key</span>)
+<span class='fu'>key_n_flats</span><span class='op'>(</span><span class='va'>key</span><span class='op'>)</span>
 
-<span class='fu'>key_is_major</span>(<span class='no'>key</span>)
+<span class='fu'>key_is_major</span><span class='op'>(</span><span class='va'>key</span><span class='op'>)</span>
 
-<span class='fu'>key_is_minor</span>(<span class='no'>key</span>)</pre>
+<span class='fu'>key_is_minor</span><span class='op'>(</span><span class='va'>key</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -260,10 +263,16 @@ Major and minor keys are also self-evident from their notation, but
 programming.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>keys</span>()</div><div class='output co'>#&gt;  [1] "c"   "g"   "d"   "a"   "e"   "b"   "f#"  "c#"  "f"   "b_"  "e_"  "a_" 
+    <pre class="examples"><div class='input'><span class='fu'>keys</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1] "c"   "g"   "d"   "a"   "e"   "b"   "f#"  "c#"  "f"   "b_"  "e_"  "a_" 
 #&gt; [13] "d_"  "g_"  "c_"  "am"  "em"  "bm"  "f#m" "c#m" "g#m" "d#m" "a#m" "dm" 
-#&gt; [25] "gm"  "cm"  "fm"  "b_m" "e_m" "a_m"</div><div class='input'><span class='fu'>key_is_natural</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"c"</span>, <span class='st'>"am"</span>, <span class='st'>"c#"</span>))</div><div class='output co'>#&gt; [1]  TRUE  TRUE FALSE</div><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"e_"</span>)
-<span class='fu'>key_is_sharp</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1]  TRUE FALSE</div><div class='input'><span class='fu'>key_is_flat</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] FALSE  TRUE</div><div class='input'><span class='fu'>key_n_sharps</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 3 0</div><div class='input'><span class='fu'>key_n_flats</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 0 3</div></pre>
+#&gt; [25] "gm"  "cm"  "fm"  "b_m" "e_m" "a_m"</div><div class='input'><span class='fu'>key_is_natural</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"c"</span>, <span class='st'>"am"</span>, <span class='st'>"c#"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1]  TRUE  TRUE FALSE</div><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='st'>"e_"</span><span class='op'>)</span>
+<span class='fu'>key_is_sharp</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1]  TRUE FALSE</div><div class='input'><span class='fu'>key_is_flat</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] FALSE  TRUE</div><div class='input'><span class='fu'>key_n_sharps</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 3 0</div><div class='input'><span class='fu'>key_n_flats</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 0 3</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -279,7 +288,7 @@ programming.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

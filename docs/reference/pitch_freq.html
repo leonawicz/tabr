@@ -151,6 +151,9 @@
       <a href="../articles/tabr-engraving.html">Render scores</a>
     </li>
     <li>
+      <a href="../articles/tabr-snippets.html">Music snippets</a>
+    </li>
+    <li>
       <a href="../articles/tabr-chordchart.html">Render chord chart</a>
     </li>
     <li>
@@ -215,32 +218,32 @@
     <p>Convert between pitches, chords, semitones and frequencies.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>pitch_freq</span>(<span class='no'>notes</span>, <span class='kw'>a4</span> <span class='kw'>=</span> <span class='fl'>440</span>)
+    <pre class="usage"><span class='fu'>pitch_freq</span><span class='op'>(</span><span class='va'>notes</span>, a4 <span class='op'>=</span> <span class='fl'>440</span><span class='op'>)</span>
 
-<span class='fu'>pitch_semitones</span>(<span class='no'>notes</span>)
+<span class='fu'>pitch_semitones</span><span class='op'>(</span><span class='va'>notes</span><span class='op'>)</span>
 
-<span class='fu'>chord_freq</span>(<span class='no'>notes</span>, <span class='kw'>a4</span> <span class='kw'>=</span> <span class='fl'>440</span>)
+<span class='fu'>chord_freq</span><span class='op'>(</span><span class='va'>notes</span>, a4 <span class='op'>=</span> <span class='fl'>440</span><span class='op'>)</span>
 
-<span class='fu'>chord_semitones</span>(<span class='no'>notes</span>)
+<span class='fu'>chord_semitones</span><span class='op'>(</span><span class='va'>notes</span><span class='op'>)</span>
 
-<span class='fu'>freq_pitch</span>(
-  <span class='no'>freq</span>,
-  <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"tick"</span>, <span class='st'>"integer"</span>),
-  <span class='kw'>accidentals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"flat"</span>, <span class='st'>"sharp"</span>),
-  <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>a4</span> <span class='kw'>=</span> <span class='fl'>440</span>
-)
+<span class='fu'>freq_pitch</span><span class='op'>(</span>
+  <span class='va'>freq</span>,
+  octaves <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"tick"</span>, <span class='st'>"integer"</span><span class='op'>)</span>,
+  accidentals <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"flat"</span>, <span class='st'>"sharp"</span><span class='op'>)</span>,
+  collapse <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  a4 <span class='op'>=</span> <span class='fl'>440</span>
+<span class='op'>)</span>
 
-<span class='fu'>freq_semitones</span>(<span class='no'>freq</span>, <span class='kw'>a4</span> <span class='kw'>=</span> <span class='fl'>440</span>)
+<span class='fu'>freq_semitones</span><span class='op'>(</span><span class='va'>freq</span>, a4 <span class='op'>=</span> <span class='fl'>440</span><span class='op'>)</span>
 
-<span class='fu'>semitone_pitch</span>(
-  <span class='no'>semitones</span>,
-  <span class='kw'>octaves</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"tick"</span>, <span class='st'>"integer"</span>),
-  <span class='kw'>accidentals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"flat"</span>, <span class='st'>"sharp"</span>),
-  <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)
+<span class='fu'>semitone_pitch</span><span class='op'>(</span>
+  <span class='va'>semitones</span>,
+  octaves <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"tick"</span>, <span class='st'>"integer"</span><span class='op'>)</span>,
+  accidentals <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"flat"</span>, <span class='st'>"sharp"</span><span class='op'>)</span>,
+  collapse <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
 
-<span class='fu'>semitone_freq</span>(<span class='no'>semitones</span>, <span class='kw'>a4</span> <span class='kw'>=</span> <span class='fl'>440</span>)</pre>
+<span class='fu'>semitone_freq</span><span class='op'>(</span><span class='va'>semitones</span>, a4 <span class='op'>=</span> <span class='fl'>440</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -294,24 +297,32 @@ and always return a list. These are provided so that all functions are
 type-safe. See examples.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"a e4 a4 e5 a5"</span>
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'>pitch_freq</span>(<span class='no'>x</span>)
-<span class='no'>y</span></div><div class='output co'>#&gt; [1] 220.0000 329.6276 440.0000 659.2551 880.0000</div><div class='input'>
-<span class='fu'>freq_semitones</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; [1] 57 64 69 76 81</div><div class='input'><span class='fu'>freq_pitch</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; <span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='st'>"a e4 a4 e5 a5"</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'>pitch_freq</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='va'>y</span>
+</div><div class='output co'>#&gt; [1] 220.0000 329.6276 440.0000 659.2551 880.0000</div><div class='input'>
+<span class='fu'>freq_semitones</span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 57 64 69 76 81</div><div class='input'><span class='fu'>freq_pitch</span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>vectorized time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e</span><span style='color: #00BBBB;'>'</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #00BBBB;'>'</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e</span><span style='color: #00BBBB;'>''</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #00BBBB;'>''</span><span></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='fu'><a href='valid-notes.html'>as_noteworthy</a></span>(<span class='no'>x</span>), <span class='fu'>freq_pitch</span>(<span class='no'>y</span>, <span class='st'>"integer"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>pitch_semitones</span>(<span class='no'>x</span>)
-<span class='no'>s</span></div><div class='output co'>#&gt; [1] 57 64 69 76 81</div><div class='input'><span class='fu'>semitone_pitch</span>(<span class='no'>s</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='fu'><a href='valid-notes.html'>as_noteworthy</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, <span class='fu'>freq_pitch</span><span class='op'>(</span><span class='va'>y</span>, <span class='st'>"integer"</span>, collapse <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'>pitch_semitones</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='va'>s</span>
+</div><div class='output co'>#&gt; [1] 57 64 69 76 81</div><div class='input'><span class='fu'>semitone_pitch</span><span class='op'>(</span><span class='va'>s</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>vectorized time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e</span><span style='color: #00BBBB;'>'</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #00BBBB;'>'</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e</span><span style='color: #00BBBB;'>''</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span style='color: #00BBBB;'>''</span><span></div><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"a, a,c#e"</span>
-<span class='fu'>chord_semitones</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; $`a,`
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='st'>"a, a,c#e"</span>
+<span class='fu'>chord_semitones</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $`a,`
 #&gt; [1] 45
 #&gt; 
 #&gt; $`a,c#e`
 #&gt; [1] 45 49 52
-#&gt; </div><div class='input'><span class='fu'>chord_freq</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; $`a,`
+#&gt; </div><div class='input'><span class='fu'>chord_freq</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $`a,`
 #&gt; [1] 110
 #&gt; 
 #&gt; $`a,c#e`
@@ -332,7 +343,7 @@ type-safe. See examples.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

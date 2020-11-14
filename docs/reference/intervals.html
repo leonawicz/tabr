@@ -151,6 +151,9 @@
       <a href="../articles/tabr-engraving.html">Render scores</a>
     </li>
     <li>
+      <a href="../articles/tabr-snippets.html">Music snippets</a>
+    </li>
+    <li>
       <a href="../articles/tabr-chordchart.html">Render chord chart</a>
     </li>
     <li>
@@ -215,26 +218,26 @@
     <p>Helper functions for musical intervals defined by two notes.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>pitch_interval</span>(<span class='no'>notes1</span>, <span class='no'>notes2</span>, <span class='kw'>use_root</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+    <pre class="usage"><span class='fu'>pitch_interval</span><span class='op'>(</span><span class='va'>notes1</span>, <span class='va'>notes2</span>, use_root <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='fu'>pitch_diff</span>(<span class='no'>notes</span>, <span class='kw'>use_root</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>pitch_diff</span><span class='op'>(</span><span class='va'>notes</span>, use_root <span class='op'>=</span> <span class='cn'>TRUE</span>, n <span class='op'>=</span> <span class='fl'>1</span>, trim <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>scale_interval</span>(
-  <span class='no'>notes1</span>,
-  <span class='no'>notes2</span>,
-  <span class='kw'>use_root</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>format</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mmp_abb"</span>, <span class='st'>"mmp"</span>, <span class='st'>"ad_abb"</span>, <span class='st'>"ad"</span>)
-)
+<span class='fu'>scale_interval</span><span class='op'>(</span>
+  <span class='va'>notes1</span>,
+  <span class='va'>notes2</span>,
+  use_root <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  format <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mmp_abb"</span>, <span class='st'>"mmp"</span>, <span class='st'>"ad_abb"</span>, <span class='st'>"ad"</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='fu'>scale_diff</span>(
-  <span class='no'>notes</span>,
-  <span class='kw'>use_root</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>format</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mmp_abb"</span>, <span class='st'>"mmp"</span>, <span class='st'>"ad_abb"</span>, <span class='st'>"ad"</span>)
-)
+<span class='fu'>scale_diff</span><span class='op'>(</span>
+  <span class='va'>notes</span>,
+  use_root <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  n <span class='op'>=</span> <span class='fl'>1</span>,
+  trim <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  format <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mmp_abb"</span>, <span class='st'>"mmp"</span>, <span class='st'>"ad_abb"</span>, <span class='st'>"ad"</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='fu'>tuning_intervals</span>(<span class='kw'>tuning</span> <span class='kw'>=</span> <span class='st'>"standard"</span>)</pre>
+<span class='fu'>tuning_intervals</span><span class='op'>(</span>tuning <span class='op'>=</span> <span class='st'>"standard"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -292,14 +295,30 @@ elements in <code>notes</code>.</p>
     <div class='dont-index'><p><code><a href='mainIntervals.html'>mainIntervals</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>pitch_interval</span>(<span class='st'>"b"</span>, <span class='st'>"c4"</span>)</div><div class='output co'>#&gt; [1] 1</div><div class='input'><span class='fu'>pitch_interval</span>(<span class='st'>"c, e_, g_, a,"</span>, <span class='st'>"e_, g_, a, c"</span>)</div><div class='output co'>#&gt; [1] 3 3 3 3</div><div class='input'><span class='fu'>pitch_interval</span>(<span class='st'>"c r"</span>, <span class='st'>"dfa d"</span>)</div><div class='output co'>#&gt; [1]  2 NA</div><div class='input'><span class='fu'>pitch_interval</span>(<span class='st'>"c r"</span>, <span class='st'>"dfa d"</span>, <span class='kw'>use_root</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] NA NA</div><div class='input'><span class='fu'>scale_interval</span>(<span class='st'>"c"</span>, <span class='st'>"e_"</span>)</div><div class='output co'>#&gt; [1] "m3"</div><div class='input'><span class='fu'>scale_interval</span>(<span class='st'>"ceg"</span>, <span class='st'>"egd'"</span>)</div><div class='output co'>#&gt; [1] "M3"</div><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"a, b, c d e f g# ac'e' a c' e'"</span>
-<span class='fu'>pitch_diff</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt;  [1] NA  2  1  2  2  1  3  1  0  3  4</div><div class='input'><span class='fu'>pitch_diff</span>(<span class='no'>x</span>, <span class='kw'>use_root</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;  [1] NA  2  1  2  2  1  3 NA NA  3  4</div><div class='input'><span class='fu'>scale_diff</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt;  [1] NA   "M2" "m2" "M2" "M2" "m2" "m3" "m2" "P1" "m3" "M3"</div><div class='input'><span class='fu'>scale_diff</span>(<span class='no'>x</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>use_root</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] "m3" "m3" "M3" "m3" "M3" NA   "m2" NA   "P5"</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>pitch_interval</span><span class='op'>(</span><span class='st'>"b"</span>, <span class='st'>"c4"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1</div><div class='input'><span class='fu'>pitch_interval</span><span class='op'>(</span><span class='st'>"c, e_, g_, a,"</span>, <span class='st'>"e_, g_, a, c"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 3 3 3 3</div><div class='input'><span class='fu'>pitch_interval</span><span class='op'>(</span><span class='st'>"c r"</span>, <span class='st'>"dfa d"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1]  2 NA</div><div class='input'><span class='fu'>pitch_interval</span><span class='op'>(</span><span class='st'>"c r"</span>, <span class='st'>"dfa d"</span>, use_root <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] NA NA</div><div class='input'><span class='fu'>scale_interval</span><span class='op'>(</span><span class='st'>"c"</span>, <span class='st'>"e_"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "m3"</div><div class='input'><span class='fu'>scale_interval</span><span class='op'>(</span><span class='st'>"ceg"</span>, <span class='st'>"egd'"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "M3"</div><div class='input'>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='st'>"a, b, c d e f g# ac'e' a c' e'"</span>
+<span class='fu'>pitch_diff</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1] NA  2  1  2  2  1  3  1  0  3  4</div><div class='input'><span class='fu'>pitch_diff</span><span class='op'>(</span><span class='va'>x</span>, use_root <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1] NA  2  1  2  2  1  3 NA NA  3  4</div><div class='input'><span class='fu'>scale_diff</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1] NA   "M2" "m2" "M2" "M2" "m2" "m3" "m2" "P1" "m3" "M3"</div><div class='input'><span class='fu'>scale_diff</span><span class='op'>(</span><span class='va'>x</span>, n <span class='op'>=</span> <span class='fl'>2</span>, trim <span class='op'>=</span> <span class='cn'>TRUE</span>, use_root <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "m3" "m3" "M3" "m3" "M3" NA   "m2" NA   "P5"</div><div class='input'>
 <span class='co'># Lagged intervals respect rest timesteps.</span>
 <span class='co'># All timestep position including rests are retained.</span>
 <span class='co'># But the lag-n difference skips rest entries.</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"a, c r r r r g"</span>
-<span class='fu'>pitch_diff</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] NA  3 NA NA NA NA  7</div><div class='input'><span class='fu'>scale_diff</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] NA   "m3" NA   NA   NA   NA   "P5"</div><div class='input'><span class='fu'>pitch_diff</span>(<span class='no'>x</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] NA NA NA NA NA NA 10</div><div class='input'><span class='fu'>scale_diff</span>(<span class='no'>x</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] NA   NA   NA   NA   NA   NA   "m7"</div><div class='input'><span class='fu'>pitch_diff</span>(<span class='no'>x</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] NA NA NA NA 10</div><div class='input'><span class='fu'>scale_diff</span>(<span class='no'>x</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] NA   NA   NA   NA   "m7"</div></pre>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='st'>"a, c r r r r g"</span>
+<span class='fu'>pitch_diff</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] NA  3 NA NA NA NA  7</div><div class='input'><span class='fu'>scale_diff</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] NA   "m3" NA   NA   NA   NA   "P5"</div><div class='input'><span class='fu'>pitch_diff</span><span class='op'>(</span><span class='va'>x</span>, n <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] NA NA NA NA NA NA 10</div><div class='input'><span class='fu'>scale_diff</span><span class='op'>(</span><span class='va'>x</span>, n <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] NA   NA   NA   NA   NA   NA   "m7"</div><div class='input'><span class='fu'>pitch_diff</span><span class='op'>(</span><span class='va'>x</span>, n <span class='op'>=</span> <span class='fl'>2</span>, trim <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] NA NA NA NA 10</div><div class='input'><span class='fu'>scale_diff</span><span class='op'>(</span><span class='va'>x</span>, n <span class='op'>=</span> <span class='fl'>2</span>, trim <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] NA   NA   NA   NA   "m7"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -315,7 +334,7 @@ elements in <code>notes</code>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

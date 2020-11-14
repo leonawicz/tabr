@@ -151,6 +151,9 @@
       <a href="../articles/tabr-engraving.html">Render scores</a>
     </li>
     <li>
+      <a href="../articles/tabr-snippets.html">Music snippets</a>
+    </li>
+    <li>
       <a href="../articles/tabr-chordchart.html">Render chord chart</a>
     </li>
     <li>
@@ -215,65 +218,65 @@
     <p>Render sheet music/tablature from a music score with LilyPond.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tab</span>(
-  <span class='no'>score</span>,
-  <span class='no'>file</span>,
-  <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>,
-  <span class='kw'>time</span> <span class='kw'>=</span> <span class='st'>"4/4"</span>,
-  <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='st'>"2 = 60"</span>,
-  <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>string_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>endbar</span> <span class='kw'>=</span> <span class='st'>"|."</span>,
-  <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>crop_png</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>150</span>,
-  <span class='kw'>keep_ly</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>simplify</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>details</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)
+    <pre class="usage"><span class='fu'>tab</span><span class='op'>(</span>
+  <span class='va'>score</span>,
+  <span class='va'>file</span>,
+  key <span class='op'>=</span> <span class='st'>"c"</span>,
+  time <span class='op'>=</span> <span class='st'>"4/4"</span>,
+  tempo <span class='op'>=</span> <span class='st'>"2 = 60"</span>,
+  header <span class='op'>=</span> <span class='cn'>NULL</span>,
+  paper <span class='op'>=</span> <span class='cn'>NULL</span>,
+  string_names <span class='op'>=</span> <span class='cn'>NULL</span>,
+  endbar <span class='op'>=</span> <span class='st'>"|."</span>,
+  midi <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  colors <span class='op'>=</span> <span class='cn'>NULL</span>,
+  crop_png <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  transparent <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  res <span class='op'>=</span> <span class='fl'>150</span>,
+  keep_ly <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  simplify <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  details <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
 
-<span class='fu'>render_tab</span>(
-  <span class='no'>score</span>,
-  <span class='no'>file</span>,
-  <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>,
-  <span class='kw'>time</span> <span class='kw'>=</span> <span class='st'>"4/4"</span>,
-  <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='st'>"2 = 60"</span>,
-  <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>string_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>endbar</span> <span class='kw'>=</span> <span class='st'>"|."</span>,
-  <span class='kw'>midi</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>crop_png</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>150</span>,
-  <span class='kw'>keep_ly</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>simplify</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>details</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)
+<span class='fu'>render_tab</span><span class='op'>(</span>
+  <span class='va'>score</span>,
+  <span class='va'>file</span>,
+  key <span class='op'>=</span> <span class='st'>"c"</span>,
+  time <span class='op'>=</span> <span class='st'>"4/4"</span>,
+  tempo <span class='op'>=</span> <span class='st'>"2 = 60"</span>,
+  header <span class='op'>=</span> <span class='cn'>NULL</span>,
+  paper <span class='op'>=</span> <span class='cn'>NULL</span>,
+  string_names <span class='op'>=</span> <span class='cn'>NULL</span>,
+  endbar <span class='op'>=</span> <span class='st'>"|."</span>,
+  midi <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  colors <span class='op'>=</span> <span class='cn'>NULL</span>,
+  crop_png <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  transparent <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  res <span class='op'>=</span> <span class='fl'>150</span>,
+  keep_ly <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  simplify <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  details <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
 
-<span class='fu'>render_score</span>(
-  <span class='no'>score</span>,
-  <span class='no'>file</span>,
-  <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>,
-  <span class='kw'>time</span> <span class='kw'>=</span> <span class='st'>"4/4"</span>,
-  <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='st'>"2 = 60"</span>,
-  <span class='kw'>header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>paper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>endbar</span> <span class='kw'>=</span> <span class='st'>"|."</span>,
-  <span class='kw'>colors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>crop_png</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>transparent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>150</span>,
-  <span class='kw'>keep_ly</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>simplify</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>details</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)
+<span class='fu'>render_score</span><span class='op'>(</span>
+  <span class='va'>score</span>,
+  <span class='va'>file</span>,
+  key <span class='op'>=</span> <span class='st'>"c"</span>,
+  time <span class='op'>=</span> <span class='st'>"4/4"</span>,
+  tempo <span class='op'>=</span> <span class='st'>"2 = 60"</span>,
+  header <span class='op'>=</span> <span class='cn'>NULL</span>,
+  paper <span class='op'>=</span> <span class='cn'>NULL</span>,
+  endbar <span class='op'>=</span> <span class='st'>"|."</span>,
+  colors <span class='op'>=</span> <span class='cn'>NULL</span>,
+  crop_png <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  transparent <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  res <span class='op'>=</span> <span class='fl'>150</span>,
+  keep_ly <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  simplify <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  details <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
 
-<span class='fu'>render_midi</span>(<span class='no'>score</span>, <span class='no'>file</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>time</span> <span class='kw'>=</span> <span class='st'>"4/4"</span>, <span class='kw'>tempo</span> <span class='kw'>=</span> <span class='st'>"2 = 60"</span>)</pre>
+<span class='fu'>render_midi</span><span class='op'>(</span><span class='va'>score</span>, <span class='va'>file</span>, key <span class='op'>=</span> <span class='st'>"c"</span>, time <span class='op'>=</span> <span class='st'>"4/4"</span>, tempo <span class='op'>=</span> <span class='st'>"2 = 60"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -399,13 +402,14 @@ then add <code>C:/Program Files (x86)/LilyPond/usr/bin</code> to the system path
 <code><a href='miditab.html'>miditab</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span>(<span class='fu'><a href='tabr_options.html'>tabr_options</a></span>()$<span class='no'>lilypond</span> <span class='kw'>!=</span> <span class='st'>""</span>){
-  <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='st'>"c ec'g' ec'g'"</span>, <span class='st'>"4 4 2"</span>, <span class='st'>"5 432 432"</span>)
-  <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='track.html'>track</a></span>(<span class='no'>x</span>)
-  <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='score.html'>score</a></span>(<span class='no'>x</span>)
-  <span class='no'>outfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='st'>"out.pdf"</span>)
-  <span class='fu'>tab</span>(<span class='no'>x</span>, <span class='no'>outfile</span>) <span class='co'># requires LilyPond installation</span>
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span><span class='op'>(</span><span class='fu'><a href='tabr_options.html'>tabr_options</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='va'>lilypond</span> <span class='op'>!=</span> <span class='st'>""</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='phrase.html'>phrase</a></span><span class='op'>(</span><span class='st'>"c ec'g' ec'g'"</span>, <span class='st'>"4 4 2"</span>, <span class='st'>"5 432 432"</span><span class='op'>)</span>
+  <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='track.html'>track</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+  <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='score.html'>score</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+  <span class='va'>outfile</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"out.pdf"</span><span class='op'>)</span>
+  <span class='fu'>tab</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>outfile</span><span class='op'>)</span> <span class='co'># requires LilyPond installation</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -421,7 +425,7 @@ then add <code>C:/Program Files (x86)/LilyPond/usr/bin</code> to the system path
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

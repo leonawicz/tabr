@@ -108,6 +108,9 @@
       <a href="../articles/tabr-engraving.html">Render scores</a>
     </li>
     <li>
+      <a href="../articles/tabr-snippets.html">Music snippets</a>
+    </li>
+    <li>
       <a href="../articles/tabr-chordchart.html">Render chord chart</a>
     </li>
     <li>
@@ -160,7 +163,8 @@
 
       
 
-      </header><div class="row">
+      </header><script src="tabr-prog-converters_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="tabr-prog-converters_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="tabr-prog-converters_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Syntax converters</h1>
@@ -195,18 +199,21 @@
 <h2 class="hasAnchor">
 <a href="#music21-tiny-notation" class="anchor"></a>music21 tiny notation</h2>
 <p>The tiny notation format for <a href="https://web.mit.edu/music21/">music21</a> is similar in several respects to <code>tabr</code> notation. The <code>to_tabr</code> function, and specifically, <code>from_music21</code>, will convert from <code>music21</code> to <code>tabr</code> syntax. The functionality is still a work in progress, but works for simple notation.</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="no">m21</span> <span class="kw">&lt;-</span> <span class="st">"4/4 CC#FF4.. trip{c#8eg# d'- e-' f g a'} D4~# D E F r B16 trip{c4 d e}"</span>
-<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/to_tabr.html">from_music21</a></span>(<span class="no">m21</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">x</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="va">m21</span> <span class="op">&lt;-</span> <span class="st">"4/4 CC#FF4.. trip{c#8eg# d'- e-' f g a'} D4~# D E F r B16 trip{c4 d e}"</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/to_tabr.html">from_music21</a></span><span class="op">(</span><span class="va">m21</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></pre></div>
 <pre class="r-output"><code>#&gt; [1] "music"     "character"
 </code></pre>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">x</span></pre></body></html></div>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="va">x</span></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Music string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Values: </span><span style="color: #555555;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">d_,,f,,</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">4..</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">d_ea_</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">t8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">d_'</span><span style="color: #BBBB00;">t8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">e_'</span><span style="color: #BBBB00;">t8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">f</span><span style="color: #BBBB00;">t8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #BBBB00;">t8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">a'</span><span style="color: #BBBB00;">t8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">e_,~</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">d,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">e,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">f,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">r</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">b,</span><span style="color: #BBBB00;">16</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #BBBB00;">t4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">d</span><span style="color: #BBBB00;">t4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #BBBB00;">t4</span><span>
 </span></code></pre>
-<div class="sourceCode" id="cb3"><html><body><pre class="r">
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">x</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Music string&gt;
 #&gt;   Timesteps: </span><span>16 (14 notes, 2 chords)</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Octaves: </span><span>tick</span><span style="color: #555555;font-weight: bold;">
@@ -218,13 +225,15 @@
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Values: </span><span style="color: #555555;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">d_,,f,,</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">4..</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">d_ea_</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">t8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">d_'</span><span style="color: #BBBB00;">t8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">e_'</span><span style="color: #BBBB00;">t8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">f</span><span style="color: #BBBB00;">t8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #BBBB00;">t8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">a'</span><span style="color: #BBBB00;">t8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">e_,~</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">d,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">e,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">f,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">r</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">b,</span><span style="color: #BBBB00;">16</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #BBBB00;">t4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">d</span><span style="color: #BBBB00;">t4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #BBBB00;">t4</span><span>
 </span></code></pre>
-<div class="sourceCode" id="cb4"><html><body><pre class="r">
-<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/to_tabr.html">to_tabr</a></span>(<span class="kw">id</span> <span class="kw">=</span> <span class="st">"music21"</span>, <span class="kw">x</span> <span class="kw">=</span> <span class="no">m21</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span>(<span class="no">x</span>, <span class="no">y</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/to_tabr.html">to_tabr</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"music21"</span>, x <span class="op">=</span> <span class="va">m21</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></pre></div>
 <pre class="r-output"><code>#&gt; [1] TRUE
 </code></pre>
-<div class="sourceCode" id="cb5"><html><body><pre class="r">
-<span class="fu"><a href="../reference/to_tabr.html">from_music21</a></span>(<span class="no">m21</span>, <span class="kw">output</span> <span class="kw">=</span> <span class="st">"list"</span>) <span class="co"># same as music_split(x)</span></pre></body></html></div>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+
+<span class="fu"><a href="../reference/to_tabr.html">from_music21</a></span><span class="op">(</span><span class="va">m21</span>, output <span class="op">=</span> <span class="st">"list"</span><span class="op">)</span> <span class="co"># same as music_split(x)</span></pre></div>
 <pre class="r-output"><code>#&gt; $notes
 #&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
@@ -259,23 +268,26 @@
 <h3 class="hasAnchor">
 <a href="#default-behavior" class="anchor"></a>Default behavior</h3>
 <p>In this example, a series of chords starting with a B flat are converted. They appear in notation format provided by <code>chorrrds</code>. The last two chords are intentionally given alternate bass notes, one being the same as highest note in the chord, and one not. You can see that <code>to_tabr</code> takes an <code>id</code> that is the suffix of the <code>from_*</code> function. The result is the same.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">chords</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Bb"</span>, <span class="st">"Bbm"</span>, <span class="st">"Bbm7"</span>, <span class="st">"Bbm7(b5)"</span>, <span class="st">"Bb7(#5)/G"</span>, <span class="st">"Bb7(#5)/Ab"</span>)
-<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/to_tabr.html">from_chorrrds</a></span>(<span class="no">chords</span>)
-<span class="no">x</span></pre></body></html></div>
+<div class="sourceCode" id="cb6"><pre class="downlit">
+<span class="va">chords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Bb"</span>, <span class="st">"Bbm"</span>, <span class="st">"Bbm7"</span>, <span class="st">"Bbm7(b5)"</span>, <span class="st">"Bb7(#5)/G"</span>, <span class="st">"Bb7(#5)/Ab"</span><span class="op">)</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/to_tabr.html">from_chorrrds</a></span><span class="op">(</span><span class="va">chords</span><span class="op">)</span>
+<span class="va">x</span></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Values: </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">b_d</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">f</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">b_d_</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">f</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">b_d_</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">f</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">a_</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">b_d_</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">a_</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">gb_d</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">g_</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">a_</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">a_b_d</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">g_</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span>
 </span></code></pre>
-<div class="sourceCode" id="cb7"><html><body><pre class="r">
-<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/to_tabr.html">to_tabr</a></span>(<span class="st">"chorrrds"</span>, <span class="kw">x</span> <span class="kw">=</span> <span class="no">chords</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span>(<span class="no">x</span>, <span class="no">y</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb7"><pre class="downlit">
+
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/to_tabr.html">to_tabr</a></span><span class="op">(</span><span class="st">"chorrrds"</span>, x <span class="op">=</span> <span class="va">chords</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></pre></div>
 <pre class="r-output"><code>#&gt; [1] TRUE
 </code></pre>
 <p>The result is a noteworthy string containing explicit pitches, useful throughout <code>tabr</code>.</p>
 <p>Notice that a particular rule for handling the alternate bass is that if it does not match the top of the chord, it is prepended as a new bass note. If it does match, the top note is dropped, meaning the chord is simply inverted. The less information given, the more that must be assumed.</p>
 <p>Prefer those B flats to start on octave two? Want only simple triads? Change to sharps? Summarize the data? No problem. The functions of <code>tabr</code> of ready to operate.</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/transpose.html">transpose</a></span>(<span class="no">x</span>, -<span class="fl">12</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/chord-filter.html">chord_slice</a></span>(<span class="fl">1</span>:<span class="fl">3</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/note-coerce.html">sharpen_flat</a></span>()
-<span class="fu"><a href="../reference/note-summaries.html">tally_pitches</a></span>(<span class="no">x</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb8"><pre class="downlit">
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/transpose.html">transpose</a></span><span class="op">(</span><span class="va">x</span>, <span class="op">-</span><span class="fl">12</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/chord-filter.html">chord_slice</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/note-coerce.html">sharpen_flat</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="../reference/note-summaries.html">tally_pitches</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 7 x 2</span><span>
 #&gt;   pitch     n
 #&gt;   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span>
@@ -287,7 +299,8 @@
 #&gt; </span><span style="color: #555555;">6</span><span> e         1
 #&gt; </span><span style="color: #555555;">7</span><span> f         3
 </span></code></pre>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="../reference/note-summaries.html">distinct_pitches</a></span>(<span class="no">x</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/pitch_freq.html">pitch_semitones</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb9"><pre class="downlit">
+<span class="fu"><a href="../reference/note-summaries.html">distinct_pitches</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/pitch_freq.html">pitch_semitones</a></span><span class="op">(</span><span class="op">)</span></pre></div>
 <pre class="r-output"><code>#&gt; [1] 43 44 46 49 50 52 53
 </code></pre>
 </div>
@@ -296,7 +309,8 @@
 <a href="#guitar-chords" class="anchor"></a>Guitar chords</h3>
 <p>Since <code>chorrrds</code> deals specifically in chords, <code>from_chorrrds</code> offers an argument for specifically selecting common guitar chords shapes instead of a standard chord. Setting <code>guitar = TRUE</code> switches to using the <code>guitarChords</code> dataset to find matching guitar chords using the <code>gc_info</code> function. This argument would not necessarily apply or be available for some other syntax converter.</p>
 <p>This is a nice feature because <code>gc_info</code> takes several arguments for filtering the numerous ways a single chord can be played on a guitar. This helps you constrain and specify, at least as part of an initial pass with a broad brush, how these chord symbols from <code>chorrrds</code> should be interpreted. Arguments to <code>gc_chords</code> for setting filter conditions on the <code>guitarChords</code> dataset can be passed as a named list to <code>gc_args</code> so that you have more control over the conversion of a chord symbol to specific pitches.</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="../reference/to_tabr.html">from_chorrrds</a></span>(<span class="no">chords</span>, <span class="kw">guitar</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb10"><pre class="downlit">
+<span class="fu"><a href="../reference/to_tabr.html">from_chorrrds</a></span><span class="op">(</span><span class="va">chords</span>, guitar <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Values: </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">b_</span><span style="color: #00BBBB;">,</span><span style="color: #00BBBB;font-weight: bold;">fb_d</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">f</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">b_</span><span style="color: #00BBBB;">,</span><span style="color: #00BBBB;font-weight: bold;">fb_d_</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">f</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">b_</span><span style="color: #00BBBB;">,</span><span style="color: #00BBBB;font-weight: bold;">fa_d_</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">f</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">b_</span><span style="color: #00BBBB;">,</span><span style="color: #00BBBB;font-weight: bold;">a_d_</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">b_</span><span style="color: #00BBBB;">,</span><span style="color: #00BBBB;font-weight: bold;">g_a_d</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">b_</span><span style="color: #00BBBB;">,</span><span style="color: #00BBBB;font-weight: bold;">g_a_d</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span>
@@ -313,10 +327,11 @@
 <div id="ready-for-analysis" class="section level3">
 <h3 class="hasAnchor">
 <a href="#ready-for-analysis" class="anchor"></a>Ready for analysis</h3>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">chords</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Am"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>, <span class="st">"F"</span>, <span class="st">"Am"</span>, <span class="st">"E"</span>, <span class="st">"Am"</span>, <span class="st">"E"</span>)
-<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/to_tabr.html">from_chorrrds</a></span>(<span class="no">chords</span>, <span class="kw">guitar</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
+<div class="sourceCode" id="cb11"><pre class="downlit">
+<span class="va">chords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Am"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>, <span class="st">"F"</span>, <span class="st">"Am"</span>, <span class="st">"E"</span>, <span class="st">"Am"</span>, <span class="st">"E"</span><span class="op">)</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/to_tabr.html">from_chorrrds</a></span><span class="op">(</span><span class="va">chords</span>, guitar <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/as_music_df.html">as_music_df</a></span>(<span class="no">x</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/as_music_df.html">as_music_df</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 8 x 8</span><span>
 #&gt;   duration pitch      note    semitone octave  freq pitch_int scale_int
 #&gt;   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>      </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>      </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>    
@@ -330,11 +345,12 @@
 #&gt; </span><span style="color: #555555;">8</span><span> </span><span style="color: #BB0000;">NA</span><span>       e,b,ea_be' ebea_be       52      2  82.4        -</span><span style="color: #BB0000;">5</span><span> P4
 </span></code></pre>
 <p>Say also that you knew that these chords were all strummed four times each, four quarter notes per measure. You can expand the series and add the time information as well.</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="no">x</span>, <span class="kw">each</span> <span class="kw">=</span> <span class="fl">4</span>)
-<span class="no">time</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">4</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">x</span>))
+<div class="sourceCode" id="cb12"><pre class="downlit">
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="va">x</span>, each <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
+<span class="va">time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
 
-<span class="no">mdf</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/as_music_df.html">as_music_df</a></span>(<span class="no">x</span>, <span class="no">time</span>, <span class="kw">key</span> <span class="kw">=</span> <span class="st">"am"</span>)
-<span class="no">mdf</span></pre></body></html></div>
+<span class="va">mdf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as_music_df.html">as_music_df</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">time</span>, key <span class="op">=</span> <span class="st">"am"</span><span class="op">)</span>
+<span class="va">mdf</span></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 32 x 17</span><span>
 #&gt;    duration pitch note  semitone octave  freq key   scale scale_deg pitch_int
 #&gt;    </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span>
@@ -360,25 +376,29 @@
 <p>This vignette is part of the music programming and music data analysis vignette collection, but for completeness, the example below shows how you can connect this to LilyPond. Note that for purposes of this example, this last step requires a LilyPond installation, though you could also do this with ggplot (see <a href="tabr-fretboard.html">this vignette</a> for examples).</p>
 <p>The fretboard diagram syntax and chord names for creating the chord chart with LilyPond can be obtained directly from the pitches in a chord, as long as those pitches match a known chord in <code>guitarChords</code>. Since the goal here is to make a chord chart of playable chords, consider chord shape and position on the guitar neck. The pitches themselves obviously do not contain any instrument-specific information.</p>
 <p>You can use <code>gc_args</code> to specify common playable chords such as open position and other nearby low-fret chord shapes. In this example this is almost not necessary at all. However, say you want to ensure that the C chord is the open position chord rather than the barred shape that occurred above (both chord shapes beginning on string 5, fret 3 in standard tuning). You can stipulate that the <code>min_fret</code> for all chords must range from <code>0:1</code>.</p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">chords</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(<span class="no">chords</span>)
-<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/to_tabr.html">from_chorrrds</a></span>(<span class="no">chords</span>, <span class="kw">guitar</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">gc_args</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">min_fret</span> <span class="kw">=</span> <span class="fl">0</span>:<span class="fl">1</span>))
-<span class="no">x</span></pre></body></html></div>
+<div class="sourceCode" id="cb13"><pre class="downlit">
+<span class="va">chords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">chords</span><span class="op">)</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/to_tabr.html">from_chorrrds</a></span><span class="op">(</span><span class="va">chords</span>, guitar <span class="op">=</span> <span class="cn">TRUE</span>, gc_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>min_fret <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+<span class="va">x</span></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Values: </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">a</span><span style="color: #00BBBB;">,</span><span style="color: #00BBBB;font-weight: bold;">eac</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">cegc</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">dad</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">g_</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">f</span><span style="color: #00BBBB;">,</span><span style="color: #00BBBB;font-weight: bold;">cfac</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">f</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">,</span><span style="color: #00BBBB;font-weight: bold;">b</span><span style="color: #00BBBB;">,</span><span style="color: #00BBBB;font-weight: bold;">ea_be</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span>
 </span></code></pre>
-<div class="sourceCode" id="cb14"><html><body><pre class="r">
-<span class="fu"><a href="../reference/chord-mapping.html">gc_is_known</a></span>(<span class="no">x</span>) <span class="co"># Are chords available with these exact pitch sequences?</span></pre></body></html></div>
+<div class="sourceCode" id="cb14"><pre class="downlit">
+
+<span class="fu"><a href="../reference/chord-mapping.html">gc_is_known</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="co"># Are chords available with these exact pitch sequences?</span></pre></div>
 <pre class="r-output"><code>#&gt; [1] TRUE TRUE TRUE TRUE TRUE
 </code></pre>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/chord-mapping.html">gc_notes_to_fb</a></span>(<span class="no">x</span>)
-<span class="no">y</span></pre></body></html></div>
+<div class="sourceCode" id="cb15"><pre class="downlit">
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chord-mapping.html">gc_notes_to_fb</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="va">y</span></pre></div>
 <pre class="r-output"><code>#&gt;           a,:m            c:5            d:5           f,:5           e,:5 
 #&gt; "x;o;2;2;1;o;" "x;3;2;o;1;o;" "x;x;o;2;3;2;" "1;3;3;2;1;1;" "o;2;2;1;o;o;"
 </code></pre>
 <p>When the chords are ready, all that is needed for rendering is LilyPond integration and the following command. Since there are only a few chords, increase the font size to fill out the page.</p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">out</span> <span class="kw">&lt;-</span> <span class="st">"House of the rising sun - chords.pdf"</span>
-<span class="fu"><a href="../reference/render_chordchart.html">render_chordchart</a></span>(<span class="no">y</span>, <span class="no">out</span>, <span class="kw">fontsize</span> <span class="kw">=</span> <span class="fl">80</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb16"><pre class="downlit">
+<span class="va">out</span> <span class="op">&lt;-</span> <span class="st">"House of the rising sun - chords.pdf"</span>
+<span class="fu"><a href="../reference/render_chordchart.html">render_chordchart</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">out</span>, fontsize <span class="op">=</span> <span class="fl">80</span><span class="op">)</span></pre></div>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex37.png?raw=true" class="centerimg" width="100%"></p>
 </div>
@@ -387,16 +407,17 @@
 <a href="#closing-example" class="anchor"></a>Closing example</h3>
 <p>You can merge instrument data with the music data. The <code>mdf</code> data frame above contains the barred C chord, so <code>min_fret</code> is not used here to derive fret data.</p>
 <p>For fun, define a new function to parse the fret data and calculate a new variable giving the physical fret span needed for your fretting hand, excluding the open fret of course.</p>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
+<div class="sourceCode" id="cb17"><pre class="downlit">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 
-<span class="no">fret_span</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">x</span>){
-  <span class="no">f</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">x</span>) <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span>(<span class="no">x</span>, <span class="st">";"</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>() <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span>() <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="https://rdrr.io/r/base/range.html">range</a></span>(<span class="kw">na.rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/diff.html">diff</a></span>()
-  <span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(<span class="no">x</span>, <span class="no">f</span>) + <span class="fl">1L</span>) <span class="co"># coercing string to NA integer</span>
-}
+<span class="va">fret_span</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
+  <span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">";"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+    <span class="fu"><a href="https://rdrr.io/r/base/range.html">range</a></span><span class="op">(</span>na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/diff.html">diff</a></span><span class="op">(</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">f</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1L</span><span class="op">)</span> <span class="co"># coercing string to NA integer</span>
+<span class="op">}</span>
 
-<span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="no">mdf</span>, <span class="kw">frets</span> <span class="kw">=</span> <span class="fu"><a href="../reference/chord-mapping.html">gc_notes_to_fb</a></span>(<span class="no">pitch</span>), <span class="kw">fret_span</span> <span class="kw">=</span> <span class="fu">fret_span</span>(<span class="no">frets</span>)) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">duration</span>, <span class="no">pitch</span>, <span class="no">frets</span>, <span class="no">fret_span</span>)</pre></body></html></div>
+<span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">mdf</span>, frets <span class="op">=</span> <span class="fu"><a href="../reference/chord-mapping.html">gc_notes_to_fb</a></span><span class="op">(</span><span class="va">pitch</span><span class="op">)</span>, fret_span <span class="op">=</span> <span class="fu">fret_span</span><span class="op">(</span><span class="va">frets</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">duration</span>, <span class="va">pitch</span>, <span class="va">frets</span>, <span class="va">fret_span</span><span class="op">)</span></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 32 x 4</span><span>
 #&gt;    duration pitch    frets        fret_span
 #&gt;    </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>            </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span>
@@ -437,7 +458,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -31,3 +31,4 @@
 ^vignettes/tabr-repeats\.Rmd$
 ^vignettes/tabr-tracks-scores\.Rmd$
 ^vignettes/tabr-tunings\.Rmd$
+^vignettes/tabr-snippets\.Rmd$

@@ -120,6 +120,9 @@
       <a href="articles/tabr-engraving.html">Render scores</a>
     </li>
     <li>
+      <a href="articles/tabr-snippets.html">Music snippets</a>
+    </li>
+    <li>
       <a href="articles/tabr-chordchart.html">Render chord chart</a>
     </li>
     <li>
@@ -181,25 +184,39 @@
 <p><strong>Author:</strong> <a href="https://github.com/leonawicz">Matthew Leonawicz</a> <a href="https://orcid.org/0000-0001-9452-2771" target="orcid.widget"> <image class="orcid" src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" height="16"></image></a> <br><strong>License:</strong> <a href="https://opensource.org/licenses/MIT">MIT</a><br></p>
 <p><a href="http://www.repostatus.org/#active"><img src="http://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active – The project has reached a stable, usable state and is being actively developed."></a> <a href="https://travis-ci.org/leonawicz/tabr"><img src="https://travis-ci.org/leonawicz/tabr.svg?branch=master" alt="Travis-CI Build Status"></a> <a href="https://ci.appveyor.com/project/leonawicz/tabr"><img src="https://ci.appveyor.com/api/projects/status/github/leonawicz/tabr?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a> <a href="https://codecov.io/github/leonawicz/tabr?branch=master"><img src="https://img.shields.io/codecov/c/github/leonawicz/tabr/master.svg" alt="Coverage Status"></a></p>
 <p><a href="https://cran.r-project.org/package=tabr"><img src="http://www.r-pkg.org/badges/version/tabr" alt="CRAN status"></a> <a href="https://cran.r-project.org/package=tabr"><img src="http://cranlogs.r-pkg.org/badges/grand-total/tabr" alt="CRAN downloads"></a> <a href="https://github.com/leonawicz/tabr"><img src="https://img.shields.io/github/stars/leonawicz/tabr.svg?style=social&amp;label=Github" alt="Github Stars"></a></p>
-<p><a href="https://ko-fi.com/leonawicz"><img src="https://img.shields.io/badge/Donate-Buy%20me%20a%20coffee-yellowgreen.svg" alt="Donate"></a></p>
 <p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/tabr_logo.png?raw=true" width="320" style="float:right;margin-left:10px;width:320px;"></p>
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
 <p>The <code>tabr</code> package provides a music notation syntax and a collection of music programming functions for generating, manipulating, organizing and analyzing musical information in R.</p>
 <p>The music notation framework facilitates creating and analyzing music data in notation form; i.e, more from the perspective and in the language of a musician than, say, an audio engineer.</p>
-<hr>
-<p><em>If you enjoy my R community contributions, consider</em> <strong><em><a href="https://ko-fi.com/leonawicz">buying me a coffee in Ko-fi</a></em></strong> <em>so I can keep developing and maintaining this and other packages :)</em></p>
-<hr>
+</div>
+<div id="citation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#citation" class="anchor"></a>Citation</h2>
+<p>Matthew Leonawicz (2020). tabr: Music Notation Syntax, Manipulation, Analysis and Transcription in R. R package version 0.4.3. <a href="https://CRAN.R-project.org/package=tabr" class="uri">https://CRAN.R-project.org/package=tabr</a></p>
+</div>
+<div id="contribute" class="section level2">
+<h2 class="hasAnchor">
+<a href="#contribute" class="anchor"></a>Contribute</h2>
+<p>Contributions are welcome. Contribute through GitHub via pull request. Please create an issue first if it is regarding any substantive feature add or change.</p>
+<p>If you enjoy my open source R community contributions, please consider a donation :).</p>
+<ul>
+<li><a href="https://ko-fi.com/leonawicz">Buy me a coffee in Ko-fi</a></li>
+<li><code>leonawicz.crypto</code></li>
+<li><code>mfl$payid.crypto.com</code></li>
+</ul>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Install the CRAN release of <code>tabr</code> with</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"tabr"</span>)</pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"tabr"</span><span class="op">)</span></pre></div>
 <p>Install the development version from GitHub with</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="co"># install.packages("remotes")</span>
-<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"leonawicz/tabr"</span>)</pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="co"># install.packages("remotes")</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"leonawicz/tabr"</span><span class="op">)</span></pre></div>
 </div>
 <div id="music-data-structures" class="section level2">
 <h2 class="hasAnchor">
@@ -208,16 +225,17 @@
 <p>Music data can be viewed, manipulated and analyzed while in different forms of representation based around different data structures: strings and data frames. Each representation offers advantages over the other for different use cases.</p>
 <p>Music syntax can be entered directly and represented in character strings to minimize the formatting overhead of data entry by using simple data structures, for example when wanting to quickly enter and transcribe short pieces of music syntax in R into sheet music or tablature files. You can also enter sound and time together with the <code>music</code> class, and no need to repeat consecutive durations until a change.</p>
 <p>Here is an example of making a string of pitches <em>noteworthy</em> and a string of combined pitch and duration into a music object. Such objects carry various musical information based on the syntax of an input string.</p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tabr</span>)
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/leonawicz/tabr">tabr</a></span><span class="op">)</span>
 
-<span class="no">x</span> <span class="kw">&lt;-</span> <span class="st">"a, c e g# a ac'e' ac'e'~ ac'e' a c' e' a'"</span>
-<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/valid-notes.html">as_noteworthy</a></span>(<span class="no">x</span>)
-<span class="no">x</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"a, c e g# a ac'e' ac'e'~ ac'e' a c' e' a'"</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/valid-notes.html">as_noteworthy</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="va">x</span>
 <span class="co">#&gt; &lt;Noteworthy string&gt;</span>
 <span class="co">#&gt;   Format: space-delimited time</span>
 <span class="co">#&gt;   Values: a, c e g# a &lt;ac'e'&gt; &lt;ac'e'~&gt; &lt;ac'e'&gt; a c' e' a'</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">x</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="co">#&gt; &lt;Noteworthy string&gt;</span>
 <span class="co">#&gt;   Timesteps: 12 (9 notes, 3 chords)</span>
 <span class="co">#&gt;   Octaves: tick</span>
@@ -225,9 +243,9 @@
 <span class="co">#&gt;   Format: space-delimited time</span>
 <span class="co">#&gt;   Values: a, c e g# a &lt;ac'e'&gt; &lt;ac'e'~&gt; &lt;ac'e'&gt; a c' e' a'</span>
 
-<span class="no">y</span> <span class="kw">&lt;-</span> <span class="st">"a,8 c et8 g# a ac'e'4. ac'e'~8 ac'e'4 at4 c' e' a'1"</span>
-<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/music.html">as_music</a></span>(<span class="no">y</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">y</span>)
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="st">"a,8 c et8 g# a ac'e'4. ac'e'~8 ac'e'4 at4 c' e' a'1"</span>
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/music.html">as_music</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
 <span class="co">#&gt; &lt;Music string&gt;</span>
 <span class="co">#&gt;   Timesteps: 12 (9 notes, 3 chords)</span>
 <span class="co">#&gt;   Octaves: tick</span>
@@ -239,7 +257,7 @@
 <span class="co">#&gt;   Format: space-delimited time</span>
 <span class="co">#&gt;   Values: a,8 c8 et8 g#t8 at8 &lt;ac'e'&gt;4. &lt;ac'e'~&gt;8 &lt;ac'e'&gt;4 at4 c't4 e't4 a'1</span>
 
-<span class="fu"><a href="reference/music.html">music_split</a></span>(<span class="no">y</span>)
+<span class="fu"><a href="reference/music.html">music_split</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
 <span class="co">#&gt; $notes</span>
 <span class="co">#&gt; &lt;Noteworthy string&gt;</span>
 <span class="co">#&gt;   Format: space-delimited time</span>
@@ -264,8 +282,9 @@
 <p>Functions exist for directly performing various mathematical, logical and organizational operations and musical transformations on strings like the one above by checking their music syntax validity and adding custom classes and methods to these strings (more on this below). <code>tabr</code> offers special object classes that facilitate working with music data and notation in ways that are natural to R, robust, tidy, and lend themselves well to transcription as well as analysis.</p>
 <p>Of course, none of this will work on character strings that are not “noteworthy” or “musical”, for example. Invalid, unworthy syntax is rejected early with an error, preventing corrupted music syntax from causing unexpected issues later on.</p>
 <p>The same music data can also be organized in tidy data frames, allowing for a more familiar and powerful approach to the analysis of large amounts of structured music data.</p>
-<div class="sourceCode" id="cb4"><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="st">"a,8 c e r r c a, g#, a ac'e'"</span>
-<span class="fu"><a href="reference/music.html">as_music</a></span>(<span class="no">x</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="reference/as_music_df.html">as_music_df</a></span>()
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"a,8 c e r r c a, g#, a ac'e'"</span>
+<span class="fu"><a href="reference/music.html">as_music</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="reference/as_music_df.html">as_music_df</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 10 x 14</span>
 <span class="co">#&gt;    duration pitch note  semitone octave  freq pitch_int scale_int slur  slide bend  dotted articulation annotation</span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;    &lt;int&gt;  &lt;int&gt; &lt;dbl&gt;     &lt;int&gt; &lt;chr&gt;     &lt;chr&gt; &lt;lgl&gt; &lt;lgl&gt;  &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;     </span>
@@ -298,30 +317,31 @@
 <a href="#the-noteworthy-class" class="anchor"></a>The noteworthy class</h3>
 <p>Noteworthiness can be checked on any character string. When defining noteworthy strings you can define them like any other character vector. However, you will notice that package functions that operate on noteworthy strings and whose output is another noteworthy string will yield a string with the supplemental <code>noteworthy</code> class. This has its own print and summary methods.</p>
 <p>Several other generic methods are also implemented for the noteworthy class, making it easy to perform simple but powerful operations on these objects in a familiar way. While many functions will attempt to coerce a string to <code>noteworthy</code>, not all will and some methods are implemented specifically for the class.</p>
-<div class="sourceCode" id="cb5"><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="st">"g#, c d# g#c'd#'"</span>
-<span class="fu"><a href="reference/valid-notes.html">as_noteworthy</a></span>(<span class="no">x</span>)
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"g#, c d# g#c'd#'"</span>
+<span class="fu"><a href="reference/valid-notes.html">as_noteworthy</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="co">#&gt; &lt;Noteworthy string&gt;</span>
 <span class="co">#&gt;   Format: space-delimited time</span>
 <span class="co">#&gt;   Values: g#, c d# &lt;g#c'd#'&gt;</span>
 
-<span class="no">x</span> <span class="kw">&lt;-</span> <span class="st">"g#2 c d# g#c4d#4"</span> <span class="co"># equivalent octave numbering</span>
-<span class="fu"><a href="reference/valid-notes.html">as_noteworthy</a></span>(<span class="no">x</span>)
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"g#2 c d# g#c4d#4"</span> <span class="co"># equivalent octave numbering</span>
+<span class="fu"><a href="reference/valid-notes.html">as_noteworthy</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="co">#&gt; &lt;Noteworthy string&gt;</span>
 <span class="co">#&gt;   Format: space-delimited time</span>
 <span class="co">#&gt;   Values: g#2 c d# &lt;g#c4d#4&gt;</span>
 
-<span class="fu"><a href="reference/valid-notes.html">is_note</a></span>(<span class="no">x</span>)
+<span class="fu"><a href="reference/valid-notes.html">is_note</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="co">#&gt; [1]  TRUE  TRUE  TRUE FALSE</span>
-<span class="fu"><a href="reference/valid-notes.html">is_chord</a></span>(<span class="no">x</span>)
+<span class="fu"><a href="reference/valid-notes.html">is_chord</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="co">#&gt; [1] FALSE FALSE FALSE  TRUE</span>
-<span class="fu"><a href="reference/chord_is_major.html">chord_is_major</a></span>(<span class="no">x</span>)
+<span class="fu"><a href="reference/chord_is_major.html">chord_is_major</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="co">#&gt; [1]   NA   NA   NA TRUE</span>
-(<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/transpose.html">transpose</a></span>(<span class="no">x</span>, <span class="fl">1</span>))
+<span class="op">(</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/transpose.html">transpose</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; &lt;Noteworthy string&gt;</span>
 <span class="co">#&gt;   Format: space-delimited time</span>
 <span class="co">#&gt;   Values: a2 c# e &lt;ac#4e4&gt;</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">x</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="co">#&gt; &lt;Noteworthy string&gt;</span>
 <span class="co">#&gt;   Timesteps: 4 (3 notes, 1 chord)</span>
 <span class="co">#&gt;   Octaves: integer</span>
@@ -329,11 +349,11 @@
 <span class="co">#&gt;   Format: space-delimited time</span>
 <span class="co">#&gt;   Values: a2 c# e &lt;ac#4e4&gt;</span>
 
-<span class="fu"><a href="reference/note-summaries.html">distinct_pitches</a></span>(<span class="no">x</span>)
+<span class="fu"><a href="reference/note-summaries.html">distinct_pitches</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="co">#&gt; &lt;Noteworthy string&gt;</span>
 <span class="co">#&gt;   Format: space-delimited time</span>
 <span class="co">#&gt;   Values: a2 c# e a c#4 e4</span>
-<span class="fu"><a href="reference/note-summaries.html">distinct_pitches</a></span>(<span class="no">x</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="reference/pitch_freq.html">pitch_freq</a></span>() <span class="co"># in Hz</span>
+<span class="fu"><a href="reference/note-summaries.html">distinct_pitches</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="reference/pitch_freq.html">pitch_freq</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># in Hz</span>
 <span class="co">#&gt; [1] 110.0000 138.5913 164.8138 220.0000 277.1826 329.6276</span></pre></div>
 <p>These are just a few examples. There are many more functions in <code>tabr</code> that intuitively operate on noteworthy strings, abstracting the interpretation of relatively simple symbolic text specifications as quantitative and/or structured musical information.</p>
 <p>There is also a <code>noteinfo</code> class, and a <code>music</code> class (seen above). You can learn more in the vignettes. The <code>music</code> class is particularly useful for efficient music data entry and basic transcription tasks.</p>
@@ -344,14 +364,16 @@
 <a href="#tidy-music-analysis" class="anchor"></a>Tidy music analysis</h2>
 <p>Ideally music data already exists in a data frame format. But if it doesn’t, or if you just wrote out a new note sequence like below, getting this data into a data frame for a more tidy approach to analysis is easy. Conversion can also populate several derivative variables in the process.</p>
 <p>In the earlier example you saw the result of calling <code>as_music_df</code> on a noteworthy string.</p>
-<div class="sourceCode" id="cb6"><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="st">"a, c e r r c a, g#, a ac'e'"</span>
-<span class="fu"><a href="reference/as_music_df.html">as_music_df</a></span>(<span class="no">x</span>)</pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit">
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"a, c e r r c a, g#, a ac'e'"</span>
+<span class="fu"><a href="reference/as_music_df.html">as_music_df</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></pre></div>
 <p>You may have noticed that rests (<code>r</code>) are allowed for timesteps and that functions that compute lagged intervals respect these gaps. Since <code>as_music_df</code> was only provided with a string of pitches, there are no explicit time variables in the data frame. However, discrete timesteps still exist and they do not have to contain notes.</p>
 <p>There are a number of derivative columns. If you are working with a large sequence of music, there is no need to carry all of these variables along through your analysis if you do not need them. They can be created using various package functions and you can build onto your data frame and transform variables later with a function like <code>mutate</code> from <code>dplyr</code>.</p>
-<div class="sourceCode" id="cb7"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
-<span class="no">x</span> <span class="kw">&lt;-</span> <span class="st">"a, c e r r c a, g#, a ac'e'"</span>
-<span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="kw">pitch</span> <span class="kw">=</span> <span class="fu"><a href="reference/note-coerce.html">as_vector_time</a></span>(<span class="no">x</span>)) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">scale_int</span> <span class="kw">=</span> <span class="fu"><a href="reference/intervals.html">scale_diff</a></span>(<span class="no">pitch</span>))
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"a, c e r r c a, g#, a ac'e'"</span>
+<span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>pitch <span class="op">=</span> <span class="fu"><a href="reference/note-coerce.html">as_vector_time</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>scale_int <span class="op">=</span> <span class="fu"><a href="reference/intervals.html">scale_diff</a></span><span class="op">(</span><span class="va">pitch</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 10 x 2</span>
 <span class="co">#&gt;    pitch      scale_int</span>
 <span class="co">#&gt;    &lt;notwrthy&gt; &lt;chr&gt;    </span>
@@ -366,17 +388,18 @@
 <span class="co">#&gt;  9 a          m9       </span>
 <span class="co">#&gt; 10 ac'e'      P1</span></pre></div>
 <p>In fact, it’s much more powerful to create the columns according to your needs using specific functions and their various arguments. But <code>as_music_df</code> is convenient and also offers some additional arguments. Adding <code>key</code> and <code>scale</code> allows for scale degrees. <code>scale</code> is diatonic by default but does not have to be.</p>
-<div class="sourceCode" id="cb8"><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="st">"g g#"</span>
-<span class="fu"><a href="reference/as_music_df.html">as_music_df</a></span>(<span class="no">x</span>, <span class="kw">key</span> <span class="kw">=</span> <span class="st">"am"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">pitch</span>, <span class="no">key</span>, <span class="no">scale</span>, <span class="no">scale_deg</span>)
+<div class="sourceCode" id="cb8"><pre class="downlit">
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"g g#"</span>
+<span class="fu"><a href="reference/as_music_df.html">as_music_df</a></span><span class="op">(</span><span class="va">x</span>, key <span class="op">=</span> <span class="st">"am"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">pitch</span>, <span class="va">key</span>, <span class="va">scale</span>, <span class="va">scale_deg</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   pitch key   scale    scale_deg</span>
 <span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;        &lt;int&gt;</span>
 <span class="co">#&gt; 1 g     am    diatonic         7</span>
 <span class="co">#&gt; 2 g#    am    diatonic        NA</span>
 
-<span class="fu"><a href="reference/as_music_df.html">as_music_df</a></span>(<span class="no">x</span>, <span class="kw">key</span> <span class="kw">=</span> <span class="st">"am"</span>, <span class="kw">scale</span> <span class="kw">=</span> <span class="st">"harmonic_minor"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">pitch</span>, <span class="no">key</span>, <span class="no">scale</span>, <span class="no">scale_deg</span>)
+<span class="fu"><a href="reference/as_music_df.html">as_music_df</a></span><span class="op">(</span><span class="va">x</span>, key <span class="op">=</span> <span class="st">"am"</span>, scale <span class="op">=</span> <span class="st">"harmonic_minor"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">pitch</span>, <span class="va">key</span>, <span class="va">scale</span>, <span class="va">scale_deg</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   pitch key   scale          scale_deg</span>
 <span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;              &lt;int&gt;</span>
@@ -467,10 +490,11 @@
 <div id="minimal-r-code-example" class="section level3">
 <h3 class="hasAnchor">
 <a href="#minimal-r-code-example" class="anchor"></a>Minimal R code example</h3>
-<div class="sourceCode" id="cb9"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tabr</span>)
+<div class="sourceCode" id="cb9"><pre class="downlit">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/leonawicz/tabr">tabr</a></span><span class="op">)</span>
 
-<span class="fu"><a href="reference/phrase.html">p</a></span>(<span class="st">"r a, c f d a f"</span>, <span class="st">"4 8*6"</span>, <span class="st">"x 5 5 4 4 3 4"</span>) <span class="kw">%&gt;%</span> <span class="no">track</span> <span class="kw">%&gt;%</span> <span class="no">score</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="reference/tab.html">tab</a></span>(<span class="st">"phrase.pdf"</span>, <span class="kw">key</span> <span class="kw">=</span> <span class="st">"dm"</span>, <span class="kw">time</span> <span class="kw">=</span> <span class="st">"4/4"</span>, <span class="kw">tempo</span> <span class="kw">=</span> <span class="st">"4 = 120"</span>)</pre></div>
+<span class="fu"><a href="reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"r a, c f d a f"</span>, <span class="st">"4 8*6"</span>, <span class="st">"x 5 5 4 4 3 4"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">track</span> <span class="op">%&gt;%</span> <span class="va">score</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"phrase.pdf"</span>, key <span class="op">=</span> <span class="st">"dm"</span>, time <span class="op">=</span> <span class="st">"4/4"</span>, tempo <span class="op">=</span> <span class="st">"4 = 120"</span><span class="op">)</span></pre></div>
 <div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co">#&gt; #### Engraving score to phrase.pdf ####</span></span>
 <span id="cb10-2"><a href="#cb10-2"></a><span class="co">#&gt; GNU LilyPond 2.18.2</span></span>
 <span id="cb10-3"><a href="#cb10-3"></a><span class="co">#&gt; Processing `./phrase.ly'</span></span>
@@ -496,10 +520,11 @@
 <a href="#music-syntax" class="anchor"></a>Music syntax</h3>
 <p>As an aside, if you are working with the <code>music</code> class, you can enter notes, note info, and optionally string numbers if applicable, all in a single string. This is not only potentially much more efficient for data entry, but can also be easier to follow because it binds these otherwise separate arguments by timestep. See the vignettes and help documentation relating to music objects for more details on working with these objects.</p>
 <p>The phrase above can be constructed using the single-string input syntax that is used for music objects. <code>phrase</code> understands this syntax and interprets the <code>notes</code> argument as music syntax if the <code>info</code> argument is not provided (<code>info = NULL</code>). The phrase above could have been created as follows, with or without the optional explicit string numbering.</p>
-<div class="sourceCode" id="cb11"><pre class="r"><span class="fu"><a href="reference/phrase.html">p</a></span>(<span class="st">"r4 a,8 c f d a f"</span>)
+<div class="sourceCode" id="cb11"><pre class="downlit">
+<span class="fu"><a href="reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"r4 a,8 c f d a f"</span><span class="op">)</span>
 <span class="co">#&gt; &lt;Musical phrase&gt;</span>
 <span class="co">#&gt; r4 &lt;a,&gt;8 &lt;c&gt;8 &lt;f&gt;8 &lt;d&gt;8 &lt;a&gt;8 &lt;f&gt;8</span>
-<span class="fu"><a href="reference/phrase.html">p</a></span>(<span class="st">"r4;5 a,8 c f;4 d a;3 f;4"</span>)
+<span class="fu"><a href="reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"r4;5 a,8 c f;4 d a;3 f;4"</span><span class="op">)</span>
 <span class="co">#&gt; &lt;Musical phrase&gt;</span>
 <span class="co">#&gt; r4 &lt;a,\5&gt;8 &lt;c\5&gt;8 &lt;f\4&gt;8 &lt;d\4&gt;8 &lt;a\3&gt;8 &lt;f\4&gt;8</span></pre></div>
 <p>Notice how each timestep is complete within the single character string inputs above. Also, durations and string numbers can repeat implicitly until an explicit change occurs. String numbers are ignored when they carry over rests. This is often a more convenient way to construct phrases. If you already have a music object, it can be passed directly to <code>phrase</code>.</p>
@@ -583,7 +608,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

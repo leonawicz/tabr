@@ -152,6 +152,9 @@ functions." />
       <a href="../articles/tabr-engraving.html">Render scores</a>
     </li>
     <li>
+      <a href="../articles/tabr-snippets.html">Music snippets</a>
+    </li>
+    <li>
       <a href="../articles/tabr-chordchart.html">Render chord chart</a>
     </li>
     <li>
@@ -217,19 +220,19 @@ functions." />
 functions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_midi</span>(<span class='no'>file</span>, <span class='kw'>ticks_per_qtr</span> <span class='kw'>=</span> <span class='fl'>480</span>)
+    <pre class="usage"><span class='fu'>read_midi</span><span class='op'>(</span><span class='va'>file</span>, ticks_per_qtr <span class='op'>=</span> <span class='fl'>480</span><span class='op'>)</span>
 
-<span class='fu'>midi_metadata</span>(<span class='no'>x</span>)
+<span class='fu'>midi_metadata</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>midi_notes</span>(<span class='no'>x</span>, <span class='kw'>channel</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>track</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>noteworthy</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>midi_notes</span><span class='op'>(</span><span class='va'>x</span>, channel <span class='op'>=</span> <span class='cn'>NULL</span>, track <span class='op'>=</span> <span class='cn'>NULL</span>, noteworthy <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='fu'>midi_time</span>(<span class='no'>x</span>)
+<span class='fu'>midi_time</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>midi_key</span>(<span class='no'>x</span>)
+<span class='fu'>midi_key</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>ticks_to_duration</span>(<span class='no'>x</span>, <span class='kw'>ticks_per_qtr</span> <span class='kw'>=</span> <span class='fl'>480</span>)
+<span class='fu'>ticks_to_duration</span><span class='op'>(</span><span class='va'>x</span>, ticks_per_qtr <span class='op'>=</span> <span class='fl'>480</span><span class='op'>)</span>
 
-<span class='fu'>duration_to_ticks</span>(<span class='no'>x</span>, <span class='kw'>ticks_per_qtr</span> <span class='kw'>=</span> <span class='fl'>480</span>)</pre>
+<span class='fu'>duration_to_ticks</span><span class='op'>(</span><span class='va'>x</span>, ticks_per_qtr <span class='op'>=</span> <span class='fl'>480</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -274,24 +277,29 @@ to sheet music and a new MIDI file.</p>
 file input at this time. It must be specified with <code>ticks_per_qtr</code></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>ticks_to_duration</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>120</span>, <span class='fl'>160</span>))</div><div class='output co'>#&gt; [1] "16" "t8"</div><div class='input'><span class='fu'>ticks_to_duration</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>128</span>, <span class='fl'>192</span>, <span class='fl'>512</span>), <span class='kw'>ticks_per_qtr</span> <span class='kw'>=</span> <span class='fl'>384</span>)</div><div class='output co'>#&gt; [1] "t8" "8"  "t2"</div><div class='input'><span class='fu'>duration_to_ticks</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"t8"</span>, <span class='st'>"8"</span>, <span class='st'>"8."</span>, <span class='st'>"8.."</span>))</div><div class='output co'>#&gt; [1] 160 240 360 420</div><div class='input'><span class='fu'>duration_to_ticks</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"t8 8 8. 8.."</span>), <span class='kw'>ticks_per_qtr</span> <span class='kw'>=</span> <span class='fl'>384</span>)</div><div class='output co'>#&gt; [1] 128 192 288 336</div><div class='input'>
-<span class='no'>file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"example2.mid"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"tabr"</span>)
-<span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"tuneR"</span>)){
-  <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>read_midi</span>(<span class='no'>file</span>, <span class='kw'>ticks_per_qtr</span> <span class='kw'>=</span> <span class='fl'>384</span>)
-  <span class='fu'>midi_metadata</span>(<span class='no'>x</span>)
-  <span class='fu'>midi_time</span>(<span class='no'>x</span>)
-  <span class='fu'>midi_key</span>(<span class='no'>x</span>)
-  <span class='fu'>midi_notes</span>(<span class='no'>x</span>, <span class='kw'>channel</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>noteworthy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="examples"><div class='input'><span class='fu'>ticks_to_duration</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>120</span>, <span class='fl'>160</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "16" "t8"</div><div class='input'><span class='fu'>ticks_to_duration</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>128</span>, <span class='fl'>192</span>, <span class='fl'>512</span><span class='op'>)</span>, ticks_per_qtr <span class='op'>=</span> <span class='fl'>384</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "t8" "8"  "t2"</div><div class='input'><span class='fu'>duration_to_ticks</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"t8"</span>, <span class='st'>"8"</span>, <span class='st'>"8."</span>, <span class='st'>"8.."</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 160 240 360 420</div><div class='input'><span class='fu'>duration_to_ticks</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"t8 8 8. 8.."</span><span class='op'>)</span>, ticks_per_qtr <span class='op'>=</span> <span class='fl'>384</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 128 192 288 336</div><div class='input'>
+<span class='va'>file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"example2.mid"</span>, package <span class='op'>=</span> <span class='st'>"tabr"</span><span class='op'>)</span>
+<span class='kw'>if</span><span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"tuneR"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'>read_midi</span><span class='op'>(</span><span class='va'>file</span>, ticks_per_qtr <span class='op'>=</span> <span class='fl'>384</span><span class='op'>)</span>
+  <span class='fu'>midi_metadata</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+  <span class='fu'>midi_time</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+  <span class='fu'>midi_key</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+  <span class='fu'>midi_notes</span><span class='op'>(</span><span class='va'>x</span>, channel <span class='op'>=</span> <span class='fl'>0</span>, noteworthy <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-  (<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>midi_notes</span>(<span class='no'>x</span>, <span class='kw'>channel</span> <span class='kw'>=</span> <span class='fl'>0</span>))
-  (<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='music.html'>as_music</a></span>(<span class='no'>x</span>$<span class='no'>pitch</span>, <span class='no'>x</span>$<span class='no'>duration</span>))
+  <span class='op'>(</span><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'>midi_notes</span><span class='op'>(</span><span class='va'>x</span>, channel <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='op'>(</span><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='music.html'>as_music</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>$</span><span class='va'>pitch</span>, <span class='va'>x</span><span class='op'>$</span><span class='va'>duration</span><span class='op'>)</span><span class='op'>)</span>
 
   <span class='co'># requires LilyPond installation</span>
-  <span class='kw'>if</span>(<span class='fu'><a href='tabr_options.html'>tabr_options</a></span>()$<span class='no'>lilypond</span> <span class='kw'>!=</span> <span class='st'>""</span>){
-    <span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='st'>"out.pdf"</span>)
-    <span class='fu'><a href='phrase.html'>phrase</a></span>(<span class='no'>x</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='track.html'>track_bc</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='score.html'>score</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='tab.html'>tab</a></span>(<span class='no'>out</span>, <span class='kw'>details</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-  }
-}</div><div class='output co'>#&gt; <span class='message'>Loading required package: tuneR</span></div></pre>
+  <span class='kw'>if</span><span class='op'>(</span><span class='fu'><a href='tabr_options.html'>tabr_options</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='va'>lilypond</span> <span class='op'>!=</span> <span class='st'>""</span><span class='op'>)</span><span class='op'>{</span>
+    <span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"out.pdf"</span><span class='op'>)</span>
+    <span class='fu'><a href='phrase.html'>phrase</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='track.html'>track_bc</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='score.html'>score</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='tab.html'>tab</a></span><span class='op'>(</span><span class='va'>out</span>, details <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+  <span class='op'>}</span>
+<span class='op'>}</span>
+</div><div class='output co'>#&gt; <span class='message'>Loading required package: tuneR</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -307,7 +315,7 @@ file input at this time. It must be specified with <code>ticks_per_qtr</code></p
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

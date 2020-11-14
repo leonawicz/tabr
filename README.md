@@ -25,8 +25,6 @@ downloads](http://cranlogs.r-pkg.org/badges/grand-total/tabr)](https://cran.r-pr
 [![Github
 Stars](https://img.shields.io/github/stars/leonawicz/tabr.svg?style=social&label=Github)](https://github.com/leonawicz/tabr)
 
-[![Donate](https://img.shields.io/badge/Donate-Buy%20me%20a%20coffee-yellowgreen.svg)](https://ko-fi.com/leonawicz)
-
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/tabr_logo.png?raw=true" width=320 style="float:right;margin-left:10px;width:320px;">
 
 ## Overview
@@ -39,13 +37,24 @@ The music notation framework facilitates creating and analyzing music
 data in notation form; i.e, more from the perspective and in the
 language of a musician than, say, an audio engineer.
 
-<hr>
+## Citation
 
-*If you enjoy my R community contributions, consider* ***[buying me a
-coffee in Ko-fi](https://ko-fi.com/leonawicz)*** *so I can keep
-developing and maintaining this and other packages :)*
+Matthew Leonawicz (2020). tabr: Music Notation Syntax, Manipulation,
+Analysis and Transcription in R. R package version 0.4.3.
+<https://CRAN.R-project.org/package=tabr>
 
-<hr>
+## Contribute
+
+Contributions are welcome. Contribute through GitHub via pull request.
+Please create an issue first if it is regarding any substantive feature
+add or change.
+
+If you enjoy my open source R community contributions, please consider a
+donation :).
+
+  - [Buy me a coffee in Ko-fi](https://ko-fi.com/leonawicz)
+  - `leonawicz.crypto`
+  - `mfl$payid.crypto.com`
 
 ## Installation
 

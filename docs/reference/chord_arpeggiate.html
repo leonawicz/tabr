@@ -151,6 +151,9 @@
       <a href="../articles/tabr-engraving.html">Render scores</a>
     </li>
     <li>
+      <a href="../articles/tabr-snippets.html">Music snippets</a>
+    </li>
+    <li>
       <a href="../articles/tabr-chordchart.html">Render chord chart</a>
     </li>
     <li>
@@ -215,13 +218,13 @@
     <p>Create an arpeggio from a chord.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>chord_arpeggiate</span>(
-  <span class='no'>chord</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>by</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"note"</span>, <span class='st'>"chord"</span>),
-  <span class='kw'>broken</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>chord_arpeggiate</span><span class='op'>(</span>
+  <span class='va'>chord</span>,
+  n <span class='op'>=</span> <span class='fl'>0</span>,
+  by <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"note"</span>, <span class='st'>"chord"</span><span class='op'>)</span>,
+  broken <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  collapse <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -261,13 +264,17 @@ phrase construction.</p></td>
 <code>chord</code> is returned immediately; other arguments are ignored.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>chord_arpeggiate</span>(<span class='st'>"ce_gb_"</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt; <span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+    <pre class="examples"><div class='input'><span class='fu'>chord_arpeggiate</span><span class='op'>(</span><span class='st'>"ce_gb_"</span>, <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>vectorized time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>ce_gb_</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>e_gb_c</span><span style='color: #00BBBB;'>4</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>gb_c</span><span style='color: #00BBBB;'>4</span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>4</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>chord_arpeggiate</span>(<span class='st'>"ce_gb_"</span>, -<span class='fl'>2</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>ce_gb_</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>e_gb_c</span><span style='color: #00BBBB;'>4</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>gb_c</span><span style='color: #00BBBB;'>4</span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>4</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>chord_arpeggiate</span><span class='op'>(</span><span class='st'>"ce_gb_"</span>, <span class='op'>-</span><span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>vectorized time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>ce_gb_</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>2</span><span style='color: #00BBBB;font-weight: bold;'>ce_g</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>2</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>2</span><span style='color: #00BBBB;font-weight: bold;'>ce_</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>chord_arpeggiate</span>(<span class='st'>"ce_gb_"</span>, <span class='fl'>2</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"chord"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>ce_gb_</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>2</span><span style='color: #00BBBB;font-weight: bold;'>ce_g</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>2</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>2</span><span style='color: #00BBBB;font-weight: bold;'>ce_</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>chord_arpeggiate</span><span class='op'>(</span><span class='st'>"ce_gb_"</span>, <span class='fl'>2</span>, by <span class='op'>=</span> <span class='st'>"chord"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>vectorized time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>ce_gb_</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>4</span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>4</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>4</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>4</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>5</span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>5</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>5</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>5</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>chord_arpeggiate</span>(<span class='st'>"ce_gb_"</span>, <span class='fl'>1</span>, <span class='kw'>broken</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Values: </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>ce_gb_</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>4</span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>4</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>4</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>4</span><span style='color: #BBBB00;'>&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>5</span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>5</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>5</span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span style='color: #00BBBB;'>5</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>chord_arpeggiate</span><span class='op'>(</span><span class='st'>"ce_gb_"</span>, <span class='fl'>1</span>, broken <span class='op'>=</span> <span class='cn'>TRUE</span>, collapse <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>g</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>g</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>4</span><span></div></span></pre>
   </div>
@@ -285,7 +292,7 @@ phrase construction.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

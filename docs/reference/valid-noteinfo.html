@@ -154,6 +154,9 @@ entire set contains exclusively valid entries." />
       <a href="../articles/tabr-engraving.html">Render scores</a>
     </li>
     <li>
+      <a href="../articles/tabr-snippets.html">Music snippets</a>
+    </li>
+    <li>
       <a href="../articles/tabr-chordchart.html">Render chord chart</a>
     </li>
     <li>
@@ -221,11 +224,11 @@ syntax.
 entire set contains exclusively valid entries.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>informable</span>(<span class='no'>x</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>informable</span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>as_noteinfo</span>(<span class='no'>x</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>as_noteinfo</span><span class='op'>(</span><span class='va'>x</span>, format <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
-<span class='fu'>is_noteinfo</span>(<span class='no'>x</span>)</pre>
+<span class='fu'>is_noteinfo</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -266,14 +269,18 @@ the default is space-delimited time.</p>
     <div class='dont-index'><p><code><a href='noteinfo.html'>noteinfo</a></code>, <code><a href='valid-notes.html'>valid-notes</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='notate.html'>notate</a></span>(<span class='st'>"8x"</span>, <span class='st'>"Start here"</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='no'>a</span>, <span class='st'>"8[stacatto] 8-. 16 4.. 16- 16 2^ 2 4. 8( 4)( 4) 8*4 1 1"</span>)
+    <pre class="examples"><div class='input'><span class='va'>a</span> <span class='op'>&lt;-</span> <span class='fu'><a href='notate.html'>notate</a></span><span class='op'>(</span><span class='st'>"8x"</span>, <span class='st'>"Start here"</span><span class='op'>)</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>a</span>, <span class='st'>"8[stacatto] 8-. 16 4.. 16- 16 2^ 2 4. 8( 4)( 4) 8*4 1 1"</span><span class='op'>)</span>
 
-<span class='fu'>informable</span>(<span class='no'>x</span>) <span class='co'># is it of 'noteinfo' class; a validity check for any string</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as_noteinfo</span>(<span class='no'>x</span>) <span class='co'># coerce to 'noteinfo' class</span>
-<span class='fu'>is_noteinfo</span>(<span class='no'>x</span>) <span class='co'># check for 'noteinfo' class</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='no'>x</span></div><div class='output co'>#&gt; <span style='color: #555555;font-weight: bold;'>&lt;Note info string&gt;
+<span class='fu'>informable</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='co'># is it of 'noteinfo' class; a validity check for any string</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'>as_noteinfo</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='co'># coerce to 'noteinfo' class</span>
+<span class='fu'>is_noteinfo</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='co'># check for 'noteinfo' class</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='va'>x</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;font-weight: bold;'>&lt;Note info string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #BBBB00;'>x;^</span><span style='color: #555555;'>"Start_here" </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #BBBB00;'>[stacatto]</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #BBBB00;'>-.</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>16</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4..</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>16</span><span style='color: #BBBB00;'>-</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>16</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>2</span><span style='color: #BBBB00;'>^</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>2</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4.</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #BBBB00;'>(</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #BBBB00;'>)(</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #BBBB00;'>)</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>1</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>1</span><span></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Note info string&gt;
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Note info string&gt;
 #&gt;   Timesteps: </span><span>19</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #BBBB00;'>x;^</span><span style='color: #555555;'>"Start_here" </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #BBBB00;'>[stacatto]</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #BBBB00;'>-.</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>16</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4..</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>16</span><span style='color: #BBBB00;'>-</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>16</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>2</span><span style='color: #BBBB00;'>^</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>2</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4.</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #BBBB00;'>(</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #BBBB00;'>)(</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>4</span><span style='color: #BBBB00;'>)</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>8</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>1</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>1</span><span></div></span></pre>
@@ -292,7 +299,7 @@ the default is space-delimited time.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

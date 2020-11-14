@@ -152,6 +152,9 @@ file." />
       <a href="../articles/tabr-engraving.html">Render scores</a>
     </li>
     <li>
+      <a href="../articles/tabr-snippets.html">Music snippets</a>
+    </li>
+    <li>
       <a href="../articles/tabr-chordchart.html">Render chord chart</a>
     </li>
     <li>
@@ -217,17 +220,17 @@ file." />
 file.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>midily</span>(
-  <span class='no'>midi_file</span>,
-  <span class='no'>file</span>,
-  <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>,
-  <span class='kw'>absolute</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>quantize</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>explicit</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>start_quant</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>allow_tuplet</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"4*2/3"</span>, <span class='st'>"8*2/3"</span>, <span class='st'>"16*2/3"</span>),
-  <span class='kw'>lyric</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>midily</span><span class='op'>(</span>
+  <span class='va'>midi_file</span>,
+  <span class='va'>file</span>,
+  key <span class='op'>=</span> <span class='st'>"c"</span>,
+  absolute <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  quantize <span class='op'>=</span> <span class='cn'>NULL</span>,
+  explicit <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  start_quant <span class='op'>=</span> <span class='cn'>NULL</span>,
+  allow_tuplet <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"4*2/3"</span>, <span class='st'>"8*2/3"</span>, <span class='st'>"16*2/3"</span><span class='op'>)</span>,
+  lyric <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -314,13 +317,14 @@ be provided to <code>tabr_options</code> or added to the system PATH variable.</
     <div class='dont-index'><p><code><a href='miditab.html'>miditab</a></code>, <code><a href='tab.html'>tab</a></code>, <code><a href='lilypond.html'>lilypond</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='kw'>if</span>(<span class='fu'><a href='tabr_options.html'>tabr_options</a></span>()$<span class='no'>midi2ly</span> <span class='kw'>!=</span> <span class='st'>""</span>){
-  <span class='no'>midi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"example.mid"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"tabr"</span>)
-  <span class='no'>outfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='st'>"out.ly"</span>)
-  <span class='fu'>midily</span>(<span class='no'>midi</span>, <span class='no'>outfile</span>) <span class='co'># requires LilyPond installation</span>
-}
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='kw'>if</span><span class='op'>(</span><span class='fu'><a href='tabr_options.html'>tabr_options</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='va'>midi2ly</span> <span class='op'>!=</span> <span class='st'>""</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='va'>midi</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"example.mid"</span>, package <span class='op'>=</span> <span class='st'>"tabr"</span><span class='op'>)</span>
+  <span class='va'>outfile</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"out.ly"</span><span class='op'>)</span>
+  <span class='fu'>midily</span><span class='op'>(</span><span class='va'>midi</span>, <span class='va'>outfile</span><span class='op'>)</span> <span class='co'># requires LilyPond installation</span>
+<span class='op'>}</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -336,7 +340,7 @@ be provided to <code>tabr_options</code> or added to the system PATH variable.</
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -151,6 +151,9 @@
       <a href="../articles/tabr-engraving.html">Render scores</a>
     </li>
     <li>
+      <a href="../articles/tabr-snippets.html">Music snippets</a>
+    </li>
+    <li>
       <a href="../articles/tabr-chordchart.html">Render chord chart</a>
     </li>
     <li>
@@ -215,32 +218,32 @@
     <p>Helper functions for working with musical modes.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>modes</span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"all"</span>, <span class='st'>"major"</span>, <span class='st'>"minor"</span>))
+    <pre class="usage"><span class='fu'>modes</span><span class='op'>(</span>mode <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"all"</span>, <span class='st'>"major"</span>, <span class='st'>"minor"</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>is_mode</span>(<span class='no'>notes</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>is_mode</span><span class='op'>(</span><span class='va'>notes</span>, ignore_octave <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>mode_rotate</span>(<span class='no'>notes</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>mode_rotate</span><span class='op'>(</span><span class='va'>notes</span>, n <span class='op'>=</span> <span class='fl'>0</span>, ignore_octave <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>mode_modern</span>(
-  <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"ionian"</span>,
-  <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>,
-  <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)
+<span class='fu'>mode_modern</span><span class='op'>(</span>
+  mode <span class='op'>=</span> <span class='st'>"ionian"</span>,
+  key <span class='op'>=</span> <span class='st'>"c"</span>,
+  collapse <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  ignore_octave <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
 
-<span class='fu'>mode_ionian</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>mode_ionian</span><span class='op'>(</span>key <span class='op'>=</span> <span class='st'>"c"</span>, collapse <span class='op'>=</span> <span class='cn'>FALSE</span>, ignore_octave <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>mode_dorian</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>mode_dorian</span><span class='op'>(</span>key <span class='op'>=</span> <span class='st'>"c"</span>, collapse <span class='op'>=</span> <span class='cn'>FALSE</span>, ignore_octave <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>mode_phrygian</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>mode_phrygian</span><span class='op'>(</span>key <span class='op'>=</span> <span class='st'>"c"</span>, collapse <span class='op'>=</span> <span class='cn'>FALSE</span>, ignore_octave <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>mode_lydian</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>mode_lydian</span><span class='op'>(</span>key <span class='op'>=</span> <span class='st'>"c"</span>, collapse <span class='op'>=</span> <span class='cn'>FALSE</span>, ignore_octave <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>mode_mixolydian</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>mode_mixolydian</span><span class='op'>(</span>key <span class='op'>=</span> <span class='st'>"c"</span>, collapse <span class='op'>=</span> <span class='cn'>FALSE</span>, ignore_octave <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>mode_aeolian</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>mode_aeolian</span><span class='op'>(</span>key <span class='op'>=</span> <span class='st'>"c"</span>, collapse <span class='op'>=</span> <span class='cn'>FALSE</span>, ignore_octave <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>mode_locrian</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>mode_locrian</span><span class='op'>(</span>key <span class='op'>=</span> <span class='st'>"c"</span>, collapse <span class='op'>=</span> <span class='cn'>FALSE</span>, ignore_octave <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -291,20 +294,27 @@ Modes can be rotated with <code>mode_rotate</code>, a wrapper around
     <div class='dont-index'><p><code><a href='keys.html'>keys</a></code>, <code><a href='scale-helpers.html'>scale-helpers</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>modes</span>()</div><div class='output co'>#&gt; [1] "ionian"     "dorian"     "phrygian"   "lydian"     "mixolydian"
-#&gt; [6] "aeolian"    "locrian"   </div><div class='input'><span class='fu'>mode_dorian</span>(<span class='st'>"c"</span>)</div><div class='output co'>#&gt; <span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+    <pre class="examples"><div class='input'><span class='fu'>modes</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "ionian"     "dorian"     "phrygian"   "lydian"     "mixolydian"
+#&gt; [6] "aeolian"    "locrian"   </div><div class='input'><span class='fu'>mode_dorian</span><span class='op'>(</span><span class='st'>"c"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>vectorized time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>d</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>f</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>g</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span></div><div class='input'><span class='fu'>mode_modern</span>(<span class='st'>"dorian"</span>, <span class='st'>"c"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>d</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>f</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>g</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span></div><div class='input'><span class='fu'>mode_modern</span><span class='op'>(</span><span class='st'>"dorian"</span>, <span class='st'>"c"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>vectorized time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>d</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>f</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>g</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span></div><div class='input'><span class='fu'>mode_modern</span>(<span class='st'>"dorian"</span>, <span class='st'>"c"</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>d</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>f</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>g</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span></div><div class='input'><span class='fu'>mode_modern</span><span class='op'>(</span><span class='st'>"dorian"</span>, <span class='st'>"c"</span>, ignore_octave <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
 #&gt;   Format: </span><span>vectorized time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>d</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>f</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>g</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='fu'>mode_rotate</span>(<span class='fu'>mode_ionian</span>(<span class='st'>"c"</span>), <span class='fl'>1</span>), <span class='fu'>mode_dorian</span>(<span class='st'>"d"</span>))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(
-  <span class='fu'>mode_rotate</span>(<span class='fu'>mode_ionian</span>(<span class='st'>"c"</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='fl'>1</span>),
-  <span class='fu'>mode_dorian</span>(<span class='st'>"d"</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='fu'>modes</span>(), <span class='no'>mode_modern</span>, <span class='kw'>ignore_octave</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='fu'><a href='https://rdrr.io/r/stats/setNames.html'>setNames</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span>(<span class='no'>x</span>)), <span class='fu'><a href='https://rdrr.io/r/utils/roman.html'>as.roman</a></span>(<span class='fl'>1</span>:<span class='fl'>7</span>))</div><div class='output co'>#&gt;            I II III IV  V VI VII
+<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='fu'>mode_rotate</span><span class='op'>(</span><span class='fu'>mode_ionian</span><span class='op'>(</span><span class='st'>"c"</span><span class='op'>)</span>, <span class='fl'>1</span><span class='op'>)</span>, <span class='fu'>mode_dorian</span><span class='op'>(</span><span class='st'>"d"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span>
+  <span class='fu'>mode_rotate</span><span class='op'>(</span><span class='fu'>mode_ionian</span><span class='op'>(</span><span class='st'>"c"</span>, ignore_octave <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, <span class='fl'>1</span><span class='op'>)</span>,
+  <span class='fu'>mode_dorian</span><span class='op'>(</span><span class='st'>"d"</span>, ignore_octave <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='fu'>modes</span><span class='op'>(</span><span class='op'>)</span>, <span class='va'>mode_modern</span>, ignore_octave <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/setNames.html'>setNames</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/utils/roman.html'>as.roman</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>7</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;            I II III IV  V VI VII
 #&gt; ionian     c  d   e  f  g  a   b
 #&gt; dorian     c  d  e_  f  g  a  b_
 #&gt; phrygian   c d_  e_  f  g a_  b_
@@ -327,7 +337,7 @@ Modes can be rotated with <code>mode_rotate</code>, a wrapper around
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

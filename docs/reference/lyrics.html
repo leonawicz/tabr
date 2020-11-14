@@ -151,6 +151,9 @@
       <a href="../articles/tabr-engraving.html">Render scores</a>
     </li>
     <li>
+      <a href="../articles/tabr-snippets.html">Music snippets</a>
+    </li>
+    <li>
       <a href="../articles/tabr-chordchart.html">Render chord chart</a>
     </li>
     <li>
@@ -215,13 +218,13 @@
     <p>Functions for creating and checking lyrics objects.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>lyrical</span>(<span class='no'>x</span>)
+    <pre class="usage"><span class='fu'>lyrical</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>as_lyrics</span>(<span class='no'>x</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>as_lyrics</span><span class='op'>(</span><span class='va'>x</span>, format <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
-<span class='fu'>is_lyrics</span>(<span class='no'>x</span>)
+<span class='fu'>is_lyrics</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>lyrics_template</span>(<span class='no'>x</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+<span class='fu'>lyrics_template</span><span class='op'>(</span><span class='va'>x</span>, format <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -258,32 +261,40 @@ the lyrical string input.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># space-delimited lyrics; use periods for timesteps with no lyric</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"These are the ly- rics . . . to this song"</span>
-<span class='fu'>is_lyrics</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>lyrical</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>as_lyrics</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span style='color: #555555;font-weight: bold;'>&lt;Lyrics string&gt;
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='st'>"These are the ly- rics . . . to this song"</span>
+<span class='fu'>is_lyrics</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>lyrical</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>as_lyrics</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;font-weight: bold;'>&lt;Lyrics string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>These</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>are</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>the</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>ly-</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>rics</span><span style='color: #555555;'> </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span style='color: #555555;'> </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span style='color: #555555;'> </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>to</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>this</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>song</span><span></div><div class='input'>
 <span class='co'># character vector; empty, period or NA for no lyric</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"These"</span>, <span class='st'>"are"</span>, <span class='st'>"the"</span>, <span class='st'>"ly-"</span>, <span class='st'>"rics"</span>,
-       <span class='st'>""</span>, <span class='st'>"."</span>, <span class='fl'>NA</span>, <span class='st'>"to"</span>, <span class='st'>"this"</span>, <span class='st'>"song"</span>) <span class='co'>#</span>
-<span class='fu'>as_lyrics</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Lyrics string&gt;
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"These"</span>, <span class='st'>"are"</span>, <span class='st'>"the"</span>, <span class='st'>"ly-"</span>, <span class='st'>"rics"</span>,
+       <span class='st'>""</span>, <span class='st'>"."</span>, <span class='cn'>NA</span>, <span class='st'>"to"</span>, <span class='st'>"this"</span>, <span class='st'>"song"</span><span class='op'>)</span> <span class='co'>#</span>
+<span class='fu'>as_lyrics</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Lyrics string&gt;
 #&gt;   Format: </span><span>vectorized time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>These</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>are</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>the</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>ly-</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>rics</span><span style='color: #555555;'> </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span style='color: #555555;'> </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span style='color: #555555;'> </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>to</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>this</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>song</span><span></div><div class='input'>
 <span class='co'># generate empty lyrics object from noteworthy, noteinfo or music object</span>
-<span class='no'>notes</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='valid-notes.html'>as_noteworthy</a></span>(<span class='st'>"c d e d c r*3 e g c'"</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>lyrics_template</span>(<span class='no'>notes</span>)
-<span class='no'>x</span></div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Lyrics string&gt;
+<span class='va'>notes</span> <span class='op'>&lt;-</span> <span class='fu'><a href='valid-notes.html'>as_noteworthy</a></span><span class='op'>(</span><span class='st'>"c d e d c r*3 e g c'"</span><span class='op'>)</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'>lyrics_template</span><span class='op'>(</span><span class='va'>notes</span><span class='op'>)</span>
+<span class='va'>x</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Lyrics string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span style='color: #555555;'> </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span style='color: #555555;'> </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span style='color: #555555;'> </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span style='color: #555555;'> </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span style='color: #555555;'> </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span style='color: #555555;'> </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span style='color: #555555;'> </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span style='color: #555555;'> </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span style='color: #555555;'> </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span style='color: #555555;'> </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span></div><div class='input'>
-<span class='no'>x</span>[<span class='fl'>1</span>:<span class='fl'>5</span>] <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/strsplit.html'>strsplit</a></span>(<span class='st'>"These are the ly- rics"</span>, <span class='st'>" "</span>)<span class='kw'>[[</span><span class='fl'>1</span>]]
-<span class='no'>x</span>[<span class='fl'>9</span>:<span class='fl'>11</span>] <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"to"</span>, <span class='st'>"this"</span>, <span class='st'>"song"</span>)
-<span class='no'>x</span></div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Lyrics string&gt;
+<span class='va'>x</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/strsplit.html'>strsplit</a></span><span class='op'>(</span><span class='st'>"These are the ly- rics"</span>, <span class='st'>" "</span><span class='op'>)</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>
+<span class='va'>x</span><span class='op'>[</span><span class='fl'>9</span><span class='op'>:</span><span class='fl'>11</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"to"</span>, <span class='st'>"this"</span>, <span class='st'>"song"</span><span class='op'>)</span>
+<span class='va'>x</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Lyrics string&gt;
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>These</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>are</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>the</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>ly-</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>rics</span><span style='color: #555555;'> </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span style='color: #555555;'> </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span style='color: #555555;'> </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>to</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>this</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>song</span><span></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Lyrics string&gt;
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Lyrics string&gt;
 #&gt;   Timesteps: </span><span>11 (8 lyrics, 3 pauses)</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
 #&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>These</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>are</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>the</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>ly-</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>rics</span><span style='color: #555555;'> </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span style='color: #555555;'> </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span style='color: #555555;'> </span><span style='color: #BBBB00;font-weight: bold;'>.</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>to</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>this</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>song</span><span></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/attributes.html'>attributes</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; $steps
+<span class='fu'><a href='https://rdrr.io/r/base/attributes.html'>attributes</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $steps
 #&gt; [1] 11
 #&gt; 
 #&gt; $n_lyric
@@ -313,7 +324,7 @@ the lyrical string input.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
