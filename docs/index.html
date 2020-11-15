@@ -182,7 +182,7 @@
 <a href="#tabr-" class="anchor"></a>tabr <img src="reference/figures/logo.png" style="margin-left:10px;margin-bottom:5px;" width="120" align="right">
 </h1></div>
 <p><strong>Author:</strong> <a href="https://github.com/leonawicz">Matthew Leonawicz</a> <a href="https://orcid.org/0000-0001-9452-2771" target="orcid.widget"> <image class="orcid" src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" height="16"></image></a> <br><strong>License:</strong> <a href="https://opensource.org/licenses/MIT">MIT</a><br></p>
-<p><a href="http://www.repostatus.org/#active"><img src="http://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active – The project has reached a stable, usable state and is being actively developed."></a> <a href="https://travis-ci.org/leonawicz/tabr"><img src="https://travis-ci.org/leonawicz/tabr.svg?branch=master" alt="Travis-CI Build Status"></a> <a href="https://ci.appveyor.com/project/leonawicz/tabr"><img src="https://ci.appveyor.com/api/projects/status/github/leonawicz/tabr?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a> <a href="https://codecov.io/github/leonawicz/tabr?branch=master"><img src="https://img.shields.io/codecov/c/github/leonawicz/tabr/master.svg" alt="Coverage Status"></a></p>
+<p><a href="https://www.repostatus.org/"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active – The project has reached a stable, usable state and is being actively developed."></a> <a href="https://travis-ci.org/leonawicz/tabr"><img src="https://travis-ci.org/leonawicz/tabr.svg?branch=master" alt="Travis-CI Build Status"></a> <a href="https://ci.appveyor.com/project/leonawicz/tabr"><img src="https://ci.appveyor.com/api/projects/status/github/leonawicz/tabr?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a> <a href="https://codecov.io/github/leonawicz/tabr?branch=master"><img src="https://img.shields.io/codecov/c/github/leonawicz/tabr/master.svg" alt="Coverage Status"></a></p>
 <p><a href="https://cran.r-project.org/package=tabr"><img src="http://www.r-pkg.org/badges/version/tabr" alt="CRAN status"></a> <a href="https://cran.r-project.org/package=tabr"><img src="http://cranlogs.r-pkg.org/badges/grand-total/tabr" alt="CRAN downloads"></a> <a href="https://github.com/leonawicz/tabr"><img src="https://img.shields.io/github/stars/leonawicz/tabr.svg?style=social&amp;label=Github" alt="Github Stars"></a></p>
 <p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/tabr_logo.png?raw=true" width="320" style="float:right;margin-left:10px;width:320px;"></p>
 <div id="overview" class="section level2">
@@ -218,6 +218,13 @@
 <span class="co"># install.packages("remotes")</span>
 <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"leonawicz/tabr"</span><span class="op">)</span></pre></div>
 </div>
+<div id="motivating-example" class="section level2">
+<h2 class="hasAnchor">
+<a href="#motivating-example" class="anchor"></a>Motivating example</h2>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="fu"><a href="reference/music.html">as_music</a></span><span class="op">(</span><span class="st">"r8 c d e f g a b c'1"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="reference/plot_music.html">plot_music_guitar</a></span><span class="op">(</span><span class="op">)</span></pre></div>
+<p><img src="reference/figures/README-plot_music-1.png" width="50%" style="display: block; margin: auto;"></p>
+</div>
 <div id="music-data-structures" class="section level2">
 <h2 class="hasAnchor">
 <a href="#music-data-structures" class="anchor"></a>Music data structures</h2>
@@ -225,7 +232,7 @@
 <p>Music data can be viewed, manipulated and analyzed while in different forms of representation based around different data structures: strings and data frames. Each representation offers advantages over the other for different use cases.</p>
 <p>Music syntax can be entered directly and represented in character strings to minimize the formatting overhead of data entry by using simple data structures, for example when wanting to quickly enter and transcribe short pieces of music syntax in R into sheet music or tablature files. You can also enter sound and time together with the <code>music</code> class, and no need to repeat consecutive durations until a change.</p>
 <p>Here is an example of making a string of pitches <em>noteworthy</em> and a string of combined pitch and duration into a music object. Such objects carry various musical information based on the syntax of an input string.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
+<div class="sourceCode" id="cb4"><pre class="downlit">
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/leonawicz/tabr">tabr</a></span><span class="op">)</span>
 
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"a, c e g# a ac'e' ac'e'~ ac'e' a c' e' a'"</span>
@@ -282,7 +289,7 @@
 <p>Functions exist for directly performing various mathematical, logical and organizational operations and musical transformations on strings like the one above by checking their music syntax validity and adding custom classes and methods to these strings (more on this below). <code>tabr</code> offers special object classes that facilitate working with music data and notation in ways that are natural to R, robust, tidy, and lend themselves well to transcription as well as analysis.</p>
 <p>Of course, none of this will work on character strings that are not “noteworthy” or “musical”, for example. Invalid, unworthy syntax is rejected early with an error, preventing corrupted music syntax from causing unexpected issues later on.</p>
 <p>The same music data can also be organized in tidy data frames, allowing for a more familiar and powerful approach to the analysis of large amounts of structured music data.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
+<div class="sourceCode" id="cb5"><pre class="downlit">
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"a,8 c e r r c a, g#, a ac'e'"</span>
 <span class="fu"><a href="reference/music.html">as_music</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="reference/as_music_df.html">as_music_df</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 10 x 14</span>
@@ -309,7 +316,7 @@
 <h3 class="hasAnchor">
 <a href="#a-bit-about-basic-syntax" class="anchor"></a>A bit about basic syntax</h3>
 <p>A simple character string like <code>"c e g"</code>, or alternatively as a vector, <code><a href="https://rdrr.io/r/base/c.html">c("c", "e", "g")</a></code>, is a noteworthy string. The single lowercase letter <code>"a"</code> is noteworthy. So are <code>"a_"</code> and <code>"a#"</code> (flat and sharp). However, <code>"A"</code> is not (case sensitivity), nor is <code>"z"</code>. Of course, as seen above, there is more valid syntax than just the lowercase musical note letters <code>a</code> through <code>g</code> and sharp and flat notation.</p>
-<p>An important piece of syntax is the octave. In conjunction with a note, specifying a unique pitch requires the octave number, either in tick format (recommended; comma and single quote, e.g., <code>c,</code> or <code>c'</code>) or integer format (not recommended, more limited utility, e.g. <code>c2</code> or <code>c4</code>). Octave 3 is the implicit default; there is no tick and explicitly stating <code>c3</code> is equivalent to <code>c</code>.</p>
+<p>An important piece of syntax is the octave. In conjunction with a note, specifying a unique pitch requires the octave number, either in tick format (recommended; comma and single quote, e.g., <code>c,</code> or <code>c'</code>) or integer format (not recommended, more limited utility, e.g., <code>c2</code> or <code>c4</code>). Octave 3 is the implicit default; there is no tick and explicitly stating <code>c3</code> is equivalent to <code>c</code>.</p>
 <p>For all available syntax specifications and related details see the package vignettes.</p>
 </div>
 <div id="the-noteworthy-class" class="section level3">
@@ -317,7 +324,7 @@
 <a href="#the-noteworthy-class" class="anchor"></a>The noteworthy class</h3>
 <p>Noteworthiness can be checked on any character string. When defining noteworthy strings you can define them like any other character vector. However, you will notice that package functions that operate on noteworthy strings and whose output is another noteworthy string will yield a string with the supplemental <code>noteworthy</code> class. This has its own print and summary methods.</p>
 <p>Several other generic methods are also implemented for the noteworthy class, making it easy to perform simple but powerful operations on these objects in a familiar way. While many functions will attempt to coerce a string to <code>noteworthy</code>, not all will and some methods are implemented specifically for the class.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
+<div class="sourceCode" id="cb6"><pre class="downlit">
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"g#, c d# g#c'd#'"</span>
 <span class="fu"><a href="reference/valid-notes.html">as_noteworthy</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="co">#&gt; &lt;Noteworthy string&gt;</span>
@@ -364,12 +371,12 @@
 <a href="#tidy-music-analysis" class="anchor"></a>Tidy music analysis</h2>
 <p>Ideally music data already exists in a data frame format. But if it doesn’t, or if you just wrote out a new note sequence like below, getting this data into a data frame for a more tidy approach to analysis is easy. Conversion can also populate several derivative variables in the process.</p>
 <p>In the earlier example you saw the result of calling <code>as_music_df</code> on a noteworthy string.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
+<div class="sourceCode" id="cb7"><pre class="downlit">
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"a, c e r r c a, g#, a ac'e'"</span>
 <span class="fu"><a href="reference/as_music_df.html">as_music_df</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></pre></div>
 <p>You may have noticed that rests (<code>r</code>) are allowed for timesteps and that functions that compute lagged intervals respect these gaps. Since <code>as_music_df</code> was only provided with a string of pitches, there are no explicit time variables in the data frame. However, discrete timesteps still exist and they do not have to contain notes.</p>
 <p>There are a number of derivative columns. If you are working with a large sequence of music, there is no need to carry all of these variables along through your analysis if you do not need them. They can be created using various package functions and you can build onto your data frame and transform variables later with a function like <code>mutate</code> from <code>dplyr</code>.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
+<div class="sourceCode" id="cb8"><pre class="downlit">
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"a, c e r r c a, g#, a ac'e'"</span>
 <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>pitch <span class="op">=</span> <span class="fu"><a href="reference/note-coerce.html">as_vector_time</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
@@ -388,7 +395,7 @@
 <span class="co">#&gt;  9 a          m9       </span>
 <span class="co">#&gt; 10 ac'e'      P1</span></pre></div>
 <p>In fact, it’s much more powerful to create the columns according to your needs using specific functions and their various arguments. But <code>as_music_df</code> is convenient and also offers some additional arguments. Adding <code>key</code> and <code>scale</code> allows for scale degrees. <code>scale</code> is diatonic by default but does not have to be.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
+<div class="sourceCode" id="cb9"><pre class="downlit">
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"g g#"</span>
 <span class="fu"><a href="reference/as_music_df.html">as_music_df</a></span><span class="op">(</span><span class="va">x</span>, key <span class="op">=</span> <span class="st">"am"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">pitch</span>, <span class="va">key</span>, <span class="va">scale</span>, <span class="va">scale_deg</span><span class="op">)</span>
@@ -438,6 +445,7 @@
 <p>The <code>tabr</code> package offers the following for transcription:</p>
 <ul>
 <li>Render guitar tablature and sheet music to pdf or png.</li>
+<li>Create and insert sheet music snippets directly into R Markdown documents.</li>
 <li>Write accompanying MIDI files that can respect repeat notation and transposition in the sheet music (under reasonable conditions).</li>
 <li>Support tablature for other string instruments besides guitar such as bass or banjo.</li>
 <li>Support for instruments with different numbers of strings.</li>
@@ -475,59 +483,63 @@
 <div id="constructing-a-musical-phrase" class="section level3">
 <h3 class="hasAnchor">
 <a href="#constructing-a-musical-phrase" class="anchor"></a>Constructing a musical phrase</h3>
-<p>A phrase here does not require a strict definition. Think of it as the smallest piece of musical structure you intend to string together. The first argument to <code>phrase</code> is a string describing notes of a specific pitch (or rests: “r”), separated in time by spaces. For chords, just remove spaces to indicate simultaneous notes. Integers are appended to indicate the octave number so that the pitch is unambiguous. For example, a rest followed by a sequence of notes might be given by <code>notes = "r a, c f d a f"</code>.</p>
-<p>The second argument is a similar string giving note metadata. In this example there is nothing to add but the time durations. Whole notes taking up an entire measure of music are given by 1, half notes by 2, quarter notes 4, eighth notes 8, and so on. To specify a quarter note rest followed by a sequence of eighth notes, use <code>info = "4 8 8 8 8 8 8"</code> (or shorten to just <code>info = "4 8*6"</code>). This basic example does not require specifying additional note information such as dotted notes for different fractions of time, staccato notes, ties/slurs, slides, bends, hammer ons and pull offs, etc. These specifications are covered in the vignette tutorials.</p>
-<p>The third argument, <code>string</code> only applies to fretted string instruments and is always optional. In this example it specifies the strings of a guitar. Providing this information in conjunction with the pitch fixes the frets so that LilyPond does not have to guess them. This only applies for tablature output. Note that the <code>x</code> shown below is just a placeholder indicating no need to specify a string for the quarter note rest. You can put a string number there but it is ignored.</p>
-<p>Explicit string numbers are not needed for this example since is uses lowest fret numbers (the default). They are provided for a more complete example.</p>
-<p>This is the general approach, but there are multiple ways to create equivalent phrase objects in <code>tabr</code>.</p>
+<p>The term phrase here simply means any arbitrary piece of musical structure you string together. <code>phrase</code> takes three main arguments when building a phrase from its component parts. The first gives pitches (or rests) separated in time by spaces. For chords, remove spaces to indicate simultaneous notes. For example, a rest followed by a sequence of pitches might be <code>notes = "r a, c f d a f"</code>.</p>
+<p><code>info</code> is note metadata such as duration. Whole notes are given by 1, half notes by 2, quarter notes 4, and so on, e.g., <code>info = "4 8 8 8 8 8 8"</code> (or shorten to <code>info = "4 8*6"</code>). This example does not require additional information such as dotted notes, staccato notes, ties/slurs, slides, bends, hammer ons and pull offs, etc.</p>
+<p>The third argument, <code>string</code> only applies to fretted string instruments and is always optional. Providing this information in conjunction with the pitch fixes the frets so that LilyPond does not have to guess them. This only applies for tablature output. Explicit string numbers are not needed for this example since lowest fret numbers (Lilypond default) are intended.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit">
+<span class="fu"><a href="reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"r a, c f d a f"</span>, <span class="st">"4 8*6"</span><span class="op">)</span>
+<span class="co">#&gt; &lt;Musical phrase&gt;</span>
+<span class="co">#&gt; r4 &lt;a,&gt;8 &lt;c&gt;8 &lt;f&gt;8 &lt;d&gt;8 &lt;a&gt;8 &lt;f&gt;8</span></pre></div>
+<p>Building a phrase from component parts may be necessary in some programmatic contexts. However, when doing manual data entry for simple, interactive examples, the music class offers a higher level of abstraction, sparing you some typing as well as cognitive load.</p>
+</div>
+<div id="music-syntax" class="section level3">
+<h3 class="hasAnchor">
+<a href="#music-syntax" class="anchor"></a>Music syntax</h3>
+<p>As an aside, if you are working with the <code>music</code> class, you can enter notes, note info, and optionally string numbers if applicable, all in one string. This is more efficient for data entry. It can also be easier to follow because it binds the otherwise separate arguments by timestep. See the vignettes and help documentation on music objects for more details.</p>
+<p>If you define the music object</p>
+<div class="sourceCode" id="cb11"><pre class="downlit">
+<span class="fu"><a href="reference/music.html">as_music</a></span><span class="op">(</span><span class="st">"r4 a,8 c f d a f"</span><span class="op">)</span>
+<span class="co">#&gt; &lt;Music string&gt;</span>
+<span class="co">#&gt;   Format: space-delimited time</span>
+<span class="co">#&gt;   Values: r4 a,8 c8 f8 d8 a8 f8</span></pre></div>
+<p>it can be passed directly to <code>phrase</code>, which understands this syntax and interprets the <code>notes</code> argument as music syntax if the <code>info</code> argument is not provided (<code>info = NULL</code>). In fact, the music object does not even need to be previously defined. The string format can be directly provided to <code>phrase</code>.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit">
+<span class="op">(</span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"r4 a,8 c f d a f"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; &lt;Musical phrase&gt;</span>
+<span class="co">#&gt; r4 &lt;a,&gt;8 &lt;c&gt;8 &lt;f&gt;8 &lt;d&gt;8 &lt;a&gt;8 &lt;f&gt;8</span></pre></div>
+<p>Notice how each timestep is complete within the single character string above. Also, durations (and string numbers) can repeat implicitly until an explicit change occurs.</p>
 </div>
 <div id="score-metadata-and-accessing-lilypond" class="section level3">
 <h3 class="hasAnchor">
 <a href="#score-metadata-and-accessing-lilypond" class="anchor"></a>Score metadata and accessing LilyPond</h3>
-<p>Finally, specify some song metadata to reproduce the original staff: the key of D minor, common time, and the tempo.</p>
-<p>If LilyPond is installed on your system (and added to your system path variable on Windows systems), <code>tab</code> should call it successfully. Windows users are recommended to just add LilyPond’s <code>bin</code> directory to the system path. This will take care of LilyPond as well as its bundled Python and MIDI support. As an example for Windows users, if the LilyPond executable is at <code>C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe</code>, then add <code>C:/Program Files (x86)/LilyPond/usr/bin</code> to the system path.</p>
+<p>Finally, specify some score metadata: the key signature, time signature and tempo.</p>
+<p>If LilyPond is installed on your system (and added to your system path variable on Windows systems), <code>tab</code> or any of <code>render_*</code> functions should call it successfully. Windows users are recommended to just add LilyPond’s <code>bin</code> directory to the system path. This will take care of LilyPond as well as its bundled Python and MIDI support. As an example for Windows users, if the LilyPond executable is at <code>C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe</code>, then add <code>C:/Program Files (x86)/LilyPond/usr/bin</code> to the system path.</p>
 </div>
 <div id="minimal-r-code-example" class="section level3">
 <h3 class="hasAnchor">
 <a href="#minimal-r-code-example" class="anchor"></a>Minimal R code example</h3>
-<div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/leonawicz/tabr">tabr</a></span><span class="op">)</span>
-
-<span class="fu"><a href="reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"r a, c f d a f"</span>, <span class="st">"4 8*6"</span>, <span class="st">"x 5 5 4 4 3 4"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">track</span> <span class="op">%&gt;%</span> <span class="va">score</span> <span class="op">%&gt;%</span>
+<div class="sourceCode" id="cb13"><pre class="downlit">
+<span class="va">p1</span> <span class="op">%&gt;%</span> <span class="fu"><a href="reference/track.html">track</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="reference/score.html">score</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"phrase.pdf"</span>, key <span class="op">=</span> <span class="st">"dm"</span>, time <span class="op">=</span> <span class="st">"4/4"</span>, tempo <span class="op">=</span> <span class="st">"4 = 120"</span><span class="op">)</span></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co">#&gt; #### Engraving score to phrase.pdf ####</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="co">#&gt; GNU LilyPond 2.18.2</span></span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="co">#&gt; Processing `./phrase.ly'</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a><span class="co">#&gt; Parsing...</span></span>
-<span id="cb10-5"><a href="#cb10-5"></a><span class="co">#&gt; Interpreting music...</span></span>
-<span id="cb10-6"><a href="#cb10-6"></a><span class="co">#&gt; Preprocessing graphical objects...</span></span>
-<span id="cb10-7"><a href="#cb10-7"></a><span class="co">#&gt; Interpreting music...</span></span>
-<span id="cb10-8"><a href="#cb10-8"></a><span class="co">#&gt; MIDI output to `./phrase.mid'...</span></span>
-<span id="cb10-9"><a href="#cb10-9"></a><span class="co">#&gt; Finding the ideal number of pages...</span></span>
-<span id="cb10-10"><a href="#cb10-10"></a><span class="co">#&gt; Fitting music on 1 page...</span></span>
-<span id="cb10-11"><a href="#cb10-11"></a><span class="co">#&gt; Drawing systems...</span></span>
-<span id="cb10-12"><a href="#cb10-12"></a><span class="co">#&gt; Layout output to `./phrase.ps'...</span></span>
-<span id="cb10-13"><a href="#cb10-13"></a><span class="co">#&gt; Converting to `./phrase.pdf'...</span></span>
-<span id="cb10-14"><a href="#cb10-14"></a><span class="co">#&gt; Success: compilation successfully completed</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co">#&gt; #### Engraving score to phrase.pdf ####</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="co">#&gt; GNU LilyPond 2.18.2</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="co">#&gt; Processing `./phrase.ly'</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="co">#&gt; Parsing...</span></span>
+<span id="cb14-5"><a href="#cb14-5"></a><span class="co">#&gt; Interpreting music...</span></span>
+<span id="cb14-6"><a href="#cb14-6"></a><span class="co">#&gt; Preprocessing graphical objects...</span></span>
+<span id="cb14-7"><a href="#cb14-7"></a><span class="co">#&gt; Interpreting music...</span></span>
+<span id="cb14-8"><a href="#cb14-8"></a><span class="co">#&gt; MIDI output to `./phrase.mid'...</span></span>
+<span id="cb14-9"><a href="#cb14-9"></a><span class="co">#&gt; Finding the ideal number of pages...</span></span>
+<span id="cb14-10"><a href="#cb14-10"></a><span class="co">#&gt; Fitting music on 1 page...</span></span>
+<span id="cb14-11"><a href="#cb14-11"></a><span class="co">#&gt; Drawing systems...</span></span>
+<span id="cb14-12"><a href="#cb14-12"></a><span class="co">#&gt; Layout output to `./phrase.ps'...</span></span>
+<span id="cb14-13"><a href="#cb14-13"></a><span class="co">#&gt; Converting to `./phrase.pdf'...</span></span>
+<span id="cb14-14"><a href="#cb14-14"></a><span class="co">#&gt; Success: compilation successfully completed</span></span></code></pre></div>
 <p>The pdf output looks like this:</p>
 <p>
 </p>
 <p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex00.png?raw=true" class="centerimg" width="50%"></p>
 
-</div>
-<div id="music-syntax" class="section level3">
-<h3 class="hasAnchor">
-<a href="#music-syntax" class="anchor"></a>Music syntax</h3>
-<p>As an aside, if you are working with the <code>music</code> class, you can enter notes, note info, and optionally string numbers if applicable, all in a single string. This is not only potentially much more efficient for data entry, but can also be easier to follow because it binds these otherwise separate arguments by timestep. See the vignettes and help documentation relating to music objects for more details on working with these objects.</p>
-<p>The phrase above can be constructed using the single-string input syntax that is used for music objects. <code>phrase</code> understands this syntax and interprets the <code>notes</code> argument as music syntax if the <code>info</code> argument is not provided (<code>info = NULL</code>). The phrase above could have been created as follows, with or without the optional explicit string numbering.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="fu"><a href="reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"r4 a,8 c f d a f"</span><span class="op">)</span>
-<span class="co">#&gt; &lt;Musical phrase&gt;</span>
-<span class="co">#&gt; r4 &lt;a,&gt;8 &lt;c&gt;8 &lt;f&gt;8 &lt;d&gt;8 &lt;a&gt;8 &lt;f&gt;8</span>
-<span class="fu"><a href="reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"r4;5 a,8 c f;4 d a;3 f;4"</span><span class="op">)</span>
-<span class="co">#&gt; &lt;Musical phrase&gt;</span>
-<span class="co">#&gt; r4 &lt;a,\5&gt;8 &lt;c\5&gt;8 &lt;f\4&gt;8 &lt;d\4&gt;8 &lt;a\3&gt;8 &lt;f\4&gt;8</span></pre></div>
-<p>Notice how each timestep is complete within the single character string inputs above. Also, durations and string numbers can repeat implicitly until an explicit change occurs. String numbers are ignored when they carry over rests. This is often a more convenient way to construct phrases. If you already have a music object, it can be passed directly to <code>phrase</code>.</p>
 </div>
 </div>
 <div id="midi-support" class="section level2">

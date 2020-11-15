@@ -251,13 +251,13 @@ render_music_bass <- function(music, file, tuning = "bass",
 #' These functions are wrappers around the \code{render_music_*} functions.
 #' They abstract the process of rendering a sheet music snippet to png and
 #' loading the rendered image back into R to be displayed as a plot in an open
-#' graphics device or inserted into an R markdown code chunk.
+#' graphics device or inserted into an R Markdown code chunk.
 #'
 #' While these functions abstract away the details of the process, this is not
 #' the same as making the plot completely in R. R is only displaying the
 #' intermediary png file. LilyPond is required to engrave the sheet music.
 #'
-#' For R markdown you can alternatively render the png using the corresponding
+#' For R Markdown you can alternatively render the png using the corresponding
 #' \code{render_music_*} function and then place it in the document explicitly
 #' using \code{knitr::include_graphics}.
 #' See \code{\link{render_music}} for more details.

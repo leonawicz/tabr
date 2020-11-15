@@ -10,7 +10,7 @@
 
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
-developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
 [![Travis-CI Build
 Status](https://travis-ci.org/leonawicz/tabr.svg?branch=master)](https://travis-ci.org/leonawicz/tabr)
 [![AppVeyor Build
@@ -70,6 +70,14 @@ Install the development version from GitHub with
 # install.packages("remotes")
 remotes::install_github("leonawicz/tabr")
 ```
+
+## Motivating example
+
+``` r
+as_music("r8 c d e f g a b c'1") %>% plot_music_guitar()
+```
+
+<img src="man/figures/README-plot_music-1.png" width="50%" style="display: block; margin: auto;" />
 
 ## Music data structures
 
@@ -214,7 +222,7 @@ there is more valid syntax than just the lowercase musical note letters
 An important piece of syntax is the octave. In conjunction with a note,
 specifying a unique pitch requires the octave number, either in tick
 format (recommended; comma and single quote, e.g., `c,` or `c'`) or
-integer format (not recommended, more limited utility, e.g. `c2` or
+integer format (not recommended, more limited utility, e.g., `c2` or
 `c4`). Octave 3 is the implicit default; there is no tick and explicitly
 stating `c3` is equivalent to `c`.
 
@@ -431,6 +439,8 @@ LilyPond is an exceptional sheet music engraving program.
 The `tabr` package offers the following for transcription:
 
   - Render guitar tablature and sheet music to pdf or png.
+  - Create and insert sheet music snippets directly into R Markdown
+    documents.
   - Write accompanying MIDI files that can respect repeat notation and
     transposition in the sheet music (under reasonable conditions).
   - Support tablature for other string instruments besides guitar such
@@ -490,61 +500,89 @@ The code is shown below, but first some context.
 
 ### Constructing a musical phrase
 
-A phrase here does not require a strict definition. Think of it as the
-smallest piece of musical structure you intend to string together. The
-first argument to `phrase` is a string describing notes of a specific
-pitch (or rests: “r”), separated in time by spaces. For chords, just
-remove spaces to indicate simultaneous notes. Integers are appended to
-indicate the octave number so that the pitch is unambiguous. For
-example, a rest followed by a sequence of notes might be given by `notes
-= "r a, c f d a f"`.
+The term phrase here simply means any arbitrary piece of musical
+structure you string together. `phrase` takes three main arguments when
+building a phrase from its component parts. The first gives pitches (or
+rests) separated in time by spaces. For chords, remove spaces to
+indicate simultaneous notes. For example, a rest followed by a sequence
+of pitches might be `notes = "r a, c f d a f"`.
 
-The second argument is a similar string giving note metadata. In this
-example there is nothing to add but the time durations. Whole notes
-taking up an entire measure of music are given by 1, half notes by 2,
-quarter notes 4, eighth notes 8, and so on. To specify a quarter note
-rest followed by a sequence of eighth notes, use `info =
-"4 8 8 8 8 8 8"` (or shorten to just `info = "4 8*6"`). This basic
-example does not require specifying additional note information such as
-dotted notes for different fractions of time, staccato notes,
-ties/slurs, slides, bends, hammer ons and pull offs, etc. These
-specifications are covered in the vignette tutorials.
+`info` is note metadata such as duration. Whole notes are given by 1,
+half notes by 2, quarter notes 4, and so on, e.g., `info =
+"4 8 8 8 8 8 8"` (or shorten to `info = "4 8*6"`). This example does not
+require additional information such as dotted notes, staccato notes,
+ties/slurs, slides, bends, hammer ons and pull offs, etc.
 
 The third argument, `string` only applies to fretted string instruments
-and is always optional. In this example it specifies the strings of a
-guitar. Providing this information in conjunction with the pitch fixes
-the frets so that LilyPond does not have to guess them. This only
-applies for tablature output. Note that the `x` shown below is just a
-placeholder indicating no need to specify a string for the quarter note
-rest. You can put a string number there but it is ignored.
+and is always optional. Providing this information in conjunction with
+the pitch fixes the frets so that LilyPond does not have to guess them.
+This only applies for tablature output. Explicit string numbers are not
+needed for this example since lowest fret numbers (Lilypond default) are
+intended.
 
-Explicit string numbers are not needed for this example since is uses
-lowest fret numbers (the default). They are provided for a more complete
-example.
+``` r
+p("r a, c f d a f", "4 8*6")
+#> <Musical phrase>
+#> r4 <a,>8 <c>8 <f>8 <d>8 <a>8 <f>8
+```
 
-This is the general approach, but there are multiple ways to create
-equivalent phrase objects in `tabr`.
+Building a phrase from component parts may be necessary in some
+programmatic contexts. However, when doing manual data entry for simple,
+interactive examples, the music class offers a higher level of
+abstraction, sparing you some typing as well as cognitive load.
+
+### Music syntax
+
+As an aside, if you are working with the `music` class, you can enter
+notes, note info, and optionally string numbers if applicable, all in
+one string. This is more efficient for data entry. It can also be easier
+to follow because it binds the otherwise separate arguments by timestep.
+See the vignettes and help documentation on music objects for more
+details.
+
+If you define the music object
+
+``` r
+as_music("r4 a,8 c f d a f")
+#> <Music string>
+#>   Format: space-delimited time
+#>   Values: r4 a,8 c8 f8 d8 a8 f8
+```
+
+it can be passed directly to `phrase`, which understands this syntax and
+interprets the `notes` argument as music syntax if the `info` argument
+is not provided (`info = NULL`). In fact, the music object does not even
+need to be previously defined. The string format can be directly
+provided to `phrase`.
+
+``` r
+(p1 <- p("r4 a,8 c f d a f"))
+#> <Musical phrase>
+#> r4 <a,>8 <c>8 <f>8 <d>8 <a>8 <f>8
+```
+
+Notice how each timestep is complete within the single character string
+above. Also, durations (and string numbers) can repeat implicitly until
+an explicit change occurs.
 
 ### Score metadata and accessing LilyPond
 
-Finally, specify some song metadata to reproduce the original staff: the
-key of D minor, common time, and the tempo.
+Finally, specify some score metadata: the key signature, time signature
+and tempo.
 
 If LilyPond is installed on your system (and added to your system path
-variable on Windows systems), `tab` should call it successfully. Windows
-users are recommended to just add LilyPond’s `bin` directory to the
-system path. This will take care of LilyPond as well as its bundled
-Python and MIDI support. As an example for Windows users, if the
-LilyPond executable is at `C:/Program Files
+variable on Windows systems), `tab` or any of `render_*` functions
+should call it successfully. Windows users are recommended to just add
+LilyPond’s `bin` directory to the system path. This will take care of
+LilyPond as well as its bundled Python and MIDI support. As an example
+for Windows users, if the LilyPond executable is at `C:/Program Files
 (x86)/LilyPond/usr/bin/lilypond.exe`, then add `C:/Program Files
 (x86)/LilyPond/usr/bin` to the system path.
 
 ### Minimal R code example
 
 ``` r
-library(tabr)
-
-p("r a, c f d a f", "4 8*6", "x 5 5 4 4 3 4") %>% track %>% score %>%
+p1 %>% track() %>% score() %>%
   tab("phrase.pdf", key = "dm", time = "4/4", tempo = "4 = 120")
 ```
 
@@ -570,39 +608,6 @@ The pdf output looks like this:
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex00.png?raw=true" class="centerimg" width="50%">
 
 </p>
-
-### Music syntax
-
-As an aside, if you are working with the `music` class, you can enter
-notes, note info, and optionally string numbers if applicable, all in a
-single string. This is not only potentially much more efficient for data
-entry, but can also be easier to follow because it binds these otherwise
-separate arguments by timestep. See the vignettes and help documentation
-relating to music objects for more details on working with these
-objects.
-
-The phrase above can be constructed using the single-string input syntax
-that is used for music objects. `phrase` understands this syntax and
-interprets the `notes` argument as music syntax if the `info` argument
-is not provided (`info = NULL`). The phrase above could have been
-created as follows, with or without the optional explicit string
-numbering.
-
-``` r
-p("r4 a,8 c f d a f")
-#> <Musical phrase>
-#> r4 <a,>8 <c>8 <f>8 <d>8 <a>8 <f>8
-p("r4;5 a,8 c f;4 d a;3 f;4")
-#> <Musical phrase>
-#> r4 <a,\5>8 <c\5>8 <f\4>8 <d\4>8 <a\3>8 <f\4>8
-```
-
-Notice how each timestep is complete within the single character string
-inputs above. Also, durations and string numbers can repeat implicitly
-until an explicit change occurs. String numbers are ignored when they
-carry over rests. This is often a more convenient way to construct
-phrases. If you already have a music object, it can be passed directly
-to `phrase`.
 
 ## MIDI support
 

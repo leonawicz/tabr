@@ -53,7 +53,7 @@ plot_music(g)
 ```
 ````
 
-The image will scale properly in R so that it does not distort. However, the graphics device dimensions still matter. If you want to avoid excessive whitespace for example, you may want to specifiy `knitr` figure options, e.g. `fig.height=2, fig.width=7`, globally or in a code chunk.
+The image will scale properly in R so that it does not distort. However, the graphics device dimensions still matter. If you want to avoid excessive whitespace for example, you may want to specify `knitr` figure options, e.g. `fig.height=2, fig.width=7`, globally or in a code chunk.
 
 The values you choose depend on how tall your sheet music snippet is. If you enter a long snippet in code, LilyPond may wrap this around to multiple lines in the png file it creates. Therefore, this may require some trial and error. Sheet music snippets are intended to be curated one-offs for inserting in documents.
 

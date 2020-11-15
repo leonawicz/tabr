@@ -30,31 +30,39 @@ A good place to start is with a simple, reproducible example that outlines the b
 
 ## Constructing a musical phrase
 
-A phrase here does not require a strict definition. Think of it as the smallest piece of musical structure you intend to string together. The first argument to `phrase` is a string describing notes of a specific pitch (or rests: "r"), separated in time by spaces. For chords, just remove spaces to indicate simultaneous notes. Integers are appended to indicate the octave number so that the pitch is unambiguous. For example, a rest followed by a sequence of notes might be given by `notes = "r a, c f d a f"`.
+The term phrase here simply means any arbitrary piece of musical structure you string together. `phrase` takes three main arguments when building a phrase from its component parts. The first gives pitches (or rests) separated in time by spaces. For chords, remove spaces to indicate simultaneous notes. For example, a rest followed by a sequence of pitches might be `notes = "r a, c f d a f"`.
 
-The second argument is a similar string giving note metadata. In this example there is nothing to add but the time durations. Whole notes taking up an entire measure of music are given by 1, half notes by 2, quarter notes 4, eighth notes 8, and so on. To specify a quarter note rest followed by a sequence of eighth notes, use `info = "4 8 8 8 8 8 8"` (or shorten to just `info = "4 8*6"`). This basic example does not require specifying additional note information such as dotted notes for different fractions of time, staccato notes, ties/slurs, slides, bends, hammer ons and pull offs, etc. These specifications are covered in the vignette tutorials.
+`info` is note metadata such as duration. Whole notes are given by 1, half notes by 2, quarter notes 4, and so on, e.g., `info = "4 8 8 8 8 8 8"` (or shorten to `info = "4 8*6"`). This example does not require additional information such as dotted notes, staccato notes, ties/slurs, slides, bends, hammer ons and pull offs, etc.
 
 The third argument, `string` only applies to fretted string instruments and is always optional. In this example it specifies the strings of a guitar. Providing this information in conjunction with the pitch fixes the frets so that LilyPond does not have to guess them. This only applies for tablature output. Note that the `x` shown below is just a placeholder indicating no need to specify a string for the quarter note rest. You can put a string number there but it is ignored.
 
-Explicit string numbers are not needed for this example since is uses lowest fret numbers (the default). They are provided for a more complete example.
+Explicit string numbers are not needed for this example since lowest fret numbers (Lilypond default) are intended. They are provided for a more complete example.
 
 This is the general approach, but there are multiple ways to create equivalent phrase objects in `tabr`.
 
-```{r p1}
-p1 <- phrase(notes = "r a, c f d a f", info = "4 8*6", string = "x 5 5 4 4 3 4")
-p1
+```{r p1a}
+phrase(notes = "r a, c f d a f", info = "4 8*6", string = "x 5 5 4 4 3 4")
 ```
 
-As an aside, if you are working with the `music` class, you can enter notes, note info, and optionally string numbers if applicable, all in a single string. This is not only potentially much more efficient for data entry, but can also be easier to follow because it binds these otherwise separate arguments by timestep. See the vignettes and help documentation relating to music objects for more details on working with these objects.
+Building a phrase from component parts may be necessary in some programmatic contexts. However, when doing manual data entry for simple, interactive examples, the music class offers a higher level of abstraction, sparing you some typing as well as cognitive load.
 
-The phrase above can be constructed using the single-string input syntax that is used for music objects. `phrase` understands this syntax and interprets the `notes` argument as music syntax if the `info` argument is not provided (`info = NULL`). The phrase above could have been created as follows, with or without the optional explicit string numbering.
+### Music syntax
 
-```{r music}
-p("r4 a,8 c f d a f")
-p("r4;5 a,8 c f;4 d a;3 f;4")
+As an aside, if you are working with the `music` class, you can enter notes, note info, and optionally string numbers if applicable, all in one string. This is more efficient for data entry. It can also be easier to follow because it binds the otherwise separate arguments by timestep. See the vignettes and help documentation on music objects for more details.
+
+If you define the music object
+
+```{r p1b}
+as_music("r4 a,8 c f d a f")
 ```
 
-Notice how each timestep is complete within the single character string inputs above. Also, durations and string numbers can repeat implicitly until and explicit change occurs. String numbers are ignored when they carry over rests. This is often a more convenient way to construct phrases. If you already have a music object, it can be passed directly to `phrase`.
+it can be passed directly to `phrase`, which understands this syntax and interprets the `notes` argument as music syntax if the `info` argument is not provided (`info = NULL`). In fact, the music object does not even need to be previously defined. The string format can be directly provided to `phrase`.
+
+```{r p1c}
+(p1 <- p("r4 a,8 c f d a f"))
+```
+
+Notice how each timestep is complete within the single character string above. Also, durations (and string numbers) can repeat implicitly until an explicit change occurs.
 
 ## Tracks
 
