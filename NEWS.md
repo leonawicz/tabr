@@ -1,3 +1,7 @@
+# tabr 0.4.4
+
+* Documentation updates: readme, help docs, new vignette.
+
 # tabr 0.4.3
 
 * Bug fix for dyads in `freq_ratio`.
