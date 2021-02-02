@@ -11,7 +11,7 @@
 ^appveyor\.yml$
 ^\.travis\.yml$
 ^codecov\.yml$
-^lilypond-2.18.2-1.linux-64.sh$
+^lilypond-2.23.0-1.linux-64.sh$
 ^CRAN-RELEASE$
 ^README\.html$
 ^codemeta\.json$
