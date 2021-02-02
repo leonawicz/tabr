@@ -22,7 +22,7 @@ ByteCompile: true
 URL: https://github.com/leonawicz/tabr
 BugReports: https://github.com/leonawicz/tabr/issues
 Depends: R (>= 2.10)
-SystemRequirements: LilyPond (Only needed for rendering sheet music or writing MIDI files)
+SystemRequirements: LilyPond v2.23.0+ (only needed for rendering sheet music or writing MIDI files)
 Imports: 
     magrittr,
     tibble,
