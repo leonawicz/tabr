@@ -5,7 +5,7 @@
 
 **Author:** [Matthew Leonawicz](https://github.com/leonawicz)
 <a href="https://orcid.org/0000-0001-9452-2771" target="orcid.widget">
-<image class="orcid" src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" height="16"></a>
+<img alt="ORCID logo" src="https://info.orcid.org/wp-content/uploads/2019/11/orcid_16x16.png" width="16" height="16" /></a>
 <br/> **License:** [MIT](https://opensource.org/licenses/MIT)<br/>
 
 [![Project Status: Active – The project has reached a stable, usable
@@ -39,8 +39,8 @@ language of a musician than, say, an audio engineer.
 
 ## Citation
 
-Matthew Leonawicz (2020). tabr: Music Notation Syntax, Manipulation,
-Analysis and Transcription in R. R package version 0.4.3.
+Matthew Leonawicz (2021). tabr: Music Notation Syntax, Manipulation,
+Analysis and Transcription in R. R package version 0.4.5.
 <https://CRAN.R-project.org/package=tabr>
 
 ## Contribute
@@ -54,7 +54,6 @@ donation :).
 
   - [Buy me a coffee in Ko-fi](https://ko-fi.com/leonawicz)
   - `leonawicz.crypto`
-  - `mfl$payid.crypto.com`
 
 ## Installation
 

@@ -29,9 +29,12 @@ lilypond_version <- function(){
 #' @rdname lilypond_root
 #' @export
 tabr_lilypond_api <- function(){
-  x <- "GNU LilyPond 2.18.2"
-  msg <- paste0("The tabr ", getNamespaceVersion("tabr"),
-                " LilyPond API was built and tested against ", x, ".")
+  x <- "GNU LilyPond 2.23.0"
+  msg <- paste0(
+    "The tabr ", getNamespaceVersion("tabr"),
+    " LilyPond API was built and tested against ", x,
+    " for Windows and Linux.\nLilypond is not officially supported for OSX."
+  )
   message(msg)
 }
 

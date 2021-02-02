@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5</span>
       </span>
     </div>
 
@@ -47,7 +47,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home"></span>
+    <span class="fas fa-home"></span>
      
     Home
   </a>
@@ -149,7 +149,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/leonawicz/tabr">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -163,8 +163,7 @@
 
       
 
-      </header><script src="tabr-engraving_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="tabr-engraving_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="tabr-engraving_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="tabr-engraving_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Render scores</h1>
@@ -192,8 +191,8 @@
 <p><code>time</code> gives the time signature, defaulting to common time, <code>"4/4"</code>. <code>tempo</code> provides the song tempo, defaulting to <code>tempo = "2 = 60"</code>, which is the LilyPond default. This can be read as 60 half note beats per minute.</p>
 <p>Note that <code>key</code> takes the <code>tabr</code> key signature notation, but <code>time</code> and <code>tempo</code> which are used mostly in a transcription context like this, take values that match LilyPond format.</p>
 <p>Throughout this tutorial section, the guitar and bass example from the section on tracks and scores is reused. The chord chart and chord sequence are retained to provide the most complete illustration of a rendered score. For completeness, here is what you have so far.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="va">voice1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/repeats.html">rp</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"c5 d5 e5 f5 g5"</span>, <span class="st">"1 2 4 4 1"</span>, <span class="st">"1*5"</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">voice1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/repeats.html">rp</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"c5 d5 e5 f5 g5"</span>, <span class="st">"1 2 4 4 1"</span>, <span class="st">"1*5"</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span>
 
 <span class="va">notes</span> <span class="op">&lt;-</span> <span class="st">"c e g c' e' c' g e g b d' g' f a c' f' c e g e c"</span>
 <span class="va">strings</span> <span class="op">&lt;-</span> <span class="st">"5 4 3 2 1 2 3 4 4 3 2 1 4 3 2 1 5 4 3 4 5"</span>
@@ -207,19 +206,19 @@
 
 <span class="va">chords</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chord_set.html">chord_set</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>c <span class="op">=</span> <span class="st">"x32o1o"</span>, g <span class="op">=</span> <span class="st">"355433"</span>, f <span class="op">=</span> <span class="st">"133211"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">chord_seq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">chords</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>
-<span class="va">chords</span></pre></div>
+<span class="va">chords</span></code></pre></div>
 <pre class="r-output"><code>#&gt;              c              g              f 
 #&gt; "x;3;2;o;1;o;" "3;5;5;4;3;3;" "1;3;3;2;1;1;"
 </code></pre>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="va">chord_seq</span></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">chord_seq</span></code></pre></div>
 <pre class="r-output"><code>#&gt; c g f c c g f c c g f c 
 #&gt; 1 2 2 1 1 2 2 1 1 2 2 1
 </code></pre>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
 <span class="va">song</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/trackbind.html">trackbind</a></span><span class="op">(</span><span class="va">t1</span>, <span class="va">t2</span>, <span class="va">t3</span>, id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/score.html">score</a></span><span class="op">(</span><span class="va">chords</span>, <span class="va">chord_seq</span><span class="op">)</span>
-<span class="va">song</span></pre></div>
+<span class="va">song</span></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 3 x 8</span><span>
 #&gt;   phrase       clef     key   tab   tuning     voice lyrics    id
 #&gt;   </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span>       </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>      </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span>
@@ -228,9 +227,9 @@
 #&gt; </span><span style="color: #555555;">3</span><span> </span><span style="color: #555555;">&lt;phrase [1]&gt;</span><span> bass_8   </span><span style="color: #BB0000;">NA</span><span>    TRUE  e,,a,,d,g,     1 </span><span style="color: #BB0000;">NA</span><span>         2
 </span></code></pre>
 <p>This time when rendering the song, use settings for the three arguments discussed above. Given what is written, it doesn’t make sense to change them all. For example, this won’t fit well as a waltz (<code>time = "3/4"</code>). But for illustration purposes, pretend the song is actually in the key of D minor (F major). This key has one flat, Bb, so this will affect the display of the B note in the G chord. Change the time to <code>2/2</code> just for the sake of changing it, which won’t really be any different from <code>4/4</code> except you will see a line through the common time symbol. Finally, change the tempo to <code>4 = 120</code>, which is also equivalent to the default, but will show up in the output slightly differently as well.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="fu"><a href="../reference/lilypond.html">lilypond</a></span><span class="op">(</span><span class="va">song</span>, <span class="st">"ex32.ly"</span>, <span class="st">"dm"</span>, <span class="st">"2/2"</span>, <span class="st">"4 = 120"</span><span class="op">)</span>
-<span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="va">song</span>, <span class="st">"ex32.pdf"</span>, <span class="st">"dm"</span>, <span class="st">"2/2"</span>, <span class="st">"4 = 120"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/lilypond.html">lilypond</a></span><span class="op">(</span><span class="va">song</span>, <span class="st">"ex32.ly"</span>, <span class="st">"dm"</span>, <span class="st">"2/2"</span>, <span class="st">"4 = 120"</span><span class="op">)</span>
+<span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="va">song</span>, <span class="st">"ex32.pdf"</span>, <span class="st">"dm"</span>, <span class="st">"2/2"</span>, <span class="st">"4 = 120"</span><span class="op">)</span></code></pre></div>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex32.png?raw=true" class="centerimg" width="100%"></p>
 <p>Notice how the key change alone, which added room for a single flat symbol to be squeezed into the start of the treble and bass clef staves, was enough to a line wrap compared to the previous tutorial section where it all fit on one line. This is because it was a tight fit to in the previous examples and there was not enough room for LilyPond to continue fitting everything on one line with this slight widening created by the key change. LilyPond generates sheet music with a somewhat responsive layout engraver. It won’t necessarily leave everything on one line and push only a single measure to line two.</p>
@@ -244,8 +243,8 @@
 <h2 class="hasAnchor">
 <a href="#song-information" class="anchor"></a>Song information</h2>
 <p>The next important argument to <code>lilypond</code> is <code>header</code>. <code>header</code> takes a named list of character strings that are used to fill in general song information such as the title and composer. All previous examples were blank above the tabs because none of this information was ever provided. Below an example is given that uses all available arguments. You can use any subset of these. There is no requirement to supply them all. This example just shows what is available. Several of these would likely not be used in most cases.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="va">header</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">header</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
   title <span class="op">=</span> <span class="st">"Song title"</span>,
   composer <span class="op">=</span> <span class="st">"Words and music by the composer"</span>,
   performer <span class="op">=</span> <span class="st">"Song performer"</span>,
@@ -258,7 +257,7 @@
   meter <span class="op">=</span> <span class="st">"meter tag"</span>, opus <span class="op">=</span> <span class="st">"opus tag"</span>, piece <span class="op">=</span> <span class="st">"piece tag"</span>, poet <span class="op">=</span> <span class="st">"poet tag"</span>
 <span class="op">)</span>
 
-<span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="va">song</span>, <span class="st">"ex33.pdf"</span>, header <span class="op">=</span> <span class="va">header</span><span class="op">)</span></pre></div>
+<span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="va">song</span>, <span class="st">"ex33.pdf"</span>, header <span class="op">=</span> <span class="va">header</span><span class="op">)</span></code></pre></div>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex33.png?raw=true" class="centerimg" width="100%"></p>
 <p>The copyright and tagline are cutoff in the above image, but in your pdf you will see these if you scroll to the bottom of the rendered page.</p>
@@ -310,22 +309,22 @@
 <h2 class="hasAnchor">
 <a href="#png-output" class="anchor"></a>PNG output</h2>
 <p>Here are examples that make use of png-specific options and function behavior. First, when rendering to png instead of pdf, automatic cropping of the image is attempted. This removes the full page appearance for smaller snippets of sheet music. There are some limitations to this. For example, inclusion of header elements can disrupt this behavior.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/pitch_seq.html">pitch_seq</a></span><span class="op">(</span><span class="st">"e,"</span>, <span class="fl">24</span>, key <span class="op">=</span><span class="st">"c"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/music.html">as_music</a></span><span class="op">(</span><span class="fl">8</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/track.html">track</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/score.html">score</a></span><span class="op">(</span><span class="op">)</span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/pitch_seq.html">pitch_seq</a></span><span class="op">(</span><span class="st">"e,"</span>, <span class="fl">24</span>, key <span class="op">=</span><span class="st">"c"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/music.html">as_music</a></span><span class="op">(</span><span class="fl">8</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/track.html">track</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/score.html">score</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">ppr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">60</span>, page_numbers <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="va">hdr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Notes in C on guitar"</span>, subtitle <span class="op">=</span> <span class="st">"Standard tuning"</span><span class="op">)</span>
-<span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"ex_png1.png"</span>, tempo <span class="op">=</span> <span class="cn">NULL</span>, midi <span class="op">=</span> <span class="cn">FALSE</span>, header <span class="op">=</span> <span class="va">hdr</span>, paper <span class="op">=</span> <span class="va">ppr</span><span class="op">)</span></pre></div>
+<span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"ex_png1.png"</span>, tempo <span class="op">=</span> <span class="cn">NULL</span>, midi <span class="op">=</span> <span class="cn">FALSE</span>, header <span class="op">=</span> <span class="va">hdr</span>, paper <span class="op">=</span> <span class="va">ppr</span><span class="op">)</span></code></pre></div>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex_png1.png?raw=true" class="centerimg" width="35%"></p>
 <p>Above, the height is automatically cropped because <code>file</code> type is a png. Providing <code>textheight</code> to <code>paper</code> overrides this behavior. The width would have also been cropped on its own. However, because of the inclusion of <code>header</code> arguments, this fails and explicit <code>linewidth</code> is needed. Similarly, if elements that describe footer content (still part of the LilyPond <code>header</code> block) that appear at the bottom of the page such as <code>tagline</code> or <code>copyright</code> were included, automatic height cropping would have also failed. In general, automatic cropping is the default for png output, but <code>header</code> disrupts this, requiring manual overrides to width and height.</p>
 <p>In the example below, remove the header content. You can make a transparent background png, though you won’t be able to see the difference here. Instead, create a dark mode example and increase the resolution.</p>
 <p>Since this is a single voice, single track, you do not need to explicitly call each function in the transcription pipeline. Use one of the convenient <code>render_music_*</code> functions to abstract this process, rendering sheet music directly from a <code>music</code> object. <code>render_music_guitar</code> has good default arguments for this example.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="va">colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#e4e4e4"</span>, background <span class="op">=</span> <span class="st">"gray10"</span>, head <span class="op">=</span> <span class="st">"tomato"</span>, tabhead <span class="op">=</span> <span class="st">"tomato"</span><span class="op">)</span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#e4e4e4"</span>, background <span class="op">=</span> <span class="st">"gray10"</span>, head <span class="op">=</span> <span class="st">"tomato"</span>, tabhead <span class="op">=</span> <span class="st">"tomato"</span><span class="op">)</span>
 
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/music.html">as_music</a></span><span class="op">(</span><span class="fu"><a href="../reference/pitch_seq.html">pitch_seq</a></span><span class="op">(</span><span class="st">"e,"</span>, <span class="fl">24</span>, key <span class="op">=</span><span class="st">"c"</span><span class="op">)</span>, <span class="fl">8</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/render_music.html">render_music_guitar</a></span><span class="op">(</span><span class="st">"ex_png2.png"</span>, colors <span class="op">=</span> <span class="va">colors</span>, res <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></pre></div>
+  <span class="fu"><a href="../reference/render_music.html">render_music_guitar</a></span><span class="op">(</span><span class="st">"ex_png2.png"</span>, colors <span class="op">=</span> <span class="va">colors</span>, res <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></code></pre></div>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex_png2.png?raw=true" class="centerimg" width="100%"></p>
 </div>
@@ -338,10 +337,10 @@
 <h3 class="hasAnchor">
 <a href="#original-syntax" class="anchor"></a>Original syntax</h3>
 <p>There are other simplifications but the most notable benefits are the removal of all the <code>&lt;&gt;</code> around single notes and not repeating consecutive durations if they are unchanged from previous timesteps.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="fu"><a href="../reference/lilypond.html">lilypond</a></span><span class="op">(</span><span class="va">song</span>, <span class="st">"song.ly"</span>, simplify <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="st">"song.ly"</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span></pre></div>
-<pre class="r-output"><code>#&gt; \version "2.18.2"
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/lilypond.html">lilypond</a></span><span class="op">(</span><span class="va">song</span>, <span class="st">"song.ly"</span>, simplify <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="st">"song.ly"</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span></code></pre></div>
+<pre class="r-output"><code>#&gt; \version "2.23.0"
 #&gt; \paper{
 #&gt;   line-width=150\mm
 #&gt;   oddFooterMarkup=##f
@@ -485,10 +484,10 @@
 <h3 class="hasAnchor">
 <a href="#simplified-syntax" class="anchor"></a>Simplified syntax</h3>
 <p>Here you can see the changes to the notation. Since the music is so short in this example, most of the file remains the same.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="fu"><a href="../reference/lilypond.html">lilypond</a></span><span class="op">(</span><span class="va">song</span>, <span class="st">"song.ly"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="st">"song.ly"</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span></pre></div>
-<pre class="r-output"><code>#&gt; \version "2.18.2"
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/lilypond.html">lilypond</a></span><span class="op">(</span><span class="va">song</span>, <span class="st">"song.ly"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="st">"song.ly"</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span></code></pre></div>
+<pre class="r-output"><code>#&gt; \version "2.23.0"
 #&gt; \paper{
 #&gt;   line-width=150\mm
 #&gt;   oddFooterMarkup=##f

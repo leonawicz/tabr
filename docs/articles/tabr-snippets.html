@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5</span>
       </span>
     </div>
 
@@ -47,7 +47,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home"></span>
+    <span class="fas fa-home"></span>
      
     Home
   </a>
@@ -149,7 +149,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/leonawicz/tabr">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -163,8 +163,7 @@
 
       
 
-      </header><script src="tabr-snippets_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="tabr-snippets_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="tabr-snippets_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="tabr-snippets_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Music snippets in R markdown</h1>
@@ -184,10 +183,10 @@
 <div id="music-objects" class="section level2">
 <h2 class="hasAnchor">
 <a href="#music-objects" class="anchor"></a>Music objects</h2>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/music.html">as_music</a></span><span class="op">(</span><span class="st">"a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"</span><span class="op">)</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/music.html">as_music</a></span><span class="op">(</span><span class="st">"a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"</span><span class="op">)</span>
 <span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/music.html">as_music</a></span><span class="op">(</span><span class="st">"a,,4;3*5 b,,4- c,4 c,g,c~4 c,g,c1 c4;1 g,;2 c,;3 g,;2 c,c1;31"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Music string&gt;
 #&gt;   Timesteps: </span><span>14 (11 notes, 3 chords)</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Octaves: </span><span>tick</span><span style="color: #555555;font-weight: bold;">
@@ -200,8 +199,8 @@
 #&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">a,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">a,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">a,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">a,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">a,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">b,</span><span style="color: #BBBB00;">4-</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">cgc'e'~</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">cgc'e'</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">1</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">e'</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">c'</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">ce'</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">1</span><span>
 </span></code></pre>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Music string&gt;
 #&gt;   Timesteps: </span><span>14 (11 notes, 3 chords)</span><span style="color: #555555;font-weight: bold;">
 #&gt;   Octaves: </span><span>tick</span><span style="color: #555555;font-weight: bold;">
@@ -219,8 +218,8 @@
 <h2 class="hasAnchor">
 <a href="#snippet-in-r-markdown-chunk" class="anchor"></a>Snippet in R markdown chunk</h2>
 <p>The defaults for <code>plot_music</code> include treble clef and no tab staff. Plot the music object, <code>g</code>. As you can see, this appears off by an octave because the guitar transcription should use <code>clef = "treble_8"</code> instead of the default <code>clef = "treble"</code>.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="fu"><a href="../reference/plot_music.html">plot_music</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_music.html">plot_music</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></code></pre></div>
 <p><img src="tabr-snippets_files/figure-html/snippet1-1.png" width="100%"></p>
 <p>Above you can see the call to <code><a href="../reference/plot_music.html">plot_music(g)</a></code>in the document since <code>echo = TRUE</code> for the code chunk. In an interactive R session, this call draws the plot to the active graphics device. The R markdown code chunk for inserting the above plot into this document looks like this in the Rmd file.</p>
 <pre><code>```{r}
@@ -233,17 +232,17 @@ plot_music(g)
 <h2 class="hasAnchor">
 <a href="#additional-wrappers" class="anchor"></a>Additional wrappers</h2>
 <p>There are various wrapper functions offering convenient, sensible default arguments based on the function name.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="fu"><a href="../reference/plot_music.html">plot_music_tab</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span> <span class="co"># tab staff only</span></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_music.html">plot_music_tab</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span> <span class="co"># tab staff only</span></code></pre></div>
 <p><img src="tabr-snippets_files/figure-html/snippet2-1.png" width="100%"></p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="fu"><a href="../reference/plot_music.html">plot_music_guitar</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span> <span class="co"># 8va treble clef for guitar, plus tab staff</span></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_music.html">plot_music_guitar</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span> <span class="co"># 8va treble clef for guitar, plus tab staff</span></code></pre></div>
 <p><img src="tabr-snippets_files/figure-html/snippet3-1.png" width="100%"></p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="fu"><a href="../reference/plot_music.html">plot_music_bc</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span> <span class="co"># bass clef</span></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_music.html">plot_music_bc</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span> <span class="co"># bass clef</span></code></pre></div>
 <p><img src="tabr-snippets_files/figure-html/snippet4-1.png" width="100%"></p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="fu"><a href="../reference/plot_music.html">plot_music_bass</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span> <span class="co"># bass clef and tab staff</span></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_music.html">plot_music_bass</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span> <span class="co"># bass clef and tab staff</span></code></pre></div>
 <p><img src="tabr-snippets_files/figure-html/snippet5-1.png" width="100%"></p>
 <p>Depending on the function, additional relevant arguments include <code>clef</code>, <code>tab</code>, <code>tuning</code> and <code>string_names</code>. Layout arguments include <code>header</code>, <code>paper</code>, <code>colors</code>, <code>transparent</code> and <code>res</code>. The function <code>plot_music_tc</code> is equivalent to <code>plot_music</code>.</p>
 </div>

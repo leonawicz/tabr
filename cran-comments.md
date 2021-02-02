@@ -10,5 +10,5 @@
 0 errors | 0 warnings | 0 notes
 
 * This is an update release.
-
-
+* Maintainer email address change.
+* Optional package functions dependent on LilyPond software now built and tested against a newer version of LilyPond (v2.23.0) for Windows and Linux.

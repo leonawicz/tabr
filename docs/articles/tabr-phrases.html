@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5</span>
       </span>
     </div>
 
@@ -47,7 +47,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home"></span>
+    <span class="fas fa-home"></span>
      
     Home
   </a>
@@ -149,7 +149,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/leonawicz/tabr">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -163,8 +163,8 @@
 
       
 
-      </header><script src="tabr-phrases_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="tabr-phrases_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="tabr-phrases_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="tabr-phrases_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="tabr-phrases_files/kePrint-0.0.1/kePrint.js"></script><link href="tabr-phrases_files/lightable-0.0.1/lightable.css" rel="stylesheet">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Musical phrases</h1>
@@ -185,94 +185,193 @@
 <p>Writing music notation in R code is not intended to replace LilyPond markup. You can always write LilyPond markup directly and this will give you more options and greater control. The motivation for <code>tabr</code> is primarily music data analysis from a notation perspective, but to the degree that various types of notation are supported, it also allows you to transcribe your data to sheet music or tablature. Working from a programming language like R is also very different from writing static markup files. While the API is far more limited than writing LilyPond markup directly, generating music notation programmatically and creating sheet music dynamically is an entirely different use case from writing markup for a specific song.</p>
 <p>The opening section showed a basic example using a single, and very simple, phrase. This section will cover phrases that include notes and rests of different duration, slides, hammer ons and pull offs, simple string bends, and various other elements. Phrases will become longer and more visually complex. There is no way around this fact. But with proper care they can be kept manageable and interpretable, depending on your comfort level with music theory, notation and R programming.</p>
 <p>Before diving in, take a look at the tables below for an overview of some common syntax and operators that are used throughout this section.</p>
-<table class="table">
-<caption>tabr::tabrSyntax</caption>
-<thead><tr class="header">
-<th align="left">description</th>
-<th align="left">syntax</th>
-<th align="left">example</th>
+<table class="table table table-striped table-condensed">
+<caption>
+tabr::tabrSyntax
+</caption>
+<thead><tr>
+<th style="text-align:left;">
+description
+</th>
+<th style="text-align:left;">
+syntax
+</th>
+<th style="text-align:left;">
+example
+</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
-<td align="left">note/pitch</td>
-<td align="left">a b … g</td>
-<td align="left">a</td>
+<tr>
+<td style="text-align:left;">
+note/pitch
+</td>
+<td style="text-align:left;">
+a b … g
+</td>
+<td style="text-align:left;">
+a
+</td>
 </tr>
-<tr class="even">
-<td align="left">sharp</td>
-<td align="left">#</td>
-<td align="left">a#</td>
+<tr>
+<td style="text-align:left;">
+sharp
+</td>
+<td style="text-align:left;">
+#
+</td>
+<td style="text-align:left;">
+a#
+</td>
 </tr>
-<tr class="odd">
-<td align="left">flat</td>
-<td align="left">_</td>
-<td align="left">a_</td>
+<tr>
+<td style="text-align:left;">
+flat
+</td>
+<td style="text-align:left;">
+_
+</td>
+<td style="text-align:left;">
+a_
+</td>
 </tr>
-<tr class="even">
-<td align="left">drop or raise one octave</td>
-<td align="left">, or ’</td>
-<td align="left">a, a a’</td>
+<tr>
+<td style="text-align:left;">
+drop or raise one octave
+</td>
+<td style="text-align:left;">
+, or ’
+</td>
+<td style="text-align:left;">
+a, a a’
+</td>
 </tr>
-<tr class="odd">
-<td align="left">octave number</td>
-<td align="left">0 1 …</td>
-<td align="left">a2 a3 a4</td>
+<tr>
+<td style="text-align:left;">
+octave number
+</td>
+<td style="text-align:left;">
+0 1 …
+</td>
+<td style="text-align:left;">
+a2 a3 a4
+</td>
 </tr>
-<tr class="even">
-<td align="left">tied notes</td>
-<td align="left">~</td>
-<td align="left">a~ a</td>
+<tr>
+<td style="text-align:left;">
+tied notes
+</td>
+<td style="text-align:left;">
+~
+</td>
+<td style="text-align:left;">
+a~ a
+</td>
 </tr>
-<tr class="odd">
-<td align="left">note duration</td>
-<td align="left">2^n</td>
-<td align="left">1 2 4 8 16</td>
+<tr>
+<td style="text-align:left;">
+note duration
+</td>
+<td style="text-align:left;">
+2^n
+</td>
+<td style="text-align:left;">
+1 2 4 8 16
+</td>
 </tr>
-<tr class="even">
-<td align="left">dotted note</td>
-<td align="left">.</td>
-<td align="left">2. 2..</td>
+<tr>
+<td style="text-align:left;">
+dotted note
+</td>
+<td style="text-align:left;">
+.
+</td>
+<td style="text-align:left;">
+<ol start="2" style="list-style-type: decimal"><li>2..
+</li></ol>
+</td>
 </tr>
-<tr class="odd">
-<td align="left">slide</td>
-<td align="left">-</td>
-<td align="left">2-</td>
+<tr>
+<td style="text-align:left;">
+slide
+</td>
+<td style="text-align:left;">
+-
+</td>
+<td style="text-align:left;">
+2-
+</td>
 </tr>
-<tr class="even">
-<td align="left">bend</td>
-<td align="left">^</td>
-<td align="left">2^</td>
+<tr>
+<td style="text-align:left;">
+bend
+</td>
+<td style="text-align:left;">
+^
+</td>
+<td style="text-align:left;">
+2^
+</td>
 </tr>
-<tr class="odd">
-<td align="left">muted/dead note</td>
-<td align="left">x</td>
-<td align="left">2x</td>
+<tr>
+<td style="text-align:left;">
+muted/dead note
+</td>
+<td style="text-align:left;">
+x
+</td>
+<td style="text-align:left;">
+2x
+</td>
 </tr>
-<tr class="even">
-<td align="left">slur/hammer/pull off</td>
-<td align="left">()</td>
-<td align="left">2( 2)</td>
+<tr>
+<td style="text-align:left;">
+slur/hammer/pull off
+</td>
+<td style="text-align:left;">
+()
+</td>
+<td style="text-align:left;">
+2( 2)
+</td>
 </tr>
-<tr class="odd">
-<td align="left">rest</td>
-<td align="left">r</td>
-<td align="left">r</td>
+<tr>
+<td style="text-align:left;">
+rest
+</td>
+<td style="text-align:left;">
+r
+</td>
+<td style="text-align:left;">
+r
+</td>
 </tr>
-<tr class="even">
-<td align="left">silent rest</td>
-<td align="left">s</td>
-<td align="left">s</td>
+<tr>
+<td style="text-align:left;">
+silent rest
+</td>
+<td style="text-align:left;">
+s
+</td>
+<td style="text-align:left;">
+s
+</td>
 </tr>
-<tr class="odd">
-<td align="left">expansion operator</td>
-<td align="left">*</td>
-<td align="left">ceg*8, 1*4</td>
+<tr>
+<td style="text-align:left;">
+expansion operator
+</td>
+<td style="text-align:left;">
+*
+</td>
+<td style="text-align:left;">
+ceg*8, 1*4
+</td>
 </tr>
 </tbody>
 </table>
 <p>There are additional single-note articulations that can be specified, such as accented or staccato notes. This can be provided using the name in square brackets, e.g., <code>[accent]</code> or <code>[staccato]</code>. In special cases an abbreviated syntax is available, e.g., <code>-^</code> or <code>-.</code>. There are many options. Some of the most common ones are shown. See the <code>articulations</code> dataset.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">articulations</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">articulations</span><span class="op">)</span></code></pre></div>
 <pre class="r-output"><code>#&gt;       type         value  abb
 #&gt; 1 standard        accent   -&gt;
 #&gt; 2 standard    espressivo &lt;NA&gt;
@@ -303,13 +402,13 @@
 <p>While it is allowable to specify note sequences such as <code>"a b c"</code>, this assumes octave number 3. But this may not be what you intend and there is no reason to assume anything. In the example here, what is likely intended might be <code>"a2 b2 c3"</code>.</p>
 <p>This is the recommended way to specify notes. It combines the note and the octave number to specify the pitch. LilyPond markup uses single or multiple consecutive commas for lower octaves and single quote marks for higher octaves. This notation is permitted by <code>tabr</code> as well. In fact, if you specify integer suffixes for octave numbering, <code>phrase</code> will reinterpret these for you. The following are equivalent, as shown when printing the LilyPond syntax generated by <code>phrase</code>.</p>
 <p>The second example here also shows the convenient multiplicative expansion operator <code><a href="https://rdrr.io/r/base/Arithmetic.html">*</a></code> that can be used inside character strings passed to the three main <code>phrase</code> arguments. Use this wherever convenient, though this tutorial section will continue to write things out explicitly for increased clarity. Other operators like this one to help shorten repetitive code are introduced later.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="../reference/phrase.html">phrase</a></span><span class="op">(</span><span class="st">"c1 c2 c3 c4 c5"</span>, <span class="st">"1 1 1 1 1"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/phrase.html">phrase</a></span><span class="op">(</span><span class="st">"c1 c2 c3 c4 c5"</span>, <span class="st">"1 1 1 1 1"</span><span class="op">)</span></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;">&lt;</span><span style="color: #555555;font-weight: bold;">Musical phrase</span><span style="color: #555555;">&gt;</span><span>
 #&gt; </span><span style="color: #555555;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">,,</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">1</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">,</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">1</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">1</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">'</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">1</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">''</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">1</span><span>
 </span></code></pre>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="fu"><a href="../reference/phrase.html">phrase</a></span><span class="op">(</span><span class="st">"c,, c, c c' c''"</span>, <span class="st">"1*5"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/phrase.html">phrase</a></span><span class="op">(</span><span class="st">"c,, c, c c' c''"</span>, <span class="st">"1*5"</span><span class="op">)</span></code></pre></div>
 <pre class="r-output"><code>#&gt; <span style="color: #555555;">&lt;</span><span style="color: #555555;font-weight: bold;">Musical phrase</span><span style="color: #555555;">&gt;</span><span>
 #&gt; </span><span style="color: #555555;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">,,</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">1</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">,</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">1</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">1</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">'</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">1</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">''</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">1</span><span>
 </span></code></pre>
@@ -326,8 +425,8 @@
 <a href="#duration" class="anchor"></a>Duration</h3>
 <p>The most basic, and always required at a bare minimum, is the time duration of each note. Notes always have duration. The previous example showed a string of ones, <code>info = "1 1 1 1 1"</code>, of equal length (in terms of space-delimited entries in the character string) to the first argument giving a sequence of five C notes from different octaves. These ones represent whole notes, lasting for an entire measure of music. Other possible integer values are 2, 4, 8, 16, 32 and 64, though most users probably won’t have reason to go beyond 16. The possible integers represent whole notes, half notes, quarter notes, eighth notes, sixteenth notes, etc.</p>
 <p>The format is technically specifying the denominator. You might be inclined toward 1, 1/2, 1/4, etc., since the durations represent fractions of a single measure, not a total number of measures. This denominator shorthand where the implicit numerator is always one saves typing, but is also consistently with LilyPond itself. Below is an example using different durations. Entire songs are much longer and more complex and do not meaningfully benefit from piping, but for this and other short examples that follow, it is convenient so it will be used. Other arguments in <code>tab</code> are not relevant yet so for now just accept the defaults.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="fu"><a href="../reference/phrase.html">phrase</a></span><span class="op">(</span><span class="st">"c3 d3 e3 f3 g3 a3 b3 c4 b3 c4"</span>, <span class="st">"16 16 8 8 4 4 8 2 2 1"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">track</span> <span class="op">%&gt;%</span> <span class="va">score</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"ex01.pdf"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/phrase.html">phrase</a></span><span class="op">(</span><span class="st">"c3 d3 e3 f3 g3 a3 b3 c4 b3 c4"</span>, <span class="st">"16 16 8 8 4 4 8 2 2 1"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">track</span> <span class="op">%&gt;%</span> <span class="va">score</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"ex01.pdf"</span><span class="op">)</span></code></pre></div>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex01.png?raw=true" class="centerimg" width="100%"></p>
 </div>
@@ -337,14 +436,14 @@
 <a href="#rests-and-ties" class="anchor"></a>Rests and ties</h2>
 <p>Rests and tied notes are actually part of the <code>note</code> argument. Both have duration, which is what belongs in <code>info</code>.</p>
 <p>Rests are denoted by <code>"r"</code>. In general, string specification is irrelevant for rests because nothing is played, so you can use a placeholder like <code>x</code> instead of a string number (see next section on string numbers). For the moment this example is not specifying the optional argument, <code>string</code>, so this can be ignored. Replacing some notes in the previous phrase with rests looks like the following.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="fu"><a href="../reference/phrase.html">phrase</a></span><span class="op">(</span><span class="st">"r d3 e3 r g3 r b3 r b3 r"</span>, <span class="st">"16 16 8 8 4 4 8 2 2 1"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">track</span> <span class="op">%&gt;%</span> <span class="va">score</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"ex02.pdf"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/phrase.html">phrase</a></span><span class="op">(</span><span class="st">"r d3 e3 r g3 r b3 r b3 r"</span>, <span class="st">"16 16 8 8 4 4 8 2 2 1"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">track</span> <span class="op">%&gt;%</span> <span class="va">score</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"ex02.pdf"</span><span class="op">)</span></code></pre></div>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex02.png?raw=true" class="centerimg" width="100%"></p>
 <p>At first glance, tied notes might seem like something that ought to be described via <code>info</code>. Even though the second note is not played, a tied note is still distinct from the note to which it is tied as far as notation is concerned.</p>
 <p>For example, when tying a note over to a new measure, it must be included twice in <code>notes</code>. The tie is annotated on the original note with a <code><a href="https://rdrr.io/r/base/tilde.html">~</a></code> as follows.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="fu"><a href="../reference/phrase.html">phrase</a></span><span class="op">(</span><span class="st">"r a2 b2 c3~ c3"</span>, <span class="st">"2 8 8 4 1"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">track</span> <span class="op">%&gt;%</span> <span class="va">score</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"ex03.pdf"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/phrase.html">phrase</a></span><span class="op">(</span><span class="st">"r a2 b2 c3~ c3"</span>, <span class="st">"2 8 8 4 1"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">track</span> <span class="op">%&gt;%</span> <span class="va">score</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"ex03.pdf"</span><span class="op">)</span></code></pre></div>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex03.png?raw=true" class="centerimg" width="55%"></p>
 <p>The note is played once and has a duration of one and a quarter measures, but is still annotated as one quarter note tied to one whole note.</p>
@@ -355,11 +454,11 @@
 <p>Specifying the exact pitch is still ambiguous for guitar tablature because the same note can be played in different positions along the neck of a guitar. Tabs show which string is fretted and where. For example, in standard tuning, the same C3 note can be played on the fifth string, third fret, or on the sixth string, eighth fret. If left unspecified, most guitar tablature software will attempt to guess where to play notes on the guitar. This is not done by some kind of impressive, reliable artificial intelligence. It usually just means arbitrarily reducing notes to the lowest possible frets even if a combination of notes would not make sense or be physically practical for someone to play them that way.</p>
 <p>There is one degree of freedom when the note is locked in but its position is not. It is not necessary to specify both the string number and the fret number. Providing one implicitly locks in the other. If you know the pitch and the string number, the fret is known. LilyPond accepts string numbers readily. To isolate these numbers from the <code>info</code> argument notation in <code>phrase</code>, they are provided in the third argument, <code>string</code>, which is also helpful because <code>string</code> is always optional.</p>
 <p>Returning to the earlier phrase, without the rests, the equivalent phrase with explicit string numbers would have had <code>string = "5 4 4 4 3 3 2 2 2 2"</code>. The second version with rests could have been provided as <code>string = "x 4 4 x 3 x 2 x 2 x"</code>. Instead, play further up the neck beginning with C3 on the sixth string, eighth fret.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="va">notes</span> <span class="op">&lt;-</span> <span class="st">"c3 d3 e3 f3 g3 a3 b3 c4 b3 c4"</span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">notes</span> <span class="op">&lt;-</span> <span class="st">"c3 d3 e3 f3 g3 a3 b3 c4 b3 c4"</span>
 <span class="va">info</span> <span class="op">&lt;-</span> <span class="st">"16 16 8 8 4 4 8 2 2 1"</span>
 <span class="va">strings</span> <span class="op">&lt;-</span> <span class="st">"6 6 5 5 5 4 4 4 4 4"</span>
-<span class="fu"><a href="../reference/phrase.html">phrase</a></span><span class="op">(</span><span class="va">notes</span>, <span class="va">info</span>, <span class="va">strings</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">track</span> <span class="op">%&gt;%</span> <span class="va">score</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"ex04.pdf"</span><span class="op">)</span></pre></div>
+<span class="fu"><a href="../reference/phrase.html">phrase</a></span><span class="op">(</span><span class="va">notes</span>, <span class="va">info</span>, <span class="va">strings</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">track</span> <span class="op">%&gt;%</span> <span class="va">score</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"ex04.pdf"</span><span class="op">)</span></code></pre></div>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex04.png?raw=true" class="centerimg" width="100%"></p>
 <p>Some programs like LilyPond allow for specifying a minimum fret threshold, such that every note is played at that fret or above. This would work better for some songs than others of course. It is still not as powerful or ideal as being explicit about every note’s position. This threshold option is not currently supported by <code>tabr</code>. It is recommended to always be explicit anyway, as it leads to more accurate guitar tablature. There is a preponderance of highly inaccurate guitar tabs in the online world. Please do not add to the heap.</p>
@@ -373,8 +472,8 @@
 <a href="#dotted-notes" class="anchor"></a>Dotted notes</h3>
 <p>Note duration was introduced earlier, but incompletely. Dotted notes can be used to add 50% more time to a note. For example, a dotted quarter note, given by <code>"4."</code>, is equal in length to a quarter note plus an eighth note, covering three eighths of a measure. Double dotted may also be supplied. <code>"2.."</code> represents one half note plus one quarter note plus another eight note duration, for a total of 4 + 2 + 1 = 7 eighths of a measure.</p>
 <p>A couple measures with no rests that contains dotted and double dotted notes might look like this.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="fu"><a href="../reference/phrase.html">phrase</a></span><span class="op">(</span><span class="st">"c3 d3 e3 e3 e3 d3 c3"</span>, <span class="st">"4. 4. 8 8 2.. 8 1"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">track</span> <span class="op">%&gt;%</span> <span class="va">score</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"ex05.pdf"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/phrase.html">phrase</a></span><span class="op">(</span><span class="st">"c3 d3 e3 e3 e3 d3 c3"</span>, <span class="st">"4. 4. 8 8 2.. 8 1"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">track</span> <span class="op">%&gt;%</span> <span class="va">score</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"ex05.pdf"</span><span class="op">)</span></code></pre></div>
 <p>Dots are tightly bound in dotted notes. <code>tabr</code> treats these multi-character time durations as singular elements, just as it does for, say, sixteenth notes given by a <code>"16"</code>.</p>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex05.png?raw=true" class="centerimg" width="72%"></p>
@@ -383,8 +482,8 @@
 <h3 class="hasAnchor">
 <a href="#staccato" class="anchor"></a>Staccato</h3>
 <p>Notes played staccato are specified by appending a closing square bracket directly on the note duration, e.g., altering <code>"16"</code> to <code>"16]"</code>. This will place a dot in the output below notes that are played staccato.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="fu"><a href="../reference/phrase.html">phrase</a></span><span class="op">(</span><span class="st">"c3 e3 g3 e3 c3"</span>, <span class="st">"8] 8] 8] 8] 2"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">track</span> <span class="op">%&gt;%</span> <span class="va">score</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"ex06.pdf"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/phrase.html">phrase</a></span><span class="op">(</span><span class="st">"c3 e3 g3 e3 c3"</span>, <span class="st">"8] 8] 8] 8] 2"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">track</span> <span class="op">%&gt;%</span> <span class="va">score</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"ex06.pdf"</span><span class="op">)</span></code></pre></div>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex06.png?raw=true" class="centerimg" width="42%"></p>
 </div>
@@ -392,8 +491,8 @@
 <h3 class="hasAnchor">
 <a href="#muted-or-dead-notes" class="anchor"></a>Muted or dead notes</h3>
 <p>Muted or dead notes are indicated by appending an <code>"x"</code> to a note duration, e.g., <code>"8x"</code>.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="fu"><a href="../reference/phrase.html">phrase</a></span><span class="op">(</span><span class="st">"c3 e3 g3 e3 c3"</span>, <span class="st">"8x] 8x] 8x] 8x] 2x"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">track</span> <span class="op">%&gt;%</span> <span class="va">score</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"ex07.pdf"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/phrase.html">phrase</a></span><span class="op">(</span><span class="st">"c3 e3 g3 e3 c3"</span>, <span class="st">"8x] 8x] 8x] 8x] 2x"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">track</span> <span class="op">%&gt;%</span> <span class="va">score</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"ex07.pdf"</span><span class="op">)</span></code></pre></div>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex07.png?raw=true" class="centerimg" width="42%"></p>
 <p>Multiple pieces of information can be strung together for a single note. For example, combining a muted note with staccato can be given as <code>"8x]"</code>. In this early version of <code>tabr</code>, do this with caution, as not all orderings of note information have been thoroughly tested yet. Duration always comes first though. Some pieces of information are not meant to go together either, such as a staccato note that must essentially be held rather than released, for the purpose of sliding to another note. Use human judgment. If you don’t ever see something in sheet music, it may not work in <code>tabr</code> either.</p>
@@ -403,9 +502,9 @@
 <h3 class="hasAnchor">
 <a href="#slides" class="anchor"></a>Slides</h3>
 <p>Slides are partially implemented. They work well in <code>tabr</code> when sliding from one note to another note. Slides to a note that do not begin from a previous note and slides from a note that do not terminate at subsequent note are not implemented. This is usually done with a bit of a hack in LilyPond by bending from or to a grace note and then making the grace note invisible. This hack or some another approach has not been ported to <code>tabr</code>.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="fu"><a href="../reference/phrase.html">phrase</a></span><span class="op">(</span><span class="st">"c3 b2 c3 d3 e3 e3 d3 c3 b2 c3 c3 c4"</span>, <span class="st">"8- 8- 4 8- 8 8- 8 8- 8- 8 4.- 4"</span>, <span class="st">"5*12"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="va">track</span> <span class="op">%&gt;%</span> <span class="va">score</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"ex08.pdf"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/phrase.html">phrase</a></span><span class="op">(</span><span class="st">"c3 b2 c3 d3 e3 e3 d3 c3 b2 c3 c3 c4"</span>, <span class="st">"8- 8- 4 8- 8 8- 8 8- 8- 8 4.- 4"</span>, <span class="st">"5*12"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="va">track</span> <span class="op">%&gt;%</span> <span class="va">score</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"ex08.pdf"</span><span class="op">)</span></code></pre></div>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex08.png?raw=true" class="centerimg" width="77%"></p>
 <p>As a brief aside, note the use of <code><a href="https://rdrr.io/r/base/Arithmetic.html">*</a></code> above in the <code>string</code> argument to reduce typing. It is necessary to specify <code>string</code> here in order to ensure the notes are all on the fifth string in the output. Any space-delimited elements in <code>phrase</code> can take advantage of this terminal element notation for multiplicative expansion of an element. Terminal means that it must be appended to the end of whatever is being expanded; nothing can follow it. <code>c*4 a*2</code> expands to <code>c c c c a a</code> inside <code>phrase</code>. <code>4.-*2</code> is replaced with <code>4.- 4.-</code>. This convenient multiplicative expansion operator within character strings passed to <code>phrase</code> is available for the <code>notes</code>, <code>info</code> and <code>string</code> arguments.</p>
@@ -421,11 +520,11 @@
 <li>Then play the C-B-C part again, but differently from the opening. Pick, pick, hammer on, pick, and then the final slide.</li>
 <li>Finally, transpose up one octave by increasing the octave numbers attached to the pitches in <code>notes</code>. The reason for this is simply to demonstrate the placement of slurs above or below notes on the tablature staff depending on the string number. With this transposition, move from the fifth to the third string.</li>
 </ul>
-<div class="sourceCode" id="cb12"><pre class="downlit">
-<span class="va">notes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="st">"c3 b2 c3 d3 e3 e3 d3 c3 b2 c3 c3 c4"</span>, <span class="st">"c4 b3 c4 d4 e4 e4 d4 c4 b3 c4 c4 c5"</span><span class="op">)</span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">notes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="st">"c3 b2 c3 d3 e3 e3 d3 c3 b2 c3 c3 c4"</span>, <span class="st">"c4 b3 c4 d4 e4 e4 d4 c4 b3 c4 c4 c5"</span><span class="op">)</span>
 <span class="va">info</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/append_phrases.html">pn</a></span><span class="op">(</span><span class="st">"8( 8)( 4) 8( 8) 8( 8) 8 8( 8) 4.- 4"</span>, <span class="fl">2</span><span class="op">)</span>
 <span class="va">strings</span> <span class="op">&lt;-</span> <span class="st">"5*12 3*12"</span>
-<span class="fu"><a href="../reference/phrase.html">phrase</a></span><span class="op">(</span><span class="va">notes</span>, <span class="va">info</span>, <span class="va">strings</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">track</span> <span class="op">%&gt;%</span> <span class="va">score</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"ex09.pdf"</span><span class="op">)</span></pre></div>
+<span class="fu"><a href="../reference/phrase.html">phrase</a></span><span class="op">(</span><span class="va">notes</span>, <span class="va">info</span>, <span class="va">strings</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">track</span> <span class="op">%&gt;%</span> <span class="va">score</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"ex09.pdf"</span><span class="op">)</span></code></pre></div>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex09.png?raw=true" class="centerimg" width="100%"></p>
 <p>Another brief aside: <code>tabr</code> has some helper functions that make your work a bit easier and your code a bit more legible, ideally both. Using meaningful separation helps keep the code relatively readable and easier to make changes to when you realize you made a mistake somewhere. Don’t write one enormous string representing an entire song. Aside from the avoiding code duplication where there is musical repetition, even something that might not repeat such as a guitar solo still benefits greatly from being broken up in to manageable parts.</p>
@@ -436,11 +535,11 @@
 <a href="#string-bending" class="anchor"></a>String bending</h3>
 <p>String bends are available but currently have a limited implementation in <code>tabr</code> and bend engraving in LilyPond itself is not fully developed. Specifying all kinds of bending, and doing so elegantly and yielding an aesthetically pleasing and accurate result, is immensely difficult. Bends are specified with a <code><a href="https://rdrr.io/r/base/Arithmetic.html">^</a></code>. Bend engraving does not look very good at the moment and control over how a bend is drawn and any associated notation indicating the number of semitones to bend is currently excluded.</p>
 <p>In the example below, a half step bend-release-bend is attempted over the three B notes shown at the end of the first phrase. Because the string is only plucked one time, the first two B notes are tied through to the third. Since a tied note is a note, this is done in <code>notes</code>. The two bends are indicated with <code><a href="https://rdrr.io/r/base/Arithmetic.html">^</a></code> on the first and third notes via <code>info</code>. A similar approach is taken with the second phrase, although with full step bends from G to A. In both cases, the initial bend is not a pre-bend, but should be very quick. None of these fine details can be provided with the current version of <code>tabr</code>.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit">
-<span class="va">notes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="st">"r a, c f d a f b~ b~ b"</span>, <span class="st">"r a c4 d4 a f4 d4 g4~ g4~ g4"</span><span class="op">)</span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">notes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="st">"r a, c f d a f b~ b~ b"</span>, <span class="st">"r a c4 d4 a f4 d4 g4~ g4~ g4"</span><span class="op">)</span>
 <span class="va">info</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/append_phrases.html">pn</a></span><span class="op">(</span><span class="st">"4 8*6 16^ 16 2..^"</span>, <span class="fl">2</span><span class="op">)</span>
 <span class="va">strings</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="st">"x 5 5 4 4 3 4 3 3 3"</span>, <span class="st">"x 4 3 3 4 2 3 2 2 2"</span><span class="op">)</span>
-<span class="fu"><a href="../reference/phrase.html">phrase</a></span><span class="op">(</span><span class="va">notes</span>, <span class="va">info</span>, <span class="va">strings</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">track</span> <span class="op">%&gt;%</span> <span class="va">score</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"ex10.pdf"</span><span class="op">)</span></pre></div>
+<span class="fu"><a href="../reference/phrase.html">phrase</a></span><span class="op">(</span><span class="va">notes</span>, <span class="va">info</span>, <span class="va">strings</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">track</span> <span class="op">%&gt;%</span> <span class="va">score</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"ex10.pdf"</span><span class="op">)</span></code></pre></div>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex10.png?raw=true" class="centerimg" width="100%"></p>
 <p>As you can see, the implementation is limited in <code>tabr</code>. It is also relatively difficult to achieve natively in LilyPond. The bends are different but the number of steps must be inferred from the key. The timing of bends and releases is challenging. The engraving is poor. But it is a start point.</p>
@@ -450,9 +549,9 @@
 <h2 class="hasAnchor">
 <a href="#chords" class="anchor"></a>Chords</h2>
 <p>Chords are covered in detail in later sections. For now, a brief example is given to more fully demonstrate the concept of space-delimited time and the use of simultaneous vs. sequential notes in <code>tabr</code>. The example below shows how to include some open C major chords inside <code>notes</code>. It is simply a matter of removing spaces. The tightly bound notes are simultaneous in time. <code>info</code> applies to the entire chord because it describes attributes of notes played at a given moment. There are obvious limitations to this though fortunately not hugely detrimental. <code>string</code> numbers are tightly bound for chords as well.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit">
-<span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/phrase.html">phrase</a></span><span class="op">(</span><span class="st">"c cegc'e' c3 c3e3g3c4e4"</span>, <span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span>
-<span class="fu"><a href="../reference/track.html">track</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">score</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"ex11.pdf"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/phrase.html">phrase</a></span><span class="op">(</span><span class="st">"c cegc'e' c3 c3e3g3c4e4"</span>, <span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span>
+<span class="fu"><a href="../reference/track.html">track</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">score</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"ex11.pdf"</span><span class="op">)</span></code></pre></div>
 <p>It can be seen above that just like individual notes, chords can be specified using any combination of tick or integer octave numbering. They are equivalent. Tick style may be more readable for some. Octave 3 is the implicit default and can be left out. Note the shorthand string numbering, Note info and string numbers can be recycled across the timesteps in <code>notes</code> as long as their length is one.</p>
 <p>When a single string number is given for a timestep, but there is more than one note at that timestep, it is assumed to be the starting string number and addition consecutive string numbers are inferred. Multiple explicit string numbers per timestep are only required when they are not completely consecutive. In general, the number of implicit or explicit strings per timestep must match the number of notes. String numbers are ignored for rests.</p>
 <p>

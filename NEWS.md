@@ -1,3 +1,8 @@
+# tabr 0.4.5
+
+* Lilypond API built and tested againsts a newer version of Lilypond: v2.23.0.
+* Minor fixes and documentation updates.
+
 # tabr 0.4.4
 
 * Documentation updates: readme, help docs, new vignette.

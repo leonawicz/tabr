@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5</span>
       </span>
     </div>
 
@@ -47,7 +47,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home"></span>
+    <span class="fas fa-home"></span>
      
     Home
   </a>
@@ -149,7 +149,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/leonawicz/tabr">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -163,8 +163,7 @@
 
       
 
-      </header><script src="tabr-chordchart_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="tabr-chordchart_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="tabr-chordchart_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="tabr-chordchart_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Render chord charts</h1>
@@ -189,8 +188,8 @@
 <li>the chords do not contain sharps</li>
 <li>and the fret number of the root note is no higher than 12</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 
 <span class="va">chords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>
   <span class="va">guitarChords</span>, 
@@ -201,7 +200,7 @@
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">root</span>, <span class="va">id</span><span class="op">)</span>
 
 <span class="va">chords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span><span class="va">chords</span><span class="op">$</span><span class="va">fretboard</span>, <span class="va">chords</span><span class="op">$</span><span class="va">lp_name</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">chords</span><span class="op">)</span></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">chords</span><span class="op">)</span></code></pre></div>
 <pre class="r-output"><code>#&gt;              c:7              c:7              c:7              c:7 
 #&gt;   "x;3;2;3;1;x;"   "x;3;5;3;5;3;"   "x;3;2;3;1;3;"  "8;10;8;9;8;8;" 
 #&gt;              c:7             c':7 
@@ -212,12 +211,12 @@
 <h2 class="hasAnchor">
 <a href="#render-chord-chart" class="anchor"></a>Render chord chart</h2>
 <p>The filtering above results in 41 chords. The size of the fretboard diagrams is increased below with <code>size = 2</code>. Like <code>lilypond</code> and the <code>render_*</code> functions that wrap around it for rendering music scores, <code>render_chordchart</code> also takes the <code>header</code> and <code>paper</code> named list arguments. Once the named chord vector is ready, rendering the chord chart is as simple as the following.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="va">hdr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">hdr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
   title <span class="op">=</span> <span class="st">"Dominant 7th, major 7th and minor 7th chords"</span>,
   subtitle <span class="op">=</span> <span class="st">"C and F root"</span>
 <span class="op">)</span>
-<span class="fu"><a href="../reference/render_chordchart.html">render_chordchart</a></span><span class="op">(</span><span class="va">chords</span>, <span class="st">"out.png"</span>, <span class="fl">2</span>, <span class="va">hdr</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>textheight <span class="op">=</span> <span class="fl">175</span><span class="op">)</span><span class="op">)</span></pre></div>
+<span class="fu"><a href="../reference/render_chordchart.html">render_chordchart</a></span><span class="op">(</span><span class="va">chords</span>, <span class="st">"out.png"</span>, <span class="fl">2</span>, <span class="va">hdr</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>textheight <span class="op">=</span> <span class="fl">175</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex36.png?raw=true" class="centerimg" width="100%"></p>
 <p>The chord chart template must be kept to one page.</p>

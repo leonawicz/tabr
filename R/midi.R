@@ -85,11 +85,12 @@ midily <- function(midi_file, file, key = "c", absolute = FALSE,
     py_path <- if(is_windows) "python.exe" else "python"
   }
   midi2ly_path <- tabr_options()$midi2ly
-  if(midi2ly_path == "") midi2ly_path <- "midi2ly.py"
-  system(paste0(
+  if(midi2ly_path == "") midi2ly_path <- "midi2ly"
+  call_string <- paste0(
     "\"", py_path, "\" ", "\"", midi2ly_path, "\" ", x, " --output=\"",
     .adjust_file_path(file)$lp, "\" \"", midi_file, "\""
-  ))
+  )
+  system(call_string)
   invisible()
 }
 

@@ -26,7 +26,7 @@ test_that("render functions run as expected", {
   expect_is(render_music_guitar(x, outfile2), "NULL")
   expect_is(render_music_bass(y, outfile2), "NULL")
 
-  expect_error(render_music_bass(x, outfile),
+  expect_error(render_music_bass(x, outfile1),
                "String number exceeds number of strings from `tuning`.")
   unlink(c(outfile1, outfile2), recursive = TRUE, force = TRUE)
 })
@@ -47,7 +47,7 @@ test_that("plot wrappers run as expected", {
     expect_is(plot_music_guitar(x), "NULL")
     expect_is(plot_music_bass(y), "NULL")
 
-    expect_error(render_music_bass(x),
+    expect_error(plot_music_bass(x),
                  "String number exceeds number of strings from `tuning`.")
     dev.off()
     unlink(outfile2, recursive = TRUE, force = TRUE)

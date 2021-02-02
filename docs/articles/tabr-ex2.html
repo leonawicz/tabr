@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5</span>
       </span>
     </div>
 
@@ -47,7 +47,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home"></span>
+    <span class="fas fa-home"></span>
      
     Home
   </a>
@@ -149,7 +149,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/leonawicz/tabr">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -163,8 +163,7 @@
 
       
 
-      </header><script src="tabr-ex2_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="tabr-ex2_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="tabr-ex2_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="tabr-ex2_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Example: multiple voices</h1>
@@ -178,8 +177,8 @@
     
     
 <p>The previous example used a fingerstyle arrangement based on guitar patterns in <em>Devil’s got you beat</em>. This example picks up from there, regenerating the same guitar tab, but this time properly acknowledging the two guitar voices: the part played by with the thumb and the part played with the other fingers.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="va">header</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">header</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
   title <span class="op">=</span> <span class="st">"Devil's got you beat"</span>,
   composer <span class="op">=</span> <span class="st">"Words and music Blues Saraceno"</span>,
   performer <span class="op">=</span> <span class="st">"Blues Saraceno"</span>,
@@ -190,7 +189,7 @@
 <span class="op">)</span>
 
 <span class="va">txt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"DADGAD tuning with capo on 1st fret. Fingerpicking. Let ring."</span><span class="op">)</span>
-<span class="va">tuning</span> <span class="op">&lt;-</span> <span class="st">"DADGAD"</span></pre></div>
+<span class="va">tuning</span> <span class="op">&lt;-</span> <span class="st">"DADGAD"</span></code></pre></div>
 <div id="multiple-voices" class="section level2">
 <h2 class="hasAnchor">
 <a href="#multiple-voices" class="anchor"></a>Multiple voices</h2>
@@ -208,8 +207,8 @@
 <h2 class="hasAnchor">
 <a href="#final-notes" class="anchor"></a>Final notes</h2>
 <p>The last thing to note is that for the same reason there are a lot of octave <code>3</code> characters that can be omitted, there is no need to specify the <code>string</code> argument. The default chosen by LilyPond turns out to be exactly what is wanted. The creates even more room for code reduction compared to previous example. Some phrases are also conveniently listed using <code>paste</code> <code>c</code> and <code>rep</code>, which coerce these phrases to character strings, but this is okay as long as they are eventually combined with other phrase objects using <code>pc</code> or wrapped in other calls like <code>volta</code> or <code>pct</code> because <code>tabr</code> is aggressive for the phrase class and will convert them back.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="co"># melody 1: voice 1</span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># melody 1: voice 1</span>
 <span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="../reference/append_phrases.html">pn</a></span><span class="op">(</span><span class="st">"s a d'"</span>, <span class="fl">3</span><span class="op">)</span>, <span class="st">"s"</span><span class="op">)</span>, <span class="st">"4. 16 16 4. 16 16 8 16 16 4"</span><span class="op">)</span>,
             <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"s a d s"</span>, <span class="st">"8 16 16 4"</span><span class="op">)</span>, <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"s a d4 s s"</span>, <span class="st">"8 16 16 4 1"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 
@@ -230,7 +229,7 @@
 <span class="va">t2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="fu"><a href="../reference/repeats.html">pct</a></span><span class="op">(</span><span class="va">p2</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">3</span><span class="op">)</span>, <span class="va">p4</span>, <span class="va">p2</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">p2</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/track.html">track</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"e_m"</span>, tuning <span class="op">=</span> <span class="va">tuning</span>, voice <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 <span class="fu"><a href="../reference/trackbind.html">trackbind</a></span><span class="op">(</span><span class="va">t1</span>, <span class="va">t2</span>, id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/score.html">score</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"out.pdf"</span>, <span class="st">"dm"</span>, <span class="st">"4/4"</span>, <span class="st">"4 = 115"</span>, <span class="va">header</span><span class="op">)</span></pre></div>
+  <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"out.pdf"</span>, <span class="st">"dm"</span>, <span class="st">"4/4"</span>, <span class="st">"4 = 115"</span>, <span class="va">header</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="refactor-recap" class="section level2">
 <h2 class="hasAnchor">

@@ -10,7 +10,7 @@
   "codeRepository": "https://github.com/leonawicz/tabr",
   "issueTracker": "https://github.com/leonawicz/tabr/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -28,7 +28,7 @@
       "@type": "Person",
       "givenName": "Matthew",
       "familyName": "Leonawicz",
-      "email": "matt_leonawicz@esource.com",
+      "email": "mfleonawicz@esource.com",
       "@id": "https://orcid.org/0000-0001-9452-2771"
     }
   ],
@@ -40,7 +40,7 @@
       "@type": "Person",
       "givenName": "Matthew",
       "familyName": "Leonawicz",
-      "email": "matt_leonawicz@esource.com",
+      "email": "mfleonawicz@esource.com",
       "@id": "https://orcid.org/0000-0001-9452-2771"
     }
   ],
@@ -276,5 +276,5 @@
   ],
   "relatedLink": "https://CRAN.R-project.org/package=tabr",
   "developmentStatus": "https://www.repostatus.org/",
-  "fileSize": "11852.74KB"
+  "fileSize": "11613.467KB"
 }
