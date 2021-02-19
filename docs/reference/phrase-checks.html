@@ -310,32 +310,32 @@ or tuplets.</p>
 <span class='co'># Notify phrases</span>
 <span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span><span class='op'>(</span><span class='va'>rbind</span>, <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>notify</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>d</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 15 x 3</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 15 x 3</span><span>
 #&gt;    notes    info  string
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
-#&gt; </span><span style='color: #555555;'> 1</span><span> c        4     </span><span style='color: #BB0000;'>NA</span><span>    
-#&gt; </span><span style='color: #555555;'> 2</span><span> ec'g'    4     </span><span style='color: #BB0000;'>NA</span><span>    
-#&gt; </span><span style='color: #555555;'> 3</span><span> ec'g'    2     </span><span style='color: #BB0000;'>NA</span><span>    
-#&gt; </span><span style='color: #555555;'> 4</span><span> c        4     </span><span style='color: #BB0000;'>NA</span><span>    
-#&gt; </span><span style='color: #555555;'> 5</span><span> ec'g'    4     </span><span style='color: #BB0000;'>NA</span><span>    
-#&gt; </span><span style='color: #555555;'> 6</span><span> ec'g'    2     </span><span style='color: #BB0000;'>NA</span><span>    
-#&gt; </span><span style='color: #555555;'> 7</span><span> c        4.    5     
-#&gt; </span><span style='color: #555555;'> 8</span><span> b,       8(    5     
-#&gt; </span><span style='color: #555555;'> 9</span><span> c        8)    5     
-#&gt; </span><span style='color: #555555;'>10</span><span> b,       4(    5     
-#&gt; </span><span style='color: #555555;'>11</span><span> c        4)-   5     
-#&gt; </span><span style='color: #555555;'>12</span><span> d        2     5     
-#&gt; </span><span style='color: #555555;'>13</span><span> c        1     5     
-#&gt; </span><span style='color: #555555;'>14</span><span> e~c'~g'~ 1     432   
-#&gt; </span><span style='color: #555555;'>15</span><span> ec'g'    1     432   </div><div class='input'>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> 
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> c        4     </span><span style='color: #BB0000;'>NA</span><span>    
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> ec'g'    4     </span><span style='color: #BB0000;'>NA</span><span>    
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> ec'g'    2     </span><span style='color: #BB0000;'>NA</span><span>    
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> c        4     </span><span style='color: #BB0000;'>NA</span><span>    
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> ec'g'    4     </span><span style='color: #BB0000;'>NA</span><span>    
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> ec'g'    2     </span><span style='color: #BB0000;'>NA</span><span>    
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> c        4.    5     
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> b,       8(    5     
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> c        8)    5     
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> b,       4(    5     
+#&gt; </span><span style='color: #BCBCBC;'>11</span><span> c        4)-   5     
+#&gt; </span><span style='color: #BCBCBC;'>12</span><span> d        2     5     
+#&gt; </span><span style='color: #BCBCBC;'>13</span><span> c        1     5     
+#&gt; </span><span style='color: #BCBCBC;'>14</span><span> e~c'~g'~ 1     432   
+#&gt; </span><span style='color: #BCBCBC;'>15</span><span> ec'g'    1     432   </div><div class='input'>
 <span class='co'># Wrappers around notify extract components, default to collapsed strings</span>
 <span class='fu'>phrase_notes</span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
-#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>c</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>e</span><span style='color: #BBBB00;'>~</span><span style='color: #00BBBB;font-weight: bold;'>c</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>~</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>~&gt;</span><span> </span><span style='color: #BBBB00;'>&lt;</span><span style='color: #00BBBB;font-weight: bold;'>ec</span><span style='color: #00BBBB;'>'</span><span style='color: #00BBBB;font-weight: bold;'>g</span><span style='color: #00BBBB;'>'</span><span style='color: #BBBB00;'>&gt;</span><span></div><div class='input'><span class='fu'>phrase_info</span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Note info string&gt;
-#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>1</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>1</span><span style='color: #555555;'> </span><span style='color: #00BBBB;font-weight: bold;'>1</span><span></div><div class='input'><span class='fu'>phrase_strings</span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #808080;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style='color: #808080;font-weight: bold;'>
+#&gt;   Values: </span><span style='color: #00AFFF;font-weight: bold;'>c</span><span> </span><span style='color: #FFAF00;'>&lt;</span><span style='color: #00AFFF;font-weight: bold;'>e</span><span style='color: #FFAF00;'>~</span><span style='color: #00AFFF;font-weight: bold;'>c</span><span style='color: #00AFFF;'>'</span><span style='color: #FFAF00;'>~</span><span style='color: #00AFFF;font-weight: bold;'>g</span><span style='color: #00AFFF;'>'</span><span style='color: #FFAF00;'>~&gt;</span><span> </span><span style='color: #FFAF00;'>&lt;</span><span style='color: #00AFFF;font-weight: bold;'>ec</span><span style='color: #00AFFF;'>'</span><span style='color: #00AFFF;font-weight: bold;'>g</span><span style='color: #00AFFF;'>'</span><span style='color: #FFAF00;'>&gt;</span><span></div><div class='input'><span class='fu'>phrase_info</span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #808080;font-weight: bold;'>&lt;Note info string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style='color: #808080;font-weight: bold;'>
+#&gt;   Values: </span><span style='color: #00AFFF;font-weight: bold;'>1</span><span style='color: #808080;'> </span><span style='color: #00AFFF;font-weight: bold;'>1</span><span style='color: #808080;'> </span><span style='color: #00AFFF;font-weight: bold;'>1</span><span></div><div class='input'><span class='fu'>phrase_strings</span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] "5"   "432" "432"</div><div class='input'>
 <span class='co'># If phrase decomposition works well, coercion is one to one</span>
 <span class='va'>x2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>x</span>,

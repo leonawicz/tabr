@@ -281,22 +281,22 @@ noteworthy string.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='st'>"r s e_2 a_, c#f#a#"</span>
 <span class='fu'>tally_notes</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 5 x 2</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 2</span><span>
 #&gt;   note      n
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> c#        1
-#&gt; </span><span style='color: #555555;'>2</span><span> e_        1
-#&gt; </span><span style='color: #555555;'>3</span><span> f#        1
-#&gt; </span><span style='color: #555555;'>4</span><span> a_        1
-#&gt; </span><span style='color: #555555;'>5</span><span> a#        1</div><div class='input'><span class='fu'>tally_pitches</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 2</span><span>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> c#        1
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> e_        1
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> f#        1
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> a_        1
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span> a#        1</div><div class='input'><span class='fu'>tally_pitches</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 5 x 2</span><span>
 #&gt;   pitch     n
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> e_2       1
-#&gt; </span><span style='color: #555555;'>2</span><span> a_,       1
-#&gt; </span><span style='color: #555555;'>3</span><span> c#        1
-#&gt; </span><span style='color: #555555;'>4</span><span> f#        1
-#&gt; </span><span style='color: #555555;'>5</span><span> a#        1</div><div class='input'><span class='fu'>octaves</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> e_2       1
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> a_,       1
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> c#        1
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> f#        1
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span> a#        1</div><div class='input'><span class='fu'>octaves</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [[1]]
 #&gt; [1] NA
 #&gt; 
@@ -312,17 +312,17 @@ noteworthy string.</p>
 #&gt; [[5]]
 #&gt; [1] 3 3 3
 #&gt; </div><div class='input'><span class='fu'>tally_octaves</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 2</span><span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 2 x 2</span><span>
 #&gt;   octave     n
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>      2     2
-#&gt; </span><span style='color: #555555;'>2</span><span>      3     3</div><div class='input'><span class='fu'>distinct_notes</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
-#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>d_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>g_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span></div><div class='input'><span class='fu'>distinct_pitches</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;font-weight: bold;'>&lt;Noteworthy string&gt;
-#&gt;   Format: </span><span>space-delimited time</span><span style='color: #555555;font-weight: bold;'>
-#&gt;   Values: </span><span style='color: #00BBBB;font-weight: bold;'>e_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>a_</span><span style='color: #00BBBB;'>,</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>d_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>g_</span><span> </span><span style='color: #00BBBB;font-weight: bold;'>b_</span><span></div><div class='input'><span class='fu'>distinct_octaves</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>      2     2
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>      3     3</div><div class='input'><span class='fu'>distinct_notes</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #808080;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style='color: #808080;font-weight: bold;'>
+#&gt;   Values: </span><span style='color: #00AFFF;font-weight: bold;'>d_</span><span> </span><span style='color: #00AFFF;font-weight: bold;'>e_</span><span> </span><span style='color: #00AFFF;font-weight: bold;'>g_</span><span> </span><span style='color: #00AFFF;font-weight: bold;'>a_</span><span> </span><span style='color: #00AFFF;font-weight: bold;'>b_</span><span></div><div class='input'><span class='fu'>distinct_pitches</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #808080;font-weight: bold;'>&lt;Noteworthy string&gt;
+#&gt;   Format: </span><span>space-delimited time</span><span style='color: #808080;font-weight: bold;'>
+#&gt;   Values: </span><span style='color: #00AFFF;font-weight: bold;'>e_</span><span style='color: #00AFFF;'>,</span><span> </span><span style='color: #00AFFF;font-weight: bold;'>a_</span><span style='color: #00AFFF;'>,</span><span> </span><span style='color: #00AFFF;font-weight: bold;'>d_</span><span> </span><span style='color: #00AFFF;font-weight: bold;'>g_</span><span> </span><span style='color: #00AFFF;font-weight: bold;'>b_</span><span></div><div class='input'><span class='fu'>distinct_octaves</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 2 3</div><div class='input'>
 <span class='fu'>pitch_range</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] "e_," "b_" </div><div class='input'><span class='fu'>semitone_range</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>

@@ -18,7 +18,7 @@ Options for tabr package.
 }
 \details{
 Currently only \code{lilypond}, \code{midi2ly} and \code{python} are used.
-On Windows systems, if the system path for lilypond.exe, midi2ly.py and
+On Windows systems, if the system path for lilypond.exe, midi2ly and
 python.exe are not stored in the system PATH environmental variable, they
 must be provided by the user after loading the package.
 }
