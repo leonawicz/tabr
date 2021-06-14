@@ -46,7 +46,6 @@ Contributions are welcome. Contribute through GitHub via pull request. Please cr
 If you enjoy my open source R community contributions, please consider a donation :).
 
 * [Buy me a coffee in Ko-fi](https://ko-fi.com/leonawicz)
-* `leonawicz.crypto`
 
 ## Installation
 

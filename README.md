@@ -53,7 +53,6 @@ If you enjoy my open source R community contributions, please consider a
 donation :).
 
   - [Buy me a coffee in Ko-fi](https://ko-fi.com/leonawicz)
-  - `leonawicz.crypto`
 
 ## Installation
 
@@ -187,8 +186,8 @@ as_music(x) %>% as_music_df()
 #>  6 8        c     c           48      3  131.        -4 M3        <NA>  FALSE FALSE      0 <NA>         <NA>      
 #>  7 8        a,    a           57      2  110.        -3 m3        <NA>  FALSE FALSE      0 <NA>         <NA>      
 #>  8 8        g#,   g#          56      2  104.        -1 m2        <NA>  FALSE FALSE      0 <NA>         <NA>      
-#>  9 8        a     a           57      3  220.        13 m9        <NA>  FALSE FALSE      0 <NA>         <NA>      
-#> 10 8        ac'e' ace         57      3  220.         0 P1        <NA>  FALSE FALSE      0 <NA>         <NA>
+#>  9 8        a     a           57      3  220         13 m9        <NA>  FALSE FALSE      0 <NA>         <NA>      
+#> 10 8        ac'e' ace         57      3  220          0 P1        <NA>  FALSE FALSE      0 <NA>         <NA>
 ```
 
 Several functions are available for mapping seamlessly between and
