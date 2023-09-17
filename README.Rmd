@@ -13,16 +13,8 @@ library(tabr)
 ```
 
 # tabr <img src="man/figures/logo.png" style="margin-left:10px;margin-bottom:5px;" width="120" align="right">
-**Author:** [Matthew Leonawicz](https://github.com/leonawicz) <a href="https://orcid.org/0000-0001-9452-2771" target="orcid.widget">
-<img alt="ORCID logo" src="https://info.orcid.org/wp-content/uploads/2019/11/orcid_16x16.png" width="16" height="16" /></a>
-<br/>
-**License:** [MIT](https://opensource.org/licenses/MIT)<br/>
 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
-[![Travis-CI Build Status](https://travis-ci.org/leonawicz/tabr.svg?branch=master)](https://travis-ci.org/leonawicz/tabr)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/leonawicz/tabr?branch=master&svg=true)](https://ci.appveyor.com/project/leonawicz/tabr)
-[![Coverage Status](https://img.shields.io/codecov/c/github/leonawicz/tabr/master.svg)](https://codecov.io/github/leonawicz/tabr?branch=master)
-
 [![CRAN status](http://www.r-pkg.org/badges/version/tabr)](https://cran.r-project.org/package=tabr)
 [![CRAN downloads](http://cranlogs.r-pkg.org/badges/grand-total/tabr)](https://cran.r-project.org/package=tabr) 
 [![Github Stars](https://img.shields.io/github/stars/leonawicz/tabr.svg?style=social&label=Github)](https://github.com/leonawicz/tabr)
@@ -37,15 +29,11 @@ The music notation framework facilitates creating and analyzing music data in no
 
 ## Citation
 
-Matthew Leonawicz (2021). tabr: Music Notation Syntax, Manipulation, Analysis and Transcription in R. R package version 0.4.5. https://CRAN.R-project.org/package=tabr
+Matthew Leonawicz (`r substr(Sys.Date(), 1, 4)`). tabr: Music Notation Syntax, Manipulation, Analysis and Transcription in R. R package version 0.4.9. https://CRAN.R-project.org/package=tabr
 
 ## Contribute
 
 Contributions are welcome. Contribute through GitHub via pull request. Please create an issue first if it is regarding any substantive feature add or change.
-
-If you enjoy my open source R community contributions, please consider a donation :).
-
-* [Buy me a coffee in Ko-fi](https://ko-fi.com/leonawicz)
 
 ## Installation
 
@@ -65,7 +53,7 @@ remotes::install_github("leonawicz/tabr")
 ## Motivating example
 
 ```{r plot_music, fig.height=3.5, fig.width=7, fig.align="center", out.width="50%"}
-as_music("r8 c d e f g a b c'1") %>% plot_music_guitar()
+as_music("r8 c d e f g a b c'1") |> plot_music_guitar()
 ```
 
 ## Music data structures
@@ -102,7 +90,7 @@ The same music data can also be organized in tidy data frames, allowing for a mo
 
 ```{r music-data2}
 x <- "a,8 c e r r c a, g#, a ac'e'"
-as_music(x) %>% as_music_df()
+as_music(x) |> as_music_df()
 ```
 
 Several functions are available for mapping seamlessly between and manipulating these data structures and their representations of musical information.
@@ -117,7 +105,7 @@ As a quick introduction and to get oriented to the music notation syntax offered
 
 A simple character string like `"c e g"`, or alternatively as a vector, `c("c", "e", "g")`, is a noteworthy string. The single lowercase letter `"a"` is noteworthy. So are `"a_"` and `"a#"` (flat and sharp). However, `"A"` is not (case sensitivity), nor is `"z"`. Of course, as seen above, there is more valid syntax than just the lowercase musical note letters `a` through `g` and sharp and flat notation.
 
-An important piece of syntax is the octave. In conjunction with a note, specifying a unique pitch requires the octave number, either in tick format (recommended; comma and single quote, e.g., `c,` or `c'`) or integer format (not recommended, more limited utility, e.g., `c2` or `c4`). Octave 3 is the implicit default; there is no tick and explicitly stating `c3` is equivalent to `c`.
+An important piece of syntax is the octave. In conjunction with a note, specifying a unique pitch requires the octave number, either in tick format (recommended; comma and single quote, e.g., `c,`, `c`, `c'`) or integer format (not recommended, more limited utility, e.g., `c2`, `c`, `c4`). Octave 3 is the implicit default; there is no tick and explicitly adding the `3` is unnecessary. The pitches `c d e f g a b` (default octave) are the notes in the octave below middle C (`c'`).
 
 For all available syntax specifications and related details see the package vignettes.
 
@@ -131,9 +119,6 @@ Several other generic methods are also implemented for the noteworthy class, mak
 x <- "g#, c d# g#c'd#'"
 as_noteworthy(x)
 
-x <- "g#2 c d# g#c4d#4" # equivalent octave numbering
-as_noteworthy(x)
-
 is_note(x)
 is_chord(x)
 chord_is_major(x)
@@ -142,7 +127,7 @@ chord_is_major(x)
 summary(x)
 
 distinct_pitches(x)
-distinct_pitches(x) %>% pitch_freq() # in Hz
+distinct_pitches(x) |> pitch_freq() # in Hz
 ```
 
 These are just a few examples. There are many more functions in `tabr` that intuitively operate on noteworthy strings, abstracting the interpretation of relatively simple symbolic text specifications as quantitative and/or structured musical information.
@@ -153,32 +138,32 @@ There is also a `noteinfo` class, and a `music` class (seen above). You can lear
 
 Ideally music data already exists in a data frame format. But if it doesn't, or if you just wrote out a new note sequence like below, getting this data into a data frame for a more tidy approach to analysis is easy. Conversion can also populate several derivative variables in the process.
 
-In the earlier example you saw the result of calling `as_music_df` on a noteworthy string.
+In the earlier example you saw the result of calling `as_music_df()` on a noteworthy string.
 
 ```{r df1, eval=FALSE}
 x <- "a, c e r r c a, g#, a ac'e'"
 as_music_df(x)
 ```
 
-You may have noticed that rests (`r`) are allowed for timesteps and that functions that compute lagged intervals respect these gaps. Since `as_music_df` was only provided with a string of pitches, there are no explicit time variables in the data frame. However, discrete timesteps still exist and they do not have to contain notes.
+You may have noticed that rests (`r`) are allowed for timesteps and that functions that compute lagged intervals respect these gaps. Since `as_music_df()` was only provided with a string of pitches, there are no explicit time variables in the data frame. However, discrete timesteps still exist and they do not have to contain notes.
 
-There are a number of derivative columns. If you are working with a large sequence of music, there is no need to carry all of these variables along through your analysis if you do not need them. They can be created using various package functions and you can build onto your data frame and transform variables later with a function like `mutate` from `dplyr`.
+There are a number of derivative columns. If you are working with a large sequence of music, there is no need to carry all of these variables along through your analysis if you do not need them. They can be created using various package functions and you can build onto your data frame and transform variables later with a function like `mutate()` from `dplyr`.
 
 ```{r df2}
 library(dplyr)
 x <- "a, c e r r c a, g#, a ac'e'"
-tibble(pitch = as_vector_time(x)) %>% 
+tibble(pitch = as_vector_time(x)) |> 
   mutate(scale_int = scale_diff(pitch))
 ```
 
-In fact, it's much more powerful to create the columns according to your needs using specific functions and their various arguments. But `as_music_df` is convenient and also offers some additional arguments. Adding `key` and `scale` allows for scale degrees. `scale` is diatonic by default but does not have to be.
+In fact, it's much more powerful to create the columns according to your needs using specific functions and their various arguments. But `as_music_df()` is convenient and also offers some additional arguments. Adding `key` and `scale` allows for scale degrees. `scale` is diatonic by default but does not have to be.
 
 ```{r df3}
 x <- "g g#"
-as_music_df(x, key = "am") %>% 
+as_music_df(x, key = "am") |> 
   select(pitch, key, scale, scale_deg)
 
-as_music_df(x, key = "am", scale = "harmonic_minor") %>% 
+as_music_df(x, key = "am", scale = "harmonic_minor") |> 
   select(pitch, key, scale, scale_deg)
 ```
 
@@ -190,7 +175,7 @@ Music programming in the notation syntax provided by `tabr` can be used for a va
 
 LilyPond is an open source music engraving program for generating high quality sheet music based on markup syntax. `tabr` generates LilyPond files from R code and can pass them to LilyPond to be rendered into sheet music pdf files. While LilyPond caters to sheet music in general and `tabr` can be used to create basic sheet music, the transcription functions focus on leveraging LilyPond specifically for creating quality guitar tablature. You do not need to use it for guitar tablature, but for vocal or other instrument tracks, you can change settings, such as suppressing a tab staff from your sheet music.
 
-While LilyPond is listed as a system requirement for `tabr`, you can use the package for music analysis without installing LilyPond if you do not intend to render tabs. You can even use the `lilypond` function to write LilyPond files to disk without the software installed, since this is only a case of R writing plain text files in the proper format. The only functions in the package that require a LilyPond installation are `tab`, `midily`, `miditab` and any `render_*` functions.
+While LilyPond is listed as a system requirement for `tabr`, you can use the package for music analysis without installing LilyPond if you do not intend to render tabs. You can even use the `lilypond()` function to write LilyPond files to disk without the software installed, since this is only a case of R writing plain text files in the proper format. The only functions in the package that require a LilyPond installation are `tab()`, `midily()`, `miditab()` and any `render_*` functions.
 
 ### Use case considerations
 
@@ -243,16 +228,16 @@ If you are doing music analysis on noteworthy strings and are combining the note
 
 As a brief example, recreate the tablature shown in the image above (minus the R logo). Here are the steps.
 
-*    Define a musical phrase with `phrase` or the shorthand alias `p`. 
-*    Add the phrase to a `track`.
-*    Add the track to a `score`.
-*    Render the score to pdf with `tab`.
+*    Define a musical phrase with `phrase()` or the shorthand alias `p()`. 
+*    Add the phrase to a `track()`.
+*    Add the track to a `score()`.
+*    Render the score to pdf with `tab()` or another `render_*` function.
 
 The code is shown below, but first some context.
 
 ### Constructing a musical phrase
 
-The term phrase here simply means any arbitrary piece of musical structure you string together. `phrase` takes three main arguments when building a phrase from its component parts. The first gives pitches (or rests) separated in time by spaces. For chords, remove spaces to indicate simultaneous notes. For example, a rest followed by a sequence of pitches might be `notes = "r a, c f d a f"`.
+The term phrase here simply means any arbitrary piece of musical structure you string together. `phrase()` takes three main arguments when building a phrase from its component parts. The first gives pitches (or rests) separated in time by spaces. For chords, remove spaces to indicate simultaneous notes. For example, a rest followed by a sequence of pitches might be `notes = "r a, c f d a f"`.
 
 `info` is note metadata such as duration. Whole notes are given by 1, half notes by 2, quarter notes 4, and so on, e.g., `info = "4 8 8 8 8 8 8"` (or shorten to `info = "4 8*6"`). This example does not require additional information such as dotted notes, staccato notes, ties/slurs, slides, bends, hammer ons and pull offs, etc.
 
@@ -274,7 +259,7 @@ If you define the music object
 as_music("r4 a,8 c f d a f")
 ```
 
-it can be passed directly to `phrase`, which understands this syntax and interprets the `notes` argument as music syntax if the `info` argument is not provided (`info = NULL`). In fact, the music object does not even need to be previously defined. The string format can be directly provided to `phrase`.
+it can be passed directly to `phrase()`, which understands this syntax and interprets the `notes` argument as music syntax if the `info` argument is not provided (`info = NULL`). In fact, the music object does not even need to be previously defined. The string format can be directly provided to `phrase()`.
 
 ```{r music}
 (p1 <- p("r4 a,8 c f d a f"))
@@ -286,19 +271,19 @@ Notice how each timestep is complete within the single character string above. A
 
 Finally, specify some score metadata: the key signature, time signature and tempo.
 
-If LilyPond is installed on your system (and added to your system path variable on Windows systems), `tab` or any of `render_*` functions should call it successfully. Windows users are recommended to just add LilyPond's `bin` directory to the system path. This will take care of LilyPond as well as its bundled Python and MIDI support. As an example for Windows users, if the LilyPond executable is at `C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe`, then add `C:/Program Files (x86)/LilyPond/usr/bin` to the system path.
+If LilyPond is installed on your system (and added to your system path variable on Windows systems), `tab()` or any of the `render_*` functions should call it successfully. Windows users are recommended to just add LilyPond's `bin` directory to the system path. This will take care of LilyPond as well as its bundled Python and MIDI support. As an example for Windows users, if for example the LilyPond executable is at `C:/lilypond-2.24.2/bin/lilypond.exe`, then add `C:/lilypond-2.24.2/bin` to the system path.
 
 ### Minimal R code example
 
 ```{r ex1, results="hide", eval=FALSE}
-p1 %>% track() %>% score() %>%
+p1 |> track() |> score() |>
   tab("phrase.pdf", key = "dm", time = "4/4", tempo = "4 = 120")
 ```
 
 ```{r log, echo=FALSE}
 cat(
   "#### Engraving score to phrase.pdf ####",
-  "GNU LilyPond 2.18.2",
+  "GNU LilyPond 2.24.2 (running Guile 2.2)",
   "Processing `./phrase.ly'",
   "Parsing...",
   "Interpreting music...",
@@ -308,7 +293,6 @@ cat(
   "Finding the ideal number of pages...",
   "Fitting music on 1 page...",
   "Drawing systems...",
-  "Layout output to `./phrase.ps'...",
   "Converting to `./phrase.pdf'...",
   "Success: compilation successfully completed", sep = "\n"
 )

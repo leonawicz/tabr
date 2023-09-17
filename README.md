@@ -3,21 +3,9 @@
 
 # tabr <img src="man/figures/logo.png" style="margin-left:10px;margin-bottom:5px;" width="120" align="right">
 
-**Author:** [Matthew Leonawicz](https://github.com/leonawicz)
-<a href="https://orcid.org/0000-0001-9452-2771" target="orcid.widget">
-<img alt="ORCID logo" src="https://info.orcid.org/wp-content/uploads/2019/11/orcid_16x16.png" width="16" height="16" /></a>
-<br/> **License:** [MIT](https://opensource.org/licenses/MIT)<br/>
-
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
-[![Travis-CI Build
-Status](https://travis-ci.org/leonawicz/tabr.svg?branch=master)](https://travis-ci.org/leonawicz/tabr)
-[![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/leonawicz/tabr?branch=master&svg=true)](https://ci.appveyor.com/project/leonawicz/tabr)
-[![Coverage
-Status](https://img.shields.io/codecov/c/github/leonawicz/tabr/master.svg)](https://codecov.io/github/leonawicz/tabr?branch=master)
-
 [![CRAN
 status](http://www.r-pkg.org/badges/version/tabr)](https://cran.r-project.org/package=tabr)
 [![CRAN
@@ -39,8 +27,8 @@ language of a musician than, say, an audio engineer.
 
 ## Citation
 
-Matthew Leonawicz (2021). tabr: Music Notation Syntax, Manipulation,
-Analysis and Transcription in R. R package version 0.4.5.
+Matthew Leonawicz (2023). tabr: Music Notation Syntax, Manipulation,
+Analysis and Transcription in R. R package version 0.4.9.
 <https://CRAN.R-project.org/package=tabr>
 
 ## Contribute
@@ -48,11 +36,6 @@ Analysis and Transcription in R. R package version 0.4.5.
 Contributions are welcome. Contribute through GitHub via pull request.
 Please create an issue first if it is regarding any substantive feature
 add or change.
-
-If you enjoy my open source R community contributions, please consider a
-donation :).
-
-  - [Buy me a coffee in Ko-fi](https://ko-fi.com/leonawicz)
 
 ## Installation
 
@@ -72,7 +55,7 @@ remotes::install_github("leonawicz/tabr")
 ## Motivating example
 
 ``` r
-as_music("r8 c d e f g a b c'1") %>% plot_music_guitar()
+as_music("r8 c d e f g a b c'1") |> plot_music_guitar()
 ```
 
 <img src="man/figures/README-plot_music-1.png" width="50%" style="display: block; margin: auto;" />
@@ -174,20 +157,22 @@ amounts of structured music data.
 
 ``` r
 x <- "a,8 c e r r c a, g#, a ac'e'"
-as_music(x) %>% as_music_df()
-#> # A tibble: 10 x 14
-#>    duration pitch note  semitone octave  freq pitch_int scale_int slur  slide bend  dotted articulation annotation
-#>    <chr>    <chr> <chr>    <int>  <int> <dbl>     <int> <chr>     <chr> <lgl> <lgl>  <int> <chr>        <chr>     
-#>  1 8        a,    a           57      2  110.        NA <NA>      <NA>  FALSE FALSE      0 <NA>         <NA>      
-#>  2 8        c     c           48      3  131.         3 m3        <NA>  FALSE FALSE      0 <NA>         <NA>      
-#>  3 8        e     e           52      3  165.         4 M3        <NA>  FALSE FALSE      0 <NA>         <NA>      
-#>  4 8        r     r           NA     NA   NA         NA <NA>      <NA>  FALSE FALSE      0 <NA>         <NA>      
-#>  5 8        r     r           NA     NA   NA         NA <NA>      <NA>  FALSE FALSE      0 <NA>         <NA>      
-#>  6 8        c     c           48      3  131.        -4 M3        <NA>  FALSE FALSE      0 <NA>         <NA>      
-#>  7 8        a,    a           57      2  110.        -3 m3        <NA>  FALSE FALSE      0 <NA>         <NA>      
-#>  8 8        g#,   g#          56      2  104.        -1 m2        <NA>  FALSE FALSE      0 <NA>         <NA>      
-#>  9 8        a     a           57      3  220         13 m9        <NA>  FALSE FALSE      0 <NA>         <NA>      
-#> 10 8        ac'e' ace         57      3  220          0 P1        <NA>  FALSE FALSE      0 <NA>         <NA>
+as_music(x) |> as_music_df()
+#> # A tibble: 10 × 14
+#>    duration pitch note  semitone octave  freq pitch_int scale_int slur  slide
+#>    <chr>    <chr> <chr>    <int>  <int> <dbl>     <int> <chr>     <chr> <lgl>
+#>  1 8        a,    a           57      2  110.        NA <NA>      <NA>  FALSE
+#>  2 8        c     c           48      3  131.         3 m3        <NA>  FALSE
+#>  3 8        e     e           52      3  165.         4 M3        <NA>  FALSE
+#>  4 8        r     r           NA     NA   NA         NA <NA>      <NA>  FALSE
+#>  5 8        r     r           NA     NA   NA         NA <NA>      <NA>  FALSE
+#>  6 8        c     c           48      3  131.        -4 M3        <NA>  FALSE
+#>  7 8        a,    a           57      2  110.        -3 m3        <NA>  FALSE
+#>  8 8        g#,   g#          56      2  104.        -1 m2        <NA>  FALSE
+#>  9 8        a     a           57      3  220         13 m9        <NA>  FALSE
+#> 10 8        ac'e' ace         57      3  220          0 P1        <NA>  FALSE
+#> # ℹ 4 more variables: bend <lgl>, dotted <int>, articulation <chr>,
+#> #   annotation <chr>
 ```
 
 Several functions are available for mapping seamlessly between and
@@ -219,10 +204,11 @@ there is more valid syntax than just the lowercase musical note letters
 
 An important piece of syntax is the octave. In conjunction with a note,
 specifying a unique pitch requires the octave number, either in tick
-format (recommended; comma and single quote, e.g., `c,` or `c'`) or
-integer format (not recommended, more limited utility, e.g., `c2` or
+format (recommended; comma and single quote, e.g., `c,`, `c`, `c'`) or
+integer format (not recommended, more limited utility, e.g., `c2`, `c`,
 `c4`). Octave 3 is the implicit default; there is no tick and explicitly
-stating `c3` is equivalent to `c`.
+adding the `3` is unnecessary. The pitches `c d e f g a b` (default
+octave) are the notes in the octave below middle C (`c'`).
 
 For all available syntax specifications and related details see the
 package vignettes.
@@ -249,12 +235,6 @@ as_noteworthy(x)
 #>   Format: space-delimited time
 #>   Values: g#, c d# <g#c'd#'>
 
-x <- "g#2 c d# g#c4d#4" # equivalent octave numbering
-as_noteworthy(x)
-#> <Noteworthy string>
-#>   Format: space-delimited time
-#>   Values: g#2 c d# <g#c4d#4>
-
 is_note(x)
 #> [1]  TRUE  TRUE  TRUE FALSE
 is_chord(x)
@@ -264,21 +244,21 @@ chord_is_major(x)
 (x <- transpose(x, 1))
 #> <Noteworthy string>
 #>   Format: space-delimited time
-#>   Values: a2 c# e <ac#4e4>
+#>   Values: a, c# e <ac#'e'>
 
 summary(x)
 #> <Noteworthy string>
 #>   Timesteps: 4 (3 notes, 1 chord)
-#>   Octaves: integer
+#>   Octaves: tick
 #>   Accidentals: sharp
 #>   Format: space-delimited time
-#>   Values: a2 c# e <ac#4e4>
+#>   Values: a, c# e <ac#'e'>
 
 distinct_pitches(x)
 #> <Noteworthy string>
 #>   Format: space-delimited time
-#>   Values: a2 c# e a c#4 e4
-distinct_pitches(x) %>% pitch_freq() # in Hz
+#>   Values: a, c# e a c#' e'
+distinct_pitches(x) |> pitch_freq() # in Hz
 #> [1] 110.0000 138.5913 164.8138 220.0000 277.1826 329.6276
 ```
 
@@ -299,8 +279,8 @@ getting this data into a data frame for a more tidy approach to analysis
 is easy. Conversion can also populate several derivative variables in
 the process.
 
-In the earlier example you saw the result of calling `as_music_df` on a
-noteworthy string.
+In the earlier example you saw the result of calling `as_music_df()` on
+a noteworthy string.
 
 ``` r
 x <- "a, c e r r c a, g#, a ac'e'"
@@ -309,7 +289,7 @@ as_music_df(x)
 
 You may have noticed that rests (`r`) are allowed for timesteps and that
 functions that compute lagged intervals respect these gaps. Since
-`as_music_df` was only provided with a string of pitches, there are no
+`as_music_df()` was only provided with a string of pitches, there are no
 explicit time variables in the data frame. However, discrete timesteps
 still exist and they do not have to contain notes.
 
@@ -317,15 +297,15 @@ There are a number of derivative columns. If you are working with a
 large sequence of music, there is no need to carry all of these
 variables along through your analysis if you do not need them. They can
 be created using various package functions and you can build onto your
-data frame and transform variables later with a function like `mutate`
+data frame and transform variables later with a function like `mutate()`
 from `dplyr`.
 
 ``` r
 library(dplyr)
 x <- "a, c e r r c a, g#, a ac'e'"
-tibble(pitch = as_vector_time(x)) %>% 
+tibble(pitch = as_vector_time(x)) |> 
   mutate(scale_int = scale_diff(pitch))
-#> # A tibble: 10 x 2
+#> # A tibble: 10 × 2
 #>    pitch      scale_int
 #>    <notwrthy> <chr>    
 #>  1 a,         <NA>     
@@ -342,23 +322,23 @@ tibble(pitch = as_vector_time(x)) %>%
 
 In fact, it’s much more powerful to create the columns according to your
 needs using specific functions and their various arguments. But
-`as_music_df` is convenient and also offers some additional arguments.
+`as_music_df()` is convenient and also offers some additional arguments.
 Adding `key` and `scale` allows for scale degrees. `scale` is diatonic
 by default but does not have to be.
 
 ``` r
 x <- "g g#"
-as_music_df(x, key = "am") %>% 
+as_music_df(x, key = "am") |> 
   select(pitch, key, scale, scale_deg)
-#> # A tibble: 2 x 4
+#> # A tibble: 2 × 4
 #>   pitch key   scale    scale_deg
 #>   <chr> <chr> <chr>        <int>
 #> 1 g     am    diatonic         7
 #> 2 g#    am    diatonic        NA
 
-as_music_df(x, key = "am", scale = "harmonic_minor") %>% 
+as_music_df(x, key = "am", scale = "harmonic_minor") |> 
   select(pitch, key, scale, scale_deg)
-#> # A tibble: 2 x 4
+#> # A tibble: 2 × 4
 #>   pitch key   scale          scale_deg
 #>   <chr> <chr> <chr>              <int>
 #> 1 g     am    harmonic_minor        NA
@@ -389,11 +369,11 @@ suppressing a tab staff from your sheet music.
 
 While LilyPond is listed as a system requirement for `tabr`, you can use
 the package for music analysis without installing LilyPond if you do not
-intend to render tabs. You can even use the `lilypond` function to write
-LilyPond files to disk without the software installed, since this is
-only a case of R writing plain text files in the proper format. The only
-functions in the package that require a LilyPond installation are `tab`,
-`midily`, `miditab` and any `render_*` functions.
+intend to render tabs. You can even use the `lilypond()` function to
+write LilyPond files to disk without the software installed, since this
+is only a case of R writing plain text files in the proper format. The
+only functions in the package that require a LilyPond installation are
+`tab()`, `midily()`, `miditab()` and any `render_*` functions.
 
 ### Use case considerations
 
@@ -421,52 +401,51 @@ thrust of the package.
 
 LilyPond is an exceptional sheet music engraving program.
 
-  - It produces professional, high quality output.
-  - It is open source.
-  - It offers a command line access point for a programmatic approach to
-    music notation.
-  - It is developed and utilized by a large community.
-  - Most GUI-based applications are WYSIWYG and force a greater
-    limitation on what you can do and what it will look like after you
-    do it. It is only for the better that `tabr` is the bottleneck in
-    transcription limitations rather than the music engraving software
-    it wraps around.
+- It produces professional, high quality output.
+- It is open source.
+- It offers a command line access point for a programmatic approach to
+  music notation.
+- It is developed and utilized by a large community.
+- Most GUI-based applications are WYSIWYG and force a greater limitation
+  on what you can do and what it will look like after you do it. It is
+  only for the better that `tabr` is the bottleneck in transcription
+  limitations rather than the music engraving software it wraps around.
 
 ### Transcription functionality and support
 
 The `tabr` package offers the following for transcription:
 
-  - Render guitar tablature and sheet music to pdf or png.
-  - Create and insert sheet music snippets directly into R Markdown
-    documents.
-  - Write accompanying MIDI files that can respect repeat notation and
-    transposition in the sheet music (under reasonable conditions).
-  - Support tablature for other string instruments besides guitar such
-    as bass or banjo.
-  - Support for instruments with different numbers of strings.
-  - Support for arbitrary instrument tuning.
-  - Offers inclusion (or exclusion) of formal music staves above tab
-    staves, such as treble and bass clef staves for complete rhythm and
-    timing information.
-  - If music staff is included, the tab staff can be suppressed, e.g.,
-    for vocal tracks.
-  - Track-specific setup for features like instrument type, tuning and
-    supplemental music staves.
-  - Provides common notation such as slide, bend, hammer on, pull off,
-    slur, tie, staccato, dotted notes, visible and silent rests.
-  - Allows arbitrary tuplet structure.
-  - Above-staff text annotation.
-  - Percent and volta repeat section notation.
-  - Note transposition.
-  - Staff transposition.
-  - Multiple voices per track and multiple tracks per score.
-  - Chord symbols above staff
-  - Chord fretboard diagrams and chord chart at top of score.
-  - A variety of layout control options covering settings from score
-    attributions to font size.
-  - Optional alternative input format allowing the user to provide
-    string/fret combinations (along with key signature and instrument
-    tuning) to map to pitch.
+- Render guitar tablature and sheet music to pdf or png.
+- Create and insert sheet music snippets directly into R Markdown
+  documents.
+- Write accompanying MIDI files that can respect repeat notation and
+  transposition in the sheet music (under reasonable conditions).
+- Support tablature for other string instruments besides guitar such as
+  bass or banjo.
+- Support for instruments with different numbers of strings.
+- Support for arbitrary instrument tuning.
+- Offers inclusion (or exclusion) of formal music staves above tab
+  staves, such as treble and bass clef staves for complete rhythm and
+  timing information.
+- If music staff is included, the tab staff can be suppressed, e.g., for
+  vocal tracks.
+- Track-specific setup for features like instrument type, tuning and
+  supplemental music staves.
+- Provides common notation such as slide, bend, hammer on, pull off,
+  slur, tie, staccato, dotted notes, visible and silent rests.
+- Allows arbitrary tuplet structure.
+- Above-staff text annotation.
+- Percent and volta repeat section notation.
+- Note transposition.
+- Staff transposition.
+- Multiple voices per track and multiple tracks per score.
+- Chord symbols above staff
+- Chord fretboard diagrams and chord chart at top of score.
+- A variety of layout control options covering settings from score
+  attributions to font size.
+- Optional alternative input format allowing the user to provide
+  string/fret combinations (along with key signature and instrument
+  tuning) to map to pitch.
 
 ## Basic transcription example
 
@@ -489,27 +468,27 @@ markup syntax.
 As a brief example, recreate the tablature shown in the image above
 (minus the R logo). Here are the steps.
 
-  - Define a musical phrase with `phrase` or the shorthand alias `p`.
-  - Add the phrase to a `track`.
-  - Add the track to a `score`.
-  - Render the score to pdf with `tab`.
+- Define a musical phrase with `phrase()` or the shorthand alias `p()`.
+- Add the phrase to a `track()`.
+- Add the track to a `score()`.
+- Render the score to pdf with `tab()` or another `render_*` function.
 
 The code is shown below, but first some context.
 
 ### Constructing a musical phrase
 
 The term phrase here simply means any arbitrary piece of musical
-structure you string together. `phrase` takes three main arguments when
-building a phrase from its component parts. The first gives pitches (or
-rests) separated in time by spaces. For chords, remove spaces to
+structure you string together. `phrase()` takes three main arguments
+when building a phrase from its component parts. The first gives pitches
+(or rests) separated in time by spaces. For chords, remove spaces to
 indicate simultaneous notes. For example, a rest followed by a sequence
 of pitches might be `notes = "r a, c f d a f"`.
 
 `info` is note metadata such as duration. Whole notes are given by 1,
-half notes by 2, quarter notes 4, and so on, e.g., `info =
-"4 8 8 8 8 8 8"` (or shorten to `info = "4 8*6"`). This example does not
-require additional information such as dotted notes, staccato notes,
-ties/slurs, slides, bends, hammer ons and pull offs, etc.
+half notes by 2, quarter notes 4, and so on, e.g.,
+`info = "4 8 8 8 8 8 8"` (or shorten to `info = "4 8*6"`). This example
+does not require additional information such as dotted notes, staccato
+notes, ties/slurs, slides, bends, hammer ons and pull offs, etc.
 
 The third argument, `string` only applies to fretted string instruments
 and is always optional. Providing this information in conjunction with
@@ -547,11 +526,11 @@ as_music("r4 a,8 c f d a f")
 #>   Values: r4 a,8 c8 f8 d8 a8 f8
 ```
 
-it can be passed directly to `phrase`, which understands this syntax and
-interprets the `notes` argument as music syntax if the `info` argument
-is not provided (`info = NULL`). In fact, the music object does not even
-need to be previously defined. The string format can be directly
-provided to `phrase`.
+it can be passed directly to `phrase()`, which understands this syntax
+and interprets the `notes` argument as music syntax if the `info`
+argument is not provided (`info = NULL`). In fact, the music object does
+not even need to be previously defined. The string format can be
+directly provided to `phrase()`.
 
 ``` r
 (p1 <- p("r4 a,8 c f d a f"))
@@ -569,23 +548,23 @@ Finally, specify some score metadata: the key signature, time signature
 and tempo.
 
 If LilyPond is installed on your system (and added to your system path
-variable on Windows systems), `tab` or any of `render_*` functions
+variable on Windows systems), `tab()` or any of the `render_*` functions
 should call it successfully. Windows users are recommended to just add
 LilyPond’s `bin` directory to the system path. This will take care of
 LilyPond as well as its bundled Python and MIDI support. As an example
-for Windows users, if the LilyPond executable is at `C:/Program Files
-(x86)/LilyPond/usr/bin/lilypond.exe`, then add `C:/Program Files
-(x86)/LilyPond/usr/bin` to the system path.
+for Windows users, if for example the LilyPond executable is at
+`C:/lilypond-2.24.2/bin/lilypond.exe`, then add `C:/lilypond-2.24.2/bin`
+to the system path.
 
 ### Minimal R code example
 
 ``` r
-p1 %>% track() %>% score() %>%
+p1 |> track() |> score() |>
   tab("phrase.pdf", key = "dm", time = "4/4", tempo = "4 = 120")
 ```
 
     #> #### Engraving score to phrase.pdf ####
-    #> GNU LilyPond 2.18.2
+    #> GNU LilyPond 2.24.2 (running Guile 2.2)
     #> Processing `./phrase.ly'
     #> Parsing...
     #> Interpreting music...
@@ -595,16 +574,13 @@ p1 %>% track() %>% score() %>%
     #> Finding the ideal number of pages...
     #> Fitting music on 1 page...
     #> Drawing systems...
-    #> Layout output to `./phrase.ps'...
     #> Converting to `./phrase.pdf'...
     #> Success: compilation successfully completed
 
 The pdf output looks like this:
 
 <p>
-
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex00.png?raw=true" class="centerimg" width="50%">
-
 </p>
 
 ## MIDI support
@@ -634,15 +610,10 @@ There are several vignette tutorials and examples at the `tabr`
 <div>
 
 <h3 style="padding-top:50px;">
-
 R-Music
-
 </h3>
-
 <h4 style="padding:0px;margin-top:5px;margin-bottom:5px;">
-
 R for music data extraction and analysis
-
 </h4>
 
 See the <a href="https://github.com/r-music">R-Music</a> organization on
@@ -654,11 +625,11 @@ provides package introductions and examples.
 
 ### Other packages
 
-  - The [tuneR](https://CRAN.R-project.org/package=tuneR) package for
-    analysis of music and speech by Uwe Ligges, Sebastian Krey, Olaf
-    Mersmann, and Sarah Schnackenberg.
+- The [tuneR](https://CRAN.R-project.org/package=tuneR) package for
+  analysis of music and speech by Uwe Ligges, Sebastian Krey, Olaf
+  Mersmann, and Sarah Schnackenberg.
 
------
+------------------------------------------------------------------------
 
 Please note that the `tabr` project is released with a [Contributor Code
 of
