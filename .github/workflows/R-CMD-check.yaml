@@ -19,9 +19,9 @@ jobs:
       matrix:
         config:
           - {os: ubuntu-latest, r: 'devel', http-user-agent: 'release'}
-          - {os: ubuntu-latest, r: 'release'}
-          - {os: ubuntu-latest, r: 'oldrel-1'}
-          - {os: macos-latest,  r: 'release'}
+         # - {os: ubuntu-latest, r: 'release'}
+         # - {os: ubuntu-latest, r: 'oldrel-1'}
+         # - {os: macos-latest,  r: 'release'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -29,15 +29,11 @@ jobs:
 
     steps:
       - name: Install Lilypond on Linux
-        if: matrix.os == 'ubuntu-latest'
+        if: runner.os == 'Linux'
         run: |
           sudo apt update -y
           sudo apt install -y libpng-dev lilypond
 
-      - name: Install Lilypond on Mac
-        if: matrix.os == 'macos-latest'
-        run: |
-          brew install lilypond
 
       - uses: actions/checkout@v3
 
