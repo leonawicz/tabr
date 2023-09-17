@@ -4,6 +4,7 @@
 .Ruserdata
 inst/doc
 testing
+docs/reference/Rplot*
 docs/*.mid
 docs/*.pdf
 docs/reference/out.ly
