@@ -28,11 +28,13 @@ jobs:
       R_KEEP_PKG_SOURCE: yes
 
     steps:
-      - name: Install Lilypond
-        - if: matrix.os == 'ubuntu-latest'
-          run: sudo apt install -y lilypond
-        - if: matrix.os == 'macos-latest'
-          run: brew install lilypond
+      - name: Install Lilypond on Linux
+        if: matrix.os == 'ubuntu-latest'
+        run: sudo apt install -y lilypond
+
+      - name: Install Lilypond on Mac
+        if: matrix.os == 'macos-latest'
+        run: brew install lilypond
 
       - uses: actions/checkout@v3
 
