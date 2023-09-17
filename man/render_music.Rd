@@ -180,8 +180,8 @@ page number. \code{first_page_number} is the number of the first page,
 defaulting to 1, and determines all subsequent page numbers. These arguments
 correspond to LilyPond paper block variables.
 
-The options for \code{paper} include the following and have the following
-default values if not provided.
+The options for \code{paper} include the following and have the following default
+values if not provided.
 \itemize{
 \item \code{textheight = 220}
 \item \code{linewidth = 150}
@@ -198,7 +198,7 @@ png outputs the height is cropped automatically rather than remaining a full
 page. See \code{lilypond()} for details.
 
 Passing arguments to \code{header} can completely or partially prevent cropping in
-both direction, which must then be done manually with \code{linewidth} and
+both directions, which must then be done manually with \code{linewidth} and
 \code{textheight}. This is all based on underlying LilyPond behavior.
 
 If \code{music} contains lyrics and there are rests in the note sequence,

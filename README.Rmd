@@ -14,10 +14,15 @@ library(tabr)
 
 # tabr <img src="man/figures/logo.png" style="margin-left:10px;margin-bottom:5px;" width="120" align="right">
 
+
+<!-- badges: start -->
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
+[![R-CMD-check](https://github.com/leonawicz/tabr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/leonawicz/tabr/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/leonawicz/tabr/branch/master/graph/badge.svg)](https://app.codecov.io/gh/leonawicz/tabr?branch=master)
 [![CRAN status](http://www.r-pkg.org/badges/version/tabr)](https://cran.r-project.org/package=tabr)
 [![CRAN downloads](http://cranlogs.r-pkg.org/badges/grand-total/tabr)](https://cran.r-project.org/package=tabr) 
 [![Github Stars](https://img.shields.io/github/stars/leonawicz/tabr.svg?style=social&label=Github)](https://github.com/leonawicz/tabr)
+<!-- badges: end -->
 
 <br>
 
@@ -107,9 +112,9 @@ As a quick introduction and to get oriented to the music notation syntax offered
 
 A simple character string like `"c e g"`, or alternatively as a vector, `c("c", "e", "g")`, is a noteworthy string. The single lowercase letter `"a"` is noteworthy. So are `"a_"` and `"a#"` (flat and sharp). However, `"A"` is not (case sensitivity), nor is `"z"`. Of course, as seen above, there is more valid syntax than just the lowercase musical note letters `a` through `g` and sharp and flat notation.
 
-An important piece of syntax is the octave. In conjunction with a note, specifying a unique pitch requires the octave number, either in tick format (recommended; comma and single quote, e.g., `c, c c'`) or integer format (not recommended due to more restrictive utility, e.g., `c2 c c4`). Octave 3 is the implicit default; there is no tick in tick format nd explicitly adding the `3` in integer format is unnecessary. The pitches `c d e f g a b` (default octave) are the notes in the octave below middle C (`c'`).
+An important piece of syntax is the octave. In conjunction with a note, specifying a unique pitch requires the octave number, either in tick format (comma and single quote, `c, c c'`) or integer format (`c2 c c4`). Octave 3 is the implicit default; there is no tick in tick format and explicitly adding the `3` in integer format is unnecessary. The pitches `c d e f g a b` (default octave) are the notes in the octave below middle C (`c'`).
 
-You've already seen above with the example using a music object that a noteworthy string can be one part of a more complete piece of musical information. Tick format is necessary to avoid ambiguity with respect to temporal information once two such pieces of information are merged together. For this reason, tick format is preferred in general. Tick format also matches that used by the Lilypond music engraving software (see below), which is used by `tabr` for anything transcription related such as to render sheet music to PDF or in R markdown documents.
+You've already seen above with the example using a music object that a noteworthy string can be one part of a more complete piece of musical information. Tick format is necessary to avoid ambiguity with respect to temporal information once two such pieces of information are merged together. For this reason, tick format is preferred in general. Tick format also matches that used by the Lilypond music engraving software, which is used by the `tabr` Lilypond API for anything transcription related like rendering sheet music to PDF or in R markdown documents.
 
 For all available syntax specifications and related details see the package vignettes.
 
@@ -175,7 +180,7 @@ as_music_df(x, key = "am", scale = "harmonic_minor") |>
 
 ## Transcription
 
-Music programming in the notation syntax provided by `tabr` can be used for a variety of purposes, but it also integrates cohesively with the package's transcription functions. The package also provides API wrapper functions for transcribing music notation in R into basic sheet music and guitar tablature ("tabs") using [LilyPond](http://lilypond.org/).
+Music programming in the notation syntax provided by `tabr` can be used for a variety of purposes, but it also integrates cohesively with the package's transcription functions. The package also provides API wrapper functions for transcribing music notation in R into basic sheet music and guitar tablature ("tabs") using [LilyPond](https://lilypond.org/).
 
 LilyPond is an open source music engraving program for generating high quality sheet music based on markup syntax. `tabr` generates LilyPond files from R code and can pass them to LilyPond to be rendered into sheet music pdf files. While LilyPond caters to sheet music in general and `tabr` can be used to create basic sheet music, the transcription functions focus on leveraging LilyPond specifically for creating quality guitar tablature. You do not need to use it for guitar tablature, but for vocal or other instrument tracks, you can change settings, such as suppressing a tab staff from your sheet music.
 
