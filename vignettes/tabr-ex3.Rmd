@@ -58,7 +58,7 @@ x1 <- "e4 g b g g4 b g b a4 g b g b4 b g b"
 x2 <- gsub("b4", "g4", x1)
 ```
 
-The first few phrases are not too bad. They can be built largely with the building blocks set up above. And additional string of notes is introduced, along with and alternate ending `e2` to a `volta` repeat section.
+The first few phrases are not too bad. They can be built largely with the building blocks set up above. And additional string of notes is introduced, along with and alternate ending `e2` to a `volta()` repeat section.
 
 ```{r g1v1_2}
 p1a <- p(pc(x1, x2), pc(notate("8", txt), "8*31"), pn(s1, 4))
@@ -111,7 +111,7 @@ p9 <- p(pc(x1, x2, x1, x3), 8, pc(pn("1 3 2 3 21 3 2 3", 7), "21 3 2 3 21 3 2 3"
 p10 <- c(volta(p1), pn(p1, 2), p("e4", 1, 1))
 ```
 
-Finally, all of these phrases can be concatenated into one long phrase and passed to `track` to define the first voice for the first track. It's defined now and many of these temporary object names are reused for the subsequent voice and second track.
+Finally, all of these phrases can be concatenated into one long phrase and passed to `track()` to define the first voice for the first track. It's defined now and many of these temporary object names are reused for the subsequent voice and second track.
 
 ```{r g1v1_5}
 track1a <- track(c(p1a, p2, p3, p4, p5, p6, p7, p8, p9, p10))
@@ -166,7 +166,9 @@ i4 <- pc(i, i, i, "8 8 4")
 
 Explicit chords require more typing than single notes so it is especially helpful to make use of the `*` in-string expansion operator where possible.
 
-As mentioned, for comparison, this guitar part is tabbed out using string-fret notation. This means for example that instead of specifying the pitch `e2` or `e,` along with the string number to play it on, `6`, you can specify string `6` and fret `2` (assuming the default `tuning = "standard"`). Instead of `phrase` or its alias `p`, use `sf_phrase` or `sfp`.
+As mentioned, for comparison, this guitar part is tabbed out using string-fret notation. This means for example that instead of specifying the pitch `e2` or `e,` along with the string number to play it on, `6`, you can specify string `6` and fret `2` (assuming the default `tuning = "standard"`). Instead of `phrase()` or its alias `p()`, use `sf_phrase()` or `sfp()`.
+
+*Aside: This alternate specification was hastily added in a prior version of `tabr` for people who understand tabs but don't read music in general. While the syntax is functional and I would like the package to be accessible to as many users as want to use it, this alternate syntax is arguably more cumbersome to write out and actually harder to read. It is even easier to make mistakes with. It does not fit well with the broader design and intent of the package. No additional support for this syntax will be provided. In retrospect I consider it a mistake on my part to have added this feature because it encourages use of the package in a way that is counter to its fundamental design and purpose. At some point this option will be removed from `tabr`.*
 
 ```{r g2_2}
 p1a <- sfp("5*3 5*3 5321*3 5*3", "75000*3 7508*3 7005*3 75007*3", i1)
@@ -254,11 +256,11 @@ names(chord_seq) <- chord_names[x]
 
 ## Create tablature
 
-Finally, bind the three tracks together, specifying the two tab staves the two guitars are assigned to. Each guitar also has a music staff above its tab staff. The bound tracks are passed to `score`, where the chords and chord sequence are provided to include a chord chart and chord names above the staff. The score is passed to `tab` along with the metadata and the tablature is rendered by LilyPond.
+Finally, bind the three tracks together, specifying the two tab staves the two guitars are assigned to. Each guitar also has a music staff above its tab staff. The bound tracks are passed to `score()`, where the chords and chord sequence are provided to include a chord chart and chord names above the staff. The score is passed to `tab()` along with the metadata and the tablature is rendered by LilyPond.
 
 ```{r score}
-trackbind(track1a, track1b, track2, id = c(1, 1, 2)) %>%
-  score(chords, chord_seq) %>%
+trackbind(track1a, track1b, track2, id = c(1, 1, 2)) |>
+  score(chords, chord_seq) |>
   tab(outfile, key = "em", time = "4/4", tempo = "4 = 120", header)
 ```
 

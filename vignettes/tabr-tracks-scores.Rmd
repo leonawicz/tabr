@@ -19,13 +19,13 @@ knitr::opts_chunk$set(
 library(tabr)
 ```
 
-This section puts the finishing touches on combining phrases into tracks and tracks into scores. The functions `track` and `score` have been used repeatedly throughout these tutorials out of necessity in order to demonstrate complete examples, but their use has been specific and limited and they have not been discussed.
+This section puts the finishing touches on combining phrases into tracks and tracks into scores. The functions `track()` and `score()` have been used repeatedly throughout these tutorials out of necessity in order to demonstrate complete examples, but their use has been specific and limited and they have not been discussed.
 
 In the examples below, phrases are added to multiple tracks, tracks are bound together, and then scores are composed of multiple tracks. Examples using different tracks, voices, and staves are considered. Then chord symbol sequences and chord charts are incorporated into scores.
 
 ## Adding phrases to a track
 
-Phrases are added to a track using the first argument to `track`, which strictly accepts a phrase object. Except for the briefest examples, you will typically concatenate a sequence of multiple phrases and rests into a longer section of music, usually lasting the full duration of the piece. This new single phrase object is passed to `track`. Taking an earlier example and breaking it up as though it were multiple phrases for illustration.
+Phrases are added to a track using the first argument to `track()`, which strictly accepts a phrase object. Except for the briefest examples, you will typically concatenate a sequence of multiple phrases and rests into a longer section of music, usually lasting the full duration of the piece. This new single phrase object is passed to `track()`. Taking an earlier example and breaking it up as though it were multiple phrases for illustration.
 
 ```{r intro}
 notesC <- "c e g c' e' c' g e g b d' g' f a c' f' c e g e c"
@@ -34,7 +34,7 @@ p1 <- p(notesC, "8*20 2", strings)
 track(p1)
 ```
 
-This general process has been seen many times already. Below, examples are given that use the various arguments available in these functions, beginning with tracks. Briefly before exploring these arguments, note that `track` is equivalent to `track_guitar` and has appropriate default arguments. However, other wrappers around `track` are available that take different defaults. `track_bass` defaults to standard four-string bass tuning and includes the tab staff. For sheet music treble clef and bass clef tracks without any tablature staff, you can use `track_tc` and `track_bc`, respectively.
+This general process has been seen many times already. Below, examples are given that use the various arguments available in these functions, beginning with tracks. Briefly before exploring these arguments, note that `track()` is equivalent to `track_guitar()` and has appropriate default arguments. However, other wrappers around `track()` are available that take different defaults. `track_bass()` defaults to standard four-string bass tuning and includes the tab staff. For sheet music treble clef and bass clef tracks without any tablature staff, you can use `track_tc()` and `track_bc()`, respectively.
 
 ```{r track0}
 trackbind(track_tc(p1), track_bc(p1))
@@ -57,7 +57,7 @@ trackbind(track(p1, clef = NA), track(p1, key = "g", tab = FALSE))
 Multiple tracks are automatically designated for unique staves. The default when track binding is to iterate the `id` entries for each track table row unless you specify otherwise and to keep a constant single `voice` in each staff.
 
 ```{r track2}
-t1 <- p("c'' d'' e'' f'' g''", "1 2 4 4 1", 5) %>% track()
+t1 <- p("c'' d'' e'' f'' g''", "1 2 4 4 1", 5) |> track()
 t2 <- track(p1)
 trackbind(t1, t2)
 ```
@@ -65,17 +65,17 @@ trackbind(t1, t2)
 Here is the output containing two tracks; in this case two sets of music/tab staff pairs since no staves have been suppressed for either track.
 
 ```{r track3, results="hide", eval=FALSE}
-trackbind(t1, t2) %>% score %>% tab("ex22.pdf")
+trackbind(t1, t2) |> score() |> tab("ex22.pdf")
 ```
 
 <p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex22.png?raw=true" class="centerimg" width="100%"></p>
 
 In the example below, assume the song is in the key of C. The guitar is played with standard tuning and a capo on the second fret. This means that while the tablature is written relative to the capo and appears to be in C based on the chord shapes and fret numbers, it sounds like it is in D, two semitones up. However, say you want the music staff to be written in D as heard. This requires two tracks, but in this case, suppress the music staff for one track and the tab staff for the other track.
 
-The necessary first step is to transpose notes with `transpose` prior to converting them to LilyPond syntax with `phrase`.
+The necessary first step is to transpose notes with `transpose()` prior to converting them to LilyPond syntax with `phrase()`.
 
 ```{r track4}
-p2 <- tp(notesC, 2, key = "d") %>% p("8*20 2", strings)
+p2 <- tp(notesC, 2, key = "d") |> p("8*20 2", strings)
 t1 <- track(p2, key = "d", tab = FALSE)
 t2 <- track(p1, clef = NA)
 trackbind(t1, t2)
@@ -84,7 +84,7 @@ trackbind(t1, t2)
 Here is how it looks when rendered. The tab staff remains in C, written with respect to capo 2. The key of D is inferred. However, the music staff now shows the the transposition of the music to D, which has two sharps. The notes have moved on the staff accordingly. Simply setting the key signature of the staff with `key` would not have transposed the notes themselves.
 
 ```{r track5, results="hide", eval=FALSE}
-trackbind(t1, t2) %>% score() %>% tab("ex23.pdf")
+trackbind(t1, t2) |> score() |> tab("ex23.pdf")
 ```
 
 <p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex23.png?raw=true" class="centerimg" width="100%"></p>
@@ -102,29 +102,29 @@ t2 <- track(p1, voice = 2)
 trackbind(t1, t2)
 ```
 
-The is the first use shown of `trackbind` to combine tracks (single-row track tables) into multi-row track tables. The result above is not the intended result. The two voices are intended to share the same staff, but notice that by default they are assigned incremental track IDs in the `id` column, just as in previous examples. The `voice` increments as intended based on the values supplied to each `track` call. However, to force these voices to share the same staff, it is necessary to override the track ID as follows.
+The is the first use shown of `trackbind()` to combine tracks (single-row track tables) into multi-row track tables. The result above is not the intended result. The two voices are intended to share the same staff, but notice that by default they are assigned incremental track IDs in the `id` column, just as in previous examples. The `voice` increments as intended based on the values supplied to each `track()` call. However, to force these voices to share the same staff, it is necessary to override the track ID as follows.
 
 ```{r track7}
 trackbind(t1, t2, id = c(1, 1))
 ```
 
-Also note that `trackbind` takes any number of tracks via the `...` argument. If providing `id` as above, it must be as a named argument. The two voices are distinguished here by different stem direction on the notes. The first voice by ID value is stem up and the second is stem down.
+Also note that `trackbind()` takes any number of tracks via the `...` argument. If providing `id` as above, it must be as a named argument. The two voices are distinguished here by different stem direction on the notes. The first voice by ID value is stem up and the second is stem down.
 
 ```{r track8, results="hide", eval=FALSE}
-trackbind(t1, t2, id = c(1, 1)) %>% score() %>% tab("ex24.pdf")
+trackbind(t1, t2, id = c(1, 1)) |> score() |> tab("ex24.pdf")
 ```
 
 <p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex24.png?raw=true" class="centerimg" width="100%"></p>
 
 ## Putting it all together
 
-Multiple voices and tracks are engraved in the output based on the order of the values in `voice` and `id`, respectively. The `id` column is not created until there has been a call to `trackbind`, or `score` in the case of a single track input where no prior call to `trackbind` was needed.
+Multiple voices and tracks are engraved in the output based on the order of the values in `voice` and `id`, respectively. The `id` column is not created until there has been a call to `trackbind()`, or `score()` in the case of a single track input where no prior call to `trackbind()` was needed.
 
 Below is an example with multiple tracks. The first two tracks combine as two voices on one staff set. The third track goes on a unique staff. Since the bottom track (track three) is so simple, suppress the music staff. Even though this means the bottom tab staff does not have any rhythm information associated with it, the rhythm can at least be inferred from the tab staff note spacing with respect to the notes in the first tab staff, which do have explicit rhythm information provided by the treble clef staff.
 
 Some information is still going to be absent from the bottom staff, such as whether this rhythm is staccato, or made up of eighth notes or quarter notes. Of course, you provide this in the definition of `t3` below, but it doesn't change the fact that no one else looking at the sheet music will know for sure. Suppressing the music staves is generally a trade off between being unambiguous and saving space.
 
-Remember to specify `id` in `trackbind` since multiple voices per staff means you cannot rely on the automatic iterated track IDs.
+Remember to specify `id` in `trackbind()` since multiple voices per staff means you cannot rely on the automatic iterated track IDs.
 
 ```{r track9}
 t1 <- track(p2, voice = 1)
@@ -135,7 +135,7 @@ t_all
 ```
 
 ```{r track10, results="hide", eval=FALSE}
-score(t_all) %>% tab("ex25.pdf")
+score(t_all) |> tab("ex25.pdf")
 ```
 
 <p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex25.png?raw=true" class="centerimg" width="100%"></p>
@@ -144,7 +144,7 @@ Another important fact worth mentioning is that while multiple simultaneous trac
 
 ### String tuning
 
-String tuning can be unique to each track, but this is intended to translate to a tab staff. This means that entirely different tracks (destined for different tab staves in the output) may be tuned differently. However, distinct voices that share the same staff should not be be passed different tunings in their respective `track` calls. The next example shows the change to the tuning for the first tab staff.
+String tuning can be unique to each track, but this is intended to translate to a tab staff. This means that entirely different tracks (destined for different tab staves in the output) may be tuned differently. However, distinct voices that share the same staff should not be be passed different tunings in their respective `track()` calls. The next example shows the change to the tuning for the first tab staff.
 
 ```{r track11}
 x <- p("e, b, e g b e'", 8)
@@ -154,9 +154,9 @@ t3 <- track(x, tuning = "dropC")
 ```
 
 ```{r track12, echo=FALSE, results="hide", eval=FALSE}
-score(t1) %>% tab("ex26a.pdf")
-score(t2) %>% tab("ex26b.pdf")
-score(t3) %>% tab("ex26c.pdf")
+score(t1) |> tab("ex26a.pdf")
+score(t2) |> tab("ex26b.pdf")
+score(t3) |> tab("ex26c.pdf")
 ```
 
 <p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex26.png?raw=true" class="centerimg" width="100%"></p>
@@ -165,22 +165,22 @@ Rendering each of these tracks, all three look as expected given the different s
 
 ## Adding tracks to a score
 
-Music tracks are combined into a single score by passing a track table object to `score`. Like basic track usage, this has also been seen many times over by this point. There are only two other arguments that score can take, `chords` and `chord_seq` and you have seen these as well in the earlier section on chord usage in `tabr`. There is not much to add here other than to go over some details about how the three arguments to score behave.
+Music tracks are combined into a single score by passing a track table object to `score()`. Like basic track usage, this has also been seen many times over by this point. There are only two other arguments that score can take, `chords` and `chord_seq` and you have seen these as well in the earlier section on chord usage in `tabr`. There is not much to add here other than to go over some details about how the three arguments to score behave.
 
 
 ### Single vs. multiple tracks
 
 For consistency, a single track is stored in a track table even though that table has only one row. All tracks are track tables. In general, track tables can have any number of rows as you have seen. Each row in a track table translates to a new music and/or tablature staff or to a combined set of two staves.
 
-For a single track not wrapped in a call to `trackbind`, the `id` column does not yet exist. In this case `score` creates it and assigns that value `1`. `score` accepts only a single track table as the first argument; multiple tracks must be bound together with `trackbind` before passing them to `score`.
+For a single track not wrapped in a call to `trackbind()`, the `id` column does not yet exist. In this case `score()` creates it and assigns that value `1`. `score()` accepts only a single track table as the first argument; multiple tracks must be bound together with `trackbind()` before passing them to `score()`.
 
 ### Chords and chord sequences
 
-`score` accepts the additional arguments, `chords` and `chord_seq`. See the tutorial section on chords for a refresher. The first informs the chord fretboard diagrams that make up the chord chart placed at the top center on the rendered tabs. If `chords` is not provided, there will simply be no chord chart inserted at the top of the first page. `chord_seq` informs the chord symbols places above the chord chart (if present) as well as above the topmost music or tab staff.
+`score()` accepts the additional arguments, `chords` and `chord_seq`. See the tutorial section on chords for a refresher. The first informs the chord fretboard diagrams that make up the chord chart placed at the top center on the rendered tabs. If `chords` is not provided, there will simply be no chord chart inserted at the top of the first page. `chord_seq` informs the chord symbols places above the chord chart (if present) as well as above the topmost music or tab staff.
 
-Both of these elements are incorporated into the final music score at the `score` function stage because the diagrams are associated with the entire score and not with an specific phrase or track, voice or staff. Similarly, the chord symbol sequence appears in time with the music above the topmost staff, not above each staff, and pertains to the entire score.
+Both of these elements are incorporated into the final music score at the `score()` function stage because the diagrams are associated with the entire score and not with an specific phrase or track, voice or staff. Similarly, the chord symbol sequence appears in time with the music above the topmost staff, not above each staff, and pertains to the entire score.
 
-There is some redundancy when both of these arguments are provided to `score`. Both contain the names of the chords that inform the chord symbols. So for example, if you provide `chord_seq`, you might wonder if this makes `chords` redundant and unnecessary to make a chord chart, but it does not. While the names of the chord sequence vector could be used internally to define chords (and in fact, many common chord positions are predefined in LilyPond), you really do lose too much control over the specifications of the actual chord positions that inform the fretboard diagrams.
+There is some redundancy when both of these arguments are provided to `score()`. Both contain the names of the chords that inform the chord symbols. So for example, if you provide `chord_seq`, you might wonder if this makes `chords` redundant and unnecessary to make a chord chart, but it does not. While the names of the chord sequence vector could be used internally to define chords (and in fact, many common chord positions are predefined in LilyPond), you really do lose too much control over the specifications of the actual chord positions that inform the fretboard diagrams.
 
 Besides, when defining a named vector for `chord_seq`, it is highly likely you named that sequence using a previously defined `chords` vector anyhow. Finally, the separation of the two arguments is not only essentially necessary for good control over definitions, but allows you to use any combination of the two. You may want a chord chart but feel no need for a chord sequence to be written out above the top staff, or vice versa. The examples below show each combination.
 
@@ -188,12 +188,12 @@ Besides, when defining a named vector for `chord_seq`, it is highly likely you n
 
 To make it more interesting, these examples use the three track example from earlier. However, this time convert the bottom tab staff into a bass tab.
 
-*    Specify `tuning = "bass"` in `track`. This is shorthand for standard four string bass tuning. For more details on tunings and other instruments, see the later tutorial section on strings and tunings.
+*    Specify `tuning = "bass"` in `track()`. This is shorthand for standard four string bass tuning. For more details on tunings and other instruments, see the later tutorial section on strings and tunings.
 *    Instead of suppressing the music staff for this track like was done last time, use a bass clef staff to see how this looks when it is all brought together: `music_staff = "bass_8"`.
 *    The bass tuning is one octave lower than the guitar tuning. Drop the notes in the phrase for track three by one octave.
 *    The guitar and bass are in their respective standard tunings, which means the four strings of the bass match the bottom four of the guitar in terms of notes: E A D G. This makes it a simple shift of string numbers for the phrase; the bottom string is now string four.
 
-Finally, repeat every phrase two additional times by wrapping each phrase in `rp` with `n = 2` for two unfolded repeats or three plays. This is simply to provide a better sense of what a rendered score tends to look like by allowing these short phrases to actually extend across a full page width of sheet music. In this first example, there is still no chord chart or chord sequence.
+Finally, repeat every phrase two additional times by wrapping each phrase in `rp()` with `n = 2` for two unfolded repeats or three plays. This is simply to provide a better sense of what a rendered score tends to look like by allowing these short phrases to actually extend across a full page width of sheet music. In this first example, there is still no chord chart or chord sequence.
 
 ```{r track13}
 t1 <- track(rp(p2, 2), voice = 1)
@@ -205,14 +205,14 @@ t_all
 ```
 
 ```{r track14, results="hide", eval=FALSE}
-score(t_all) %>% tab("ex28.pdf")
+score(t_all) |> tab("ex28.pdf")
 ```
 
 <p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex28.png?raw=true" class="centerimg" width="100%"></p>
 
 Notice the bass tuning automatically leads to a four line tab.
 
-`t_all` remains unchanged from here forward. In the next examples, all that is needed is to alter the `chords` and `chord_seq` arguments to `score`. First, define these named vectors. The chord progression is C G F C. The C chords last over measures one and three. The F and G chords split the second measure, one half each. 
+`t_all` remains unchanged from here forward. In the next examples, all that is needed is to alter the `chords` and `chord_seq` arguments to `score()`. First, define these named vectors. The chord progression is C G F C. The C chords last over measures one and three. The F and G chords split the second measure, one half each. 
 
 You can define these chords however you like. They do not necessarily have to refer to the broken chords represented by the second voice of the guitar track in the output, though that would be common. Let's say the chords in the chord chart refer generally to chords you can use to strum along, but this generic strumming is not actually shown in the tab as an explicit track because the pattern is meant to be whatever you want to make of it. Let the C chord be the open C chord, matching the melody in voice two, but the F and G chords refer to six string bar chords.
 
@@ -228,7 +228,7 @@ chord_seq
 Now create a version that only adds a chord chart.
 
 ```{r track16, results="hide", eval=FALSE}
-score(t_all, chords = chords) %>% tab("ex29.pdf")
+score(t_all, chords = chords) |> tab("ex29.pdf")
 ```
 
 <p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex29.png?raw=true" class="centerimg" width="100%"></p>
@@ -236,7 +236,7 @@ score(t_all, chords = chords) %>% tab("ex29.pdf")
 The chart in the example above matches the order in which you defined your chord positions. Next, remake the score adding only the chord symbol sequence over the top staff. Remove the chord chart.
 
 ```{r track17, results="hide", eval=FALSE}
-score(t_all, chord_seq = chord_seq) %>% tab("ex30.pdf")
+score(t_all, chord_seq = chord_seq) |> tab("ex30.pdf")
 ```
 
 <p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex30.png?raw=true" class="centerimg" width="100%"></p>
@@ -244,7 +244,7 @@ score(t_all, chord_seq = chord_seq) %>% tab("ex30.pdf")
 Finally, combine both.
 
 ```{r track18, results="hide", eval=FALSE}
-score(t_all, chords, chord_seq) %>% tab("ex31.pdf")
+score(t_all, chords, chord_seq) |> tab("ex31.pdf")
 ```
 
 <p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex31.png?raw=true" class="centerimg" width="100%"></p>

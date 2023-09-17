@@ -30,7 +30,7 @@ However, this requires that an alternative music notation syntax is known, and l
 
 ### Converting to tabr
 
-The `to_tabr` function is used for converting alternative representations of music notation to `tabr` syntax, allowing data in other formats to be piped seamlessly into music analysis workflows and even sheet music transcription. This function is a general wrapper around specific syntax converters, which are more likely to be called directly. Examples of both approaches are shown below. 
+The `to_tabr()` function is used for converting alternative representations of music notation to `tabr` syntax, allowing data in other formats to be piped seamlessly into music analysis workflows and even sheet music transcription. This function is a general wrapper around specific syntax converters, which are more likely to be called directly. Examples of both approaches are shown below. 
 
 ### Sources with partial information
 
@@ -41,7 +41,7 @@ note transcription data for any particular instrument. This means the result of 
 
 ## music21 tiny notation
 
-The tiny notation format for [music21](https://web.mit.edu/music21/) is similar in several respects to `tabr` notation. The `to_tabr` function, and specifically, `from_music21`, will convert from `music21` to `tabr` syntax. The functionality is still a work in progress, but works for simple notation.
+The tiny notation format for [music21](https://web.mit.edu/music21/) is similar in several respects to `tabr` notation. The `to_tabr()` function, and specifically, `from_music21()`, will convert from `music21` to `tabr` syntax. The functionality is still a work in progress, but works for simple notation.
 
 ```{r music21}
 m21 <- "4/4 CC#FF4.. trip{c#8eg# d'- e-' f g a'} D4~# D E F r B16 trip{c4 d e}"
@@ -57,11 +57,11 @@ identical(x, y)
 from_music21(m21, output = "list") # same as music_split(x)
 ```
 
-Different syntax converters not only handle different input structures, but due to the different nature of the information they contain, their outputs are different as well. See `help("to_tabr")` for more details on converters and their available arguments.
+Different syntax converters not only handle different input structures, but due to the different nature of the information they contain, their outputs are different as well. See the `to_tabr()` documentation for more details on converters and their available arguments.
 
 ## chorrrds package output (Cifraclub)
 
-Turn to output from the `chorrrds` package. This is much simpler than `music21` notation, but this does not mean that little can be done with it after conversion. As mentioned, chord symbols are far from complete information for some purposes, but all is not lost. `from_chorrrds` will convert the available data to `tabr` syntax and can even enhance the information with your guidance.
+Turn to output from the `chorrrds` package. This is much simpler than `music21` notation, but this does not mean that little can be done with it after conversion. As mentioned, chord symbols are far from complete information for some purposes, but all is not lost. `from_chorrrds()` will convert the available data to `tabr` syntax and can even enhance the information with your guidance.
 
 Consider some additional limitations beyond not being as detailed as `music21` notation. The input in this case also does not specify distinct pitches by assigning octaves numbers to the notes in a chord, not even the root note. By default, every chord is positioned to start with its root note in octave three. This may not correctly represent how the chord is played in the song in question, but assumptions must be made.
 
@@ -69,7 +69,7 @@ Since all that is provided is a generic chord symbol, it is also ambiguous how t
 
 ### Default behavior
 
-In this example, a series of chords starting with a B flat are converted. They appear in notation format provided by `chorrrds`. The last two chords are intentionally given alternate bass notes, one being the same as highest note in the chord, and one not. You can see that `to_tabr` takes an `id` that is the suffix of the `from_*` function. The result is the same.
+In this example, a series of chords starting with a B flat are converted. They appear in notation format provided by `chorrrds`. The last two chords are intentionally given alternate bass notes, one being the same as highest note in the chord, and one not. You can see that `to_tabr()` takes an `id` that is the suffix of the `from_*` function. The result is the same.
 
 ```{r chorrrds1}
 chords <- c("Bb", "Bbm", "Bbm7", "Bbm7(b5)", "Bb7(#5)/G", "Bb7(#5)/Ab")
@@ -87,16 +87,16 @@ Notice that a particular rule for handling the alternate bass is that if it does
 Prefer those B flats to start on octave two? Want only simple triads? Change to sharps? Summarize the data? No problem. The functions of `tabr` of ready to operate.
 
 ```{r chorrrds2}
-x <- transpose(x, -12) %>% chord_slice(1:3) %>% sharpen_flat()
+x <- transpose(x, -12) |> chord_slice(1:3) |> sharpen_flat()
 tally_pitches(x)
-distinct_pitches(x) %>% pitch_semitones()
+distinct_pitches(x) |> pitch_semitones()
 ```
 
 ### Guitar chords
 
-Since `chorrrds` deals specifically in chords, `from_chorrrds` offers an argument for specifically selecting common guitar chords shapes instead of a standard chord. Setting `guitar = TRUE` switches to using the `guitarChords` dataset to find matching guitar chords using the `gc_info` function. This argument would not necessarily apply or be available for some other syntax converter.
+Since `chorrrds` deals specifically in chords, `from_chorrrds()` offers an argument for specifically selecting common guitar chords shapes instead of a standard chord. Setting `guitar = TRUE` switches to using the `guitarChords` dataset to find matching guitar chords using the `gc_info()` function. This argument would not necessarily apply or be available for some other syntax converter.
 
-This is a nice feature because `gc_info` takes several arguments for filtering the numerous ways a single chord can be played on a guitar. This helps you constrain and specify, at least as part of an initial pass with a broad brush, how these chord symbols from `chorrrds` should be interpreted. Arguments to `gc_chords` for setting filter conditions on the `guitarChords` dataset can be passed as a named list to `gc_args` so that you have more control over the conversion of a chord symbol to specific pitches.
+This is a nice feature because `gc_info()` takes several arguments for filtering the numerous ways a single chord can be played on a guitar. This helps you constrain and specify, at least as part of an initial pass with a broad brush, how these chord symbols from `chorrrds` should be interpreted. Arguments to `gc_chords()` for setting filter conditions on the `guitarChords` dataset can be passed as a named list to `gc_args()` so that you have more control over the conversion of a chord symbol to specific pitches.
 
 ```{r chorrrds3}
 from_chorrrds(chords, guitar = TRUE)
@@ -133,7 +133,7 @@ mdf
 
 The functions available in `tabr` for manipulating noteworthy strings can be applied similarly to data frame columns for general music data analysis.
 
-Also, notice the generic primitives `length` and `rep` have been implemented for `tabr` classes. See `help("tabr-methods")` for more information on the available methods.
+Also, notice the generic primitives `length()` and `rep()` have been implemented for `tabr` classes. See `help("tabr-methods")` for more information on the available methods.
 
 ### Visual representation
 
@@ -172,12 +172,12 @@ For fun, define a new function to parse the fret data and calculate a new variab
 library(dplyr)
 
 fret_span <- function(x){
-  f <- function(x) strsplit(x, ";") %>% unlist() %>% as.integer() %>% 
-    range(na.rm = TRUE) %>% diff()
+  f <- function(x) strsplit(x, ";") |> unlist() |> as.integer() |> 
+    range(na.rm = TRUE) |> diff()
   suppressWarnings(sapply(x, f) + 1L) # coercing string to NA integer
 }
 
-mutate(mdf, frets = gc_notes_to_fb(pitch), fret_span = fret_span(frets)) %>%
+mutate(mdf, frets = gc_notes_to_fb(pitch), fret_span = fret_span(frets)) |>
   select(duration, pitch, frets, fret_span)
 ```
 

@@ -25,15 +25,15 @@ Programming with musical scales can be assisted by a collection of functions in 
 
 ## Key signatures
 
-For key signatures, `keys` lists valid key signature abbreviation strings for each key as used in `tabr`. There are several `key_is*` functions that return a logical result regarding properties of keys:
+For key signatures, `keys` lists valid key signature abbreviation strings for each key as used in `tabr`. There are several `key_is_*` functions that return a logical result regarding properties of keys:
 
-* key_is_natural
-* key_is_sharp
-* key_is_flat
-* key_is_major
-* key_is_minor
+* `key_is_natural()`
+* `key_is_sharp()`
+* `key_is_flat()`
+* `key_is_major()`
+* `key_is_minor()`
 
-There are also the functions, `key_n_flats` and `key_n_sharps`, that give the number of respective accidentals in a key signature.
+There are also the functions, `key_n_flats()` and `key_n_sharps()`, that give the number of respective accidentals in a key signature.
 
 ```{r key}
 keys()
@@ -65,7 +65,7 @@ scale_hungarian_minor(key = "am", collapse = TRUE)
 
 You can specify whether the vector result should be returned as is, for convenient vectorized programming pipelines, or collapsed to a single string in keeping with the space-delimited time syntax format common throughout `tabr`. Many functions in `tabr` accept both formats as inputs and/or offer them as outputs. 
 
-You can also specify if octave numbering should be included or stripped. Octave numbering is included by default because this maintains pitch order when the scale does not start on `C`. Every note in a noteworthy string has an implicit octave-3 position if not explicitly stated. Octave numbering attempts to be somewhat balanced around `C3`. If the result is not what is desired, it can be shifted by 12 semitones with `transpose`.
+You can also specify if octave numbering should be included or stripped. Octave numbering is included by default because this maintains pitch order when the scale does not start on `C`. Every note in a noteworthy string has an implicit octave-3 (the octave below middle C, `C4`) position if not explicitly stated. Octave numbering attempts to be somewhat balanced around `C3`. If the result is not what is desired, it can be shifted by 12 semitones with `transpose()`.
 
 ```{r scales2}
 scale_major("f", TRUE, ignore_octave = TRUE)
@@ -76,15 +76,15 @@ See `help("scale-helpers")` for details. Depending on the scale, other arguments
 
 ## Modes
 
-The seven modern modes are also available with `mode_*` functions or through `modern_mode` by passing the mode string name. Other functions include `is_mode` and `rotate_mode`.
+The seven modern modes are also available with `mode_*` functions or through `modern_mode()` by passing the mode string name. Other functions include `is_mode` and `rotate_mode`.
 
-* mode_ionian
-* mode_dorian
-* mode_phrygian
-* mode_lydian
-* mode_mixolydian
-* mode_aeolian
-* mode_locrian
+* `mode_ionian()`
+* `mode_dorian()`
+* `mode_phrygian()`
+* `mode_lydian()`
+* `mode_mixolydian()`
+* `mode_aeolian()`
+* `mode_locrian()`
 
 ```{r modes}
 modes()
@@ -93,7 +93,7 @@ mode_aeolian("c")
 
 ## Diatonic scale chords
 
-The `scale_chords` function provides a list of diatonic scale chords based on the root note and scale chosen. It returns triads by default and can also return seventh chords.
+The `scale_chords()` function provides a list of diatonic scale chords based on the root note and scale chosen. It returns triads by default and can also return seventh chords.
 
 ```{r scale_chords}
 scale_chords("b_", "major", "seventh", collapse = TRUE)
@@ -102,7 +102,7 @@ scale_chords("f#", "minor", "triad", collapse = TRUE)
 
 ## Scale degrees
 
-The functions `scale_note` and `scale_degree` map between notes and degree in a given scale. For chords in a noteworthy string, only the root note is considered. For `scale_degree`, if a note is not diatonic to the scale, `NA` is returned. `NA` is also used when rests occur. Octaves are ignored. For `scale_note`, degrees outside the range of the scale are recycled. See below. To see if chords are fully diatonic, use `is_diatonic` or the more general `is_in_scale`. `chord_degree` will return a list comparable to `scale_degree`.
+The functions `scale_note()` and `scale_degree()` map between notes and degree in a given scale. For chords in a noteworthy string, only the root note is considered. For `scale_degree()`, if a note is not diatonic to the scale, `NA` is returned. `NA` is also used when rests occur. Octaves are ignored. For `scale_note()`, degrees outside the range of the scale are recycled. See below. To see if chords are fully diatonic, use `is_diatonic()` or the more general `is_in_scale()`. `chord_degree()` will return a list comparable to `scale_degree()`.
 
 ```{r scale_degrees}
 x <- "c e gb'd'"
@@ -126,7 +126,7 @@ Other functions in `tabr` also work with scales and some build upon functions in
 
 ## Musical intervals
 
-Musical intervals can be referenced by a name or a numeric value defining the separation of two notes. `interval_semitones` returns a positive integer describing the number of semitones spanned by a common interval. It takes a name or abbreviation of a common interval as input. Essentially, any entry from any other column in the `mainIntervals` dataset can be used to obtain the interval in semitones. It's a simple filter and match, but it is convenient to map between different representations of the same property in `tabr` without typing the extra bit of code to do so each time.
+Musical intervals can be referenced by a name or a numeric value defining the separation of two notes. `interval_semitones()` returns a positive integer describing the number of semitones spanned by a common interval. It takes a name or abbreviation of a common interval as input. Essentially, any entry from any other column in the `mainIntervals` dataset can be used to obtain the interval in semitones. It's a simple filter and match, but it is convenient to map between different representations of the same property in `tabr` without typing the extra bit of code to do so each time.
 
 ```{r intervals}
 mainIntervals
@@ -134,7 +134,7 @@ mainIntervals
 interval_semitones(c("m3", "M7"))
 ```
 
-Likely more useful for programming, the function `pitch_interval` provides the number of semitones between two input notes. This function does not relate to specific scales, but is worth mentioning on the topic of interval helpers. It provides both magnitude and direction. The result is negative if the first note is of higher pitch than the second. It is vectorized and both inputs must have the same number of timesteps. 
+Likely more useful for programming, the function `pitch_interval()` provides the number of semitones between two input notes. This function does not relate to specific scales, but is worth mentioning on the topic of interval helpers. It provides both magnitude and direction. The result is negative if the first note is of higher pitch than the second. It is vectorized and both inputs must have the same number of timesteps. 
 
 Chords can be reduced to their root note (lowest pitch) for comparison or forced to yield an `NA` interval with respect to its two adjacent timesteps (e.g., `c` to `ceg` is `NA` and so is `ceg` to `c`). Rests `r` and silent rests `s` also yield an `NA` for the interval from a prior note.
 
@@ -145,7 +145,7 @@ pitch_interval("r c ceg c e g s", "a c d d f# a e")
 pitch_interval("r c ceg c e g s", "a c d d f# a e", use_root = FALSE)
 ```
 
-Next is `scale_interval`. This function is similar to `pitch_interval` in that it takes two noteworthy strings, which together define an intervals element-wise. It is almost an inverse of `interval_semitones` except that you provide notes rather than the semitone distance of their intervals. The function returns a main interval name or abbreviation from `mainIntervals`, depending on `format`. The results are name-only. They are not signed. Use `pitch_interval` to obtain direction.
+Next is `scale_interval()`. This function is similar to `pitch_interval()` in that it takes two noteworthy strings, which together define an intervals element-wise. It is almost an inverse of `interval_semitones()` except that you provide notes rather than the semitone distance of their intervals. The function returns a main interval name or abbreviation from `mainIntervals`, depending on `format`. The results are name-only. They are not signed. Use `pitch_interval()` to obtain direction.
 
 ```{r intervals3}
 scale_interval("c c c c", "c, e g b")

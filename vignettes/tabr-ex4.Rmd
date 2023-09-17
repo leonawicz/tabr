@@ -98,7 +98,7 @@ ending <- c(7, 1)
 name_seq <- chord_names[c(intro, verse[[1]], chorus, interlude[[1]],
                           verse[[2]], chorus, interlude[[2]], chorus, ending)]
 measures <- length(c(intro, unlist(verse), rep(chorus, 3), unlist(interlude), ending))
-chord_seq <- rep(1, length(name_seq)) %>% setNames(name_seq)
+chord_seq <- rep(1, length(name_seq)) |> setNames(name_seq)
 ```
 
 ## Guitar 1: melody and lead
@@ -114,7 +114,7 @@ txt <- c("Guitar 1 w/ tremolo. Guitars 3 and 4 rhythm figures played during intr
 
 Putting the pieces together, I have done this using several phrases below.
 
-Notice that it is much easier to add annotations using `as_music`, which takes `labels` and `at` arguments. Also, when using `phrase` directly (actually the alias `p`), the notation is still provided in the same efficient single-string syntax used by the `music` class. If you provide this syntax, `phrase` will recognize it and treat it the same as if you had already created a music object with `as_music`. You can also concatenate both classes together, resulting in a new phrase object.
+Notice that it is much easier to add annotations using `as_music()`, which takes `labels` and `at` arguments. Also, when using `phrase()` directly (actually the alias `p()`), the notation is still provided in the same efficient single-string syntax used by the `music` class. If you provide this syntax, `phrase()` will recognize it and treat it the same as if you had already created a music object with `as_music()`. You can also concatenate both classes together, resulting in a new phrase object.
 
 The last step is to concatenate all these phrases in the proper order for the full track.
 
@@ -181,8 +181,8 @@ track4 <- track(p1)
 Now you can render the sheet music document by sending the score to LilyPond.
 
 ```{r score}
-trackbind(track1, track2, track3, track4) %>%
-  score(chords, chord_seq) %>%
+trackbind(track1, track2, track3, track4) |>
+  score(chords, chord_seq) |>
   tab(out, key = "dm", tempo = "4 = 120", header = hdr)
 ```
 

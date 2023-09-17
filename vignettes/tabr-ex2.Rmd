@@ -40,7 +40,7 @@ tuning <- "DADGAD"
 
 In this fingerstyle guitar tab it is appropriate to use two voices for the guitar part. Even though it is one guitar playing, the thumb playing on the low three strings and the fingers playing the higher strings should be shown as two distinct voices. Multiple voices like this go on the same staff; they do not need a separate staff. The voice played with the thumb shows notes with their stems pointing down and the higher voice has stems pointing up.
 
-This changes the phrases seen earlier as they must be split into two complementary phrases. Voice ID is indicated in `track`. There are now two tracks, but they are represented by different voices, not by different music staves. Therefore, the two tracks will use `voice = 1` and `voice = 2`, respectively, but they will not have different `tabstaff` IDs.
+This changes the phrases seen earlier as they must be split into two complementary phrases. Voice ID is indicated in `track()`. There are now two tracks, but they are represented by different voices, not by different music staves. Therefore, the two tracks will use `voice = 1` and `voice = 2`, respectively, but they will not have different `tabstaff` IDs.
 
 Below, `s` is used instead of `r` for silent rests, but this is not required. This suppresses the rest notation of the resting voice while the other voice is active. This works well for this melody since the two voices are never both at rest. Notice how the additional rests fill in the gaps where each voice is now effectively inactive while the other is played. In more complex fingerstyle arrangements they will of course overlap.
 
@@ -48,11 +48,11 @@ Below, `s` is used instead of `r` for silent rests, but this is not required. Th
 
 While refactoring the code, take it one step further and transpose the treble clef music staff up one semitone while leaving the tablature staff as is. This transposition of the music staff relative to the tab staff is useful when a score is shared with musicians playing other instruments who need to see the music on the staff written out explicitly as heard, rather than having to infer what to play from the statement about the guitar capo position.
 
-This can be done by specifying `ms_transpose = 1` and `key = "e_m"` (or just `key = "flat"`) in `track`. This transposes the *music staff* up by one semitone, but does not affect the tablature staff. `key` is necessary for ensuring the staff is written as in the key of E flat minor rather than D sharp following transposition. Note that the call to `tab` still specifies `key = "dm"` since this is the overall perspective and presentation of the guitar tab.
+This can be done by specifying `ms_transpose = 1` and `key = "e_m"` (or just `key = "flat"`) in `track()`. This transposes the *music staff* up by one semitone, but does not affect the tablature staff. `key` is necessary for ensuring the staff is written as in the key of E flat minor rather than D sharp following transposition. Note that the call to `tab()` still specifies `key = "dm"` since this is the overall perspective and presentation of the guitar tab.
 
 ## Final notes
 
-The last thing to note is that for the same reason there are a lot of octave `3` characters that can be omitted, there is no need to specify the `string` argument. The default chosen by LilyPond turns out to be exactly what is wanted. The creates even more room for code reduction compared to previous example. Some phrases are also conveniently listed using `paste` `c` and `rep`, which coerce these phrases to character strings, but this is okay as long as they are eventually combined with other phrase objects using `pc` or wrapped in other calls like `volta` or `pct` because `tabr` is aggressive for the phrase class and will convert them back.
+The last thing to note is that for the same reason there are a lot of octave `3` characters that can be omitted, there is no need to specify the `string` argument. The default chosen by LilyPond turns out to be exactly what is wanted. The creates even more room for code reduction compared to previous example. Some phrases are also conveniently listed using `paste()` `c()` and `rep()`, which coerce these phrases to character strings, but this is okay as long as they are eventually combined with other phrase objects using `pc()` or wrapped in other calls like `volta()` or `pct()` because `tabr` is aggressive for the phrase class and will convert them back.
 
 ```{r voices, eval=FALSE}
 # melody 1: voice 1
@@ -71,23 +71,23 @@ p2 <- gsub("<g>", "<g\\\\4>", p2) # force string for one note
 p3 <- volta(pct(p("s a d4 s", "8 16 16 4"), 3))
 p4 <- volta(pct(p("d s f d c", "8 8 16 16 8"), 3))
 
-t1 <- pc(pct(p1[1], 3), p3, p1[1], p1[2]) %>% 
+t1 <- pc(pct(p1[1], 3), p3, p1[1], p1[2]) |> 
   track(key = "e_m", tuning = tuning, voice = 1)
-t2 <- pc(pct(p2[1], 3), p4, p2[2], p2[3]) %>% 
+t2 <- pc(pct(p2[1], 3), p4, p2[2], p2[3]) |> 
   track(key = "e_m", tuning = tuning, voice = 2)
-trackbind(t1, t2, id = c(1, 1)) %>% score() %>% 
+trackbind(t1, t2, id = c(1, 1)) |> score() |> 
   tab("out.pdf", "dm", "4/4", "4 = 115", header)
 ```
 
 ## Refactor recap
 
-Notice the 1 and 2 passed to the respective calls to `track` for the voice ID. Subsequently, in the call to `trackbind` the two tracks are assigned the same track or staff ID, `id = c(1, 1)`. By default, not providing `id` leads to a unique staff per track. This is the more common usage. Providing non-unique staff IDs will throw an error if the voice IDs for a single staff ID are also not unique. Every track must be directed into a unique voice/staff combination. `t1` and `t2` are also transposed up one semitone to E flat minor for use with another instrument.
+Notice the 1 and 2 passed to the respective calls to `track()` for the voice ID. Subsequently, in the call to `trackbind()` the two tracks are assigned the same track or staff ID, `id = c(1, 1)`. By default, not providing `id` leads to a unique staff per track. This is the more common usage. Providing non-unique staff IDs will throw an error if the voice IDs for a single staff ID are also not unique. Every track must be directed into a unique voice/staff combination. `t1` and `t2` are also transposed up one semitone to E flat minor for use with another instrument.
 
 A recap of the code reduction:
 
 * Reduce code by concatenating phrases and their slightly different endings more efficiently.
 * Ensure the code for both voices is written in such a way that it is relatively easy to keep them lined up in time: note how the `t1` and `t2` track assignments turned out.
-* There is one note in the arrangement whose default string in LilyPond based on the instrument stringing and tuning is not the desired string. Instead of specifying all strings, the fourth string is forced with a simple character substitution using `gsub`.
+* There is one note in the arrangement whose default string in LilyPond based on the instrument stringing and tuning is not the desired string. Instead of specifying all strings, the fourth string is forced with a simple character substitution using `gsub()`.
 
 Make sure to inspect all the objects above to get a good understanding of the phrases being produced and how they are connected. This can look opaque and complex if you have not done this a number of times, but becomes easier to read and write with practice.
 
@@ -95,6 +95,6 @@ Make sure to inspect all the objects above to get a good understanding of the ph
 
 This may seem like a frustrating refactor in the sense that much of the code changed, but it results in such a small change in in the output below. However, keep in mind it is just a comparative example for illustration. Normally, this arrangement would only have been coded as two voices to begin with and the style or degree of code reduction is up to you. The new output is shown below. It is almost identical, as it should be, with the single exception of a change in stem direction representing the two voices.
 
-Note that the order of voice 1 and 2 *assignment* determines which one is stem up and which is stem down. `voice = 1` points up, `voice = 2` points down, and they should be assigned properly to avoid obtaining the backwards result. Since together these tracks share one staff, the order in which they are passed to `trackbind` actually does not matter here. `trackbind` order matters only for staff order, not voice order within a staff. In general, for voices and for staves, first to last is mapped top to bottom in the output.
+Note that the order of voice 1 and 2 *assignment* determines which one is stem up and which is stem down. `voice = 1` points up, `voice = 2` points down, and they should be assigned properly to avoid obtaining the backwards result. Since together these tracks share one staff, the order in which they are passed to `trackbind()` actually does not matter here. `trackbind()` order matters only for staff order, not voice order within a staff. In general, for voices and for staves, first to last is mapped top to bottom in the output.
 
 <p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/complete01b.png?raw=true" class="centerimg" width="100%"></p>

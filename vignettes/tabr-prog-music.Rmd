@@ -32,7 +32,7 @@ x <- as_music(notes, info)
 x
 ```
 
-`as_music` offers several additional arguments. Music objects also store key signature, time signature and tempo. They include default values: key of C, 4/4 common time, and 60 half note beats per measure. However, unless you are transcribing your data to sheet music, you can probably ignore these object attributes entirely. Optionally you can also include a lyrics object.
+`as_music()` offers several additional arguments. Music objects also store key signature, time signature and tempo. They include default values: key of C, 4/4 common time, and 60 half note beats per measure. However, unless you are transcribing your data to sheet music, you can probably ignore these object attributes entirely. Optionally you can also include a lyrics object.
 
 Here is a closer look at the music object.
 
@@ -48,7 +48,7 @@ Music analysis generally requires disentangling time and sound. For this reason,
 
 Aside from generic methods and a handful of other functions that make sense to apply to any of these three classes, most functions in the package that operate on noteworthy strings intentionally do not accept a music object directly. This helps keep in mind that it is not ideal to continually deconstruct and reconstruct a music object just to perform operations on one of the two main component parts.
 
-You can split a music object into a list with `music_split` or you can extract the relevant piece with one of the other functions below.
+You can split a music object into a list with `music_split()` or you can extract the relevant piece with one of the other functions below.
 
 ```{r music3}
 music_split(x)
@@ -109,7 +109,7 @@ As you can see above, the print statement does not change. But the other functio
 
 ## Working with music objects
 
-While many functions that perform operations on noteworthy and note info objects require those objects exclusively, meaning that you are supposed to use functions like `music_notes` and `music_info` to extract the given component from a music object, there are several functions that are sensible to apply directly to music objects.
+While many functions that perform operations on noteworthy and note info objects require those objects exclusively, meaning that you are supposed to use functions like `music_notes()` and `music_info()` to extract the given component from a music object, there are several functions that are sensible to apply directly to music objects.
 
 First and foremost, the same generic methods are implemented for music objects. Square bracket subsetting will even subset any lyrics or string numbers that are present in the object, not just the notes and note info.
 
@@ -121,7 +121,7 @@ y
 music_strings(y)
 ```
 
-There are several time functions that work nicely on music objects. They were note introduced in the vignette on note info because they are more relevant here. Most require the level of information contained in a music object because they deal in real time such as seconds. This works with music objects because they contain a tempo value. Note info objects do not contain this level of information. They can be passed to functions that require a tempo value, as long as you also pass a tempo to any function with a `tempo` argument.
+There are several time functions that work nicely on music objects. They were not introduced in the vignette on note info because they are more relevant here. Most require the level of information contained in a music object because they deal in real time such as seconds. This works with music objects because they contain a tempo value. Note info objects do not contain this level of information. They can be passed to functions that require a tempo value, as long as you also pass a tempo to any function with a `tempo` argument.
 
 The example below is intended to be complex, including many changes in note duration and other note info. There is not much to be gained by writing it as a single string in this case. For clarity, it starts from separate notes and note info. See the help documentation for more examples and details.
 
@@ -142,6 +142,6 @@ seconds_per_step(x)
 steps_start_time(x)
 ```
 
-You may notice above that the table returned by `steps_per_measure` containing the number of timesteps per measure of music does not have an entry for measure six. There is a measure six. You can see from `n_measures` being greater than five that a sixth measure does begin even if the duration of all the time steps does not yield a complete sixth measure. The reason there is no entry in the table is because this measure has no timesteps. The final chord in the sequence lasts for a whole measure, beginning in measure five and carrying over to six, but no timestep starts in six.
+You may notice above that the table returned by `steps_per_measure()` containing the number of timesteps per measure of music does not have an entry for measure six. There is a measure six. You can see from `n_measures()` being greater than five that a sixth measure does begin even if the duration of all the time steps does not yield a complete sixth measure. The reason there is no entry in the table is because this measure has no timesteps. The final chord in the sequence lasts for a whole measure, beginning in measure five and carrying over to six, but no timestep starts in six.
 
 Combining note info with a tempo is powerful because it allows you to move from beats into real time. The music object is a convenient structure for keeping sound and time together and splitting and extracting parts of the object for independent computations is easy when using the various supporting functions.

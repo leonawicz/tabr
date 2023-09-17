@@ -21,7 +21,7 @@ library(tabr)
 
 ## Chord identity and comparison
 
-You have already seen `is_chord`, which is similar to `is_note`. Another check you have seen is `is_diatonic`. You can also check whether a chords are major or minor, but this is imperfect due to the inability to know if the user is interpreting their notation of a chord as an inversion. Instances where it is too difficult to tell, or inapplicable such as with single notes, return `NA`.
+You have already seen `is_chord()`, which is similar to `is_note()`. Another check you have seen is `is_diatonic()`. You can also check whether a chords are major or minor, but this is imperfect due to the inability to know if the user is interpreting their notation of a chord as an inversion. Instances where it is too difficult to tell, or inapplicable such as with single notes, return `NA`.
 
 ```{r chords1}
 x <- "b c ce_g cd#g"
@@ -30,12 +30,12 @@ chord_is_major(x)
 chord_is_minor(x)
 ```
 
-A few functions that compare chords are `chord_rank`, `chord_order` and `chord_sort`. Ranking chords, and the ordering and sorting based on that, requires a definition or set of definitions to work from.
+A few functions that compare chords are `chord_rank()`, `chord_order()` and `chord_sort()`. Ranking chords, and the ordering and sorting based on that, requires a definition or set of definitions to work from.
 
 The first argument is a noteworthy string. The second, `pitch`, can be `"min"` (the default), `"mean"`, or `"max"`. Each of these refers to the functions that operate on the three available definitions of ranking chords.
 When ranking individual notes, the result is fixed because there are only two pitches being compared. For chords, however, `pitch = "min"` compares only the lowest pitch or root note of a chord. For `pitch = "max"`, the highest pitch note in each chord is used for establishing rank. For `pitch = "mean"`, the average of all notes in the chord are used for ranking chords.
 
-Rank is from lowest to highest pitch. These options define how chords are ranked, but each function below also passes on additional arguments via `...` to the base functions `rank` and `order` for the additional control over the more general aspects of how ranking and ordering are done in R. `chord_order` works analogously to `chord_rank`. `chord_sort` wraps around `chord_order`.
+Rank is from lowest to highest pitch. These options define how chords are ranked, but each function below also passes on additional arguments via `...` to the base functions `rank()` and `order()` for the additional control over the more general aspects of how ranking and ordering are done in R. `chord_order()` works analogously to `chord_rank()`. `chord_sort()` wraps around `chord_order()`.
 
 ```{r chords 2}
 x <- "a2 c a2 ceg ce_g cea"
@@ -51,9 +51,9 @@ chord_sort(x, "mean")
 
 ## Slice and filter chords
 
-Chords can be sliced or indexed using the functions `chord_root`, `chord_top` and `chord_slice`. The first two are special cases of `chord_slice`. The first two functions return a noteworthy string containing only the root or top notes of each chord. If the string contains a single note, by definition the note is returned.
+Chords can be sliced or indexed using the functions `chord_root()`, `chord_top()` and `chord_slice()`. The first two are special cases of `chord_slice`. The first two functions return a noteworthy string containing only the root or top notes of each chord. If the string contains a single note, by definition the note is returned.
 
-For `chord_slice`, however, an integer index range is provided and it is possible to reduce a note or chord to nothing by passing indices that are completely out of bounds. Any note or chord that is completely sliced away is dropped.
+For `chord_slice()`, however, an integer index range is provided and it is possible to reduce a note or chord to nothing by passing indices that are completely out of bounds. Any note or chord that is completely sliced away is dropped.
 
 The example below also shows that what matters is pitch order, not the order in which notes in a chord are entered in the string.
 
@@ -68,7 +68,7 @@ chord_slice(x, 4)
 chord_slice(x, 3:5)
 ```
 
-The slicing functions deal with position *within* a chord; they are not a simple reproduction of vector indexing of time steps, which is trivial and can already be done with `note_slice` (clearly not slicing a single note, but a noteworthy string). Filtering the *sequence* rather than the elements within it is best done by taking the results of a function that returns a logical vector and passing them to `note_slice`. This tends to fall under the topic of general noteworthy string functions and does not apply strictly to chords, but an example is shown here.
+The slicing functions deal with position *within* a chord; they are not a simple reproduction of vector indexing of time steps, which is trivial and can already be done with `note_slice()` (clearly not slicing a single note, but a noteworthy string). Filtering the *sequence* rather than the elements within it is best done by taking the results of a function that returns a logical vector and passing them to `note_slice()`. This tends to fall under the topic of general noteworthy string functions and does not apply strictly to chords, but an example is shown here.
 
 ```{r chords 4}
 x <- "a2 ceg e_gc egc,cc'"
@@ -78,22 +78,22 @@ note_slice(x, is_chord(x))
 
 ## Chord transformations
 
-A broken chord can be created with `chord_break`, which separates a chord into its component notes, separating in time. It accepts a single chord.
+A broken chord can be created with `chord_break()`, which separates a chord into its component notes, separating in time. It accepts a single chord.
 
 ```{r chords5}
 x <- "ce_g"
 chord_break(x)
 ```
 
-`chord_invert` creates chord inversions. It also takes a single chord as input. It treats any chord as being in root position as provided. The example below applies the function over a series of inversion values to show how the output changes.
+`chord_invert()` creates chord inversions. It also takes a single chord as input. It treats any chord as being in root position as provided. The example below applies the function over a series of inversion values to show how the output changes.
 
 ```{r chords6}
 pc(sapply((-3):3, function(i) chord_invert(x, i)))
 ```
 
-While a chord with `n` notes has `n - 1` inversions, `chord_invert` allows inversions to continue, moving a chord further up or down in octaves. If you want to restrict the function to only allowing the defined number of inversions (excluding root position), set `limit = TRUE`. This enforces the rule that, for example, a chord with three notes has two inversions and `n` can only take values between `-2` and `2` or it will throw and error.
+While a chord with `n` notes has `n - 1` inversions, `chord_invert()` allows inversions to continue, moving a chord further up or down in octaves. If you want to restrict the function to only allowing the defined number of inversions (excluding root position), set `limit = TRUE`. This enforces the rule that, for example, a chord with three notes has two inversions and `n` can only take values between `-2` and `2` or it will throw and error.
 
-Building up on `chord_invert`, `chord_arpeggiate` grows a chord up or down the scale in pitch by creating an arpeggio. `n` describes how many steps to add onto the original chord. Setting `by = "chord"` will replicate the entire chord as is, up or down the scale. In this case `n` indicates whole octave transposition steps. By default, `n` refers to the number of steps that individual chord notes are arpeggiated, like in `chord_invert`. This means for example that in a chord with three notes, setting `n = 3` and `by = "note"` is equivalent to setting `n = 1` and `by = "chord"`.
+Building up on `chord_invert()`, `chord_arpeggiate()` grows a chord up or down the scale in pitch by creating an arpeggio. `n` describes how many steps to add onto the original chord. Setting `by = "chord"` will replicate the entire chord as is, up or down the scale. In this case `n` indicates whole octave transposition steps. By default, `n` refers to the number of steps that individual chord notes are arpeggiated, like in `chord_invert()`. This means for example that in a chord with three notes, setting `n = 3` and `by = "note"` is equivalent to setting `n = 1` and `by = "chord"`.
 
 The argument `broken = TRUE` will also convert to a broken chord, resulting in an arpeggio of individual notes.
 
@@ -106,7 +106,7 @@ chord_arpeggiate("ce_gb_", 1, broken = TRUE, collapse = TRUE)
 
 ## Dyads
 
-Before introducing the chord constructors, here is a brief mention and example of the `dyad` function for constructing dyads from a root note and and interval. Dyads are not always considered chords, but this is as good a place as any to mention `dyad` since the key distinction made in `tabr` in this context is whether there is a single note or multiple notes. The interval passed to `dyad` can be in semitones, or a named interval from `mainIntervals` that corresponds to the number of semitones.
+Before introducing the chord constructors, here is a brief mention and example of the `dyad()` function for constructing dyads from a root note and and interval. Dyads are not always considered chords, but this is as good a place as any to mention `dyad()` since the key distinction made in `tabr` in this context is whether there is a single note or multiple notes. The interval passed to `dyad()` can be in semitones, or a named interval from `mainIntervals` that corresponds to the number of semitones.
 
 ```{r chords8}
 dyad("a", 3)
@@ -150,7 +150,7 @@ guitarChords
 
 ### Defining new guitar chord collections
 
-You can also define your own chords using `chord_def`. All you need are the fret numbers for the fretted chord. Currently it is assumed to be a six-string instrument. The default tuning is standard, but this can be changed arbitrarily. `NA` indicates a muted string. Order is from lowest pitch string to highest. In the example below, create a set of minor chords based on the open `Am` shape.
+You can also define your own chords using `chord_def()`. All you need are the fret numbers for the fretted chord. Currently it is assumed to be a six-string instrument. The default tuning is standard, but this can be changed arbitrarily. `NA` indicates a muted string. Order is from lowest pitch string to highest. In the example below, create a set of minor chords based on the open `Am` shape.
 
 ```{r chord_def}
 frets <- c(NA, 0, 2, 2, 1, 0)
@@ -159,7 +159,7 @@ chord_def(frets, "m", 6) # sixth entry (highest string: string #1) is optional
 
 `guitarChords` does not currently contain the `optional` column, but this is a column where you can indicate optional chord notes, as shown above.
 
-`chord_def` is scalar and defines a single chord, always returning a table with one row, but you can map over it however you need in order to define a collection of chords. Below, a set of chords is generated with sharps and again with flats.
+`chord_def()` is scalar and defines a single chord, always returning a table with one row, but you can map over it however you need in order to define a collection of chords. Below, a set of chords is generated with sharps and again with flats.
 
 ```{r chord_def2}
 purrr::map_dfr(1:12, ~chord_def(frets + .x, "m"))
@@ -168,14 +168,14 @@ purrr::map_dfr(1:12, ~chord_def(frets + .x, "m", key = "f")) # flats
 
 ### Related helper functions
 
-Several functions are available that glean specific information from `guitarChords`. The functions `lp_chord_id` and `lp_chord_mod` obtain the LilyPond chord name and LilyPond chord modifier (suffix), given a root note and `tabr` format chord name/modifier. It is not quite identical to LilyPond format (set `exact = TRUE`). See function documentation for details.
+Several functions are available that glean specific information from `guitarChords`. The functions `lp_chord_id()` and `lp_chord_mod()` obtain the LilyPond chord name and LilyPond chord modifier (suffix), given a root note and `tabr` format chord name/modifier. It is not quite identical to LilyPond format (set `exact = TRUE`). See function documentation for details.
 
 ```{r gc_helpers1}
 lp_chord_id("a a a", "m M m7_5")
 lp_chord_mod("a a a", "m M m7_5")
 ```
 
-`gc_is_known` checks against `guitarChords` to see if the explicit chord, as given by its component pitches, exists in the dataset. Notice below that `a` in the string of notes is a note, not a major `A` chord, and hence returns `FALSE`. In the `gc_name_*` functions, the same `a` is now interpreted as a major chord because these functions operate on chord name inputs.
+`gc_is_known()` checks against `guitarChords` to see if the explicit chord, as given by its component pitches, exists in the dataset. Notice below that `a` in the string of notes is a note, not a major `A` chord, and hence returns `FALSE`. In the `gc_name_*` functions, the same `a` is now interpreted as a major chord because these functions operate on chord name inputs.
 
 ```{r gc_helpers2}
 gc_is_known("a b_,fb_d'f'")
@@ -192,7 +192,7 @@ The most interesting use of `guitarChords` is in using it to map from chord name
 
 ### Chord information
 
-`gc_info` can be used to filter `guitarChords`. In the examples below, you can see that multiple chord names can be supplied at once. All are used to filter the chord dataset. If the inputs do not exist, an empty tibble with zero rows is returned. The result is not vectorized to match the number of entries in the input; it is simply a row filter for `guitarChords`.
+`gc_info()` can be used to filter `guitarChords`. In the examples below, you can see that multiple chord names can be supplied at once. All are used to filter the chord dataset. If the inputs do not exist, an empty tibble with zero rows is returned. The result is not vectorized to match the number of entries in the input; it is simply a row filter for `guitarChords`.
 
 ```{r gc_info}
 gc_info("a") # a major chord, not a single note
@@ -202,11 +202,11 @@ gc_info("ceg a#m7_5", key = "f")
 gc_info("a,m c d f,")
 ```
 
-The same properties of `gc_info` apply to wrapper functions around it, namely, `gc_notes` and `gc_fretboard`.
+The same properties of `gc_info()` apply to wrapper functions around it, namely, `gc_notes()` and `gc_fretboard()`.
 
 ### Map chord names to notes
 
-`gc_notes` takes chord names that exist in `guitarChords` and returns the noteworthy strings needed for phrase construction. Remember, the is just a basic filter. If you specify chords imprecisely, the result will contain many more chords than were in the input. If you specify chords completely unambiguously, then there is one result for each input. However, this also requires you do not provide any chord names that are not in `guitarChords`, or these will be dropped.
+`gc_notes()` takes chord names that exist in `guitarChords` and returns the noteworthy strings needed for phrase construction. Remember, the is just a basic filter. If you specify chords imprecisely, the result will contain many more chords than were in the input. If you specify chords completely unambiguously, then there is one result for each input. However, this also requires you do not provide any chord names that are not in `guitarChords`, or these will be dropped.
 
 Keep in mind that these functions are under active development and the approaches they take may change prior to the next CRAN release of `tabr`. Currently, the ways you can add precision to your chord mapping include passing the following optional arguments:
 
@@ -228,9 +228,9 @@ Notice that the octave information helps further restrict the chord set with `ig
 
 ### Fretboard diagrams
 
-When creating tablature and sheet music with LilyPond, you may wish to include a chord chart containing fretboard diagrams of the chords as they are played. Currently, `tabr` uses the `chord_set` function to prepare a named character vector of chords that have quasi-LilyPond chord names and fretboard notation values, ready to be passed to `score` for proper injection into LilyPond.
+When creating tablature and sheet music with LilyPond, you may wish to include a chord chart containing fretboard diagrams of the chords as they are played. Currently, `tabr` uses the `chord_set()` function to prepare a named character vector of chords that have quasi-LilyPond chord names and fretboard notation values, ready to be passed to `score()` for proper injection into LilyPond.
 
-This process and the structure of the data objects involved may change soon (I have not decided for certain yet). But for the time being, this is still the process. Therefore, the new function `gc_fretboard` performs the same manipulation using chords from `guitarChords`.
+This process and the structure of the data objects involved may change soon (I have not decided for certain yet). But for the time being, this is still the process. Therefore, the new function `gc_fretboard()` performs the same manipulation using chords from `guitarChords`.
 
 ```{r gc_fretboard}
 gc_fretboard("a,m c d f,", min_fret = 0:1)

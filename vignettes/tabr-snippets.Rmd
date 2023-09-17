@@ -20,13 +20,13 @@ knitr::opts_chunk$set(
 library(tabr)
 ```
 
-This section demonstrates how to create sheet music snippets in R markdown documents using the LilyPond backend. To do this, use the set of `plot_music_*` functions that wrap around the `render_music_*` functions.
+This section demonstrates how to create sheet music snippets in R markdown documents using the LilyPond backend. To do this, use the set of `plot_music*` functions that wrap around the `render_music*` functions.
 
 These abstract the process of rendering a sheet music snippet to png and loading the rendered image back into R to be displayed as a plot in an open graphics device or inserted into an R markdown code chunk.
 
 While these functions abstract away the details of the process, this is not the same as making the plot completely in R. R is only displaying the intermediary png file. LilyPond is required to engrave the sheet music.
 
-For R markdown you can alternatively render the png using the corresponding `render_music_*` function and then place it in the document explicitly using `knitr::include_graphics`. See `?render_music` for more details. Below are some example snippets for guitar and bass.
+For R markdown you can alternatively render the png using the corresponding `render_music*` function and then place it in the document explicitly using `knitr::include_graphics()`. See `render_music()` for more details. Below are some example snippets for guitar and bass.
 
 ## Music objects
 
@@ -39,7 +39,7 @@ summary(b)
 
 ## Snippet in R markdown chunk
 
-The defaults for `plot_music` include treble clef and no tab staff. Plot the music object, `g`. As you can see, this appears off by an octave because the guitar transcription should use `clef = "treble_8"` instead of the default `clef = "treble"`.
+The defaults for `plot_music()` include treble clef and no tab staff. Plot the music object, `g`. As you can see, this appears off by an octave because the guitar transcription should use `clef = "treble_8"` instead of the default `clef = "treble"`.
 
 ```{r, snippet1}
 plot_music(g)
@@ -77,4 +77,4 @@ plot_music_bc(b) # bass clef
 plot_music_bass(b) # bass clef and tab staff
 ```
 
-Depending on the function, additional relevant arguments include `clef`, `tab`, `tuning` and `string_names`. Layout arguments include `header`, `paper`, `colors`, `transparent` and `res`. The function `plot_music_tc` is equivalent to `plot_music`.
+Depending on the function, additional relevant arguments include `clef`, `tab`, `tuning` and `string_names`. Layout arguments include `header`, `paper`, `colors`, `transparent` and `res`. The function `plot_music_tc()` is equivalent to `plot_music()`.

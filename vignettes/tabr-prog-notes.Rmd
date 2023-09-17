@@ -21,21 +21,21 @@ library(tabr)
 
 ## Note identity checks
 
-There are a number of functions that assist with music programming around note and pitch validation, comparison, equivalence checking, and various manipulations and transformations. In a previous section, you saw `is_note` and `is_chord`. Other identity functions include:
+There are a number of functions that assist with music programming around note and pitch validation, comparison, equivalence checking, and various manipulations and transformations. In a previous section, you saw `is_note()` and `is_chord()`. Other identity functions include:
 
-* `note_has_natural`
-* `note_has_accidental`
-* `note_has_flat`
-* `note_has_sharp`
-* `note_is_natural`
-* `note_is_accidental`
-* `note_is_flat`
-* `note_is_sharp`
-* `note_has_tick`
-* `note_has_integer`
-* `note_is_tick`
-* `note_is_integer`
-* `is_diatonic`
+* `note_has_natural()`
+* `note_has_accidental()`
+* `note_has_flat()`
+* `note_has_sharp()`
+* `note_is_natural()`
+* `note_is_accidental()`
+* `note_is_flat()`
+* `note_is_sharp()`
+* `note_has_tick()`
+* `note_has_integer()`
+* `note_is_tick()`
+* `note_is_integer()`
+* `is_diatonic()`
 
 ```{r notes1a}
 x <- "c e_ g b_"
@@ -43,7 +43,7 @@ note_has_accidental(x)
 note_is_accidental(x)
 ```
 
-The function `is_diatonic` takes a `key` signature for context.
+The function `is_diatonic()` takes a `key` signature for context.
 
 ```{r notes1b}
 x <- "c e_ g b_ cd#g"
@@ -55,16 +55,16 @@ is_diatonic(x, key = "b_")
 
 There are a number of functions that parse basic metadata about noteworthy strings.
 
-* `n_steps`
-* `n_notes`
-* `n_chords`
-* `n_octaves`
-* `chord_size`
-* `octave_type`
-* `accidental_type`
-* `time_format`
-* `is_space_time`
-* `is_vector_time`
+* `n_steps()`
+* `n_notes()`
+* `n_chords()`
+* `n_octaves()`
+* `chord_size()`
+* `octave_type()`
+* `accidental_type()`
+* `time_format()`
+* `is_space_time()`
+* `is_vector_time()`
 
 See `help("note-metadata")` for details. A few examples are shown here.
 
@@ -81,18 +81,18 @@ time_format(x)
 
 While there is not a clear delineation between the previous set of functions and the next, it helps to break them up a bit since there are many. These functions go bit further in summarizing the data in noteworthy strings.
 
-* `tally_notes`
-* `tally_pitches`
-* `octaves`
-* `tally_octaves`
-* `distinct_notes`
-* `distinct_pitches`
-* `distinct_octaves`
-* `pitch_range`
-* `semitone_range`
-* `semitone_span`
-* `octave_range`
-* `octave_span`
+* `tally_notes()`
+* `tally_pitches()`
+* `octaves()`
+* `tally_octaves()`
+* `distinct_notes()`
+* `distinct_pitches()`
+* `distinct_octaves()`
+* `pitch_range()`
+* `semitone_range()`
+* `semitone_span()`
+* `octave_range()`
+* `octave_span()`
 
 See `help("note-summaries")` for details. Here are some examples.
  
@@ -110,7 +110,7 @@ semitone_range(x)
 
 ### Accidentals
 
-Note that it is common for functions to treat notes as different if they sound the same but one is transcribed as a flat and the other as a sharp. `tabr` makes the distinction for notation purposes; same pitch, different notes. This also supports transcription. Functions like `transpose` of course handle pitch as pitch and therefore the style of representation does not affect computation.
+Note that it is common for functions to treat notes as different if they sound the same but one is transcribed as a flat and the other as a sharp. `tabr` makes the distinction for notation purposes; same pitch, different notes. This also supports transcription. Functions like `transpose()` of course handle pitch as pitch and therefore the style of representation does not affect computation.
 
 There are functions for enforcing a singular representation for accidentals in noteworthy strings since it is unusual to mix flats and sharps.
 
@@ -119,15 +119,15 @@ flatten_sharp(x)
 sharpen_flat(x)
 ```
 
-Do not be confused about the names of these functions. They are for enforcing a single type of accidental. To actually lower sharps by a half step or semitone as well as raise flats similarly, use `naturalize`.
+Do not be confused about the names of these functions. They are for enforcing a single type of accidental. To actually lower sharps by a half step or semitone as well as raise flats similarly, use `naturalize()`.
 
 ```{r notes4}
 naturalize(x)
 ```
 
-These are helpful building blocks for music programming. A useful wrapper around `flatten_sharp` and `sharpen_flat` is `note_set_key`. Like `is_diatonic`, this function takes a `key` argument. `key` was more meaningful for `is_diatonic`. However, providing a key signature here is helpful for the purpose of enforcing the correct representation of accidentals intended by the user, which `tabr` cannot know until informed.
+These are helpful building blocks for music programming. A useful wrapper around `flatten_sharp()` and `sharpen_flat()` is `note_set_key()`. Like `is_diatonic()`, this function takes a `key` argument. `key` was more meaningful for `is_diatonic`. However, providing a key signature here is helpful for the purpose of enforcing the correct representation of accidentals intended by the user, which `tabr` cannot know until informed.
 
-Be aware that the default for functions that take a `key` argument is `c`, but `c` and `am` have no accidentals in their key signatures, so `note_set_key` will have no effect if you pass these values to `key`. It is also important to recognize that it does not matter for this function what key you choose specifically; it only matters that you choose a key that has the type of accidentals in its signature that you wish to force your noteworthy string to use. If you want flats, it makes no difference if you set `key = "f"` or `key = "b_"`. For this function, you can also literally enter `key = "flat"` or `key = "sharp"`, options that stress the extent to which `key` actually matters to `note_set_key`.
+Be aware that the default for functions that take a `key` argument is `c`, but `c` and `am` have no accidentals in their key signatures, so `note_set_key()` will have no effect if you pass these values to `key`. It is also important to recognize that it does not matter for this function what key you choose specifically; it only matters that you choose a key that has the type of accidentals in its signature that you wish to force your noteworthy string to use. If you want flats, it makes no difference if you set `key = "f"` or `key = "b_"`. For this function, you can also literally enter `key = "flat"` or `key = "sharp"`, options that stress the extent to which `key` actually matters to `note_set_key()`.
 
 ```{r notes5}
 note_set_key(x, "c") # no change possible
@@ -204,10 +204,10 @@ y <- "b_2 ce_ gb_"
 note_is_equal(x, y)
 ```
 
-Finally, there are octave comparisons, which must be defined and behave somewhat differently. `octave_is_equal` and `octave_is_identical` allow much weaker forms of equivalence in that they ignore notes completely. These functions are only concerned with comparing the octave numbers spanned by any pitches present at each timestep.
+Finally, there are octave comparisons, which must be defined and behave somewhat differently. `octave_is_equal()` and `octave_is_identical()` allow much weaker forms of equivalence in that they ignore notes completely. These functions are only concerned with comparing the octave numbers spanned by any pitches present at each timestep.
 
-When checking for equality, `octave_is_equal` only looks at the octave number associated with the first note at each step, e.g., only the root note of a chord.
-`octave_is_identical` compares all octaves spanned at a given timestep by considering all notes when a chord is present.
+When checking for equality, `octave_is_equal()` only looks at the octave number associated with the first note at each step, e.g., only the root note of a chord.
+`octave_is_identical()` compares all octaves spanned at a given timestep by considering all notes when a chord is present.
 
 This still leaves open the definitions of equivalence. To clarify:
 
@@ -216,11 +216,17 @@ This still leaves open the definitions of equivalence. To clarify:
 
 Consider an example: `a1b2c3` is identical to `d1e1f2g3`. The notes are irrelevant. The number of notes is irrelevant. The fact that octave number one occurs a different number of times in each chord is irrelevant. What matters is that they both have the same set of unique octave positions `{1, 2, 3}`. To be equal, even less is required. In this case it only matters that the two chords begin with `x1`, where `x` is any note.
 
-One alternative, for `octave_is_identical` only, is to set `single_octave = TRUE`. This increases the requirement for identity to require that all notes from both chords being compared at a given timestep share a single octave.
+One alternative, for `octave_is_identical()` only, is to set `single_octave = TRUE`. This increases the requirement for identity to require that all notes from both chords being compared at a given timestep share a single octave.
 
 ```{r notes9}
 x <- "a1 b_2 a1b2c3 a1b4 g1a1b1"
 y <- "a_2 g#2 d1e1f2g3 a1b2b4 d1e1"
+octave_is_equal(x, y)
+octave_is_identical(x, y)
+octave_is_identical(x, y, single_octave = TRUE)
+
+x <- "a,, b_, a,,b,c a,,b' g,,a,,b,,"
+y <- "a_, g#, d,,e,,f,g a,,b,b' d,,e,,"
 octave_is_equal(x, y)
 octave_is_identical(x, y)
 octave_is_identical(x, y, single_octave = TRUE)
@@ -252,21 +258,21 @@ note_sort(x)
 note_sort(x, decreasing = TRUE)
 ```
 
-Rotating or cycling a sequence of notes and chords in a noteworthy string is done with `note_rotate`. This is a simple function. It only rotates the sequence left or right. It does not do any transposition. It does not break chords, but rather rotates them intact.
+Rotating or cycling a sequence of notes and chords in a noteworthy string is done with `note_rotate()`. This is a simple function. It only rotates the sequence left or right. It does not do any transposition. It does not break chords, but rather rotates them intact.
 
 ```{r notes13}
 note_rotate(x, 1)
 note_rotate(x, -1)
 ```
 
-`note_shft` also rotates notes, but does so up or down in pitch like a moving window. It requires breaking any chords into separate notes, ordering all notes by pitch, and then shifting the sorted notes `n` times, negative or positive indicating the direction.
+`note_shift()` also rotates notes, but does so up or down in pitch like a moving window. It requires breaking any chords into separate notes, ordering all notes by pitch, and then shifting the sorted notes `n` times, negative or positive indicating the direction.
 
 ```{r notes14}
 note_shift("c e g", 1)
 note_shift("c e g", -4)
 ```
 
-`note_arpeggiate` is like `note_shift` but it repeats the entire sequence rather than shifting it a note at a time and maintaining its fixed size. `n` refers to the number of repeats and must be positive. `steps` refers to the semitone offset.
+`note_arpeggiate()` is like `note_shift()` but it repeats the entire sequence rather than shifting it a note at a time and maintaining its fixed size. `n` refers to the number of repeats and must be positive. `steps` refers to the semitone offset.
 
 ```{r notes15}
 note_arpeggiate("c e_ g_ a", 3)
@@ -275,26 +281,26 @@ note_arpeggiate("c e_ g_ a", 3, -3)
 
 ## Transpose
 
-An important function in `tabr` for manipulating music notation is the `transpose` function, which also has the alias `tp`.
+An important function in `tabr` for manipulating music notation is the `transpose()` function, which also has the alias `tp()`.
 
 ```{r tp1}
-notes1 <- "c3 b2 c3 d3 e3 e3 d3 c3 b2 c3 c3 c4"
-notes2 <- "c4 b c4 d4 e4 e4 d4 c4 b c4 c4 c5"
+notes1 <- "c b, c d e e d c b, c c c'"
+notes2 <- "c' b c' d' e' e' d' c' b c' c' c''"
 transpose(notes1, 12, octaves = "integer") == as_noteworthy(notes2)
 ```
 
 Transposing down is done with negative integers. 
 
 ```{r tp2}
-transpose("a_3 b_4 c5", 0)
-tp("a_3 b_4 c5", -1)
-tp("a_3 b_4 c5", 1)
-tp("a#3 b4 c#5", 11)
-tp("a#3 b4 c#5", -12)
-tp("a#3 b4 c#5", 13)
+transpose("a_ b_' c'", 0)
+tp("a_ b_' c'", -1)
+tp("a_ b_' c'", 1)
+tp("a# b' c#'", 11)
+tp("a# b' c#'", -12)
+tp("a# b' c#'", 13)
 ```
 
-`transpose` also offers the arguments found in `as_noteworthy` for direct control over the format of the transposed output. You can specify the key signature with `key` as an optional override to `accidentals`. It does not do anything more than enforce the desired format for accidentals.
+`transpose` also offers the arguments found in `as_noteworthy()` for direct control over the format of the transposed output. You can specify the key signature with `key` as an optional override to `accidentals`. It does not do anything more than enforce the desired format for accidentals.
 
 ```{r tp3}
 tp("a3 b4 c5", 2, key = "f")
@@ -303,4 +309,4 @@ tp("a b' c''", 2, accidentals = "flat")
 tp("a, b c'e'g'", 2, octaves = "integer", accidentals = "sharp")
 ```
 
-`transpose` also works when chords are present. The next section on music programming covers various functions related to chords.
+`transpose()` also works when chords are present. The next section on music programming covers various functions related to chords.

@@ -25,33 +25,32 @@ This section covers helper functions related to phrases. These functions assist 
 
 Briefly, there are some convenient aliases for `tabr` functions that are used often. These aliases have short function names to help keep the music notation R syntax a more concise if desired. These include:
 
-* `p`, an alias for `phrase`.
-* `tp`, an alias for `transpose`.
+* `p()`, an alias for `phrase()`.
+* `tp()`, an alias for `transpose()`.
 
-The most common conflicts to watch out for are using `tabr` with `shiny` where `p` is a function and if you use `purrr` to help wrangle some of your more complex tablature, it has its own `transpose` function. Pay attention to package load order and/or use explicit names spaces if working with these packages loaded.
-The recommended approach is to stick with `phrase` in apps where users will not see your code anyway and stick with `tp` for transposition in general.
+The most common conflicts to watch out for are using `tabr` with `shiny` where `p()` is a function and if you use `purrr` to help wrangle some of your more complex tablature, it has its own `transpose()` function. Pay attention to package load order and/or use explicit names spaces if working with these packages loaded.
 
 ## Repeat and concatenate
 
-The previous section on phrases presented an opportunity to introduce `pn` for repeating strings and `pc` for joining them together. These were used on strings passed to `phrase` but work on any character string.
+The previous section on phrases presented an opportunity to introduce `pn()` for repeating strings and `pc()` for joining them together. These were used on strings passed to `phrase()` but work on any character string.
 
-To recap, `pn`, is for repeating a phrase `n` times; is a simple wrapper around `rep` that maintains the `phrase` class when passed a phrase object and uses spaces when collapsing the repeated input.  `pc` is a similar wrapper around `paste`. It can be passed an arbitrary number of input simple character strings or phrase objects. The `phrase` class is applied to the output as long as at least one input passed to `pc` is a phrase object. It is the responsibility of the user to ensure that in such a case a simple character string also represents valid phrase content so that the output phrase is valid.
+To recap, `pn()`, is for repeating a phrase `n` times; is a simple wrapper around `rep()` that maintains the `phrase` class when passed a phrase object and uses spaces when collapsing the repeated input.  `pc()` is a similar wrapper around `paste()`. It can be passed an arbitrary number of input simple character strings or phrase objects. The `phrase` class is applied to the output as long as at least one input passed to `pc()` is a phrase object. It is the responsibility of the user to ensure that in such a case a simple character string also represents valid phrase content so that the output phrase is valid.
 
 ```{r join}
-pc("c3 d3 e3", "f3 g3 a3")
-pn("c3 d3 e3", 2)
+pc("c d e", "f g a")
+pn("c d e", 2)
 ```
 
 ## Rests
 
-The `rest` function is a simple wrapper around `rep` much like `pn`. It is useful when you need to propagate a number of rests, perhaps not all of equal duration. It accepts two vectorized arguments. The first is the duration of the rest. The second is the number of times to repeat it.
+The `rest()` function is a simple wrapper around `rep()` much like `pn()`. It is useful when you need to propagate a number of rests, perhaps not all of equal duration. It accepts two vectorized arguments. The first is the duration of the rest. The second is the number of times to repeat it.
 
 For example, say a score has multiple tracks. During a certain period in the score, one track goes silent and needs to be carried over with a sequence of rests. Perhaps the instrument dropped out in the middle of a measure and returns in the middle of another, with several full measures in between.
-This can easily be notated using `pn` and `pc`, but it could be more convenient with `rest`, or at least offer more interpretable code if you prefer.
+This can easily be notated using `pn()` and `pc()`, but it could be more convenient with `rest()`, or at least offer more interpretable code if you prefer.
 
-In this example, using `rest` is compared with writing out the full `notes` string as well as using some combinations of `pn` and `pc`. It is a matter of preference which approach you take and dependent on the content being repeated and pasted together.
+In this example, using `rest()` is compared with writing out the full `notes` string as well as using some combinations of `pn()` and `pc()`. It is a matter of preference which approach you take and dependent on the content being repeated and pasted together.
 Note that using the terminal in-string multiplicative expansion operator, `*`, in cases of many adjacent single-element repetitions, is by far the best option as far as shortening code is concerned.
-If this method is preferred, it essentially removes any edge case preference there may have been for `rest`.
+If this method is preferred, it essentially removes any edge case preference there may have been for `rest()`.
 
 ```{r rest}
 "r8 r8 r8 r1 r1 r1 r1 r1 r1 r1 r1 r1 r1 r4."
@@ -64,7 +63,7 @@ rest(c(8, 1, "4."), c(3, 10, 1))
 
 Tied notes were introduced momentarily in the previous section on phrases. The example given showed that ties are denoted by appending the pitch letter of the note with `~` and this will create a tie in the output from this note to the next one.
 
-This can be frustrating to type and to read when done for six-string chords for example. `tie` can make this more bearable. Chords receive further discussion in subsequent sections. They were shown briefly at the end of the last section so that space-delimited time and simultaneous notes could be demonstrated clearly. For now, this is enough to demonstrate `tie`.
+This can be frustrating to type and to read when done for six-string chords for example. `tie()` can make this more bearable. Chords receive further discussion in subsequent sections. They were shown briefly at the end of the last section so that space-delimited time and simultaneous notes could be demonstrated clearly. For now, this is enough to demonstrate `tie()`.
 
 ```{r tie}
 em <- "e,a,dgbe'"
@@ -73,7 +72,7 @@ tie(em)
 
 ## Hammer on/pull off
 
-There is a simple helper function, `hp`, for hammer ons and pull offs, or for slurs in general. Like several other helpers it is a wrapper around paste. It ensures slurs come in an even number so there is always a starting and stopping point and accepts several input styles.
+There is a simple helper function, `hp()`, for hammer ons and pull offs, or for slurs in general. Like several other helpers it is a wrapper around paste. It ensures slurs come in an even number so there is always a starting and stopping point and accepts several input styles.
 
 ```{r hp1}
 hp("16 16")
@@ -89,29 +88,28 @@ hp(pn("16 8", 8))
 
 ## Transpose
 
-In the last section there was an example showing a sequence of notes followed by the same sequence transposed one octave up. At the time, it was written out twice. Here, the same sequence is reproduced using `transpose`. Transposing up one octave is done by specifying an increase of 12 semitones or half steps.
-Note that `transpose` drops the unnecessary `3`s for the third octave, the central octave in LilyPond. They are dropped from `note2` here 
+In the last section there was an example showing a sequence of notes followed by the same sequence transposed one octave up. At the time, it was written out twice. Here, the same sequence is reproduced using `transpose()`. Transposing up one octave is done by specifying an increase of 12 semitones or half steps.
 
 ```{r tp1}
-notes1 <- "c3 b2 c3 d3 e3 e3 d3 c3 b2 c3 c3 c4"
-notes2 <- "c4 b c4 d4 e4 e4 d4 c4 b c4 c4 c5"
+notes1 <- "c b, c d e e d c b, c c c'"
+notes2 <- "c' b c' d' e' e' d' c' b c' c' c''"
 all(transpose(notes1, 12) == as_noteworthy(notes2))
 ```
 
-Transposing down is done with negative integers. The default (`n = 0`) returns the input, `x`, with no transposition. The alias `tp` can be used to limit typing. Examples are shown below.
+Transposing down is done with negative integers. The default (`n = 0`) returns the input, `x`, with no transposition. The alias `tp()` can be used to limit typing. Examples are shown below.
 
 ```{r tp2}
-transpose("a_3 b_4 c5", 0)
-tp("a_3 b_4 c5", -1)
-tp("a_3 b_4 c5", 1)
-tp("a#3 b4 c#5", 11)
-tp("a#3 b4 c#5", 12)
-tp("a#3 b4 c#5", 13)
+transpose("a_ b_' c''", 0)
+tp("a_ b_' c'", -1)
+tp("a_ b_' c'", 1)
+tp("a# b' c#'", 11)
+tp("a# b' c#'", 12)
+tp("a# b' c#'", 13)
 ```
 
-If no other information is passed to `transpose`, positive `n` will sharpen naturals. Negative `n` will flatten naturals. This is not ideal because it may not fit a key signature. A standard key signature is composed of notes that may include flats or sharps but not both. To avoid simply defaulting to one or the other based on direction of transposition, specify they key signature with `key` to be formal, e.g. `key = "dm"`, or just specify `"flat"` or `"sharp"`" because this is really all that is needed.
+If no other information is passed to `transpose()`, positive `n` will sharpen naturals. Negative `n` will flatten naturals. This is not ideal because it may not fit a key signature. A standard key signature is composed of notes that may include flats or sharps but not both. To avoid simply defaulting to one or the other based on direction of transposition, specify they key signature with `key` to be formal, e.g. `key = "dm"`, or just specify `"flat"` or `"sharp"`" because this is really all that is needed.
 
-Since `notes` can be arbitrarily short, even a single note, there is no reason for `transpose` to attempt to guess the original or new key from the notes present and degree of transposition. `notes` may easily include accidentals anyhow. `transpose` works with either integer or tick style octave numbering as shown below and the the output `style` can be forced either way.
+Since `notes` can be arbitrarily short, even a single note, there is no reason for `transpose()` to attempt to guess the original or new key from the notes present and degree of transposition. `notes` may easily include accidentals anyhow. `transpose()` works with either integer or tick style octave numbering as shown below and the output `style` can be forced either way.
 
 ```{r tp3}
 tp("a3 b4 c5", 2, key = "f")
@@ -126,32 +124,32 @@ Nevertheless, because F is a key with some number of sharps and G is a key with 
 
 ## Tuplets
 
-An important feature is the tuplet. This will evenly fit a sequence of notes into a number of beats not otherwise permitted by the time signature. The most common and default tuplet returned by `tuplet` is the triplet. There is also an alias function, `triplet` for this. The triplet fits three equally spaced notes into two beats that would normally be taken up by two of those notes, meaning each note in the triplet lasts for two thirds the normal duration. The examples below show the equivalence of default `tuplet` settings and `triplet` as well as other specifications for `tuplet` and the ability to specify multiple consecutive tuplets of a fixed pattern with a single call to `tuplet`.
+An important feature is the tuplet. This will evenly fit a sequence of notes into a number of beats not otherwise permitted by the time signature. The most common and default tuplet returned by `tuplet()` is the triplet. There is also an alias function, `triplet()` for this. The triplet fits three equally spaced notes into two beats that would normally be taken up by two of those notes, meaning each note in the triplet lasts for two thirds the normal duration. The examples below show the equivalence of default `tuplet()` settings and `triplet()` as well as other specifications for `tuplet` and the ability to specify multiple consecutive tuplets of a fixed pattern with a single call to `tuplet()`.
 
 
 ```{r tuplet1}
-x <- "c4 d4 e4"
+x <- "c' d' e'"
 tuplet(x, 8)
 triplet(x, 8) # equivalent
 tuplet(pn(x, 2), 8, a = 6, b = 4) # 6 notes per 4 beats
 tuplet(pn(x, 4), 8) # multiple tuplets, one call
 ```
 
-Like `phrase`, these functions accept a `string` number argument, which is critical as usual for guitar tablature (try engraving the final phrase below without explicit string numbers and see the mess you get). This example includes some rests.
+Like `phrase()`, these functions accept a `string` number argument, which is critical as usual for guitar tablature (try engraving the final phrase below without explicit string numbers and see the mess you get). This example includes some rests.
 
 ```{r tuplet2, results="hide", eval=FALSE}
 p1 <- c(
-  triplet("c4 r e4", 8, "4 3 3"), 
-  tuplet("f4 g4 a4 b4 c5 b4", 8, "3 2 2 1 1 1", 6, 4), 
-  tuplet("a4 r f4 g4 r e4 f4 e4 d4 e4 d4 c4", 16, "2 2 3 2 3*7 4"),
+  triplet("c' r e'", 8, "4 3 3"), 
+  tuplet("f' g' a' b' c'' b'", 8, "3 2 2 1 1 1", 6, 4), 
+  tuplet("a' r f' g' r e' f' e' d' e' d' c'", 16, "2 2 3 2 3*7 4"),
   tuplet("b a g f e", 16, "4 4 5*3", 5, 4)
 )
-track(pc(p1, p("d c", "8 4.", "6 6"))) %>% score %>% tab("ex12.pdf")
+track(pc(p1, p("d c", "8 4.", "6 6"))) |> score |> tab("ex12.pdf")
 ```
 
 <p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex12.png?raw=true" class="centerimg" width="100%"></p>
 
-By itself `triplet` is of limited utility. Notice that it does not allow any additional note info to be included. If you have more note info, `phrase` now supports triplets directly (not general tuplets though). It is recommended to provide note info to `phrase` that uses the `t`-prefix triplet notation, e.g., `"t8"`. Notes and chords with this triplet timing will be parsed into LilyPond triplet syntax like above, but also retaining other note info.
+By itself `triplet()` is of limited utility. Notice that it does not allow any additional note info to be included. If you have more note info, `phrase()` supports triplets directly (not general tuplets though). It is recommended to provide note info to `phrase()` that uses the `t`-prefix triplet notation, e.g., `"t8"`. Notes and chords with this triplet timing will be parsed into LilyPond triplet syntax like above, but also retaining other note info.
 
 ```{r cleanup, echo=FALSE}
 unlink("*.mid")

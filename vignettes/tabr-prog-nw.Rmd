@@ -31,7 +31,7 @@ It is important to be familiar with the requirements of a noteworthy string so t
 
 ### Checking noteworthiness
 
-A string can be checked directly with `noteworthy`.
+A string can be checked directly with `noteworthy()`.
 
 ```{r noteworthy}
 x <- "a, r b,*2 ce_g cd#g"
@@ -47,9 +47,9 @@ Functions in `tabr` that take noteworthy strings as input perform internal check
 
 It is important to understand that the notion of noteworthy strings is implemented throughout `tabr`. One purpose is thorough and strict input validation. This leads to more robust function behavior and consistent user programming experience by rejecting problematic string input early.
 
-`as_noteworthy` can be used to coerce to the `noteworthy` class. Coercion will fail if the string is not noteworthy. The class offers its own `print` and `summary` methods for noteworthy strings as well as a number of other generic method implementations. While some functions are intended to aggressively interpret a character string as noteworthy, performing the check and coercion directly, many functions in the package require an explicit `noteworthy` object. This is especially true of any generics, which dispatch methods based on the class of the input object.
+`as_noteworthy()` can be used to coerce to the `noteworthy` class. Coercion will fail if the string is not noteworthy. The class offers its own `print` and `summary` methods for noteworthy strings as well as a number of other generic method implementations. While some functions are intended to aggressively interpret a character string as noteworthy, performing the check and coercion directly, many functions in the package require an explicit `noteworthy` object. This is especially true of any generics, which dispatch methods based on the class of the input object.
 
-Functions like `as_noteworthy` have the added benefit of conforming all notes to the same formatting. This will clean up any presence of combined flats and sharps and combined tick and integer octave numbering.
+Functions like `as_noteworthy()` have the added benefit of conforming all notes to the same formatting. This will clean up any presence of combined flats and sharps and combined tick and integer octave numbering.
 
 ```{r as_noteworthy}
 x <- "a# b_*2 c, d'' e3*2 g_4 c2e_2g2*2"
@@ -68,18 +68,18 @@ x
 summary(x)
 ```
 
-Some functions like `transpose` also expose these formatting arguments directly. For other functions, format is strictly inferred from the input notes, but you can always coerce to another format with `as_noteworthy`.
+Some functions like `transpose()` also expose these formatting arguments directly. For other functions, format is strictly inferred from the input notes, but you can always coerce to another format with `as_noteworthy()`.
 
 As an aside, tick octave notation is not the default just because it is used by LilyPond. The vignettes on transcription show that conversion from integers to ticks for the `phrase` objects used in transcription is automatic. Another reason to use the tick format regardless is that it is more robust. In `tabr`, integer octaves cannot go below zero without leading to problematic syntax, but you can always add more commas as octaves decrease. An even more critical reason is that the `music` class, which assembles a `noteworthy` class object and a `noteinfo` class object together, strictly uses tick format for octave numbering because numbers are needed to unambiguously describe time juxtaposed with octave numbering.
 
 ### Stricter note and chord validation
 
-`noteworthy` is built upon the more specific, vectorized functions `is_note` and `is_chord`, which provide more detailed information on the space-delimited entries in a string. `is_note` and `is_chord` return a logical vector reporting whether each entry contains a valid note or valid chord representation, respectively.
+`noteworthy()` is built upon the more specific, vectorized functions `is_note()` and `is_chord()`, which provide more detailed information on the space-delimited entries in a string. `is_note()` and `is_chord()` return a logical vector reporting whether each entry contains a valid note or valid chord representation, respectively.
 
-Notice how the vectorized results account for the expansion operator in `b2*2`.
+Notice how the vectorized results account for the expansion operator in `b,*2`.
 
 ```{r noteworthy3}
-x <- "a2 r b2*2 ce_g cd#g HELLO_WORLD"
+x <- "a, r b,*2 ce_g cd#g HELLO_WORLD"
 is_note(x)
 is_chord(x)
 ```
@@ -90,11 +90,11 @@ Functions like these serve simple purposes that you are unlikely to use them whe
 
 Before moving on, briefly consider the quasi-counterpart to noteworthy strings: notable phrases. If you have used `tabr`, you are familiar with turning strings into phrases, assembling these phrases into tracks and scores, and sending them on to LilyPond to create sheet music. In this context, you might think of phrase objects as the fundamental unit of musical information and the strings from which you create them seem more like raw data.
 
-`tabr` offers some ability to reverse direction and decompose phrases back into their component parts: `notes`, `info` and `string` character strings. This is done using `notify`, which returns a tibble data frame.
+`tabr` offers some ability to reverse direction and decompose phrases back into their component parts: `notes`, `info` and `string` character strings. This is done using `notify()`, which returns a tibble data frame.
 
-For complex phrases, this can be challenging. There should be no expectation of true one to one functional transformation. For example, `notify` is not complex enough to handle unfolding repeat sections or text notations attached to notes inside phrases. Certainly, this will not work for LilyPond syntax that was originally created in LilyPond rather than with `tabr` because `tabr` only provides access to a tiny fraction of what LilyPond can do. But in many simpler cases, you can successfully invert a phrase previously created from strings in R. Such a phrase is considered *notable*.
+For complex phrases, this can be challenging. There should be no expectation of true one to one functional transformation. For example, `notify()` is not complex enough to handle unfolding repeat sections or text notations attached to notes inside phrases. Certainly, this will not work for LilyPond syntax that was originally created in LilyPond rather than with `tabr` because `tabr` only provides access to a tiny fraction of what LilyPond can do. But in many simpler cases, you can successfully invert a phrase previously created from strings in R. Such a phrase is considered *notable*.
 
-`phrasey` can be used to check if a string at least loosely resembles the content of a valid phrase object. Additional related functions are shown below, which takes a phrase through a complete cycle of deconstruction and reconstruction.
+`phrasey()` can be used to check if a string at least loosely resembles the content of a valid phrase object. Additional related functions are shown below, which take a phrase through a complete cycle of deconstruction and reconstruction.
 
 ```{r notable}
 p1 <- phrase("b, c d ec'g'~ ec'g'", "4( 4)- 2*3", "5*3 432*2")

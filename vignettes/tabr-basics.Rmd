@@ -23,14 +23,14 @@ Rendering sheet music is based on building up pieces of musical information culm
 
 A good place to start is with a simple, reproducible example that outlines the basic flow from small, succinct musical phrases, which combine to form tracks, in turn combined into a score, and ending with engraving the score to familiar sheet music. The brief example below recreates the single measure of guitar tablature shown in the `tabr` logo. Here are the steps as a list.
 
-*    Define a musical phrase with `phrase` or the shorthand alias `p`. 
-*    Add the phrase to a `track`.
-*    Add the track to a `score`.
-*    Render the score to pdf with `tab`.
+*    Define a musical phrase with `phrase()` or the shorthand alias `p()`. 
+*    Add the phrase to a `track()`.
+*    Add the track to a `score()`.
+*    Render the score to pdf with `tab()` or another `render_*` function.
 
 ## Constructing a musical phrase
 
-The term phrase here simply means any arbitrary piece of musical structure you string together. `phrase` takes three main arguments when building a phrase from its component parts. The first gives pitches (or rests) separated in time by spaces. For chords, remove spaces to indicate simultaneous notes. For example, a rest followed by a sequence of pitches might be `notes = "r a, c f d a f"`.
+The term phrase here simply means any arbitrary piece of musical structure you string together. `phrase()` takes three main arguments when building a phrase from its component parts. The first gives pitches (or rests) separated in time by spaces. For chords, remove spaces to indicate simultaneous notes. For example, a rest followed by a sequence of pitches might be `notes = "r a, c f d a f"`.
 
 `info` is note metadata such as duration. Whole notes are given by 1, half notes by 2, quarter notes 4, and so on, e.g., `info = "4 8 8 8 8 8 8"` (or shorten to `info = "4 8*6"`). This example does not require additional information such as dotted notes, staccato notes, ties/slurs, slides, bends, hammer ons and pull offs, etc.
 
@@ -56,7 +56,7 @@ If you define the music object
 as_music("r4 a,8 c f d a f")
 ```
 
-it can be passed directly to `phrase`, which understands this syntax and interprets the `notes` argument as music syntax if the `info` argument is not provided (`info = NULL`). In fact, the music object does not even need to be previously defined. The string format can be directly provided to `phrase`.
+it can be passed directly to `phrase()`, which understands this syntax and interprets the `notes` argument as music syntax if the `info` argument is not provided (`info = NULL`). In fact, the music object does not even need to be previously defined. The string format can be directly provided to `phrase()`.
 
 ```{r p1c}
 (p1 <- p("r4 a,8 c f d a f"))
@@ -66,7 +66,7 @@ Notice how each timestep is complete within the single character string above. A
 
 ## Tracks
 
-Track construction is as simple as wrapping a phrase object in `track`. This example uses a single phrase. Typically a track would consist of many phrases concatenated together. Tracks are just tibble data frames with an additional track class.
+Track construction is as simple as wrapping a phrase object in `track()`. This example uses a single phrase. Typically a track would consist of many phrases concatenated together. Tracks are just tibble data frames with an additional track class.
 
 ```{r track}
 track1 <- track(p1)
@@ -84,18 +84,18 @@ song
 
 ## Calling LilyPond from R
 
-Once a score object is created, it is ready to be sent to LilyPond. If LilyPond is installed on your system (and added to your system PATH variable on Windows systems), `tab` should call it successfully. Alternatively, on Windows, it can be added explicitly by calling `tabr_options`. This option to specify the LilyPond path is still available on other systems. An example of this is commented out below. However, `tabr` will do its best on package load to set these paths in `tabr_options` for you if it can successfully detect a LilyPond installation in a standard file system location, so you may not have to do anything. Just check `tabr_options()` after you load the package. If any of the paths are equal to the empty string `""`, then you need to set the paths. Otherwise you should be ready to run LilyPond from R.
+Once a score object is created, it is ready to be sent to LilyPond. If LilyPond is installed on your system (and added to your system PATH variable on Windows systems), `tab()` or any of the `render_*` functions should call it successfully. Alternatively, on Windows, it can be added explicitly by calling `tabr_options()`. This option to specify the LilyPond path is still available on other systems. An example of this is commented out below. However, `tabr` will do its best on package load to set these paths in `tabr_options()` for you if it can successfully detect a LilyPond installation in a standard file system location, so you may not have to do anything. Just check `tabr_options()` after you load the package. If any of the paths are equal to the empty string `""`, then you need to set the paths. Otherwise you should be ready to run LilyPond from R.
 
 ```{r opts}
-# may not be necessary
-# tabr_options(lilypond = "C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe")
+# For example if path to `/bin` not set (edit depending on your installation)
+# tabr_options(lilypond = "C:/lilypond-2.24.2/bin/lilypond.exe")
 ```
 
-Technically, when loading `tabr` on Windows it will attempt to check the specific path above to see if `lilypond.exe` exists there. If it does, the path in `tabr_options` will be filled in for you. Therefore, if you need to specify the LilyPond path because it is not in your PATH environment variable and nothing shows in `tabr_options()`, then the path shown above is probably not where you installed LilyPond.
+Technically, when loading `tabr` on Windows it will attempt to check the specific path above to see if `lilypond.exe` exists there. If it does, the path in `tabr_options()` will be filled in for you. Therefore, if you need to specify the LilyPond path because it is not in your PATH environment variable and nothing shows in `tabr_options()`, then the path shown above is probably not where you installed LilyPond.
 
 ## Score metadata
 
-Other than ensuring LilyPond is accessible, there is only one function left to call in this series of steps to produce the sheet music. `tab` takes several arguments, many of which are optional and have default values. However, since music is so variable it makes sense to specify these arguments every time. These arguments include metadata about the piece such as key signature, time signature, tempo, title, author, and so on. Most of that is not needed here, but for good practice at least be unambiguous about the music itself and specify a key signature, time signature and tempo.
+Other than ensuring LilyPond is accessible, there is only one function left to call in this series of steps to produce the sheet music. `tab()` takes several arguments, many of which are optional and have default values. However, since music is so variable it makes sense to specify these arguments every time. These arguments include metadata about the piece such as key signature, time signature, tempo, title, author, and so on. Most of that is not needed here, but for good practice at least be unambiguous about the music itself and specify a key signature, time signature and tempo.
 
 ```{r ex1, eval=FALSE}
 tab(song, "phrase.pdf", key = "dm", time = "4/4", tempo = "4 = 120")
@@ -126,13 +126,13 @@ This log output will be printed at the R console. Load the new pdf file to see t
 
 ## Piping
 
-Note above that `tabr` also exports the pipe `%>%` operator. Even given the hierarchy of objects involved in the series of steps to move from a phrase to a rendered pdf, a short example like this does not even require a single assignment. The same steps involved in building up the structure and rendering the output could be performed as follows.
+`tabr` functions are designed to support piping. Even given the series of steps from a phrase to a rendered pdf, a short example like this does not require a single assignment. The same steps involved in building up the structure and rendering the output could be performed as follows.
 
 ```{r pipe, results="hide", eval=FALSE}
-p("r a2 c f d a f", "4 8*6") %>% track %>% score %>%
+p("r a2 c f d a f", "4 8*6") |> track() |> score() |>
   tab("phrase.pdf", key = "dm", time = "4/4", tempo = "4 = 120")
 ```
 
-While music can be quite complex and a full score will be much longer, `tabr` strives to minimize the work while still forcing some sense of interpretable, organized structure. For long and complex music, it can require some effort and practice to ensure your approach to transcription in your R code is not opaque.
+While music can be quite complex and a full score will be much longer, `tabr` strives to minimize the work while still forcing some sense of organized structure. For long and complex music, it can require some effort and practice to ensure your approach to transcription in your R code is not opaque.
 
-To recap, the `phrase` is defined, added to a `track`, the track is added to a `score`, and the score is rendered to tablature in a pdf file with `tab`. The next tutorial section discusses phrases in more detail and provides an overview of the different notes and note metadata that can be specified when constructing a phrase.
+To recap, the `phrase()` is defined, added to a `track()`, the track is added to a `score()`, and the score is rendered to tablature in a pdf file with `tab()` or other `render_*` function. The next tutorial section discusses phrases in more detail and provides an overview of the different notes and note metadata that can be specified when constructing a phrase.

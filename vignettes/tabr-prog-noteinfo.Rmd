@@ -27,7 +27,7 @@ The data stored in a `noteinfo` object always includes duration, but can also co
 
 ### Checking note info
 
-A string can be checked directly with `informable`.
+A string can be checked directly with `informable()`.
 
 ```{r informable}
 x <- "2. 4.. 8 t8-. t8- t8^ 16"
@@ -39,7 +39,7 @@ This reports whether the entire string conforms to all requirements for it to be
 
 ### Coercion
 
-Use `as_noteinfo` to coerce to a `noteinfo` object. Here are the print and summary statements.
+Use `as_noteinfo()` to coerce to a `noteinfo` object. Here are the print and summary statements.
 
 ```{r as_noteinfo}
 x <- as_noteinfo(x)
@@ -76,7 +76,7 @@ info_dotted(x)
 info_annotation(x)
 ```
 
-`info_duration` is a handy function that strips away all information but note durations. Most of the other functions return logical vectors indicating timesteps where certain types of information are present. `info_annotation` extracts text annotations at timesteps, returning `NA` where there is no annotation.
+`info_duration()` is a handy function that strips away all information but note durations. Most of the other functions return logical vectors indicating timesteps where certain types of information are present. `info_annotation()` extracts text annotations at timesteps, returning `NA` where there is no annotation.
 
 ## Use cases
 

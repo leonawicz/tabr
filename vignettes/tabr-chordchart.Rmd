@@ -20,11 +20,11 @@ library(tabr)
 library(dplyr)
 ```
 
-The `plot_fretboard` function can be used to create general fretboard diagrams directly in R using ggplot and `plot_chord` specifically produces single chord diagrams, but this vignette shows how to create a standalone chord chart using LilyPond. Instead of using `tab` to render a score to pdf that may contain a chord chart at the top of the first page, you can use `render_chordchart`. This function creates the necessary LilyPond file and sends it to LilyPond for final rendering.
+The `plot_fretboard()` function can be used to create general fretboard diagrams directly in R using ggplot and `plot_chord()` specifically produces single chord diagrams, but this vignette shows how to create a standalone chord chart using LilyPond. Instead of using `tab()` to render a score to pdf that may contain a chord chart at the top of the first page, you can use `render_chordchart()`. This function creates the necessary LilyPond file and sends it to LilyPond for final rendering.
 
 ## Prepare chords
 
-For consistency, `render_chordchart` takes chord input in the same way that the `score` function does, as a named character vector. The chords and their names are in the same format.
+For consistency, `render_chordchart()` takes chord input in the same way that `score()` does, as a named character vector. The chords and their names are in the same format.
 
 Filter the `guitarChords` dataset down to chords:
 
@@ -41,7 +41,7 @@ chords <- filter(
   root %in% c("c", "f") & 
     id %in% c("7", "M7", "m7") &
     !grepl("#", notes) & root_fret <= 12
-  ) %>%
+  ) |>
   arrange(root, id)
 
 chords <- setNames(chords$fretboard, chords$lp_name)
@@ -50,7 +50,7 @@ head(chords)
 
 ## Render chord chart
 
-The filtering above results in 41 chords. The size of the fretboard diagrams is increased below with `size = 2`. Like `lilypond` and the `render_*` functions that wrap around it for rendering music scores, `render_chordchart` also takes the `header` and `paper` named list arguments. Once the named chord vector is ready, rendering the chord chart is as simple as the following.
+The filtering above results in 41 chords. The size of the fretboard diagrams is increased below with `size = 2`. Like `lilypond()` and the `render_*` functions that wrap around it for rendering music scores, `render_chordchart()` also takes the `header` and `paper` named list arguments. Once the named chord vector is ready, rendering the chord chart is as simple as the following.
 
 ```{r chordchart, eval=FALSE}
 hdr <- list(

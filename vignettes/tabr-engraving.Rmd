@@ -19,19 +19,19 @@ knitr::opts_chunk$set(
 library(tabr)
 ```
 
-This section covers `lilypond` and `tab` for writing LilyPond files and engraving to sheet music with LilyPond, respectively. Examples of the various pieces of metadata that can be passed to to these functions are provided.
+This section covers `lilypond()` and `tab()` for writing LilyPond files and engraving to sheet music with LilyPond, respectively. Examples of the various pieces of metadata that can be passed to to these functions are provided.
 
 ## Rendering
 
-The `lilypond` function creates a LilyPond file (`.ly`). Various rendering functions wrap `lilypond` to combine the steps of creating an intermediary LilyPond file and rendering it to pdf or png. The most general render function is `tab`, which for naming consistency can also be called as `render_tab`. Other `render_*` functions exist including `render_score` and `render_midi`, which focus on rendering non-tablature, all-purpose sheet music and rendering only the corresponding MIDI file, respectively.
+The `lilypond()` function creates a LilyPond file (`.ly`). Various rendering functions wrap `lilypond()` to combine the steps of creating an intermediary LilyPond file and rendering it to pdf or png. The most general render function is `tab()`, which for naming consistency can also be called as `render_tab()`. Other `render_*` functions exist including `render_score()` and `render_midi()`, which focus on rendering non-tablature, all-purpose sheet music and rendering only the corresponding MIDI file, respectively.
 
-The examples in this vignette focus on `tab`. You can set `keep_ly = TRUE` in render functions to retain the intermediary LilyPond file.
+The examples in this vignette focus on `tab()`. You can set `keep_ly = TRUE` in render functions to retain the intermediary LilyPond file.
 
-By now you have seen many calls to `tab` throughout these vignettes in order to show full examples previously. With sufficient coverage of phrases, tracks and scores, and the progression through them, now it is time to go into more detail on the arguments that can be supplied as part of the rendering or engraving process that apply to the entire piece of sheet music.
+By now you have seen many calls to `tab()` throughout these vignettes in order to show full examples previously. With sufficient coverage of phrases, tracks and scores, and the progression through them, now it is time to go into more detail on the arguments that can be supplied as part of the rendering or engraving process that apply to the entire piece of sheet music.
 
 ## Score metadata
 
-These are the most critical components that can be supplied to `lilypond`. `key` specifies the global key signature, e.g. `key ="dm"`. Key signatures set for individual track override the global key, but the global key is used for any track whose key is `NA`. Key changes in the middle of a song are not supported, but you can always edit the LilyPond file directly to make custom changes. 
+These are the most critical components that can be supplied to `lilypond()`. `key` specifies the global key signature, e.g. `key ="dm"`. Key signatures set for individual track override the global key, but the global key is used for any track whose key is `NA`. Key changes in the middle of a song are not supported, but you can always edit the LilyPond file directly to make custom changes. 
 
 `time` gives the time signature, defaulting to common time, `"4/4"`. `tempo` provides the song tempo, defaulting to `tempo = "2 = 60"`, which is the LilyPond default. This can be read as 60 half note beats per minute.
 
@@ -57,7 +57,7 @@ chord_seq <- rep(setNames(c(1, 2, 2, 1), names(chords)[c(1:3, 1)]), 3)
 chords
 chord_seq
 
-song <- trackbind(t1, t2, t3, id = c(1, 1, 2)) %>% score(chords, chord_seq)
+song <- trackbind(t1, t2, t3, id = c(1, 1, 2)) |> score(chords, chord_seq)
 song
 ```
 
@@ -78,7 +78,7 @@ The output file specified with `file` ends in pdf in every example. However, you
 
 ## Song information
 
-The next important argument to `lilypond` is `header`. `header` takes a named list of character strings that are used to fill in general song information such as the title and composer. All previous examples were blank above the tabs because none of this information was ever provided. Below an example is given that uses all available arguments. You can use any subset of these. There is no requirement to supply them all. This example just shows what is available. Several of these would likely not be used in most cases.
+The next important argument to `lilypond()` is `header`. `header` takes a named list of character strings that are used to fill in general song information such as the title and composer. All previous examples were blank above the tabs because none of this information was ever provided. Below an example is given that uses all available arguments. You can use any subset of these. There is no requirement to supply them all. This example just shows what is available. Several of these would likely not be used in most cases.
 
 ```{r header, results="hide", eval=FALSE}
 header <- list(
@@ -105,9 +105,9 @@ The copyright and tagline are cutoff in the above image, but in your pdf you wil
 
 ### MIDI files
 
-You have probably noticed by now that every time a pdf if rendered, an accompanying MIDI file is also generated. This can be turned off with `midi = FALSE`. This specification goes into the LilyPond file itself via `lilypond`. Therefore, no MIDI output will be created even if you create the LilyPond file with `lilypond` but convert that to pdf with LilyPond outside of R.
+You have probably noticed by now that every time a pdf if rendered, an accompanying MIDI file is also generated. This can be turned off with `midi = FALSE`. This specification goes into the LilyPond file itself via `lilypond()`. Therefore, no MIDI output will be created even if you create the LilyPond file with `lilypond()` but convert that to pdf with LilyPond outside of R.
 
-One thing to note about MIDI files is that `tabr` will unfold any repeats that occur in a song due to calls to `rp`, `pct` or `volta`. This allows the MIDI file to play everything the proper number of times rather than ending prematurely by not being able to read repeat notation.
+One thing to note about MIDI files is that `tabr` will unfold any repeats that occur in a song due to calls to `rp()`, `pct()` or `volta()`. This allows the MIDI file to play everything the proper number of times rather than ending prematurely by not being able to read repeat notation.
 
 Also, `tabr` is a package aimed at creating guitar tablature. It is not concerned with MIDI or audio signals and audio data in general. Any MIDI functionality is considered to be an extra feature and does not receive priority development or support. At this time, there is no way to make other alterations to the MIDI file internals. MIDI output can be toggled on or off as mentioned. And without you having to do anything, MIDI output will respect repeat notation in the rendered LilyPond file. MIDI output will also automatically be transposed to match a transposition that is applied to a music staff (under reasonable and simplified conditions).
 
@@ -140,14 +140,14 @@ There are also global color settings. You can pass a named list to `colors` with
 * `stem`
 * `accidental`
 
-For more detail on these settings and others further above, see the help documentation, `?lilypond`.
+For more detail on these settings and others further above, see the help documentation for `lilypond()`.
 
 ## PNG output
 
 Here are examples that make use of png-specific options and function behavior. First, when rendering to png instead of pdf, automatic cropping of the image is attempted. This removes the full page appearance for smaller snippets of sheet music. There are some limitations to this. For example, inclusion of header elements can disrupt this behavior.
 
 ```{r png1, eval=FALSE}
-x <- pitch_seq("e,", 24, key ="c") %>% as_music(8) %>% p() %>% track() %>% score()
+x <- pitch_seq("e,", 24, key ="c") |> as_music(8) |> p() |> track() |> score()
 
 ppr <- list(linewidth = 60, page_numbers = FALSE)
 hdr <- list(title = "Notes in C on guitar", subtitle = "Standard tuning")
@@ -160,12 +160,12 @@ Above, the height is automatically cropped because `file` type is a png. Providi
 
 In the example below, remove the header content. You can make a transparent background png, though you won't be able to see the difference here. Instead, create a dark mode example and increase the resolution.
 
-Since this is a single voice, single track, you do not need to explicitly call each function in the transcription pipeline. Use one of the convenient `render_music_*` functions to abstract this process, rendering sheet music directly from a `music` object. `render_music_guitar` has good default arguments for this example.
+Since this is a single voice, single track, you do not need to explicitly call each function in the transcription pipeline. Use one of the convenient `render_music*` functions to abstract this process, rendering sheet music directly from a `music` object. `render_music_guitar()` has good default arguments for this example.
 
 ```{r png2, eval=FALSE}
 colors <- list(color = "#e4e4e4", background = "gray10", head = "tomato", tabhead = "tomato")
 
-x <- as_music(pitch_seq("e,", 24, key ="c"), 8) %>% 
+x <- as_music(pitch_seq("e,", 24, key ="c"), 8) |> 
   render_music_guitar("ex_png2.png", colors = colors, res = 300)
 ```
 
@@ -175,7 +175,7 @@ x <- as_music(pitch_seq("e,", 24, key ="c"), 8) %>%
 
 Finally, familiarize yourself with the LilyPond file itself. You may output a file and want to make additional edits to it directly. The example below also demonstrates some differences between `simplify = TRUE` and `simplify = FALSE`. This is a simple piece of music so not all possible syntax simplifications are shown here. 
 
-`phrase` objects have more robust structure that has advantages for performing object manipulations in R, but this is a more verbose version of LilyPond syntax. By default, `lilypond` as well as associated `render_*` functions will simplify this to a more efficient syntax so that it is less cumbersome to read and work with LilyPond files directly.
+`phrase()` objects have more robust structure that has advantages for performing object manipulations in R, but this is a more verbose version of LilyPond syntax. By default, `lilypond()` as well as associated `render_*` functions will simplify this to a more efficient syntax so that it is less cumbersome to read and work with LilyPond files directly.
 
 ### Original syntax
 
