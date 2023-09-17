@@ -8,7 +8,9 @@
 ## Update release
 
 * Added required package alias per CRAN request.
-* New R package version build against new version of Lilypond software: version `2.24.2`. This version will likely need to be updated on the CRAN machine that Lilypond was installed on in the past. Requirement is listed in `DESCRIPTION` `SystemRequirements`.
+* New R package version built against new version of Lilypond software: version `2.24.2`. 
+* This Lilypond version will likely need to be updated on the CRAN machine that Lilypond was installed on in the past.
+* Requirement is updated in `DESCRIPTION` `SystemRequirements`.
 * Other general package maintenance, bug fixes, documentation updates.
 
 ## R CMD check results
