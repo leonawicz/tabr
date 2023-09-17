@@ -30,11 +30,14 @@ jobs:
     steps:
       - name: Install Lilypond on Linux
         if: matrix.os == 'ubuntu-latest'
-        run: sudo apt install -y lilypond
+        run: |
+          sudo apt update -y
+          sudo apt install -y libpng-dev lilypond
 
       - name: Install Lilypond on Mac
         if: matrix.os == 'macos-latest'
-        run: brew install lilypond
+        run: |
+          brew install lilypond
 
       - uses: actions/checkout@v3
 
