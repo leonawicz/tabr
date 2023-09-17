@@ -206,7 +206,7 @@ test_that("miditab and midily functions run without error", {
                    explicit = TRUE, start_quant = 8, allow_tuplet = "8*2/3",
                    details = TRUE, lyric = TRUE), cl)
 
-  # Using --absolute-pitches seems bugged in the current Lilypond version
+  # Using --absolute-pitches seems bugged in the current LilyPond version
   # so it is currently deactivated in midily()
   expect_is(midily(midi, out[1], key = "b_", absolute = TRUE, quantize = 8,
                    explicit = TRUE, start_quant = 8, allow_tuplet = "8*2/3",

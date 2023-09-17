@@ -215,14 +215,16 @@ read_midi <- function(file, ticks_per_qtr = 480){
   y <- tuneR::getMidiNotes(x)
   bycols <- c("channel", "track", "time", parameter1 = "note")
   d <- dplyr::left_join(x, y, by = bycols) |>
-    dplyr::select(-c("notename")) |>
+    dplyr::select(-dplyr::all_of(c("notename"))) |>
     dplyr::mutate(
       pitch = semitone_pitch(.data[["parameter1"]]),
       pitch = ifelse(.data[["event"]] == "Note On", .data[["pitch"]], NA),
       duration = ticks_to_duration(.data[["length"]], ticks_per_qtr)) |>
-    dplyr::select(c("time", "length", "duration", "event", "type", "channel",
-                    "parameter1", "parameter2",
-                    "parameterMetaSystem", "track", "pitch", "velocity"))
+    dplyr::select(dplyr::all_of(
+      c("time", "length", "duration", "event", "type", "channel", "parameter1",
+        "parameter2", "parameterMetaSystem", "track", "pitch", "velocity"
+      )
+    ))
   idx <- which(is.na(d$duration) & d$event == "Note On")
   if(length(idx)){
     d$duration[idx] <- purrr::map_chr(d$length[idx], ~{
@@ -248,8 +250,9 @@ midi_metadata <- function(x){
 midi_notes <- function(x, channel = NULL, track = NULL, noteworthy = TRUE){
   x <- dplyr::filter(x, .data[["event"]] == "Note On") |>
     dplyr::rename(semitone = .data[["parameter1"]]) |>
-    dplyr::select(c("time", "length", "duration", "pitch", "semitone",
-                    "velocity", "channel", "track"))
+    dplyr::select(dplyr::all_of(
+      c("time", "length", "duration", "pitch", "semitone","velocity", "channel", "track")
+    ))
 
   if(!is.null(channel))
     x <- dplyr::filter(x, .data[["channel"]] %in% !! channel)
@@ -261,7 +264,7 @@ midi_notes <- function(x, channel = NULL, track = NULL, noteworthy = TRUE){
         duration = unique(.data[["duration"]]),
         pitch = paste(.data[["pitch"]][order(.data[["semitone"]])],
                       collapse = "")) |>
-      dplyr::select(-.data[["time"]])
+      dplyr::select(-dplyr::all_of("time"))
     idx <- grep(";", x$duration)
     if(length(idx)){
       while(length(idx)){

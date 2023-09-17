@@ -1,8 +1,9 @@
-AppVeyor
 Arpeggiate
 Asus
 Bb
+CMD
 Cifraclub
+Codecov
 DADGAD
 Dm
 Dyads
@@ -10,13 +11,11 @@ Eb
 Ezio's
 Fretboard
 Github
-Ko
 Krey
 Ligges
 LilyPond
 LilyPond's
 LilyPond’s
-Lilypond
 Mersmann
 Mielke
 Oostdijk
@@ -39,10 +38,8 @@ dyad
 dyads
 else's
 exe
-fi
 fingerpicking
 fingerstyle
-fnord
 fontsize
 fretboard
 ggplot

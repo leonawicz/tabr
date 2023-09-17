@@ -223,8 +223,8 @@ noteworthy string can be one part of a more complete piece of musical
 information. Tick format is necessary to avoid ambiguity with respect to
 temporal information once two such pieces of information are merged
 together. For this reason, tick format is preferred in general. Tick
-format also matches that used by the Lilypond music engraving software,
-which is used by the `tabr` Lilypond API for anything transcription
+format also matches that used by the LilyPond music engraving software,
+which is used by the `tabr` LilyPond API for anything transcription
 related like rendering sheet music to PDF or in R markdown documents.
 
 For all available syntax specifications and related details see the
@@ -511,7 +511,7 @@ The third argument, `string` only applies to fretted string instruments
 and is always optional. Providing this information in conjunction with
 the pitch fixes the frets so that LilyPond does not have to guess them.
 This only applies for tablature output. Explicit string numbers are not
-needed for this example since lowest fret numbers (Lilypond default) are
+needed for this example since lowest fret numbers (LilyPond default) are
 intended.
 
 ``` r

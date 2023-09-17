@@ -219,7 +219,7 @@ music_split <- function(x){
   if(length(idx)){
     s <- rep(NA, length(x))
     s[idx] <- gsub(".*;(\\d+)$", "\\1", x[idx])
-    s <- tidyr::fill(tibble::tibble(s), .data[["s"]])$s
+    s <- tidyr::fill(tibble::tibble(s), "s")$s
     s <- ifelse(is.na(s), "", s)
     x <- gsub(";\\d+$", "", x)
   } else {

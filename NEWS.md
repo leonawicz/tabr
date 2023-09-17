@@ -1,13 +1,13 @@
 # tabr 0.4.9
 
 * Added required package alias in documentation.
-* Bug fixes and function updates for building against newer version of Lilypond (2.24.2). This is the Lilypond version supported and to be used with this version of `tabr`.
+* Bug fixes and function updates for building against newer versions of LilyPond (see `tabr_lilypond_api()`).
 * Stricter class checking by `pc()` and `pn()` wrappers since they only should be used on plain character strings or `phrase` objects.
 * General documentation updates.
 
 # tabr 0.4.5
 
-* Lilypond API built and tested against a newer version of Lilypond: v2.23.0.
+* LilyPond API built and tested against a newer version of LilyPond (see `tabr_lilypond_api()`).
 * Minor fixes and documentation updates.
 
 # tabr 0.4.4

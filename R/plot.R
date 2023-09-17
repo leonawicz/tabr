@@ -136,12 +136,12 @@ plot_fretboard <- function(string, fret, labels = NULL, mute = FALSE,
       data = d2,
       ggplot2::aes(x = .data[["string_1"]], xend = .data[["string_n"]],
                    y = .data[["fret"]], yend = .data[["fret"]]),
-      size = 1) +
+      linewidth = 1) +
     ggplot2::geom_segment(
       data = d3,
       ggplot2::aes(x = .data[["string"]], xend = .data[["string"]],
                    y = .data[["fret_1"]], yend = .data[["fret_n"]]),
-      size = 1)
+      linewidth = 1)
   y <- x <- ggplot2::element_text(size = 18, face = 2)
 
   if(0 %in% fret_range){
@@ -156,7 +156,7 @@ plot_fretboard <- function(string, fret, labels = NULL, mute = FALSE,
       data = d4,
       ggplot2::aes(
         x = .data[["string_1"]], xend = .data[["string_n"]],
-        y = .data[["fret"]], yend = .data[["fret"]]), size = 4) +
+        y = .data[["fret"]], yend = .data[["fret"]]), linewidth = 4) +
       if(horizontal & !left_handed){
         ggplot2::scale_y_continuous(limits = fr2)
       } else {

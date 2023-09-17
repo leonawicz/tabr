@@ -36,7 +36,7 @@ The term phrase here simply means any arbitrary piece of musical structure you s
 
 The third argument, `string` only applies to fretted string instruments and is always optional. In this example it specifies the strings of a guitar. Providing this information in conjunction with the pitch fixes the frets so that LilyPond does not have to guess them. This only applies for tablature output. Note that the `x` shown below is just a placeholder indicating no need to specify a string for the quarter note rest. You can put a string number there but it is ignored.
 
-Explicit string numbers are not needed for this example since lowest fret numbers (Lilypond default) are intended. They are provided for a more complete example.
+Explicit string numbers are not needed for this example since lowest fret numbers (LilyPond default) are intended. They are provided for a more complete example.
 
 This is the general approach, but there are multiple ways to create equivalent phrase objects in `tabr`.
 

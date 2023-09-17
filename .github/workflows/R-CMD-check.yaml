@@ -28,12 +28,17 @@ jobs:
       R_KEEP_PKG_SOURCE: yes
 
     steps:
-      - name: Install Lilypond on Linux
+      - name: Install system dependencies on Linux
         if: runner.os == 'Linux'
         run: |
           sudo apt update -y
           sudo apt install -y libpng-dev lilypond
 
+      - name: Install system dependencies on Mac
+        if: runner.os == 'macOS'
+        run: |
+          brew update
+          brew install libpng lilypond
 
       - uses: actions/checkout@v3
 

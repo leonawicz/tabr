@@ -22,7 +22,7 @@ analysis of large amounts of structured music data. Functions are available
 for mapping seamlessly between these formats and their representations of
 musical information.
 
-The package also provides an API to 'Lilypond' (\url{https://lilypond.org/}) for
+The package also provides an API to 'LilyPond' (\url{https://lilypond.org/}) for
 transcribing musical representations in R into tablature ("tabs") and sheet
 music. 'LilyPond' is open source music engraving software for generating high
 quality sheet music based on markup syntax. The package generates 'LilyPond'

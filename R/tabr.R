@@ -17,7 +17,7 @@ globalVariables(c(".data", ":="))
 #' for mapping seamlessly between these formats and their representations of
 #' musical information.
 #'
-#' The package also provides an API to 'Lilypond' (<https://lilypond.org/>) for
+#' The package also provides an API to 'LilyPond' (<https://lilypond.org/>) for
 #' transcribing musical representations in R into tablature ("tabs") and sheet
 #' music. 'LilyPond' is open source music engraving software for generating high
 #' quality sheet music based on markup syntax. The package generates 'LilyPond'
@@ -143,8 +143,10 @@ NULL
 .check_lilypond <- function(){
   v <- .lp_version()
   if(length(v) > 1) stop("Cannot parse local LilyPond version.", call. = FALSE)
-  if(v == "") stop("Cannot find LilyPond installation.", call. = FALSE)
+  if(v == "") stop(.lp_not_found, call. = FALSE)
   if(grepl("^[\\d.]+$", v, perl = TRUE))
     stop("Cannot parse local LilyPond version.", call. = FALSE)
   invisible()
 }
+
+.lp_not_found <- "Local LilyPond installation not found."

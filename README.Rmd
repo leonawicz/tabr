@@ -114,7 +114,7 @@ A simple character string like `"c e g"`, or alternatively as a vector, `c("c", 
 
 An important piece of syntax is the octave. In conjunction with a note, specifying a unique pitch requires the octave number, either in tick format (comma and single quote, `c, c c'`) or integer format (`c2 c c4`). Octave 3 is the implicit default; there is no tick in tick format and explicitly adding the `3` in integer format is unnecessary. The pitches `c d e f g a b` (default octave) are the notes in the octave below middle C (`c'`).
 
-You've already seen above with the example using a music object that a noteworthy string can be one part of a more complete piece of musical information. Tick format is necessary to avoid ambiguity with respect to temporal information once two such pieces of information are merged together. For this reason, tick format is preferred in general. Tick format also matches that used by the Lilypond music engraving software, which is used by the `tabr` Lilypond API for anything transcription related like rendering sheet music to PDF or in R markdown documents.
+You've already seen above with the example using a music object that a noteworthy string can be one part of a more complete piece of musical information. Tick format is necessary to avoid ambiguity with respect to temporal information once two such pieces of information are merged together. For this reason, tick format is preferred in general. Tick format also matches that used by the LilyPond music engraving software, which is used by the `tabr` LilyPond API for anything transcription related like rendering sheet music to PDF or in R markdown documents.
 
 For all available syntax specifications and related details see the package vignettes.
 
@@ -250,7 +250,7 @@ The term phrase here simply means any arbitrary piece of musical structure you s
 
 `info` is note metadata such as duration. Whole notes are given by 1, half notes by 2, quarter notes 4, and so on, e.g., `info = "4 8 8 8 8 8 8"` (or shorten to `info = "4 8*6"`). This example does not require additional information such as dotted notes, staccato notes, ties/slurs, slides, bends, hammer ons and pull offs, etc.
 
-The third argument, `string` only applies to fretted string instruments and is always optional. Providing this information in conjunction with the pitch fixes the frets so that LilyPond does not have to guess them. This only applies for tablature output. Explicit string numbers are not needed for this example since lowest fret numbers (Lilypond default) are intended.
+The third argument, `string` only applies to fretted string instruments and is always optional. Providing this information in conjunction with the pitch fixes the frets so that LilyPond does not have to guess them. This only applies for tablature output. Explicit string numbers are not needed for this example since lowest fret numbers (LilyPond default) are intended.
 
 ```{r ex0a}
 p("r a, c f d a f", "4 8*6")

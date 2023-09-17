@@ -12,7 +12,9 @@ guitarChords <- bind_rows(
   purrr::map_dfr(-1:11, ~f(.x, chordData1, "f")),
   purrr::map_dfr(-1:11, ~f(.x, chordData2, "g")),
   purrr::map_dfr(-1:11, ~f(.x, chordData2, "f"))
-) |> select(-optional) |> filter(!duplicated(.))
+)
+guitarChords <- select(guitarChords, -optional)
+guitarChords <- filter(guitarChords, !duplicated(guitarChords))
 
 id_levels <- c("M", "m", "7", "M7", "m7",
   "sus2", "sus4", "aug", "aug7", "dim", "dim7", "7_5", "7#5", "M7_5", "M7#5", "m7_5", "m7#5",

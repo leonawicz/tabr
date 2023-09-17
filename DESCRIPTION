@@ -13,7 +13,7 @@ Description: Provides a music notation syntax and a collection of music
     powerful approach to the analysis of large amounts of structured music data. 
     Functions are available for mapping seamlessly between these formats and 
     their representations of musical information. The package also provides an 
-    API to 'Lilypond' (<https://lilypond.org/>) for transcribing musical 
+    API to 'LilyPond' (<https://lilypond.org/>) for transcribing musical 
     representations in R into tablature ("tabs") and sheet music. 'LilyPond' is 
     open source music engraving software for generating high quality sheet music 
     based on markup syntax. The package generates 'LilyPond' files from R code 
@@ -50,4 +50,4 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
-SystemRequirements: LilyPond v2.24.2+ (needed for rendering sheet music or writing MIDI files)
+SystemRequirements: LilyPond v2.22.1-2+ (needed for rendering sheet music or writing MIDI files)

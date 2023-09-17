@@ -29,13 +29,14 @@ lilypond_version <- function(){
 #' @rdname lilypond_root
 #' @export
 tabr_lilypond_api <- function(){
-  x <- "GNU LilyPond 2.23.0"
+  os <- Sys.info()[["sysname"]]
+  if(grepl("Darwin", os, ignore.case = TRUE)) os <- "MacOS"
+  x <- switch(os, Windows = "2.23.6", Linux = "2.22.1-2", MacOS = "2.22.1-2")
+  x <- paste("LilyPond", x)
+
   msg <- paste0(
     "The tabr ", getNamespaceVersion("tabr"),
-    " LilyPond API was built and tested against ", x,
-    " for Windows and Linux.\nLilypond is not officially supported for OSX."
+    " LilyPond API was built and tested against ", x, " on ", os, "."
   )
   message(msg)
 }
-
-.lp_not_found <- "Cannot find lilypond installation."

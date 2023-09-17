@@ -275,7 +275,7 @@ sfn <- sf_note
     as.data.frame(stringsAsFactors = FALSE) |>
     stats::setNames(c("string", "fret", "info")) |>
     tibble::as_tibble() |>
-    tidyr::fill(.data[["string"]], .data[["info"]]) |>
+    tidyr::fill("string", "info") |>
     dplyr::mutate(
       string = .infer_strings(.data[["string"]], .data[["fret"]]),
       fret = gsub("x", "", .data[["fret"]])) |>
