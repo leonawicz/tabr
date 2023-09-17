@@ -1,6 +1,7 @@
 Package: tabr
-Version: 0.4.5
 Title: Music Notation Syntax, Manipulation, Analysis and Transcription in R
+Version: 0.4.9
+Authors@R: person("Matthew", "Leonawicz", email = "mfleonawicz@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0001-9452-2771"))
 Description: Provides a music notation syntax and a collection of music programming functions for generating, manipulating, organizing and analyzing musical information in R. 
     The music notation framework facilitates creating and analyzing music data in notation form.
     Music data can be viewed, manipulated and analyzed while in different forms of representation based around different data structures: strings and data frames.
@@ -14,33 +15,31 @@ Description: Provides a music notation syntax and a collection of music programm
     The package generates 'LilyPond' files from R code and can pass them to 'LilyPond' to be rendered into sheet music pdf files.
     The package offers nominal MIDI file output support in conjunction with rendering sheet music. 
     The package can read MIDI files and attempts to structure the MIDI data to integrate as best as possible with the data structures and functionality found throughout the package.
-Authors@R: person("Matthew", "Leonawicz", email = "mfleonawicz@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0001-9452-2771"))
 License: MIT + file LICENSE
-Encoding: UTF-8
-LazyData: true
-ByteCompile: true
 URL: https://github.com/leonawicz/tabr
 BugReports: https://github.com/leonawicz/tabr/issues
 Depends: R (>= 2.10)
-SystemRequirements: LilyPond v2.23.0+ (only needed for rendering sheet music or writing MIDI files)
-Imports: 
-    magrittr,
-    tibble,
-    dplyr,
-    purrr,
-    tidyr,
+Imports:
     crayon,
-    ggplot2
+    dplyr,
+    ggplot2,
+    purrr,
+    tibble,
+    tidyr
 Suggests: 
-    testthat,
-    knitr,
-    rmarkdown,
-    covr,
-    kableExtra,
+    fansi,
     gridExtra,
     htmltools,
-    fansi,
-    tuneR,
-    png
+    kableExtra,
+    knitr,
+    png,
+    rmarkdown,
+    testthat,
+    tuneR
 VignetteBuilder: knitr
-RoxygenNote: 7.1.1
+ByteCompile: true
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+SystemRequirements: LilyPond v2.24.2+ (needed for rendering sheet music or writing MIDI files)
