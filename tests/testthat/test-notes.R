@@ -1,5 +1,3 @@
-context("notes")
-
 library(dplyr)
 
 test_that("note helpers return as expected", {
@@ -41,8 +39,8 @@ test_that("note helpers return as expected", {
   expect_identical(pretty_notes(notes, FALSE), "A B C,EbG' D# Eb F G")
 
   expect_identical(note_shift("c4 e' g'", 1), as_noteworthy("e' g' c''"))
-  expect_identical(note_shift("c e_ g", -4) %>% as.character(), "g,, c, e_,")
-  expect_identical(note_shift("c4 e_4 g4", -3) %>% as.character(), "c e_ g")
+  expect_identical(note_shift("c e_ g", -4) |> as.character(), "g,, c, e_,")
+  expect_identical(note_shift("c4 e_4 g4", -3) |> as.character(), "c e_ g")
   expect_identical(note_shift("a", 1), as_noteworthy("a'"))
   expect_identical(note_shift("a b ceg"), as_noteworthy("c e g a b"))
   expect_identical(note_shift(c("a", "b", "ceg")),
@@ -50,38 +48,38 @@ test_that("note helpers return as expected", {
   expect_identical(note_shift("a"), as_noteworthy("a"))
   expect_identical(note_shift("a", -1), as_noteworthy("a,"))
 
-  expect_equal(note_arpeggiate("c e g") %>% as.character(), "c e g")
-  expect_equal(note_arpeggiate("c,,", 1) %>% as.character(), "c,, c,")
-  expect_equal(note_arpeggiate("c,, d,,", 1) %>% as.character(),
+  expect_equal(note_arpeggiate("c e g") |> as.character(), "c e g")
+  expect_equal(note_arpeggiate("c,,", 1) |> as.character(), "c,, c,")
+  expect_equal(note_arpeggiate("c,, d,,", 1) |> as.character(),
                "c,, d,, c, d,")
-  expect_equal(note_arpeggiate("c e g ceg", 1) %>% as.character(),
+  expect_equal(note_arpeggiate("c e g ceg", 1) |> as.character(),
                "c e g ceg c' e' g' c'e'g'")
-  expect_equal(note_arpeggiate("c e g ceg", 1, -12) %>% as.character(),
+  expect_equal(note_arpeggiate("c e g ceg", 1, -12) |> as.character(),
                "c e g ceg c, e, g, c,e,g,")
-  expect_equal(note_arpeggiate("gec", 2, -1) %>% as.character(),
+  expect_equal(note_arpeggiate("gec", 2, -1) |> as.character(),
                "gec g_e_b, fdb_,")
-  expect_equal(note_arpeggiate("c# e g", 2, 1) %>% as.character(),
+  expect_equal(note_arpeggiate("c# e g", 2, 1) |> as.character(),
                "c# e g d f g# d# f# a")
-  expect_equal(note_arpeggiate("c e g", 2) %>% as.character(),
+  expect_equal(note_arpeggiate("c e g", 2) |> as.character(),
                "c e g c' e' g' c'' e'' g''")
-  expect_equal(note_arpeggiate("c2 d#2 g2", 1, -2) %>% as.character(),
+  expect_equal(note_arpeggiate("c2 d#2 g2", 1, -2) |> as.character(),
                "c2 d#2 g2 a#1 c#2 f2")
   expect_error(note_arpeggiate("a", -1), "`n` cannot be negative.")
 
-  expect_equal(sharpen_flat("a,") %>% as.character(), "a,")
-  expect_equal(sharpen_flat("a_,") %>% as.character(), "g#,")
-  expect_equal(flatten_sharp("a#2") %>% as.character(), "b_2")
+  expect_equal(sharpen_flat("a,") |> as.character(), "a,")
+  expect_equal(sharpen_flat("a_,") |> as.character(), "g#,")
+  expect_equal(flatten_sharp("a#2") |> as.character(), "b_2")
 
-  expect_equal(naturalize(notes) %>% as.character(),
+  expect_equal(naturalize(notes) |> as.character(),
                "a b c,eg' d e f g")
-  expect_equal(naturalize(notes, "flat") %>% as.character(),
+  expect_equal(naturalize(notes, "flat") |> as.character(),
                "a b c,eg' d# e f g")
-  expect_equal(naturalize(notes, "sharp") %>% as.character(),
+  expect_equal(naturalize(notes, "sharp") |> as.character(),
                "a b c,e_g' d e_ f g")
 
-  expect_equal(note_set_key(notes, "f") %>% as.character(),
+  expect_equal(note_set_key(notes, "f") |> as.character(),
                "a b c,e_g' e_ e_ f g")
-  expect_equal(note_set_key(notes, "g") %>% as.character(),
+  expect_equal(note_set_key(notes, "g") |> as.character(),
                "a b c,d#g' d# d# f g")
 
   x <- "a# b_ c, d'' e3 g_4 A m c2e_2g2 cegh"

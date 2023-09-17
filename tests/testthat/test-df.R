@@ -1,5 +1,3 @@
-context("data frames")
-
 test_that("expect that as_music_df works as expected", {
   x <- "a, b, c d e f g# a r ac'e' a c' e' c' r r r a"
   d <- as_music_df(x, key = "c", scale = "major")

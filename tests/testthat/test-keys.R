@@ -1,5 +1,3 @@
-context("keys")
-
 test_that("key helpers return as expected", {
   sharps <- c("g", "d", "a", "e", "b", "f#", "c#", "em", "bm", "f#m", "c#m",
               "g#m", "d#m", "a#m")

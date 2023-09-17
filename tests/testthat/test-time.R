@@ -1,5 +1,3 @@
-context("time")
-
 test_that("time functions return as expected", {
   a <- notate("t8x", "Start here")
   notes <- "a, b, c d e f g# a r ac'e' a c' e' c' r*3 ac'e'~ ac'e'"

@@ -1,6 +1,13 @@
-context("helpers")
-
 test_that("helpers return as expected.", {
+  expect_error(
+    pc("a1", as_music("a1")),
+    "pc\\(\\) is only for phrase objects, noteworthy and simple character strings."
+  )
+  expect_error(
+    pn(as_music("a1"), 2),
+    "pn\\(\\) is only for phrase objects, noteworthy and simple character strings."
+  )
+
   expect_equal(tie("e,,d'"), as_noteworthy("e,,~d'~"))
   expect_equal(tie("e,,d'~"), as_noteworthy("e,,~d'~"))
   expect_equal(tie("e,b,egbe'"), as_noteworthy("e,~b,~e~g~b~e'~"))

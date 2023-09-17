@@ -1,5 +1,3 @@
-context("modes")
-
 test_that("mode helpers return as expected", {
   expect_equal(mode_ionian(), mode_modern())
   expect_equal(mode_dorian(), mode_modern("dorian"))

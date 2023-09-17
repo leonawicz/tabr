@@ -1,5 +1,3 @@
-context("snippet")
-
 x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 r g;4 c;5 ce'1;51"
 x <- as_music(x)
 
@@ -13,7 +11,6 @@ outfile1 <- file.path(tempdir(), "out.pdf")
 outfile2 <- file.path(tempdir(), "out.png")
 
 test_that("render functions run as expected", {
-  skip_on_appveyor()
   skip_on_cran()
   expect_is(render_music(x, outfile1), "NULL")
 
@@ -32,7 +29,6 @@ test_that("render functions run as expected", {
 })
 
 test_that("plot wrappers run as expected", {
-  skip_on_appveyor()
   skip_on_cran()
   if(require(png)){
     png(outfile2)

@@ -1,5 +1,3 @@
-context("repeats")
-
 test_that("repeat functions return as expected", {
   x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
   e1 <- phrase("a", 1, 5)

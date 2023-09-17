@@ -1,5 +1,3 @@
-context("tunings")
-
 test_that("tunings and mappings work", {
   standard <- "e,a,dgbe'"
   x <- c(standard, "e2 a2 d3 g3 b3 e4", "e2 a, d g b e'", "standard")

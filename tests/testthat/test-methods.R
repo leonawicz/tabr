@@ -1,5 +1,3 @@
-context("methods")
-
 test_that("noteworthy logical operators return as expected", {
   x <- as_noteworthy("f# a d'f#'a' d'f#'a'")
   y <- as_noteworthy("g_ b f#'a'd' d'd''")

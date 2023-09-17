@@ -1,5 +1,3 @@
-context("transpose")
-
 library(dplyr)
 
 test_that("transpose returns as expected.", {
@@ -7,41 +5,41 @@ test_that("transpose returns as expected.", {
   expect_equal(transpose("b_2", 1, key = "c"), as_noteworthy("b2"))
 
   x <- list("a_3 b_4 c5", "a#3 b4 c#5", "a3 b4 c5")
-  expect_equal(transpose(x[[1]], 0) %>% as.character(), gsub("3", "", x[[1]]))
-  expect_equal(tp("c#3 a_' d#,", 0, key = "f") %>% as.character(), "d_ a_' e_,")
-  expect_equal(tp("d_4 a2 e_2", 0, key = "g") %>% as.character(), "c#4 a2 d#2")
-  expect_equal(tp("c#3 a_' d#,", 0) %>% as.character(), "d_ a_' e_,")
-  expect_equal(tp("d_4 a2 e_2", 0, accidentals = "sharp") %>% as.character(),
+  expect_equal(transpose(x[[1]], 0) |> as.character(), gsub("3", "", x[[1]]))
+  expect_equal(tp("c#3 a_' d#,", 0, key = "f") |> as.character(), "d_ a_' e_,")
+  expect_equal(tp("d_4 a2 e_2", 0, key = "g") |> as.character(), "c#4 a2 d#2")
+  expect_equal(tp("c#3 a_' d#,", 0) |> as.character(), "d_ a_' e_,")
+  expect_equal(tp("d_4 a2 e_2", 0, accidentals = "sharp") |> as.character(),
                "c#4 a2 d#2")
 
-  expect_equal(tp(x[[1]], -1) %>% as.character(), "g a4 b4")
-  expect_equal(tp(x[[1]], 1, "tick", "sharp") %>% as.character(),
+  expect_equal(tp(x[[1]], -1) |> as.character(), "g a4 b4")
+  expect_equal(tp(x[[1]], 1, "tick", "sharp") |> as.character(),
                "a b' c#''")
-  expect_equal(tp(x[[2]], 11) %>% as.character(), "a4 a#5 c6")
-  expect_equal(tp(x[[2]], 12) %>% as.character(), "a#4 b5 c#6")
-  expect_equal(tp(x[[2]], 13) %>% as.character(), "b4 c6 d6")
-  expect_equal(tp(x[[3]], 2, key = "f") %>% as.character(), "b d_5 d5")
-  expect_equal(tp(x[[3]], 2, key = "g") %>% as.character(), "b c#5 d5")
-  expect_equal(tp(x[[3]], 2, accidentals = "sharp") %>%
+  expect_equal(tp(x[[2]], 11) |> as.character(), "a4 a#5 c6")
+  expect_equal(tp(x[[2]], 12) |> as.character(), "a#4 b5 c#6")
+  expect_equal(tp(x[[2]], 13) |> as.character(), "b4 c6 d6")
+  expect_equal(tp(x[[3]], 2, key = "f") |> as.character(), "b d_5 d5")
+  expect_equal(tp(x[[3]], 2, key = "g") |> as.character(), "b c#5 d5")
+  expect_equal(tp(x[[3]], 2, accidentals = "sharp") |>
                  as.character(), "b c#5 d5")
 
-  expect_equal(tp("a b' c''", 2, key = "f") %>% as.character(), "b d_'' d''")
-  expect_equal(tp("a b' c''", 2, "integer", "sharp") %>% as.character(),
+  expect_equal(tp("a b' c''", 2, key = "f") |> as.character(), "b d_'' d''")
+  expect_equal(tp("a b' c''", 2, "integer", "sharp") |> as.character(),
                "b c#5 d5")
-  expect_equal(tp("a b' c''", 2, key = "flat") %>% as.character(), "b d_'' d''")
-  expect_equal(tp("a, b3 c'", 2, key = "g") %>% as.character(), "b, c#' d'")
-  expect_equal(tp("a2 b c4", 2, "tick", key = "sharp") %>% as.character(),
+  expect_equal(tp("a b' c''", 2, key = "flat") |> as.character(), "b d_'' d''")
+  expect_equal(tp("a, b3 c'", 2, key = "g") |> as.character(), "b, c#' d'")
+  expect_equal(tp("a2 b c4", 2, "tick", key = "sharp") |> as.character(),
                "b, c#' d'")
-  expect_equal(tp("a2 b c4", 2, "tick", key = "flat") %>% as.character(),
+  expect_equal(tp("a2 b c4", 2, "tick", key = "flat") |> as.character(),
                "b, d_' d'")
 
-  expect_equal(tp("a b' c''", 2, "integer", key = "f") %>% as.character(),
+  expect_equal(tp("a b' c''", 2, "integer", key = "f") |> as.character(),
                "b d_5 d5")
-  expect_equal(tp("a b' c''", 2, "integer", key = "flat") %>% as.character(),
+  expect_equal(tp("a b' c''", 2, "integer", key = "flat") |> as.character(),
                "b d_5 d5")
-  expect_equal(tp("a, b c'", 2, "integer", key = "g") %>% as.character(),
+  expect_equal(tp("a, b c'", 2, "integer", key = "g") |> as.character(),
                "b2 c#4 d4")
-  expect_equal(tp("a, b c'", 2, "integer", key = "sharp") %>% as.character(),
+  expect_equal(tp("a, b c'", 2, "integer", key = "sharp") |> as.character(),
                "b2 c#4 d4")
 
   x <- as_noteworthy("r b2 c#4 s d4")

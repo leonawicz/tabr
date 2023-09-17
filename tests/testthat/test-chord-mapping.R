@@ -1,5 +1,3 @@
-context("chord mapping")
-
 test_that("chord mapping returns as expected", {
   expect_equal(gc_is_known("a b_,fb_d'f'"), c(FALSE, TRUE))
 

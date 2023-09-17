@@ -1,37 +1,35 @@
-context("scales")
-
 library(dplyr)
 
 test_that("scales return as expected", {
-  expect_equal(scale_diatonic("c", collapse = TRUE) %>% as.character(),
+  expect_equal(scale_diatonic("c", collapse = TRUE) |> as.character(),
                "c d e f g a b")
-  expect_equal(scale_diatonic("am", collapse = TRUE) %>% as.character(),
+  expect_equal(scale_diatonic("am", collapse = TRUE) |> as.character(),
                "a, b, c d e f g")
   expect_equal(length(scale_chromatic("c")), 12)
 
-  expect_equal(scale_diatonic(key = "dm", TRUE) %>% as.character(),
+  expect_equal(scale_diatonic(key = "dm", TRUE) |> as.character(),
                "d e f g a b_ c'")
-  expect_equal(scale_minor(key = "dm", TRUE, TRUE) %>% as.character(),
+  expect_equal(scale_minor(key = "dm", TRUE, TRUE) |> as.character(),
                "d e f g a b_ c")
-  expect_equal(scale_major(key = "d", TRUE) %>% as.character(),
+  expect_equal(scale_major(key = "d", TRUE) |> as.character(),
                "d e f# g a b c#'")
 
-  expect_equal(scale_chromatic(root = "a", collapse = TRUE) %>% as.character(),
+  expect_equal(scale_chromatic(root = "a", collapse = TRUE) |> as.character(),
                c("a, a#, b, c c# d d# e f f# g g#"))
-  expect_equal(scale_chromatic(root = "a", ignore_octave = TRUE) %>%
+  expect_equal(scale_chromatic(root = "a", ignore_octave = TRUE) |>
                  as.character(), c("a",  "a#", "b",  "c",  "c#", "d",  "d#",
                                    "e",  "f",  "f#", "g",  "g#"))
 
-  expect_equal(scale_harmonic_minor("am", TRUE) %>% as.character(),
+  expect_equal(scale_harmonic_minor("am", TRUE) |> as.character(),
                "a, b, c d e f g#")
-  expect_equal(scale_hungarian_minor("am", TRUE, TRUE) %>% as.character(),
+  expect_equal(scale_hungarian_minor("am", TRUE, TRUE) |> as.character(),
                "a b c d# e f g#")
 
   expect_identical(scale_melodic_minor("am"), scale_jazz_minor("am"))
   expect_equal(
     rev(scale_melodic_minor("am", descending = TRUE, ignore_octave = TRUE)),
     as_noteworthy(letters[1:7]))
-  expect_equal(scale_jazz_minor("am", collapse = TRUE) %>% as.character(),
+  expect_equal(scale_jazz_minor("am", collapse = TRUE) |> as.character(),
                "a, b, c d e f# g#")
 
   expect_equal(length(modes()), 7)
@@ -75,7 +73,7 @@ test_that("other scale helpers return as expected", {
   expect_equal(scale_note(1:8, "e"),
                as_noteworthy("e f# g# a b c# d# e", format = "vector"))
 
-  expect_equal(is_diatonic("f2#a3c#' r s f#ac", "a"), c(T, NA, NA, F)) # nolint
+  expect_equal(is_diatonic("f2#a3c#' r s f#ac", "a"), c(T, NA, NA, F))
 
   err <- "`tabr::scale_a` is not an exported scale."
   expect_error(scale_degree(x, scale = "a"), err)

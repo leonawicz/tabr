@@ -1,5 +1,3 @@
-context("note info")
-
 test_that("expect note info helpers return as expected", {
   a <- notate("8x", "Start here")
   x <- paste(a, "8-. 8-. 16 4.. 16- 16 2^ 2 4. 8( 4)( 4) 8*4 1 1")

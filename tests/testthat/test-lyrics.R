@@ -1,5 +1,3 @@
-context("lyrics")
-
 test_that("lyrics functions return as expected", {
   x <- "These are the ly- rics . . . to this song"
   expect_false(is_lyrics(x))

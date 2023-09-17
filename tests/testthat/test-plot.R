@@ -1,5 +1,3 @@
-context("plots")
-
 file <- file.path(tempdir(), "test-plot.png")
 
 test_that("plot_fretboard runs successfully", {

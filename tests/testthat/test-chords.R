@@ -1,5 +1,3 @@
-context("chords")
-
 library(dplyr)
 
 test_that("chord helpers return as expected", {
@@ -21,7 +19,7 @@ test_that("chord helpers return as expected", {
     "Chord has 3 notes. `n` must be in -2:2. Set `limit = FALSE` to override.")
 
   expect_equal(chord_break("c e g ceg ceg"), as_noteworthy("c e g c e g c e g"))
-  expect_equal(chord_break(c("c", "ceg")) %>% as.character(), c("c", "c e g"))
+  expect_equal(chord_break(c("c", "ceg")) |> as.character(), c("c", "c e g"))
 
   expect_equal(is_diatonic("r ceg ace s ce_g", "c"), c(NA, T, T, NA, F))
   expect_equal(is_diatonic(c("dfa", "df#a"), "d"), c(FALSE, TRUE))
@@ -63,20 +61,20 @@ test_that("interval_semitones returns as expected", {
 })
 
 test_that("dyad constructor returns as expected", {
-  expect_equal(dyad("a", 4) %>% as.character(), "ad_'")
+  expect_equal(dyad("a", 4) |> as.character(), "ad_'")
   x <- c("minor third", "m3", "augmented second", "A2")
   y <- dyad("a", x, octaves = "integer")
   expect_equal(as.character(y), paste(rep("ac4", 4), collapse = " "))
   y <- dyad("c'", x, reverse = TRUE)
   expect_equal(as.character(y), paste(rep("ac'", 4), collapse = " "))
   x <- c("M3", "m3", "m3", "M3", "M3", "m3", "m3")
-  y <- dyad(letters[c(3:7, 1, 2)], x, octaves = "integer") %>% as.character()
+  y <- dyad(letters[c(3:7, 1, 2)], x, octaves = "integer") |> as.character()
   expect_equal(y, c("ce", "df", "eg", "fa", "gb", "ac4", "bd4"))
   x <- c("P1", "m3", "M3", "P4", "P5", "P8", "M9")
-  expect_equal(dyad("c", x, octaves = "integer", accidentals = "sharp") %>%
+  expect_equal(dyad("c", x, octaves = "integer", accidentals = "sharp") |>
                  as.character(),
                c("c cd# ce cf cg cc4 cd4"))
-  y <- dyad("c", x, reverse = TRUE, octaves = "integer") %>% as.character()
+  y <- dyad("c", x, reverse = TRUE, octaves = "integer") |> as.character()
   expect_equal(y, c("c a2c a_2c g2c f2c c2c b_1c"))
   expect_equal(dyad("d e", "m3"), as_noteworthy("df eg"))
 
@@ -123,13 +121,11 @@ test_that("chord root, topr and general slice work as expected", {
 })
 
 test_that("chord constructors return as expected", {
-  expect_equal(xm("c", "g") %>% as.character(), "cd#g")
-  expect_equal(xm("c", "f") %>% as.character(), "ce_g")
-  expect_equal(xm7("c", "f") %>% as.character(), "ce_gb_")
-  expect_equal(x7("c", "f") %>% as.character(), "cegb_")
+  expect_equal(xm("c", "g") |> as.character(), "cd#g")
+  expect_equal(xm("c", "f") |> as.character(), "ce_g")
+  expect_equal(xm7("c", "f") |> as.character(), "ce_gb_")
+  expect_equal(x7("c", "f") |> as.character(), "cegb_")
   expect_equal(x5("c"), dyad("c", "P5"))
-
-# lintr gets confused thinking there are comment lines - # nolint start
 
   test_chord_constructors <- function(root, n, key, ...){
     o <- list(...)$octaves
@@ -238,10 +234,8 @@ test_that("chord constructors return as expected", {
   test_chord_constructors("d#''", 27, "f", octaves = "integer",
                           accidentals = "sharp")
 
-  expect_equal(xm(c("c#", "f#", "g#"), key = "b", octaves = "integer") %>%
+  expect_equal(xm(c("c#", "f#", "g#"), key = "b", octaves = "integer") |>
                  as.character(),
                c("c#eg#", "f#ac#4", "g#bd#4"))
   expect_equal(xm("b_2 f g"), as_space_time(xm(c("b_2", "f", "g"))))
-
-# nolint end
 })

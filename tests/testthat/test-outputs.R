@@ -1,5 +1,3 @@
-context("outputs")
-
 library(dplyr)
 
 notes <- "r s a2~ a2 c3 c f4 f' d a f ce_g ceg#"
@@ -7,17 +5,17 @@ info <- "4. 4. 4.. 4- 4..-. 8^ 8-^ 8-> 4.-! t4 t4[staccato] t4[accent] 2.."
 p1 <- pc(pct(p("a", 1)), rp(p(notes, info)))
 p2 <- volta(p("r s a~ a c' c4 f5 f'' d4 a4 f' c'e_'g' c'e'g#'",
               "4. 4 8*9 2. 2"))
-x1 <- track(p1) %>% score()
-x2 <- track(p2, tuning = "DADGAD", key = "c#") %>% score()
-x3 <- track(pc(p1, p2), clef = NA) %>% score()
+x1 <- track(p1) |> score()
+x2 <- track(p2, tuning = "DADGAD", key = "c#") |> score()
+x3 <- track(pc(p1, p2), clef = NA) |> score()
 
 notes <- "a, b, c d e f g a"
 p1 <- p(notes, 8)
 p2 <- p(tp(notes, 7), 8)
 p3 <- p(tp(notes, -12), 8)
 x4 <- trackbind(track(p1, voice = 1),
-                track(p2, voice = 2), id = c(1, 1)) %>% score()
-x5 <- trackbind(track(p1, key = "b_"), track(p2, key = "c#")) %>% score()
+                track(p2, voice = 2), id = c(1, 1)) |> score()
+x5 <- trackbind(track(p1, key = "b_"), track(p2, key = "c#")) |> score()
 
 chord_prep <- c("b_:m" = "x13321", "c/g" = "332o1o",
                 "b:m/f#" = "14 12 14 14 13 12", "r" = NA, "s" = NA)
@@ -53,13 +51,13 @@ x10 <- trackbind(
   track(p3, clef = NA, key = "g", tuning = "bass"),
   track(p3, clef = "bass_8", key = "a", tab = FALSE, tuning = "bass"),
   id = c(1, 1, 2, 3)
-  ) %>%
+  ) |>
   score()
 
 x11 <- trackbind(
   track(p3, key = "d#m", tuning = "bass"),
   track(p3, clef = "bass_8", tab = FALSE, key = "e_", tuning = "bass")
-) %>%
+) |>
   score()
 
 x <- list(x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11)
@@ -85,7 +83,6 @@ test_that("track wrappers return as expected", {
 })
 
 test_that("lilypond wrapper runs without error", {
-  skip_on_appveyor()
   expect_is(lilypond(x1, out[1]), cl)
   expect_is(lilypond(x2, out[1]), cl)
   purrr::walk(x, ~expect_is(lilypond(.x, out[1]), cl))
@@ -108,7 +105,6 @@ test_that("lilypond wrapper runs without error", {
 })
 
 test_that("tab wrapper runs without error", {
-  skip_on_appveyor()
   skip_on_cran()
   include_midi <- TRUE
   expect_is(tab(x1, out[2], midi = include_midi, header = list(title = "Title"),
@@ -158,7 +154,6 @@ test_that("tab wrapper runs without error", {
 })
 
 test_that("tab wrapper including lyrics runs without error", {
-  skip_on_appveyor()
   skip_on_cran()
 
   s1 <- score(
@@ -200,27 +195,36 @@ test_that("tab wrapper including lyrics runs without error", {
 })
 
 test_that("miditab and midily functions run without error", {
-  skip_on_appveyor()
   skip_on_cran()
   midi <- system.file("example.mid", package = "tabr")
   expect_is(midily(midi, out[1]), cl)
+
+  expect_is(midily(midi, out[1], key = "b_", quantize = 8,
+                   explicit = TRUE, start_quant = 8, allow_tuplet = "8*2/3",
+                   lyric = TRUE), cl)
+  expect_is(midily(midi, out[1], key = "cm", quantize = 8,
+                   explicit = TRUE, start_quant = 8, allow_tuplet = "8*2/3",
+                   details = TRUE, lyric = TRUE), cl)
+
+  # Using --absolute-pitches seems bugged in the current Lilypond version
+  # so it is currently deactivated in midily()
   expect_is(midily(midi, out[1], key = "b_", absolute = TRUE, quantize = 8,
                    explicit = TRUE, start_quant = 8, allow_tuplet = "8*2/3",
                    lyric = TRUE), cl)
   expect_is(midily(midi, out[1], key = "cm", absolute = TRUE, quantize = 8,
                    explicit = TRUE, start_quant = 8, allow_tuplet = "8*2/3",
-                   lyric = TRUE), cl)
+                   details = TRUE, lyric = TRUE), cl)
+
   expect_is(miditab(midi, out[2], details = TRUE), cl)
   expect_is(miditab(midi, out[3]), cl)
   unlink(cleanup)
 })
 
 test_that("render_chordchart runs without error", {
-  skip_on_appveyor()
   skip_on_cran()
   chords <- filter(
     guitarChords, root %in% c("c", "f") & id %in% c("7", "M7", "m7") &
-    !grepl("#", notes) & root_fret <= 12) %>%
+    !grepl("#", notes) & root_fret <= 12) |>
     arrange(root, id)
   chords <- setNames(chords$fretboard, chords$lp_name)
 

@@ -1,5 +1,3 @@
-context("options")
-
 test_that("options set on package load", {
   x <- tabr_options()
   expect_is(x, "list")

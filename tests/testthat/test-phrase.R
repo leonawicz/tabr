@@ -1,5 +1,3 @@
-context("phrase")
-
 eflats <- c("e_,, e_, e_ e_' e_''", "e_1 e_2 e_3 e_4 e_5")
 efchord <- gsub(" ", "", eflats)
 x <- purrr::map(c(eflats, efchord), ~phrase(.x, 4))

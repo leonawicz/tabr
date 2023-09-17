@@ -1,5 +1,3 @@
-context("read midi")
-
 test_that("Read midi files as expected", {
   if(require(tuneR)){
     file <- system.file("example.mid", package = "tabr")

@@ -1,5 +1,3 @@
-context("convert")
-
 test_that("syntax conversions are as expected", {
   chords <- c("Bb", "Bbm", "Bbm7", "Bbm7(b5)", "Bb7(#5)/G", "Bb7(#5)/Ab")
   x <- from_chorrrds(chords)

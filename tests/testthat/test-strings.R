@@ -1,5 +1,3 @@
-context("strings")
-
 test_that("string fold and unfold returns as expected", {
   time <- "8*3 16 4.. 16 16 2 2 4. 8 4 4 8*4 1"
   x <- string_unfold(time)

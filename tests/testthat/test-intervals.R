@@ -1,5 +1,3 @@
-context("intervals")
-
 test_that("interval helpers return as expected", {
   expect_equal(pitch_interval("c d e", "d3 d d"), c(2, 0, -2))
   expect_equal(pitch_interval("c2", "d"), 14)

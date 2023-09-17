@@ -1,5 +1,3 @@
-context("pitch")
-
 test_that("pitch_seq returns as expected", {
   expect_equal(pitch_seq("a,", 13),
                as_noteworthy("a, b_, b, c d_ d e_ e f g_ g a_ a"))

@@ -1,5 +1,3 @@
-context("steps")
-
 p1 <- p("r a2 c3 f3 d3 a3 f3", "4 8 8 8 8 8 8", "x 5 5 4 4 3 4")
 track1 <- track(p1)
 song <- score(track1)
