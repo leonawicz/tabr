@@ -27,6 +27,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -39,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.9</span>
       </span>
     </div>
 
@@ -47,13 +49,13 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
     Home
   </a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Tutorials
      
     <span class="caret"></span>
@@ -85,7 +87,8 @@
       <a href="../articles/tabr-fretboard.html">Fretboard diagram plots</a>
     </li>
     <li class="divider">
-    <li class="dropdown-header">Transcription</li>
+    </li>
+<li class="dropdown-header">Transcription</li>
     <li>
       <a href="../articles/tabr-basics.html">Basic overview</a>
     </li>
@@ -119,7 +122,7 @@
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Examples
      
     <span class="caret"></span>
@@ -148,8 +151,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/leonawicz/tabr">
-    <span class="fas fa-github fa-lg"></span>
+  <a href="https://github.com/leonawicz/tabr" class="external-link">
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -163,88 +166,121 @@
 
       
 
-      </header><script src="tabr-snippets_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Music snippets in R markdown</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/leonawicz/tabr/blob/master/vignettes/tabr-snippets.Rmd"><code>vignettes/tabr-snippets.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/leonawicz/tabr/blob/HEAD/vignettes/tabr-snippets.Rmd" class="external-link"><code>vignettes/tabr-snippets.Rmd</code></a></small>
       <div class="hidden name"><code>tabr-snippets.Rmd</code></div>
 
     </div>
 
     
     
-<p>This section demonstrates how to create sheet music snippets in R markdown documents using the LilyPond backend. To do this, use the set of <code>plot_music_*</code> functions that wrap around the <code>render_music_*</code> functions.</p>
-<p>These abstract the process of rendering a sheet music snippet to png and loading the rendered image back into R to be displayed as a plot in an open graphics device or inserted into an R markdown code chunk.</p>
-<p>While these functions abstract away the details of the process, this is not the same as making the plot completely in R. R is only displaying the intermediary png file. LilyPond is required to engrave the sheet music.</p>
-<p>For R markdown you can alternatively render the png using the corresponding <code>render_music_*</code> function and then place it in the document explicitly using <code><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">knitr::include_graphics</a></code>. See <code><a href="../reference/render_music.html">?render_music</a></code> for more details. Below are some example snippets for guitar and bass.</p>
-<div id="music-objects" class="section level2">
-<h2 class="hasAnchor">
-<a href="#music-objects" class="anchor"></a>Music objects</h2>
+<p>This section demonstrates how to create sheet music snippets in R
+markdown documents using the LilyPond backend. To do this, use the set
+of <code>plot_music*</code> functions that wrap around the
+<code>render_music*</code> functions.</p>
+<p>These abstract the process of rendering a sheet music snippet to png
+and loading the rendered image back into R to be displayed as a plot in
+an open graphics device or inserted into an R markdown code chunk.</p>
+<p>While these functions abstract away the details of the process, this
+is not the same as making the plot completely in R. R is only displaying
+the intermediary png file. LilyPond is required to engrave the sheet
+music.</p>
+<p>For R markdown you can alternatively render the png using the
+corresponding <code>render_music*</code> function and then place it in
+the document explicitly using <code><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html" class="external-link">knitr::include_graphics()</a></code>.
+See <code><a href="../reference/render_music.html">render_music()</a></code> for more details. Below are some example
+snippets for guitar and bass.</p>
+<div class="section level2">
+<h2 id="music-objects">Music objects<a class="anchor" aria-label="anchor" href="#music-objects"></a>
+</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/music.html">as_music</a></span><span class="op">(</span><span class="st">"a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"</span><span class="op">)</span>
-<span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/music.html">as_music</a></span><span class="op">(</span><span class="st">"a,,4;3*5 b,,4- c,4 c,g,c~4 c,g,c1 c4;1 g,;2 c,;3 g,;2 c,c1;31"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Music string&gt;
-#&gt;   Timesteps: </span><span>14 (11 notes, 3 chords)</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Octaves: </span><span>tick</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Accidentals: </span><span>flat</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Key signature: </span><span>c</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Time signature: </span><span>4/4</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Tempo: </span><span>2 = 60</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Lyrics: </span><span>NA</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Strings: </span><span>5 5 5 5 5 5 5 5432 5432 2...</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">a,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">a,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">a,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">a,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">a,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">b,</span><span style="color: #BBBB00;">4-</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">cgc'e'~</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">cgc'e'</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">1</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">e'</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">c'</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">ce'</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">1</span><span>
-</span></code></pre>
+<code class="sourceCode R"><span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/music.html">as_music</a></span><span class="op">(</span><span class="st">"a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"</span><span class="op">)</span></span>
+<span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/music.html">as_music</a></span><span class="op">(</span><span class="st">"a,,4;3*5 b,,4- c,4 c,g,c~4 c,g,c1 c4;1 g,;2 c,;3 g,;2 c,c1;31"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; &lt;Music string&gt;</span></span>
+<span><span class="co">#&gt;   Timesteps: 14 (11 notes, 3 chords)</span></span>
+<span><span class="co">#&gt;   Octaves: tick</span></span>
+<span><span class="co">#&gt;   Accidentals: flat</span></span>
+<span><span class="co">#&gt;   Key signature: c</span></span>
+<span><span class="co">#&gt;   Time signature: 4/4</span></span>
+<span><span class="co">#&gt;   Tempo: 2 = 60</span></span>
+<span><span class="co">#&gt;   Lyrics: NA</span></span>
+<span><span class="co">#&gt;   Strings: 5 5 5 5 5 5 5 5432 5432 2...</span></span>
+<span><span class="co">#&gt;   Format: space-delimited time</span></span>
+<span><span class="co">#&gt;   Values: a,4 a,4 a,4 a,4 a,4 b,4- c4 &lt;cgc'e'~&gt;4 &lt;cgc'e'&gt;1 e'4 c'4 g4 c4 &lt;ce'&gt;1</span></span></code></pre>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Music string&gt;
-#&gt;   Timesteps: </span><span>14 (11 notes, 3 chords)</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Octaves: </span><span>tick</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Accidentals: </span><span>flat</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Key signature: </span><span>c</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Time signature: </span><span>4/4</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Tempo: </span><span>2 = 60</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Lyrics: </span><span>NA</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Strings: </span><span>3 3 3 3 3 3 3 321 321 1...</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">a,,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">a,,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">a,,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">a,,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">a,,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">b,,</span><span style="color: #BBBB00;">4-</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">c,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">c,g,c~</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">c,g,c</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">1</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">g,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">c,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">g,</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">c,c</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">1</span><span>
-</span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; &lt;Music string&gt;</span></span>
+<span><span class="co">#&gt;   Timesteps: 14 (11 notes, 3 chords)</span></span>
+<span><span class="co">#&gt;   Octaves: tick</span></span>
+<span><span class="co">#&gt;   Accidentals: flat</span></span>
+<span><span class="co">#&gt;   Key signature: c</span></span>
+<span><span class="co">#&gt;   Time signature: 4/4</span></span>
+<span><span class="co">#&gt;   Tempo: 2 = 60</span></span>
+<span><span class="co">#&gt;   Lyrics: NA</span></span>
+<span><span class="co">#&gt;   Strings: 3 3 3 3 3 3 3 321 321 1...</span></span>
+<span><span class="co">#&gt;   Format: space-delimited time</span></span>
+<span><span class="co">#&gt;   Values: a,,4 a,,4 a,,4 a,,4 a,,4 b,,4- c,4 &lt;c,g,c~&gt;4 &lt;c,g,c&gt;1 c4 g,4 c,4 g,4 &lt;c,c&gt;1</span></span></code></pre>
 </div>
-<div id="snippet-in-r-markdown-chunk" class="section level2">
-<h2 class="hasAnchor">
-<a href="#snippet-in-r-markdown-chunk" class="anchor"></a>Snippet in R markdown chunk</h2>
-<p>The defaults for <code>plot_music</code> include treble clef and no tab staff. Plot the music object, <code>g</code>. As you can see, this appears off by an octave because the guitar transcription should use <code>clef = "treble_8"</code> instead of the default <code>clef = "treble"</code>.</p>
+<div class="section level2">
+<h2 id="snippet-in-r-markdown-chunk">Snippet in R markdown chunk<a class="anchor" aria-label="anchor" href="#snippet-in-r-markdown-chunk"></a>
+</h2>
+<p>The defaults for <code><a href="../reference/plot_music.html">plot_music()</a></code> include treble clef and no
+tab staff. Plot the music object, <code>g</code>. As you can see, this
+appears off by an octave because the guitar transcription should use
+<code>clef = "treble_8"</code> instead of the default
+<code>clef = "treble"</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plot_music.html">plot_music</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_music.html">plot_music</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tabr-snippets_files/figure-html/snippet1-1.png" width="100%"></p>
-<p>Above you can see the call to <code><a href="../reference/plot_music.html">plot_music(g)</a></code>in the document since <code>echo = TRUE</code> for the code chunk. In an interactive R session, this call draws the plot to the active graphics device. The R markdown code chunk for inserting the above plot into this document looks like this in the Rmd file.</p>
+<p>Above you can see the call to <code>plot_music(g)</code>in the
+document since <code>echo = TRUE</code> for the code chunk. In an
+interactive R session, this call draws the plot to the active graphics
+device. The R markdown code chunk for inserting the above plot into this
+document looks like this in the Rmd file.</p>
 <pre><code>```{r}
 plot_music(g)
 ```</code></pre>
-<p>The image will scale properly in R so that it does not distort. However, the graphics device dimensions still matter. If you want to avoid excessive whitespace for example, you may want to specify <code>knitr</code> figure options, e.g. <code>fig.height=2, fig.width=7</code>, globally or in a code chunk.</p>
-<p>The values you choose depend on how tall your sheet music snippet is. If you enter a long snippet in code, LilyPond may wrap this around to multiple lines in the png file it creates. Therefore, this may require some trial and error. Sheet music snippets are intended to be curated one-offs for inserting in documents.</p>
+<p>The image will scale properly in R so that it does not distort.
+However, the graphics device dimensions still matter. If you want to
+avoid excessive whitespace for example, you may want to specify
+<code>knitr</code> figure options,
+e.g. <code>fig.height=2, fig.width=7</code>, globally or in a code
+chunk.</p>
+<p>The values you choose depend on how tall your sheet music snippet is.
+If you enter a long snippet in code, LilyPond may wrap this around to
+multiple lines in the png file it creates. Therefore, this may require
+some trial and error. Sheet music snippets are intended to be curated
+one-offs for inserting in documents.</p>
 </div>
-<div id="additional-wrappers" class="section level2">
-<h2 class="hasAnchor">
-<a href="#additional-wrappers" class="anchor"></a>Additional wrappers</h2>
-<p>There are various wrapper functions offering convenient, sensible default arguments based on the function name.</p>
+<div class="section level2">
+<h2 id="additional-wrappers">Additional wrappers<a class="anchor" aria-label="anchor" href="#additional-wrappers"></a>
+</h2>
+<p>There are various wrapper functions offering convenient, sensible
+default arguments based on the function name.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plot_music.html">plot_music_tab</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span> <span class="co"># tab staff only</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_music.html">plot_music_tab</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span> <span class="co"># tab staff only</span></span></code></pre></div>
 <p><img src="tabr-snippets_files/figure-html/snippet2-1.png" width="100%"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plot_music.html">plot_music_guitar</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span> <span class="co"># 8va treble clef for guitar, plus tab staff</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_music.html">plot_music_guitar</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span> <span class="co"># 8va treble clef for guitar, plus tab staff</span></span></code></pre></div>
 <p><img src="tabr-snippets_files/figure-html/snippet3-1.png" width="100%"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plot_music.html">plot_music_bc</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span> <span class="co"># bass clef</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_music.html">plot_music_bc</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span> <span class="co"># bass clef</span></span></code></pre></div>
 <p><img src="tabr-snippets_files/figure-html/snippet4-1.png" width="100%"></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plot_music.html">plot_music_bass</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span> <span class="co"># bass clef and tab staff</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_music.html">plot_music_bass</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span> <span class="co"># bass clef and tab staff</span></span></code></pre></div>
 <p><img src="tabr-snippets_files/figure-html/snippet5-1.png" width="100%"></p>
-<p>Depending on the function, additional relevant arguments include <code>clef</code>, <code>tab</code>, <code>tuning</code> and <code>string_names</code>. Layout arguments include <code>header</code>, <code>paper</code>, <code>colors</code>, <code>transparent</code> and <code>res</code>. The function <code>plot_music_tc</code> is equivalent to <code>plot_music</code>.</p>
+<p>Depending on the function, additional relevant arguments include
+<code>clef</code>, <code>tab</code>, <code>tuning</code> and
+<code>string_names</code>. Layout arguments include <code>header</code>,
+<code>paper</code>, <code>colors</code>, <code>transparent</code> and
+<code>res</code>. The function <code><a href="../reference/plot_music.html">plot_music_tc()</a></code> is
+equivalent to <code><a href="../reference/plot_music.html">plot_music()</a></code>.</p>
 </div>
   </div>
 
@@ -259,11 +295,13 @@ plot_music(g)
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://github.com/leonawicz">Matthew Leonawicz</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://github.com/leonawicz" class="external-link">Matthew Leonawicz</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -271,6 +309,8 @@ plot_music(g)
 
   
 
+
+  
 
   </body>
 </html>

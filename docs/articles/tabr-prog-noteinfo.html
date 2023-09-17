@@ -27,6 +27,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -39,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.9</span>
       </span>
     </div>
 
@@ -47,13 +49,13 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
     Home
   </a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Tutorials
      
     <span class="caret"></span>
@@ -85,7 +87,8 @@
       <a href="../articles/tabr-fretboard.html">Fretboard diagram plots</a>
     </li>
     <li class="divider">
-    <li class="dropdown-header">Transcription</li>
+    </li>
+<li class="dropdown-header">Transcription</li>
     <li>
       <a href="../articles/tabr-basics.html">Basic overview</a>
     </li>
@@ -119,7 +122,7 @@
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Examples
      
     <span class="caret"></span>
@@ -148,8 +151,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/leonawicz/tabr">
-    <span class="fas fa-github fa-lg"></span>
+  <a href="https://github.com/leonawicz/tabr" class="external-link">
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -163,136 +166,167 @@
 
       
 
-      </header><script src="tabr-prog-noteinfo_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Note information</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/leonawicz/tabr/blob/master/vignettes/tabr-prog-noteinfo.Rmd"><code>vignettes/tabr-prog-noteinfo.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/leonawicz/tabr/blob/HEAD/vignettes/tabr-prog-noteinfo.Rmd" class="external-link"><code>vignettes/tabr-prog-noteinfo.Rmd</code></a></small>
       <div class="hidden name"><code>tabr-prog-noteinfo.Rmd</code></div>
 
     </div>
 
     
     
-<p>Now that you have had an overview of the concept of noteworthy strings and the <code>noteworthy</code> class that provides this structure to objects, next consider the <code>noteinfo</code> class. <code>noteinfo</code> objects are similarly built from character strings. Note information is supplemental information that is stored in a <code>noteinfo</code> object. A note info string is generally a companion to a noteworthy string. They share many of the same properties as <code>noteworthy</code> objects and have similar generic method implementations.</p>
-<div id="the-noteinfo-class" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-noteinfo-class" class="anchor"></a>The <code>noteinfo</code> class</h2>
-<p>The data stored in a <code>noteinfo</code> object always includes duration, but can also consist of various other pieces of sheet music notation markup syntax; information that is distinct from the pitch itself, for example slurs or staccato notes. Because all the available information aside from note duration tends to be specifically relevant to sheet music transcription, you can find more details in the transcription vignettes that introduce the <code>phrase</code> class. It is worth browsing the table in the <a href="https://leonawicz.github.io/tabr/articles/tabr-phrases.html">phrases vignette</a> if any note info notation below is unfamiliar.</p>
-<div id="checking-note-info" class="section level3">
-<h3 class="hasAnchor">
-<a href="#checking-note-info" class="anchor"></a>Checking note info</h3>
-<p>A string can be checked directly with <code>informable</code>.</p>
+<p>Now that you have had an overview of the concept of noteworthy
+strings and the <code>noteworthy</code> class that provides this
+structure to objects, next consider the <code>noteinfo</code> class.
+<code>noteinfo</code> objects are similarly built from character
+strings. Note information is supplemental information that is stored in
+a <code>noteinfo</code> object. A note info string is generally a
+companion to a noteworthy string. They share many of the same properties
+as <code>noteworthy</code> objects and have similar generic method
+implementations.</p>
+<div class="section level2">
+<h2 id="the-noteinfo-class">The <code>noteinfo</code> class<a class="anchor" aria-label="anchor" href="#the-noteinfo-class"></a>
+</h2>
+<p>The data stored in a <code>noteinfo</code> object always includes
+duration, but can also consist of various other pieces of sheet music
+notation markup syntax; information that is distinct from the pitch
+itself, for example slurs or staccato notes. Because all the available
+information aside from note duration tends to be specifically relevant
+to sheet music transcription, you can find more details in the
+transcription vignettes that introduce the <code>phrase</code> class. It
+is worth browsing the table in the <a href="https://leonawicz.github.io/tabr/articles/tabr-phrases.html">phrases
+vignette</a> if any note info notation below is unfamiliar.</p>
+<div class="section level3">
+<h3 id="checking-note-info">Checking note info<a class="anchor" aria-label="anchor" href="#checking-note-info"></a>
+</h3>
+<p>A string can be checked directly with <code><a href="../reference/valid-noteinfo.html">informable()</a></code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"2. 4.. 8 t8-. t8- t8^ 16"</span>
-<span class="fu"><a href="../reference/valid-noteinfo.html">informable</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; [1] TRUE
-</code></pre>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"2. 4.. 8 t8-. t8- t8^ 16"</span></span>
+<span><span class="fu"><a href="../reference/valid-noteinfo.html">informable</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; [1] TRUE</span></span></code></pre>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/valid-noteinfo.html">informable</a></span><span class="op">(</span><span class="st">"5"</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; [1] FALSE
-</code></pre>
-<p>This reports whether the entire string conforms to all requirements for it to be valid <code>noteinfo</code> syntax. In the special case where only durations are provided and no other information, and these durations do not include any triplets <code>"t"</code> or dotted notes <code>"."</code>, then an integer vector will suffice. Even so, a digit like <code>5</code> does not belong.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/valid-noteinfo.html">informable</a></span><span class="op">(</span><span class="st">"5"</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; [1] FALSE</span></span></code></pre>
+<p>This reports whether the entire string conforms to all requirements
+for it to be valid <code>noteinfo</code> syntax. In the special case
+where only durations are provided and no other information, and these
+durations do not include any triplets <code>"t"</code> or dotted notes
+<code>"."</code>, then an integer vector will suffice. Even so, a digit
+like <code>5</code> does not belong.</p>
 </div>
-<div id="coercion" class="section level3">
-<h3 class="hasAnchor">
-<a href="#coercion" class="anchor"></a>Coercion</h3>
-<p>Use <code>as_noteinfo</code> to coerce to a <code>noteinfo</code> object. Here are the print and summary statements.</p>
+<div class="section level3">
+<h3 id="coercion">Coercion<a class="anchor" aria-label="anchor" href="#coercion"></a>
+</h3>
+<p>Use <code><a href="../reference/valid-noteinfo.html">as_noteinfo()</a></code> to coerce to a <code>noteinfo</code>
+object. Here are the print and summary statements.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/valid-noteinfo.html">as_noteinfo</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="va">x</span></code></pre></div>
-<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Note info string&gt;
-#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">2.</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">4..</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">t8</span><span style="color: #BBBB00;">-.</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">t8</span><span style="color: #BBBB00;">-</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">t8</span><span style="color: #BBBB00;">^</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">16</span><span>
-</span></code></pre>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/valid-noteinfo.html">as_noteinfo</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="va">x</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; &lt;Note info string&gt;</span></span>
+<span><span class="co">#&gt;   Format: space-delimited time</span></span>
+<span><span class="co">#&gt;   Values: 2. 4.. 8 t8-. t8- t8^ 16</span></span></code></pre>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Note info string&gt;
-#&gt;   Timesteps: </span><span>7</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">2.</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">4..</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">t8</span><span style="color: #BBBB00;">-.</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">t8</span><span style="color: #BBBB00;">-</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">t8</span><span style="color: #BBBB00;">^</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">16</span><span>
-</span></code></pre>
-<p>Similar to <code>noteworthy</code> object, here are some generic methods as applied to the <code>noteinfo</code> class.</p>
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; &lt;Note info string&gt;</span></span>
+<span><span class="co">#&gt;   Timesteps: 7</span></span>
+<span><span class="co">#&gt;   Format: space-delimited time</span></span>
+<span><span class="co">#&gt;   Values: 2. 4.. 8 t8-. t8- t8^ 16</span></span></code></pre>
+<p>Similar to <code>noteworthy</code> object, here are some generic
+methods as applied to the <code>noteinfo</code> class.</p>
 </div>
-<div id="other-methods" class="section level3">
-<h3 class="hasAnchor">
-<a href="#other-methods" class="anchor"></a>Other methods</h3>
+<div class="section level3">
+<h3 id="other-methods">Other methods<a class="anchor" aria-label="anchor" href="#other-methods"></a>
+</h3>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; [1] 7
-</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; [1] 7</span></span></code></pre>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/rev.html">rev</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Note info string&gt;
-#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">16</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">t8</span><span style="color: #BBBB00;">^</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">t8</span><span style="color: #BBBB00;">-</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">t8</span><span style="color: #BBBB00;">-.</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">4..</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">2.</span><span>
-</span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; &lt;Note info string&gt;</span></span>
+<span><span class="co">#&gt;   Format: space-delimited time</span></span>
+<span><span class="co">#&gt;   Values: 16 t8^ t8- t8-. 8 4.. 2.</span></span></code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></code></pre></div>
-<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Note info string&gt;
-#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">4..</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">t8</span><span style="color: #BBBB00;">-.</span><span>
-</span></code></pre>
+<code class="sourceCode R"><span><span class="va">x</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; &lt;Note info string&gt;</span></span>
+<span><span class="co">#&gt;   Format: space-delimited time</span></span>
+<span><span class="co">#&gt;   Values: 4.. 8 t8-.</span></span></code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1("</span>, <span class="st">"2)"</span><span class="op">)</span>
-<span class="va">x</span></code></pre></div>
-<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Note info string&gt;
-#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">2.</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">1</span><span style="color: #BBBB00;">(</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">2</span><span style="color: #BBBB00;">)</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">t8</span><span style="color: #BBBB00;">-.</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">t8</span><span style="color: #BBBB00;">-</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">t8</span><span style="color: #BBBB00;">^</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">16</span><span>
-</span></code></pre>
+<code class="sourceCode R"><span><span class="va">x</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1("</span>, <span class="st">"2)"</span><span class="op">)</span></span>
+<span><span class="va">x</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; &lt;Note info string&gt;</span></span>
+<span><span class="co">#&gt;   Format: space-delimited time</span></span>
+<span><span class="co">#&gt;   Values: 2. 1( 2) t8-. t8- t8^ 16</span></span></code></pre>
 </div>
 </div>
-<div id="note-info-functions" class="section level2">
-<h2 class="hasAnchor">
-<a href="#note-info-functions" class="anchor"></a>Note info functions</h2>
-<p>As with the <code>noteworthy</code> class, there are helper functions available that make it convenient to extract and manipulate the data in <code>noteinfo</code> objects. Here are some examples.</p>
+<div class="section level2">
+<h2 id="note-info-functions">Note info functions<a class="anchor" aria-label="anchor" href="#note-info-functions"></a>
+</h2>
+<p>As with the <code>noteworthy</code> class, there are helper functions
+available that make it convenient to extract and manipulate the data in
+<code>noteinfo</code> objects. Here are some examples.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/notate.html">notate</a></span><span class="op">(</span><span class="st">"t8x"</span>, <span class="st">"Start here"</span><span class="op">)</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">a</span>, <span class="st">"t8x t8-. 16 4.. 16- 16 2^ 2 4. 8( 4)( 4) 8*4 1 1"</span><span class="op">)</span>
-
-<span class="fu"><a href="../reference/noteinfo.html">info_duration</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Note info string&gt;
-#&gt;   Format: </span><span>vectorized time</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">t8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">t8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">t8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">16</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">4..</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">16</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">16</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">2</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">2</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">4.</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">1</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">1</span><span>
-</span></code></pre>
+<code class="sourceCode R"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/notate.html">notate</a></span><span class="op">(</span><span class="st">"t8x"</span>, <span class="st">"Start here"</span><span class="op">)</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">a</span>, <span class="st">"t8x t8-. 16 4.. 16- 16 2^ 2 4. 8( 4)( 4) 8*4 1 1"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/noteinfo.html">info_duration</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; &lt;Note info string&gt;</span></span>
+<span><span class="co">#&gt;   Format: vectorized time</span></span>
+<span><span class="co">#&gt;   Values: t8 t8 t8 16 4.. 16 16 2 2 4. 8 4 4 8 8 8 8 1 1</span></span></code></pre>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/noteinfo.html">info_slur_on</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt;  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE
-#&gt; [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/noteinfo.html">info_slur_on</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt;  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE</span></span>
+<span><span class="co">#&gt; [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span></code></pre>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/noteinfo.html">info_slur_off</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt;  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE
-#&gt; [13]  TRUE FALSE FALSE FALSE FALSE FALSE FALSE
-</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/noteinfo.html">info_slur_off</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt;  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE</span></span>
+<span><span class="co">#&gt; [13]  TRUE FALSE FALSE FALSE FALSE FALSE FALSE</span></span></code></pre>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/noteinfo.html">info_slide</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt;  [1] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE
-#&gt; [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/noteinfo.html">info_slide</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt;  [1] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span><span class="co">#&gt; [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span></code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/noteinfo.html">info_dotted</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt;  [1] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE
-#&gt; [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/noteinfo.html">info_dotted</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt;  [1] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE</span></span>
+<span><span class="co">#&gt; [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span></code></pre>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/noteinfo.html">info_annotation</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt;  [1] "Start here" NA           NA           NA           NA          
-#&gt;  [6] NA           NA           NA           NA           NA          
-#&gt; [11] NA           NA           NA           NA           NA          
-#&gt; [16] NA           NA           NA           NA
-</code></pre>
-<p><code>info_duration</code> is a handy function that strips away all information but note durations. Most of the other functions return logical vectors indicating timesteps where certain types of information are present. <code>info_annotation</code> extracts text annotations at timesteps, returning <code>NA</code> where there is no annotation.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/noteinfo.html">info_annotation</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt;  [1] "Start here" NA           NA           NA           NA          </span></span>
+<span><span class="co">#&gt;  [6] NA           NA           NA           NA           NA          </span></span>
+<span><span class="co">#&gt; [11] NA           NA           NA           NA           NA          </span></span>
+<span><span class="co">#&gt; [16] NA           NA           NA           NA</span></span></code></pre>
+<p><code><a href="../reference/noteinfo.html">info_duration()</a></code> is a handy function that strips away all
+information but note durations. Most of the other functions return
+logical vectors indicating timesteps where certain types of information
+are present. <code><a href="../reference/noteinfo.html">info_annotation()</a></code> extracts text annotations at
+timesteps, returning <code>NA</code> where there is no annotation.</p>
 </div>
-<div id="use-cases" class="section level2">
-<h2 class="hasAnchor">
-<a href="#use-cases" class="anchor"></a>Use cases</h2>
-<p>It is unlikely to have reason to use <code>noteinfo</code> objects in isolation. They are meant to compliment <code>noteworthy</code> objects of the same timestep length. You will see them used in combination to construct phrases for sheet music transcription, but also to build a <code>music</code> object. Music objects are the subject of the next tutorial.</p>
-<p>The key takeaway here is that <code>noteworthy</code>- and <code>noteinfo</code>-class objects are intended to provide clean separation of sound and time, respectively. It is true that note information can be more than just duration, including notation markup that represents things that have an effect on how a note sounds, but the focus here is specifically on separating pitch from time (and everything else).</p>
-<p>There is much analysis that can be done on a sequence of pitches alone. The temporal information meant to be included in a <code>noteworthy</code> object is at the rank level. There is a temporal sequence; the object is built around timesteps. But interval/ratio level data is not part of the definition. When this is needed, <code>noteinfo</code> is paired with pitch.</p>
+<div class="section level2">
+<h2 id="use-cases">Use cases<a class="anchor" aria-label="anchor" href="#use-cases"></a>
+</h2>
+<p>It is unlikely to have reason to use <code>noteinfo</code> objects in
+isolation. They are meant to compliment <code>noteworthy</code> objects
+of the same timestep length. You will see them used in combination to
+construct phrases for sheet music transcription, but also to build a
+<code>music</code> object. Music objects are the subject of the next
+tutorial.</p>
+<p>The key takeaway here is that <code>noteworthy</code>- and
+<code>noteinfo</code>-class objects are intended to provide clean
+separation of sound and time, respectively. It is true that note
+information can be more than just duration, including notation markup
+that represents things that have an effect on how a note sounds, but the
+focus here is specifically on separating pitch from time (and everything
+else).</p>
+<p>There is much analysis that can be done on a sequence of pitches
+alone. The temporal information meant to be included in a
+<code>noteworthy</code> object is at the rank level. There is a temporal
+sequence; the object is built around timesteps. But interval/ratio level
+data is not part of the definition. When this is needed,
+<code>noteinfo</code> is paired with pitch.</p>
 </div>
   </div>
 
@@ -307,11 +341,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://github.com/leonawicz">Matthew Leonawicz</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://github.com/leonawicz" class="external-link">Matthew Leonawicz</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -319,6 +355,8 @@
 
   
 
+
+  
 
   </body>
 </html>

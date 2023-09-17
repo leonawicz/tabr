@@ -27,6 +27,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -39,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.9</span>
       </span>
     </div>
 
@@ -47,13 +49,13 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
     Home
   </a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Tutorials
      
     <span class="caret"></span>
@@ -85,7 +87,8 @@
       <a href="../articles/tabr-fretboard.html">Fretboard diagram plots</a>
     </li>
     <li class="divider">
-    <li class="dropdown-header">Transcription</li>
+    </li>
+<li class="dropdown-header">Transcription</li>
     <li>
       <a href="../articles/tabr-basics.html">Basic overview</a>
     </li>
@@ -119,7 +122,7 @@
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Examples
      
     <span class="caret"></span>
@@ -148,8 +151,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/leonawicz/tabr">
-    <span class="fas fa-github fa-lg"></span>
+  <a href="https://github.com/leonawicz/tabr" class="external-link">
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -163,130 +166,223 @@
 
       
 
-      </header><script src="tabr-basics_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Transcription overview</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/leonawicz/tabr/blob/master/vignettes/tabr-basics.Rmd"><code>vignettes/tabr-basics.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/leonawicz/tabr/blob/HEAD/vignettes/tabr-basics.Rmd" class="external-link"><code>vignettes/tabr-basics.Rmd</code></a></small>
       <div class="hidden name"><code>tabr-basics.Rmd</code></div>
 
     </div>
 
     
     
-<p>Rendering sheet music is based on building up pieces of musical information culminating in a score. The fundamental object to consider in the transcription context is a phrase. A phrase is created from a noteworthy string and incorporates additional information, most importantly time and rhythm. It can also include positional information such as the instrument string on which a note is played. Outside of rendering tabs, there is no reason to construct phrase objects. Everything from the phrase object on up is about using the R to LilyPond pipeline to render some kind of sheet music document.</p>
-<p>A good place to start is with a simple, reproducible example that outlines the basic flow from small, succinct musical phrases, which combine to form tracks, in turn combined into a score, and ending with engraving the score to familiar sheet music. The brief example below recreates the single measure of guitar tablature shown in the <code>tabr</code> logo. Here are the steps as a list.</p>
+<p>Rendering sheet music is based on building up pieces of musical
+information culminating in a score. The fundamental object to consider
+in the transcription context is a phrase. A phrase is created from a
+noteworthy string and incorporates additional information, most
+importantly time and rhythm. It can also include positional information
+such as the instrument string on which a note is played. Outside of
+rendering tabs, there is no reason to construct phrase objects.
+Everything from the phrase object on up is about using the R to LilyPond
+pipeline to render some kind of sheet music document.</p>
+<p>A good place to start is with a simple, reproducible example that
+outlines the basic flow from small, succinct musical phrases, which
+combine to form tracks, in turn combined into a score, and ending with
+engraving the score to familiar sheet music. The brief example below
+recreates the single measure of guitar tablature shown in the
+<code>tabr</code> logo. Here are the steps as a list.</p>
 <ul>
-<li>Define a musical phrase with <code>phrase</code> or the shorthand alias <code>p</code>.</li>
-<li>Add the phrase to a <code>track</code>.</li>
-<li>Add the track to a <code>score</code>.</li>
-<li>Render the score to pdf with <code>tab</code>.</li>
+<li>Define a musical phrase with <code><a href="../reference/phrase.html">phrase()</a></code> or the shorthand
+alias <code><a href="../reference/phrase.html">p()</a></code>.</li>
+<li>Add the phrase to a <code><a href="../reference/track.html">track()</a></code>.</li>
+<li>Add the track to a <code><a href="../reference/score.html">score()</a></code>.</li>
+<li>Render the score to pdf with <code><a href="../reference/tab.html">tab()</a></code> or another
+<code>render_*</code> function.</li>
 </ul>
-<div id="constructing-a-musical-phrase" class="section level2">
-<h2 class="hasAnchor">
-<a href="#constructing-a-musical-phrase" class="anchor"></a>Constructing a musical phrase</h2>
-<p>The term phrase here simply means any arbitrary piece of musical structure you string together. <code>phrase</code> takes three main arguments when building a phrase from its component parts. The first gives pitches (or rests) separated in time by spaces. For chords, remove spaces to indicate simultaneous notes. For example, a rest followed by a sequence of pitches might be <code>notes = "r a, c f d a f"</code>.</p>
-<p><code>info</code> is note metadata such as duration. Whole notes are given by 1, half notes by 2, quarter notes 4, and so on, e.g., <code>info = "4 8 8 8 8 8 8"</code> (or shorten to <code>info = "4 8*6"</code>). This example does not require additional information such as dotted notes, staccato notes, ties/slurs, slides, bends, hammer ons and pull offs, etc.</p>
-<p>The third argument, <code>string</code> only applies to fretted string instruments and is always optional. In this example it specifies the strings of a guitar. Providing this information in conjunction with the pitch fixes the frets so that LilyPond does not have to guess them. This only applies for tablature output. Note that the <code>x</code> shown below is just a placeholder indicating no need to specify a string for the quarter note rest. You can put a string number there but it is ignored.</p>
-<p>Explicit string numbers are not needed for this example since lowest fret numbers (Lilypond default) are intended. They are provided for a more complete example.</p>
-<p>This is the general approach, but there are multiple ways to create equivalent phrase objects in <code>tabr</code>.</p>
+<div class="section level2">
+<h2 id="constructing-a-musical-phrase">Constructing a musical phrase<a class="anchor" aria-label="anchor" href="#constructing-a-musical-phrase"></a>
+</h2>
+<p>The term phrase here simply means any arbitrary piece of musical
+structure you string together. <code><a href="../reference/phrase.html">phrase()</a></code> takes three main
+arguments when building a phrase from its component parts. The first
+gives pitches (or rests) separated in time by spaces. For chords, remove
+spaces to indicate simultaneous notes. For example, a rest followed by a
+sequence of pitches might be <code>notes = "r a, c f d a f"</code>.</p>
+<p><code>info</code> is note metadata such as duration. Whole notes are
+given by 1, half notes by 2, quarter notes 4, and so on, e.g.,
+<code>info = "4 8 8 8 8 8 8"</code> (or shorten to
+<code>info = "4 8*6"</code>). This example does not require additional
+information such as dotted notes, staccato notes, ties/slurs, slides,
+bends, hammer ons and pull offs, etc.</p>
+<p>The third argument, <code>string</code> only applies to fretted
+string instruments and is always optional. In this example it specifies
+the strings of a guitar. Providing this information in conjunction with
+the pitch fixes the frets so that LilyPond does not have to guess them.
+This only applies for tablature output. Note that the <code>x</code>
+shown below is just a placeholder indicating no need to specify a string
+for the quarter note rest. You can put a string number there but it is
+ignored.</p>
+<p>Explicit string numbers are not needed for this example since lowest
+fret numbers (Lilypond default) are intended. They are provided for a
+more complete example.</p>
+<p>This is the general approach, but there are multiple ways to create
+equivalent phrase objects in <code>tabr</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/phrase.html">phrase</a></span><span class="op">(</span>notes <span class="op">=</span> <span class="st">"r a, c f d a f"</span>, info <span class="op">=</span> <span class="st">"4 8*6"</span>, string <span class="op">=</span> <span class="st">"x 5 5 4 4 3 4"</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; <span style="color: #555555;">&lt;</span><span style="color: #555555;font-weight: bold;">Musical phrase</span><span style="color: #555555;">&gt;</span><span>
-#&gt; </span><span style="color: #00BBBB;font-weight: bold;">r</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">a</span><span style="color: #00BBBB;">,</span><span style="color: #BB0000;">\5</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">8</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #BB0000;">\5</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">8</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">f</span><span style="color: #BB0000;">\4</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">8</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">d</span><span style="color: #BB0000;">\4</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">8</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">a</span><span style="color: #BB0000;">\3</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">8</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">f</span><span style="color: #BB0000;">\4</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">8</span><span>
-</span></code></pre>
-<p>Building a phrase from component parts may be necessary in some programmatic contexts. However, when doing manual data entry for simple, interactive examples, the music class offers a higher level of abstraction, sparing you some typing as well as cognitive load.</p>
-<div id="music-syntax" class="section level3">
-<h3 class="hasAnchor">
-<a href="#music-syntax" class="anchor"></a>Music syntax</h3>
-<p>As an aside, if you are working with the <code>music</code> class, you can enter notes, note info, and optionally string numbers if applicable, all in one string. This is more efficient for data entry. It can also be easier to follow because it binds the otherwise separate arguments by timestep. See the vignettes and help documentation on music objects for more details.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/phrase.html">phrase</a></span><span class="op">(</span>notes <span class="op">=</span> <span class="st">"r a, c f d a f"</span>, info <span class="op">=</span> <span class="st">"4 8*6"</span>, string <span class="op">=</span> <span class="st">"x 5 5 4 4 3 4"</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; &lt;Musical phrase&gt;</span></span>
+<span><span class="co">#&gt; r4 &lt;a,\5&gt;8 &lt;c\5&gt;8 &lt;f\4&gt;8 &lt;d\4&gt;8 &lt;a\3&gt;8 &lt;f\4&gt;8</span></span></code></pre>
+<p>Building a phrase from component parts may be necessary in some
+programmatic contexts. However, when doing manual data entry for simple,
+interactive examples, the music class offers a higher level of
+abstraction, sparing you some typing as well as cognitive load.</p>
+<div class="section level3">
+<h3 id="music-syntax">Music syntax<a class="anchor" aria-label="anchor" href="#music-syntax"></a>
+</h3>
+<p>As an aside, if you are working with the <code>music</code> class,
+you can enter notes, note info, and optionally string numbers if
+applicable, all in one string. This is more efficient for data entry. It
+can also be easier to follow because it binds the otherwise separate
+arguments by timestep. See the vignettes and help documentation on music
+objects for more details.</p>
 <p>If you define the music object</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/music.html">as_music</a></span><span class="op">(</span><span class="st">"r4 a,8 c f d a f"</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Music string&gt;
-#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">r</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">a,</span><span style="color: #BBBB00;">8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #BBBB00;">8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">f</span><span style="color: #BBBB00;">8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">d</span><span style="color: #BBBB00;">8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">a</span><span style="color: #BBBB00;">8</span><span style="color: #555555;"> </span><span style="color: #00BBBB;font-weight: bold;">f</span><span style="color: #BBBB00;">8</span><span>
-</span></code></pre>
-<p>it can be passed directly to <code>phrase</code>, which understands this syntax and interprets the <code>notes</code> argument as music syntax if the <code>info</code> argument is not provided (<code>info = NULL</code>). In fact, the music object does not even need to be previously defined. The string format can be directly provided to <code>phrase</code>.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/music.html">as_music</a></span><span class="op">(</span><span class="st">"r4 a,8 c f d a f"</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; &lt;Music string&gt;</span></span>
+<span><span class="co">#&gt;   Format: space-delimited time</span></span>
+<span><span class="co">#&gt;   Values: r4 a,8 c8 f8 d8 a8 f8</span></span></code></pre>
+<p>it can be passed directly to <code><a href="../reference/phrase.html">phrase()</a></code>, which understands
+this syntax and interprets the <code>notes</code> argument as music
+syntax if the <code>info</code> argument is not provided
+(<code>info = NULL</code>). In fact, the music object does not even need
+to be previously defined. The string format can be directly provided to
+<code><a href="../reference/phrase.html">phrase()</a></code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"r4 a,8 c f d a f"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; <span style="color: #555555;">&lt;</span><span style="color: #555555;font-weight: bold;">Musical phrase</span><span style="color: #555555;">&gt;</span><span>
-#&gt; </span><span style="color: #00BBBB;font-weight: bold;">r</span><span style="color: #BBBB00;">4</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">a</span><span style="color: #00BBBB;">,</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">8</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">8</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">f</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">8</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">d</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">8</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">a</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">8</span><span style="color: #555555;"> &lt;</span><span style="color: #00BBBB;font-weight: bold;">f</span><span style="color: #555555;">&gt;</span><span style="color: #BBBB00;">8</span><span>
-</span></code></pre>
-<p>Notice how each timestep is complete within the single character string above. Also, durations (and string numbers) can repeat implicitly until an explicit change occurs.</p>
+<code class="sourceCode R"><span><span class="op">(</span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"r4 a,8 c f d a f"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; &lt;Musical phrase&gt;</span></span>
+<span><span class="co">#&gt; r4 &lt;a,&gt;8 &lt;c&gt;8 &lt;f&gt;8 &lt;d&gt;8 &lt;a&gt;8 &lt;f&gt;8</span></span></code></pre>
+<p>Notice how each timestep is complete within the single character
+string above. Also, durations (and string numbers) can repeat implicitly
+until an explicit change occurs.</p>
 </div>
 </div>
-<div id="tracks" class="section level2">
-<h2 class="hasAnchor">
-<a href="#tracks" class="anchor"></a>Tracks</h2>
-<p>Track construction is as simple as wrapping a phrase object in <code>track</code>. This example uses a single phrase. Typically a track would consist of many phrases concatenated together. Tracks are just tibble data frames with an additional track class.</p>
+<div class="section level2">
+<h2 id="tracks">Tracks<a class="anchor" aria-label="anchor" href="#tracks"></a>
+</h2>
+<p>Track construction is as simple as wrapping a phrase object in
+<code><a href="../reference/track.html">track()</a></code>. This example uses a single phrase. Typically a
+track would consist of many phrases concatenated together. Tracks are
+just tibble data frames with an additional track class.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">track1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track.html">track</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span>
-<span class="va">track1</span></code></pre></div>
-<pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 1 x 7</span><span>
-#&gt;   phrase       clef     key   tab   tuning    voice lyrics
-#&gt;   </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span>       </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> 
-#&gt; </span><span style="color: #555555;">1</span><span> </span><span style="color: #555555;">&lt;phrase [1]&gt;</span><span> treble_8 </span><span style="color: #BB0000;">NA</span><span>    TRUE  e,a,dgbe'     1 </span><span style="color: #BB0000;">NA</span><span>
-</span></code></pre>
+<code class="sourceCode R"><span><span class="va">track1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track.html">track</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span>
+<span><span class="va">track1</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; # A tibble: 1 × 7</span></span>
+<span><span class="co">#&gt;   phrase       clef     key   tab   tuning    voice lyrics</span></span>
+<span><span class="co">#&gt;   &lt;list&gt;       &lt;chr&gt;    &lt;chr&gt; &lt;lgl&gt; &lt;chr&gt;     &lt;int&gt; &lt;chr&gt; </span></span>
+<span><span class="co">#&gt; 1 &lt;phrase [1]&gt; treble_8 NA    TRUE  e,a,dgbe'     1 NA</span></span></code></pre>
 </div>
-<div id="scores" class="section level2">
-<h2 class="hasAnchor">
-<a href="#scores" class="anchor"></a>Scores</h2>
-<p>The complete score is composed of one or more tracks. This example has only a single track. Just as the track constructor takes phrases, the score constructor takes tracks as inputs. Score objects are tibble data frames with an additional score class.</p>
+<div class="section level2">
+<h2 id="scores">Scores<a class="anchor" aria-label="anchor" href="#scores"></a>
+</h2>
+<p>The complete score is composed of one or more tracks. This example
+has only a single track. Just as the track constructor takes phrases,
+the score constructor takes tracks as inputs. Score objects are tibble
+data frames with an additional score class.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">song</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/score.html">score</a></span><span class="op">(</span><span class="va">track1</span><span class="op">)</span>
-<span class="va">song</span></code></pre></div>
-<pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 1 x 8</span><span>
-#&gt;   phrase       clef     key   tab   tuning    voice lyrics    id
-#&gt;   </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span>       </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span>
-#&gt; </span><span style="color: #555555;">1</span><span> </span><span style="color: #555555;">&lt;phrase [1]&gt;</span><span> treble_8 </span><span style="color: #BB0000;">NA</span><span>    TRUE  e,a,dgbe'     1 </span><span style="color: #BB0000;">NA</span><span>         1
-</span></code></pre>
+<code class="sourceCode R"><span><span class="va">song</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/score.html">score</a></span><span class="op">(</span><span class="va">track1</span><span class="op">)</span></span>
+<span><span class="va">song</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; # A tibble: 1 × 8</span></span>
+<span><span class="co">#&gt;   phrase       clef     key   tab   tuning    voice lyrics    id</span></span>
+<span><span class="co">#&gt;   &lt;list&gt;       &lt;chr&gt;    &lt;chr&gt; &lt;lgl&gt; &lt;chr&gt;     &lt;int&gt; &lt;chr&gt;  &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 &lt;phrase [1]&gt; treble_8 NA    TRUE  e,a,dgbe'     1 NA         1</span></span></code></pre>
 </div>
-<div id="calling-lilypond-from-r" class="section level2">
-<h2 class="hasAnchor">
-<a href="#calling-lilypond-from-r" class="anchor"></a>Calling LilyPond from R</h2>
-<p>Once a score object is created, it is ready to be sent to LilyPond. If LilyPond is installed on your system (and added to your system PATH variable on Windows systems), <code>tab</code> should call it successfully. Alternatively, on Windows, it can be added explicitly by calling <code>tabr_options</code>. This option to specify the LilyPond path is still available on other systems. An example of this is commented out below. However, <code>tabr</code> will do its best on package load to set these paths in <code>tabr_options</code> for you if it can successfully detect a LilyPond installation in a standard file system location, so you may not have to do anything. Just check <code><a href="../reference/tabr_options.html">tabr_options()</a></code> after you load the package. If any of the paths are equal to the empty string <code>""</code>, then you need to set the paths. Otherwise you should be ready to run LilyPond from R.</p>
+<div class="section level2">
+<h2 id="calling-lilypond-from-r">Calling LilyPond from R<a class="anchor" aria-label="anchor" href="#calling-lilypond-from-r"></a>
+</h2>
+<p>Once a score object is created, it is ready to be sent to LilyPond.
+If LilyPond is installed on your system (and added to your system PATH
+variable on Windows systems), <code><a href="../reference/tab.html">tab()</a></code> or any of the
+<code>render_*</code> functions should call it successfully.
+Alternatively, on Windows, it can be added explicitly by calling
+<code><a href="../reference/tabr_options.html">tabr_options()</a></code>. This option to specify the LilyPond path is
+still available on other systems. An example of this is commented out
+below. However, <code>tabr</code> will do its best on package load to
+set these paths in <code><a href="../reference/tabr_options.html">tabr_options()</a></code> for you if it can
+successfully detect a LilyPond installation in a standard file system
+location, so you may not have to do anything. Just check
+<code><a href="../reference/tabr_options.html">tabr_options()</a></code> after you load the package. If any of the
+paths are equal to the empty string <code>""</code>, then you need to
+set the paths. Otherwise you should be ready to run LilyPond from R.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># may not be necessary</span>
-<span class="co"># tabr_options(lilypond = "C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe")</span></code></pre></div>
-<p>Technically, when loading <code>tabr</code> on Windows it will attempt to check the specific path above to see if <code>lilypond.exe</code> exists there. If it does, the path in <code>tabr_options</code> will be filled in for you. Therefore, if you need to specify the LilyPond path because it is not in your PATH environment variable and nothing shows in <code><a href="../reference/tabr_options.html">tabr_options()</a></code>, then the path shown above is probably not where you installed LilyPond.</p>
+<code class="sourceCode R"><span><span class="co"># For example if path to `/bin` not set (edit depending on your installation)</span></span>
+<span><span class="co"># tabr_options(lilypond = "C:/lilypond-2.24.2/bin/lilypond.exe")</span></span></code></pre></div>
+<p>Technically, when loading <code>tabr</code> on Windows it will
+attempt to check the specific path above to see if
+<code>lilypond.exe</code> exists there. If it does, the path in
+<code><a href="../reference/tabr_options.html">tabr_options()</a></code> will be filled in for you. Therefore, if you
+need to specify the LilyPond path because it is not in your PATH
+environment variable and nothing shows in <code><a href="../reference/tabr_options.html">tabr_options()</a></code>,
+then the path shown above is probably not where you installed
+LilyPond.</p>
 </div>
-<div id="score-metadata" class="section level2">
-<h2 class="hasAnchor">
-<a href="#score-metadata" class="anchor"></a>Score metadata</h2>
-<p>Other than ensuring LilyPond is accessible, there is only one function left to call in this series of steps to produce the sheet music. <code>tab</code> takes several arguments, many of which are optional and have default values. However, since music is so variable it makes sense to specify these arguments every time. These arguments include metadata about the piece such as key signature, time signature, tempo, title, author, and so on. Most of that is not needed here, but for good practice at least be unambiguous about the music itself and specify a key signature, time signature and tempo.</p>
+<div class="section level2">
+<h2 id="score-metadata">Score metadata<a class="anchor" aria-label="anchor" href="#score-metadata"></a>
+</h2>
+<p>Other than ensuring LilyPond is accessible, there is only one
+function left to call in this series of steps to produce the sheet
+music. <code><a href="../reference/tab.html">tab()</a></code> takes several arguments, many of which are
+optional and have default values. However, since music is so variable it
+makes sense to specify these arguments every time. These arguments
+include metadata about the piece such as key signature, time signature,
+tempo, title, author, and so on. Most of that is not needed here, but
+for good practice at least be unambiguous about the music itself and
+specify a key signature, time signature and tempo.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="va">song</span>, <span class="st">"phrase.pdf"</span>, key <span class="op">=</span> <span class="st">"dm"</span>, time <span class="op">=</span> <span class="st">"4/4"</span>, tempo <span class="op">=</span> <span class="st">"4 = 120"</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; #### Engraving score to phrase.pdf ####
-#&gt; GNU LilyPond 2.18.2
-#&gt; Processing `./phrase.ly'
-#&gt; Parsing...
-#&gt; Interpreting music...
-#&gt; Preprocessing graphical objects...
-#&gt; Interpreting music...
-#&gt; MIDI output to `./phrase.mid'...
-#&gt; Finding the ideal number of pages...
-#&gt; Fitting music on 1 page...
-#&gt; Drawing systems...
-#&gt; Layout output to `./phrase.ps'...
-#&gt; Converting to `./phrase.pdf'...
-#&gt; Success: compilation successfully completed
-</code></pre>
-<p>This log output will be printed at the R console. Load the new pdf file to see the result. It should look like this.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="va">song</span>, <span class="st">"phrase.pdf"</span>, key <span class="op">=</span> <span class="st">"dm"</span>, time <span class="op">=</span> <span class="st">"4/4"</span>, tempo <span class="op">=</span> <span class="st">"4 = 120"</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; #### Engraving score to phrase.pdf ####</span></span>
+<span><span class="co">#&gt; GNU LilyPond 2.18.2</span></span>
+<span><span class="co">#&gt; Processing `./phrase.ly'</span></span>
+<span><span class="co">#&gt; Parsing...</span></span>
+<span><span class="co">#&gt; Interpreting music...</span></span>
+<span><span class="co">#&gt; Preprocessing graphical objects...</span></span>
+<span><span class="co">#&gt; Interpreting music...</span></span>
+<span><span class="co">#&gt; MIDI output to `./phrase.mid'...</span></span>
+<span><span class="co">#&gt; Finding the ideal number of pages...</span></span>
+<span><span class="co">#&gt; Fitting music on 1 page...</span></span>
+<span><span class="co">#&gt; Drawing systems...</span></span>
+<span><span class="co">#&gt; Layout output to `./phrase.ps'...</span></span>
+<span><span class="co">#&gt; Converting to `./phrase.pdf'...</span></span>
+<span><span class="co">#&gt; Success: compilation successfully completed</span></span></code></pre>
+<p>This log output will be printed at the R console. Load the new pdf
+file to see the result. It should look like this.</p>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex00.png?raw=true" class="centerimg" width="50%"></p>
 </div>
-<div id="piping" class="section level2">
-<h2 class="hasAnchor">
-<a href="#piping" class="anchor"></a>Piping</h2>
-<p>Note above that <code>tabr</code> also exports the pipe <code><a href="../reference/%&gt;%.html">%&gt;%</a></code> operator. Even given the hierarchy of objects involved in the series of steps to move from a phrase to a rendered pdf, a short example like this does not even require a single assignment. The same steps involved in building up the structure and rendering the output could be performed as follows.</p>
+<div class="section level2">
+<h2 id="piping">Piping<a class="anchor" aria-label="anchor" href="#piping"></a>
+</h2>
+<p><code>tabr</code> functions are designed to support piping. Even
+given the series of steps from a phrase to a rendered pdf, a short
+example like this does not require a single assignment. The same steps
+involved in building up the structure and rendering the output could be
+performed as follows.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"r a2 c f d a f"</span>, <span class="st">"4 8*6"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">track</span> <span class="op">%&gt;%</span> <span class="va">score</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"phrase.pdf"</span>, key <span class="op">=</span> <span class="st">"dm"</span>, time <span class="op">=</span> <span class="st">"4/4"</span>, tempo <span class="op">=</span> <span class="st">"4 = 120"</span><span class="op">)</span></code></pre></div>
-<p>While music can be quite complex and a full score will be much longer, <code>tabr</code> strives to minimize the work while still forcing some sense of interpretable, organized structure. For long and complex music, it can require some effort and practice to ensure your approach to transcription in your R code is not opaque.</p>
-<p>To recap, the <code>phrase</code> is defined, added to a <code>track</code>, the track is added to a <code>score</code>, and the score is rendered to tablature in a pdf file with <code>tab</code>. The next tutorial section discusses phrases in more detail and provides an overview of the different notes and note metadata that can be specified when constructing a phrase.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"r a2 c f d a f"</span>, <span class="st">"4 8*6"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/track.html">track</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/score.html">score</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"phrase.pdf"</span>, key <span class="op">=</span> <span class="st">"dm"</span>, time <span class="op">=</span> <span class="st">"4/4"</span>, tempo <span class="op">=</span> <span class="st">"4 = 120"</span><span class="op">)</span></span></code></pre></div>
+<p>While music can be quite complex and a full score will be much
+longer, <code>tabr</code> strives to minimize the work while still
+forcing some sense of organized structure. For long and complex music,
+it can require some effort and practice to ensure your approach to
+transcription in your R code is not opaque.</p>
+<p>To recap, the <code><a href="../reference/phrase.html">phrase()</a></code> is defined, added to a
+<code><a href="../reference/track.html">track()</a></code>, the track is added to a <code><a href="../reference/score.html">score()</a></code>, and
+the score is rendered to tablature in a pdf file with <code><a href="../reference/tab.html">tab()</a></code>
+or other <code>render_*</code> function. The next tutorial section
+discusses phrases in more detail and provides an overview of the
+different notes and note metadata that can be specified when
+constructing a phrase.</p>
 </div>
   </div>
 
@@ -301,11 +397,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://github.com/leonawicz">Matthew Leonawicz</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://github.com/leonawicz" class="external-link">Matthew Leonawicz</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -313,6 +411,8 @@
 
   
 
+
+  
 
   </body>
 </html>

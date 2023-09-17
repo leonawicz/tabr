@@ -27,6 +27,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -39,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.9</span>
       </span>
     </div>
 
@@ -47,13 +49,13 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
     Home
   </a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Tutorials
      
     <span class="caret"></span>
@@ -85,7 +87,8 @@
       <a href="../articles/tabr-fretboard.html">Fretboard diagram plots</a>
     </li>
     <li class="divider">
-    <li class="dropdown-header">Transcription</li>
+    </li>
+<li class="dropdown-header">Transcription</li>
     <li>
       <a href="../articles/tabr-basics.html">Basic overview</a>
     </li>
@@ -119,7 +122,7 @@
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Examples
      
     <span class="caret"></span>
@@ -148,8 +151,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/leonawicz/tabr">
-    <span class="fas fa-github fa-lg"></span>
+  <a href="https://github.com/leonawicz/tabr" class="external-link">
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -163,124 +166,218 @@
 
       
 
-      </header><script src="tabr-engraving_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Render scores</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/leonawicz/tabr/blob/master/vignettes/tabr-engraving.Rmd"><code>vignettes/tabr-engraving.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/leonawicz/tabr/blob/HEAD/vignettes/tabr-engraving.Rmd" class="external-link"><code>vignettes/tabr-engraving.Rmd</code></a></small>
       <div class="hidden name"><code>tabr-engraving.Rmd</code></div>
 
     </div>
 
     
     
-<p>This section covers <code>lilypond</code> and <code>tab</code> for writing LilyPond files and engraving to sheet music with LilyPond, respectively. Examples of the various pieces of metadata that can be passed to to these functions are provided.</p>
-<div id="rendering" class="section level2">
-<h2 class="hasAnchor">
-<a href="#rendering" class="anchor"></a>Rendering</h2>
-<p>The <code>lilypond</code> function creates a LilyPond file (<code>.ly</code>). Various rendering functions wrap <code>lilypond</code> to combine the steps of creating an intermediary LilyPond file and rendering it to pdf or png. The most general render function is <code>tab</code>, which for naming consistency can also be called as <code>render_tab</code>. Other <code>render_*</code> functions exist including <code>render_score</code> and <code>render_midi</code>, which focus on rendering non-tablature, all-purpose sheet music and rendering only the corresponding MIDI file, respectively.</p>
-<p>The examples in this vignette focus on <code>tab</code>. You can set <code>keep_ly = TRUE</code> in render functions to retain the intermediary LilyPond file.</p>
-<p>By now you have seen many calls to <code>tab</code> throughout these vignettes in order to show full examples previously. With sufficient coverage of phrases, tracks and scores, and the progression through them, now it is time to go into more detail on the arguments that can be supplied as part of the rendering or engraving process that apply to the entire piece of sheet music.</p>
+<p>This section covers <code><a href="../reference/lilypond.html">lilypond()</a></code> and <code><a href="../reference/tab.html">tab()</a></code>
+for writing LilyPond files and engraving to sheet music with LilyPond,
+respectively. Examples of the various pieces of metadata that can be
+passed to to these functions are provided.</p>
+<div class="section level2">
+<h2 id="rendering">Rendering<a class="anchor" aria-label="anchor" href="#rendering"></a>
+</h2>
+<p>The <code><a href="../reference/lilypond.html">lilypond()</a></code> function creates a LilyPond file
+(<code>.ly</code>). Various rendering functions wrap
+<code><a href="../reference/lilypond.html">lilypond()</a></code> to combine the steps of creating an intermediary
+LilyPond file and rendering it to pdf or png. The most general render
+function is <code><a href="../reference/tab.html">tab()</a></code>, which for naming consistency can also be
+called as <code><a href="../reference/tab.html">render_tab()</a></code>. Other <code>render_*</code>
+functions exist including <code><a href="../reference/tab.html">render_score()</a></code> and
+<code><a href="../reference/tab.html">render_midi()</a></code>, which focus on rendering non-tablature,
+all-purpose sheet music and rendering only the corresponding MIDI file,
+respectively.</p>
+<p>The examples in this vignette focus on <code><a href="../reference/tab.html">tab()</a></code>. You can
+set <code>keep_ly = TRUE</code> in render functions to retain the
+intermediary LilyPond file.</p>
+<p>By now you have seen many calls to <code><a href="../reference/tab.html">tab()</a></code> throughout
+these vignettes in order to show full examples previously. With
+sufficient coverage of phrases, tracks and scores, and the progression
+through them, now it is time to go into more detail on the arguments
+that can be supplied as part of the rendering or engraving process that
+apply to the entire piece of sheet music.</p>
 </div>
-<div id="score-metadata" class="section level2">
-<h2 class="hasAnchor">
-<a href="#score-metadata" class="anchor"></a>Score metadata</h2>
-<p>These are the most critical components that can be supplied to <code>lilypond</code>. <code>key</code> specifies the global key signature, e.g. <code>key ="dm"</code>. Key signatures set for individual track override the global key, but the global key is used for any track whose key is <code>NA</code>. Key changes in the middle of a song are not supported, but you can always edit the LilyPond file directly to make custom changes.</p>
-<p><code>time</code> gives the time signature, defaulting to common time, <code>"4/4"</code>. <code>tempo</code> provides the song tempo, defaulting to <code>tempo = "2 = 60"</code>, which is the LilyPond default. This can be read as 60 half note beats per minute.</p>
-<p>Note that <code>key</code> takes the <code>tabr</code> key signature notation, but <code>time</code> and <code>tempo</code> which are used mostly in a transcription context like this, take values that match LilyPond format.</p>
-<p>Throughout this tutorial section, the guitar and bass example from the section on tracks and scores is reused. The chord chart and chord sequence are retained to provide the most complete illustration of a rendered score. For completeness, here is what you have so far.</p>
+<div class="section level2">
+<h2 id="score-metadata">Score metadata<a class="anchor" aria-label="anchor" href="#score-metadata"></a>
+</h2>
+<p>These are the most critical components that can be supplied to
+<code><a href="../reference/lilypond.html">lilypond()</a></code>. <code>key</code> specifies the global key
+signature, e.g. <code>key ="dm"</code>. Key signatures set for
+individual track override the global key, but the global key is used for
+any track whose key is <code>NA</code>. Key changes in the middle of a
+song are not supported, but you can always edit the LilyPond file
+directly to make custom changes.</p>
+<p><code>time</code> gives the time signature, defaulting to common
+time, <code>"4/4"</code>. <code>tempo</code> provides the song tempo,
+defaulting to <code>tempo = "2 = 60"</code>, which is the LilyPond
+default. This can be read as 60 half note beats per minute.</p>
+<p>Note that <code>key</code> takes the <code>tabr</code> key signature
+notation, but <code>time</code> and <code>tempo</code> which are used
+mostly in a transcription context like this, take values that match
+LilyPond format.</p>
+<p>Throughout this tutorial section, the guitar and bass example from
+the section on tracks and scores is reused. The chord chart and chord
+sequence are retained to provide the most complete illustration of a
+rendered score. For completeness, here is what you have so far.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">voice1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/repeats.html">rp</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"c5 d5 e5 f5 g5"</span>, <span class="st">"1 2 4 4 1"</span>, <span class="st">"1*5"</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span>
-
-<span class="va">notes</span> <span class="op">&lt;-</span> <span class="st">"c e g c' e' c' g e g b d' g' f a c' f' c e g e c"</span>
-<span class="va">strings</span> <span class="op">&lt;-</span> <span class="st">"5 4 3 2 1 2 3 4 4 3 2 1 4 3 2 1 5 4 3 4 5"</span>
-<span class="va">voice2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/repeats.html">rp</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="va">notes</span>, <span class="st">"8*20 2"</span>, <span class="va">strings</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span>
-
-<span class="va">bass</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/repeats.html">rp</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"c2e2*4 g1*2 f1*2 c2e2*3"</span>, <span class="st">"4*10 2"</span>, <span class="st">"32*4 4*4 32*3"</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span>
-
-<span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track.html">track</a></span><span class="op">(</span><span class="va">voice1</span>, voice <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-<span class="va">t2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track.html">track</a></span><span class="op">(</span><span class="va">voice2</span>, voice <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-<span class="va">t3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track.html">track</a></span><span class="op">(</span><span class="va">bass</span>, clef <span class="op">=</span> <span class="st">"bass_8"</span>, tuning <span class="op">=</span> <span class="st">"bass"</span><span class="op">)</span>
-
-<span class="va">chords</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chord_set.html">chord_set</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>c <span class="op">=</span> <span class="st">"x32o1o"</span>, g <span class="op">=</span> <span class="st">"355433"</span>, f <span class="op">=</span> <span class="st">"133211"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">chord_seq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">chords</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>
-<span class="va">chords</span></code></pre></div>
-<pre class="r-output"><code>#&gt;              c              g              f 
-#&gt; "x;3;2;o;1;o;" "3;5;5;4;3;3;" "1;3;3;2;1;1;"
-</code></pre>
+<code class="sourceCode R"><span><span class="va">voice1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/repeats.html">rp</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"c5 d5 e5 f5 g5"</span>, <span class="st">"1 2 4 4 1"</span>, <span class="st">"1*5"</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">notes</span> <span class="op">&lt;-</span> <span class="st">"c e g c' e' c' g e g b d' g' f a c' f' c e g e c"</span></span>
+<span><span class="va">strings</span> <span class="op">&lt;-</span> <span class="st">"5 4 3 2 1 2 3 4 4 3 2 1 4 3 2 1 5 4 3 4 5"</span></span>
+<span><span class="va">voice2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/repeats.html">rp</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="va">notes</span>, <span class="st">"8*20 2"</span>, <span class="va">strings</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">bass</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/repeats.html">rp</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"c2e2*4 g1*2 f1*2 c2e2*3"</span>, <span class="st">"4*10 2"</span>, <span class="st">"32*4 4*4 32*3"</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track.html">track</a></span><span class="op">(</span><span class="va">voice1</span>, voice <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">t2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track.html">track</a></span><span class="op">(</span><span class="va">voice2</span>, voice <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">t3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track.html">track</a></span><span class="op">(</span><span class="va">bass</span>, clef <span class="op">=</span> <span class="st">"bass_8"</span>, tuning <span class="op">=</span> <span class="st">"bass"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">chords</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chord_set.html">chord_set</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>c <span class="op">=</span> <span class="st">"x32o1o"</span>, g <span class="op">=</span> <span class="st">"355433"</span>, f <span class="op">=</span> <span class="st">"133211"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">chord_seq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/setNames.html" class="external-link">setNames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">chords</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">chords</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt;              c              g              f </span></span>
+<span><span class="co">#&gt; "x;3;2;o;1;o;" "3;5;5;4;3;3;" "1;3;3;2;1;1;"</span></span></code></pre>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">chord_seq</span></code></pre></div>
-<pre class="r-output"><code>#&gt; c g f c c g f c c g f c 
-#&gt; 1 2 2 1 1 2 2 1 1 2 2 1
-</code></pre>
+<code class="sourceCode R"><span><span class="va">chord_seq</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; c g f c c g f c c g f c </span></span>
+<span><span class="co">#&gt; 1 2 2 1 1 2 2 1 1 2 2 1</span></span></code></pre>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">song</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/trackbind.html">trackbind</a></span><span class="op">(</span><span class="va">t1</span>, <span class="va">t2</span>, <span class="va">t3</span>, id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/score.html">score</a></span><span class="op">(</span><span class="va">chords</span>, <span class="va">chord_seq</span><span class="op">)</span>
-<span class="va">song</span></code></pre></div>
-<pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 3 x 8</span><span>
-#&gt;   phrase       clef     key   tab   tuning     voice lyrics    id
-#&gt;   </span><span style="color: #555555;font-style: italic;">&lt;list&gt;</span><span>       </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>    </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>      </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>  </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span>
-#&gt; </span><span style="color: #555555;">1</span><span> </span><span style="color: #555555;">&lt;phrase [1]&gt;</span><span> treble_8 </span><span style="color: #BB0000;">NA</span><span>    TRUE  e,a,dgbe'      1 </span><span style="color: #BB0000;">NA</span><span>         1
-#&gt; </span><span style="color: #555555;">2</span><span> </span><span style="color: #555555;">&lt;phrase [1]&gt;</span><span> treble_8 </span><span style="color: #BB0000;">NA</span><span>    TRUE  e,a,dgbe'      2 </span><span style="color: #BB0000;">NA</span><span>         1
-#&gt; </span><span style="color: #555555;">3</span><span> </span><span style="color: #555555;">&lt;phrase [1]&gt;</span><span> bass_8   </span><span style="color: #BB0000;">NA</span><span>    TRUE  e,,a,,d,g,     1 </span><span style="color: #BB0000;">NA</span><span>         2
-</span></code></pre>
-<p>This time when rendering the song, use settings for the three arguments discussed above. Given what is written, it doesn’t make sense to change them all. For example, this won’t fit well as a waltz (<code>time = "3/4"</code>). But for illustration purposes, pretend the song is actually in the key of D minor (F major). This key has one flat, Bb, so this will affect the display of the B note in the G chord. Change the time to <code>2/2</code> just for the sake of changing it, which won’t really be any different from <code>4/4</code> except you will see a line through the common time symbol. Finally, change the tempo to <code>4 = 120</code>, which is also equivalent to the default, but will show up in the output slightly differently as well.</p>
+<code class="sourceCode R"><span></span>
+<span><span class="va">song</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/trackbind.html">trackbind</a></span><span class="op">(</span><span class="va">t1</span>, <span class="va">t2</span>, <span class="va">t3</span>, id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/score.html">score</a></span><span class="op">(</span><span class="va">chords</span>, <span class="va">chord_seq</span><span class="op">)</span></span>
+<span><span class="va">song</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; # A tibble: 3 × 8</span></span>
+<span><span class="co">#&gt;   phrase       clef     key   tab   tuning     voice lyrics    id</span></span>
+<span><span class="co">#&gt;   &lt;list&gt;       &lt;chr&gt;    &lt;chr&gt; &lt;lgl&gt; &lt;chr&gt;      &lt;int&gt; &lt;chr&gt;  &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 &lt;phrase [1]&gt; treble_8 NA    TRUE  e,a,dgbe'      1 NA         1</span></span>
+<span><span class="co">#&gt; 2 &lt;phrase [1]&gt; treble_8 NA    TRUE  e,a,dgbe'      2 NA         1</span></span>
+<span><span class="co">#&gt; 3 &lt;phrase [1]&gt; bass_8   NA    TRUE  e,,a,,d,g,     1 NA         2</span></span></code></pre>
+<p>This time when rendering the song, use settings for the three
+arguments discussed above. Given what is written, it doesn’t make sense
+to change them all. For example, this won’t fit well as a waltz
+(<code>time = "3/4"</code>). But for illustration purposes, pretend the
+song is actually in the key of D minor (F major). This key has one flat,
+Bb, so this will affect the display of the B note in the G chord. Change
+the time to <code>2/2</code> just for the sake of changing it, which
+won’t really be any different from <code>4/4</code> except you will see
+a line through the common time symbol. Finally, change the tempo to
+<code>4 = 120</code>, which is also equivalent to the default, but will
+show up in the output slightly differently as well.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/lilypond.html">lilypond</a></span><span class="op">(</span><span class="va">song</span>, <span class="st">"ex32.ly"</span>, <span class="st">"dm"</span>, <span class="st">"2/2"</span>, <span class="st">"4 = 120"</span><span class="op">)</span>
-<span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="va">song</span>, <span class="st">"ex32.pdf"</span>, <span class="st">"dm"</span>, <span class="st">"2/2"</span>, <span class="st">"4 = 120"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/lilypond.html">lilypond</a></span><span class="op">(</span><span class="va">song</span>, <span class="st">"ex32.ly"</span>, <span class="st">"dm"</span>, <span class="st">"2/2"</span>, <span class="st">"4 = 120"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="va">song</span>, <span class="st">"ex32.pdf"</span>, <span class="st">"dm"</span>, <span class="st">"2/2"</span>, <span class="st">"4 = 120"</span><span class="op">)</span></span></code></pre></div>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex32.png?raw=true" class="centerimg" width="100%"></p>
-<p>Notice how the key change alone, which added room for a single flat symbol to be squeezed into the start of the treble and bass clef staves, was enough to a line wrap compared to the previous tutorial section where it all fit on one line. This is because it was a tight fit to in the previous examples and there was not enough room for LilyPond to continue fitting everything on one line with this slight widening created by the key change. LilyPond generates sheet music with a somewhat responsive layout engraver. It won’t necessarily leave everything on one line and push only a single measure to line two.</p>
-<div id="output-file" class="section level3">
-<h3 class="hasAnchor">
-<a href="#output-file" class="anchor"></a>Output file</h3>
-<p>The output file specified with <code>file</code> ends in pdf in every example. However, you can switch to png. Output is inferred from the file extension. <code>file</code> can be a relative or absolute path to the file.</p>
+<p>Notice how the key change alone, which added room for a single flat
+symbol to be squeezed into the start of the treble and bass clef staves,
+was enough to a line wrap compared to the previous tutorial section
+where it all fit on one line. This is because it was a tight fit to in
+the previous examples and there was not enough room for LilyPond to
+continue fitting everything on one line with this slight widening
+created by the key change. LilyPond generates sheet music with a
+somewhat responsive layout engraver. It won’t necessarily leave
+everything on one line and push only a single measure to line two.</p>
+<div class="section level3">
+<h3 id="output-file">Output file<a class="anchor" aria-label="anchor" href="#output-file"></a>
+</h3>
+<p>The output file specified with <code>file</code> ends in pdf in every
+example. However, you can switch to png. Output is inferred from the
+file extension. <code>file</code> can be a relative or absolute path to
+the file.</p>
 </div>
 </div>
-<div id="song-information" class="section level2">
-<h2 class="hasAnchor">
-<a href="#song-information" class="anchor"></a>Song information</h2>
-<p>The next important argument to <code>lilypond</code> is <code>header</code>. <code>header</code> takes a named list of character strings that are used to fill in general song information such as the title and composer. All previous examples were blank above the tabs because none of this information was ever provided. Below an example is given that uses all available arguments. You can use any subset of these. There is no requirement to supply them all. This example just shows what is available. Several of these would likely not be used in most cases.</p>
+<div class="section level2">
+<h2 id="song-information">Song information<a class="anchor" aria-label="anchor" href="#song-information"></a>
+</h2>
+<p>The next important argument to <code><a href="../reference/lilypond.html">lilypond()</a></code> is
+<code>header</code>. <code>header</code> takes a named list of character
+strings that are used to fill in general song information such as the
+title and composer. All previous examples were blank above the tabs
+because none of this information was ever provided. Below an example is
+given that uses all available arguments. You can use any subset of
+these. There is no requirement to supply them all. This example just
+shows what is available. Several of these would likely not be used in
+most cases.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">header</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  title <span class="op">=</span> <span class="st">"Song title"</span>,
-  composer <span class="op">=</span> <span class="st">"Words and music by the composer"</span>,
-  performer <span class="op">=</span> <span class="st">"Song performer"</span>,
-  album <span class="op">=</span> <span class="st">"Album title"</span>,
-  subtitle <span class="op">=</span> <span class="st">"Subtitle"</span>,
-  arranger <span class="op">=</span> <span class="st">"Arranged by tab arranger"</span>,
-  copyright <span class="op">=</span> <span class="st">"2018 &lt;Record Label&gt;"</span>,
-  instrument <span class="op">=</span> <span class="st">"guitar and bass"</span>,
-  tagline <span class="op">=</span> <span class="st">"A tagline"</span>,
-  meter <span class="op">=</span> <span class="st">"meter tag"</span>, opus <span class="op">=</span> <span class="st">"opus tag"</span>, piece <span class="op">=</span> <span class="st">"piece tag"</span>, poet <span class="op">=</span> <span class="st">"poet tag"</span>
-<span class="op">)</span>
-
-<span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="va">song</span>, <span class="st">"ex33.pdf"</span>, header <span class="op">=</span> <span class="va">header</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">header</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  title <span class="op">=</span> <span class="st">"Song title"</span>,</span>
+<span>  composer <span class="op">=</span> <span class="st">"Words and music by the composer"</span>,</span>
+<span>  performer <span class="op">=</span> <span class="st">"Song performer"</span>,</span>
+<span>  album <span class="op">=</span> <span class="st">"Album title"</span>,</span>
+<span>  subtitle <span class="op">=</span> <span class="st">"Subtitle"</span>,</span>
+<span>  arranger <span class="op">=</span> <span class="st">"Arranged by tab arranger"</span>,</span>
+<span>  copyright <span class="op">=</span> <span class="st">"2018 &lt;Record Label&gt;"</span>,</span>
+<span>  instrument <span class="op">=</span> <span class="st">"guitar and bass"</span>,</span>
+<span>  tagline <span class="op">=</span> <span class="st">"A tagline"</span>,</span>
+<span>  meter <span class="op">=</span> <span class="st">"meter tag"</span>, opus <span class="op">=</span> <span class="st">"opus tag"</span>, piece <span class="op">=</span> <span class="st">"piece tag"</span>, poet <span class="op">=</span> <span class="st">"poet tag"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="va">song</span>, <span class="st">"ex33.pdf"</span>, header <span class="op">=</span> <span class="va">header</span><span class="op">)</span></span></code></pre></div>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex33.png?raw=true" class="centerimg" width="100%"></p>
-<p>The copyright and tagline are cutoff in the above image, but in your pdf you will see these if you scroll to the bottom of the rendered page.</p>
+<p>The copyright and tagline are cutoff in the above image, but in your
+pdf you will see these if you scroll to the bottom of the rendered
+page.</p>
 </div>
-<div id="other-settings" class="section level2">
-<h2 class="hasAnchor">
-<a href="#other-settings" class="anchor"></a>Other settings</h2>
-<div id="midi-files" class="section level3">
-<h3 class="hasAnchor">
-<a href="#midi-files" class="anchor"></a>MIDI files</h3>
-<p>You have probably noticed by now that every time a pdf if rendered, an accompanying MIDI file is also generated. This can be turned off with <code>midi = FALSE</code>. This specification goes into the LilyPond file itself via <code>lilypond</code>. Therefore, no MIDI output will be created even if you create the LilyPond file with <code>lilypond</code> but convert that to pdf with LilyPond outside of R.</p>
-<p>One thing to note about MIDI files is that <code>tabr</code> will unfold any repeats that occur in a song due to calls to <code>rp</code>, <code>pct</code> or <code>volta</code>. This allows the MIDI file to play everything the proper number of times rather than ending prematurely by not being able to read repeat notation.</p>
-<p>Also, <code>tabr</code> is a package aimed at creating guitar tablature. It is not concerned with MIDI or audio signals and audio data in general. Any MIDI functionality is considered to be an extra feature and does not receive priority development or support. At this time, there is no way to make other alterations to the MIDI file internals. MIDI output can be toggled on or off as mentioned. And without you having to do anything, MIDI output will respect repeat notation in the rendered LilyPond file. MIDI output will also automatically be transposed to match a transposition that is applied to a music staff (under reasonable and simplified conditions).</p>
+<div class="section level2">
+<h2 id="other-settings">Other settings<a class="anchor" aria-label="anchor" href="#other-settings"></a>
+</h2>
+<div class="section level3">
+<h3 id="midi-files">MIDI files<a class="anchor" aria-label="anchor" href="#midi-files"></a>
+</h3>
+<p>You have probably noticed by now that every time a pdf if rendered,
+an accompanying MIDI file is also generated. This can be turned off with
+<code>midi = FALSE</code>. This specification goes into the LilyPond
+file itself via <code><a href="../reference/lilypond.html">lilypond()</a></code>. Therefore, no MIDI output will
+be created even if you create the LilyPond file with
+<code><a href="../reference/lilypond.html">lilypond()</a></code> but convert that to pdf with LilyPond outside of
+R.</p>
+<p>One thing to note about MIDI files is that <code>tabr</code> will
+unfold any repeats that occur in a song due to calls to
+<code><a href="../reference/repeats.html">rp()</a></code>, <code><a href="../reference/repeats.html">pct()</a></code> or <code><a href="../reference/repeats.html">volta()</a></code>. This
+allows the MIDI file to play everything the proper number of times
+rather than ending prematurely by not being able to read repeat
+notation.</p>
+<p>Also, <code>tabr</code> is a package aimed at creating guitar
+tablature. It is not concerned with MIDI or audio signals and audio data
+in general. Any MIDI functionality is considered to be an extra feature
+and does not receive priority development or support. At this time,
+there is no way to make other alterations to the MIDI file internals.
+MIDI output can be toggled on or off as mentioned. And without you
+having to do anything, MIDI output will respect repeat notation in the
+rendered LilyPond file. MIDI output will also automatically be
+transposed to match a transposition that is applied to a music staff
+(under reasonable and simplified conditions).</p>
 </div>
-<div id="string-names" class="section level3">
-<h3 class="hasAnchor">
-<a href="#string-names" class="anchor"></a>String names</h3>
-<p>The <code>string_names</code> is only relevant for tablature staves. argument defaults to <code>NULL</code>. This means that standard tuning is never specified alongside the lines of a tab staff at the beginning of the tablature. However, any other tuning will be explicitly noted so the reader is aware of the alternate tuning of any applicable track. This can also be set to <code>TRUE</code> to force all tunings to be explicit including standard guitar tuning or <code>FALSE</code> to suppress them all (though it is unclear what value there is in the <code>FALSE</code> setting).</p>
+<div class="section level3">
+<h3 id="string-names">String names<a class="anchor" aria-label="anchor" href="#string-names"></a>
+</h3>
+<p>The <code>string_names</code> is only relevant for tablature staves.
+argument defaults to <code>NULL</code>. This means that standard tuning
+is never specified alongside the lines of a tab staff at the beginning
+of the tablature. However, any other tuning will be explicitly noted so
+the reader is aware of the alternate tuning of any applicable track.
+This can also be set to <code>TRUE</code> to force all tunings to be
+explicit including standard guitar tuning or <code>FALSE</code> to
+suppress them all (though it is unclear what value there is in the
+<code>FALSE</code> setting).</p>
 </div>
-<div id="paper-and-color-settings" class="section level3">
-<h3 class="hasAnchor">
-<a href="#paper-and-color-settings" class="anchor"></a>Paper and color settings</h3>
-<p>There is some nominal level of control over the paper layout via <code>paper</code>. Like <code>header</code>, this is a named list. The defaults are fine so you probably do not need to alter most of these values. There are six options, all numeric except for <code>page_numbers</code>, which is logical.</p>
+<div class="section level3">
+<h3 id="paper-and-color-settings">Paper and color settings<a class="anchor" aria-label="anchor" href="#paper-and-color-settings"></a>
+</h3>
+<p>There is some nominal level of control over the paper layout via
+<code>paper</code>. Like <code>header</code>, this is a named list. The
+defaults are fine so you probably do not need to alter most of these
+values. There are six options, all numeric except for
+<code>page_numbers</code>, which is logical.</p>
 <ul>
 <li><code>textheight</code></li>
 <li><code>linewidth</code></li>
@@ -289,8 +386,12 @@
 <li><code>page_numbers</code></li>
 <li><code>fontsize</code></li>
 </ul>
-<p>If you pass any values for some of these in a named list to <code>paper</code>, any not passed will retain their built in defaults. You do not have to supply them all when using <code>paper</code>.</p>
-<p>There are also global color settings. You can pass a named list to <code>colors</code> with any of the following. Values are hex colors or R color names.</p>
+<p>If you pass any values for some of these in a named list to
+<code>paper</code>, any not passed will retain their built in defaults.
+You do not have to supply them all when using <code>paper</code>.</p>
+<p>There are also global color settings. You can pass a named list to
+<code>colors</code> with any of the following. Values are hex colors or
+R color names.</p>
 <ul>
 <li><code>color</code></li>
 <li><code>background</code></li>
@@ -302,330 +403,366 @@
 <li><code>stem</code></li>
 <li><code>accidental</code></li>
 </ul>
-<p>For more detail on these settings and others further above, see the help documentation, <code><a href="../reference/lilypond.html">?lilypond</a></code>.</p>
+<p>For more detail on these settings and others further above, see the
+help documentation for <code><a href="../reference/lilypond.html">lilypond()</a></code>.</p>
 </div>
 </div>
-<div id="png-output" class="section level2">
-<h2 class="hasAnchor">
-<a href="#png-output" class="anchor"></a>PNG output</h2>
-<p>Here are examples that make use of png-specific options and function behavior. First, when rendering to png instead of pdf, automatic cropping of the image is attempted. This removes the full page appearance for smaller snippets of sheet music. There are some limitations to this. For example, inclusion of header elements can disrupt this behavior.</p>
+<div class="section level2">
+<h2 id="png-output">PNG output<a class="anchor" aria-label="anchor" href="#png-output"></a>
+</h2>
+<p>Here are examples that make use of png-specific options and function
+behavior. First, when rendering to png instead of pdf, automatic
+cropping of the image is attempted. This removes the full page
+appearance for smaller snippets of sheet music. There are some
+limitations to this. For example, inclusion of header elements can
+disrupt this behavior.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/pitch_seq.html">pitch_seq</a></span><span class="op">(</span><span class="st">"e,"</span>, <span class="fl">24</span>, key <span class="op">=</span><span class="st">"c"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/music.html">as_music</a></span><span class="op">(</span><span class="fl">8</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/track.html">track</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/score.html">score</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="va">ppr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">60</span>, page_numbers <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="va">hdr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Notes in C on guitar"</span>, subtitle <span class="op">=</span> <span class="st">"Standard tuning"</span><span class="op">)</span>
-<span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"ex_png1.png"</span>, tempo <span class="op">=</span> <span class="cn">NULL</span>, midi <span class="op">=</span> <span class="cn">FALSE</span>, header <span class="op">=</span> <span class="va">hdr</span>, paper <span class="op">=</span> <span class="va">ppr</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/pitch_seq.html">pitch_seq</a></span><span class="op">(</span><span class="st">"e,"</span>, <span class="fl">24</span>, key <span class="op">=</span><span class="st">"c"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/music.html">as_music</a></span><span class="op">(</span><span class="fl">8</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/track.html">track</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/score.html">score</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ppr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">60</span>, page_numbers <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">hdr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Notes in C on guitar"</span>, subtitle <span class="op">=</span> <span class="st">"Standard tuning"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"ex_png1.png"</span>, tempo <span class="op">=</span> <span class="cn">NULL</span>, midi <span class="op">=</span> <span class="cn">FALSE</span>, header <span class="op">=</span> <span class="va">hdr</span>, paper <span class="op">=</span> <span class="va">ppr</span><span class="op">)</span></span></code></pre></div>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex_png1.png?raw=true" class="centerimg" width="35%"></p>
-<p>Above, the height is automatically cropped because <code>file</code> type is a png. Providing <code>textheight</code> to <code>paper</code> overrides this behavior. The width would have also been cropped on its own. However, because of the inclusion of <code>header</code> arguments, this fails and explicit <code>linewidth</code> is needed. Similarly, if elements that describe footer content (still part of the LilyPond <code>header</code> block) that appear at the bottom of the page such as <code>tagline</code> or <code>copyright</code> were included, automatic height cropping would have also failed. In general, automatic cropping is the default for png output, but <code>header</code> disrupts this, requiring manual overrides to width and height.</p>
-<p>In the example below, remove the header content. You can make a transparent background png, though you won’t be able to see the difference here. Instead, create a dark mode example and increase the resolution.</p>
-<p>Since this is a single voice, single track, you do not need to explicitly call each function in the transcription pipeline. Use one of the convenient <code>render_music_*</code> functions to abstract this process, rendering sheet music directly from a <code>music</code> object. <code>render_music_guitar</code> has good default arguments for this example.</p>
+<p>Above, the height is automatically cropped because <code>file</code>
+type is a png. Providing <code>textheight</code> to <code>paper</code>
+overrides this behavior. The width would have also been cropped on its
+own. However, because of the inclusion of <code>header</code> arguments,
+this fails and explicit <code>linewidth</code> is needed. Similarly, if
+elements that describe footer content (still part of the LilyPond
+<code>header</code> block) that appear at the bottom of the page such as
+<code>tagline</code> or <code>copyright</code> were included, automatic
+height cropping would have also failed. In general, automatic cropping
+is the default for png output, but <code>header</code> disrupts this,
+requiring manual overrides to width and height.</p>
+<p>In the example below, remove the header content. You can make a
+transparent background png, though you won’t be able to see the
+difference here. Instead, create a dark mode example and increase the
+resolution.</p>
+<p>Since this is a single voice, single track, you do not need to
+explicitly call each function in the transcription pipeline. Use one of
+the convenient <code>render_music*</code> functions to abstract this
+process, rendering sheet music directly from a <code>music</code>
+object. <code><a href="../reference/render_music.html">render_music_guitar()</a></code> has good default arguments
+for this example.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#e4e4e4"</span>, background <span class="op">=</span> <span class="st">"gray10"</span>, head <span class="op">=</span> <span class="st">"tomato"</span>, tabhead <span class="op">=</span> <span class="st">"tomato"</span><span class="op">)</span>
-
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/music.html">as_music</a></span><span class="op">(</span><span class="fu"><a href="../reference/pitch_seq.html">pitch_seq</a></span><span class="op">(</span><span class="st">"e,"</span>, <span class="fl">24</span>, key <span class="op">=</span><span class="st">"c"</span><span class="op">)</span>, <span class="fl">8</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/render_music.html">render_music_guitar</a></span><span class="op">(</span><span class="st">"ex_png2.png"</span>, colors <span class="op">=</span> <span class="va">colors</span>, res <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#e4e4e4"</span>, background <span class="op">=</span> <span class="st">"gray10"</span>, head <span class="op">=</span> <span class="st">"tomato"</span>, tabhead <span class="op">=</span> <span class="st">"tomato"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/music.html">as_music</a></span><span class="op">(</span><span class="fu"><a href="../reference/pitch_seq.html">pitch_seq</a></span><span class="op">(</span><span class="st">"e,"</span>, <span class="fl">24</span>, key <span class="op">=</span><span class="st">"c"</span><span class="op">)</span>, <span class="fl">8</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/render_music.html">render_music_guitar</a></span><span class="op">(</span><span class="st">"ex_png2.png"</span>, colors <span class="op">=</span> <span class="va">colors</span>, res <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span></code></pre></div>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex_png2.png?raw=true" class="centerimg" width="100%"></p>
 </div>
-<div id="the-lilypond-file" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-lilypond-file" class="anchor"></a>The LilyPond file</h2>
-<p>Finally, familiarize yourself with the LilyPond file itself. You may output a file and want to make additional edits to it directly. The example below also demonstrates some differences between <code>simplify = TRUE</code> and <code>simplify = FALSE</code>. This is a simple piece of music so not all possible syntax simplifications are shown here.</p>
-<p><code>phrase</code> objects have more robust structure that has advantages for performing object manipulations in R, but this is a more verbose version of LilyPond syntax. By default, <code>lilypond</code> as well as associated <code>render_*</code> functions will simplify this to a more efficient syntax so that it is less cumbersome to read and work with LilyPond files directly.</p>
-<div id="original-syntax" class="section level3">
-<h3 class="hasAnchor">
-<a href="#original-syntax" class="anchor"></a>Original syntax</h3>
-<p>There are other simplifications but the most notable benefits are the removal of all the <code>&lt;&gt;</code> around single notes and not repeating consecutive durations if they are unchanged from previous timesteps.</p>
+<div class="section level2">
+<h2 id="the-lilypond-file">The LilyPond file<a class="anchor" aria-label="anchor" href="#the-lilypond-file"></a>
+</h2>
+<p>Finally, familiarize yourself with the LilyPond file itself. You may
+output a file and want to make additional edits to it directly. The
+example below also demonstrates some differences between
+<code>simplify = TRUE</code> and <code>simplify = FALSE</code>. This is
+a simple piece of music so not all possible syntax simplifications are
+shown here.</p>
+<p><code><a href="../reference/phrase.html">phrase()</a></code> objects have more robust structure that has
+advantages for performing object manipulations in R, but this is a more
+verbose version of LilyPond syntax. By default, <code><a href="../reference/lilypond.html">lilypond()</a></code>
+as well as associated <code>render_*</code> functions will simplify this
+to a more efficient syntax so that it is less cumbersome to read and
+work with LilyPond files directly.</p>
+<div class="section level3">
+<h3 id="original-syntax">Original syntax<a class="anchor" aria-label="anchor" href="#original-syntax"></a>
+</h3>
+<p>There are other simplifications but the most notable benefits are the
+removal of all the <code>&lt;&gt;</code> around single notes and not
+repeating consecutive durations if they are unchanged from previous
+timesteps.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/lilypond.html">lilypond</a></span><span class="op">(</span><span class="va">song</span>, <span class="st">"song.ly"</span>, simplify <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="st">"song.ly"</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; \version "2.23.0"
-#&gt; \paper{
-#&gt;   line-width=150\mm
-#&gt;   oddFooterMarkup=##f
-#&gt;   oddHeaderMarkup=##f
-#&gt;   bookTitleMarkup = ##f
-#&gt;   scoreTitleMarkup = ##f
-#&gt;   indent = 0.\mm
-#&gt;   first-page-number = 1
-#&gt;   print-page-number = ##t
-#&gt;   print-first-page-number = ##t
-#&gt; }
-#&gt; 
-#&gt; #(set-global-staff-size 10)
-#&gt; \header {
-#&gt;   title = ""
-#&gt;   subtitle = ""
-#&gt;   composer = ""
-#&gt;   arranger = ""
-#&gt;   instrument = ""
-#&gt;   metre = ""
-#&gt;   opus = ""
-#&gt;   piece = ""
-#&gt;   poet = ""
-#&gt;   copyright = ""
-#&gt;   tagline = ""
-#&gt; }
-#&gt; \include "predefined-guitar-fretboards.ly"
-#&gt; 
-#&gt; #(define fb1 (make-fretboard-table))
-#&gt; \storePredefinedDiagram #fb1 \chordmode{c} #guitar-tuning "x;3;2;o;1;o;"
-#&gt; #(define fb2 (make-fretboard-table))
-#&gt; \storePredefinedDiagram #fb2 \chordmode{g} #guitar-tuning "3;5;5;4;3;3;"
-#&gt; #(define fb3 (make-fretboard-table))
-#&gt; \storePredefinedDiagram #fb3 \chordmode{f} #guitar-tuning "1;3;3;2;1;1;"
-#&gt; 
-#&gt; global = {
-#&gt;   \time 4/4
-#&gt;   \tempo 2 = 60
-#&gt;   \bar "|."
-#&gt; }
-#&gt; 
-#&gt; global_key = {
-#&gt;  \key c \major 
-#&gt; }
-#&gt; 
-#&gt; mychorddiagrams = \chordmode {
-#&gt;   \set predefinedDiagramTable = #fb1 c
-#&gt;   \set predefinedDiagramTable = #fb2 g
-#&gt;   \set predefinedDiagramTable = #fb3 f
-#&gt; }
-#&gt; 
-#&gt; chordNames = \chordmode {
-#&gt;   \override ChordName.font-size = #2
-#&gt;   \global
-#&gt;   c1 g2 f2 c1 c1 g2 f2 c1 c1 g2 f2 c1
-#&gt; }
-#&gt; 
-#&gt; \markup\vspace #3
-#&gt; \markup \fill-line {
-#&gt;   \score {
-#&gt;     &lt;&lt;
-#&gt;       \context ChordNames { \mychorddiagrams }
-#&gt;       \context FretBoards {
-#&gt;         \override FretBoards.FretBoard.size = #1.2
-#&gt;         \mychorddiagrams
-#&gt;       }
-#&gt;     &gt;&gt;
-#&gt;   \layout {}
-#&gt;   }
-#&gt; }
-#&gt; \markup\vspace #3
-#&gt; 
-#&gt; melodyAA = {
-#&gt;  \global
-#&gt;  \override StringNumber #'transparent = ##t
-#&gt;  \voiceOne \repeat unfold 3 { &lt;c''\1&gt;1 &lt;d''\1&gt;2 &lt;e''\1&gt;4 &lt;f''\1&gt;4 &lt;g''\1&gt;1 }
-#&gt; }
-#&gt; 
-#&gt; melodyAB = {
-#&gt;  \global
-#&gt;  \override StringNumber #'transparent = ##t
-#&gt;  \voiceTwo \repeat unfold 3 { &lt;c\5&gt;8 &lt;e\4&gt;8 &lt;g\3&gt;8 &lt;c'\2&gt;8 &lt;e'\1&gt;8 &lt;c'\2&gt;8 &lt;g\3&gt;8 &lt;e\4&gt;8 &lt;g\4&gt;8 &lt;b\3&gt;8 &lt;d'\2&gt;8 &lt;g'\1&gt;8 &lt;f\4&gt;8 &lt;a\3&gt;8 &lt;c'\2&gt;8 &lt;f'\1&gt;8 &lt;c\5&gt;8 &lt;e\4&gt;8 &lt;g\3&gt;8 &lt;e\4&gt;8 &lt;c\5&gt;2 }
-#&gt; }
-#&gt; 
-#&gt; melodyB = {
-#&gt;  \global
-#&gt;  \override StringNumber #'transparent = ##t
-#&gt;  \repeat unfold 3 { &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;g,,\4&gt;4 &lt;g,,\4&gt;4 &lt;f,,\4&gt;4 &lt;f,,\4&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;2 }
-#&gt; }
-#&gt; 
-#&gt; midimelodyAA = {
-#&gt;  \global
-#&gt;  \override StringNumber #'transparent = ##t
-#&gt;  \unfoldRepeats { \voiceOne \repeat unfold 3 { &lt;c''\1&gt;1 &lt;d''\1&gt;2 &lt;e''\1&gt;4 &lt;f''\1&gt;4 &lt;g''\1&gt;1 }
-#&gt;  }}
-#&gt; 
-#&gt; midimelodyAB = {
-#&gt;  \global
-#&gt;  \override StringNumber #'transparent = ##t
-#&gt;  \unfoldRepeats { \voiceTwo \repeat unfold 3 { &lt;c\5&gt;8 &lt;e\4&gt;8 &lt;g\3&gt;8 &lt;c'\2&gt;8 &lt;e'\1&gt;8 &lt;c'\2&gt;8 &lt;g\3&gt;8 &lt;e\4&gt;8 &lt;g\4&gt;8 &lt;b\3&gt;8 &lt;d'\2&gt;8 &lt;g'\1&gt;8 &lt;f\4&gt;8 &lt;a\3&gt;8 &lt;c'\2&gt;8 &lt;f'\1&gt;8 &lt;c\5&gt;8 &lt;e\4&gt;8 &lt;g\3&gt;8 &lt;e\4&gt;8 &lt;c\5&gt;2 }
-#&gt;  }}
-#&gt; 
-#&gt; midimelodyB = {
-#&gt;  \global
-#&gt;  \override StringNumber #'transparent = ##t
-#&gt;  \unfoldRepeats { \repeat unfold 3 { &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;g,,\4&gt;4 &lt;g,,\4&gt;4 &lt;f,,\4&gt;4 &lt;f,,\4&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;2 }
-#&gt;  }
-#&gt; }
-#&gt; 
-#&gt; \score {  &lt;&lt;
-#&gt;   \new ChordNames \chordNames
-#&gt;   \new Staff &lt;&lt; \clef "treble_8" \global_key \context Voice = "melodyAA" \melodyAA \context Voice = "melodyAB" \melodyAB &gt;&gt;
-#&gt;   \new TabStaff \with { stringTunings = \stringTuning &lt;e, a, d g b e'&gt; } &lt;&lt;
-#&gt;     \override Stem #'transparent = ##t
-#&gt;     \override Beam #'transparent = ##t
-#&gt;     \context TabVoice = "melodyAA" \melodyAA \context TabVoice = "melodyAB" \melodyAB
-#&gt;   &gt;&gt;
-#&gt;   \new Staff &lt;&lt; \clef "bass_8" \global_key \melodyB &gt;&gt;
-#&gt;   \new TabStaff \with { stringTunings = \stringTuning &lt;e,, a,, d, g,&gt; } &lt;&lt;
-#&gt;     \set TabStaff.instrumentName = \markup  { \hspace #7 \override #'(baseline-skip . 1.5)  \column \fontsize #-4.5 \sans { G D A E } }
-#&gt;     \override Stem #'transparent = ##t
-#&gt;     \override Beam #'transparent = ##t
-#&gt;     \melodyB
-#&gt;   &gt;&gt;
-#&gt;   &gt;&gt;
-#&gt;   \layout{ }
-#&gt; }
-#&gt; 
-#&gt; \score {  &lt;&lt;
-#&gt;   \midimelodyAA
-#&gt;   \midimelodyAB
-#&gt;   \midimelodyB
-#&gt;   &gt;&gt;
-#&gt;   \midi{
-#&gt;     \tempo 2 = 60
-#&gt;   }
-#&gt; }
-</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/lilypond.html">lilypond</a></span><span class="op">(</span><span class="va">song</span>, <span class="st">"song.ly"</span>, simplify <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="st">"song.ly"</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; \version "2.24.2"</span></span>
+<span><span class="co">#&gt; #(ly:set-option 'crop #t)\paper{</span></span>
+<span><span class="co">#&gt;   line-width=150\mm</span></span>
+<span><span class="co">#&gt;   oddFooterMarkup = ##f</span></span>
+<span><span class="co">#&gt;   oddHeaderMarkup = ##f</span></span>
+<span><span class="co">#&gt;   bookTitleMarkup = ##f</span></span>
+<span><span class="co">#&gt;   scoreTitleMarkup = ##f</span></span>
+<span><span class="co">#&gt;   indent = 0.\mm</span></span>
+<span><span class="co">#&gt;   first-page-number = 1</span></span>
+<span><span class="co">#&gt;   print-page-number = ##t</span></span>
+<span><span class="co">#&gt;   print-first-page-number = ##t</span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; #(set-global-staff-size 10)</span></span>
+<span><span class="co">#&gt; \header {</span></span>
+<span><span class="co">#&gt;   title = ""</span></span>
+<span><span class="co">#&gt;   subtitle = ""</span></span>
+<span><span class="co">#&gt;   composer = ""</span></span>
+<span><span class="co">#&gt;   arranger = ""</span></span>
+<span><span class="co">#&gt;   instrument = ""</span></span>
+<span><span class="co">#&gt;   metre = ""</span></span>
+<span><span class="co">#&gt;   opus = ""</span></span>
+<span><span class="co">#&gt;   piece = ""</span></span>
+<span><span class="co">#&gt;   poet = ""</span></span>
+<span><span class="co">#&gt;   copyright = ""</span></span>
+<span><span class="co">#&gt;   tagline = ""</span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; \include "predefined-guitar-fretboards.ly"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; #(define fb1 (make-fretboard-table))</span></span>
+<span><span class="co">#&gt; \storePredefinedDiagram #fb1 \chordmode{c} #guitar-tuning "x;3;2;o;1;o;"</span></span>
+<span><span class="co">#&gt; #(define fb2 (make-fretboard-table))</span></span>
+<span><span class="co">#&gt; \storePredefinedDiagram #fb2 \chordmode{g} #guitar-tuning "3;5;5;4;3;3;"</span></span>
+<span><span class="co">#&gt; #(define fb3 (make-fretboard-table))</span></span>
+<span><span class="co">#&gt; \storePredefinedDiagram #fb3 \chordmode{f} #guitar-tuning "1;3;3;2;1;1;"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; global = {</span></span>
+<span><span class="co">#&gt;   \time 4/4</span></span>
+<span><span class="co">#&gt;   \tempo 2 = 60</span></span>
+<span><span class="co">#&gt;   \bar "|."</span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; global_key = {</span></span>
+<span><span class="co">#&gt;  \key c \major </span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; mychorddiagrams = \chordmode {</span></span>
+<span><span class="co">#&gt;   \set predefinedDiagramTable = #fb1 c</span></span>
+<span><span class="co">#&gt;   \set predefinedDiagramTable = #fb2 g</span></span>
+<span><span class="co">#&gt;   \set predefinedDiagramTable = #fb3 f</span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; chordNames = \chordmode {</span></span>
+<span><span class="co">#&gt;   \override ChordName.font-size = #2</span></span>
+<span><span class="co">#&gt;   \global</span></span>
+<span><span class="co">#&gt;   c1 g2 f2 c1 c1 g2 f2 c1 c1 g2 f2 c1</span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; \markup\vspace #3</span></span>
+<span><span class="co">#&gt; \markup \fill-line {</span></span>
+<span><span class="co">#&gt;   \score {</span></span>
+<span><span class="co">#&gt;     &lt;&lt;</span></span>
+<span><span class="co">#&gt;       \context ChordNames { \mychorddiagrams }</span></span>
+<span><span class="co">#&gt;       \context FretBoards {</span></span>
+<span><span class="co">#&gt;         \override FretBoards.FretBoard.size = #1.2</span></span>
+<span><span class="co">#&gt;         \mychorddiagrams</span></span>
+<span><span class="co">#&gt;       }</span></span>
+<span><span class="co">#&gt;     &gt;&gt;</span></span>
+<span><span class="co">#&gt;   \layout {}</span></span>
+<span><span class="co">#&gt;   }</span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; \markup\vspace #3</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; melodyAA = {</span></span>
+<span><span class="co">#&gt;  \global</span></span>
+<span><span class="co">#&gt;  \override StringNumber.transparent = ##t</span></span>
+<span><span class="co">#&gt;  \voiceOne \repeat unfold 3 { &lt;c''\1&gt;1 &lt;d''\1&gt;2 &lt;e''\1&gt;4 &lt;f''\1&gt;4 &lt;g''\1&gt;1 }</span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; melodyAB = {</span></span>
+<span><span class="co">#&gt;  \global</span></span>
+<span><span class="co">#&gt;  \override StringNumber.transparent = ##t</span></span>
+<span><span class="co">#&gt;  \voiceTwo \repeat unfold 3 { &lt;c\5&gt;8 &lt;e\4&gt;8 &lt;g\3&gt;8 &lt;c'\2&gt;8 &lt;e'\1&gt;8 &lt;c'\2&gt;8 &lt;g\3&gt;8 &lt;e\4&gt;8 &lt;g\4&gt;8 &lt;b\3&gt;8 &lt;d'\2&gt;8 &lt;g'\1&gt;8 &lt;f\4&gt;8 &lt;a\3&gt;8 &lt;c'\2&gt;8 &lt;f'\1&gt;8 &lt;c\5&gt;8 &lt;e\4&gt;8 &lt;g\3&gt;8 &lt;e\4&gt;8 &lt;c\5&gt;2 }</span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; melodyB = {</span></span>
+<span><span class="co">#&gt;  \global</span></span>
+<span><span class="co">#&gt;  \override StringNumber.transparent = ##t</span></span>
+<span><span class="co">#&gt;  \repeat unfold 3 { &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;g,,\4&gt;4 &lt;g,,\4&gt;4 &lt;f,,\4&gt;4 &lt;f,,\4&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;2 }</span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; midimelodyAA = {</span></span>
+<span><span class="co">#&gt;  \global</span></span>
+<span><span class="co">#&gt;  \override StringNumber.transparent = ##t</span></span>
+<span><span class="co">#&gt;  \unfoldRepeats { \voiceOne \repeat unfold 3 { &lt;c''\1&gt;1 &lt;d''\1&gt;2 &lt;e''\1&gt;4 &lt;f''\1&gt;4 &lt;g''\1&gt;1 }</span></span>
+<span><span class="co">#&gt;  }}</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; midimelodyAB = {</span></span>
+<span><span class="co">#&gt;  \global</span></span>
+<span><span class="co">#&gt;  \override StringNumber.transparent = ##t</span></span>
+<span><span class="co">#&gt;  \unfoldRepeats { \voiceTwo \repeat unfold 3 { &lt;c\5&gt;8 &lt;e\4&gt;8 &lt;g\3&gt;8 &lt;c'\2&gt;8 &lt;e'\1&gt;8 &lt;c'\2&gt;8 &lt;g\3&gt;8 &lt;e\4&gt;8 &lt;g\4&gt;8 &lt;b\3&gt;8 &lt;d'\2&gt;8 &lt;g'\1&gt;8 &lt;f\4&gt;8 &lt;a\3&gt;8 &lt;c'\2&gt;8 &lt;f'\1&gt;8 &lt;c\5&gt;8 &lt;e\4&gt;8 &lt;g\3&gt;8 &lt;e\4&gt;8 &lt;c\5&gt;2 }</span></span>
+<span><span class="co">#&gt;  }}</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; midimelodyB = {</span></span>
+<span><span class="co">#&gt;  \global</span></span>
+<span><span class="co">#&gt;  \override StringNumber.transparent = ##t</span></span>
+<span><span class="co">#&gt;  \unfoldRepeats { \repeat unfold 3 { &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;g,,\4&gt;4 &lt;g,,\4&gt;4 &lt;f,,\4&gt;4 &lt;f,,\4&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt;2 }</span></span>
+<span><span class="co">#&gt;  }</span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; \score {  &lt;&lt;</span></span>
+<span><span class="co">#&gt;   \new ChordNames \chordNames</span></span>
+<span><span class="co">#&gt;   \new Staff &lt;&lt; \clef "treble_8" \global_key \context Voice = "melodyAA" \melodyAA \context Voice = "melodyAB" \melodyAB &gt;&gt;</span></span>
+<span><span class="co">#&gt;   \new TabStaff \with { stringTunings = \stringTuning &lt;e, a, d g b e'&gt; } &lt;&lt;</span></span>
+<span><span class="co">#&gt;     \override Stem.transparent = ##t</span></span>
+<span><span class="co">#&gt;     \override Beam.transparent = ##t</span></span>
+<span><span class="co">#&gt;     \context TabVoice = "melodyAA" \melodyAA \context TabVoice = "melodyAB" \melodyAB</span></span>
+<span><span class="co">#&gt;   &gt;&gt;</span></span>
+<span><span class="co">#&gt;   \new Staff &lt;&lt; \clef "bass_8" \global_key \melodyB &gt;&gt;</span></span>
+<span><span class="co">#&gt;   \new TabStaff \with { stringTunings = \stringTuning &lt;e,, a,, d, g,&gt; } &lt;&lt;</span></span>
+<span><span class="co">#&gt;     \set TabStaff.instrumentName = \markup  { \hspace #7 \override #'(baseline-skip . 1.5)  \column \fontsize #-4.5 \sans { G D A E } }</span></span>
+<span><span class="co">#&gt;     \override Stem.transparent = ##t</span></span>
+<span><span class="co">#&gt;     \override Beam.transparent = ##t</span></span>
+<span><span class="co">#&gt;     \melodyB</span></span>
+<span><span class="co">#&gt;   &gt;&gt;</span></span>
+<span><span class="co">#&gt;   &gt;&gt;</span></span>
+<span><span class="co">#&gt;   \layout{ }</span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; \score {  &lt;&lt;</span></span>
+<span><span class="co">#&gt;   \midimelodyAA</span></span>
+<span><span class="co">#&gt;   \midimelodyAB</span></span>
+<span><span class="co">#&gt;   \midimelodyB</span></span>
+<span><span class="co">#&gt;   &gt;&gt;</span></span>
+<span><span class="co">#&gt;   \midi{</span></span>
+<span><span class="co">#&gt;     \tempo 2 = 60</span></span>
+<span><span class="co">#&gt;   }</span></span>
+<span><span class="co">#&gt; }</span></span></code></pre>
 </div>
-<div id="simplified-syntax" class="section level3">
-<h3 class="hasAnchor">
-<a href="#simplified-syntax" class="anchor"></a>Simplified syntax</h3>
-<p>Here you can see the changes to the notation. Since the music is so short in this example, most of the file remains the same.</p>
+<div class="section level3">
+<h3 id="simplified-syntax">Simplified syntax<a class="anchor" aria-label="anchor" href="#simplified-syntax"></a>
+</h3>
+<p>Here you can see the changes to the notation. Since the music is so
+short in this example, most of the file remains the same.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/lilypond.html">lilypond</a></span><span class="op">(</span><span class="va">song</span>, <span class="st">"song.ly"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="st">"song.ly"</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; \version "2.23.0"
-#&gt; \paper{
-#&gt;   line-width=150\mm
-#&gt;   oddFooterMarkup=##f
-#&gt;   oddHeaderMarkup=##f
-#&gt;   bookTitleMarkup = ##f
-#&gt;   scoreTitleMarkup = ##f
-#&gt;   indent = 0.\mm
-#&gt;   first-page-number = 1
-#&gt;   print-page-number = ##t
-#&gt;   print-first-page-number = ##t
-#&gt; }
-#&gt; 
-#&gt; #(set-global-staff-size 10)
-#&gt; \header {
-#&gt;   title = ""
-#&gt;   subtitle = ""
-#&gt;   composer = ""
-#&gt;   arranger = ""
-#&gt;   instrument = ""
-#&gt;   metre = ""
-#&gt;   opus = ""
-#&gt;   piece = ""
-#&gt;   poet = ""
-#&gt;   copyright = ""
-#&gt;   tagline = ""
-#&gt; }
-#&gt; \include "predefined-guitar-fretboards.ly"
-#&gt; 
-#&gt; #(define fb1 (make-fretboard-table))
-#&gt; \storePredefinedDiagram #fb1 \chordmode{c} #guitar-tuning "x;3;2;o;1;o;"
-#&gt; #(define fb2 (make-fretboard-table))
-#&gt; \storePredefinedDiagram #fb2 \chordmode{g} #guitar-tuning "3;5;5;4;3;3;"
-#&gt; #(define fb3 (make-fretboard-table))
-#&gt; \storePredefinedDiagram #fb3 \chordmode{f} #guitar-tuning "1;3;3;2;1;1;"
-#&gt; 
-#&gt; global = {
-#&gt;   \time 4/4
-#&gt;   \tempo 2 = 60
-#&gt;   \bar "|."
-#&gt; }
-#&gt; 
-#&gt; global_key = {
-#&gt;  \key c \major 
-#&gt; }
-#&gt; 
-#&gt; mychorddiagrams = \chordmode {
-#&gt;   \set predefinedDiagramTable = #fb1 c
-#&gt;   \set predefinedDiagramTable = #fb2 g
-#&gt;   \set predefinedDiagramTable = #fb3 f
-#&gt; }
-#&gt; 
-#&gt; chordNames = \chordmode {
-#&gt;   \override ChordName.font-size = #2
-#&gt;   \global
-#&gt;   c1 g2 f2 c1 c1 g2 f2 c1 c1 g2 f2 c1
-#&gt; }
-#&gt; 
-#&gt; \markup\vspace #3
-#&gt; \markup \fill-line {
-#&gt;   \score {
-#&gt;     &lt;&lt;
-#&gt;       \context ChordNames { \mychorddiagrams }
-#&gt;       \context FretBoards {
-#&gt;         \override FretBoards.FretBoard.size = #1.2
-#&gt;         \mychorddiagrams
-#&gt;       }
-#&gt;     &gt;&gt;
-#&gt;   \layout {}
-#&gt;   }
-#&gt; }
-#&gt; \markup\vspace #3
-#&gt; 
-#&gt; melodyAA = {
-#&gt;  \global
-#&gt;  \override StringNumber #'transparent = ##t
-#&gt;  \voiceOne \repeat unfold 3 { c''1\1 d''2\1 e''4\1 f''\1 g''1\1 }
-#&gt; }
-#&gt; 
-#&gt; melodyAB = {
-#&gt;  \global
-#&gt;  \override StringNumber #'transparent = ##t
-#&gt;  \voiceTwo \repeat unfold 3 { c8\5 e\4 g\3 c'\2 e'\1 c'\2 g\3 e\4 g\4 b\3 d'\2 g'\1 f\4 a\3 c'\2 f'\1 c\5 e\4 g\3 e\4 c2\5 }
-#&gt; }
-#&gt; 
-#&gt; melodyB = {
-#&gt;  \global
-#&gt;  \override StringNumber #'transparent = ##t
-#&gt;  \repeat unfold 3 { &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt; g,,\4 g,,\4 f,,\4 f,,\4 &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt;2 }
-#&gt; }
-#&gt; 
-#&gt; midimelodyAA = {
-#&gt;  \global
-#&gt;  \override StringNumber #'transparent = ##t
-#&gt;  \unfoldRepeats { \voiceOne \repeat unfold 3 { c''1\1 d''2\1 e''4\1 f''\1 g''1\1 }
-#&gt;  }}
-#&gt; 
-#&gt; midimelodyAB = {
-#&gt;  \global
-#&gt;  \override StringNumber #'transparent = ##t
-#&gt;  \unfoldRepeats { \voiceTwo \repeat unfold 3 { c8\5 e\4 g\3 c'\2 e'\1 c'\2 g\3 e\4 g\4 b\3 d'\2 g'\1 f\4 a\3 c'\2 f'\1 c\5 e\4 g\3 e\4 c2\5 }
-#&gt;  }}
-#&gt; 
-#&gt; midimelodyB = {
-#&gt;  \global
-#&gt;  \override StringNumber #'transparent = ##t
-#&gt;  \unfoldRepeats { \repeat unfold 3 { &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt; g,,\4 g,,\4 f,,\4 f,,\4 &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt;2 }
-#&gt;  }
-#&gt; }
-#&gt; 
-#&gt; \score {  &lt;&lt;
-#&gt;   \new ChordNames \chordNames
-#&gt;   \new Staff &lt;&lt; \clef "treble_8" \global_key \context Voice = "melodyAA" \melodyAA \context Voice = "melodyAB" \melodyAB &gt;&gt;
-#&gt;   \new TabStaff \with { stringTunings = \stringTuning &lt;e, a, d g b e'&gt; } &lt;&lt;
-#&gt;     \override Stem #'transparent = ##t
-#&gt;     \override Beam #'transparent = ##t
-#&gt;     \context TabVoice = "melodyAA" \melodyAA \context TabVoice = "melodyAB" \melodyAB
-#&gt;   &gt;&gt;
-#&gt;   \new Staff &lt;&lt; \clef "bass_8" \global_key \melodyB &gt;&gt;
-#&gt;   \new TabStaff \with { stringTunings = \stringTuning &lt;e,, a,, d, g,&gt; } &lt;&lt;
-#&gt;     \set TabStaff.instrumentName = \markup  { \hspace #7 \override #'(baseline-skip . 1.5)  \column \fontsize #-4.5 \sans { G D A E } }
-#&gt;     \override Stem #'transparent = ##t
-#&gt;     \override Beam #'transparent = ##t
-#&gt;     \melodyB
-#&gt;   &gt;&gt;
-#&gt;   &gt;&gt;
-#&gt;   \layout{ }
-#&gt; }
-#&gt; 
-#&gt; \score {  &lt;&lt;
-#&gt;   \midimelodyAA
-#&gt;   \midimelodyAB
-#&gt;   \midimelodyB
-#&gt;   &gt;&gt;
-#&gt;   \midi{
-#&gt;     \tempo 2 = 60
-#&gt;   }
-#&gt; }
-</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/lilypond.html">lilypond</a></span><span class="op">(</span><span class="va">song</span>, <span class="st">"song.ly"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="st">"song.ly"</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; \version "2.24.2"</span></span>
+<span><span class="co">#&gt; #(ly:set-option 'crop #t)\paper{</span></span>
+<span><span class="co">#&gt;   line-width=150\mm</span></span>
+<span><span class="co">#&gt;   oddFooterMarkup = ##f</span></span>
+<span><span class="co">#&gt;   oddHeaderMarkup = ##f</span></span>
+<span><span class="co">#&gt;   bookTitleMarkup = ##f</span></span>
+<span><span class="co">#&gt;   scoreTitleMarkup = ##f</span></span>
+<span><span class="co">#&gt;   indent = 0.\mm</span></span>
+<span><span class="co">#&gt;   first-page-number = 1</span></span>
+<span><span class="co">#&gt;   print-page-number = ##t</span></span>
+<span><span class="co">#&gt;   print-first-page-number = ##t</span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; #(set-global-staff-size 10)</span></span>
+<span><span class="co">#&gt; \header {</span></span>
+<span><span class="co">#&gt;   title = ""</span></span>
+<span><span class="co">#&gt;   subtitle = ""</span></span>
+<span><span class="co">#&gt;   composer = ""</span></span>
+<span><span class="co">#&gt;   arranger = ""</span></span>
+<span><span class="co">#&gt;   instrument = ""</span></span>
+<span><span class="co">#&gt;   metre = ""</span></span>
+<span><span class="co">#&gt;   opus = ""</span></span>
+<span><span class="co">#&gt;   piece = ""</span></span>
+<span><span class="co">#&gt;   poet = ""</span></span>
+<span><span class="co">#&gt;   copyright = ""</span></span>
+<span><span class="co">#&gt;   tagline = ""</span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; \include "predefined-guitar-fretboards.ly"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; #(define fb1 (make-fretboard-table))</span></span>
+<span><span class="co">#&gt; \storePredefinedDiagram #fb1 \chordmode{c} #guitar-tuning "x;3;2;o;1;o;"</span></span>
+<span><span class="co">#&gt; #(define fb2 (make-fretboard-table))</span></span>
+<span><span class="co">#&gt; \storePredefinedDiagram #fb2 \chordmode{g} #guitar-tuning "3;5;5;4;3;3;"</span></span>
+<span><span class="co">#&gt; #(define fb3 (make-fretboard-table))</span></span>
+<span><span class="co">#&gt; \storePredefinedDiagram #fb3 \chordmode{f} #guitar-tuning "1;3;3;2;1;1;"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; global = {</span></span>
+<span><span class="co">#&gt;   \time 4/4</span></span>
+<span><span class="co">#&gt;   \tempo 2 = 60</span></span>
+<span><span class="co">#&gt;   \bar "|."</span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; global_key = {</span></span>
+<span><span class="co">#&gt;  \key c \major </span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; mychorddiagrams = \chordmode {</span></span>
+<span><span class="co">#&gt;   \set predefinedDiagramTable = #fb1 c</span></span>
+<span><span class="co">#&gt;   \set predefinedDiagramTable = #fb2 g</span></span>
+<span><span class="co">#&gt;   \set predefinedDiagramTable = #fb3 f</span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; chordNames = \chordmode {</span></span>
+<span><span class="co">#&gt;   \override ChordName.font-size = #2</span></span>
+<span><span class="co">#&gt;   \global</span></span>
+<span><span class="co">#&gt;   c1 g2 f2 c1 c1 g2 f2 c1 c1 g2 f2 c1</span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; \markup\vspace #3</span></span>
+<span><span class="co">#&gt; \markup \fill-line {</span></span>
+<span><span class="co">#&gt;   \score {</span></span>
+<span><span class="co">#&gt;     &lt;&lt;</span></span>
+<span><span class="co">#&gt;       \context ChordNames { \mychorddiagrams }</span></span>
+<span><span class="co">#&gt;       \context FretBoards {</span></span>
+<span><span class="co">#&gt;         \override FretBoards.FretBoard.size = #1.2</span></span>
+<span><span class="co">#&gt;         \mychorddiagrams</span></span>
+<span><span class="co">#&gt;       }</span></span>
+<span><span class="co">#&gt;     &gt;&gt;</span></span>
+<span><span class="co">#&gt;   \layout {}</span></span>
+<span><span class="co">#&gt;   }</span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; \markup\vspace #3</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; melodyAA = {</span></span>
+<span><span class="co">#&gt;  \global</span></span>
+<span><span class="co">#&gt;  \override StringNumber.transparent = ##t</span></span>
+<span><span class="co">#&gt;  \voiceOne \repeat unfold 3 { c''1\1 d''2\1 e''4\1 f''\1 g''1\1 }</span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; melodyAB = {</span></span>
+<span><span class="co">#&gt;  \global</span></span>
+<span><span class="co">#&gt;  \override StringNumber.transparent = ##t</span></span>
+<span><span class="co">#&gt;  \voiceTwo \repeat unfold 3 { c8\5 e\4 g\3 c'\2 e'\1 c'\2 g\3 e\4 g\4 b\3 d'\2 g'\1 f\4 a\3 c'\2 f'\1 c\5 e\4 g\3 e\4 c2\5 }</span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; melodyB = {</span></span>
+<span><span class="co">#&gt;  \global</span></span>
+<span><span class="co">#&gt;  \override StringNumber.transparent = ##t</span></span>
+<span><span class="co">#&gt;  \repeat unfold 3 { &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt; g,,\4 g,,\4 f,,\4 f,,\4 &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt;2 }</span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; midimelodyAA = {</span></span>
+<span><span class="co">#&gt;  \global</span></span>
+<span><span class="co">#&gt;  \override StringNumber.transparent = ##t</span></span>
+<span><span class="co">#&gt;  \unfoldRepeats { \voiceOne \repeat unfold 3 { c''1\1 d''2\1 e''4\1 f''\1 g''1\1 }</span></span>
+<span><span class="co">#&gt;  }}</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; midimelodyAB = {</span></span>
+<span><span class="co">#&gt;  \global</span></span>
+<span><span class="co">#&gt;  \override StringNumber.transparent = ##t</span></span>
+<span><span class="co">#&gt;  \unfoldRepeats { \voiceTwo \repeat unfold 3 { c8\5 e\4 g\3 c'\2 e'\1 c'\2 g\3 e\4 g\4 b\3 d'\2 g'\1 f\4 a\3 c'\2 f'\1 c\5 e\4 g\3 e\4 c2\5 }</span></span>
+<span><span class="co">#&gt;  }}</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; midimelodyB = {</span></span>
+<span><span class="co">#&gt;  \global</span></span>
+<span><span class="co">#&gt;  \override StringNumber.transparent = ##t</span></span>
+<span><span class="co">#&gt;  \unfoldRepeats { \repeat unfold 3 { &lt;c,\3 e,\2&gt;4 &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt; g,,\4 g,,\4 f,,\4 f,,\4 &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt; &lt;c,\3 e,\2&gt;2 }</span></span>
+<span><span class="co">#&gt;  }</span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; \score {  &lt;&lt;</span></span>
+<span><span class="co">#&gt;   \new ChordNames \chordNames</span></span>
+<span><span class="co">#&gt;   \new Staff &lt;&lt; \clef "treble_8" \global_key \context Voice = "melodyAA" \melodyAA \context Voice = "melodyAB" \melodyAB &gt;&gt;</span></span>
+<span><span class="co">#&gt;   \new TabStaff \with { stringTunings = \stringTuning &lt;e, a, d g b e'&gt; } &lt;&lt;</span></span>
+<span><span class="co">#&gt;     \override Stem.transparent = ##t</span></span>
+<span><span class="co">#&gt;     \override Beam.transparent = ##t</span></span>
+<span><span class="co">#&gt;     \context TabVoice = "melodyAA" \melodyAA \context TabVoice = "melodyAB" \melodyAB</span></span>
+<span><span class="co">#&gt;   &gt;&gt;</span></span>
+<span><span class="co">#&gt;   \new Staff &lt;&lt; \clef "bass_8" \global_key \melodyB &gt;&gt;</span></span>
+<span><span class="co">#&gt;   \new TabStaff \with { stringTunings = \stringTuning &lt;e,, a,, d, g,&gt; } &lt;&lt;</span></span>
+<span><span class="co">#&gt;     \set TabStaff.instrumentName = \markup  { \hspace #7 \override #'(baseline-skip . 1.5)  \column \fontsize #-4.5 \sans { G D A E } }</span></span>
+<span><span class="co">#&gt;     \override Stem.transparent = ##t</span></span>
+<span><span class="co">#&gt;     \override Beam.transparent = ##t</span></span>
+<span><span class="co">#&gt;     \melodyB</span></span>
+<span><span class="co">#&gt;   &gt;&gt;</span></span>
+<span><span class="co">#&gt;   &gt;&gt;</span></span>
+<span><span class="co">#&gt;   \layout{ }</span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; \score {  &lt;&lt;</span></span>
+<span><span class="co">#&gt;   \midimelodyAA</span></span>
+<span><span class="co">#&gt;   \midimelodyAB</span></span>
+<span><span class="co">#&gt;   \midimelodyB</span></span>
+<span><span class="co">#&gt;   &gt;&gt;</span></span>
+<span><span class="co">#&gt;   \midi{</span></span>
+<span><span class="co">#&gt;     \tempo 2 = 60</span></span>
+<span><span class="co">#&gt;   }</span></span>
+<span><span class="co">#&gt; }</span></span></code></pre>
 </div>
 </div>
   </div>
@@ -641,11 +778,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://github.com/leonawicz">Matthew Leonawicz</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://github.com/leonawicz" class="external-link">Matthew Leonawicz</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -653,6 +792,8 @@
 
   
 
+
+  
 
   </body>
 </html>

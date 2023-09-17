@@ -27,6 +27,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -39,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.9</span>
       </span>
     </div>
 
@@ -47,13 +49,13 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
     Home
   </a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Tutorials
      
     <span class="caret"></span>
@@ -85,7 +87,8 @@
       <a href="../articles/tabr-fretboard.html">Fretboard diagram plots</a>
     </li>
     <li class="divider">
-    <li class="dropdown-header">Transcription</li>
+    </li>
+<li class="dropdown-header">Transcription</li>
     <li>
       <a href="../articles/tabr-basics.html">Basic overview</a>
     </li>
@@ -119,7 +122,7 @@
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Examples
      
     <span class="caret"></span>
@@ -148,8 +151,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/leonawicz/tabr">
-    <span class="fas fa-github fa-lg"></span>
+  <a href="https://github.com/leonawicz/tabr" class="external-link">
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -163,76 +166,110 @@
 
       
 
-      </header><script src="tabr-ex1_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Example: alternate tuning plus capo</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/leonawicz/tabr/blob/master/vignettes/tabr-ex1.Rmd"><code>vignettes/tabr-ex1.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/leonawicz/tabr/blob/HEAD/vignettes/tabr-ex1.Rmd" class="external-link"><code>vignettes/tabr-ex1.Rmd</code></a></small>
       <div class="hidden name"><code>tabr-ex1.Rmd</code></div>
 
     </div>
 
     
     
-<p>The <code>tabr</code> tutorials began with a basic example that introduced the general workflow.</p>
+<p>The <code>tabr</code> tutorials began with a basic example that
+introduced the general workflow.</p>
 <ul>
-<li>Define a musical phrase with <code>phrase</code> or the shorthand alias <code>p</code>.</li>
-<li>Add the phrase to a <code>track</code>.</li>
-<li>Add the track to a <code>score</code>.</li>
-<li>Render the score to pdf with <code>tab</code>.</li>
+<li>Define a musical phrase with <code><a href="../reference/phrase.html">phrase()</a></code> or the shorthand
+alias <code><a href="../reference/phrase.html">p()</a></code>.</li>
+<li>Add the phrase to a <code><a href="../reference/track.html">track()</a></code>.</li>
+<li>Add the track to a <code><a href="../reference/score.html">score()</a></code>.</li>
+<li>Render the score to pdf with <code><a href="../reference/tab.html">tab()</a></code> or another
+<code>render_*</code> function.</li>
 </ul>
-<p>This short R script example is more complex. It does not represent a complete tab of a song; it is just a short arrangement of two basic fingerpicking patterns similar to but not exactly the same as heard in Blues Saraceno’s <em>Devil’s got you beat</em>. The second pattern is actually just a small slice of the first pattern that is shifted in time slightly. While not a complete tab, it is much more thorough than the opening tutorial example, making use of several techniques and functions that have been covered.</p>
+<p>This short R script example is more complex. It does not represent a
+complete tab of a song; it is just a short arrangement of two basic
+fingerpicking patterns similar to but not exactly the same as heard in
+Blues Saraceno’s <em>Devil’s got you beat</em>. The second pattern is
+actually just a small slice of the first pattern that is shifted in time
+slightly. While not a complete tab, it is much more thorough than the
+opening tutorial example, making use of several techniques and functions
+that have been covered.</p>
 <p>Some of the most interesting things to note below include:</p>
 <ul>
-<li>Non-standard tuning (DADGAD) <em>plus</em> a capo on the first fret.</li>
-<li>Use of all the available song information arguments in <code>header</code>.</li>
-<li>Nested repeats with percent repeats applied inside of a volta repeat.</li>
-<li>Avoidance of repetition of the text annotation attached to the opening note when using percent repeats.</li>
+<li>Non-standard tuning (DADGAD) <em>plus</em> a capo on the first
+fret.</li>
+<li>Use of all the available song information arguments in
+<code>header</code>.</li>
+<li>Nested repeats with percent repeats applied inside of a volta
+repeat.</li>
+<li>Avoidance of repetition of the text annotation attached to the
+opening note when using percent repeats.</li>
 </ul>
-<div id="r-code" class="section level2">
-<h2 class="hasAnchor">
-<a href="#r-code" class="anchor"></a>R code</h2>
+<div class="section level2">
+<h2 id="r-code">R code<a class="anchor" aria-label="anchor" href="#r-code"></a>
+</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">header</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  title <span class="op">=</span> <span class="st">"Devil's got you beat"</span>,
-  composer <span class="op">=</span> <span class="st">"Words and music Blues Saraceno"</span>,
-  performer <span class="op">=</span> <span class="st">"Blues Saraceno"</span>,
-  album <span class="op">=</span> <span class="st">"Dark Country 4"</span>,
-  subtitle <span class="op">=</span> <span class="st">"From the album Dark Country 4 by Blues Saraceno"</span>,
-  arranger <span class="op">=</span> <span class="st">"Two picking patterns arranged by Matthew Leonawicz"</span>,
-  copyright <span class="op">=</span> <span class="st">"2016 Extreme Music"</span>
-<span class="op">)</span>
-
-<span class="va">txt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"DADGAD tuning with capo on 1st fret. Fingerpicking. Let ring."</span><span class="op">)</span>
-<span class="va">tuning</span> <span class="op">&lt;-</span> <span class="st">"d, a, d g a d'"</span>
-
-<span class="co"># melody 1</span>
-<span class="va">notes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="../reference/append_phrases.html">pn</a></span><span class="op">(</span><span class="st">"f d c d a d'"</span>, <span class="fl">2</span><span class="op">)</span>, <span class="st">"f g a d' f d c a,"</span><span class="op">)</span>
-<span class="va">info</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"16("</span>, <span class="fu"><a href="../reference/notate.html">notate</a></span><span class="op">(</span><span class="st">"16("</span>, <span class="va">txt</span><span class="op">)</span><span class="op">)</span>,
-                       <span class="op">~</span><span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="va">.x</span>, <span class="st">"16) 8 8 16 16 16( 16) 8 8 16 16 16- 16*7"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">strings</span> <span class="op">&lt;-</span> <span class="st">"4 4 5 4 2 1 4 4 5 4 2 1 4 4 2 1 4 4 5 5"</span>
-<span class="va">p1</span> <span class="op">&lt;-</span><span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">info</span>, <span class="op">~</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="va">notes</span>, <span class="va">.x</span>, <span class="va">strings</span><span class="op">)</span><span class="op">)</span>
-<span class="va">e1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"d a d' c a, f, d,"</span>, <span class="st">"8 16 16 16( 16) 16( 16)"</span>, <span class="st">"4 2 1 5 5 6 6"</span><span class="op">)</span>
-<span class="va">e2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"d a d' c a, f, e, d,"</span>, <span class="st">"8 16 16 16( 16) 16- 16( 1)"</span>, <span class="st">"4 2 1 5 5 6 6 6"</span><span class="op">)</span>
-
-<span class="co">#melody 2</span>
-<span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"d a d' f d c"</span>, <span class="st">"8 16*4 8"</span>, <span class="st">"4 2 1 4 4 5"</span><span class="op">)</span>
-
-<span class="va">p_all</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="../reference/repeats.html">pct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">p1</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, <span class="va">e1</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="../reference/repeats.html">volta</a></span><span class="op">(</span><span class="fu"><a href="../reference/repeats.html">pct</a></span><span class="op">(</span><span class="va">p2</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>, <span class="va">p1</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">e1</span>, <span class="va">p1</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">e2</span><span class="op">)</span>
-<span class="fu"><a href="../reference/track.html">track</a></span><span class="op">(</span><span class="va">p_all</span>, tuning <span class="op">=</span> <span class="va">tuning</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/score.html">score</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"out.pdf"</span>, <span class="st">"dm"</span>, <span class="st">"4/4"</span>, <span class="st">"4 = 115"</span>, <span class="va">header</span><span class="op">)</span></code></pre></div>
-<p>You can see above that <code>notate</code> can often obstruct otherwise convenient opportunities for code reduction. Avoiding repeating the annotation means avoiding repeating whatever it is bound to. This is not a problem for percent repeats because there is nothing to show, but would be for the repetitions of the melody at the end of the score. This is why <code>info</code> was mapped to a length 2 vector using an opening note with and without a bound text annotation, respectively.</p>
-<p>The <code>e1</code> and <code>e2</code> endings on the phrase <code>p1</code> were not used as default and alternate endings in a call to <code>volta</code>, respectively, because they would fail the bar check; <code>p1</code> alone does not end at the end of a measure, but rather lasts for a measure and a half. This example also shows how a single note difference at the very end of the second ending, <code>e2</code>, an ending that is only played once at the end of the arrangement, is enough to stop you from defining what would sensibly be the full phrase (<code>p1</code> through <code>e1</code>) as such. The slightest change forces you to split things up and expand the code, just like in a tab. And most music, at least the kind for which there is any point in transcribing, is going to change things up often even for repeated sections.</p>
+<code class="sourceCode R"><span><span class="va">header</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  title <span class="op">=</span> <span class="st">"Devil's got you beat"</span>,</span>
+<span>  composer <span class="op">=</span> <span class="st">"Words and music Blues Saraceno"</span>,</span>
+<span>  performer <span class="op">=</span> <span class="st">"Blues Saraceno"</span>,</span>
+<span>  album <span class="op">=</span> <span class="st">"Dark Country 4"</span>,</span>
+<span>  subtitle <span class="op">=</span> <span class="st">"From the album Dark Country 4 by Blues Saraceno"</span>,</span>
+<span>  arranger <span class="op">=</span> <span class="st">"Two picking patterns arranged by Matthew Leonawicz"</span>,</span>
+<span>  copyright <span class="op">=</span> <span class="st">"2016 Extreme Music"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">txt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DADGAD tuning with capo on 1st fret. Fingerpicking. Let ring."</span><span class="op">)</span></span>
+<span><span class="va">tuning</span> <span class="op">&lt;-</span> <span class="st">"d, a, d g a d'"</span></span>
+<span></span>
+<span><span class="co"># melody 1</span></span>
+<span><span class="va">notes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="../reference/append_phrases.html">pn</a></span><span class="op">(</span><span class="st">"f d c d a d'"</span>, <span class="fl">2</span><span class="op">)</span>, <span class="st">"f g a d' f d c a,"</span><span class="op">)</span></span>
+<span><span class="va">info</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map_chr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"16("</span>, <span class="fu"><a href="../reference/notate.html">notate</a></span><span class="op">(</span><span class="st">"16("</span>, <span class="va">txt</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                       <span class="op">~</span><span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="va">.x</span>, <span class="st">"16) 8 8 16 16 16( 16) 8 8 16 16 16- 16*7"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">strings</span> <span class="op">&lt;-</span> <span class="st">"4 4 5 4 2 1 4 4 5 4 2 1 4 4 2 1 4 4 5 5"</span></span>
+<span><span class="va">p1</span> <span class="op">&lt;-</span><span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">info</span>, <span class="op">~</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="va">notes</span>, <span class="va">.x</span>, <span class="va">strings</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">e1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"d a d' c a, f, d,"</span>, <span class="st">"8 16 16 16( 16) 16( 16)"</span>, <span class="st">"4 2 1 5 5 6 6"</span><span class="op">)</span></span>
+<span><span class="va">e2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"d a d' c a, f, e, d,"</span>, <span class="st">"8 16 16 16( 16) 16- 16( 1)"</span>, <span class="st">"4 2 1 5 5 6 6 6"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#melody 2</span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"d a d' f d c"</span>, <span class="st">"8 16*4 8"</span>, <span class="st">"4 2 1 4 4 5"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p_all</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="../reference/repeats.html">pct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p1</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, <span class="va">e1</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="../reference/repeats.html">volta</a></span><span class="op">(</span><span class="fu"><a href="../reference/repeats.html">pct</a></span><span class="op">(</span><span class="va">p2</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>, <span class="va">p1</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">e1</span>, <span class="va">p1</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">e2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/track.html">track</a></span><span class="op">(</span><span class="va">p_all</span>, tuning <span class="op">=</span> <span class="va">tuning</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/score.html">score</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"out.pdf"</span>, <span class="st">"dm"</span>, <span class="st">"4/4"</span>, <span class="st">"4 = 115"</span>, <span class="va">header</span><span class="op">)</span></span></code></pre></div>
+<p>You can see above that <code><a href="../reference/notate.html">notate()</a></code> can often obstruct
+otherwise convenient opportunities for code reduction. Avoiding
+repeating the annotation means avoiding repeating whatever it is bound
+to. This is not a problem for percent repeats because there is nothing
+to show, but would be for the repetitions of the melody at the end of
+the score. This is why <code>info</code> was mapped to a length 2 vector
+using an opening note with and without a bound text annotation,
+respectively.</p>
+<p>The <code>e1</code> and <code>e2</code> endings on the phrase
+<code>p1</code> were not used as default and alternate endings in a call
+to <code><a href="../reference/repeats.html">volta()</a></code>, respectively, because they would fail the bar
+check; <code>p1</code> alone does not end at the end of a measure, but
+rather lasts for a measure and a half. This example also shows how a
+single note difference at the very end of the second ending,
+<code>e2</code>, an ending that is only played once at the end of the
+arrangement, is enough to stop you from defining what would sensibly be
+the full phrase (<code>p1</code> through <code>e1</code>) as such. The
+slightest change forces you to split things up and expand the code, just
+like in a tab. And most music, at least the kind for which there is any
+point in transcribing, is going to change things up often even for
+repeated sections.</p>
 </div>
-<div id="result" class="section level2">
-<h2 class="hasAnchor">
-<a href="#result" class="anchor"></a>Result</h2>
-<p>The result of the call to <code>tab</code> is as follows.</p>
+<div class="section level2">
+<h2 id="result">Result<a class="anchor" aria-label="anchor" href="#result"></a>
+</h2>
+<p>The result of the call to <code><a href="../reference/tab.html">tab()</a></code> is as follows.</p>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/complete01.png?raw=true" class="centerimg" width="100%"></p>
-<p>The next example refactors the phrases above to properly represent <a href="https://leonawicz.github.io/tabr/articles/tabr-ex2.html">multiple voices</a> in the output.</p>
+<p>The next example refactors the phrases above to properly represent <a href="https://leonawicz.github.io/tabr/articles/tabr-ex2.html">multiple
+voices</a> in the output.</p>
 </div>
   </div>
 
@@ -247,11 +284,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://github.com/leonawicz">Matthew Leonawicz</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://github.com/leonawicz" class="external-link">Matthew Leonawicz</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -259,6 +298,8 @@
 
   
 
+
+  
 
   </body>
 </html>

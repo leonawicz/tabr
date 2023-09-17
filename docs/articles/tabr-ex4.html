@@ -27,6 +27,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -39,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.9</span>
       </span>
     </div>
 
@@ -47,13 +49,13 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
     Home
   </a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Tutorials
      
     <span class="caret"></span>
@@ -85,7 +87,8 @@
       <a href="../articles/tabr-fretboard.html">Fretboard diagram plots</a>
     </li>
     <li class="divider">
-    <li class="dropdown-header">Transcription</li>
+    </li>
+<li class="dropdown-header">Transcription</li>
     <li>
       <a href="../articles/tabr-basics.html">Basic overview</a>
     </li>
@@ -119,7 +122,7 @@
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Examples
      
     <span class="caret"></span>
@@ -148,8 +151,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/leonawicz/tabr">
-    <span class="fas fa-github fa-lg"></span>
+  <a href="https://github.com/leonawicz/tabr" class="external-link">
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -163,165 +166,226 @@
 
       
 
-      </header><script src="tabr-ex4_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Example: Gin Wigmore - Devil in me</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/leonawicz/tabr/blob/master/vignettes/tabr-ex4.Rmd"><code>vignettes/tabr-ex4.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/leonawicz/tabr/blob/HEAD/vignettes/tabr-ex4.Rmd" class="external-link"><code>vignettes/tabr-ex4.Rmd</code></a></small>
       <div class="hidden name"><code>tabr-ex4.Rmd</code></div>
 
     </div>
 
     
     
-<div id="overview" class="section level2">
-<h2 class="hasAnchor">
-<a href="#overview" class="anchor"></a>Overview</h2>
-<p>This coding example demonstrates the creation of a complete arrangement of <a href="https://www.youtube.com/watch?v=cC04hkIVrYs">Devil in me</a> by <a href="https://en.wikipedia.org/wiki/Gin_Wigmore">Gin Wigmore</a>, whose music was one of the original inspirations for writing the sheet music transcription code in <code>tabr</code>. This custom arrangement written in R code is for educational purposes.</p>
+<div class="section level2">
+<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h2>
+<p>This coding example demonstrates the creation of a complete
+arrangement of <a href="https://www.youtube.com/watch?v=cC04hkIVrYs" class="external-link">Devil in me</a> by <a href="https://en.wikipedia.org/wiki/Gin_Wigmore" class="external-link">Gin Wigmore</a>, whose
+music was one of the original inspirations for writing the sheet music
+transcription code in <code>tabr</code>. This custom arrangement written
+in R code is for educational purposes.</p>
 <div style="text-align:center">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/cC04hkIVrYs" frameborder="0" allowfullscreen>
 </iframe>
 </div>
-<p>While I enjoy playing Gin Wigmore’s music on guitar, it was frustrating to not be able to find quality guitar tablature for reference. Of course, this is the case for the vast majority of music. Having tabs would have helped me figure out guitar parts that I found challenging to hear clearly when layered with other instruments and vocals. In the end, I had no recourse but to do my best at figuring out each guitar track by ear. It’s not perfect, nor does this custom arrangement need to be exactly like the recording, but it’s pretty close. And now I can reproduce the arrangement with code.</p>
-<p>This tutorial shows use of both the <code>phrase</code> class and the <code>music</code> class for entering the notes and chords and building up the score.</p>
+<p>While I enjoy playing Gin Wigmore’s music on guitar, it was
+frustrating to not be able to find quality guitar tablature for
+reference. Of course, this is the case for the vast majority of music.
+Having tabs would have helped me figure out guitar parts that I found
+challenging to hear clearly when layered with other instruments and
+vocals. In the end, I had no recourse but to do my best at figuring out
+each guitar track by ear. It’s not perfect, nor does this custom
+arrangement need to be exactly like the recording, but it’s pretty
+close. And now I can reproduce the arrangement with code.</p>
+<p>This tutorial shows use of both the <code>phrase</code> class and the
+<code>music</code> class for entering the notes and chords and building
+up the score.</p>
 </div>
-<div id="setup" class="section level2">
-<h2 class="hasAnchor">
-<a href="#setup" class="anchor"></a>Setup</h2>
+<div class="section level2">
+<h2 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
+</h2>
 <p>First, enter some score metadata.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">hdr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  title <span class="op">=</span> <span class="st">"Devil in me"</span>,
-  composer <span class="op">=</span> <span class="st">"Words and music by Gin Wigmore"</span>,
-  performer <span class="op">=</span> <span class="st">"Gin Wigmore"</span>,
-  album <span class="op">=</span> <span class="st">"Gravel and Wine"</span>,
-  subtitle <span class="op">=</span> <span class="st">"From the album Gravel and Wine by Gin Wigmore"</span>,
-  arranger <span class="op">=</span> <span class="st">"Arranged by Matthew Leonawicz"</span>,
-  copyright <span class="op">=</span> <span class="st">"2011 Island Records"</span>,
-  tagline <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Arranged by Matthew Leonawicz"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="va">out</span> <span class="op">&lt;-</span> <span class="st">"gin_wigmore-devil_in_me-custom_arrangement.pdf"</span></code></pre></div>
-<p>Define some guitar chords with specific shapes and positions on the guitar neck that will be used several times.</p>
+<code class="sourceCode R"><span><span class="va">hdr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  title <span class="op">=</span> <span class="st">"Devil in me"</span>,</span>
+<span>  composer <span class="op">=</span> <span class="st">"Words and music by Gin Wigmore"</span>,</span>
+<span>  performer <span class="op">=</span> <span class="st">"Gin Wigmore"</span>,</span>
+<span>  album <span class="op">=</span> <span class="st">"Gravel and Wine"</span>,</span>
+<span>  subtitle <span class="op">=</span> <span class="st">"From the album Gravel and Wine by Gin Wigmore"</span>,</span>
+<span>  arranger <span class="op">=</span> <span class="st">"Arranged by Matthew Leonawicz"</span>,</span>
+<span>  copyright <span class="op">=</span> <span class="st">"2011 Island Records"</span>,</span>
+<span>  tagline <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Arranged by Matthew Leonawicz"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">out</span> <span class="op">&lt;-</span> <span class="st">"gin_wigmore-devil_in_me-custom_arrangement.pdf"</span></span></code></pre></div>
+<p>Define some guitar chords with specific shapes and positions on the
+guitar neck that will be used several times.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">d1</span> <span class="op">&lt;-</span> <span class="st">"dad'f'"</span>
-<span class="va">f1</span> <span class="op">&lt;-</span> <span class="st">"f,cfac'f'"</span>
-<span class="va">g1</span> <span class="op">&lt;-</span> <span class="st">"g,dgb_d'g'"</span>
-<span class="va">a1</span> <span class="op">&lt;-</span> <span class="st">"a,eac#'e'"</span>
-<span class="va">b_1</span> <span class="op">&lt;-</span> <span class="st">"b_,fb_d'f'"</span>
-<span class="va">c1</span> <span class="op">&lt;-</span> <span class="st">"cegc'e'"</span>
-<span class="va">b_2</span> <span class="op">&lt;-</span> <span class="st">"b_d'f'b_'"</span>
-<span class="va">c2</span> <span class="op">&lt;-</span> <span class="st">"c'e'g'c''"</span>
-<span class="va">f2</span> <span class="op">&lt;-</span> <span class="st">"c'f'a'c''"</span>
-<span class="va">d2</span> <span class="op">&lt;-</span> <span class="st">"d'f'a'"</span>
-<span class="va">f3</span> <span class="op">&lt;-</span> <span class="st">"c'f'a'"</span>
-<span class="va">g2</span> <span class="op">&lt;-</span> <span class="st">"d'g'b_'"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">d1</span> <span class="op">&lt;-</span> <span class="st">"dad'f'"</span></span>
+<span><span class="va">f1</span> <span class="op">&lt;-</span> <span class="st">"f,cfac'f'"</span></span>
+<span><span class="va">g1</span> <span class="op">&lt;-</span> <span class="st">"g,dgb_d'g'"</span></span>
+<span><span class="va">a1</span> <span class="op">&lt;-</span> <span class="st">"a,eac#'e'"</span></span>
+<span><span class="va">b_1</span> <span class="op">&lt;-</span> <span class="st">"b_,fb_d'f'"</span></span>
+<span><span class="va">c1</span> <span class="op">&lt;-</span> <span class="st">"cegc'e'"</span></span>
+<span><span class="va">b_2</span> <span class="op">&lt;-</span> <span class="st">"b_d'f'b_'"</span></span>
+<span><span class="va">c2</span> <span class="op">&lt;-</span> <span class="st">"c'e'g'c''"</span></span>
+<span><span class="va">f2</span> <span class="op">&lt;-</span> <span class="st">"c'f'a'c''"</span></span>
+<span><span class="va">d2</span> <span class="op">&lt;-</span> <span class="st">"d'f'a'"</span></span>
+<span><span class="va">f3</span> <span class="op">&lt;-</span> <span class="st">"c'f'a'"</span></span>
+<span><span class="va">g2</span> <span class="op">&lt;-</span> <span class="st">"d'g'b_'"</span></span></code></pre></div>
 </div>
-<div id="chord-chart-and-chord-symbols-above-staff" class="section level2">
-<h2 class="hasAnchor">
-<a href="#chord-chart-and-chord-symbols-above-staff" class="anchor"></a>Chord chart and chord symbols above staff</h2>
-<p>Next provide the code for fretboard diagrams that will compose the chord chart at the top of the first page of the sheet music. This requires fretted strings and chord symbols to identify each chord.</p>
+<div class="section level2">
+<h2 id="chord-chart-and-chord-symbols-above-staff">Chord chart and chord symbols above staff<a class="anchor" aria-label="anchor" href="#chord-chart-and-chord-symbols-above-staff"></a>
+</h2>
+<p>Next provide the code for fretboard diagrams that will compose the
+chord chart at the top of the first page of the sheet music. This
+requires fretted strings and chord symbols to identify each chord.</p>
 <p>Here is the code for defining the chord chart.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">chord_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"d:m"</span>, <span class="st">"f"</span>, <span class="st">"g:m"</span>, <span class="st">"a"</span>, <span class="st">"b_"</span>, <span class="st">"c"</span>, <span class="st">"s"</span>, <span class="st">"b_"</span>, <span class="st">"c"</span>, <span class="st">"f"</span>, <span class="st">"d:m"</span>, <span class="st">"f/c"</span>, <span class="st">"g:m/d"</span><span class="op">)</span>
-<span class="va">chord_positions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"o231"</span>, <span class="st">"133211"</span>, <span class="st">"355333"</span>, <span class="st">"o222o"</span>, <span class="st">"13331"</span>, <span class="st">"32o1o"</span>,
-                     <span class="cn">NA</span>, <span class="st">"8766"</span>, <span class="st">"10 9 8 8"</span>, <span class="st">"10 10 10 8"</span>, <span class="st">"765"</span>, <span class="st">"565"</span>, <span class="st">"786"</span><span class="op">)</span>
-<span class="va">chords</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chord_set.html">chord_set</a></span><span class="op">(</span><span class="va">chord_positions</span>, <span class="va">chord_names</span><span class="op">)</span></code></pre></div>
-<p>If you are wondering, the <code>NA</code> is because there is no value for the silent rest <code>s</code>. This is not important here but used below to indicate measures where no chord symbol is to be shown.</p>
-<p>That chord chart is pretty easy. The more cumbersome step is laying out chord symbols above the staff through time from measure to measure. For this, you need to know how you plan to annotate the staff at measure, while also accounting for any use of volta repeat sections, which effectively reduce the number of measures that display in the sheet music compared to how many really exist.</p>
+<code class="sourceCode R"><span><span class="va">chord_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"d:m"</span>, <span class="st">"f"</span>, <span class="st">"g:m"</span>, <span class="st">"a"</span>, <span class="st">"b_"</span>, <span class="st">"c"</span>, <span class="st">"s"</span>, <span class="st">"b_"</span>, <span class="st">"c"</span>, <span class="st">"f"</span>, <span class="st">"d:m"</span>, <span class="st">"f/c"</span>, <span class="st">"g:m/d"</span><span class="op">)</span></span>
+<span><span class="va">chord_positions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"o231"</span>, <span class="st">"133211"</span>, <span class="st">"355333"</span>, <span class="st">"o222o"</span>, <span class="st">"13331"</span>, <span class="st">"32o1o"</span>,</span>
+<span>                     <span class="cn">NA</span>, <span class="st">"8766"</span>, <span class="st">"10 9 8 8"</span>, <span class="st">"10 10 10 8"</span>, <span class="st">"765"</span>, <span class="st">"565"</span>, <span class="st">"786"</span><span class="op">)</span></span>
+<span><span class="va">chords</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chord_set.html">chord_set</a></span><span class="op">(</span><span class="va">chord_positions</span>, <span class="va">chord_names</span><span class="op">)</span></span></code></pre></div>
+<p>If you are wondering, the <code>NA</code> is because there is no
+value for the silent rest <code>s</code>. This is not important here but
+used below to indicate measures where no chord symbol is to be
+shown.</p>
+<p>That chord chart is pretty easy. The more cumbersome step is laying
+out chord symbols above the staff through time from measure to measure.
+For this, you need to know how you plan to annotate the staff at
+measure, while also accounting for any use of volta repeat sections,
+which effectively reduce the number of measures that display in the
+sheet music compared to how many really exist.</p>
 <p>Here is the code for defining the chord sequence.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">intro</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-<span class="va">verse</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, each <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, each <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span>,
-  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, each <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, each <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span>
-<span class="op">)</span>
-<span class="va">chorus</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span><span class="op">:</span><span class="fl">6</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>
-<span class="va">interlude</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, each <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
-<span class="va">ending</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">7</span>, <span class="fl">1</span><span class="op">)</span>
-<span class="va">name_seq</span> <span class="op">&lt;-</span> <span class="va">chord_names</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">intro</span>, <span class="va">verse</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">chorus</span>, <span class="va">interlude</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>,
-                          <span class="va">verse</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, <span class="va">chorus</span>, <span class="va">interlude</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, <span class="va">chorus</span>, <span class="va">ending</span><span class="op">)</span><span class="op">]</span>
-<span class="va">measures</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">intro</span>, <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="va">verse</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="va">chorus</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="va">interlude</span><span class="op">)</span>, <span class="va">ending</span><span class="op">)</span><span class="op">)</span>
-<span class="va">chord_seq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">name_seq</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span><span class="va">name_seq</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">intro</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">verse</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, each <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, each <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, each <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, each <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">chorus</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span><span class="op">:</span><span class="fl">6</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span></span>
+<span><span class="va">interlude</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, each <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">ending</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">7</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">name_seq</span> <span class="op">&lt;-</span> <span class="va">chord_names</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">intro</span>, <span class="va">verse</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">chorus</span>, <span class="va">interlude</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>,</span>
+<span>                          <span class="va">verse</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, <span class="va">chorus</span>, <span class="va">interlude</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, <span class="va">chorus</span>, <span class="va">ending</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">measures</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">intro</span>, <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">verse</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">chorus</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">interlude</span><span class="op">)</span>, <span class="va">ending</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">chord_seq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">name_seq</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html" class="external-link">setNames</a></span><span class="op">(</span><span class="va">name_seq</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="guitar-1-melody-and-lead" class="section level2">
-<h2 class="hasAnchor">
-<a href="#guitar-1-melody-and-lead" class="anchor"></a>Guitar 1: melody and lead</h2>
-<p>Now things get more interesting. It is time to to write code for the main guitar. This is the main melody. It includes the lead guitar bits and the guitar solo. Since this track will display in the tablature output as the first staff, use this one for including some text annotations.</p>
+<div class="section level2">
+<h2 id="guitar-1-melody-and-lead">Guitar 1: melody and lead<a class="anchor" aria-label="anchor" href="#guitar-1-melody-and-lead"></a>
+</h2>
+<p>Now things get more interesting. It is time to to write code for the
+main guitar. This is the main melody. It includes the lead guitar bits
+and the guitar solo. Since this track will display in the tablature
+output as the first staff, use this one for including some text
+annotations.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">txt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Guitar 1 w/ tremolo. Guitars 3 and 4 rhythm figures played during intro."</span>,
-         <span class="st">"Add guitar 3 intro rhythm figure during intro lead repeat."</span>,
-         <span class="st">"Add guitar 4 intro rhythm figure until chorus."</span>,
-         <span class="st">"Guitar solo. Add guitar 3 during solo."</span><span class="op">)</span></code></pre></div>
-<p>Putting the pieces together, I have done this using several phrases below.</p>
-<p>Notice that it is much easier to add annotations using <code>as_music</code>, which takes <code>labels</code> and <code>at</code> arguments. Also, when using <code>phrase</code> directly (actually the alias <code>p</code>), the notation is still provided in the same efficient single-string syntax used by the <code>music</code> class. If you provide this syntax, <code>phrase</code> will recognize it and treat it the same as if you had already created a music object with <code>as_music</code>. You can also concatenate both classes together, resulting in a new phrase object.</p>
-<p>The last step is to concatenate all these phrases in the proper order for the full track.</p>
+<code class="sourceCode R"><span><span class="va">txt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Guitar 1 w/ tremolo. Guitars 3 and 4 rhythm figures played during intro."</span>,</span>
+<span>         <span class="st">"Add guitar 3 intro rhythm figure during intro lead repeat."</span>,</span>
+<span>         <span class="st">"Add guitar 4 intro rhythm figure until chorus."</span>,</span>
+<span>         <span class="st">"Guitar solo. Add guitar 3 during solo."</span><span class="op">)</span></span></code></pre></div>
+<p>Putting the pieces together, I have done this using several phrases
+below.</p>
+<p>Notice that it is much easier to add annotations using
+<code><a href="../reference/music.html">as_music()</a></code>, which takes <code>labels</code> and
+<code>at</code> arguments. Also, when using <code><a href="../reference/phrase.html">phrase()</a></code>
+directly (actually the alias <code><a href="../reference/phrase.html">p()</a></code>), the notation is still
+provided in the same efficient single-string syntax used by the
+<code>music</code> class. If you provide this syntax,
+<code><a href="../reference/phrase.html">phrase()</a></code> will recognize it and treat it the same as if you
+had already created a music object with <code><a href="../reference/music.html">as_music()</a></code>. You can
+also concatenate both classes together, resulting in a new phrase
+object.</p>
+<p>The last step is to concatenate all these phrases in the proper order
+for the full track.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">txt</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>, <span class="op">~</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="fu"><a href="../reference/music.html">as_music</a></span><span class="op">(</span><span class="st">"r4;5 a,8 c f;4 d a;3 f;4 b~16^;3 b~ b2..^"</span>, labels <span class="op">=</span> <span class="va">.x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"r4;4 a8 c';3 d' a;4 f';2 d';3 g'~16^;2 g'~ g'2.^"</span><span class="op">)</span>
-<span class="va">p2b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"\\."</span>, <span class="st">"\\.\\."</span>, <span class="va">p2</span><span class="op">)</span>
-<span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"f'8;2 g'2 a8;4 c';3 d' f';2 d'~1;3 d'"</span><span class="op">)</span>
-<span class="va">p4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"r1;4*5 r4 g~2. g1 r4 d~2.;5 d1 r2.. c''16;1 c'' a'1;2 r r r4. f'2;3 d'~8 d'1 r2 r8 c''4;1 a'~8;2 a'1 r r"</span><span class="op">)</span>
-<span class="va">p5a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="va">b_2</span>, <span class="va">c2</span>, <span class="va">f2</span>, <span class="va">d2</span><span class="op">)</span>, <span class="fl">1</span>, <span class="st">"4*3 3"</span><span class="op">)</span>
-<span class="va">p5</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="../reference/repeats.html">volta</a></span><span class="op">(</span><span class="va">p5a</span>, <span class="va">.x</span><span class="op">)</span>, <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="va">b_2</span>, <span class="va">c2</span><span class="op">)</span>, <span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="va">p6</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
-  <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"r4.;3 f'4 d' f'~8 f'1 r2 r8 a'c''4.;2 a'1 r2. d''g''~4 d''g''1 r4. a'8 f'4;3 d' a1;4"</span><span class="op">)</span>,
-  <span class="fu"><a href="../reference/music.html">as_music</a></span><span class="op">(</span><span class="st">"r4 a'c''4.;2 c''4;1 a'8;2 f'1;3 r4 d''g''2.;2 r1"</span>, labels <span class="op">=</span> <span class="va">txt</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span>
-<span class="op">)</span>
-<span class="va">p7</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="../reference/repeats.html">volta</a></span><span class="op">(</span><span class="va">p5a</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="va">b_2</span>, <span class="fu"><a href="../reference/tie.html">tie</a></span><span class="op">(</span><span class="va">c2</span><span class="op">)</span>, <span class="va">c2</span>, <span class="va">d1</span><span class="op">)</span>, <span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">solo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
-  <span class="fu"><a href="../reference/music.html">as_music</a></span><span class="op">(</span><span class="st">"d2.;5 c8 d~ d a, c d g-;4 a- g f~ f2- d'8;3 f'4;2 c''8;1 a'2 a4;3 f;4"</span>, labels <span class="op">=</span> <span class="va">txt</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span>,
-  <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"d2;5 d4 c8 d~ d a, c d g-;4 a- g f~ f2 r8 f';2*3 f'2 f'4 e'"</span><span class="op">)</span>,
-  <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"d'2;3 d'4 c'8 d'~ d' f';2 a;4 c';3 d'4 c' b_2;4 b_4 c'8;3 d'~ d'2 a4 f;4"</span><span class="op">)</span>,
-  <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"d2;5 d4 c8 d~ d a, c d g-;4 a- g a~;3 a2- e'a'16;3*4 e'a'e'';3*10 e'a'e''2 r8"</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="va">track1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track.html">track</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">p1</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">p2</span>, <span class="va">p3</span>, <span class="va">p4</span>, <span class="va">p5</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">p1</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, <span class="va">p2b</span>, <span class="va">p6</span>, <span class="va">p5</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, <span class="va">solo</span>, <span class="va">p7</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">txt</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>, <span class="op">~</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="fu"><a href="../reference/music.html">as_music</a></span><span class="op">(</span><span class="st">"r4;5 a,8 c f;4 d a;3 f;4 b~16^;3 b~ b2..^"</span>, labels <span class="op">=</span> <span class="va">.x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"r4;4 a8 c';3 d' a;4 f';2 d';3 g'~16^;2 g'~ g'2.^"</span><span class="op">)</span></span>
+<span><span class="va">p2b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"\\."</span>, <span class="st">"\\.\\."</span>, <span class="va">p2</span><span class="op">)</span></span>
+<span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"f'8;2 g'2 a8;4 c';3 d' f';2 d'~1;3 d'"</span><span class="op">)</span></span>
+<span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"r1;4*5 r4 g~2. g1 r4 d~2.;5 d1 r2.. c''16;1 c'' a'1;2 r r r4. f'2;3 d'~8 d'1 r2 r8 c''4;1 a'~8;2 a'1 r r"</span><span class="op">)</span></span>
+<span><span class="va">p5a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="va">b_2</span>, <span class="va">c2</span>, <span class="va">f2</span>, <span class="va">d2</span><span class="op">)</span>, <span class="fl">1</span>, <span class="st">"4*3 3"</span><span class="op">)</span></span>
+<span><span class="va">p5</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="../reference/repeats.html">volta</a></span><span class="op">(</span><span class="va">p5a</span>, <span class="va">.x</span><span class="op">)</span>, <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="va">b_2</span>, <span class="va">c2</span><span class="op">)</span>, <span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">p6</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"r4.;3 f'4 d' f'~8 f'1 r2 r8 a'c''4.;2 a'1 r2. d''g''~4 d''g''1 r4. a'8 f'4;3 d' a1;4"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/music.html">as_music</a></span><span class="op">(</span><span class="st">"r4 a'c''4.;2 c''4;1 a'8;2 f'1;3 r4 d''g''2.;2 r1"</span>, labels <span class="op">=</span> <span class="va">txt</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">p7</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="../reference/repeats.html">volta</a></span><span class="op">(</span><span class="va">p5a</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="va">b_2</span>, <span class="fu"><a href="../reference/tie.html">tie</a></span><span class="op">(</span><span class="va">c2</span><span class="op">)</span>, <span class="va">c2</span>, <span class="va">d1</span><span class="op">)</span>, <span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">solo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/music.html">as_music</a></span><span class="op">(</span><span class="st">"d2.;5 c8 d~ d a, c d g-;4 a- g f~ f2- d'8;3 f'4;2 c''8;1 a'2 a4;3 f;4"</span>, labels <span class="op">=</span> <span class="va">txt</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"d2;5 d4 c8 d~ d a, c d g-;4 a- g f~ f2 r8 f';2*3 f'2 f'4 e'"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"d'2;3 d'4 c'8 d'~ d' f';2 a;4 c';3 d'4 c' b_2;4 b_4 c'8;3 d'~ d'2 a4 f;4"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"d2;5 d4 c8 d~ d a, c d g-;4 a- g a~;3 a2- e'a'16;3*4 e'a'e'';3*10 e'a'e''2 r8"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">track1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track.html">track</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p1</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">p2</span>, <span class="va">p3</span>, <span class="va">p4</span>, <span class="va">p5</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">p1</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, <span class="va">p2b</span>, <span class="va">p6</span>, <span class="va">p5</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, <span class="va">solo</span>, <span class="va">p7</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="guitar-2---4-rhythm" class="section level2">
-<h2 class="hasAnchor">
-<a href="#guitar-2---4-rhythm" class="anchor"></a>Guitar 2 - 4: rhythm</h2>
-<p>The rhythm guitar section is much simpler, though to anyone not working on the transcription themselves, no less cryptic at a glance. However, in this case much of the reason it looks opaque is because there is more opportunity to save on typing by creating a simple function that will repeat patterns efficiently.</p>
-<p>There are mainly two guitar parts. The lead above and this rhythm guitar here.</p>
+<div class="section level2">
+<h2 id="guitar-2---4-rhythm">Guitar 2 - 4: rhythm<a class="anchor" aria-label="anchor" href="#guitar-2---4-rhythm"></a>
+</h2>
+<p>The rhythm guitar section is much simpler, though to anyone not
+working on the transcription themselves, no less cryptic at a glance.
+However, in this case much of the reason it looks opaque is because
+there is more opportunity to save on typing by creating a simple
+function that will repeat patterns efficiently.</p>
+<p>There are mainly two guitar parts. The lead above and this rhythm
+guitar here.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">notes</span>, <span class="va">strings</span>, <span class="va">n</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="fu"><a href="../reference/repeats.html">pct</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="fu"><a href="../reference/append_phrases.html">pn</a></span><span class="op">(</span><span class="va">notes</span>, <span class="fl">8</span><span class="op">)</span>, <span class="st">"8 8x 8*3 8x 8 8"</span>, <span class="fu"><a href="../reference/append_phrases.html">pn</a></span><span class="op">(</span><span class="va">strings</span>, <span class="fl">8</span><span class="op">)</span><span class="op">)</span>, <span class="va">n</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span>
-<span class="va">p1a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu">f</span><span class="op">(</span><span class="va">d1</span>, <span class="fl">4</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">f1</span>, <span class="fl">6</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">g1</span>, <span class="fl">6</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
-<span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">p1a</span>, <span class="fu">f</span><span class="op">(</span><span class="va">d1</span>, <span class="fl">4</span><span class="op">)</span>, <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="va">d1</span>, <span class="st">"1-."</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span>
-<span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">p1a</span>, <span class="va">p1a</span>, <span class="fu">f</span><span class="op">(</span><span class="va">d1</span>, <span class="fl">4</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">f1</span>, <span class="fl">6</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">g1</span>, <span class="fl">6</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="va">a1</span>, <span class="fl">8</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fl">8</span><span class="op">)</span><span class="op">)</span>
-<span class="va">p3a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu">f</span><span class="op">(</span><span class="va">b_1</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">c1</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">f1</span>, <span class="fl">6</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">d1</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span>
-<span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="../reference/repeats.html">volta</a></span><span class="op">(</span><span class="va">p3a</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">b_1</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="va">c1</span>, <span class="st">"1-."</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">d1</span>, <span class="fl">4</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">f1</span>, <span class="fl">6</span><span class="op">)</span>, <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="va">f1</span>, <span class="st">"1-."</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span>
-<span class="va">p4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu">f</span><span class="op">(</span><span class="va">d1</span>, <span class="fl">4</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">f1</span>, <span class="fl">6</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">g1</span>, <span class="fl">6</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">d1</span>, <span class="fl">4</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">f1</span>, <span class="fl">6</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">g1</span>, <span class="fl">6</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="va">a1</span>, <span class="fl">8</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fl">8</span><span class="op">)</span><span class="op">)</span>
-<span class="va">p5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="../reference/repeats.html">volta</a></span><span class="op">(</span><span class="va">p3a</span>, <span class="fl">2</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">b_1</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="va">c1</span>, <span class="st">"1-."</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span>
-<span class="va">p6</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu">f</span><span class="op">(</span><span class="va">d1</span>, <span class="fl">4</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">f1</span>, <span class="fl">6</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">d1</span>, <span class="fl">4</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">b_1</span>, <span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">d1</span>, <span class="fl">4</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">a1</span>, <span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
-<span class="va">p7</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="../reference/repeats.html">volta</a></span><span class="op">(</span><span class="va">p3a</span>, <span class="fl">2</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">b_1</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="va">c1</span>, <span class="st">"r r"</span><span class="op">)</span>, <span class="st">"1-. 1 1"</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">track2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track.html">track</a></span><span class="op">(</span><span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">p2</span>, <span class="va">p3</span>, <span class="va">p4</span>, <span class="va">p5</span>, <span class="va">p6</span>, <span class="va">p7</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p>What I have chosen to call guitars 3 and 4 are actually pretty short pieces. I have arranged it this way to capture the few moments, mainly the opening, where it’s not just two guitars. It can take decent speakers to pick it apart. My ears did the best they could do.</p>
+<code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">notes</span>, <span class="va">strings</span>, <span class="va">n</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="fu"><a href="../reference/repeats.html">pct</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="fu"><a href="../reference/append_phrases.html">pn</a></span><span class="op">(</span><span class="va">notes</span>, <span class="fl">8</span><span class="op">)</span>, <span class="st">"8 8x 8*3 8x 8 8"</span>, <span class="fu"><a href="../reference/append_phrases.html">pn</a></span><span class="op">(</span><span class="va">strings</span>, <span class="fl">8</span><span class="op">)</span><span class="op">)</span>, <span class="va">n</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">p1a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu">f</span><span class="op">(</span><span class="va">d1</span>, <span class="fl">4</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">f1</span>, <span class="fl">6</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">g1</span>, <span class="fl">6</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p1a</span>, <span class="fu">f</span><span class="op">(</span><span class="va">d1</span>, <span class="fl">4</span><span class="op">)</span>, <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="va">d1</span>, <span class="st">"1-."</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p1a</span>, <span class="va">p1a</span>, <span class="fu">f</span><span class="op">(</span><span class="va">d1</span>, <span class="fl">4</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">f1</span>, <span class="fl">6</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">g1</span>, <span class="fl">6</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="va">a1</span>, <span class="fl">8</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fl">8</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">p3a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu">f</span><span class="op">(</span><span class="va">b_1</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">c1</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">f1</span>, <span class="fl">6</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">d1</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="../reference/repeats.html">volta</a></span><span class="op">(</span><span class="va">p3a</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">b_1</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="va">c1</span>, <span class="st">"1-."</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">d1</span>, <span class="fl">4</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">f1</span>, <span class="fl">6</span><span class="op">)</span>, <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="va">f1</span>, <span class="st">"1-."</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu">f</span><span class="op">(</span><span class="va">d1</span>, <span class="fl">4</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">f1</span>, <span class="fl">6</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">g1</span>, <span class="fl">6</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">d1</span>, <span class="fl">4</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">f1</span>, <span class="fl">6</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">g1</span>, <span class="fl">6</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="va">a1</span>, <span class="fl">8</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fl">8</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">p5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="../reference/repeats.html">volta</a></span><span class="op">(</span><span class="va">p3a</span>, <span class="fl">2</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">b_1</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="va">c1</span>, <span class="st">"1-."</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">p6</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu">f</span><span class="op">(</span><span class="va">d1</span>, <span class="fl">4</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">f1</span>, <span class="fl">6</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">d1</span>, <span class="fl">4</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">b_1</span>, <span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">d1</span>, <span class="fl">4</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">a1</span>, <span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">p7</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="../reference/repeats.html">volta</a></span><span class="op">(</span><span class="va">p3a</span>, <span class="fl">2</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">b_1</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="va">c1</span>, <span class="st">"r r"</span><span class="op">)</span>, <span class="st">"1-. 1 1"</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">track2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track.html">track</a></span><span class="op">(</span><span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">p2</span>, <span class="va">p3</span>, <span class="va">p4</span>, <span class="va">p5</span>, <span class="va">p6</span>, <span class="va">p7</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>What I have chosen to call guitars 3 and 4 are actually pretty short
+pieces. I have arranged it this way to capture the few moments, mainly
+the opening, where it’s not just two guitars. It can take decent
+speakers to pick it apart. My ears did the best they could do.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">notes</span>, <span class="va">n</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="fu"><a href="../reference/repeats.html">pct</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="st">"r"</span>, <span class="va">notes</span>, <span class="st">"r"</span>, <span class="va">notes</span>, <span class="st">"r"</span><span class="op">)</span>, <span class="st">"4 8-. 4 8-. 4"</span>, <span class="fl">3</span><span class="op">)</span>, <span class="va">n</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span>
-<span class="va">p1a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="fu">f</span><span class="op">(</span><span class="va">d2</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">f3</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">g2</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">d2</span><span class="op">)</span>, <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="va">d2</span>, <span class="st">"r"</span><span class="op">)</span>, <span class="st">"8-. 2.."</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
-<span class="va">p1b</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="fu">f</span><span class="op">(</span><span class="va">d2</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">f3</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">f3</span><span class="op">)</span><span class="op">)</span>
-<span class="va">track3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track.html">track</a></span><span class="op">(</span><span class="va">p1a</span><span class="op">)</span>
-
-<span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">notes</span>, <span class="va">n</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="fu"><a href="../reference/repeats.html">pct</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="va">notes</span>, <span class="st">"r"</span>, <span class="va">notes</span>, <span class="st">"r"</span><span class="op">)</span>, <span class="st">"8-. 4 8-. 2"</span>, <span class="fl">5</span><span class="op">)</span>, <span class="va">n</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span>
-<span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="fu">f</span><span class="op">(</span><span class="st">"da"</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="st">"fc'"</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="st">"gd'"</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="st">"da"</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="st">"da r"</span><span class="op">)</span>, <span class="st">"4 2."</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span>
-<span class="va">track4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track.html">track</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">notes</span>, <span class="va">n</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="fu"><a href="../reference/repeats.html">pct</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="st">"r"</span>, <span class="va">notes</span>, <span class="st">"r"</span>, <span class="va">notes</span>, <span class="st">"r"</span><span class="op">)</span>, <span class="st">"4 8-. 4 8-. 4"</span>, <span class="fl">3</span><span class="op">)</span>, <span class="va">n</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">p1a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="fu">f</span><span class="op">(</span><span class="va">d2</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">f3</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">g2</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">d2</span><span class="op">)</span>, <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="va">d2</span>, <span class="st">"r"</span><span class="op">)</span>, <span class="st">"8-. 2.."</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">p1b</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="fu">f</span><span class="op">(</span><span class="va">d2</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">f3</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="va">f3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">track3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track.html">track</a></span><span class="op">(</span><span class="va">p1a</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">notes</span>, <span class="va">n</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="fu"><a href="../reference/repeats.html">pct</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="va">notes</span>, <span class="st">"r"</span>, <span class="va">notes</span>, <span class="st">"r"</span><span class="op">)</span>, <span class="st">"8-. 4 8-. 2"</span>, <span class="fl">5</span><span class="op">)</span>, <span class="va">n</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="fu">f</span><span class="op">(</span><span class="st">"da"</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="st">"fc'"</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="st">"gd'"</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">f</span><span class="op">(</span><span class="st">"da"</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="st">"da r"</span><span class="op">)</span>, <span class="st">"4 2."</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">track4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track.html">track</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="render-the-sheet-music" class="section level2">
-<h2 class="hasAnchor">
-<a href="#render-the-sheet-music" class="anchor"></a>Render the sheet music</h2>
-<p>Now you can render the sheet music document by sending the score to LilyPond.</p>
+<div class="section level2">
+<h2 id="render-the-sheet-music">Render the sheet music<a class="anchor" aria-label="anchor" href="#render-the-sheet-music"></a>
+</h2>
+<p>Now you can render the sheet music document by sending the score to
+LilyPond.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/trackbind.html">trackbind</a></span><span class="op">(</span><span class="va">track1</span>, <span class="va">track2</span>, <span class="va">track3</span>, <span class="va">track4</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/score.html">score</a></span><span class="op">(</span><span class="va">chords</span>, <span class="va">chord_seq</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="va">out</span>, key <span class="op">=</span> <span class="st">"dm"</span>, tempo <span class="op">=</span> <span class="st">"4 = 120"</span>, header <span class="op">=</span> <span class="va">hdr</span><span class="op">)</span></code></pre></div>
-<p>There you have it! One of my favorites by one of my favorite musicians, transcribed with R code. Here is what page one looks like.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/trackbind.html">trackbind</a></span><span class="op">(</span><span class="va">track1</span>, <span class="va">track2</span>, <span class="va">track3</span>, <span class="va">track4</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/score.html">score</a></span><span class="op">(</span><span class="va">chords</span>, <span class="va">chord_seq</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="va">out</span>, key <span class="op">=</span> <span class="st">"dm"</span>, tempo <span class="op">=</span> <span class="st">"4 = 120"</span>, header <span class="op">=</span> <span class="va">hdr</span><span class="op">)</span></span></code></pre></div>
+<p>There you have it! One of my favorites by one of my favorite
+musicians, transcribed with R code. Here is what page one looks
+like.</p>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex4-devil-in-me-p1.png?raw=true" class="centerimg" width="100%"></p>
-<p>There are limitations. For example, rendering string bending in the output is technically challenging in LilyPond itself and doing it right requires a bit of hacking there. For that reason, there is only so much effort on the R side to support code for string bending, especially not things like bend and release, or bend, release and pull off. Also, the poorly engraved bend notation is just being used as a stand in for vibrato anyway. I think it’s just vibrato in the song. But when I don’t have a tremolo bar, a little bending is good enough. Basically, just play those parts the way you want. Same goes for the rhythm pattern. There is no need to follow it exactly. However accurate parts are, they are still just a guide.</p>
+<p>There are limitations. For example, rendering string bending in the
+output is technically challenging in LilyPond itself and doing it right
+requires a bit of hacking there. For that reason, there is only so much
+effort on the R side to support code for string bending, especially not
+things like bend and release, or bend, release and pull off. Also, the
+poorly engraved bend notation is just being used as a stand in for
+vibrato anyway. I think it’s just vibrato in the song. But when I don’t
+have a tremolo bar, a little bending is good enough. Basically, just
+play those parts the way you want. Same goes for the rhythm pattern.
+There is no need to follow it exactly. However accurate parts are, they
+are still just a guide.</p>
 </div>
   </div>
 
@@ -336,11 +400,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://github.com/leonawicz">Matthew Leonawicz</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://github.com/leonawicz" class="external-link">Matthew Leonawicz</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -348,6 +414,8 @@
 
   
 
+
+  
 
   </body>
 </html>

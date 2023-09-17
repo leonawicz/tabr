@@ -27,6 +27,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -39,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.9</span>
       </span>
     </div>
 
@@ -47,13 +49,13 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
     Home
   </a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Tutorials
      
     <span class="caret"></span>
@@ -85,7 +87,8 @@
       <a href="../articles/tabr-fretboard.html">Fretboard diagram plots</a>
     </li>
     <li class="divider">
-    <li class="dropdown-header">Transcription</li>
+    </li>
+<li class="dropdown-header">Transcription</li>
     <li>
       <a href="../articles/tabr-basics.html">Basic overview</a>
     </li>
@@ -119,7 +122,7 @@
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Examples
      
     <span class="caret"></span>
@@ -148,8 +151,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/leonawicz/tabr">
-    <span class="fas fa-github fa-lg"></span>
+  <a href="https://github.com/leonawicz/tabr" class="external-link">
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -163,91 +166,168 @@
 
       
 
-      </header><script src="tabr-ex2_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Example: multiple voices</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/leonawicz/tabr/blob/master/vignettes/tabr-ex2.Rmd"><code>vignettes/tabr-ex2.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/leonawicz/tabr/blob/HEAD/vignettes/tabr-ex2.Rmd" class="external-link"><code>vignettes/tabr-ex2.Rmd</code></a></small>
       <div class="hidden name"><code>tabr-ex2.Rmd</code></div>
 
     </div>
 
     
     
-<p>The previous example used a fingerstyle arrangement based on guitar patterns in <em>Devil’s got you beat</em>. This example picks up from there, regenerating the same guitar tab, but this time properly acknowledging the two guitar voices: the part played by with the thumb and the part played with the other fingers.</p>
+<p>The previous example used a fingerstyle arrangement based on guitar
+patterns in <em>Devil’s got you beat</em>. This example picks up from
+there, regenerating the same guitar tab, but this time properly
+acknowledging the two guitar voices: the part played by with the thumb
+and the part played with the other fingers.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">header</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  title <span class="op">=</span> <span class="st">"Devil's got you beat"</span>,
-  composer <span class="op">=</span> <span class="st">"Words and music Blues Saraceno"</span>,
-  performer <span class="op">=</span> <span class="st">"Blues Saraceno"</span>,
-  album <span class="op">=</span> <span class="st">"Dark Country 4"</span>,
-  subtitle <span class="op">=</span> <span class="st">"From the album Dark Country 4 by Blues Saraceno"</span>,
-  arranger <span class="op">=</span> <span class="st">"Two picking patterns arranged by Matthew Leonawicz"</span>,
-  copyright <span class="op">=</span> <span class="st">"2016 Extreme Music"</span>
-<span class="op">)</span>
-
-<span class="va">txt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"DADGAD tuning with capo on 1st fret. Fingerpicking. Let ring."</span><span class="op">)</span>
-<span class="va">tuning</span> <span class="op">&lt;-</span> <span class="st">"DADGAD"</span></code></pre></div>
-<div id="multiple-voices" class="section level2">
-<h2 class="hasAnchor">
-<a href="#multiple-voices" class="anchor"></a>Multiple voices</h2>
-<p>In this fingerstyle guitar tab it is appropriate to use two voices for the guitar part. Even though it is one guitar playing, the thumb playing on the low three strings and the fingers playing the higher strings should be shown as two distinct voices. Multiple voices like this go on the same staff; they do not need a separate staff. The voice played with the thumb shows notes with their stems pointing down and the higher voice has stems pointing up.</p>
-<p>This changes the phrases seen earlier as they must be split into two complementary phrases. Voice ID is indicated in <code>track</code>. There are now two tracks, but they are represented by different voices, not by different music staves. Therefore, the two tracks will use <code>voice = 1</code> and <code>voice = 2</code>, respectively, but they will not have different <code>tabstaff</code> IDs.</p>
-<p>Below, <code>s</code> is used instead of <code>r</code> for silent rests, but this is not required. This suppresses the rest notation of the resting voice while the other voice is active. This works well for this melody since the two voices are never both at rest. Notice how the additional rests fill in the gaps where each voice is now effectively inactive while the other is played. In more complex fingerstyle arrangements they will of course overlap.</p>
+<code class="sourceCode R"><span><span class="va">header</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  title <span class="op">=</span> <span class="st">"Devil's got you beat"</span>,</span>
+<span>  composer <span class="op">=</span> <span class="st">"Words and music Blues Saraceno"</span>,</span>
+<span>  performer <span class="op">=</span> <span class="st">"Blues Saraceno"</span>,</span>
+<span>  album <span class="op">=</span> <span class="st">"Dark Country 4"</span>,</span>
+<span>  subtitle <span class="op">=</span> <span class="st">"From the album Dark Country 4 by Blues Saraceno"</span>,</span>
+<span>  arranger <span class="op">=</span> <span class="st">"Two picking patterns arranged by Matthew Leonawicz"</span>,</span>
+<span>  copyright <span class="op">=</span> <span class="st">"2016 Extreme Music"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">txt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DADGAD tuning with capo on 1st fret. Fingerpicking. Let ring."</span><span class="op">)</span></span>
+<span><span class="va">tuning</span> <span class="op">&lt;-</span> <span class="st">"DADGAD"</span></span></code></pre></div>
+<div class="section level2">
+<h2 id="multiple-voices">Multiple voices<a class="anchor" aria-label="anchor" href="#multiple-voices"></a>
+</h2>
+<p>In this fingerstyle guitar tab it is appropriate to use two voices
+for the guitar part. Even though it is one guitar playing, the thumb
+playing on the low three strings and the fingers playing the higher
+strings should be shown as two distinct voices. Multiple voices like
+this go on the same staff; they do not need a separate staff. The voice
+played with the thumb shows notes with their stems pointing down and the
+higher voice has stems pointing up.</p>
+<p>This changes the phrases seen earlier as they must be split into two
+complementary phrases. Voice ID is indicated in <code><a href="../reference/track.html">track()</a></code>.
+There are now two tracks, but they are represented by different voices,
+not by different music staves. Therefore, the two tracks will use
+<code>voice = 1</code> and <code>voice = 2</code>, respectively, but
+they will not have different <code>tabstaff</code> IDs.</p>
+<p>Below, <code>s</code> is used instead of <code>r</code> for silent
+rests, but this is not required. This suppresses the rest notation of
+the resting voice while the other voice is active. This works well for
+this melody since the two voices are never both at rest. Notice how the
+additional rests fill in the gaps where each voice is now effectively
+inactive while the other is played. In more complex fingerstyle
+arrangements they will of course overlap.</p>
 </div>
-<div id="transposed-music-staff" class="section level2">
-<h2 class="hasAnchor">
-<a href="#transposed-music-staff" class="anchor"></a>Transposed music staff</h2>
-<p>While refactoring the code, take it one step further and transpose the treble clef music staff up one semitone while leaving the tablature staff as is. This transposition of the music staff relative to the tab staff is useful when a score is shared with musicians playing other instruments who need to see the music on the staff written out explicitly as heard, rather than having to infer what to play from the statement about the guitar capo position.</p>
-<p>This can be done by specifying <code>ms_transpose = 1</code> and <code>key = "e_m"</code> (or just <code>key = "flat"</code>) in <code>track</code>. This transposes the <em>music staff</em> up by one semitone, but does not affect the tablature staff. <code>key</code> is necessary for ensuring the staff is written as in the key of E flat minor rather than D sharp following transposition. Note that the call to <code>tab</code> still specifies <code>key = "dm"</code> since this is the overall perspective and presentation of the guitar tab.</p>
+<div class="section level2">
+<h2 id="transposed-music-staff">Transposed music staff<a class="anchor" aria-label="anchor" href="#transposed-music-staff"></a>
+</h2>
+<p>While refactoring the code, take it one step further and transpose
+the treble clef music staff up one semitone while leaving the tablature
+staff as is. This transposition of the music staff relative to the tab
+staff is useful when a score is shared with musicians playing other
+instruments who need to see the music on the staff written out
+explicitly as heard, rather than having to infer what to play from the
+statement about the guitar capo position.</p>
+<p>This can be done by specifying <code>ms_transpose = 1</code> and
+<code>key = "e_m"</code> (or just <code>key = "flat"</code>) in
+<code><a href="../reference/track.html">track()</a></code>. This transposes the <em>music staff</em> up by one
+semitone, but does not affect the tablature staff. <code>key</code> is
+necessary for ensuring the staff is written as in the key of E flat
+minor rather than D sharp following transposition. Note that the call to
+<code><a href="../reference/tab.html">tab()</a></code> still specifies <code>key = "dm"</code> since this is
+the overall perspective and presentation of the guitar tab.</p>
 </div>
-<div id="final-notes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#final-notes" class="anchor"></a>Final notes</h2>
-<p>The last thing to note is that for the same reason there are a lot of octave <code>3</code> characters that can be omitted, there is no need to specify the <code>string</code> argument. The default chosen by LilyPond turns out to be exactly what is wanted. The creates even more room for code reduction compared to previous example. Some phrases are also conveniently listed using <code>paste</code> <code>c</code> and <code>rep</code>, which coerce these phrases to character strings, but this is okay as long as they are eventually combined with other phrase objects using <code>pc</code> or wrapped in other calls like <code>volta</code> or <code>pct</code> because <code>tabr</code> is aggressive for the phrase class and will convert them back.</p>
+<div class="section level2">
+<h2 id="final-notes">Final notes<a class="anchor" aria-label="anchor" href="#final-notes"></a>
+</h2>
+<p>The last thing to note is that for the same reason there are a lot of
+octave <code>3</code> characters that can be omitted, there is no need
+to specify the <code>string</code> argument. The default chosen by
+LilyPond turns out to be exactly what is wanted. The creates even more
+room for code reduction compared to previous example. Some phrases are
+also conveniently listed using <code><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste()</a></code> <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code> and
+<code><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep()</a></code>, which coerce these phrases to character strings, but
+this is okay as long as they are eventually combined with other phrase
+objects using <code><a href="../reference/append_phrases.html">pc()</a></code> or wrapped in other calls like
+<code><a href="../reference/repeats.html">volta()</a></code> or <code><a href="../reference/repeats.html">pct()</a></code> because <code>tabr</code> is
+aggressive for the phrase class and will convert them back.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># melody 1: voice 1</span>
-<span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="../reference/append_phrases.html">pn</a></span><span class="op">(</span><span class="st">"s a d'"</span>, <span class="fl">3</span><span class="op">)</span>, <span class="st">"s"</span><span class="op">)</span>, <span class="st">"4. 16 16 4. 16 16 8 16 16 4"</span><span class="op">)</span>,
-            <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"s a d s"</span>, <span class="st">"8 16 16 4"</span><span class="op">)</span>, <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"s a d4 s s"</span>, <span class="st">"8 16 16 4 1"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># melody 1: voice 2</span>
-<span class="va">notes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="../reference/append_phrases.html">pn</a></span><span class="op">(</span><span class="st">"f d c d s"</span>, <span class="fl">2</span><span class="op">)</span>, <span class="st">"f g s f d c a,"</span><span class="op">)</span>, <span class="st">"d s c a, f, d,"</span>, <span class="st">"d s c a, f, e, d,"</span><span class="op">)</span>
-<span class="va">info</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"16("</span>, <span class="fu"><a href="../reference/notate.html">notate</a></span><span class="op">(</span><span class="st">"16("</span>, <span class="va">txt</span><span class="op">)</span><span class="op">)</span>, <span class="op">~</span><span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="va">.x</span>, <span class="st">"16) 8*3 16( 16) 8*3 16- 16 8 16*4"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">info</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">]</span>, <span class="op">~</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="va">notes</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">.x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,
-            <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="va">notes</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="st">"8 8 16( 16) 16( 16)"</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span>, 
-              <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="va">notes</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="st">"8 8 16( 16) 16- 16( 1)"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"&lt;g&gt;"</span>, <span class="st">"&lt;g\\\\4&gt;"</span>, <span class="va">p2</span><span class="op">)</span> <span class="co"># force string for one note</span>
-
-<span class="co"># melody 2: voices 1 and 2</span>
-<span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/repeats.html">volta</a></span><span class="op">(</span><span class="fu"><a href="../reference/repeats.html">pct</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"s a d4 s"</span>, <span class="st">"8 16 16 4"</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
-<span class="va">p4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/repeats.html">volta</a></span><span class="op">(</span><span class="fu"><a href="../reference/repeats.html">pct</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"d s f d c"</span>, <span class="st">"8 8 16 16 8"</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="fu"><a href="../reference/repeats.html">pct</a></span><span class="op">(</span><span class="va">p1</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">3</span><span class="op">)</span>, <span class="va">p3</span>, <span class="va">p1</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">p1</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/track.html">track</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"e_m"</span>, tuning <span class="op">=</span> <span class="va">tuning</span>, voice <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-<span class="va">t2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="fu"><a href="../reference/repeats.html">pct</a></span><span class="op">(</span><span class="va">p2</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">3</span><span class="op">)</span>, <span class="va">p4</span>, <span class="va">p2</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">p2</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/track.html">track</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"e_m"</span>, tuning <span class="op">=</span> <span class="va">tuning</span>, voice <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-<span class="fu"><a href="../reference/trackbind.html">trackbind</a></span><span class="op">(</span><span class="va">t1</span>, <span class="va">t2</span>, id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/score.html">score</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"out.pdf"</span>, <span class="st">"dm"</span>, <span class="st">"4/4"</span>, <span class="st">"4 = 115"</span>, <span class="va">header</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># melody 1: voice 1</span></span>
+<span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="../reference/append_phrases.html">pn</a></span><span class="op">(</span><span class="st">"s a d'"</span>, <span class="fl">3</span><span class="op">)</span>, <span class="st">"s"</span><span class="op">)</span>, <span class="st">"4. 16 16 4. 16 16 8 16 16 4"</span><span class="op">)</span>,</span>
+<span>            <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"s a d s"</span>, <span class="st">"8 16 16 4"</span><span class="op">)</span>, <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"s a d4 s s"</span>, <span class="st">"8 16 16 4 1"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># melody 1: voice 2</span></span>
+<span><span class="va">notes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="../reference/append_phrases.html">pn</a></span><span class="op">(</span><span class="st">"f d c d s"</span>, <span class="fl">2</span><span class="op">)</span>, <span class="st">"f g s f d c a,"</span><span class="op">)</span>, <span class="st">"d s c a, f, d,"</span>, <span class="st">"d s c a, f, e, d,"</span><span class="op">)</span></span>
+<span><span class="va">info</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map_chr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"16("</span>, <span class="fu"><a href="../reference/notate.html">notate</a></span><span class="op">(</span><span class="st">"16("</span>, <span class="va">txt</span><span class="op">)</span><span class="op">)</span>, <span class="op">~</span><span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="va">.x</span>, <span class="st">"16) 8*3 16( 16) 8*3 16- 16 8 16*4"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">info</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">]</span>, <span class="op">~</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="va">notes</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">.x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>            <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="va">notes</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="st">"8 8 16( 16) 16( 16)"</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span>, </span>
+<span>              <span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="va">notes</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="st">"8 8 16( 16) 16- 16( 1)"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"&lt;g&gt;"</span>, <span class="st">"&lt;g\\\\4&gt;"</span>, <span class="va">p2</span><span class="op">)</span> <span class="co"># force string for one note</span></span>
+<span></span>
+<span><span class="co"># melody 2: voices 1 and 2</span></span>
+<span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/repeats.html">volta</a></span><span class="op">(</span><span class="fu"><a href="../reference/repeats.html">pct</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"s a d4 s"</span>, <span class="st">"8 16 16 4"</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/repeats.html">volta</a></span><span class="op">(</span><span class="fu"><a href="../reference/repeats.html">pct</a></span><span class="op">(</span><span class="fu"><a href="../reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"d s f d c"</span>, <span class="st">"8 8 16 16 8"</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="fu"><a href="../reference/repeats.html">pct</a></span><span class="op">(</span><span class="va">p1</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">3</span><span class="op">)</span>, <span class="va">p3</span>, <span class="va">p1</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">p1</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/track.html">track</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"e_m"</span>, tuning <span class="op">=</span> <span class="va">tuning</span>, voice <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">t2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/append_phrases.html">pc</a></span><span class="op">(</span><span class="fu"><a href="../reference/repeats.html">pct</a></span><span class="op">(</span><span class="va">p2</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">3</span><span class="op">)</span>, <span class="va">p4</span>, <span class="va">p2</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">p2</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/track.html">track</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"e_m"</span>, tuning <span class="op">=</span> <span class="va">tuning</span>, voice <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/trackbind.html">trackbind</a></span><span class="op">(</span><span class="va">t1</span>, <span class="va">t2</span>, id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/score.html">score</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="st">"out.pdf"</span>, <span class="st">"dm"</span>, <span class="st">"4/4"</span>, <span class="st">"4 = 115"</span>, <span class="va">header</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="refactor-recap" class="section level2">
-<h2 class="hasAnchor">
-<a href="#refactor-recap" class="anchor"></a>Refactor recap</h2>
-<p>Notice the 1 and 2 passed to the respective calls to <code>track</code> for the voice ID. Subsequently, in the call to <code>trackbind</code> the two tracks are assigned the same track or staff ID, <code>id = c(1, 1)</code>. By default, not providing <code>id</code> leads to a unique staff per track. This is the more common usage. Providing non-unique staff IDs will throw an error if the voice IDs for a single staff ID are also not unique. Every track must be directed into a unique voice/staff combination. <code>t1</code> and <code>t2</code> are also transposed up one semitone to E flat minor for use with another instrument.</p>
+<div class="section level2">
+<h2 id="refactor-recap">Refactor recap<a class="anchor" aria-label="anchor" href="#refactor-recap"></a>
+</h2>
+<p>Notice the 1 and 2 passed to the respective calls to
+<code><a href="../reference/track.html">track()</a></code> for the voice ID. Subsequently, in the call to
+<code><a href="../reference/trackbind.html">trackbind()</a></code> the two tracks are assigned the same track or
+staff ID, <code>id = c(1, 1)</code>. By default, not providing
+<code>id</code> leads to a unique staff per track. This is the more
+common usage. Providing non-unique staff IDs will throw an error if the
+voice IDs for a single staff ID are also not unique. Every track must be
+directed into a unique voice/staff combination. <code>t1</code> and
+<code>t2</code> are also transposed up one semitone to E flat minor for
+use with another instrument.</p>
 <p>A recap of the code reduction:</p>
 <ul>
-<li>Reduce code by concatenating phrases and their slightly different endings more efficiently.</li>
-<li>Ensure the code for both voices is written in such a way that it is relatively easy to keep them lined up in time: note how the <code>t1</code> and <code>t2</code> track assignments turned out.</li>
-<li>There is one note in the arrangement whose default string in LilyPond based on the instrument stringing and tuning is not the desired string. Instead of specifying all strings, the fourth string is forced with a simple character substitution using <code>gsub</code>.</li>
+<li>Reduce code by concatenating phrases and their slightly different
+endings more efficiently.</li>
+<li>Ensure the code for both voices is written in such a way that it is
+relatively easy to keep them lined up in time: note how the
+<code>t1</code> and <code>t2</code> track assignments turned out.</li>
+<li>There is one note in the arrangement whose default string in
+LilyPond based on the instrument stringing and tuning is not the desired
+string. Instead of specifying all strings, the fourth string is forced
+with a simple character substitution using <code><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub()</a></code>.</li>
 </ul>
-<p>Make sure to inspect all the objects above to get a good understanding of the phrases being produced and how they are connected. This can look opaque and complex if you have not done this a number of times, but becomes easier to read and write with practice.</p>
+<p>Make sure to inspect all the objects above to get a good
+understanding of the phrases being produced and how they are connected.
+This can look opaque and complex if you have not done this a number of
+times, but becomes easier to read and write with practice.</p>
 </div>
-<div id="result" class="section level2">
-<h2 class="hasAnchor">
-<a href="#result" class="anchor"></a>Result</h2>
-<p>This may seem like a frustrating refactor in the sense that much of the code changed, but it results in such a small change in in the output below. However, keep in mind it is just a comparative example for illustration. Normally, this arrangement would only have been coded as two voices to begin with and the style or degree of code reduction is up to you. The new output is shown below. It is almost identical, as it should be, with the single exception of a change in stem direction representing the two voices.</p>
-<p>Note that the order of voice 1 and 2 <em>assignment</em> determines which one is stem up and which is stem down. <code>voice = 1</code> points up, <code>voice = 2</code> points down, and they should be assigned properly to avoid obtaining the backwards result. Since together these tracks share one staff, the order in which they are passed to <code>trackbind</code> actually does not matter here. <code>trackbind</code> order matters only for staff order, not voice order within a staff. In general, for voices and for staves, first to last is mapped top to bottom in the output.</p>
+<div class="section level2">
+<h2 id="result">Result<a class="anchor" aria-label="anchor" href="#result"></a>
+</h2>
+<p>This may seem like a frustrating refactor in the sense that much of
+the code changed, but it results in such a small change in in the output
+below. However, keep in mind it is just a comparative example for
+illustration. Normally, this arrangement would only have been coded as
+two voices to begin with and the style or degree of code reduction is up
+to you. The new output is shown below. It is almost identical, as it
+should be, with the single exception of a change in stem direction
+representing the two voices.</p>
+<p>Note that the order of voice 1 and 2 <em>assignment</em> determines
+which one is stem up and which is stem down. <code>voice = 1</code>
+points up, <code>voice = 2</code> points down, and they should be
+assigned properly to avoid obtaining the backwards result. Since
+together these tracks share one staff, the order in which they are
+passed to <code><a href="../reference/trackbind.html">trackbind()</a></code> actually does not matter here.
+<code><a href="../reference/trackbind.html">trackbind()</a></code> order matters only for staff order, not voice
+order within a staff. In general, for voices and for staves, first to
+last is mapped top to bottom in the output.</p>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/complete01b.png?raw=true" class="centerimg" width="100%"></p>
 </div>
@@ -264,11 +344,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://github.com/leonawicz">Matthew Leonawicz</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://github.com/leonawicz" class="external-link">Matthew Leonawicz</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -276,6 +358,8 @@
 
   
 
+
+  
 
   </body>
 </html>

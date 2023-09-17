@@ -1,5 +1,5 @@
-pandoc: 2.7.3
-pkgdown: 1.6.1
+pandoc: 3.1.1
+pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   tabr-basics: tabr-basics.html
@@ -24,7 +24,7 @@ articles:
   tabr-snippets: tabr-snippets.html
   tabr-tracks-scores: tabr-tracks-scores.html
   tabr-tunings: tabr-tunings.html
-last_built: 2021-02-19T19:04Z
+last_built: 2023-09-17T02:30Z
 urls:
   reference: https://leonawicz.github.io/tabr/reference
   article: https://leonawicz.github.io/tabr/articles

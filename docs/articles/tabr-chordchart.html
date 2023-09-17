@@ -27,6 +27,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -39,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.9</span>
       </span>
     </div>
 
@@ -47,13 +49,13 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
     Home
   </a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Tutorials
      
     <span class="caret"></span>
@@ -85,7 +87,8 @@
       <a href="../articles/tabr-fretboard.html">Fretboard diagram plots</a>
     </li>
     <li class="divider">
-    <li class="dropdown-header">Transcription</li>
+    </li>
+<li class="dropdown-header">Transcription</li>
     <li>
       <a href="../articles/tabr-basics.html">Basic overview</a>
     </li>
@@ -119,7 +122,7 @@
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Examples
      
     <span class="caret"></span>
@@ -148,8 +151,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/leonawicz/tabr">
-    <span class="fas fa-github fa-lg"></span>
+  <a href="https://github.com/leonawicz/tabr" class="external-link">
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -163,24 +166,33 @@
 
       
 
-      </header><script src="tabr-chordchart_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Render chord charts</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/leonawicz/tabr/blob/master/vignettes/tabr-chordchart.Rmd"><code>vignettes/tabr-chordchart.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/leonawicz/tabr/blob/HEAD/vignettes/tabr-chordchart.Rmd" class="external-link"><code>vignettes/tabr-chordchart.Rmd</code></a></small>
       <div class="hidden name"><code>tabr-chordchart.Rmd</code></div>
 
     </div>
 
     
     
-<p>The <code>plot_fretboard</code> function can be used to create general fretboard diagrams directly in R using ggplot and <code>plot_chord</code> specifically produces single chord diagrams, but this vignette shows how to create a standalone chord chart using LilyPond. Instead of using <code>tab</code> to render a score to pdf that may contain a chord chart at the top of the first page, you can use <code>render_chordchart</code>. This function creates the necessary LilyPond file and sends it to LilyPond for final rendering.</p>
-<div id="prepare-chords" class="section level2">
-<h2 class="hasAnchor">
-<a href="#prepare-chords" class="anchor"></a>Prepare chords</h2>
-<p>For consistency, <code>render_chordchart</code> takes chord input in the same way that the <code>score</code> function does, as a named character vector. The chords and their names are in the same format.</p>
+<p>The <code><a href="../reference/plot_fretboard.html">plot_fretboard()</a></code> function can be used to create
+general fretboard diagrams directly in R using ggplot and
+<code><a href="../reference/plot_fretboard.html">plot_chord()</a></code> specifically produces single chord diagrams,
+but this vignette shows how to create a standalone chord chart using
+LilyPond. Instead of using <code><a href="../reference/tab.html">tab()</a></code> to render a score to pdf
+that may contain a chord chart at the top of the first page, you can use
+<code><a href="../reference/render_chordchart.html">render_chordchart()</a></code>. This function creates the necessary
+LilyPond file and sends it to LilyPond for final rendering.</p>
+<div class="section level2">
+<h2 id="prepare-chords">Prepare chords<a class="anchor" aria-label="anchor" href="#prepare-chords"></a>
+</h2>
+<p>For consistency, <code><a href="../reference/render_chordchart.html">render_chordchart()</a></code> takes chord input
+in the same way that <code><a href="../reference/score.html">score()</a></code> does, as a named character
+vector. The chords and their names are in the same format.</p>
 <p>Filter the <code>guitarChords</code> dataset down to chords:</p>
 <ul>
 <li>whose root note is either C or F</li>
@@ -189,34 +201,39 @@
 <li>and the fret number of the root note is no higher than 12</li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
-
-<span class="va">chords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>
-  <span class="va">guitarChords</span>, 
-  <span class="va">root</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"c"</span>, <span class="st">"f"</span><span class="op">)</span> <span class="op">&amp;</span> 
-    <span class="va">id</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"7"</span>, <span class="st">"M7"</span>, <span class="st">"m7"</span><span class="op">)</span> <span class="op">&amp;</span>
-    <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"#"</span>, <span class="va">notes</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">root_fret</span> <span class="op">&lt;=</span> <span class="fl">12</span>
-  <span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">root</span>, <span class="va">id</span><span class="op">)</span>
-
-<span class="va">chords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span><span class="va">chords</span><span class="op">$</span><span class="va">fretboard</span>, <span class="va">chords</span><span class="op">$</span><span class="va">lp_name</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">chords</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt;              c:7              c:7              c:7              c:7 
-#&gt;   "x;3;2;3;1;x;"   "x;3;5;3;5;3;"   "x;3;2;3;1;3;"  "8;10;8;9;8;8;" 
-#&gt;              c:7             c':7 
-#&gt;   "8;x;8;9;8;x;" "x;x;10;9;11;8;"
-</code></pre>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">chords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span></span>
+<span>  <span class="va">guitarChords</span>, </span>
+<span>  <span class="va">root</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c"</span>, <span class="st">"f"</span><span class="op">)</span> <span class="op">&amp;</span> </span>
+<span>    <span class="va">id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"7"</span>, <span class="st">"M7"</span>, <span class="st">"m7"</span><span class="op">)</span> <span class="op">&amp;</span></span>
+<span>    <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"#"</span>, <span class="va">notes</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">root_fret</span> <span class="op">&lt;=</span> <span class="fl">12</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">root</span>, <span class="va">id</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">chords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html" class="external-link">setNames</a></span><span class="op">(</span><span class="va">chords</span><span class="op">$</span><span class="va">fretboard</span>, <span class="va">chords</span><span class="op">$</span><span class="va">lp_name</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">chords</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt;              c:7              c:7              c:7              c:7 </span></span>
+<span><span class="co">#&gt;   "x;3;2;3;1;x;"   "x;3;5;3;5;3;"   "x;3;2;3;1;3;"  "8;10;8;9;8;8;" </span></span>
+<span><span class="co">#&gt;              c:7             c':7 </span></span>
+<span><span class="co">#&gt;   "8;x;8;9;8;x;" "x;x;10;9;11;8;"</span></span></code></pre>
 </div>
-<div id="render-chord-chart" class="section level2">
-<h2 class="hasAnchor">
-<a href="#render-chord-chart" class="anchor"></a>Render chord chart</h2>
-<p>The filtering above results in 41 chords. The size of the fretboard diagrams is increased below with <code>size = 2</code>. Like <code>lilypond</code> and the <code>render_*</code> functions that wrap around it for rendering music scores, <code>render_chordchart</code> also takes the <code>header</code> and <code>paper</code> named list arguments. Once the named chord vector is ready, rendering the chord chart is as simple as the following.</p>
+<div class="section level2">
+<h2 id="render-chord-chart">Render chord chart<a class="anchor" aria-label="anchor" href="#render-chord-chart"></a>
+</h2>
+<p>The filtering above results in 41 chords. The size of the fretboard
+diagrams is increased below with <code>size = 2</code>. Like
+<code><a href="../reference/lilypond.html">lilypond()</a></code> and the <code>render_*</code> functions that
+wrap around it for rendering music scores,
+<code><a href="../reference/render_chordchart.html">render_chordchart()</a></code> also takes the <code>header</code> and
+<code>paper</code> named list arguments. Once the named chord vector is
+ready, rendering the chord chart is as simple as the following.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">hdr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  title <span class="op">=</span> <span class="st">"Dominant 7th, major 7th and minor 7th chords"</span>,
-  subtitle <span class="op">=</span> <span class="st">"C and F root"</span>
-<span class="op">)</span>
-<span class="fu"><a href="../reference/render_chordchart.html">render_chordchart</a></span><span class="op">(</span><span class="va">chords</span>, <span class="st">"out.png"</span>, <span class="fl">2</span>, <span class="va">hdr</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>textheight <span class="op">=</span> <span class="fl">175</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">hdr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  title <span class="op">=</span> <span class="st">"Dominant 7th, major 7th and minor 7th chords"</span>,</span>
+<span>  subtitle <span class="op">=</span> <span class="st">"C and F root"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/render_chordchart.html">render_chordchart</a></span><span class="op">(</span><span class="va">chords</span>, <span class="st">"out.png"</span>, <span class="fl">2</span>, <span class="va">hdr</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>textheight <span class="op">=</span> <span class="fl">175</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex36.png?raw=true" class="centerimg" width="100%"></p>
 <p>The chord chart template must be kept to one page.</p>
@@ -234,11 +251,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://github.com/leonawicz">Matthew Leonawicz</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://github.com/leonawicz" class="external-link">Matthew Leonawicz</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -246,6 +265,8 @@
 
   
 
+
+  
 
   </body>
 </html>

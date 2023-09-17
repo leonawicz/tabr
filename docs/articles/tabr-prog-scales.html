@@ -27,6 +27,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -39,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.9</span>
       </span>
     </div>
 
@@ -47,13 +49,13 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
     Home
   </a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Tutorials
      
     <span class="caret"></span>
@@ -85,7 +87,8 @@
       <a href="../articles/tabr-fretboard.html">Fretboard diagram plots</a>
     </li>
     <li class="divider">
-    <li class="dropdown-header">Transcription</li>
+    </li>
+<li class="dropdown-header">Transcription</li>
     <li>
       <a href="../articles/tabr-basics.html">Basic overview</a>
     </li>
@@ -119,7 +122,7 @@
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Examples
      
     <span class="caret"></span>
@@ -148,8 +151,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/leonawicz/tabr">
-    <span class="fas fa-github fa-lg"></span>
+  <a href="https://github.com/leonawicz/tabr" class="external-link">
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -163,54 +166,71 @@
 
       
 
-      </header><script src="tabr-prog-scales_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Musical scales</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/leonawicz/tabr/blob/master/vignettes/tabr-prog-scales.Rmd"><code>vignettes/tabr-prog-scales.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/leonawicz/tabr/blob/HEAD/vignettes/tabr-prog-scales.Rmd" class="external-link"><code>vignettes/tabr-prog-scales.Rmd</code></a></small>
       <div class="hidden name"><code>tabr-prog-scales.Rmd</code></div>
 
     </div>
 
     
     
-<p>Programming with musical scales can be assisted by a collection of functions in <code>tabr</code> that check and manipulate musical scales, modes and key signatures.</p>
-<div id="key-signatures" class="section level2">
-<h2 class="hasAnchor">
-<a href="#key-signatures" class="anchor"></a>Key signatures</h2>
-<p>For key signatures, <code>keys</code> lists valid key signature abbreviation strings for each key as used in <code>tabr</code>. There are several <code>key_is*</code> functions that return a logical result regarding properties of keys:</p>
+<p>Programming with musical scales can be assisted by a collection of
+functions in <code>tabr</code> that check and manipulate musical scales,
+modes and key signatures.</p>
+<div class="section level2">
+<h2 id="key-signatures">Key signatures<a class="anchor" aria-label="anchor" href="#key-signatures"></a>
+</h2>
+<p>For key signatures, <code>keys</code> lists valid key signature
+abbreviation strings for each key as used in <code>tabr</code>. There
+are several <code>key_is_*</code> functions that return a logical result
+regarding properties of keys:</p>
 <ul>
-<li>key_is_natural</li>
-<li>key_is_sharp</li>
-<li>key_is_flat</li>
-<li>key_is_major</li>
-<li>key_is_minor</li>
+<li><code><a href="../reference/keys.html">key_is_natural()</a></code></li>
+<li><code><a href="../reference/keys.html">key_is_sharp()</a></code></li>
+<li><code><a href="../reference/keys.html">key_is_flat()</a></code></li>
+<li><code><a href="../reference/keys.html">key_is_major()</a></code></li>
+<li><code><a href="../reference/keys.html">key_is_minor()</a></code></li>
 </ul>
-<p>There are also the functions, <code>key_n_flats</code> and <code>key_n_sharps</code>, that give the number of respective accidentals in a key signature.</p>
+<p>There are also the functions, <code><a href="../reference/keys.html">key_n_flats()</a></code> and
+<code><a href="../reference/keys.html">key_n_sharps()</a></code>, that give the number of respective
+accidentals in a key signature.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/keys.html">keys</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt;  [1] "c"   "g"   "d"   "a"   "e"   "b"   "f#"  "c#"  "f"   "b_"  "e_"  "a_" 
-#&gt; [13] "d_"  "g_"  "c_"  "am"  "em"  "bm"  "f#m" "c#m" "g#m" "d#m" "a#m" "dm" 
-#&gt; [25] "gm"  "cm"  "fm"  "b_m" "e_m" "a_m"
-</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/keys.html">keys</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt;  [1] "c"   "g"   "d"   "a"   "e"   "b"   "f#"  "c#"  "f"   "b_"  "e_"  "a_" </span></span>
+<span><span class="co">#&gt; [13] "d_"  "g_"  "c_"  "am"  "em"  "bm"  "f#m" "c#m" "g#m" "d#m" "a#m" "dm" </span></span>
+<span><span class="co">#&gt; [25] "gm"  "cm"  "fm"  "b_m" "e_m" "a_m"</span></span></code></pre>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="fu"><a href="../reference/keys.html">key_is_flat</a></span><span class="op">(</span><span class="st">"f"</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; [1] TRUE
-</code></pre>
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="../reference/keys.html">key_is_flat</a></span><span class="op">(</span><span class="st">"f"</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; [1] TRUE</span></span></code></pre>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/keys.html">key_n_flats</a></span><span class="op">(</span><span class="st">"f"</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; [1] 1
-</code></pre>
-<p>The previous section gave an overview of noteworthy strings. While some of the functions that help enforce proper notation in R seemed like they did not offer much utility in terms of direct use, it was clear that they were integral to the robustness of other <code>tabr</code> functions. Now, looking at these key signature helpers, it may be tempting to dismiss their utility even more quickly because a trained musician does not need to invoke them at the command line to know what result they will return.</p>
-<p>These functions are not provided to answer basic questions in an interactive R session so much as they are for programming. These are some of the initial building blocks on top of which more complex functions are built, including many functions in <code>tabr</code>. As the collection of music programming helper functions in <code>tabr</code> grows, it becomes easy to do more with less.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/keys.html">key_n_flats</a></span><span class="op">(</span><span class="st">"f"</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; [1] 1</span></span></code></pre>
+<p>The previous section gave an overview of noteworthy strings. While
+some of the functions that help enforce proper notation in R seemed like
+they did not offer much utility in terms of direct use, it was clear
+that they were integral to the robustness of other <code>tabr</code>
+functions. Now, looking at these key signature helpers, it may be
+tempting to dismiss their utility even more quickly because a trained
+musician does not need to invoke them at the command line to know what
+result they will return.</p>
+<p>These functions are not provided to answer basic questions in an
+interactive R session so much as they are for programming. These are
+some of the initial building blocks on top of which more complex
+functions are built, including many functions in <code>tabr</code>. As
+the collection of music programming helper functions in
+<code>tabr</code> grows, it becomes easy to do more with less.</p>
 </div>
-<div id="scales" class="section level2">
-<h2 class="hasAnchor">
-<a href="#scales" class="anchor"></a>Scales</h2>
-<p>Several predefined musical scales are provided and accessible by calling various <code>scale_*</code> functions.</p>
+<div class="section level2">
+<h2 id="scales">Scales<a class="anchor" aria-label="anchor" href="#scales"></a>
+</h2>
+<p>Several predefined musical scales are provided and accessible by
+calling various <code>scale_*</code> functions.</p>
 <ul>
 <li>scale_chromatic</li>
 <li>scale_diatonic</li>
@@ -222,225 +242,253 @@
 <li>scale_jazz_minor</li>
 </ul>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/scale-helpers.html">scale_hungarian_minor</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"am"</span>, collapse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
-#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">a</span><span style="color: #00BBBB;">,</span><span> </span><span style="color: #00BBBB;font-weight: bold;">b</span><span style="color: #00BBBB;">,</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span> </span><span style="color: #00BBBB;font-weight: bold;">d#</span><span> </span><span style="color: #00BBBB;font-weight: bold;">e</span><span> </span><span style="color: #00BBBB;font-weight: bold;">f</span><span> </span><span style="color: #00BBBB;font-weight: bold;">g#</span><span>
-</span></code></pre>
-<p>You can specify whether the vector result should be returned as is, for convenient vectorized programming pipelines, or collapsed to a single string in keeping with the space-delimited time syntax format common throughout <code>tabr</code>. Many functions in <code>tabr</code> accept both formats as inputs and/or offer them as outputs.</p>
-<p>You can also specify if octave numbering should be included or stripped. Octave numbering is included by default because this maintains pitch order when the scale does not start on <code>C</code>. Every note in a noteworthy string has an implicit octave-3 position if not explicitly stated. Octave numbering attempts to be somewhat balanced around <code>C3</code>. If the result is not what is desired, it can be shifted by 12 semitones with <code>transpose</code>.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/scale-helpers.html">scale_hungarian_minor</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"am"</span>, collapse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; &lt;Noteworthy string&gt;</span></span>
+<span><span class="co">#&gt;   Format: space-delimited time</span></span>
+<span><span class="co">#&gt;   Values: a, b, c d# e f g#</span></span></code></pre>
+<p>You can specify whether the vector result should be returned as is,
+for convenient vectorized programming pipelines, or collapsed to a
+single string in keeping with the space-delimited time syntax format
+common throughout <code>tabr</code>. Many functions in <code>tabr</code>
+accept both formats as inputs and/or offer them as outputs.</p>
+<p>You can also specify if octave numbering should be included or
+stripped. Octave numbering is included by default because this maintains
+pitch order when the scale does not start on <code>C</code>. Every note
+in a noteworthy string has an implicit octave-3 (the octave below middle
+C, <code>C4</code>) position if not explicitly stated. Octave numbering
+attempts to be somewhat balanced around <code>C3</code>. If the result
+is not what is desired, it can be shifted by 12 semitones with
+<code><a href="../reference/transpose.html">transpose()</a></code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/scale-helpers.html">scale_major</a></span><span class="op">(</span><span class="st">"f"</span>, <span class="cn">TRUE</span>, ignore_octave <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
-#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">f</span><span> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span> </span><span style="color: #00BBBB;font-weight: bold;">a</span><span> </span><span style="color: #00BBBB;font-weight: bold;">b_</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span> </span><span style="color: #00BBBB;font-weight: bold;">d</span><span> </span><span style="color: #00BBBB;font-weight: bold;">e</span><span>
-</span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/scale-helpers.html">scale_major</a></span><span class="op">(</span><span class="st">"f"</span>, <span class="cn">TRUE</span>, ignore_octave <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; &lt;Noteworthy string&gt;</span></span>
+<span><span class="co">#&gt;   Format: space-delimited time</span></span>
+<span><span class="co">#&gt;   Values: f g a b_ c d e</span></span></code></pre>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/scale-helpers.html">scale_major</a></span><span class="op">(</span><span class="st">"f"</span>, <span class="cn">TRUE</span>, ignore_octave <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
-#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">f</span><span> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span> </span><span style="color: #00BBBB;font-weight: bold;">a</span><span> </span><span style="color: #00BBBB;font-weight: bold;">b_</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c</span><span style="color: #00BBBB;">'</span><span> </span><span style="color: #00BBBB;font-weight: bold;">d</span><span style="color: #00BBBB;">'</span><span> </span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">'</span><span>
-</span></code></pre>
-<p>See <code><a href="../reference/scale-helpers.html">help("scale-helpers")</a></code> for details. Depending on the scale, other arguments are available.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/scale-helpers.html">scale_major</a></span><span class="op">(</span><span class="st">"f"</span>, <span class="cn">TRUE</span>, ignore_octave <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; &lt;Noteworthy string&gt;</span></span>
+<span><span class="co">#&gt;   Format: space-delimited time</span></span>
+<span><span class="co">#&gt;   Values: f g a b_ c' d' e'</span></span></code></pre>
+<p>See <code><a href="../reference/scale-helpers.html">help("scale-helpers")</a></code> for details. Depending on the
+scale, other arguments are available.</p>
 </div>
-<div id="modes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#modes" class="anchor"></a>Modes</h2>
-<p>The seven modern modes are also available with <code>mode_*</code> functions or through <code>modern_mode</code> by passing the mode string name. Other functions include <code>is_mode</code> and <code>rotate_mode</code>.</p>
+<div class="section level2">
+<h2 id="modes">Modes<a class="anchor" aria-label="anchor" href="#modes"></a>
+</h2>
+<p>The seven modern modes are also available with <code>mode_*</code>
+functions or through <code>modern_mode()</code> by passing the mode
+string name. Other functions include <code>is_mode</code> and
+<code>rotate_mode</code>.</p>
 <ul>
-<li>mode_ionian</li>
-<li>mode_dorian</li>
-<li>mode_phrygian</li>
-<li>mode_lydian</li>
-<li>mode_mixolydian</li>
-<li>mode_aeolian</li>
-<li>mode_locrian</li>
+<li><code><a href="../reference/mode-helpers.html">mode_ionian()</a></code></li>
+<li><code><a href="../reference/mode-helpers.html">mode_dorian()</a></code></li>
+<li><code><a href="../reference/mode-helpers.html">mode_phrygian()</a></code></li>
+<li><code><a href="../reference/mode-helpers.html">mode_lydian()</a></code></li>
+<li><code><a href="../reference/mode-helpers.html">mode_mixolydian()</a></code></li>
+<li><code><a href="../reference/mode-helpers.html">mode_aeolian()</a></code></li>
+<li><code><a href="../reference/mode-helpers.html">mode_locrian()</a></code></li>
 </ul>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/mode-helpers.html">modes</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; [1] "ionian"     "dorian"     "phrygian"   "lydian"     "mixolydian"
-#&gt; [6] "aeolian"    "locrian"
-</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/mode-helpers.html">modes</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; [1] "ionian"     "dorian"     "phrygian"   "lydian"     "mixolydian"</span></span>
+<span><span class="co">#&gt; [6] "aeolian"    "locrian"</span></span></code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/mode-helpers.html">mode_aeolian</a></span><span class="op">(</span><span class="st">"c"</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
-#&gt;   Format: </span><span>vectorized time</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">c</span><span> </span><span style="color: #00BBBB;font-weight: bold;">d</span><span> </span><span style="color: #00BBBB;font-weight: bold;">e_</span><span> </span><span style="color: #00BBBB;font-weight: bold;">f</span><span> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span> </span><span style="color: #00BBBB;font-weight: bold;">a_</span><span> </span><span style="color: #00BBBB;font-weight: bold;">b_</span><span>
-</span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/mode-helpers.html">mode_aeolian</a></span><span class="op">(</span><span class="st">"c"</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; &lt;Noteworthy string&gt;</span></span>
+<span><span class="co">#&gt;   Format: vectorized time</span></span>
+<span><span class="co">#&gt;   Values: c d e_ f g a_ b_</span></span></code></pre>
 </div>
-<div id="diatonic-scale-chords" class="section level2">
-<h2 class="hasAnchor">
-<a href="#diatonic-scale-chords" class="anchor"></a>Diatonic scale chords</h2>
-<p>The <code>scale_chords</code> function provides a list of diatonic scale chords based on the root note and scale chosen. It returns triads by default and can also return seventh chords.</p>
+<div class="section level2">
+<h2 id="diatonic-scale-chords">Diatonic scale chords<a class="anchor" aria-label="anchor" href="#diatonic-scale-chords"></a>
+</h2>
+<p>The <code><a href="../reference/scale_chords.html">scale_chords()</a></code> function provides a list of diatonic
+scale chords based on the root note and scale chosen. It returns triads
+by default and can also return seventh chords.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/scale_chords.html">scale_chords</a></span><span class="op">(</span><span class="st">"b_"</span>, <span class="st">"major"</span>, <span class="st">"seventh"</span>, collapse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
-#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Values: </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">b_</span><span style="color: #00BBBB;">,</span><span style="color: #00BBBB;font-weight: bold;">dfa</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ce_gb_</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">dfac</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">e_gb_d</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">fac</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">e_</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">gb_d</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">f</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ac</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">e_</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">g</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span>
-</span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/scale_chords.html">scale_chords</a></span><span class="op">(</span><span class="st">"b_"</span>, <span class="st">"major"</span>, <span class="st">"seventh"</span>, collapse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; &lt;Noteworthy string&gt;</span></span>
+<span><span class="co">#&gt;   Format: space-delimited time</span></span>
+<span><span class="co">#&gt;   Values: &lt;b_,dfa&gt; &lt;ce_gb_&gt; &lt;dfac'&gt; &lt;e_gb_d'&gt; &lt;fac'e_'&gt; &lt;gb_d'f'&gt; &lt;ac'e_'g'&gt;</span></span></code></pre>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/scale_chords.html">scale_chords</a></span><span class="op">(</span><span class="st">"f#"</span>, <span class="st">"minor"</span>, <span class="st">"triad"</span>, collapse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
-#&gt;   Format: </span><span>space-delimited time</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Values: </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">f#ac#</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">g#bd</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">ac#</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">bd</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">f#</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">c#</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">g#</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">d</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">f#</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">a</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span> </span><span style="color: #BBBB00;">&lt;</span><span style="color: #00BBBB;font-weight: bold;">e</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">g#</span><span style="color: #00BBBB;">'</span><span style="color: #00BBBB;font-weight: bold;">b</span><span style="color: #00BBBB;">'</span><span style="color: #BBBB00;">&gt;</span><span>
-</span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/scale_chords.html">scale_chords</a></span><span class="op">(</span><span class="st">"f#"</span>, <span class="st">"minor"</span>, <span class="st">"triad"</span>, collapse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; &lt;Noteworthy string&gt;</span></span>
+<span><span class="co">#&gt;   Format: space-delimited time</span></span>
+<span><span class="co">#&gt;   Values: &lt;f#ac#'&gt; &lt;g#bd'&gt; &lt;ac#'e'&gt; &lt;bd'f#'&gt; &lt;c#'e'g#'&gt; &lt;d'f#'a'&gt; &lt;e'g#'b'&gt;</span></span></code></pre>
 </div>
-<div id="scale-degrees" class="section level2">
-<h2 class="hasAnchor">
-<a href="#scale-degrees" class="anchor"></a>Scale degrees</h2>
-<p>The functions <code>scale_note</code> and <code>scale_degree</code> map between notes and degree in a given scale. For chords in a noteworthy string, only the root note is considered. For <code>scale_degree</code>, if a note is not diatonic to the scale, <code>NA</code> is returned. <code>NA</code> is also used when rests occur. Octaves are ignored. For <code>scale_note</code>, degrees outside the range of the scale are recycled. See below. To see if chords are fully diatonic, use <code>is_diatonic</code> or the more general <code>is_in_scale</code>. <code>chord_degree</code> will return a list comparable to <code>scale_degree</code>.</p>
+<div class="section level2">
+<h2 id="scale-degrees">Scale degrees<a class="anchor" aria-label="anchor" href="#scale-degrees"></a>
+</h2>
+<p>The functions <code><a href="../reference/scale-deg.html">scale_note()</a></code> and
+<code><a href="../reference/scale-deg.html">scale_degree()</a></code> map between notes and degree in a given
+scale. For chords in a noteworthy string, only the root note is
+considered. For <code><a href="../reference/scale-deg.html">scale_degree()</a></code>, if a note is not diatonic
+to the scale, <code>NA</code> is returned. <code>NA</code> is also used
+when rests occur. Octaves are ignored. For <code><a href="../reference/scale-deg.html">scale_note()</a></code>,
+degrees outside the range of the scale are recycled. See below. To see
+if chords are fully diatonic, use <code><a href="../reference/is_diatonic.html">is_diatonic()</a></code> or the more
+general <code><a href="../reference/scale-deg.html">is_in_scale()</a></code>. <code><a href="../reference/scale-deg.html">chord_degree()</a></code> will
+return a list comparable to <code><a href="../reference/scale-deg.html">scale_degree()</a></code>.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"c e gb'd'"</span>
-<span class="fu"><a href="../reference/scale-deg.html">scale_degree</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; [1] 1 3 2
-</code></pre>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"c e gb'd'"</span></span>
+<span><span class="fu"><a href="../reference/scale-deg.html">scale_degree</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; [1] 1 3 2</span></span></code></pre>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/scale-deg.html">scale_degree</a></span><span class="op">(</span><span class="va">x</span>, key <span class="op">=</span> <span class="st">"a"</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; [1] NA  5  4
-</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/scale-deg.html">scale_degree</a></span><span class="op">(</span><span class="va">x</span>, key <span class="op">=</span> <span class="st">"a"</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; [1] NA  5  4</span></span></code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/scale-deg.html">scale_degree</a></span><span class="op">(</span><span class="va">x</span>, key <span class="op">=</span> <span class="st">"am"</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; [1] 3 5 4
-</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/scale-deg.html">scale_degree</a></span><span class="op">(</span><span class="va">x</span>, key <span class="op">=</span> <span class="st">"am"</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; [1] 3 5 4</span></span></code></pre>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/scale-deg.html">scale_degree</a></span><span class="op">(</span><span class="va">x</span>, scale <span class="op">=</span> <span class="st">"chromatic"</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; [1] 1 5 3
-</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/scale-deg.html">scale_degree</a></span><span class="op">(</span><span class="va">x</span>, scale <span class="op">=</span> <span class="st">"chromatic"</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; [1] 1 5 3</span></span></code></pre>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="fu"><a href="../reference/scale-deg.html">scale_note</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">7</span>, <span class="st">"d"</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
-#&gt;   Format: </span><span>vectorized time</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">d</span><span> </span><span style="color: #00BBBB;font-weight: bold;">e</span><span> </span><span style="color: #00BBBB;font-weight: bold;">f#</span><span> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span> </span><span style="color: #00BBBB;font-weight: bold;">a</span><span> </span><span style="color: #00BBBB;font-weight: bold;">b</span><span> </span><span style="color: #00BBBB;font-weight: bold;">c#</span><span>
-</span></code></pre>
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="../reference/scale-deg.html">scale_note</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">7</span>, <span class="st">"d"</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; &lt;Noteworthy string&gt;</span></span>
+<span><span class="co">#&gt;   Format: vectorized time</span></span>
+<span><span class="co">#&gt;   Values: d e f# g a b c#</span></span></code></pre>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/scale-deg.html">scale_note</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span><span class="op">)</span>, <span class="st">"dm"</span>, <span class="st">"harmonic minor"</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; <span style="color: #555555;font-weight: bold;">&lt;Noteworthy string&gt;
-#&gt;   Format: </span><span>vectorized time</span><span style="color: #555555;font-weight: bold;">
-#&gt;   Values: </span><span style="color: #00BBBB;font-weight: bold;">d</span><span> </span><span style="color: #00BBBB;font-weight: bold;">e</span><span> </span><span style="color: #00BBBB;font-weight: bold;">f</span><span> </span><span style="color: #00BBBB;font-weight: bold;">g</span><span> </span><span style="color: #00BBBB;font-weight: bold;">a</span><span> </span><span style="color: #00BBBB;font-weight: bold;">b_</span><span> </span><span style="color: #00BBBB;font-weight: bold;">d_</span><span> </span><span style="color: #00BBBB;font-weight: bold;">d</span><span>
-</span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/scale-deg.html">scale_note</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span><span class="op">)</span>, <span class="st">"dm"</span>, <span class="st">"harmonic minor"</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; &lt;Noteworthy string&gt;</span></span>
+<span><span class="co">#&gt;   Format: vectorized time</span></span>
+<span><span class="co">#&gt;   Values: d e f g a b_ d_ d</span></span></code></pre>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="fu"><a href="../reference/scale-deg.html">note_in_scale</a></span><span class="op">(</span><span class="st">"a_ g#"</span>, <span class="st">"a_"</span>, strict_accidentals <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; [1] TRUE TRUE
-</code></pre>
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="../reference/scale-deg.html">note_in_scale</a></span><span class="op">(</span><span class="st">"a_ g#"</span>, <span class="st">"a_"</span>, strict_accidentals <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; [1] TRUE TRUE</span></span></code></pre>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"r d dfa df#a f#ac#"</span>
-<span class="fu"><a href="../reference/scale-deg.html">chord_degree</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"d"</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; [[1]]
-#&gt; [1] NA
-#&gt; 
-#&gt; [[2]]
-#&gt; [1] 1
-#&gt; 
-#&gt; [[3]]
-#&gt; [1]  1 NA  5
-#&gt; 
-#&gt; [[4]]
-#&gt; [1] 1 3 5
-#&gt; 
-#&gt; [[5]]
-#&gt; [1] 3 5 7
-</code></pre>
+<code class="sourceCode R"><span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"r d dfa df#a f#ac#"</span></span>
+<span><span class="fu"><a href="../reference/scale-deg.html">chord_degree</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"d"</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; [1] NA</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[2]]</span></span>
+<span><span class="co">#&gt; [1] 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[3]]</span></span>
+<span><span class="co">#&gt; [1]  1 NA  5</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[4]]</span></span>
+<span><span class="co">#&gt; [1] 1 3 5</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[5]]</span></span>
+<span><span class="co">#&gt; [1] 3 5 7</span></span></code></pre>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/scale-deg.html">is_in_scale</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"d"</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; [1]    NA  TRUE FALSE  TRUE  TRUE
-</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/scale-deg.html">is_in_scale</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"d"</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; [1]    NA  TRUE FALSE  TRUE  TRUE</span></span></code></pre>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/is_diatonic.html">is_diatonic</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"d"</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; [1]    NA  TRUE FALSE  TRUE  TRUE
-</code></pre>
-<p>Other functions in <code>tabr</code> also work with scales and some build upon functions introduced here.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/is_diatonic.html">is_diatonic</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"d"</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; [1]    NA  TRUE FALSE  TRUE  TRUE</span></span></code></pre>
+<p>Other functions in <code>tabr</code> also work with scales and some
+build upon functions introduced here.</p>
 </div>
-<div id="musical-intervals" class="section level2">
-<h2 class="hasAnchor">
-<a href="#musical-intervals" class="anchor"></a>Musical intervals</h2>
-<p>Musical intervals can be referenced by a name or a numeric value defining the separation of two notes. <code>interval_semitones</code> returns a positive integer describing the number of semitones spanned by a common interval. It takes a name or abbreviation of a common interval as input. Essentially, any entry from any other column in the <code>mainIntervals</code> dataset can be used to obtain the interval in semitones. It’s a simple filter and match, but it is convenient to map between different representations of the same property in <code>tabr</code> without typing the extra bit of code to do so each time.</p>
+<div class="section level2">
+<h2 id="musical-intervals">Musical intervals<a class="anchor" aria-label="anchor" href="#musical-intervals"></a>
+</h2>
+<p>Musical intervals can be referenced by a name or a numeric value
+defining the separation of two notes. <code><a href="../reference/interval_semitones.html">interval_semitones()</a></code>
+returns a positive integer describing the number of semitones spanned by
+a common interval. It takes a name or abbreviation of a common interval
+as input. Essentially, any entry from any other column in the
+<code>mainIntervals</code> dataset can be used to obtain the interval in
+semitones. It’s a simple filter and match, but it is convenient to map
+between different representations of the same property in
+<code>tabr</code> without typing the extra bit of code to do so each
+time.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mainIntervals</span></code></pre></div>
-<pre class="r-output"><code>#&gt; <span style="color: #555555;"># A tibble: 26 x 5</span><span>
-#&gt;    semitones mmp            mmp_abb ad                                ad_abb
-#&gt;        </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>          </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>                             </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span> 
-#&gt; </span><span style="color: #555555;"> 1</span><span>         0 perfect unison P1      diminished second                 d2    
-#&gt; </span><span style="color: #555555;"> 2</span><span>         1 minor second   m2      augmented unison                  A1    
-#&gt; </span><span style="color: #555555;"> 3</span><span>         2 major second   M2      diminished third                  d3    
-#&gt; </span><span style="color: #555555;"> 4</span><span>         3 minor third    m3      augmented second                  A2    
-#&gt; </span><span style="color: #555555;"> 5</span><span>         4 major third    M3      diminished fourth                 d4    
-#&gt; </span><span style="color: #555555;"> 6</span><span>         5 perfect fourth P4      augmented third                   A3    
-#&gt; </span><span style="color: #555555;"> 7</span><span>         6 tritone        TT      diminished fifth/augmented fourth d5/A4 
-#&gt; </span><span style="color: #555555;"> 8</span><span>         7 perfect fifth  P5      diminished sixth                  d6    
-#&gt; </span><span style="color: #555555;"> 9</span><span>         8 minor sixth    m6      augmented fifth                   A5    
-#&gt; </span><span style="color: #555555;">10</span><span>         9 major sixth    M6      diminished seventh                d7    
-#&gt; </span><span style="color: #555555;"># ... with 16 more rows</span><span>
-</span></code></pre>
+<code class="sourceCode R"><span><span class="va">mainIntervals</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; # A tibble: 26 × 5</span></span>
+<span><span class="co">#&gt;    semitones mmp            mmp_abb ad                                ad_abb</span></span>
+<span><span class="co">#&gt;        &lt;int&gt; &lt;chr&gt;          &lt;chr&gt;   &lt;chr&gt;                             &lt;chr&gt; </span></span>
+<span><span class="co">#&gt;  1         0 perfect unison P1      diminished second                 d2    </span></span>
+<span><span class="co">#&gt;  2         1 minor second   m2      augmented unison                  A1    </span></span>
+<span><span class="co">#&gt;  3         2 major second   M2      diminished third                  d3    </span></span>
+<span><span class="co">#&gt;  4         3 minor third    m3      augmented second                  A2    </span></span>
+<span><span class="co">#&gt;  5         4 major third    M3      diminished fourth                 d4    </span></span>
+<span><span class="co">#&gt;  6         5 perfect fourth P4      augmented third                   A3    </span></span>
+<span><span class="co">#&gt;  7         6 tritone        TT      diminished fifth/augmented fourth d5/A4 </span></span>
+<span><span class="co">#&gt;  8         7 perfect fifth  P5      diminished sixth                  d6    </span></span>
+<span><span class="co">#&gt;  9         8 minor sixth    m6      augmented fifth                   A5    </span></span>
+<span><span class="co">#&gt; 10         9 major sixth    M6      diminished seventh                d7    </span></span>
+<span><span class="co">#&gt; # ℹ 16 more rows</span></span></code></pre>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="fu"><a href="../reference/interval_semitones.html">interval_semitones</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"m3"</span>, <span class="st">"M7"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; [1]  3 11
-</code></pre>
-<p>Likely more useful for programming, the function <code>pitch_interval</code> provides the number of semitones between two input notes. This function does not relate to specific scales, but is worth mentioning on the topic of interval helpers. It provides both magnitude and direction. The result is negative if the first note is of higher pitch than the second. It is vectorized and both inputs must have the same number of timesteps.</p>
-<p>Chords can be reduced to their root note (lowest pitch) for comparison or forced to yield an <code>NA</code> interval with respect to its two adjacent timesteps (e.g., <code>c</code> to <code>ceg</code> is <code>NA</code> and so is <code>ceg</code> to <code>c</code>). Rests <code>r</code> and silent rests <code>s</code> also yield an <code>NA</code> for the interval from a prior note.</p>
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="../reference/interval_semitones.html">interval_semitones</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m3"</span>, <span class="st">"M7"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; [1]  3 11</span></span></code></pre>
+<p>Likely more useful for programming, the function
+<code><a href="../reference/intervals.html">pitch_interval()</a></code> provides the number of semitones between
+two input notes. This function does not relate to specific scales, but
+is worth mentioning on the topic of interval helpers. It provides both
+magnitude and direction. The result is negative if the first note is of
+higher pitch than the second. It is vectorized and both inputs must have
+the same number of timesteps.</p>
+<p>Chords can be reduced to their root note (lowest pitch) for
+comparison or forced to yield an <code>NA</code> interval with respect
+to its two adjacent timesteps (e.g., <code>c</code> to <code>ceg</code>
+is <code>NA</code> and so is <code>ceg</code> to <code>c</code>). Rests
+<code>r</code> and silent rests <code>s</code> also yield an
+<code>NA</code> for the interval from a prior note.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/intervals.html">pitch_interval</a></span><span class="op">(</span><span class="st">"a2"</span>, <span class="st">"c"</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; [1] 3
-</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/intervals.html">pitch_interval</a></span><span class="op">(</span><span class="st">"a2"</span>, <span class="st">"c"</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; [1] 3</span></span></code></pre>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/intervals.html">pitch_interval</a></span><span class="op">(</span><span class="st">"c d e"</span>, <span class="st">"c c c"</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; [1]  0 -2 -4
-</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/intervals.html">pitch_interval</a></span><span class="op">(</span><span class="st">"c d e"</span>, <span class="st">"c c c"</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; [1]  0 -2 -4</span></span></code></pre>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/intervals.html">pitch_interval</a></span><span class="op">(</span><span class="st">"r c ceg c e g s"</span>, <span class="st">"a c d d f# a e"</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; [1] NA  0  2  2  2  2 NA
-</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/intervals.html">pitch_interval</a></span><span class="op">(</span><span class="st">"r c ceg c e g s"</span>, <span class="st">"a c d d f# a e"</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; [1] NA  0  2  2  2  2 NA</span></span></code></pre>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/intervals.html">pitch_interval</a></span><span class="op">(</span><span class="st">"r c ceg c e g s"</span>, <span class="st">"a c d d f# a e"</span>, use_root <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; [1] NA  0 NA  2  2  2 NA
-</code></pre>
-<p>Next is <code>scale_interval</code>. This function is similar to <code>pitch_interval</code> in that it takes two noteworthy strings, which together define an intervals element-wise. It is almost an inverse of <code>interval_semitones</code> except that you provide notes rather than the semitone distance of their intervals. The function returns a main interval name or abbreviation from <code>mainIntervals</code>, depending on <code>format</code>. The results are name-only. They are not signed. Use <code>pitch_interval</code> to obtain direction.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/intervals.html">pitch_interval</a></span><span class="op">(</span><span class="st">"r c ceg c e g s"</span>, <span class="st">"a c d d f# a e"</span>, use_root <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; [1] NA  0 NA  2  2  2 NA</span></span></code></pre>
+<p>Next is <code><a href="../reference/intervals.html">scale_interval()</a></code>. This function is similar to
+<code><a href="../reference/intervals.html">pitch_interval()</a></code> in that it takes two noteworthy strings,
+which together define an intervals element-wise. It is almost an inverse
+of <code><a href="../reference/interval_semitones.html">interval_semitones()</a></code> except that you provide notes
+rather than the semitone distance of their intervals. The function
+returns a main interval name or abbreviation from
+<code>mainIntervals</code>, depending on <code>format</code>. The
+results are name-only. They are not signed. Use
+<code><a href="../reference/intervals.html">pitch_interval()</a></code> to obtain direction.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/intervals.html">scale_interval</a></span><span class="op">(</span><span class="st">"c c c c"</span>, <span class="st">"c, e g b"</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; [1] "P8" "M3" "P5" "M7"
-</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/intervals.html">scale_interval</a></span><span class="op">(</span><span class="st">"c c c c"</span>, <span class="st">"c, e g b"</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; [1] "P8" "M3" "P5" "M7"</span></span></code></pre>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/intervals.html">scale_interval</a></span><span class="op">(</span><span class="st">"a2"</span>, <span class="st">"c"</span>, format <span class="op">=</span> <span class="st">"mmp"</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; [1] "minor third"
-</code></pre>
-<p>There are also lagged difference versions of these functions. You can adjust the lag with <code>n</code>. You can also retain (convenient for data frames) or trim the <code>n</code> leading <code>NA</code>s. This does not trim meaningful <code>NA</code>s like those resulting from rests.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/intervals.html">scale_interval</a></span><span class="op">(</span><span class="st">"a2"</span>, <span class="st">"c"</span>, format <span class="op">=</span> <span class="st">"mmp"</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; [1] "minor third"</span></span></code></pre>
+<p>There are also lagged difference versions of these functions. You can
+adjust the lag with <code>n</code>. You can also retain (convenient for
+data frames) or trim the <code>n</code> leading <code>NA</code>s. This
+does not trim meaningful <code>NA</code>s like those resulting from
+rests.</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/intervals.html">pitch_diff</a></span><span class="op">(</span><span class="st">"c d e f g a b"</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; [1] NA  2  2  1  2  2  2
-</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/intervals.html">pitch_diff</a></span><span class="op">(</span><span class="st">"c d e f g a b"</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; [1] NA  2  2  1  2  2  2</span></span></code></pre>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/intervals.html">pitch_diff</a></span><span class="op">(</span><span class="st">"c d e f g a b"</span>, trim <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; [1] 2 2 1 2 2 2
-</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/intervals.html">pitch_diff</a></span><span class="op">(</span><span class="st">"c d e f g a b"</span>, trim <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; [1] 2 2 1 2 2 2</span></span></code></pre>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/intervals.html">scale_diff</a></span><span class="op">(</span><span class="st">"c d e f g a b"</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; [1] NA   "M2" "M2" "m2" "M2" "M2" "M2"
-</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/intervals.html">scale_diff</a></span><span class="op">(</span><span class="st">"c d e f g a b"</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; [1] NA   "M2" "M2" "m2" "M2" "M2" "M2"</span></span></code></pre>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/intervals.html">scale_diff</a></span><span class="op">(</span><span class="st">"c d e f g a b"</span>, n <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; [1] NA   NA   "M3" "m3" "m3" "M3" "M3"
-</code></pre>
-<p>Lagged intervals respect rest timesteps. All timestep positions including rests are retained, but the lag-<code>n</code> difference computation ignores them.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/intervals.html">scale_diff</a></span><span class="op">(</span><span class="st">"c d e f g a b"</span>, n <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; [1] NA   NA   "M3" "m3" "m3" "M3" "M3"</span></span></code></pre>
+<p>Lagged intervals respect rest timesteps. All timestep positions
+including rests are retained, but the lag-<code>n</code> difference
+computation ignores them.</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"a, c r r r r g"</span>
-<span class="fu"><a href="../reference/intervals.html">pitch_diff</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; [1] NA  3 NA NA NA NA  7
-</code></pre>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"a, c r r r r g"</span></span>
+<span><span class="fu"><a href="../reference/intervals.html">pitch_diff</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; [1] NA  3 NA NA NA NA  7</span></span></code></pre>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/intervals.html">scale_diff</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; [1] NA   "m3" NA   NA   NA   NA   "P5"
-</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/intervals.html">scale_diff</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; [1] NA   "m3" NA   NA   NA   NA   "P5"</span></span></code></pre>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/intervals.html">pitch_diff</a></span><span class="op">(</span><span class="va">x</span>, n <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; [1] NA NA NA NA NA NA 10
-</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/intervals.html">pitch_diff</a></span><span class="op">(</span><span class="va">x</span>, n <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; [1] NA NA NA NA NA NA 10</span></span></code></pre>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/intervals.html">scale_diff</a></span><span class="op">(</span><span class="va">x</span>, n <span class="op">=</span> <span class="fl">2</span>, trim <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<pre class="r-output"><code>#&gt; [1] NA   NA   NA   NA   "m7"
-</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/intervals.html">scale_diff</a></span><span class="op">(</span><span class="va">x</span>, n <span class="op">=</span> <span class="fl">2</span>, trim <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<pre class="r-output"><code><span><span class="co">#&gt; [1] NA   NA   NA   NA   "m7"</span></span></code></pre>
 </div>
   </div>
 
@@ -455,11 +503,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://github.com/leonawicz">Matthew Leonawicz</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://github.com/leonawicz" class="external-link">Matthew Leonawicz</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -467,6 +517,8 @@
 
   
 
+
+  
 
   </body>
 </html>
