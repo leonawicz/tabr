@@ -13,6 +13,8 @@ downloads](http://cranlogs.r-pkg.org/badges/grand-total/tabr)](https://cran.r-pr
 [![Github
 Stars](https://img.shields.io/github/stars/leonawicz/tabr.svg?style=social&label=Github)](https://github.com/leonawicz/tabr)
 
+<br>
+
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/tabr_logo.png?raw=true" width=320 style="float:right;margin-left:10px;width:320px;">
 
 ## Overview
@@ -204,11 +206,21 @@ there is more valid syntax than just the lowercase musical note letters
 
 An important piece of syntax is the octave. In conjunction with a note,
 specifying a unique pitch requires the octave number, either in tick
-format (recommended; comma and single quote, e.g., `c,`, `c`, `c'`) or
-integer format (not recommended, more limited utility, e.g., `c2`, `c`,
-`c4`). Octave 3 is the implicit default; there is no tick and explicitly
-adding the `3` is unnecessary. The pitches `c d e f g a b` (default
-octave) are the notes in the octave below middle C (`c'`).
+format (recommended; comma and single quote, e.g., `c, c c'`) or integer
+format (not recommended due to more restrictive utility, e.g.,
+`c2 c c4`). Octave 3 is the implicit default; there is no tick in tick
+format nd explicitly adding the `3` in integer format is unnecessary.
+The pitches `c d e f g a b` (default octave) are the notes in the octave
+below middle C (`c'`).
+
+You’ve already seen above with the example using a music object that a
+noteworthy string can be one part of a more complete piece of musical
+information. Tick format is necessary to avoid ambiguity with respect to
+temporal information once two such pieces of information are merged
+together. For this reason, tick format is preferred in general. Tick
+format also matches that used by the Lilypond music engraving software
+(see below), which is used by `tabr` for anything transcription related
+such as to render sheet music to PDF or in R markdown documents.
 
 For all available syntax specifications and related details see the
 package vignettes.
@@ -220,7 +232,7 @@ noteworthy strings you can define them like any other character vector.
 However, you will notice that package functions that operate on
 noteworthy strings and whose output is another noteworthy string will
 yield a string with the supplemental `noteworthy` class. This has its
-own print and summary methods.
+own `print()` and `summary()` methods.
 
 Several other generic methods are also implemented for the noteworthy
 class, making it easy to perform simple but powerful operations on these
@@ -626,8 +638,8 @@ provides package introductions and examples.
 ### Other packages
 
 - The [tuneR](https://CRAN.R-project.org/package=tuneR) package for
-  analysis of music and speech by Uwe Ligges, Sebastian Krey, Olaf
-  Mersmann, and Sarah Schnackenberg.
+  Analysis of Music and Speech by Uwe Ligges, Sebastian Krey, Olaf
+  Mersmann, Sarah Schnackenberg, and others.
 
 ------------------------------------------------------------------------
 

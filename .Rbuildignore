@@ -13,9 +13,14 @@
 ^codemeta\.json$
 ^CODE_OF_CONDUCT\.md$
 ^\.github$
+^vignettes/file.*
+^vignettes/lilypond.*
 ^vignettes/tabr-ex.*
 ^vignettes/jesper.*
 ^vignettes/Gin.*
+^vignettes/.*\.ly$
+^vignettes/.*\.html$
+^vignettes/.*\.pdf$
 ^vignettes/tabr-basics\.Rmd$
 ^vignettes/tabr-chordchart\.Rmd$
 ^vignettes/tabr-chords\.Rmd$

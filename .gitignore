@@ -8,6 +8,11 @@ docs/reference/Rplot*
 docs/*.mid
 docs/*.pdf
 docs/reference/out.ly
+vignettes/file*
+vignettes/lilypond*
 vignettes/jesper*
 vignettes/Gin*
+vignettes/*.ly
+vignettes/*.html
+vignettes/*.pdf
 README.html

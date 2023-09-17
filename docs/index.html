@@ -184,6 +184,7 @@
 <div class="page-header"><h1 id="tabr-">tabr <img src="reference/figures/logo.png" style="margin-left:10px;margin-bottom:5px;" width="120" align="right"><a class="anchor" aria-label="anchor" href="#tabr-"></a>
 </h1></div>
 <p><a href="https://www.repostatus.org/" class="external-link"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active – The project has reached a stable, usable state and is being actively developed."></a> <a href="https://cran.r-project.org/package=tabr" class="external-link"><img src="http://www.r-pkg.org/badges/version/tabr" alt="CRAN status"></a> <a href="https://cran.r-project.org/package=tabr" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/grand-total/tabr" alt="CRAN downloads"></a> <a href="https://github.com/leonawicz/tabr" class="external-link"><img src="https://img.shields.io/github/stars/leonawicz/tabr.svg?style=social&amp;label=Github" alt="Github Stars"></a></p>
+<p><br></p>
 <p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/tabr_logo.png?raw=true" width="320" style="float:right;margin-left:10px;width:320px;"></p>
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
@@ -312,13 +313,14 @@
 <h3 id="a-bit-about-basic-syntax">A bit about basic syntax<a class="anchor" aria-label="anchor" href="#a-bit-about-basic-syntax"></a>
 </h3>
 <p>A simple character string like <code>"c e g"</code>, or alternatively as a vector, <code>c("c", "e", "g")</code>, is a noteworthy string. The single lowercase letter <code>"a"</code> is noteworthy. So are <code>"a_"</code> and <code>"a#"</code> (flat and sharp). However, <code>"A"</code> is not (case sensitivity), nor is <code>"z"</code>. Of course, as seen above, there is more valid syntax than just the lowercase musical note letters <code>a</code> through <code>g</code> and sharp and flat notation.</p>
-<p>An important piece of syntax is the octave. In conjunction with a note, specifying a unique pitch requires the octave number, either in tick format (recommended; comma and single quote, e.g., <code>c,</code>, <code>c</code>, <code>c'</code>) or integer format (not recommended, more limited utility, e.g., <code>c2</code>, <code>c</code>, <code>c4</code>). Octave 3 is the implicit default; there is no tick and explicitly adding the <code>3</code> is unnecessary. The pitches <code>c d e f g a b</code> (default octave) are the notes in the octave below middle C (<code>c'</code>).</p>
+<p>An important piece of syntax is the octave. In conjunction with a note, specifying a unique pitch requires the octave number, either in tick format (recommended; comma and single quote, e.g., <code>c, c c'</code>) or integer format (not recommended due to more restrictive utility, e.g., <code>c2 c c4</code>). Octave 3 is the implicit default; there is no tick in tick format nd explicitly adding the <code>3</code> in integer format is unnecessary. The pitches <code>c d e f g a b</code> (default octave) are the notes in the octave below middle C (<code>c'</code>).</p>
+<p>You’ve already seen above with the example using a music object that a noteworthy string can be one part of a more complete piece of musical information. Tick format is necessary to avoid ambiguity with respect to temporal information once two such pieces of information are merged together. For this reason, tick format is preferred in general. Tick format also matches that used by the Lilypond music engraving software (see below), which is used by <code>tabr</code> for anything transcription related such as to render sheet music to PDF or in R markdown documents.</p>
 <p>For all available syntax specifications and related details see the package vignettes.</p>
 </div>
 <div class="section level3">
 <h3 id="the-noteworthy-class">The noteworthy class<a class="anchor" aria-label="anchor" href="#the-noteworthy-class"></a>
 </h3>
-<p>Noteworthiness can be checked on any character string. When defining noteworthy strings you can define them like any other character vector. However, you will notice that package functions that operate on noteworthy strings and whose output is another noteworthy string will yield a string with the supplemental <code>noteworthy</code> class. This has its own print and summary methods.</p>
+<p>Noteworthiness can be checked on any character string. When defining noteworthy strings you can define them like any other character vector. However, you will notice that package functions that operate on noteworthy strings and whose output is another noteworthy string will yield a string with the supplemental <code>noteworthy</code> class. This has its own <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> methods.</p>
 <p>Several other generic methods are also implemented for the noteworthy class, making it easy to perform simple but powerful operations on these objects in a familiar way. While many functions will attempt to coerce a string to <code>noteworthy</code>, not all will and some methods are implemented specifically for the class.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"g#, c d# g#c'd#'"</span></span>
@@ -554,7 +556,7 @@ R for music data extraction and analysis
 <h3 id="other-packages">Other packages<a class="anchor" aria-label="anchor" href="#other-packages"></a>
 </h3>
 <ul>
-<li>The <a href="https://CRAN.R-project.org/package=tuneR" class="external-link">tuneR</a> package for analysis of music and speech by Uwe Ligges, Sebastian Krey, Olaf Mersmann, and Sarah Schnackenberg.</li>
+<li>The <a href="https://CRAN.R-project.org/package=tuneR" class="external-link">tuneR</a> package for Analysis of Music and Speech by Uwe Ligges, Sebastian Krey, Olaf Mersmann, Sarah Schnackenberg, and others.</li>
 </ul>
 <hr>
 <p>Please note that the <code>tabr</code> project is released with a <a href="https://github.com/leonawicz/tabr/blob/master/CODE_OF_CONDUCT.md" class="external-link">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
