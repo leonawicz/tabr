@@ -22,16 +22,15 @@ or a phrase object, in which case \code{info} is ignored.}
 \item{key}{character, key signature, only required for inclusion of scale
 degrees.}
 
-\item{scale}{character, defaults to \code{"diatonic"}. Only used in
-conjunction with \code{key}, this can be used to alter scale degrees. Not
-any arbitrary combination of valid \code{key} and valid \code{scale} is
-valid. See \code{\link{scale_degree}}.}
+\item{scale}{character, defaults to \code{"diatonic"}. Only used in conjunction
+with \code{key}, this can be used to alter scale degrees. Not any arbitrary
+combination of valid \code{key} and valid \code{scale} is valid. See \code{\link[=scale_degree]{scale_degree()}}.}
 
 \item{chords}{character, how to structure columns containing multiple values
 per chord/row of data frame. See details.}
 
 \item{si_format}{character, format for scale intervals. See
-\code{\link{scale_interval}}.}
+\code{\link[=scale_interval]{scale_interval()}}.}
 }
 \value{
 a tibble data frame
@@ -41,23 +40,23 @@ Convert a noteworthy string to a tibble data frame and include additional
 derivative variables.
 }
 \details{
-If \code{info} is provided or \code{notes} is a phrase object, the
-resulting data frame also contains note durations and other info variables.
-The \code{duration} column is always included in the output even as a vector
-of \code{NA}s when \code{info = NULL}. This makes it more explicit that a
-given music data frame was generated without any time information for the
-timesteps. Other note info columns are not included in this case.
+If \code{info} is provided or \code{notes} is a phrase object, the resulting data frame
+also contains note durations and other info variables. The \code{duration} column
+is always included in the output even as a vector of \code{NA}s when \code{info = NULL}.
+This makes it more explicit that a given music data frame was generated
+without any time information for the timesteps. Other note info columns are
+not included in this case.
 
 For some derived column variables the root note (lowest pitch) in chord is
 used. This is done for pitch intervals and scale intervals between adjacent
 timesteps. This also occurs for scale degrees.
 
-\code{chord = "root"} additionally collapses columns like semitone, octave,
-and frequency to the value for the root note so that all rows contain one
-numeric value. \code{chord = "list"} retains full information as list
-columns. \code{chord = "character"} collapses into strings so that values are
-readily visible when printing the table, but information is not stripped and
-can be recovered without recomputing from the original pitches.
+\code{chord = "root"} additionally collapses columns like semitone, octave, and
+frequency to the value for the root note so that all rows contain one numeric
+value. \code{chord = "list"} retains full information as list columns.
+\code{chord = "character"} collapses into strings so that values are readily
+visible when printing the table, but information is not stripped and can be
+recovered without recomputing from the original pitches.
 }
 \examples{
 x <- "a, b, c d e f g# a r ac'e' a c' e' c' r r r a"

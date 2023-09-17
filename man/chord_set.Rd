@@ -9,9 +9,8 @@ chord_set(x, id = NULL, n = 6)
 \arguments{
 \item{x}{character, n-string chord description from lowest to highest pitch,
 strings n through 1. E.g., \code{"xo221o"}. You can use spaces or semicolons
-when 2-digit fret numbers are present, e.g., \code{"8 10 10 9 o"}. Do not
-mix formats. Leading \code{x} are inferred if the number of entries is less
-than \code{n}.}
+when 2-digit fret numbers are present, e.g., \code{"8 10 10 9 o"}. Do not mix
+formats. Leading \code{x} are inferred if the number of entries is less than \code{n}.}
 
 \item{id}{character, the name of the chord in LilyPond readable format,
 e.g., \code{"a:m"}. Ignored if \code{x} is already a named vector.}
@@ -25,9 +24,9 @@ a named list.
 Generate a chord set for a music score.
 }
 \details{
-The chord set list returned by \code{chord_set} is only used for top center
+The chord set list returned by \code{chord_set()} is only used for top center
 placement of a full set of chord fretboard diagrams for a music score.
-\code{chord_set} returns a named list. The names are the chords and the list
+\code{chord_set()} returns a named list. The names are the chords and the list
 elements are strings defining string and fret fingering readable by LilyPond.
 Multiple chord positions can be defined for the same chord name.
 Instruments with a number of strings other than six are not currently
@@ -37,9 +36,8 @@ When defining chords, you may also wish to define rests or silent rests for
 chords that are to be added to a score for placement above the staff in
 time, where no chord is to be played or explicitly written.
 Therefore, there are occasions where you may pass chord names and positions
-that happen to include entries \code{r} and/or \code{s} as \code{NA} as
-shown in the example.
-These two special cases are passed through by \code{chord_set} but are
+that happen to include entries \code{r} and/or \code{s} as \code{NA} as shown in the
+example. These two special cases are passed through by \code{chord_set()} but are
 ignored when the chord chart is generated.
 }
 \examples{

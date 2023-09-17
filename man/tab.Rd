@@ -71,44 +71,43 @@ render_midi(score, file, key = "c", time = "4/4", tempo = "2 = 60")
 \item{score}{a score object.}
 
 \item{file}{character, output file ending in .pdf or .png for sheet music or
-tablature for \code{score}. May include an absolute or relative path.
-For \code{render_midi}, a file ending in .mid.}
+tablature for \code{score()}. May include an absolute or relative path. For
+\code{render_midi()}, a file ending in \code{.mid}.}
 
-\item{key}{character, key signature, e.g., \code{c}, \code{b_}, \code{f#m},
-etc.}
+\item{key}{character, key signature, e.g., \code{c}, \code{b_}, \code{f#m}, etc.}
 
 \item{time}{character, defaults to \code{"4/4"}.}
 
-\item{tempo}{character, defaults to \code{"2 = 60"}. Set to \code{NULL} to
-suppress display of the time signature in the output.}
+\item{tempo}{character, defaults to \code{"2 = 60"}. Set to \code{NULL} to suppress
+display of the time signature in the output.}
 
-\item{header}{a named list of arguments passed to the header of the
-LilyPond file. See \code{lilypond} for details.}
+\item{header}{a named list of arguments passed to the header of the LilyPond
+file. See \code{lilypond()} for details.}
 
-\item{paper}{a named list of arguments for the LilyPond file page layout.
-See \code{lilypond} for details.}
+\item{paper}{a named list of arguments for the LilyPond file page layout. See
+\code{lilypond()} for details.}
 
-\item{string_names}{label strings at beginning of tab staff. \code{NULL}
-(default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for
-force on or off completely.}
+\item{string_names}{label strings at beginning of tab staff. \code{NULL} (default)
+for non-standard tunings only, \code{TRUE} or \code{FALSE} for force on or off
+completely.}
 
 \item{endbar}{character, the global end bar.}
 
 \item{midi}{logical, output midi file in addition to sheet music.}
 
 \item{colors}{a named list of LilyPond element color overrides. See
-\code{lilypond} for details.}
+\code{lilypond()} for details.}
 
-\item{crop_png}{logical, see \code{lilypond} for details.}
+\item{crop_png}{logical, see \code{lilypond()} for details.}
 
 \item{transparent}{logical, transparent background, png only.}
 
-\item{res}{numeric, resolution, png only. \code{transparent = TRUE} may fail
-when \code{res} exceeds ~150.}
+\item{res}{numeric, resolution, png only. \code{transparent = TRUE} may fail when
+\code{res} exceeds ~150.}
 
 \item{keep_ly}{logical, keep the intermediary LilyPond file.}
 
-\item{simplify}{logical, uses \code{simplify_phrase} to convert to simpler,
+\item{simplify}{logical, uses \code{simplify_phrase()} to convert to simpler,
 more efficient LilyPond syntax for the LilyPond file before rendering it.}
 
 \item{details}{logical, set to \code{TRUE} to print LilyPond log output to
@@ -123,37 +122,35 @@ Render sheet music/tablature from a music score with LilyPond.
 \details{
 Generate a pdf or png of a music score using the LilyPond music engraving
 program.
-Output format is inferred from \code{file} extension. This function is a
-wrapper around \code{\link{lilypond}}, the function that creates the
-LilyPond (\code{.ly}) file.
+Output format is inferred from \code{file} extension. This function is a wrapper
+around \code{\link[=lilypond]{lilypond()}}, the function that creates the LilyPond (\code{.ly}) file.
 
-\code{render_score} renders \code{score} to pdf or png. \code{render_midi}
-renders a MIDI file based on \code{score}. This is still done via LilyPond.
-The sheet music is created automatically in the process behind the scenes
-but is deleted and only the MIDI output is retained.
+\code{render_score()} renders \code{score()} to pdf or png. \code{render_midi()} renders a
+MIDI file based on \code{score()}. This is still done via LilyPond. The sheet
+music is created automatically in the process behind the scenes but is
+deleted and only the MIDI output is retained.
 
-The original \code{tab} or \code{render_tab} (equivalent) produces both the
-sheet music and the MIDI file output by default and includes other arguments
-such as the tablature-relevant argument \code{string_names}.
-This is the all-purpose function. Also use this when you intend to create
-both a sheet music document and a MIDI file.
+\code{tab()} or \code{render_tab()} (equivalent) produces both the sheet music and the
+MIDI file output by default and includes other arguments such as the
+tablature-relevant argument \code{string_names}. This is the all-purpose function.
+Also use this when you intend to create both a sheet music document and a
+MIDI file.
 
 Remember that whether a track contains a tablature staff, standard music
 staff, or both, is defined in each individual track object contained in
-\code{score}. It is the contents you have assembled in
-\code{score} that dictate what render function you should use.
-\code{render_tab} is general and always works, but \code{render_score} would
-not be the best choice when a tablature staff is present unless you accept
-the default string naming convention.
+\code{score()}. It is the contents you have assembled in\code{score()} that dictate
+what render function you should use. \code{render_tab()} is general and always
+works, but \code{render_score()} would not be the best choice when a tablature
+staff is present unless you accept the default string naming convention.
 
-\code{render_midi} is different from \code{midily} and \code{miditab}, whose
-purpose is to create sheet music from an existing MIDI file using a LilyPond
-command line utility.
+\code{render_midi()} is different from \code{midily()} and \code{miditab()}, whose purpose
+is to create sheet music from an existing MIDI file using a LilyPond command
+line utility.
 
 For Windows users, add the path to the LilyPond executable to the system
 path variable. For example, if the file is at
-\code{C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe},
-then add \code{C:/Program Files (x86)/LilyPond/usr/bin} to the system path.
+\verb{C:/lilypond-2.24.2/bin/lilypond.exe}, then add \verb{C:/lilypond-2.24.2/bin} to
+the system path.
 }
 \examples{
 if(tabr_options()$lilypond != ""){
@@ -165,6 +162,6 @@ if(tabr_options()$lilypond != ""){
 }
 }
 \seealso{
-\code{\link{lilypond}}, \code{\link{render_chordchart}},
-\code{\link{miditab}}
+\code{\link[=lilypond]{lilypond()}}, \code{\link[=render_chordchart]{render_chordchart()}},
+\code{\link[=miditab]{miditab()}}
 }

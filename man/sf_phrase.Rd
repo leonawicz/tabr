@@ -34,8 +34,7 @@ sfn(...)
 \arguments{
 \item{string}{character, space-delimited or vector. String numbers
 associated with notes. Alternatively, provide all information here in a
-single space-delimited string and ignore \code{fret} and \code{info}. See
-details.}
+single space-delimited string and ignore \code{fret} and \code{info}. See details.}
 
 \item{fret}{character, space-delimited or vector (or integer vector) of fret
 numbers associated with notes. Same number of timesteps as \code{string}.}
@@ -44,8 +43,7 @@ numbers associated with notes. Same number of timesteps as \code{string}.}
 durations) giving metadata associated with notes. Same number of timesteps as
 \code{string}.}
 
-\item{key}{character, key signature or just specify \code{"sharp"} or
-\code{"flat"}.}
+\item{key}{character, key signature or just specify \code{"sharp"} or \code{"flat"}.}
 
 \item{tuning}{character, instrument tuning.}
 
@@ -53,10 +51,10 @@ durations) giving metadata associated with notes. Same number of timesteps as
 rather than the entire phrase object.}
 
 \item{bar}{character or \code{NULL} (default). Terminates the phrase with a
-bar or bar check. See details for \code{\link{phrase}}. Also see the
-LilyPond help documentation on bar notation for all the valid options.}
+bar or bar check. See details for \code{\link[=phrase]{phrase()}}. Also see the LilyPond help
+documentation on bar notation for all the valid options.}
 
-\item{...}{arguments passed to \code{sf_phrase}.}
+\item{...}{arguments passed to \code{sf_phrase()}.}
 }
 \value{
 a phrase.
@@ -64,22 +62,24 @@ a phrase.
 \description{
 Create a musical phrase from character strings that define string numbers,
 fret numbers and note metadata. This function is a wrapper around
-\code{\link{phrase}}.
-It allows for specifying string/fret combinations instead of unambiguous
-pitch as is used by \code{phrase}.
-In order to remove ambiguity, it is critical to specify the instrument
-string tuning and key signature.
-It essentially uses \code{string} and \code{fret} in combination with a
-known tuning and key signature to generate \code{notes} for
-\code{\link{phrase}}.
-\code{info} is passed straight through to \code{phrase}, as is \code{string}
-once it is done being used to help derive \code{notes}.
+\code{\link[=phrase]{phrase()}}.
 }
 \details{
+Note: This alternate specification wrapper is not receiving further support
+and will be removed in a future version of \code{tabr}.
+
+This alternate syntax allows for specifying string/fret combinations instead
+of unambiguous pitch as is used by \code{phrase()}. In order to remove ambiguity,
+it is critical to specify the instrument string tuning and key signature. It
+essentially uses \code{string} and \code{fret} in combination with a known tuning and
+key signature to generate \code{notes} for \code{\link[=phrase]{phrase()}}. \code{info} is passed straight
+through to \code{phrase()}, as is \code{string} once it is done being used to help
+derive \code{notes}.
+
 See the main function \code{phrase} for general details on phrase
 construction.
 }
-\section{Comparison with \code{phrase}}{
+\section{Comparison with \code{phrase()}}{
 
 This function is a wrapper function for users not working with musical notes
 (what to play), but rather just position on the guitar neck (where to play).
@@ -87,11 +87,11 @@ This approach has conveniences, but is more limiting.
 In order to remove ambiguity, it is necessary to specify the instrument
 \code{tuning} and the \code{key} signature.
 
-In the standard approach with \code{phrase} you specify what to play;
+In the standard approach with \code{phrase()} you specify what to play;
 specifying exactly where to play is optional, but highly recommended (by
 providing \code{string}).
-With \code{sf_phrase}, the \code{string} argument is of course required
-along with \code{fret}.
+With \code{sf_phrase()}, the \code{string} argument is of course required along with
+\code{fret}.
 But any time the tuning changes, this "where to play" method breaks down and
 must be redone. It is more robust to provide the string and pitch rather
 than the string and fret.
@@ -99,15 +99,13 @@ The \code{key} is additionally important because it is the only way to
 indicate if accidentals should be notated as sharps or flats.
 
 This wrapper also increases redundancy and typing. In order to specify rests
-\code{r}, silent rests \code{s}, and tied notes \code{~}, these must now be
-providing in parallel in both the \code{string} and \code{fret} arguments,
-whereas in the standard method using \code{phrase}, they need only be
-provided once to \code{notes}.
+\code{r}, silent rests \code{s}, and tied notes \code{~}, these must now be providing in
+parallel in both the \code{string} and \code{fret} arguments, whereas in the standard
+method using \code{phrase()}, they need only be provided once to \code{notes}.
 A mismatch will throw an error. Despite the redundancy, this is helpful for
-ensuring proper match up between \code{string} and \code{fret},
-which is essentially a dual entry method that aims to reduce itself inside
-\code{sf_phrase} to a single \code{notes} string that is passed internally
-to \code{phrase}.
+ensuring proper match up between \code{string} and \code{fret}, which is essentially a
+dual entry method that aims to reduce itself inside \code{sf_phrase()} to a single
+\code{notes} string that is passed internally to \code{phrase()}.
 
 The important thing to keep in mind is that by its nature, this method of
 writing out music does not lend itself well to high detail.
@@ -115,32 +113,32 @@ Tabs that are informed by nothing but string and fret number remove a lot of
 important information, and those that attempt to compensate with additional
 symbols in say, an ascii tab, are difficult to read.
 This wrapper function providing this alternative input method to
-\code{phrase} does its job of allowing users to create phrase objects that
-are equivalent to standard \code{phrase}-generated objects, including rests
+\code{phrase()} does its job of allowing users to create phrase objects that
+are equivalent to standard \code{phrase()}-generated objects, including rests
 and ties.
-But practice and comfort working with \code{phrase} is is highly recommended
+But practice and comfort working with \code{phrase()} is is highly recommended
 for greater control of development support.
 
-The function \code{sfp} is a convenient shorthand wrapper for
-\code{sf_phrase}. \code{sf_note} and the alias \code{sfn} are wrappers
-around \code{sf_phrase} that force \code{to_notes = TRUE}.
+The function \code{sfp()} is a convenient shorthand wrapper for \code{sf_phrase()}.
+\code{sf_note()} and the alias \code{sfn()} are wrappers around \code{sf_phrase()} that
+force \code{to_notes = TRUE}.
 }
 
 \section{Single-string input}{
 
-Another way to use \code{sf_phrase} is to provide all musical input to
+Another way to use \code{sf_phrase()} is to provide all musical input to
 \code{string} and ignore \code{fret} and \code{info} as explicit arguments.
 Providing all three explicit arguments more closely mimics the inputs of
-\code{phrase} and is useful when you have this information as three
+\code{phrase()} and is useful when you have this information as three
 independent sources.
 However, in some cases the single-argument input method can reduce typing,
 though this depends on the phrase.
 More importantly, it allow you to reason about your musical inputs by time
 step rather than by argument.
 If you provide all three components as a single character string to the
-\code{string} argument, leaving both \code{fret} and \code{info} as
-\code{NULL}, then \code{sf_phrase} will decompose \code{string} into its
-three component parts internally.
+\code{string} argument, leaving both \code{fret} and \code{info} as \code{NULL}, then
+\code{sf_phrase()} will decompose \code{string} into its three component parts
+internally.
 
 There are some rules for single-argument input. The three components are
 separated by semicolons as \code{"string;fret;info"}.
@@ -168,16 +166,15 @@ only fret numbers are provided (see timestep two above), two semicolons
 must be present so that it is unambiguous whether the sole missing component
 is a \code{string} or \code{info} (see timestep three).
 
-Ambiguity would arise from a case like \code{"4;4"} without the second
-semicolon. This type of indexing was chosen over using two different
-delimiters.
+Ambiguity would arise from a case like \code{"4;4"} without the second semicolon.
+This type of indexing was chosen over using two different delimiters.
 
-If a rest, \code{r} or \code{s}, is provided for the \code{fret} entry,
-then the \code{string} entry is ignored.
-When using this input method, ties \code{~} are given in the info entry.
+If a rest, \code{r} or \code{s}, is provided for the \code{fret} entry, then the \code{string}
+entry is ignored. When using this input method, ties \code{~} are given in the
+info entry.
 
 See the examples for a comparison of two identical phrases specified using
-both input methods for \code{sf_phrase}.
+both input methods for \code{sf_phrase()}.
 }
 
 \examples{
@@ -198,5 +195,5 @@ p2 <- sfp("3;987;2*2 775 ;553;4. ;335;16 5;7x7;4.~*3 ;545;4 325 6;2x10;")
 identical(p1, p2)
 }
 \seealso{
-\code{\link{phrase}}
+\code{\link[=phrase]{phrase()}}
 }

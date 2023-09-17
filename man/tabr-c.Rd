@@ -23,9 +23,8 @@
 \item{...}{objects.}
 }
 \description{
-Several methods are implemented for the classes \code{noteworthy},
-\code{noteinfo}, and \code{music}. See \code{\link{tabr-methods}} for
-more details on methods for tabr classes.
+Several methods are implemented for the classes \code{noteworthy}, \code{noteinfo}, and
+\code{music}. See \code{\link[=tabr-methods]{tabr-methods()}} for more details on methods for tabr classes.
 }
 \examples{
 # noteworthy class examples
@@ -45,5 +44,5 @@ c(as_music(x), x)
 c(phrase(x), x)
 }
 \seealso{
-\code{\link{tabr-methods}}, \code{\link{note-metadata}}
+\code{\link[=tabr-methods]{tabr-methods()}}, \code{\link[=note-metadata]{note-metadata()}}
 }

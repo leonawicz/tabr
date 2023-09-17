@@ -25,7 +25,7 @@ This function binds text annotation in LilyPond syntax to a note's
 associated \code{info} entry.
 Technically, the syntax is a hybrid form, but is later updated safely and
 unambiguously to LilyPond syntax with respect to the rest of the note info
-substring when it is fed to \code{phrase} for musical phrase assembly.
+substring when it is fed to \code{phrase()} for musical phrase assembly.
 }
 \examples{
 notate("8", "Solo")

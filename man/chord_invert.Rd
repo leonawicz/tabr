@@ -18,13 +18,13 @@ the number of notes in the chord.}
 character
 }
 \description{
-This function inverts a single chord given as a character string.
-If \code{n = 0}, \code{chord} is returned immediately.
-Otherwise, the notes of the chord are inverted. If \code{abs(n)} is greater
-than the number of inversions (excluding root position), an error is thrown.
+This function inverts a single chord given as a character string. If \code{n = 0},
+\code{chord} is returned immediately. Otherwise, the notes of the chord are
+inverted. If \code{abs(n)} is greater than the number of inversions (excluding
+root position), an error is thrown.
 }
 \details{
-Note that \code{chord_invert} has no knowledge of whether a chord might be
+Note that \code{chord_invert()} has no knowledge of whether a chord might be
 considered as in root position or some inversion already, as informed by a
 key signature, chord name or user's intent.
 This function simply inverts what it receives, treating any defined chord

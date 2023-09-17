@@ -30,14 +30,13 @@ duration_to_ticks(x, ticks_per_qtr = 480)
 \item{ticks_per_qtr}{ticks per quarter note. Used to compute durations from
 MIDI file ticks.}
 
-\item{x}{a data frame returned by \code{read_midi}. An integer vector for
-\code{ticks_to_duration}; a character vector (may be a space-delimited
-string) for \code{duration_to_ticks}.}
+\item{x}{a data frame returned by \code{read_midi()}. An integer vector for
+\code{ticks_to_duration()}; a character vector (may be a space-delimited string)
+for \code{duration_to_ticks()}.}
 
 \item{channel, track}{integer, filter rows on channel or track.}
 
-\item{noteworthy}{logical, convert to \code{noteworthy} and \code{noteinfo}
-data.}
+\item{noteworthy}{logical, convert to \code{noteworthy} and \code{noteinfo} data.}
 }
 \value{
 a tibble data frame
@@ -47,14 +46,14 @@ Read MIDI file into a data frame and inspect the music data with supporting
 functions.
 }
 \details{
-The \code{read_midi} function wraps around \code{tuneR::readMidi} by Uwe
-Ligges and Johanna Mielke. \code{midi_notes} is a work in progress, but
-converts MIDI data to noteworthy strings and note info formats. This makes
-it easy to analyze, transform and edit the music data as well as render it
-to sheet music and a new MIDI file.
+The \code{read_midi()} function wraps around \code{tuneR::readMidi()} by Uwe Ligges and
+Johanna Mielke. \code{midi_notes()} is a work in progress, but converts MIDI data
+to noteworthy strings and note info formats. This makes it easy to analyze,
+transform and edit the music data as well as render it to sheet music and a
+new MIDI file.
 
-\code{read_midi} does not parse the ticks per quarter note from the MIDI
-file input at this time. It must be specified with \code{ticks_per_qtr}
+\code{read_midi()} does not parse the ticks per quarter note from the MIDI file
+input at this time. It must be specified with \code{ticks_per_qtr}.
 }
 \examples{
 ticks_to_duration(c(120, 160))
@@ -76,7 +75,7 @@ if(require("tuneR")){
   # requires LilyPond installation
   if(tabr_options()$lilypond != ""){
     out <- file.path(tempdir(), "out.pdf")
-    phrase(x) \%>\% track_bc() \%>\% score() \%>\% tab(out, details = FALSE)
+    phrase(x) |> track_bc() |> score() |> tab(out, details = FALSE)
   }
 }
 }

@@ -13,8 +13,7 @@ from_chorrrds(x, key = "c", guitar = FALSE, gc_args = list())
 from_music21(x, accidentals = c("flat", "sharp"), output = c("music", "list"))
 }
 \arguments{
-\item{id}{character, suffix of \code{from_*} function, e.g.,
-\code{"chorrrds"}}
+\item{id}{character, suffix of \verb{from_*} function, e.g., \code{"chorrrds"}}
 
 \item{...}{arguments passed to the function matched by \code{id}.}
 
@@ -24,14 +23,13 @@ inputs are structured for each converter.}
 \item{key}{key signature, used to enforce consistent use of flats or sharps.}
 
 \item{guitar}{logical, attempt to match input chords to known guitar chords
-in \code{\link{guitarChords}}. Otherwise by default standard piano chords of
+in \code{\link[=guitarChords]{guitarChords()}}. Otherwise by default standard piano chords of
 consecutive pitches covering minimum pitch range are returned.}
 
-\item{gc_args}{named list of additional arguments passed to
-\code{\link{gc_info}}, used when \code{guitar = TRUE}.}
+\item{gc_args}{named list of additional arguments passed to \code{\link[=gc_info]{gc_info()}}, used
+when \code{guitar = TRUE}.}
 
-\item{accidentals}{character, represent accidentals, \code{"flat"} or
-\code{"sharp"}.}
+\item{accidentals}{character, represent accidentals, \code{"flat"} or \code{"sharp"}.}
 
 \item{output}{character, type of output when multiple options are available.}
 }
@@ -47,9 +45,8 @@ used by \code{tabr} for music analysis and sheet music transcription.
 }
 \section{Syntax converter for chorrrds}{
 
-The input \code{x} is a character vector of chords output from the
-\code{chorrrds} package, as shown in the examples. Output is a noteworthy
-string object.
+The input \code{x} is a character vector of chords output from the \code{chorrrds}
+package, as shown in the examples. Output is a noteworthy string object.
 
 Some sources do not offer as complete or explicit information in order to
 make sheet music. However, what is available in those formats is converted
@@ -57,7 +54,7 @@ to the extent possible and available function arguments can allow the user
 to add some additional specification. Different input syntax makes use of a
 different syntax converter. Depending on the format, different arguments
 may be available and/or required. The general wrapper function for all of
-the available syntax converters is \code{to_tabr}. This function takes an
+the available syntax converters is \code{to_tabr()}. This function takes an
 \code{id} argument for the appropriate converter function. See examples.
 
 For example, output from the \code{chorrrds} package that scrapes chord
@@ -73,11 +70,10 @@ starts in octave three. It is also ambiguous how the chord is played since
 all that is provided is a generic chord symbol. By default a standard chord
 is constructed if it can be determined.
 
-Setting \code{guitar = TRUE} switches
-to using the \code{\link{guitarChords}} dataset to find matching guitar
-chords using \code{\link{gc_info}}, which can be provided additional
-arguments in a named list to \code{gc_args}. For guitar, this allows some
-additional control over the actual structure of the chord, its shape and
+Setting \code{guitar = TRUE} switches to using the \code{\link[=guitarChords]{guitarChords()}} dataset to
+find matching guitar chords using \code{\link[=gc_info]{gc_info()}}, which can be provided
+additional arguments in a named list to \code{gc_args}. For guitar, this allows
+some additional control over the actual structure of the chord, its shape and
 position on the guitar neck. The options will never work perfectly for all
 chords in \code{chords}, but at a minimum, typical default component pitches
 will be determined and returned in \code{tabr} notation style.

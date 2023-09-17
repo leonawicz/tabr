@@ -77,27 +77,26 @@ plot_music_bass(
 \arguments{
 \item{music}{a music object.}
 
-\item{clef}{character, include a music staff with the given clef.
-\code{NA} to suppress. See \code{track} for details.}
+\item{clef}{character, include a music staff with the given clef. \code{NA} to
+suppress. See \code{track()} for details.}
 
-\item{tab}{logical, include tablature staff. \code{NA} to suppress. See
-\code{track}.}
+\item{tab}{logical, include tablature staff. \code{NA} to suppress. See \code{track()}.}
 
 \item{tuning}{character, string tuning, only applies to tablature. See
-\code{track}.}
+\code{track()}.}
 
-\item{string_names}{label strings at beginning of tab staff. \code{NULL}
-(default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for
-force on or off completely.}
+\item{string_names}{label strings at beginning of tab staff. \code{NULL} (default)
+for non-standard tunings only, \code{TRUE} or \code{FALSE} for force on or off
+completely.}
 
-\item{header}{a named list of arguments passed to the header of the
-LilyPond file. See \code{lilypond} details.}
+\item{header}{a named list of arguments passed to the header of the LilyPond
+file. See \code{lilypond()} details.}
 
-\item{paper}{a named list of arguments for the LilyPond file page layout.
-See \code{lilypond} details.}
+\item{paper}{a named list of arguments for the LilyPond file page layout. See
+\code{lilypond()} details.}
 
 \item{colors}{a named list of LilyPond element color global overrides. See
-\code{lilypond} for details.}
+\code{lilypond()} for details.}
 
 \item{transparent}{logical, transparent background for intermediate png file.}
 
@@ -107,10 +106,10 @@ See \code{lilypond} details.}
 a plot
 }
 \description{
-These functions are wrappers around the \code{render_music_*} functions.
-They abstract the process of rendering a sheet music snippet to png and
-loading the rendered image back into R to be displayed as a plot in an open
-graphics device or inserted into an R Markdown code chunk.
+These functions are wrappers around the \verb{render_music*} functions. They
+abstract the process of rendering a sheet music snippet to png and loading
+the rendered image back into R to be displayed as a plot in an open graphics
+device or inserted into an R Markdown code chunk.
 }
 \details{
 While these functions abstract away the details of the process, this is not
@@ -118,9 +117,8 @@ the same as making the plot completely in R. R is only displaying the
 intermediary png file. LilyPond is required to engrave the sheet music.
 
 For R Markdown you can alternatively render the png using the corresponding
-\code{render_music_*} function and then place it in the document explicitly
-using \code{knitr::include_graphics}.
-See \code{\link{render_music}} for more details.
+\verb{render_music*} function and then place it in the document explicitly
+using \code{knitr::include_graphics()}. See \code{\link[=render_music]{render_music()}} for more details.
 }
 \examples{
 x <- "a,4;5*5 b,4- c4 cgc'e'~4 cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"
@@ -144,6 +142,6 @@ if(tabr_options()$lilypond != ""){ # requires LilyPond installation
 }
 }
 \seealso{
-\code{render_music}, \code{\link{phrase}}, \code{\link{track}},
-\code{\link{score}}, \code{\link{lilypond}}, \code{\link{tab}}
+\code{\link[=render_music]{render_music()}}, \code{\link[=phrase]{phrase()}}, \code{\link[=track]{track()}}, \code{\link[=score]{score()}}, \code{\link[=lilypond]{lilypond()}},
+\code{\link[=tab]{tab()}}
 }

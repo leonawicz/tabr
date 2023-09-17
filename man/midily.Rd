@@ -13,18 +13,20 @@ midily(
   explicit = FALSE,
   start_quant = NULL,
   allow_tuplet = c("4*2/3", "8*2/3", "16*2/3"),
+  details = FALSE,
   lyric = FALSE
 )
 }
 \arguments{
-\item{midi_file}{character, MIDI file (\code{.mid}). May include an absolute
-or relative path.}
+\item{midi_file}{character, MIDI file (\code{.mid}). May include an absolute or
+relative path.}
 
 \item{file}{LilyPond output file ending in \code{.ly}.}
 
 \item{key}{key signature, defaults to \code{"c"}.}
 
-\item{absolute}{logical, print absolute pitches.}
+\item{absolute}{logical, print absolute pitches (unavailable in current
+package version).}
 
 \item{quantize}{integer, duration, quantize notes on duration.}
 
@@ -34,53 +36,41 @@ or relative path.}
 
 \item{allow_tuplet}{character vector, allow tuplet durations. See details.}
 
+\item{details}{logical, print additional information to console.}
+
 \item{lyric}{logical, treat all text as lyrics.}
 }
 \value{
 nothing returned; a file is written.
 }
 \description{
-Convert a MIDI file (\code{.mid}) to a LilyPond format (\code{.ly}) text
-file.
+Convert a MIDI file (\code{.mid}) to a LilyPond format (\code{.ly}) text file.
 }
 \details{
 Under development/testing. See warning and details below.
 
-This function is a wrapper around the \code{midi2ly} command line utility
+This function is a wrapper around the \code{midi2ly()} command line utility
 provided by LilyPond. It inherits all the limitations thereof.
 LilyPond is not intended to be used to produce meaningful sheet music from
 arbitrary MIDI files.
-While \code{\link{lilypond}} converts R code \code{score} objects to
-LilyPond markup directly, MIDI conversion to LilyPond markup by
-\code{midily} requires LilyPond.
+While \code{\link[=lilypond]{lilypond()}} converts R code \code{score()} objects to LilyPond markup
+directly, MIDI conversion to LilyPond markup by \code{midily()} requires LilyPond.
 
 WARNING: Even though the purpose of the command line utility is to convert
 an existing MIDI file to a LilyPond file, it nevertheless generates a
 LilyPond file that \emph{specifies inclusion of MIDI output}.
 This means when you subsequently process the LilyPond file with LilyPond or
-if you use \code{miditab} to go straight from your MIDI file to pdf output,
+if you use \code{miditab()} to go straight from your MIDI file to pdf output,
 the command line tool will also produce a MIDI file output. It will
 overwrite your original MIDI file if it has the same file name and location!
-The next version of this function will add an default argument
-\code{midi_out = FALSE} to remove this from the generated LilyPond file.
-If \code{TRUE} and the basename of \code{midi_file} matches the basename of
-\code{file}, then \code{file} will be renamed, the basename appended with a
-\code{-1}.
 
-\code{allow_tuplets = NULL} to disallow all tuplets. Fourth, eighth and
-sixteenth note triplets are allowed. The format is a character vector where
-each element is \code{duration*numerator/denominator}, no spaces.
-See default argument.
+\code{allow_tuplets = NULL} to disallow all tuplets. Fourth, eighth and sixteenth
+note triplets are allowed. The format is a character vector where each
+element is \code{duration*numerator/denominator}, no spaces. See default argument.
 
-On Windows systems, it may be necessary to specify a path in tabr_options to
-both \code{midi2ly} and \code{python} if they are not already successfully
-set as follows.
-On package load, \code{tabr} will attempt to check for \code{midi2ly.exe} at
-\code{C:/Program Files (x86)/LilyPond/usr/bin/midi2ly.py} and similarly for
-the \code{python.exe} that ships with LilyPond at
-\code{C:/Program Files (x86)/LilyPond/usr/bin/python.exe}.
-If this is not where LilyPond is installed, then LilyPond and Python need to
-be provided to \code{tabr_options} or added to the system PATH variable.
+On Windows systems, it may be necessary to specify a path in \code{\link[=tabr_options]{tabr_options()}}
+to both \code{midi2ly} and \code{python} if they are not already added to the system
+PATH variable.
 }
 \examples{
 \dontrun{
@@ -92,5 +82,5 @@ if(tabr_options()$midi2ly != ""){
 }
 }
 \seealso{
-\code{\link{miditab}}, \code{\link{tab}}, \code{\link{lilypond}}
+\code{\link[=miditab]{miditab()}}, \code{\link[=tab]{tab()}}, \code{\link[=lilypond]{lilypond()}}
 }

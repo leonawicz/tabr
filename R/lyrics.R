@@ -2,26 +2,26 @@
 #'
 #' Functions for creating and checking lyrics objects.
 #'
-#' The \code{lyrics} class is a simple class for arranging lyrics text by
-#' timestep. Its structure and behavior aligns with that of the classes
-#' \code{noteworthy}, \code{noteinfo} and \code{music}.
+#' The `lyrics` class is a simple class for arranging lyrics text by timestep.
+#' Its structure and behavior aligns with that of the classes `noteworthy`,
+#' `noteinfo` and `music`.
 #'
-#' \code{lyrical} is a trivial function that returns a scalar logical result
+#' `lyrical()` is a trivial function that returns a scalar logical result
 #' essentially for any object that inherits from character, though this check
 #' may become more specific in the future.
 #'
-#' \code{as_lyrics} can be used to coerce to the \code{lyrics} class.
-#' Coercion will fail if the string is not lyrical.
-#' The \code{lyrics} class has its own \code{print} and \code{summary} methods.
+#' `as_lyrics()` can be used to coerce to the `lyrics` class. Coercion will fail
+#' if the string is not lyrical. The `lyrics` class has its own `print()` and
+#' `summary()` methods.
 #'
-#' When \code{format = NULL}, the timestep delimiter format is inferred from
-#' the lyrical string input.
+#' When `format = NULL`, the timestep delimiter format is inferred from the
+#' lyrical string input.
 #'
-#' @param x character or lyrics object. For \code{lyrics_template}, an integer
-#' or one of the classes \code{noteworthy}, \code{noteinfo} or \code{music} to
-#' derive the number of timesteps from.
-#' @param format \code{NULL} or character, the timestep delimiter format,
-#' \code{"space"} or \code{"vector"}.
+#' @param x character or lyrics object. For `lyrics_template()`, an integer or
+#' one of the classes `noteworthy`, `noteinfo` or `music` to derive the number
+#' of timesteps from.
+#' @param format `NULL` or character, the timestep delimiter format, `"space"`
+#' or `"vector"`.
 #'
 #' @return depends on the function
 #' @export

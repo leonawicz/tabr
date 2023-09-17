@@ -36,8 +36,8 @@
 \item{value}{values to assign at index.}
 }
 \description{
-Single bracket indexing and assignment. See \code{\link{tabr-methods}} for
-more details on methods for tabr classes.
+Single bracket indexing and assignment. See \code{\link[=tabr-methods]{tabr-methods()}} for more details
+on methods for tabr classes.
 }
 \examples{
 # noteworthy class examples
@@ -63,5 +63,5 @@ x[3:6] <- "c'e'g'8"
 x
 }
 \seealso{
-\code{\link{tabr-methods}}, \code{\link{note-metadata}}
+\code{\link[=tabr-methods]{tabr-methods()}}, \code{\link[=note-metadata]{note-metadata()}}
 }

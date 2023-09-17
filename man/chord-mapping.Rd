@@ -63,8 +63,8 @@ gc_name_root(name)
 gc_name_mod(name)
 }
 \arguments{
-\item{name}{character, chord name in \code{tabr} format, e.g.,
-\code{"bM b_m b_m7#5"}, etc.}
+\item{name}{character, chord name in \code{tabr} format, e.g., \code{"bM b_m b_m7#5"},
+etc.}
 
 \item{root_octave}{integer, optional filter for chords whose root note is in
 a set of octave numbers. May be a vector.}
@@ -83,8 +83,8 @@ retains both types.}
 
 \item{key}{character, key signature, used to enforce type of accidentals.}
 
-\item{ignore_octave}{logical, if \code{TRUE}, functions like \code{gc_info}
-and \code{gc_fretboard} return more results.}
+\item{ignore_octave}{logical, if \code{TRUE}, functions like \code{gc_info()} and
+\code{gc_fretboard()} return more results.}
 
 \item{notes}{character, a noteworthy string.}
 }
@@ -98,30 +98,27 @@ Helper functions for chord mapping.
 These functions assist with mapping between different information that
 define chords.
 
-For \code{gc_is_known}, a check is done against chords in the
-\code{guitarChords} dataset.
-A simple noteworthy string is permitted, but any single-note entry will
-automatically yield a \code{FALSE} result.
+For \code{gc_is_known()}, a check is done against chords in the \code{guitarChords}
+dataset. A simple noteworthy string is permitted, but any single-note entry
+will automatically yield a \code{FALSE} result.
 
-\code{gc_info} returns a tibble data frame containing complete information
-for the subset of predefined guitar chords specified by \code{name} and
-\code{key}.
-Any accidentals present in the chord root of \code{name} (but not in the
-chord modifier, e.g., \code{m7_5} or \code{m7#5}) are converted according to
-\code{key} if necessary.
-\code{gc_notes} and \code{gc_fretboard} are wrappers around \code{gc_info},
-which return noteworthy strings of chord notes and a named vector of
-LilyPond fretboard diagram data, respectively.
+\code{gc_info()} returns a tibble data frame containing complete information for
+the subset of predefined guitar chords specified by \code{name} and \code{key}.
+Any accidentals present in the chord root of \code{name} (but not in the chord
+modifier, e.g., \code{m7_5} or \code{m7#5}) are converted according to \code{key} if
+necessary.
+\code{gc_notes()} and \code{gc_fretboard()} are wrappers around \code{gc_info()}, which
+return noteworthy strings of chord notes and a named vector of LilyPond
+fretboard diagram data, respectively.
 Note that although the input to these functions can contain multiple chord
 names, whether as a vector or as a single space-delimited string, the result
 is not intended to be of equal length.
 These functions filter \code{guitarChords}. The result is the set of all
 chords matched by the supplied input filters.
 
-\code{gc_name_split} splits a vector or space-delimited set of chord
-names into a tibble data frame containing separate chord root and chord
-modifier columns.
-\code{gc_name_root} and \code{gc_name_mod} are wrappers around this.
+\code{gc_name_split()} splits a vector or space-delimited set of chord names into
+a tibble data frame containing separate chord root and chord modifier columns.
+\code{gc_name_root()} and \code{gc_name_mod()} are wrappers around this.
 }
 \examples{
 gc_is_known("a b_,fb_d'f'")

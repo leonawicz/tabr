@@ -65,14 +65,13 @@ character
 Helper functions for working with musical modes.
 }
 \details{
-For valid key signatures, see \code{\link{keys}}.
+For valid key signatures, see \code{\link[=keys]{keys()}}.
 
 Modern modes based on major scales are available by key signature using the
-\code{mode_*} functions. The seven modes can be listed with \code{modes}.
+\verb{mode_*} functions. The seven modes can be listed with \code{modes}.
 Noteworthy strings of proper length can be checked to match against a mode
-with \code{is_mode}.
-Modes can be rotated with \code{mode_rotate}, a wrapper around
-\code{note_rotate}.
+with \code{is_mode()}.
+Modes can be rotated with \code{mode_rotate()}, a wrapper around \code{note_rotate()}.
 }
 \examples{
 modes()
@@ -90,5 +89,5 @@ x <- sapply(modes(), mode_modern, ignore_octave = TRUE)
 setNames(data.frame(t(x)), as.roman(1:7))
 }
 \seealso{
-\code{\link{keys}}, \code{\link{scale-helpers}}
+\code{\link[=keys]{keys()}}, \code{\link[=scale-helpers]{scale-helpers()}}
 }

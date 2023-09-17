@@ -4,29 +4,27 @@
 #'
 #' This function transposes the pitch of notes in a noteworthy string.
 #'
-#' Transposing is not currently supported on a phrase object.
-#' The notes in a phrase object have already been transformed to LilyPond
-#' syntax and mixed with other potentially complex information.
-#' Transposing is intended to be done on a string of notes prior to passing it
-#' to \code{phrase}. It will work on strings that use either integer or tick
-#' mark octave numbering formats and flats or sharps, in any combination.
-#' The transposed result conforms according to the function arguments.
-#' When integer octaves are returned, all \code{3}s are dropped
+#' Transposing is not currently supported on a phrase object. The notes in a
+#' phrase object have already been transformed to LilyPond syntax and mixed with
+#' other potentially complex information. Transposing is intended to be done on
+#' a string of notes prior to passing it to `phrase()`. It will work on strings
+#' that use either integer or tick mark octave numbering formats and flats or
+#' sharps, in any combination. The transposed result conforms according to the
+#' function arguments. When integer octaves are returned, all `3`s are dropped
 #' since the third octave is implicit in LilyPond.
 #'
-#' When \code{octaves}, \code{accidentals} and \code{key} are \code{NULL},
-#' formatting is inferred from \code{notes}. When mixed formats are present,
-#' tick format is the default for octave numbering and flats are the default
-#' for accidentals.
+#' When `octaves`, `accidentals` and `key` are `NULL`, formatting is inferred
+#' from `notes`. When mixed formats are present, tick format is the default for
+#' octave numbering and flats are the default for accidentals.
 #'
 #' @param notes character, a noteworthy string.
 #' @param n integer, positive or negative number of semitones to transpose.
-#' @param octaves \code{NULL} or character, \code{"tick"} or \code{"integer"}
-#' octave numbering in result.
-#' @param accidentals \code{NULL} or character, represent accidentals,
-#' \code{"flat"} or \code{"sharp"}.
-#' @param key \code{NULL} or character, use a key signature to specify and
-#' override \code{accidentals}. Ignored if \code{c} or \code{am}.
+#' @param octaves `NULL` or character, `"tick"` or `"integer"` octave numbering
+#' in result.
+#' @param accidentals `NULL` or character, represent accidentals, `"flat"` or
+#' `"sharp"`.
+#' @param key `NULL` or character, use a key signature to specify and override
+#' `accidentals`. Ignored if `c` or `am`.
 #'
 #' @return character
 #' @export
@@ -61,7 +59,7 @@ transpose <- function(notes, n = 0, octaves = NULL, accidentals = NULL,
       }
     }
   }
-  x <- .uncollapse(notes) %>% .split_chords()
+  x <- .uncollapse(notes) |> .split_chords()
   idx <- grep("~", x)
   if(length(idx)) x[idx] <- gsub("~", "", x[idx])
   r_idx <- which(x == "r")

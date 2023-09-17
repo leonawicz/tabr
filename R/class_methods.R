@@ -1,69 +1,66 @@
 #' Summary of implemented S3 generic methods
 #'
-#' Several methods are implemented for the classes \code{noteworthy},
-#' \code{noteinfo}, \code{music} and \code{lyrics}.
-#' See further below for details on limited implementations for the
-#' \code{phrase} class.
+#' Several methods are implemented for the classes `noteworthy`, `noteinfo`,
+#' `music` and `lyrics`. See further below for details on limited
+#' implementations for the `phrase` class.
 #'
 #' @details
 #' In addition to custom print and summary methods, the following methods have
-#' been implemented for all four classes: \code{[}, \code{[<-}, \code{[[},
-#' \code{[[<-}, \code{length}, \code{c}, \code{rep}, \code{rev}, \code{head}
-#' and \code{tail}. Logical operators are also implemented for noteworthy
-#' strings.
+#' been implemented for all four classes: `[`, `[<-`, `[[`, `[[<-`, `length()`,
+#' `c()`, `rep()`, `rev()`, `head()` and `tail()`. Logical operators are also
+#' implemented for noteworthy strings.
 #'
-#' @section Methods \code{length} and \code{c}:
-#' The implementation of \code{length} is equivalent to \code{n_steps}. They
+#' @section Methods `length()` and `c()`:
+#' The implementation of `length()` is equivalent to `n_steps()`. They
 #' access the same attribute, returning the number of timesteps in the object.
 #' This gives the same result even when the underlying string is in
 #' space-delimited format. To obtain the character string length, coerce with
-#' \code{as.character} or any other function that would have the same effect.
+#' `as.character()` or any other function that would have the same effect.
 #'
-#' The implementation of \code{c} for these classes is strict and favors the
-#' object class in question. This is different from how \code{c} might normally
+#' The implementation of `c()` for these classes is strict and favors the
+#' object class in question. This is different from how `c()` might normally
 #' behave, coercing objects of different types such as numeric and character to
 #' character.
 #'
-#' For these four classes, \code{c} is strict in that it will return
+#' For these four classes, `c()` is strict in that it will return
 #' an error if attempting to concatenate one of these classes with any other
 #' class besides character. This includes each other. While it would be
-#' possible to coerce a music object down to a \code{noteworthy} object or a
-#' \code{noteinfo} object, this is the opposite of the aggressive coercion
-#' these classes are intended to have with \code{c} so this is not done.
+#' possible to coerce a music object down to a `noteworthy` object or a
+#' `noteinfo` object, this is the opposite of the aggressive coercion
+#' these classes are intended to have with `c()` so this is not done.
 #'
 #' While other classes such as numeric immediately return an error, any
 #' concatenation with character strings attempts to coerce each character
 #' string present to the given class. If coercion fails for any character class
 #' object, the usual error is returned concerning invalid notes or note info
 #' present. If coercion succeeds for all character strings, the result of
-#' \code{c} is to concatenate the timesteps of all objects passed to it. The
-#' output is a new \code{noteworthy}, \code{noteinfo} or\code{music} object.
+#' `c()` is to concatenate the timesteps of all objects passed to it. The
+#' output is a new `noteworthy`, `noteinfo` or`music` object.
 #'
-#' @section Methods \code{rep} \code{rev} \code{head} and \code{tail}:
-#' The \code{rep} function is similar to \code{c} except that it never has to
-#' consider other classes. You could pass a vector of objects to \code{rep},
-#' but doing so with \code{c} will already have resolved all objects to the
-#' single class. Again, what matters is not the underlying length or elements in
-#' the character vector the class is built upon, but the timesteps.
-#' \code{rep} will extend \code{x} in terms of timesteps. You can also provide
-#' the \code{each} or \code{times} arguments.
+#' @section Methods `rep()` `rev()` `head()` and `tail()`:
+#' The `rep()` function is similar to `c()` except that it never has to consider
+#' other classes. You could pass a vector of objects to `rep()`, but doing so
+#' with `c()` will already have resolved all objects to the single class. Again,
+#' what matters is not the underlying length or elements in the character vector
+#' the class is built upon, but the timesteps. `rep()` will extend `x` in terms
+#' of timesteps. You can also provide the `each` or `times` arguments.
 #'
-#' \code{rev}, \code{head} and \code{tail} work similarly, based on the
-#' sequence of timesteps, not the character vector length.
+#' `rev()`, `head()` and `tail()` work similarly, based on the sequence of
+#' timesteps, not the character vector length.
 #'
 #' Remember that this accounts not only for vectors of length one that contain
 #' multiple timesteps in space-delimited time format, but also that multiple
 #' timesteps can be condensed even in space-delimited time format with the
-#' \code{*} expansion operator.
-#' For example, \code{"a'*4 b'*2"} has six timesteps in this form as well as in
+#' `*` expansion operator.
+#' For example, `"a'*4 b'*2"` has six timesteps in this form as well as in
 #' vector form. The object length is neither one nor two. All of these generic
 #' method implementations work in this manner.
 #'
 #' @section Square brackets:
-#' Single and double bracket subsetting by index work similarly to what
-#' occurs with lists. Single bracket subsetting returns the same object,
-#' but only containing the indexed timesteps. Double bracket subsetting only
-#' operates on a single timestep and extracts the character string value.
+#' Single and double bracket subsetting by index work similarly to what occurs
+#' with lists. Single bracket subsetting returns the same object, but only
+#' containing the indexed timesteps. Double bracket subsetting only operates on
+#' a single timestep and extracts the character string value.
 #'
 #' For assignment, single and double brackets change the value at timesteps and
 #' return the same object, but again double brackets only allow indexing a
@@ -72,20 +69,20 @@
 #' command.
 #'
 #' @section Limited phrase implementations:
-#' Methods implemented for the \code{phrase} are limited to \code{c} and
-#' \code{rep}. Due to the complex LilyPond syntax, applying most of the
-#' functions above directly to phrases is problematic. \code{c} is implemented
-#' like it is for the other classes. \code{rep} is restricted in that it can
-#' only repeat the entire phrase sequence, not the timesteps within. However,
-#' you can convert a phrase class back to \code{noteworthy} and \code{noteinfo}
-#' objects (under reasonable conditions). See \code{\link{notify}}.
+#' Methods implemented for the `phrase` class are limited to `c()` and `rep()`.
+#' Due to the complex LilyPond syntax, applying most of the functions above
+#' directly to phrases is problematic. `c()` is implemented like it is for the
+#' other classes. `rep()` is restricted in that it can only repeat the entire
+#' phrase sequence, not the timesteps within. However, you can convert a phrase
+#' class back to `noteworthy` and `noteinfo` objects (under reasonable
+#' conditions). See [notify()].
 #'
-#' One exception made for \code{phrase} with respect to concatenation is that
+#' One exception made for `phrase` objects with respect to concatenation is that
 #' an attempt to concatenate any combination of phrase and music objects, in
 #' any order, results in coercion to a new phrase. This happens even in a case
 #' where the first object in the sequence is a music object (thus calling
-#' \code{c.music} rather than \code{c.phrase}). It will subsequently fall back
-#' to \code{c.phrase} in that case.
+#' `c.music()` rather than `c.phrase()`). It will subsequently fall back
+#' to `c.phrase()` in that case.
 #'
 #' @param x object.
 #' @param i index.
@@ -93,7 +90,7 @@
 #' @param ... additional arguments.
 #'
 #' @name tabr-methods
-#' @seealso \code{\link{note-logic}}, \code{\link{note-metadata}}
+#' @seealso [note-logic()], [note-metadata()]
 #'
 #' @examples
 #' # noteworthy class examples
@@ -135,15 +132,15 @@ NULL
 
 #' Single bracket methods for tabr classes
 #'
-#' Single bracket indexing and assignment. See \code{\link{tabr-methods}} for
-#' more details on methods for tabr classes.
+#' Single bracket indexing and assignment. See [tabr-methods()] for more details
+#' on methods for tabr classes.
 #'
 #' @param x object.
 #' @param i index.
 #' @param value values to assign at index.
 #'
 #' @name single-bracket
-#' @seealso \code{\link{tabr-methods}}, \code{\link{note-metadata}}
+#' @seealso [tabr-methods()], [note-metadata()]
 #' @export
 #'
 #' @examples
@@ -262,15 +259,15 @@ NULL
 
 #' Double bracket methods for tabr classes
 #'
-#' Double bracket indexing and assignment. See \code{\link{tabr-methods}} for
-#' more details on methods for tabr classes.
+#' Double bracket indexing and assignment. See [tabr-methods()] for more details
+#' on methods for tabr classes.
 #'
 #' @param x object.
 #' @param i index.
 #' @param value values to assign at index.
 #'
 #' @name double-bracket
-#' @seealso \code{\link{tabr-methods}}, \code{\link{note-metadata}}
+#' @seealso [tabr-methods()], [note-metadata()]
 #' @export
 #'
 #' @examples
@@ -358,14 +355,13 @@ NULL
 
 #' Length for tabr classes
 #'
-#' Several methods are implemented for the classes \code{noteworthy},
-#' \code{noteinfo}, and \code{music}. See \code{\link{tabr-methods}} for
-#' more details on methods for tabr classes.
+#' Several methods are implemented for the classes `noteworthy`, `noteinfo`, and
+#' `music`. See [tabr-methods()] for more details on methods for tabr classes.
 #'
 #' @param x object.
 #'
 #' @name tabr-length
-#' @seealso \code{\link{tabr-methods}}, \code{\link{note-metadata}}
+#' @seealso [tabr-methods()], [note-metadata()]
 #' @export
 #'
 #' @examples
@@ -408,14 +404,13 @@ length.lyrics <- function(x){
 
 #' Concatenate for tabr classes
 #'
-#' Several methods are implemented for the classes \code{noteworthy},
-#' \code{noteinfo}, and \code{music}. See \code{\link{tabr-methods}} for
-#' more details on methods for tabr classes.
+#' Several methods are implemented for the classes `noteworthy`, `noteinfo`, and
+#' `music`. See [tabr-methods()] for more details on methods for tabr classes.
 #'
 #' @param ... objects.
 #'
 #' @name tabr-c
-#' @seealso \code{\link{tabr-methods}}, \code{\link{note-metadata}}
+#' @seealso [tabr-methods()], [note-metadata()]
 #' @export
 #'
 #' @examples
@@ -450,7 +445,7 @@ c.noteworthy <- function(...){
   o <- if(!any(o == "tick")) "integer" else "tick"
   a <- if(!any(a == "flat")) "sharp" else "flat"
   format <- if(!any(format == "space-delimited time")) "vector" else "space"
-  x <- purrr::map_chr(x, ~paste(as.character(.x), collapse = " ")) %>%
+  x <- purrr::map_chr(x, ~paste(as.character(.x), collapse = " ")) |>
     paste(collapse = " ")
   .asnw(x, o, a, format)
 }
@@ -469,7 +464,7 @@ c.noteinfo <- function(...){
   if(length(idx)) x[idx] <- lapply(x[idx], as_noteinfo)
   format <- sapply(x, time_format)
   format <- if(!any(format == "space-delimited time")) "vector" else "space"
-  x <- purrr::map_chr(x, ~paste(as.character(.x), collapse = " ")) %>%
+  x <- purrr::map_chr(x, ~paste(as.character(.x), collapse = " ")) |>
     paste(collapse = " ")
   .asni(x, format)
 }
@@ -518,7 +513,7 @@ c.music <- function(...){
     if(format == "vector" & any(lyrics_space)){
       lyrics[lyrics_space] <- lapply(lyrics[lyrics_space], as_vector_time)
     }
-    lyrics <- unlist(lyrics) %>% paste(collapse = " ")
+    lyrics <- unlist(lyrics) |> paste(collapse = " ")
     lyrics <- as_lyrics(lyrics, format)
   }
   s <- lapply(x, music_strings)
@@ -531,8 +526,8 @@ c.music <- function(...){
     s[idx] <- lapply(steps, function(i) rep("", i))
     s <- unlist(s)
   }
-  x <- purrr::map_chr(x, ~paste(as.character(.x), collapse = " ")) %>%
-    paste(collapse = " ") %>%
+  x <- purrr::map_chr(x, ~paste(as.character(.x), collapse = " ")) |>
+    paste(collapse = " ") |>
     .check_music_split()
   .asmusic(x$notes, x$info, s, lyrics, key[1], time[1], tempo[1], a, format)
 }
@@ -551,7 +546,7 @@ c.lyrics <- function(...){
   if(length(idx)) x[idx] <- lapply(x[idx], as_lyrics)
   format <- sapply(x, time_format)
   format <- if(!any(format == "space-delimited time")) "vector" else "space"
-  x <- purrr::map_chr(x, ~paste(as.character(.x), collapse = " ")) %>%
+  x <- purrr::map_chr(x, ~paste(as.character(.x), collapse = " ")) |>
     paste(collapse = " ")
   .aslyrics(x, format)
 }
@@ -568,20 +563,19 @@ c.phrase <- function(...){
          call. = FALSE)
   idx <- which(cl %in% c("music", "character"))
   if(length(idx)) x[idx] <- lapply(x[idx], phrase)
-  purrr::map_chr(x, ~as.character(.x)) %>% paste(collapse = " ") %>% as_phrase()
+  purrr::map_chr(x, ~as.character(.x)) |> paste(collapse = " ") |> as_phrase()
 }
 
 #' Repeat for tabr classes
 #'
-#' Several methods are implemented for the classes \code{noteworthy},
-#' \code{noteinfo}, and \code{music}. See \code{\link{tabr-methods}} for
-#' more details on methods for tabr classes.
+#' Several methods are implemented for the classes `noteworthy`, `noteinfo`, and
+#' `music`. See [tabr-methods()] for more details on methods for tabr classes.
 #'
 #' @param x object.
 #' @param ... additional arguments. Not accepted for phrase objects.
 #'
 #' @name tabr-rep
-#' @seealso \code{\link{tabr-methods}}, \code{\link{note-metadata}}
+#' @seealso [tabr-methods()], [note-metadata()]
 #' @export
 #'
 #' @examples
@@ -694,14 +688,13 @@ rep.phrase <- function(x, ...){
 
 #' Reverse for tabr classes
 #'
-#' Several methods are implemented for the classes \code{noteworthy},
-#' \code{noteinfo}, and \code{music}. See \code{\link{tabr-methods}} for
-#' more details on methods for tabr classes.
+#' Several methods are implemented for the classes `noteworthy`, `noteinfo`, and
+#' `music`. See [tabr-methods()] for more details on methods for tabr classes.
 #'
 #' @param x object.
 #'
 #' @name tabr-rev
-#' @seealso \code{\link{tabr-methods}}, \code{\link{note-metadata}}
+#' @seealso [tabr-methods()], [note-metadata()]
 #' @export
 #'
 #' @examples
@@ -768,15 +761,14 @@ rev.lyrics <- function(x){
 
 #' Head and tail for tabr classes
 #'
-#' Several methods are implemented for the classes \code{noteworthy},
-#' \code{noteinfo}, and \code{music}. See \code{\link{tabr-methods}} for
-#' more details on methods for tabr classes.
+#' Several methods are implemented for the classes `noteworthy`, `noteinfo`, and
+#' `music`. See [tabr-methods()] for more details on methods for tabr classes.
 #'
 #' @param x object.
 #' @param ... number of elements to return.
 #'
 #' @name tabr-head
-#' @seealso \code{\link{tabr-methods}}, \code{\link{note-metadata}}
+#' @seealso [tabr-methods()], [note-metadata()]
 #' @importFrom utils head tail
 #' @export
 #'
@@ -900,20 +892,20 @@ tail.lyrics <- function(x, ...){
 #'
 #' Relational operators for comparing two noteworthy class objects.
 #'
-#' Equality is assessed in the same manner as used for \code{\link{note_sort}}
-#' when sorting pitches. What matters is the underlying semitone value
-#' associated with each pitch, not the string notation such as flat vs. sharp
-#' (see \code{\link{pitch_is_identical}}). When comparing chords, or a chord
-#' vs. a single note, comparison favors the root. Comparison is made of the
-#' respective lowest pitches, then proceeds to the next pitch if equal.
+#' Equality is assessed in the same manner as used for [note_sort()] when
+#' sorting pitches. What matters is the underlying semitone value associated
+#' with each pitch, not the string notation such as flat vs. sharp (see
+#' [pitch_is_identical()]). When comparing chords, or a chord vs. a single note,
+#' comparison favors the root. Comparison is made of the respective lowest
+#' pitches, then proceeds to the next pitch if equal.
 #'
 #' For these operators, the objects on the left and right side of the operator
-#' must both be \code{noteworthy} or an error is returned.
+#' must both be `noteworthy` or an error is returned.
 #'
 #' The examples include a chord with its pitches entered out of pitch order.
 #' This does not affect the results because pitches within chords are sorted
-#' before note to note comparisons at each timestep are done between \code{e1}
-#' and \code{e2}.
+#' before note to note comparisons at each timestep are done between `e1` and
+#' `e2`.
 #'
 #' @param e1 noteworthy string.
 #' @param e2 noteworthy string.

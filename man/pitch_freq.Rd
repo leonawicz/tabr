@@ -46,14 +46,14 @@ individual entries. See details.}
 
 \item{freq}{numeric vector, frequencies in Hz.}
 
-\item{octaves}{\code{NULL} or character, \code{"tick"} or \code{"integer"}
-octave numbering in result.}
+\item{octaves}{\code{NULL} or character, \code{"tick"} or \code{"integer"} octave numbering
+in result.}
 
-\item{accidentals}{\code{NULL} or character, represent accidentals,
-\code{"flat"} or \code{"sharp"}.}
+\item{accidentals}{\code{NULL} or character, represent accidentals, \code{"flat"} or
+\code{"sharp"}.}
 
-\item{collapse}{logical, collapse result into a single string.
-\code{key} and \code{style}.}
+\item{collapse}{logical, collapse result into a single string. \code{key} and
+\code{style}.}
 
 \item{semitones}{integer values of pitches.}
 }
@@ -67,11 +67,11 @@ Convert between pitches, chords, semitones and frequencies.
 Frequencies are in Hertz. Values are based on the 12-tone equal-tempered
 scale. When converting an arbitrary frequency to pitch, it is rounded to the
 nearest pitch.
-\code{pitch_freq} and \code{pitch_semitones} strictly accept single notes in
+\code{pitch_freq()} and \code{pitch_semitones()} strictly accept single notes in
 noteworthy strings and return numeric vectors.
-\code{chord_freq} and \code{chord_semitones} accept any noteworthy string
-and always return a list. These are provided so that all functions are
-type-safe. See examples.
+\code{chord_freq()} and \code{chord_semitones()} accept any noteworthy string and
+always return a list. These are provided so that all functions are type-safe.
+See examples.
 }
 \examples{
 x <- "a e4 a4 e5 a5"

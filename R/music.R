@@ -14,69 +14,65 @@
 #' consecutive timesteps; the first will suffice and the rest are automatically
 #' filled in for you when the object is constructed.
 #'
-#' \code{musical} returns a scalar logical result indicating whether all
-#' timesteps contain exclusively valid entries.
+#' `musical()` returns a scalar logical result indicating whether all timesteps
+#' contain exclusively valid entries.
 #'
-#' \code{as_music} can be used to coerce to the \code{music} class.
-#' Coercion will fail if the string is not musical.
-#' The \code{music} class has its own \code{print} and \code{summary} methods.
-#' \code{music} objects are primarily intended to represent an aggregation of a
-#' \code{noteworthy} object and a \code{noteinfo}. You can optionally fold in a
-#' \code{lyrics} object as well. However, for music data analysis, any
+#' `as_music()` can be used to coerce to the `music` class. Coercion will fail
+#' if the string is not musical. The `music` class has its own `print()` and
+#' `summary()` methods. `music` objects are primarily intended to represent an
+#' aggregation of a `noteworthy` object and a `noteinfo`. You can optionally
+#' fold in a `lyrics` object as well. However, for music data analysis, any
 #' operations will involve first splitting the object into its component parts.
 #' The value of this class is for the more efficient data entry it provides.
 #'
-#' When \code{accidentals} or \code{format} are \code{NULL},
-#' these settings are inferred from the musical string input.
-#' When mixed formats are present, flats are the default for accidentals.
+#' When `accidentals` or `format` are `NULL`, these settings are inferred from
+#' the musical string input. When mixed formats are present, flats are the
+#' default for accidentals.
 #'
-#' Other attributes are attached to a \code{music} object.
-#' \code{key} uses the \code{tabr} syntax, e.g., \code{"c"}, \code{"b_"},
-#' \code{"f#m"}, etc. \code{time} and \code{tempo} use the LilyPond string
-#' format. For music programming and analysis, \code{key}, \code{time} and
-#' \code{tempo} can most likely be ignored. They are primarily relevant when
-#' rendering a music snippet directly from a \code{music} object with LilyPond.
+#' Other attributes are attached to a `music` object. `key` uses the `tabr`
+#' syntax, e.g., `"c"`, `"b_"`, `"f#m"`, etc. `time` and `tempo` use the
+#' LilyPond string format. For music programming and analysis, `key`, `time` and
+#' `tempo` can most likely be ignored. They are primarily relevant when
+#' rendering a music snippet directly from a `music` object with LilyPond.
 #' These additional attributes provide more complete context for the rendered
 #' sheet music.
 #'
-#' If you plan to render music snippets from a \code{music} object that you are
+#' If you plan to render music snippets from a `music` object that you are
 #' defining from a new character string, and the context you have in mind is a
 #' stringed and fretted instrument like guitar, you can specify string numbers
 #' at the end of each timestep with numbers following a semicolon delimiter.
-#' This would still precede any \code{*} timestep multiplier number.
-#' See examples.
+#' This would still precede any `*` timestep multiplier number. See examples.
 #'
 #' Note that if you convert a music object to a phrase object, you are changing
 #' contexts. The phrase object is the simplest LilyPond-format music structure.
-#' Coercion with \code{phrase} strips all attributes of a music object and
+#' Coercion with `phrase()` strips all attributes of a music object and
 #' retains only notes, note info and string numbers.
 #'
 #' @param x character or music, a string to be coerced or an existing music
 #' object.
-#' @param notes,info noteworthy and note info strings. For \code{as_music}, a
-#' complete music string is assumed for \code{notes} when \code{info = NULL}.
-#' @param lyrics optional \code{lyrics} object or \code{NA}, attached to output
-#' as an attribute.
+#' @param notes,info noteworthy and note info strings. For `as_music()`, a
+#' complete music string is assumed for `notes` when `info = NULL`.
+#' @param lyrics optional `lyrics` object or `NA`, attached to output as an
+#' attribute.
 #' @param key character, store the key signature as a music attribute. Defaults
-#' to \code{"c"}. See details.
+#' to `"c"`. See details.
 #' @param time character, store the time signature as a music attribute.
-#' Defaults to \code{"4/4"}. See details.
-#' @param tempo character, defaults to \code{"2 = 60"}. See details.
-#' @param accidentals \code{NULL} or character, represent accidentals,
-#' \code{"flat"} or \code{"sharp"}.
-#' @param format \code{NULL} or character, the timestep delimiter format,
-#' \code{"space"} or \code{"vector"}.
+#' Defaults to `"4/4"`. See details.
+#' @param tempo character, defaults to `"2 = 60"`. See details.
+#' @param accidentals `NULL` or character, represent accidentals, `"flat"` or
+#' `"sharp"`.
+#' @param format `NULL` or character, the timestep delimiter format, `"space"`
+#' or `"vector"`.
 #' @param labels character, text annotations to attach to timesteps using
-#' \code{notate}.
-#' @param at integer, timesteps for \code{labels}, defaults to starting from
+#' `notate`.
+#' @param at integer, timesteps for `labels`, defaults to starting from
 #' time one.
 #'
 #' @return depends on the function
 #' @export
 #' @name music
-#' @seealso \code{\link{music-helpers}}, \code{\link{note-checks}},
-#' \code{\link{note-metadata}}, \code{\link{note-summaries}},
-#' \code{\link{note-coerce}}
+#' @seealso [music-helpers()], [note-checks()], [note-metadata()],
+#' [note-summaries()], [note-coerce()]
 #'
 #' @examples
 #' # note durations inherit from previous timestep if missing
@@ -338,18 +334,17 @@ summary.music <- function(object, ...){
 #'
 #' Helper functions for accessing music object values and attributes.
 #'
-#' Note that while lyrics always shows as an attribute even when \code{NA},
-#' \code{strings} is completely absent as a value if it was not part of the
-#' object construction from a new character string.
+#' Note that while lyrics always shows as an attribute even when `NA`, `strings`
+#' is completely absent as a value if it was not part of the object construction
+#' from a new character string.
 #'
 #' @param x music object.
 #'
 #' @return depends on the function
 #' @export
 #' @name music-helpers
-#' @seealso \code{\link{music}}, \code{\link{note-checks}},
-#' \code{\link{note-metadata}}, \code{\link{note-summaries}},
-#' \code{\link{note-coerce}}
+#' @seealso [music()], [note-checks()], [note-metadata()], [note-summaries()],
+#' [note-coerce()]
 #'
 #' @examples
 #' # Starting string = 5: use ';5'. Carries over until an explicit change.

@@ -5,23 +5,23 @@
 #' Frequencies are in Hertz. Values are based on the 12-tone equal-tempered
 #' scale. When converting an arbitrary frequency to pitch, it is rounded to the
 #' nearest pitch.
-#' \code{pitch_freq} and \code{pitch_semitones} strictly accept single notes in
+#' `pitch_freq()` and `pitch_semitones()` strictly accept single notes in
 #' noteworthy strings and return numeric vectors.
-#' \code{chord_freq} and \code{chord_semitones} accept any noteworthy string
-#' and always return a list. These are provided so that all functions are
-#' type-safe. See examples.
+#' `chord_freq()` and `chord_semitones()` accept any noteworthy string and
+#' always return a list. These are provided so that all functions are type-safe.
+#' See examples.
 #'
 #' @param notes character, noteworthy string, space-delimited or vector of
 #' individual entries. See details.
 #' @param a4 the fixed frequency of the A above middle C, typically 440 Hz.
 #' @param freq numeric vector, frequencies in Hz.
 #' @param semitones integer values of pitches.
-#' @param octaves \code{NULL} or character, \code{"tick"} or \code{"integer"}
-#' octave numbering in result.
-#' @param accidentals \code{NULL} or character, represent accidentals,
-#' \code{"flat"} or \code{"sharp"}.
-#' @param collapse logical, collapse result into a single string.
-#' \code{key} and \code{style}.
+#' @param octaves `NULL` or character, `"tick"` or `"integer"` octave numbering
+#' in result.
+#' @param accidentals `NULL` or character, represent accidentals, `"flat"` or
+#' `"sharp"`.
+#' @param collapse logical, collapse result into a single string. `key` and
+#' `style`.
 #'
 #' @return integer, numeric or noteworthy vector
 #' @export
@@ -118,10 +118,9 @@ semitone_freq <- function(semitones, a4 = 440){
 #'
 #' Convert between frequency ratios and logarithmic cents
 #'
-#' @param x a vector of ratios if \code{y = NULL}, otherwise frequencies.
-#' Cents for \code{cents_to_ratio}.
-#' @param y if not \code{NULL}, frequencies and the ratios are given by
-#' \code{y / x}.
+#' @param x a vector of ratios if `y = NULL`, otherwise frequencies. Cents for
+#' `cents_to_ratio()`.
+#' @param y if not `NULL`, frequencies and the ratios are given by `y / x`.
 #'
 #' @return numeric
 #' @export
@@ -151,16 +150,16 @@ cents_to_ratio <- function(x){
 #' objects, but can be specified for frequency. See examples.
 #'
 #' By default ratios are returned for all combinations of intervals in each
-#' chord (\code{ratios = "all"}). \code{ratios = "root"} filters the result to
-#' only include chord ratios with respect to the root note of each chord.
-#' \code{ratios = "range"} filters to only the chord ratio between the root and
+#' chord (`ratios = "all"`). `ratios = "root"` filters the result to only
+#' include chord ratios with respect to the root note of each chord.
+#' `ratios = "range"` filters to only the chord ratio between the root and
 #' highest note.
 #'
 #' @param x noteworthy or music object, or a numeric vector or list of numeric
 #' vectors for frequencies.
-#' @param ... additional arguments: \code{ratios}, which is one of \code{"all"}
-#' (default), \code{"root"}, or \code{"range"} for filtering results. For
-#' frequency input, you may also specify \code{octaves} and \code{accidentals}.
+#' @param ... additional arguments: `ratios`, which is one of `"all"`
+#' (default), `"root"`, or `"range"` for filtering results. For
+#' frequency input, you may also specify `octaves` and `accidentals`.
 #' See details and examples.
 #'
 #' @return a tibble data frame
@@ -210,11 +209,11 @@ freq_ratio.numeric <- function(x, ...){
   if(!is.list(x)) x <- list(x)
   names(x) <- NULL
   y <- .freq_ratio_args(...)
-  purrr::map_dfr(x, .freq_ratio, r = y$r, o = y$o, a = y$a, .id = "timestep") %>%
+  purrr::map_dfr(x, .freq_ratio, r = y$r, o = y$o, a = y$a, .id = "timestep") |>
     dplyr::mutate(
       timestep = as.integer(.data[["timestep"]]),
       notes = as_noteworthy(.data[["notes"]], y$o, y$a, "vector")
-    ) %>%
+    ) |>
     dplyr::select_at(c("timestep", "notes", "freq1", "freq2", "ratio"))
 }
 
@@ -226,7 +225,7 @@ freq_ratio.default <- function(x, ...){
 
 .freq_ratio <- function(x, r, o, a){
   if(length(x) == 1){
-    d <- dplyr::tibble(
+    d <- tibble::tibble(
       notes = as.character(freq_pitch(x, o, a)),
       freq1 = x, freq2 = NA_real_, ratio = NA_real_
     )
@@ -243,7 +242,7 @@ freq_ratio.default <- function(x, ...){
   f <- function(x, y, o, a){
     gsub("NA", "", paste0(freq_pitch(x, o, a), freq_pitch(y, o, a)))
   }
-  dplyr::tibble(freq1 = x[1, ], freq2 = x[2, ], ratio = ratio) %>%
+  tibble::tibble(freq1 = x[1, ], freq2 = x[2, ], ratio = ratio) |>
     dplyr::mutate(notes = f(.data[["freq1"]], .data[["freq2"]], o, a))
 }
 

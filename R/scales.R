@@ -2,7 +2,7 @@
 #'
 #' Helper functions for working with musical scales.
 #'
-#' For valid key signatures, see \code{\link{keys}}.
+#' For valid key signatures, see [keys()].
 #'
 #' @param key character, key signature.
 #' @param root character, root note.
@@ -18,7 +18,7 @@
 #'
 #' @return character
 #' @export
-#' @seealso \code{\link{keys}}, \code{\link{mode-helpers}}
+#' @seealso [keys()], [mode-helpers()]
 #' @name scale-helpers
 #'
 #' @examples
@@ -38,7 +38,7 @@ scale_diatonic <- function(key = "c", collapse = FALSE, ignore_octave = FALSE){
   .keycheck(key)
   x <- .keydata[.keydata$key == key, ]
   base <- if(x$major) letters[c(3:7, 1:2)] else letters[1:7]
-  x <- transpose(base, x$c_am_rel_int, key = key) %>% .pitch_to_note()
+  x <- transpose(base, x$c_am_rel_int, key = key) |> .pitch_to_note()
   if(!ignore_octave) x <- .scale_set_octave(x, "tick")
   if(collapse) x <- paste0(x, collapse = " ")
   note_set_key(x, key)
@@ -133,7 +133,7 @@ scale_chromatic <- function(root = "c", collapse = FALSE, sharp = TRUE,
 #'
 #' @param root character, root note or starting position of scale.
 #' @param scale character, a valid named scale, referring to one of the
-#' existing \code{scale_*} functions.
+#' existing `scale_*` functions.
 #' @param type character, type of chord, triad or seventh.
 #' @param collapse logical, collapse result into a single string ready for
 #' phrase construction.
@@ -188,43 +188,40 @@ scale_chords <- function(root = "c", scale = "major",
 #'
 #' These functions assist with mapping between scale degrees, notes and chords.
 #'
-#' Obtain the scale degree of a note in a supported scale with
-#' \code{scale_degree}.
+#' Obtain the scale degree of a note in a supported scale with `scale_degree()`.
 #' This function works on any noteworthy string. It ignores octave numbering.
-#' Rests and any note not explicitly in the scale return \code{NA}. If
-#' \code{deg} is greater than the number of degrees in the scale, it is
-#' recycled, e.g., in C major 8 starts over as C.
+#' Rests and any note not explicitly in the scale return `NA`. If `deg` is
+#' greater than the number of degrees in the scale, it is recycled, e.g., in C
+#' major 8 starts over as C.
 #'
 #' By default, flats and sharps checked strictly against the scale. Setting
-#' \code{strict_accidentals = FALSE} will convert any flats or sharps present,
-#' if necessary based on the combination of \code{key} signature and
-#' \code{scale}. The chromatic scale is a special case where strict accidental
+#' `strict_accidentals = FALSE` will convert any flats or sharps present,
+#' if necessary based on the combination of `key` signature and
+#' `scale`. The chromatic scale is a special case where strict accidental
 #' is always ignored.
 #'
-#' Not any arbitrary combination of valid \code{key} and valid \code{scale} is
-#' valid. For example, \code{key = "am"} and \code{scale = "harmonic"} is
-#' valid, but not with \code{key = "a"}.
+#' Not any arbitrary combination of valid `key` and valid `scale` is valid. For
+#' example, `key = "am"` and `scale = "harmonic"` is valid, but not with
+#' `key = "a"`.
 #'
-#' \code{note_in_scale} is a wrapper around \code{scale_degree}.
-#' To check if full chords are diatonic to the scale, see
-#' \code{\link{is_diatonic}}.
+#' `note_in_scale()` is a wrapper around `scale_degree()`. To check if full
+#' chords are diatonic to the scale, see [is_diatonic()].
 #'
-#' The inverse of \code{scale_degree} is \code{scale_note}, for obtaining the
-#' note associated with a scale degree.
-#' This could be done simply by calling a \code{scale_*} function and indexing
-#' its output directly, but this wrapper is provided to complement
-#' \code{scale_degree}.
+#' The inverse of `scale_degree()` is `scale_note()`, for obtaining the note
+#' associated with a scale degree. This could be done simply by calling a
+#' `scale_*` function and indexing its output directly, but this wrapper is
+#' provided to complement `scale_degree()`.
 #' Additionally, it accepts the common Roman numeral input for the degree.
-#' This can be with the \code{roman} class or as a character string.
-#' Degrees return \code{NA} if outside the scale degree range.
+#' This can be with the `roman` class or as a character string.
+#' Degrees return `NA` if outside the scale degree range.
 #'
 #' @param notes character, a string of notes.
 #' @param deg integer, roman class, or character roman, the scale degree.
 #' @param key character, key signature (or root note) for scale, depending on
-#' the type of \code{scale}.
-#' @param scale character, the suffix of a supported \code{scale_*} function.
+#' the type of `scale`.
+#' @param scale character, the suffix of a supported `scale_*` function.
 #' @param use_root logical, use lowest pitch in chord. Otherwise yield an
-#' \code{NA} in output.
+#' `NA` in output.
 #' @param strict_accidentals logical, whether representation must match key and
 #' scale. See details.
 #' @param naturalize logical, whether to naturalize any sharps or flats before
@@ -233,13 +230,13 @@ scale_chords <- function(root = "c", scale = "major",
 #' @param collapse logical, collapse result into a single string ready for
 #' phrase construction.
 #' @param ... additional arguments passed to the scale function, e.g.,
-#' \code{sharp = FALSE} for \code{scale_chromatic}.
+#' `sharp = FALSE` for `scale_chromatic()`.
 #'
-#' @return integer, or roman class if \code{roman = TRUE} for
-#' \code{scale_degree}. character for \code{scale_note}.
+#' @return integer, or roman class if `roman = TRUE` for `scale_degree()`;
+#' character for `scale_note()`.
 #' @export
 #' @name scale-deg
-#' @seealso \code{\link{scale-helpers}}, \code{\link{is_diatonic}}
+#' @seealso [scale-helpers()], [is_diatonic()]
 #'
 #' @examples
 #' scale_degree("r c, e3 g~ g s g# ceg")
@@ -355,15 +352,15 @@ is_in_scale <- function(notes, key = "c", scale = "diatonic",
 #'
 #' Check if notes and chords are diatonic in a given key.
 #'
-#' This function is a wrapper around \code{\link{is_in_scale}}. To check if
-#' individual notes are in a scale, see \code{\link{note_in_scale}}.
+#' This function is a wrapper around [is_in_scale()]. To check if individual
+#' notes are in a scale, see [note_in_scale()].
 #'
 #' @param notes character, a noteworthy string.
 #' @param key character, key signature.
 #'
 #' @return logical
 #' @export
-#' @seealso \code{\link{is_in_scale}}
+#' @seealso [is_in_scale()]
 #'
 #' @examples
 #' is_diatonic("ceg ace ce_g", "c")

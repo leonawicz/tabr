@@ -20,16 +20,15 @@ intended for direct use. See details.
 This function not intended to be used directly, but is available so that you
 can see how LilyPond syntax for phrases will be transformed by default in
 the process of creating a LilyPond file. This function is used by the
-\code{lilypond} function and associated \code{render_*} functions. When
-using \code{lilypond} directly, this can be controlled by the
-\code{simplify} argument.
+\code{lilypond()} function and associated \verb{render_*} functions. When using
+\code{lilypond()} directly, this can be controlled by the \code{simplify} argument.
 
 The result of this function is a character string containing simpler, more
 efficient LilyPond syntax. It can be coerced back to a phrase with
-\code{as_phrase}, but its print method colors will no longer display
-properly. More importantly, this simplification removes any possibility of
-transforming the phrase back to its original inputs. The more complex but
-nicely structured original representation does a better job at maintaining
+\code{as_phrase()}, but its print method colors will no longer display properly.
+More importantly, this simplification removes any possibility of transforming
+the phrase back to its original inputs. The more complex but nicely
+structured original representation does a better job at maintaining
 reasonable possibility of one to one transformation between a phrase object
 and the inputs that it was built from.
 }

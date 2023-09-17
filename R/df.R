@@ -3,35 +3,34 @@
 #' Convert a noteworthy string to a tibble data frame and include additional
 #' derivative variables.
 #'
-#' If \code{info} is provided or \code{notes} is a phrase object, the
-#' resulting data frame also contains note durations and other info variables.
-#' The \code{duration} column is always included in the output even as a vector
-#' of \code{NA}s when \code{info = NULL}. This makes it more explicit that a
-#' given music data frame was generated without any time information for the
-#' timesteps. Other note info columns are not included in this case.
+#' If `info` is provided or `notes` is a phrase object, the resulting data frame
+#' also contains note durations and other info variables. The `duration` column
+#' is always included in the output even as a vector of `NA`s when `info = NULL`.
+#' This makes it more explicit that a given music data frame was generated
+#' without any time information for the timesteps. Other note info columns are
+#' not included in this case.
 #'
 #' For some derived column variables the root note (lowest pitch) in chord is
 #' used. This is done for pitch intervals and scale intervals between adjacent
 #' timesteps. This also occurs for scale degrees.
 #'
-#' \code{chord = "root"} additionally collapses columns like semitone, octave,
-#' and frequency to the value for the root note so that all rows contain one
-#' numeric value. \code{chord = "list"} retains full information as list
-#' columns. \code{chord = "character"} collapses into strings so that values are
-#' readily visible when printing the table, but information is not stripped and
-#' can be recovered without recomputing from the original pitches.
+#' `chord = "root"` additionally collapses columns like semitone, octave, and
+#' frequency to the value for the root note so that all rows contain one numeric
+#' value. `chord = "list"` retains full information as list columns.
+#' `chord = "character"` collapses into strings so that values are readily
+#' visible when printing the table, but information is not stripped and can be
+#' recovered without recomputing from the original pitches.
 #'
 #' @param notes character, a noteworthy string. Alternatively, a music object
-#' or a phrase object, in which case \code{info} is ignored.
-#' @param info \code{NULL} or character, a note info string.
+#' or a phrase object, in which case `info` is ignored.
+#' @param info `NULL` or character, a note info string.
 #' @param key character, key signature, only required for inclusion of scale
 #' degrees.
-#' @param scale character, defaults to \code{"diatonic"}. Only used in
-#' conjunction with \code{key}, this can be used to alter scale degrees. Not
-#' any arbitrary combination of valid \code{key} and valid \code{scale} is
-#' valid. See \code{\link{scale_degree}}.
+#' @param scale character, defaults to `"diatonic"`. Only used in conjunction
+#' with `key`, this can be used to alter scale degrees. Not any arbitrary
+#' combination of valid `key` and valid `scale` is valid. See [scale_degree()].
 #' @param si_format character, format for scale intervals. See
-#' \code{\link{scale_interval}}.
+#' [scale_interval()].
 #' @param chords character, how to structure columns containing multiple values
 #' per chord/row of data frame. See details.
 #'

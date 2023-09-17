@@ -34,20 +34,20 @@ logical vector
 Relational operators for comparing two noteworthy class objects.
 }
 \details{
-Equality is assessed in the same manner as used for \code{\link{note_sort}}
-when sorting pitches. What matters is the underlying semitone value
-associated with each pitch, not the string notation such as flat vs. sharp
-(see \code{\link{pitch_is_identical}}). When comparing chords, or a chord
-vs. a single note, comparison favors the root. Comparison is made of the
-respective lowest pitches, then proceeds to the next pitch if equal.
+Equality is assessed in the same manner as used for \code{\link[=note_sort]{note_sort()}} when
+sorting pitches. What matters is the underlying semitone value associated
+with each pitch, not the string notation such as flat vs. sharp (see
+\code{\link[=pitch_is_identical]{pitch_is_identical()}}). When comparing chords, or a chord vs. a single note,
+comparison favors the root. Comparison is made of the respective lowest
+pitches, then proceeds to the next pitch if equal.
 
 For these operators, the objects on the left and right side of the operator
 must both be \code{noteworthy} or an error is returned.
 
 The examples include a chord with its pitches entered out of pitch order.
 This does not affect the results because pitches within chords are sorted
-before note to note comparisons at each timestep are done between \code{e1}
-and \code{e2}.
+before note to note comparisons at each timestep are done between \code{e1} and
+\code{e2}.
 }
 \examples{
 x <- as_noteworthy("f# a d'f#'a' d'f#'a'")

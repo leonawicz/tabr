@@ -24,7 +24,7 @@ Fold or unfold a string on the expansion operator.
 \details{
 These function work on arbitrary stings. They do not perform a noteworthy
 check. This allows them to work for \code{info} strings as well. Make sure
-your strings are properly formatted. \code{string_fold} always collapses the
+your strings are properly formatted. \code{string_fold()} always collapses the
 output string as space-delimited.
 }
 \examples{

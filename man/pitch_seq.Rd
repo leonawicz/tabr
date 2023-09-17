@@ -9,16 +9,15 @@ pitch_seq(x, y, key = NULL, scale = NULL, format = c("space", "vector"))
 \arguments{
 \item{x}{character, valid pitch notation, e.g., \code{"a2"} or \code{"a,"}.}
 
-\item{y}{character, same as \code{x} for the sequence \code{x:y}. If a
-number, the length of the sequence from \code{x} and the sign of \code{y}
-determines the direction.}
+\item{y}{character, same as \code{x} for the sequence \code{x:y}. If a number, the
+length of the sequence from \code{x} and the sign of \code{y} determines the direction.}
 
 \item{key}{character, key signature for a diatonic sequence.
 \code{key = NULL} (default) results in a chromatic sequence.}
 
 \item{scale}{character, if you want to use a different scale in conjunction
-with the key/root note, you can provide it, e.g.,
-\code{scale = "harmonic minor"}. Ignored if \code{key = NULL}.}
+with the key/root note, you can provide it, e.g., \code{scale = "harmonic minor"}.
+Ignored if \code{key = NULL}.}
 
 \item{format}{character, the timestep delimiter format, \code{"space"} or
 \code{"vector"}.}
@@ -33,13 +32,13 @@ Create a noteworthy string of a sequence of consecutive pitches.
 Note that all pitches resulting from the defined sequence must be in the
 semitone range 0-131 or an error is thrown.
 
-If not using a chromatic sequence and \code{x} (or \code{y} if also a pitch)
-is not part of the key signature or scale, the sequence is internally bound.
-See examples.
+If not using a chromatic sequence and \code{x} (or \code{y} if also a pitch) is not
+part of the key signature or scale, the sequence is internally bound. See
+examples.
 
 Format of accidentals in the result is prioritized by the scale and key, the
-key when no scale is given, then \code{x} (and \code{y} if also a pitch),
-and finally defaults to flats if ambiguous.
+key when no scale is given, then \code{x} (and \code{y} if also a pitch), and finally
+defaults to flats if ambiguous.
 }
 \examples{
 # chromatic sequence (default)

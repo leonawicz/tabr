@@ -18,13 +18,13 @@ logical
 Check if notes and chords are diatonic in a given key.
 }
 \details{
-This function is a wrapper around \code{\link{is_in_scale}}. To check if
-individual notes are in a scale, see \code{\link{note_in_scale}}.
+This function is a wrapper around \code{\link[=is_in_scale]{is_in_scale()}}. To check if individual
+notes are in a scale, see \code{\link[=note_in_scale]{note_in_scale()}}.
 }
 \examples{
 is_diatonic("ceg ace ce_g", "c")
 is_diatonic(c("r", "d", "dfa", "df#a"), "d")
 }
 \seealso{
-\code{\link{is_in_scale}}
+\code{\link[=is_in_scale]{is_in_scale()}}
 }

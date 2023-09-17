@@ -66,10 +66,9 @@ Inspect basic metadata for noteworthy strings.
 }
 \details{
 These functions inspect the basic metadata of noteworthy strings.
-For functions that perform basic checks on strings, see
-\code{\link{note-checks}}.
+For functions that perform basic checks on strings, see \code{\link[=note-checks]{note-checks()}}.
 
-The \code{n_*} functions give summary totals of the number of timesteps,
+The \verb{n_*} functions give summary totals of the number of timesteps,
 number of individual note (non-chord) timesteps, number of chord time
 steps, and the number of distinct octaves present across timesteps.
 
@@ -82,7 +81,7 @@ reflect what is found in \code{notes} verbatim. See examples.
 }
 \section{A note on generic functions}{
 
-\code{n_steps} and the three time format functions are generic since they
+\code{n_steps()} and the three time format functions are generic since they
 apply clearly to and are useful for not only noteworthy strings, but also
 note info, music, and lyrics objects.
 If \code{x} is still a simple character string, these functions attempt to
@@ -115,8 +114,8 @@ n_chords(x)
 n_octaves(x)
 chord_size(x)
 
-# Type is mixed in \code{x} but is inferred under default conversion rules.
-# These check \code{x} once validated and coerced to 'noteworthy' class.
+# Type is mixed in `x` but is inferred under default conversion rules.
+# These check `x` once validated and coerced to 'noteworthy' class.
 octave_type(x)
 accidental_type(x)
 # The default is tick octaves and flats
@@ -127,7 +126,6 @@ is_space_time(x)
 is_vector_time(x)
 }
 \seealso{
-\code{\link{tabr-methods}}, \code{\link{note-checks}},
-\code{\link{note-summaries}}, \code{\link{note-coerce}},
-\code{\link{valid-notes}}
+\code{\link[=tabr-methods]{tabr-methods()}}, \code{\link[=note-checks]{note-checks()}}, \code{\link[=note-summaries]{note-summaries()}},
+\code{\link[=note-coerce]{note-coerce()}}, \code{\link[=valid-notes]{valid-notes()}}
 }

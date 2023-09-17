@@ -19,7 +19,7 @@ chord_sort(notes, pitch = c("min", "mean", "max"), decreasing = FALSE, ...)
 \item{pitch}{character, how ranking of chords is determined; lowest pitch,
 mean pitch, or highest pitch.}
 
-\item{...}{additional arguments passed to \code{rank} or \code{order}.}
+\item{...}{additional arguments passed to \code{rank()} or \code{order()}.}
 
 \item{decreasing}{logical, sort in decreasing order.}
 }

@@ -63,7 +63,7 @@ character
 Helper functions for working with musical scales.
 }
 \details{
-For valid key signatures, see \code{\link{keys}}.
+For valid key signatures, see \code{\link[=keys]{keys()}}.
 }
 \examples{
 scale_diatonic(key = "dm")
@@ -80,5 +80,5 @@ rev(scale_melodic_minor("am", descending = TRUE))
 scale_jazz_minor("am")
 }
 \seealso{
-\code{\link{keys}}, \code{\link{mode-helpers}}
+\code{\link[=keys]{keys()}}, \code{\link[=mode-helpers]{mode-helpers()}}
 }

@@ -31,11 +31,11 @@ music_split(x)
 \item{x}{character or music, a string to be coerced or an existing music
 object.}
 
-\item{notes, info}{noteworthy and note info strings. For \code{as_music}, a
+\item{notes, info}{noteworthy and note info strings. For \code{as_music()}, a
 complete music string is assumed for \code{notes} when \code{info = NULL}.}
 
-\item{lyrics}{optional \code{lyrics} object or \code{NA}, attached to output
-as an attribute.}
+\item{lyrics}{optional \code{lyrics} object or \code{NA}, attached to output as an
+attribute.}
 
 \item{key}{character, store the key signature as a music attribute. Defaults
 to \code{"c"}. See details.}
@@ -45,11 +45,11 @@ Defaults to \code{"4/4"}. See details.}
 
 \item{tempo}{character, defaults to \code{"2 = 60"}. See details.}
 
-\item{accidentals}{\code{NULL} or character, represent accidentals,
-\code{"flat"} or \code{"sharp"}.}
+\item{accidentals}{\code{NULL} or character, represent accidentals, \code{"flat"} or
+\code{"sharp"}.}
 
-\item{format}{\code{NULL} or character, the timestep delimiter format,
-\code{"space"} or \code{"vector"}.}
+\item{format}{\code{NULL} or character, the timestep delimiter format, \code{"space"}
+or \code{"vector"}.}
 
 \item{labels}{character, text annotations to attach to timesteps using
 \code{notate}.}
@@ -76,26 +76,24 @@ was given explicitly. There is no need to enter the same number across
 consecutive timesteps; the first will suffice and the rest are automatically
 filled in for you when the object is constructed.
 
-\code{musical} returns a scalar logical result indicating whether all
-timesteps contain exclusively valid entries.
+\code{musical()} returns a scalar logical result indicating whether all timesteps
+contain exclusively valid entries.
 
-\code{as_music} can be used to coerce to the \code{music} class.
-Coercion will fail if the string is not musical.
-The \code{music} class has its own \code{print} and \code{summary} methods.
-\code{music} objects are primarily intended to represent an aggregation of a
-\code{noteworthy} object and a \code{noteinfo}. You can optionally fold in a
-\code{lyrics} object as well. However, for music data analysis, any
+\code{as_music()} can be used to coerce to the \code{music} class. Coercion will fail
+if the string is not musical. The \code{music} class has its own \code{print()} and
+\code{summary()} methods. \code{music} objects are primarily intended to represent an
+aggregation of a \code{noteworthy} object and a \code{noteinfo}. You can optionally
+fold in a \code{lyrics} object as well. However, for music data analysis, any
 operations will involve first splitting the object into its component parts.
 The value of this class is for the more efficient data entry it provides.
 
-When \code{accidentals} or \code{format} are \code{NULL},
-these settings are inferred from the musical string input.
-When mixed formats are present, flats are the default for accidentals.
+When \code{accidentals} or \code{format} are \code{NULL}, these settings are inferred from
+the musical string input. When mixed formats are present, flats are the
+default for accidentals.
 
-Other attributes are attached to a \code{music} object.
-\code{key} uses the \code{tabr} syntax, e.g., \code{"c"}, \code{"b_"},
-\code{"f#m"}, etc. \code{time} and \code{tempo} use the LilyPond string
-format. For music programming and analysis, \code{key}, \code{time} and
+Other attributes are attached to a \code{music} object. \code{key} uses the \code{tabr}
+syntax, e.g., \code{"c"}, \code{"b_"}, \code{"f#m"}, etc. \code{time} and \code{tempo} use the
+LilyPond string format. For music programming and analysis, \code{key}, \code{time} and
 \code{tempo} can most likely be ignored. They are primarily relevant when
 rendering a music snippet directly from a \code{music} object with LilyPond.
 These additional attributes provide more complete context for the rendered
@@ -105,12 +103,11 @@ If you plan to render music snippets from a \code{music} object that you are
 defining from a new character string, and the context you have in mind is a
 stringed and fretted instrument like guitar, you can specify string numbers
 at the end of each timestep with numbers following a semicolon delimiter.
-This would still precede any \code{*} timestep multiplier number.
-See examples.
+This would still precede any \code{*} timestep multiplier number. See examples.
 
 Note that if you convert a music object to a phrase object, you are changing
 contexts. The phrase object is the simplest LilyPond-format music structure.
-Coercion with \code{phrase} strips all attributes of a music object and
+Coercion with \code{phrase()} strips all attributes of a music object and
 retains only notes, note info and string numbers.
 }
 \examples{
@@ -135,7 +132,6 @@ x <- as_music_df(as_music(x))
 x$string
 }
 \seealso{
-\code{\link{music-helpers}}, \code{\link{note-checks}},
-\code{\link{note-metadata}}, \code{\link{note-summaries}},
-\code{\link{note-coerce}}
+\code{\link[=music-helpers]{music-helpers()}}, \code{\link[=note-checks]{note-checks()}}, \code{\link[=note-metadata]{note-metadata()}},
+\code{\link[=note-summaries]{note-summaries()}}, \code{\link[=note-coerce]{note-coerce()}}
 }

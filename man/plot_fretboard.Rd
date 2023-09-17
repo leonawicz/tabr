@@ -74,18 +74,18 @@ string numbers.}
 \item{fret_range}{fret limits, if not \code{NULL}, overrides limits derived
 from \code{fret}.}
 
-\item{accidentals}{character, when \code{labels = "notes"} represent
-accidentals: \code{"flat"} or \code{"sharp"}.}
+\item{accidentals}{character, when \code{labels = "notes"} represent accidentals:
+\code{"flat"} or \code{"sharp"}.}
 
-\item{tuning}{explicit tuning, e.g., \code{"e, a, d g b e'"}, or a
-pre-defined tuning. See details.}
+\item{tuning}{explicit tuning, e.g., \code{"e, a, d g b e'"}, or a pre-defined
+tuning. See details.}
 
 \item{show_tuning}{logical, show tuning of each string.}
 
 \item{asp}{numeric, aspect ratio, overrides default aspect ratio derived
 from number of strings and frets.}
 
-\item{base_size}{base size for \code{ggplot2::theme_void}.}
+\item{base_size}{base size for \code{ggplot2::theme_void()}.}
 
 \item{chord}{character, a single chord given in fret notation. See details.}
 }
@@ -99,8 +99,8 @@ Create a fretboard diagram for a single chord or a general progression.
 These functions are under development and subject to change. They each
 return a ggplot object.
 
-Use \code{plot_chord} to create a fretboard diagram of a specific chord.
-\code{plot_chord} accepts a character string in simple fretboard format,
+Use \code{plot_chord()} to create a fretboard diagram of a specific chord.
+\code{plot_chord()} accepts a character string in simple fretboard format,
 e.g., \code{chord = "xo221o"}.
 Zero is allowed in place of \code{"o"}. This only works when no spaces or
 semicolons are detected. The function checks for spaces first, then
@@ -112,13 +112,13 @@ If there are fewer fret values than there are strings on the instrument, as
 inferred from \code{tuning}, then muted strings, \code{x}, are inferred for
 the remaining lower-pitch strings.
 
-\code{plot_fretboard} produces a more general fretboard diagram plot. It is
+\code{plot_fretboard()} produces a more general fretboard diagram plot. It is
 intended for scales, arpeggios and other patterns along the fretboard. For
 this function, provide vectors of string and fret numbers. \code{mute} is
 available but not as applicable for this function. For single chord diagrams,
-use \code{plot_chord}.
+use \code{plot_chord()}.
 
-Number of strings is derived from \code{tuning}. See \code{\link{tunings}}
+Number of strings is derived from \code{tuning}. See \code{\link[=tunings]{tunings()}}
 for pre-defined tunings and examples of explicit tunings.
 \code{tuning} affects point labels when \code{labels = "notes"}.
 }

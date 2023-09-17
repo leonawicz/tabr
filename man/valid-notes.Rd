@@ -24,44 +24,42 @@ is_noteworthy(x)
 
 \item{na.rm}{remove \code{NA}s.}
 
-\item{octaves}{\code{NULL} or character, \code{"tick"} or \code{"integer"}
-octave numbering in result.}
+\item{octaves}{\code{NULL} or character, \code{"tick"} or \code{"integer"} octave numbering
+in result.}
 
-\item{accidentals}{\code{NULL} or character, represent accidentals,
-\code{"flat"} or \code{"sharp"}.}
+\item{accidentals}{\code{NULL} or character, represent accidentals, \code{"flat"} or
+\code{"sharp"}.}
 
-\item{format}{\code{NULL} or character, the timestep delimiter format,
-\code{"space"} or \code{"vector"}.}
+\item{format}{\code{NULL} or character, the timestep delimiter format, \code{"space"}
+or \code{"vector"}.}
 }
 \value{
 depends on the function
 }
 \description{
-Check whether a string is comprised exclusively of valid note and/or chord
-syntax.
-\code{is_note} and \code{is_chord} are vectorized and their positive results
-are mutually exclusive.
-\code{noteworthy} is also vectorized and performs both checks, but it
-returns a scalar logical result indicating whether the entire set contains
-exclusively valid entries.
+Check if a string is comprised exclusively of valid note and/or chord syntax.
 }
 \details{
-\code{as_noteworthy} can be used to coerce to the \code{noteworthy} class.
-Coercion will fail if the string is not noteworthy.
+\code{is_note()} and \code{is_chord()} are vectorized and their positive results
+are mutually exclusive. \code{noteworthy()} is also vectorized and performs both
+checks, but it returns a scalar logical result indicating whether the entire
+set contains exclusively valid entries.
+
+\code{as_noteworthy()} can be used to coerce to the \code{noteworthy} class. Coercion
+will fail if the string is not noteworthy.
 While many functions will work on simple character strings and, if their
 syntax is valid, coerce them to the 'noteworthy' class, it is recommended to
 use this class. Not all functions are so aggressive, and several generic
-methods are implemented for the class. It also offers its own \code{print}
-and \code{summary} methods for noteworthy strings.
-An added benefit to using \code{as_noteworthy} is to conform all
-notes in a noteworthy string to specific formatting for accidentals and
-octave numbering.
+methods are implemented for the class. It also offers its own \code{print()}
+and \code{summary()} methods for noteworthy strings.
+An added benefit to using \code{as_noteworthy()} is to conform all notes in a
+noteworthy string to specific formatting for accidentals and octave numbering.
 Functions that output a noteworthy string attach the \code{noteworthy} class.
 
-When \code{octaves}, \code{accidentals}, and \code{format} are \code{NULL},
-formatting is inferred from the noteworthy string input. When mixed formats
-are present, tick format is the default for octave numbering and flats are
-the default for accidentals.
+When \code{octaves}, \code{accidentals}, and \code{format} are \code{NULL}, formatting is
+inferred from the noteworthy string input. When mixed formats are present,
+tick format is the default for octave numbering and flats are the default for
+accidentals.
 }
 \examples{
 x <- "a# b_ c, d'' e3 g_4 A m c2e_2g2 cegh" # includes invalid syntax
@@ -88,6 +86,6 @@ x
 summary(x)
 }
 \seealso{
-\code{\link{note-checks}}, \code{\link{note-metadata}},
-\code{\link{note-summaries}}, \code{\link{note-coerce}}
+\code{\link[=note-checks]{note-checks()}}, \code{\link[=note-metadata]{note-metadata()}}, \code{\link[=note-summaries]{note-summaries()}},
+\code{\link[=note-coerce]{note-coerce()}}
 }

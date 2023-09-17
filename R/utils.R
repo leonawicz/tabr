@@ -4,7 +4,7 @@
 #'
 #' Version information and installation directory are returned if the
 #' installation can be found. The LilyPond API references the currently loaded
-#' version of \code{tabr}.
+#' version of `tabr`.
 #'
 #' @return a message or system standard output.
 #' @export

@@ -25,9 +25,8 @@
 \item{...}{additional arguments. Not accepted for phrase objects.}
 }
 \description{
-Several methods are implemented for the classes \code{noteworthy},
-\code{noteinfo}, and \code{music}. See \code{\link{tabr-methods}} for
-more details on methods for tabr classes.
+Several methods are implemented for the classes \code{noteworthy}, \code{noteinfo}, and
+\code{music}. See \code{\link[=tabr-methods]{tabr-methods()}} for more details on methods for tabr classes.
 }
 \examples{
 # noteworthy class examples
@@ -47,5 +46,5 @@ rep(as_music(x), each = 2)
 rep(phrase(x), 2)
 }
 \seealso{
-\code{\link{tabr-methods}}, \code{\link{note-metadata}}
+\code{\link[=tabr-methods]{tabr-methods()}}, \code{\link[=note-metadata]{note-metadata()}}
 }

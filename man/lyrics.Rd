@@ -17,12 +17,12 @@ is_lyrics(x)
 lyrics_template(x, format = NULL)
 }
 \arguments{
-\item{x}{character or lyrics object. For \code{lyrics_template}, an integer
-or one of the classes \code{noteworthy}, \code{noteinfo} or \code{music} to
-derive the number of timesteps from.}
+\item{x}{character or lyrics object. For \code{lyrics_template()}, an integer or
+one of the classes \code{noteworthy}, \code{noteinfo} or \code{music} to derive the number
+of timesteps from.}
 
-\item{format}{\code{NULL} or character, the timestep delimiter format,
-\code{"space"} or \code{"vector"}.}
+\item{format}{\code{NULL} or character, the timestep delimiter format, \code{"space"}
+or \code{"vector"}.}
 }
 \value{
 depends on the function
@@ -31,20 +31,20 @@ depends on the function
 Functions for creating and checking lyrics objects.
 }
 \details{
-The \code{lyrics} class is a simple class for arranging lyrics text by
-timestep. Its structure and behavior aligns with that of the classes
-\code{noteworthy}, \code{noteinfo} and \code{music}.
+The \code{lyrics} class is a simple class for arranging lyrics text by timestep.
+Its structure and behavior aligns with that of the classes \code{noteworthy},
+\code{noteinfo} and \code{music}.
 
-\code{lyrical} is a trivial function that returns a scalar logical result
+\code{lyrical()} is a trivial function that returns a scalar logical result
 essentially for any object that inherits from character, though this check
 may become more specific in the future.
 
-\code{as_lyrics} can be used to coerce to the \code{lyrics} class.
-Coercion will fail if the string is not lyrical.
-The \code{lyrics} class has its own \code{print} and \code{summary} methods.
+\code{as_lyrics()} can be used to coerce to the \code{lyrics} class. Coercion will fail
+if the string is not lyrical. The \code{lyrics} class has its own \code{print()} and
+\code{summary()} methods.
 
-When \code{format = NULL}, the timestep delimiter format is inferred from
-the lyrical string input.
+When \code{format = NULL}, the timestep delimiter format is inferred from the
+lyrical string input.
 }
 \examples{
 # space-delimited lyrics; use periods for timesteps with no lyric

@@ -31,9 +31,8 @@ pitch, specific position among the notes by pitch, or trim chords to
 simplify them.
 They operate based only on ordered pitches.
 
-For \code{chord_slice}, any entry that is empty after slicing is dropped.
-An error is thrown is \code{index} is completely out of bounds for all
-chords.
+For \code{chord_slice()}, any entry that is empty after slicing is dropped. An
+error is thrown is \code{index} is completely out of bounds for all chords.
 }
 \examples{
 x <- "a_2 c#eg# e_gc egc,cc'"

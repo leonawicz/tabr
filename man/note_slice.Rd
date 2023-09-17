@@ -22,7 +22,7 @@ note_arpeggiate(notes, n = 0, step = 12)
 \item{notes}{character, a noteworthy string, space-delimited or vector of
 individual entries.}
 
-\item{...}{For \code{note_slice}, an integer or logical vector.}
+\item{...}{For \code{note_slice()}, an integer or logical vector.}
 
 \item{decreasing}{logical, short in decreasing order.}
 
@@ -30,9 +30,8 @@ individual entries.}
 details.}
 
 \item{step}{integer, number of semitone steps from the first (or last) note
-in \code{notes} at which to begin repeating the shifted \code{notes}
-sequence as an arpeggio. See examples.
-arpeggio.}
+in \code{notes} at which to begin repeating the shifted \code{notes} sequence as an
+arpeggio. See examples.}
 }
 \value{
 character
@@ -41,27 +40,26 @@ character
 Helper functions for indexing and moving notes within noteworthy strings.
 }
 \details{
-\code{note_slice} subsets the timesteps of a noteworthy string by integer
-index or logical vector of length equal to the number of timesteps.
+\code{note_slice()} subsets the timesteps of a noteworthy string by integer index
+or logical vector of length equal to the number of timesteps.
 
-\code{note_sort} sorts the timesteps of a noteworthy string by pitch. When a
-tie exists by root note, the next note in chords are compared, if they exist.
-For example, \code{a,} sorts lower than \code{a,ce}.
+\code{note_sort()} sorts the timesteps of a noteworthy string by pitch. When a tie
+exists by root note, the next note in chords are compared, if they exist.
+For example, \verb{a,} sorts lower than \verb{a,ce}.
 
-\code{note_rotate} simply rotates anything space-delimited or vectorized in
+\code{note_rotate()} simply rotates anything space-delimited or vectorized in
 place. It allows chords. Octave numbering is ignored if present.
 
-For \code{note_shift} the entire sequence is shifted up or down in pitch, as
-if inverting a broken chord.
-If \code{notes} contains chords, they are broken into successive notes. Then
-all notes are ordered by pitch. Finally shifting occurs.
+For \code{note_shift()} the entire sequence is shifted up or down in pitch, as if
+inverting a broken chord. If \code{notes} contains chords, they are broken into
+successive notes. Then all notes are ordered by pitch. Finally shifting
+occurs.
 
-Instead of a moving window, \code{note_arpeggiate} grows its sequence from
-the original set of timesteps by repeating the entire sequence \code{n}
-times (\code{n} must be positive). Each repeated sequence contributing to
-the arpeggio is offset by \code{step} semitones from the original.
-\code{step} can be negative. It defaults to 12, increasing all \code{notes}
-by one octave.
+Instead of a moving window, \code{note_arpeggiate()} grows its sequence from the
+original set of timesteps by repeating the entire sequence \code{n} times (\code{n}
+must be positive). Each repeated sequence contributing to the arpeggio is
+offset by \code{step} semitones from the original. \code{step} can be negative. It
+defaults to 12, increasing all \code{notes} by one octave.
 }
 \examples{
 x <- "bd'f#' a c'e'g' b ba c'g' gd'g'd''"

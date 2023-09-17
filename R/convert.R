@@ -1,15 +1,14 @@
 #' Music notation syntax converters
 #'
-#' Convert alternative representations of music notation to \code{tabr} syntax.
+#' Convert alternative representations of music notation to `tabr` syntax.
 #'
 #' @details
 #' These functions convert music notation from other data sources into the style
-#' used by \code{tabr} for music analysis and sheet music transcription.
+#' used by `tabr` for music analysis and sheet music transcription.
 #'
 #' @section Syntax converter for chorrrds:
-#' The input \code{x} is a character vector of chords output from the
-#' \code{chorrrds} package, as shown in the examples. Output is a noteworthy
-#' string object.
+#' The input `x` is a character vector of chords output from the `chorrrds`
+#' package, as shown in the examples. Output is a noteworthy string object.
 #'
 #' Some sources do not offer as complete or explicit information in order to
 #' make sheet music. However, what is available in those formats is converted
@@ -17,10 +16,10 @@
 #' to add some additional specification. Different input syntax makes use of a
 #' different syntax converter. Depending on the format, different arguments
 #' may be available and/or required. The general wrapper function for all of
-#' the available syntax converters is \code{to_tabr}. This function takes an
-#' \code{id} argument for the appropriate converter function. See examples.
+#' the available syntax converters is `to_tabr()`. This function takes an
+#' `id` argument for the appropriate converter function. See examples.
 #'
-#' For example, output from the \code{chorrrds} package that scrapes chord
+#' For example, output from the `chorrrds` package that scrapes chord
 #' information from the Cifraclub website only provides chords, not note for
 #' note transcription data for any particular instrument. This means the result
 #' of syntax conversion still yields only chords, which is fine for data
@@ -33,23 +32,22 @@
 #' all that is provided is a generic chord symbol. By default a standard chord
 #' is constructed if it can be determined.
 #'
-#' Setting \code{guitar = TRUE} switches
-#' to using the \code{\link{guitarChords}} dataset to find matching guitar
-#' chords using \code{\link{gc_info}}, which can be provided additional
-#' arguments in a named list to \code{gc_args}. For guitar, this allows some
-#' additional control over the actual structure of the chord, its shape and
+#' Setting `guitar = TRUE` switches to using the [guitarChords()] dataset to
+#' find matching guitar chords using [gc_info()], which can be provided
+#' additional arguments in a named list to `gc_args`. For guitar, this allows
+#' some additional control over the actual structure of the chord, its shape and
 #' position on the guitar neck. The options will never work perfectly for all
-#' chords in \code{chords}, but at a minimum, typical default component pitches
-#' will be determined and returned in \code{tabr} notation style.
+#' chords in `chords`, but at a minimum, typical default component pitches
+#' will be determined and returned in `tabr` notation style.
 #'
 #' @section Syntax converter for music21:
-#' The input \code{x} is a character vector of in music21 tiny notation syntax,
+#' The input `x` is a character vector of in music21 tiny notation syntax,
 #' as shown in the examples. Default output is a music object. Setting
-#' \code{output = "list"} returns a list of three elements: a noteworthy string,
+#' `output = "list"` returns a list of three elements: a noteworthy string,
 #' a note info string, and the time signature.
 #'
 #' The recommendation for music21 syntax is to keep it simple. Do not use the
-#' letter \code{n} for explicit natural notes. Do not add text annotations such
+#' letter `n` for explicit natural notes. Do not add text annotations such
 #' as lyrics. Double flats and sharps are not supported. The examples
 #' demonstrate what is currently supported.
 #'
@@ -57,16 +55,14 @@
 #' inputs are structured for each converter.
 #' @param key key signature, used to enforce consistent use of flats or sharps.
 #' @param guitar logical, attempt to match input chords to known guitar chords
-#' in \code{\link{guitarChords}}. Otherwise by default standard piano chords of
+#' in [guitarChords()]. Otherwise by default standard piano chords of
 #' consecutive pitches covering minimum pitch range are returned.
-#' @param gc_args named list of additional arguments passed to
-#' \code{\link{gc_info}}, used when \code{guitar = TRUE}.
-#' @param accidentals character, represent accidentals, \code{"flat"} or
-#' \code{"sharp"}.
+#' @param gc_args named list of additional arguments passed to [gc_info()], used
+#' when `guitar = TRUE`.
+#' @param accidentals character, represent accidentals, `"flat"` or `"sharp"`.
 #' @param output character, type of output when multiple options are available.
-#' @param id character, suffix of \code{from_*} function, e.g.,
-#' \code{"chorrrds"}
-#' @param ... arguments passed to the function matched by \code{id}.
+#' @param id character, suffix of `from_*` function, e.g., `"chorrrds"`
+#' @param ... arguments passed to the function matched by `id`.
 #'
 #' @return noteworthy string for chorrrds; music string or list for music21.
 #' @export
@@ -227,7 +223,7 @@ from_music21 <- function(x, accidentals = c("flat", "sharp"),
   if(length(x) > 1) x <- paste(x, collapse = " ")
   x <- strsplit(x, "(?<=.)(?=\\})", perl = TRUE)[[1]]
   if(length(x) > 1){
-    x <- purrr::map(x, ~strsplit(.x, "(?<=.)(?=trip\\{)", perl = TRUE)[[1]]) %>%
+    x <- purrr::map(x, ~strsplit(.x, "(?<=.)(?=trip\\{)", perl = TRUE)[[1]]) |>
       unlist()
     idx <- grep("^trip\\{", x)
     x[idx] <- sapply(x[idx], .music21_tuplets, USE.NAMES = FALSE)
@@ -269,7 +265,7 @@ from_music21 <- function(x, accidentals = c("flat", "sharp"),
   x <- purrr::map2_chr(y$values, y$lengths, ~{
     if(.y == 1) return(.x)
     paste(rep(.x, .y), collapse = "")
-  }) %>% paste(collapse = "")
+  }) |> paste(collapse = "")
   x <- strsplit(x, "(?<=.)(?=[a-g])", perl = TRUE)[[1]]
   x <- .music21_accidentals(x, TRUE, a)
   x <- .music21_accidentals(x, FALSE, a)

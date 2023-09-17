@@ -20,23 +20,21 @@ Bind together track tables by row.
 }
 \details{
 This function appends multiple track tables into a single track table for
-preparation of generating a multi-track score.
-\code{id} is used to separate staves in the sheet music/tablature output.
-A track's \code{voice} is used to separate distinct voices within a common
-music staff.
+preparation of generating a multi-track score. \code{id} is used to separate
+staves in the sheet music/tablature output. A track's \code{voice} is used to
+separate distinct voices within a common music staff.
 
-If not provided, \code{id} automatically propagates \code{1:n}
-for \code{n} tracks passed to \code{...} when binding these tracks together.
-This expresses the default assumption of one staff or music/tab staff pair
-per track. This is the typical use case.
+If not provided, \code{id} automatically propagates \code{1:n} for \code{n} tracks passed to
+\code{...} when binding these tracks together. This expresses the default
+assumption of one staff or music/tab staff pair per track. This is the
+typical use case.
 
 Some tracks represent different voices that share the same staff.
 These should be assigned the same \code{id}, in which case you must
 provide the \code{id} argument. Up to two voices per track are supported.
 An error will be thrown if any two tracks have both the same \code{voice}
-and the same \code{id}. The pair must be unique. E.g.,
-provide \code{id = c(1, 1)} when you have two tracks with \code{voice}
-equal to 1 and 2. See examples.
+and the same \code{id}. The pair must be unique. E.g., provide \code{id = c(1, 1)} when
+you have two tracks with \code{voice} equal to 1 and 2. See examples.
 
 Note that the actual ID values assigned to each track do not matter;
 only the order in which tracks are bound, first to last.
@@ -49,5 +47,5 @@ trackbind(x1, x1)
 trackbind(x1, x2, id = c(1, 1))
 }
 \seealso{
-\code{\link{phrase}}, \code{\link{track}}, \code{\link{score}}
+\code{\link[=phrase]{phrase()}}, \code{\link[=track]{track()}}, \code{\link[=score]{score()}}
 }

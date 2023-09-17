@@ -15,8 +15,8 @@ rest(x, n = 1)
 a character string.
 }
 \description{
-Create multiple rests efficiently with a simple wrapper around \code{rep}
-using the \code{times} argument.
+Create multiple rests efficiently with a simple wrapper around \code{rep()} using
+the \code{times} argument.
 }
 \examples{
 rest(c(1, 8), c(1, 4))

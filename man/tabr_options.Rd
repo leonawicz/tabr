@@ -24,6 +24,6 @@ must be provided by the user after loading the package.
 }
 \examples{
 tabr_options()
-lilypond_path <- "C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe"
+lilypond_path <- "C:/lilypond-2.24.2/bin/lilypond.exe" # if installed here
 tabr_options(lilypond = lilypond_path)
 }

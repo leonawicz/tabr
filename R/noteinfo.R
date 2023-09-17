@@ -2,16 +2,16 @@
 #'
 #' Functions for working with note info strings.
 #'
-#' If \code{x} is a phrase object, there are some parsing limitations such as
-#' tuplets and repeats.
+#' If `x` is a phrase object, there are some parsing limitations such as tuplets
+#' and repeats.
 #'
 #' @param x character, note info string normally accompanying a noteworthy
-#' string for building phrase objects. \code{x} may also be a phrase object.
+#' string for building phrase objects. `x` may also be a phrase object.
 #'
 #' @return character
 #' @export
 #' @name noteinfo
-#' @seealso \code{\link{valid-noteinfo}}
+#' @seealso [valid-noteinfo()]
 #'
 #' @examples
 #' a <- notate("t8x", "Start here")
@@ -125,31 +125,31 @@ info_articulation <- function(x){
 #'
 #' Check whether a note info string is comprised exclusively of valid note info
 #' syntax.
-#' \code{noteinfo} returns a scalar logical result indicating whether the
-#' entire set contains exclusively valid entries.
+#' `noteinfo` returns a scalar logical result indicating whether the entire set
+#' contains exclusively valid entries.
 #'
-#' \code{as_noteinfo} can be used to coerce to the \code{noteinfo} class.
+#' `as_noteinfo()` can be used to coerce to the `noteinfo` class.
 #' Coercion will fail if the string is has any syntax that is not valid for
 #' note info.
-#' Using the \code{noteinfo} class is generally not needed by the user during
-#' an interactive session, but is available and offers its own \code{print} and
-#' \code{summary} methods for note info strings.
+#' Using the `noteinfo` class is generally not needed by the user during
+#' an interactive session, but is available and offers its own `print()` and
+#' `summary()` methods for note info strings.
 #' The class is often used by other functions, and functions that output a
-#' note info string attach the \code{noteinfo} class.
+#' note info string attach the `noteinfo` class.
 #'
-#' When \code{format = NULL}, the timestep delimiter format is inferred
-#' from the note info string input. When unclear, such as with phrase objects,
-#' the default is space-delimited time.
+#' When `format = NULL`, the timestep delimiter format is inferred from the note
+#' info string input. When unclear, such as with phrase objects, the default is
+#' space-delimited time.
 #'
 #' @param x character, a note info string.
-#' @param format \code{NULL} or character, the timestep delimiter format,
-#' \code{"space"} or \code{"vector"}.
-#' @param na.rm remove \code{NA}s.
+#' @param format `NULL` or character, the timestep delimiter format, `"space"`
+#' or `"vector"`.
+#' @param na.rm remove `NA`s.
 #'
 #' @return depends on the function
 #' @export
 #' @name valid-noteinfo
-#' @seealso \code{\link{noteinfo}}, \code{\link{valid-notes}}
+#' @seealso [noteinfo()], [valid-notes()]
 #'
 #' @examples
 #' a <- notate("8x", "Start here")

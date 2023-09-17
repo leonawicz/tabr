@@ -22,13 +22,21 @@ phrase on non-phrase character string, noteworthy string if
 applicable.
 }
 \description{
-Helper functions for concatenating musical phrases and other strings
+Helper functions for concatenating musical phrases and raw strings
 together as well as repetition.
-The functions \code{pc} and \code{pn} are based on base functions
-\code{paste} and\code{rep}, respectively, but are tailored for efficiency in
-creating musical phrases.
 }
 \details{
+Note: When working with special \code{tabr} classes, you can simply use generics
+like \code{c()} and \code{rep()} as many custom methods exist for these classes. The
+additional respective helper functions, \code{pc()} and \code{pn()}, are more
+specifically for phrase objects and when you are still working with character
+strings, yet to be converted to a phrase object (numbers not yet in string
+form are allowed). See examples.
+
+The functions \code{pc()} and \code{pn()} are based on base functions \code{paste()} and
+\code{rep()}, respectively, but are tailored for efficiency in creating musical
+phrases.
+
 These functions respect and retain the phrase class when applied to phrases.
 They are aggressive for phrases and secondarily for noteworthy strings.
 Combining a phrase with a non-phrase string will assume compatibility and

@@ -23,7 +23,7 @@ respectively. See details.}
 \item{reverse}{logical, reverse the transposition direction. Useful when
 \code{interval} is character.}
 
-\item{octaves, accidentals, key}{See \code{\link{transpose}}.}
+\item{octaves, accidentals, key}{See \code{\link[=transpose]{transpose()}}.}
 }
 \value{
 character
@@ -35,9 +35,9 @@ Construct a dyad given one note, an interval, and a direction.
 The \code{interval} may be specified by semitones of by common interval name
 or abbreviation. See examples.
 For a complete list of valid interval names and abbreviations see
-\code{\link{mainIntervals}}.
+\code{\link[=mainIntervals]{mainIntervals()}}.
 \code{key} enforces the use of sharps or flats. This function is based on
-\code{transpose}.
+\code{transpose()}.
 \code{notes} and \code{interval} may be vectors, but must be equal length.
 Recycling occurs only if one argument is scalar.
 }
@@ -56,5 +56,5 @@ dyad("c", x, reverse = TRUE)
 dyad("d e", "m3")
 }
 \seealso{
-\code{\link{mainIntervals}}
+\code{\link[=mainIntervals]{mainIntervals()}}
 }

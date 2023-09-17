@@ -18,8 +18,8 @@ is_noteinfo(x)
 
 \item{na.rm}{remove \code{NA}s.}
 
-\item{format}{\code{NULL} or character, the timestep delimiter format,
-\code{"space"} or \code{"vector"}.}
+\item{format}{\code{NULL} or character, the timestep delimiter format, \code{"space"}
+or \code{"vector"}.}
 }
 \value{
 depends on the function
@@ -27,22 +27,22 @@ depends on the function
 \description{
 Check whether a note info string is comprised exclusively of valid note info
 syntax.
-\code{noteinfo} returns a scalar logical result indicating whether the
-entire set contains exclusively valid entries.
+\code{noteinfo} returns a scalar logical result indicating whether the entire set
+contains exclusively valid entries.
 }
 \details{
-\code{as_noteinfo} can be used to coerce to the \code{noteinfo} class.
+\code{as_noteinfo()} can be used to coerce to the \code{noteinfo} class.
 Coercion will fail if the string is has any syntax that is not valid for
 note info.
 Using the \code{noteinfo} class is generally not needed by the user during
-an interactive session, but is available and offers its own \code{print} and
-\code{summary} methods for note info strings.
+an interactive session, but is available and offers its own \code{print()} and
+\code{summary()} methods for note info strings.
 The class is often used by other functions, and functions that output a
 note info string attach the \code{noteinfo} class.
 
-When \code{format = NULL}, the timestep delimiter format is inferred
-from the note info string input. When unclear, such as with phrase objects,
-the default is space-delimited time.
+When \code{format = NULL}, the timestep delimiter format is inferred from the note
+info string input. When unclear, such as with phrase objects, the default is
+space-delimited time.
 }
 \examples{
 a <- notate("8x", "Start here")
@@ -56,5 +56,5 @@ x
 summary(x)
 }
 \seealso{
-\code{\link{noteinfo}}, \code{\link{valid-notes}}
+\code{\link[=noteinfo]{noteinfo()}}, \code{\link[=valid-notes]{valid-notes()}}
 }

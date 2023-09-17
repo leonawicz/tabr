@@ -44,8 +44,7 @@ octave_span(notes)
 \item{notes}{character, a noteworthy string, space-delimited or vector of
 individual entries.}
 
-\item{rests}{logical, include rests \code{r} and silent rests \code{s} in
-tally.}
+\item{rests}{logical, include rests \code{r} and silent rests \code{s} in tally.}
 }
 \value{
 varies by function
@@ -60,15 +59,15 @@ Returned object depends on the nature of the function. It can be integers,
 logical, character. Results can be a vector of equal length of a single
 value summary.
 
-Use the \code{tally_*} and \code{distinct_*} functions specifically for
-summaries of unique elements.
+Use the \verb{tally_*} and \verb{distinct_*} functions specifically for summaries of
+unique elements.
 
-\code{distinct_notes} and \code{distinct_pitches} filter a noteworthy string
+\code{distinct_notes()} and \code{distinct_pitches()} filter a noteworthy string
 to its unique elements, respectively. These functions return another
 noteworthy string.
 
-\code{*_span} functions are just the size of a range, e.g.,
-\code{semitone_range} and \code{semitone_span}.
+\verb{*_span} functions are just the size of a range, e.g., \code{semitone_range()} and
+\code{semitone_span()}.
 }
 \examples{
 x <- "r s e_2 a_, c#f#a#"
@@ -87,6 +86,5 @@ octave_range(x)
 octave_span(x)
 }
 \seealso{
-\code{\link{note-checks}}, \code{\link{note-metadata}},
-\code{\link{note-coerce}}, \code{\link{valid-notes}}
+\code{\link[=note-checks]{note-checks()}}, \code{\link[=note-metadata]{note-metadata()}}, \code{\link[=note-coerce]{note-coerce()}}, \code{\link[=valid-notes]{valid-notes()}}
 }

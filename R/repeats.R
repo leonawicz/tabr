@@ -3,29 +3,25 @@
 #' Create a repeat section in LilyPond readable format.
 #'
 #' These functions wraps a phrase object or a character string in LilyPond
-#' repeat syntax. The most basic is \code{rp} for basic wrapping a LilyPond
-#' \code{unfold} repeat tag around a phrase.
-#' This repeats the phrase \code{n} times, but it is displayed in the engraved
-#' sheet music fully written out as a literal propagation of the phrase with no
-#' repeat notation used to reduce redundant presentation.
-#' The next is \code{pct}, which wraps a \code{percent} repeat tag around a
-#' phrase. This is displayed in sheet music as percent repeat notation whose
-#' specific notation changes based on the length of the repeated section of
-#' music, used for beats or whole measures.
-#' \code{volta} wraps a phrase in a \code{volta} repeat tag, used for long
-#' repeats of one or more full measures or bars of music, optionally with
-#' alternate endings.
+#' repeat syntax. The most basic is `rp()` for basic wrapping a LilyPond
+#' `unfold` repeat tag around a phrase. This repeats the phrase `n` times, but
+#' it is displayed in the engraved sheet music fully written out as a literal
+#' propagation of the phrase with no repeat notation used to reduce redundant
+#' presentation. The next is `pct()`, which wraps a `percent()` repeat tag
+#' around a phrase. This is displayed in sheet music as percent repeat notation
+#' whose specific notation changes based on the length of the repeated section
+#' of music, used for beats or whole measures. `volta()` wraps a phrase in a
+#' `volta()` repeat tag, used for long repeats of one or more full measures or
+#' bars of music, optionally with alternate endings.
 #'
 #' Note that basic strings should still be interpretable as a valid musical
 #' phrase by LilyPond and such strings will be coerced to the phrase class by
-#' these functions.
-#' For example, a one-measure rest, \code{"r1"}, does not need to be a phrase
-#' object to work with these functions, nor does any other character string
-#' explicitly written out in valid LilyPond syntax.
-#' As always, see the LilyPond documentation if you are not familiar with
-#' LilyPond syntax.
+#' these functions. For example, a one-measure rest, `"r1"`, does not need to be
+#' a phrase object to work with these functions, nor does any other character
+#' string explicitly written out in valid LilyPond syntax. As always, see the
+#' LilyPond documentation if you are not familiar with LilyPond syntax.
 #'
-#' VOLTA REPEAT: When \code{silent = TRUE} there is no indication of the number
+#' VOLTA REPEAT: When `silent = TRUE` there is no indication of the number
 #' of plays above the staff at the start of the volta section. This otherwise
 #' happens automatically when the number of repeats is greater than one and no
 #' alternate endings are included (which are already numbered).
@@ -34,28 +30,27 @@
 #' number or plays. This prevents printing the same text above every staff.
 #'
 #' PERCENT REPEAT: As indicated in the parameter descriptions, the arguments
-#' \code{counter} and \code{step} only apply to full measures or bars of music.
-#' It does not apply to shorter beats that are repeated using \code{pct}.
+#' `counter` and `step` only apply to full measures or bars of music.
+#' It does not apply to shorter beats that are repeated using `pct()`.
 #'
 #' @param phrase a phrase object or equivalent string to be repeated.
-#' @param n integer, number of repeats of \code{phrase} (one less than the
-#' total number of plays).
+#' @param n integer, number of repeats of `phrase` (one less than the total
+#' number of plays).
 #' @param endings a single phrase or a list of phrases, alternate endings.
-#' @param silent if \code{TRUE}, no text will be printed above the staff at the
-#' beginning of a volta section.See details.
-#' @param counter logical, if \code{TRUE}, print the percent repeat counter
-#' above the staff, applies only to \emph{measure} repeats of more than two
-#' repeats (\code{n} > 2).
-#' @param step integer, print the \emph{measure} percent repeat counter above
-#' the staff only at every \code{step} measures when \code{counter = TRUE}.
-#' @param reset logical, percent repeat \code{counter} and \code{step} settings
-#' are only applied to the single \code{pct} call and are reset afterward.
-#' If \code{reset = FALSE}, the settings are left open to apply to any
-#' subsequent percent repeat sections in a track.
+#' @param silent if `TRUE`, no text will be printed above the staff at the
+#' beginning of a volta section. See details.
+#' @param counter logical, if `TRUE`, print the percent repeat counter above the
+#' staff, applies only to *measure* repeats of more than two repeats (`n` > 2).
+#' @param step integer, print the *measure* percent repeat counter above the
+#' staff only at every `step` measures when `counter = TRUE`.
+#' @param reset logical, percent repeat `counter` and `step` settings are only
+#' applied to the single `pct()` call and are reset afterward. If
+#' `reset = FALSE`, the settings are left open to apply to any subsequent
+#' percent repeat sections in a track.
 #'
 #' @return a phrase.
 #' @name repeats
-#' @seealso \code{\link{phrase}}
+#' @seealso [phrase()]
 #' @export
 #'
 #' @examples

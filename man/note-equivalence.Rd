@@ -48,17 +48,15 @@ are equal if they sound the same.
 This means that if one string contains Eb (\code{e_}) and the other contains
 D# (\code{d#}) then the two strings may be equal, but they are not identical.
 
-\code{pitch_is_equal} and \code{pitch_is_identical} perform these respective
+\code{pitch_is_equal()} and \code{pitch_is_identical()} perform these respective
 tests of equivalence on both notes and chords.
 These are the strictest functions in terms of equivalent sound because pitch
 includes the octave number.
 
-\code{note_is_equal} and \code{note_is_identical} are similar but include a
-default argument \code{ignore_octave = TRUE}, focusing only on the notes and
-chords.
+\code{note_is_equal()} and \code{note_is_identical()} are similar but include a default
+argument \code{ignore_octave = TRUE}, focusing only on the notes and chords.
 This allows an even more relaxed definition of equivalence. Setting this
-argument to \code{FALSE} is the same as calling the \code{pitch_is_*}
-variant.
+argument to \code{FALSE} is the same as calling the \verb{pitch_is_*} variant.
 
 Chords can be checked the same as notes. Every timestep in the sequence is
 checked pairwise between \code{note1} and \code{note2}.
@@ -72,14 +70,13 @@ even in a case of an octave dyad with octave number ignored.
 If the two sequences have unequal length \code{NA} is returned.
 These are bare minimum requirements for equivalence. See examples.
 
-\code{octave_is_equal} and \code{octave_is_identical} allow much weaker
-forms of equivalence in that they ignore notes completely.
-These functions are only concerned with comparing the octave numbers spanned
-by any pitches present at each timestep.
-When checking for equality, \code{octave_is_equal} only looks at the octave
-number associated with the first note at each step, e.g., only the root note
-of a chord.
-\code{octave_is_identical} compares all octaves spanned at a given timestep.
+\code{octave_is_equal()} and \code{octave_is_identical()} allow much weaker forms of
+equivalence in that they ignore notes completely. These functions are only
+concerned with comparing the octave numbers spanned by any pitches present at
+each timestep. When checking for equality, \code{octave_is_equal()} only looks at
+the octave number associated with the first note at each step, e.g., only the
+root note of a chord. \code{octave_is_identical()} compares all octaves spanned at
+a given timestep.
 
 It does not matter when comparing two chords that they may be comprised of a
 different numbers of notes.
@@ -88,7 +85,7 @@ spanned by the other, they are considered to have identical octave coverage.
 For example, \code{a1b2c3} is identical to \code{d1e1f2g3}. To be equal, it
 only matters that the two chords begin with \code{x1}, where \code{x} is any
 note.
-Alternatively, for \code{octave_is_identical} only, setting
+Alternatively, for \code{octave_is_identical()} only, setting
 \code{single_octave = TRUE} additionally requires that all notes from both
 chords being compared at a given timestep share a single octave.
 }

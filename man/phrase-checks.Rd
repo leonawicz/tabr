@@ -32,7 +32,7 @@ notable(phrase)
 phrase construction.}
 
 \item{annotations}{logical, strip any text annotations from the note info
-converted from \code{phrase}.}
+converted from \code{phrase()}.}
 }
 \value{
 see details for each function's purpose and return value.
@@ -43,35 +43,30 @@ phrase objects.
 }
 \details{
 Use these functions with some caution. They are not intended for strictness
-and perfection.
-\code{phrasey} checks whether an object is weakly phrase-like and returns
-\code{TRUE} or \code{FALSE}.
-It can be used to safeguard against the most obvious cases of \code{phrase}
-not containing valid phrase syntax when programming.
-However, it may also be limiting. Use wear sensible.
+and perfection. \code{phrasey()} checks whether an object is weakly phrase-like
+and returns \code{TRUE} or \code{FALSE}. It can be used to safeguard against the most
+obvious cases of \code{phrase()} not containing valid phrase syntax when
+programming. However, it may also be limiting. Use wear sensible.
 
-\code{as_phrase} coerces an object to a phrase object if possible.
-This function performs an internal \code{phrasey} check.
+\code{as_phrase()} coerces an object to a phrase object if possible. This function
+performs an internal \code{phrasey()} check.
 
-\code{notify} attempts to decompose a phrase object back to its original
-input vectors consisting of notes, note info, and optionally, instrument
-string numbering.
-If successful, it returns a tibble data frame with columns: \code{notes},
-\code{info}, \code{string}.
+\code{notify()} attempts to decompose a phrase object back to its original input
+vectors consisting of notes, note info, and optionally, instrument string
+numbering. If successful, it returns a tibble data frame with columns:
+\code{notes}, \code{info}, \code{string}.
 
 Unless decomposing very simple phrases, this function is likely to reveal
-limitations.
-Complex phrase objects constructed originally with \code{phrase} can be
-challenging to deconstruct in a one to one manner.
-Information may be lost, garbled, or the function may fail.
-For example, this function is not advanced enough to unravel repeat notation
-or tuplets.
+limitations. Complex phrase objects constructed originally with \code{phrase()}
+can be challenging to deconstruct in a one to one manner. Information may be
+lost, garbled, or the function may fail. For example, this function is not
+advanced enough to unravel repeat notation or tuplets.
 
- \code{notable} returns \code{TRUE} or \code{FALSE} regarding whether a
- phrase can be converted back to character string inputs,
- not necessarily with complete correctness, but without simple failure.
- It checks for phrasiness. Then it tries to call \code{notify} and returns
- \code{FALSE} gracefully if that call throws an exception.
+\code{notable()} returns \code{TRUE} or \code{FALSE} regarding whether a phrase can be
+converted back to character string inputs, not necessarily with complete
+correctness, but without simple failure.It checks for phrasiness. Then it
+tries to call \code{notify()} and returns \code{FALSE} gracefully if that call throws
+an exception.
 }
 \examples{
 # Create a list of phrase objects

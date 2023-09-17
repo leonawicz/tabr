@@ -42,17 +42,17 @@ contains.
 
 Note that if you convert a music object to a phrase object, you are changing
 contexts. The phrase object is the simplest LilyPond-format music structure.
-Coercion with \code{phrase} strips all attributes of a music object and
+Coercion with \code{phrase()} strips all attributes of a music object and
 retains only notes, note info and string numbers.
 
 See the help documentation on \code{noteworthy}, \code{noteinfo}, and
 \code{music} classes for an understanding of the input data structures.
-The function \code{p} is a convenient shorthand wrapper for \code{phrase}.
+The function \code{p()} is a convenient shorthand wrapper for \code{phrase()}.
 
 If a string is provided to \code{bar}, it is interpreted as LilyPond bar
-notation. E.g., \code{bar = "|"} adds the LilyPond syntax \code{\\bar "|"}
+notation. E.g., \code{bar = "|"} adds the LilyPond syntax \verb{\\bar "|"}
 to the end of a phrase. If only a bar check is desired, use
-\code{bar = TRUE}. \code{FALSE} is treated as {NULL} for completeness.
+\code{bar = TRUE}. \code{FALSE} is treated as \code{NULL} for completeness.
 }
 \examples{
 phrase("c ec'g' ec'g'", "4- 4 2") # no string arg (not recommended for tabs)
@@ -81,6 +81,5 @@ x2 <- pc(p("a b", 2), '\\\\bar "|."')
 identical(x, x2)
 }
 \seealso{
-\code{\link{valid-notes}}, \code{\link{valid-noteinfo}},
-\code{\link{music}}
+\code{\link[=valid-notes]{valid-notes()}}, \code{\link[=valid-noteinfo]{valid-noteinfo()}}, \code{\link[=music]{music()}}
 }

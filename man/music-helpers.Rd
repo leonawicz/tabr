@@ -35,9 +35,9 @@ depends on the function
 Helper functions for accessing music object values and attributes.
 }
 \details{
-Note that while lyrics always shows as an attribute even when \code{NA},
-\code{strings} is completely absent as a value if it was not part of the
-object construction from a new character string.
+Note that while lyrics always shows as an attribute even when \code{NA}, \code{strings}
+is completely absent as a value if it was not part of the object construction
+from a new character string.
 }
 \examples{
 # Starting string = 5: use ';5'. Carries over until an explicit change.
@@ -63,7 +63,6 @@ music_lyrics(x)
 music_strings(x)
 }
 \seealso{
-\code{\link{music}}, \code{\link{note-checks}},
-\code{\link{note-metadata}}, \code{\link{note-summaries}},
-\code{\link{note-coerce}}
+\code{\link[=music]{music()}}, \code{\link[=note-checks]{note-checks()}}, \code{\link[=note-metadata]{note-metadata()}}, \code{\link[=note-summaries]{note-summaries()}},
+\code{\link[=note-coerce]{note-coerce()}}
 }

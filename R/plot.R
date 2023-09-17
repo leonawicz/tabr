@@ -5,28 +5,28 @@
 #' These functions are under development and subject to change. They each
 #' return a ggplot object.
 #'
-#' Use \code{plot_chord} to create a fretboard diagram of a specific chord.
-#' \code{plot_chord} accepts a character string in simple fretboard format,
-#' e.g., \code{chord = "xo221o"}.
-#' Zero is allowed in place of \code{"o"}. This only works when no spaces or
+#' Use `plot_chord()` to create a fretboard diagram of a specific chord.
+#' `plot_chord()` accepts a character string in simple fretboard format,
+#' e.g., `chord = "xo221o"`.
+#' Zero is allowed in place of `"o"`. This only works when no spaces or
 #' semicolons are detected. The function checks for spaces first, then
 #' semicolons, to split fret numbers.
-#' Do not mix formats. For example, you can use \code{chord = "xo221o"},
-#' \code{chord = "x 8 10 10 9 8"} or \code{chord = "x;8;10;10;9;8"}.
-#' Trailing delimiters are ignored (LilyPond format: \code{"x;8;10;10;9;8;"}).
+#' Do not mix formats. For example, you can use `chord = "xo221o"`,
+#' `chord = "x 8 10 10 9 8"` or `chord = "x;8;10;10;9;8"`.
+#' Trailing delimiters are ignored (LilyPond format: `"x;8;10;10;9;8;"`).
 #' If there are fewer fret values than there are strings on the instrument, as
-#' inferred from \code{tuning}, then muted strings, \code{x}, are inferred for
+#' inferred from `tuning`, then muted strings, `x`, are inferred for
 #' the remaining lower-pitch strings.
 #'
-#' \code{plot_fretboard} produces a more general fretboard diagram plot. It is
+#' `plot_fretboard()` produces a more general fretboard diagram plot. It is
 #' intended for scales, arpeggios and other patterns along the fretboard. For
-#' this function, provide vectors of string and fret numbers. \code{mute} is
+#' this function, provide vectors of string and fret numbers. `mute` is
 #' available but not as applicable for this function. For single chord diagrams,
-#' use \code{plot_chord}.
+#' use `plot_chord()`.
 #'
-#' Number of strings is derived from \code{tuning}. See \code{\link{tunings}}
+#' Number of strings is derived from `tuning`. See [tunings()]
 #' for pre-defined tunings and examples of explicit tunings.
-#' \code{tuning} affects point labels when \code{labels = "notes"}.
+#' `tuning` affects point labels when `labels = "notes"`.
 #'
 #' @param string integer or as a space-delimited character string; instrument
 #' string numbers.
@@ -42,16 +42,16 @@
 #' @param group optional vector to facet by.
 #' @param horizontal logical, directional orientation.
 #' @param left_handed logical, handedness orientation.
-#' @param fret_range fret limits, if not \code{NULL}, overrides limits derived
-#' from \code{fret}.
-#' @param accidentals character, when \code{labels = "notes"} represent
-#' accidentals: \code{"flat"} or \code{"sharp"}.
-#' @param tuning explicit tuning, e.g., \code{"e, a, d g b e'"}, or a
-#' pre-defined tuning. See details.
+#' @param fret_range fret limits, if not `NULL`, overrides limits derived
+#' from `fret`.
+#' @param accidentals character, when `labels = "notes"` represent accidentals:
+#' `"flat"` or `"sharp"`.
+#' @param tuning explicit tuning, e.g., `"e, a, d g b e'"`, or a pre-defined
+#' tuning. See details.
 #' @param show_tuning logical, show tuning of each string.
 #' @param asp numeric, aspect ratio, overrides default aspect ratio derived
 #' from number of strings and frets.
-#' @param base_size base size for \code{ggplot2::theme_void}.
+#' @param base_size base size for `ggplot2::theme_void()`.
 #'
 #' @return a ggplot object
 #' @export
@@ -121,8 +121,8 @@ plot_fretboard <- function(string, fret, labels = NULL, mute = FALSE,
       fret2[fret2 >= 10] <- paste0("(", fret2[fret2 >= 10], ")")
       d$lab <- sf_phrase(
         paste0(string, collapse = " "),
-        paste0(fret2, collapse = " "), 1, key, tuning, TRUE) %>%
-        pretty_notes() %>%
+        paste0(fret2, collapse = " "), 1, key, tuning, TRUE) |>
+        pretty_notes() |>
         .uncollapse()
     } else {
       d$lab <- labels

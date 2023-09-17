@@ -2,13 +2,13 @@
 #'
 #' Convert named intervals to numbers of semitones.
 #' For a complete list of valid interval names and abbreviations see
-#' \code{\link{mainIntervals}}. \code{interval} may be a vector.
+#' [mainIntervals()]. `interval` may be a vector.
 #'
 #' @param interval character, interval ID. See details.
 #'
 #' @return integer
 #' @export
-#' @seealso \code{\link{mainIntervals}}
+#' @seealso [mainIntervals()]
 #'
 #' @examples
 #' x <- c("minor third", "m3", "augmented second", "A2")
@@ -28,27 +28,26 @@ interval_semitones <- function(interval){
 #'
 #' Helper functions for musical intervals defined by two notes.
 #'
-#' Numeric intervals are directional. \code{pitch_interval} returns the signed
+#' Numeric intervals are directional. `pitch_interval()` returns the signed
 #' number of semitones defining the distance between two notes.
 #' Named scale intervals are names only. Use pitch for direction.
 #'
-#' \code{scale_interval} returns a character string that provides the named
-#' main interval, simple or compound, defined by  the two notes.
-#' This function will return \code{NA} for any uncommon out of range large
-#' interval not listed as a named interval in \code{\link{mainIntervals}}.
+#' `scale_interval()` returns a character string that provides the named main
+#' interval, simple or compound, defined by  the two notes. This function
+#' returns `NA` for any uncommon out of range large interval not listed as a
+#' named interval in [mainIntervals()].
 #'
-#' \code{pitch_interval} and \code{scale_interval} compute intervals
-#' element-wise between two noteworthy strings. \code{pitch_diff} and
-#' \code{scale_diff} work similarly but compute lagged intervals on the
-#' elements in \code{notes}.
+#' `pitch_interval()` and `scale_interval()` compute intervals element-wise
+#' between two noteworthy strings. `pitch_diff()` and `scale_diff()` work
+#' similarly but compute lagged intervals on the elements in `notes`.
 #'
-#' @param notes,notes1,notes2 character, a noteworthy string. \code{notes1} and
-#' \code{notes2} must have equal number of timesteps.
+#' @param notes,notes1,notes2 character, a noteworthy string. `notes1` and
+#' `notes2` must have equal number of timesteps.
 #' @param use_root logical, use lowest pitch in chord for pitch intervals or
 #' scale intervals between adjacent timesteps. Otherwise intervals involving
-#' chords are \code{NA}.
+#' chords are `NA`.
 #' @param n integer, size of lag.
-#' @param trim logical, trim the \code{n} leading \code{NA} values from lagged
+#' @param trim logical, trim the `n` leading `NA` values from lagged
 #' intervals.
 #' @param format character, format of the scale notation: major/minor/perfect,
 #' augmented/diminished, and respective abbreviations. See argument options in
@@ -57,7 +56,7 @@ interval_semitones <- function(interval){
 #'
 #' @return a musical interval, integer or character depending on the function.
 #' @export
-#' @seealso \code{\link{mainIntervals}}
+#' @seealso [mainIntervals()]
 #' @name intervals
 #'
 #' @examples

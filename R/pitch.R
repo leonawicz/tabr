@@ -5,25 +5,24 @@
 #' Note that all pitches resulting from the defined sequence must be in the
 #' semitone range 0-131 or an error is thrown.
 #'
-#' If not using a chromatic sequence and \code{x} (or \code{y} if also a pitch)
-#' is not part of the key signature or scale, the sequence is internally bound.
-#' See examples.
+#' If not using a chromatic sequence and `x` (or `y` if also a pitch) is not
+#' part of the key signature or scale, the sequence is internally bound. See
+#' examples.
 #'
 #' Format of accidentals in the result is prioritized by the scale and key, the
-#' key when no scale is given, then \code{x} (and \code{y} if also a pitch),
-#' and finally defaults to flats if ambiguous.
+#' key when no scale is given, then `x` (and `y` if also a pitch), and finally
+#' defaults to flats if ambiguous.
 #'
-#' @param x character, valid pitch notation, e.g., \code{"a2"} or \code{"a,"}.
-#' @param y character, same as \code{x} for the sequence \code{x:y}. If a
-#' number, the length of the sequence from \code{x} and the sign of \code{y}
-#' determines the direction.
+#' @param x character, valid pitch notation, e.g., `"a2"` or `"a,"`.
+#' @param y character, same as `x` for the sequence `x:y`. If a number, the
+#' length of the sequence from `x` and the sign of `y` determines the direction.
 #' @param key character, key signature for a diatonic sequence.
-#' \code{key = NULL} (default) results in a chromatic sequence.
+#' `key = NULL` (default) results in a chromatic sequence.
 #' @param scale character, if you want to use a different scale in conjunction
-#' with the key/root note, you can provide it, e.g.,
-#' \code{scale = "harmonic minor"}. Ignored if \code{key = NULL}.
-#' @param format character, the timestep delimiter format, \code{"space"} or
-#' \code{"vector"}.
+#' with the key/root note, you can provide it, e.g., `scale = "harmonic minor"`.
+#' Ignored if `key = NULL`.
+#' @param format character, the timestep delimiter format, `"space"` or
+#' `"vector"`.
 #'
 #' @return noteworthy
 #' @export

@@ -4,25 +4,24 @@
 #'
 #' @details
 #' These functions inspect the basic metadata of noteworthy strings.
-#' For functions that perform basic checks on strings, see
-#' \code{\link{note-checks}}.
+#' For functions that perform basic checks on strings, see [note-checks()].
 #'
-#' The \code{n_*} functions give summary totals of the number of timesteps,
+#' The `n_*` functions give summary totals of the number of timesteps,
 #' number of individual note (non-chord) timesteps, number of chord time
 #' steps, and the number of distinct octaves present across timesteps.
 #'
 #' Functions pertaining to type or format of a noteworthy string provide
-#' information on how a particular string is defined, e.g. \code{time_format}.
-#' Note that the result pertains to true \code{noteworthy}-class objects. If
+#' information on how a particular string is defined, e.g. `time_format`.
+#' Note that the result pertains to true `noteworthy`-class objects. If
 #' inspecting a standard character string, the result pertains to
-#' post-conversion to the \code{noteworthy} class and does not necessarily
-#' reflect what is found in \code{notes} verbatim. See examples.
+#' post-conversion to the `noteworthy` class and does not necessarily
+#' reflect what is found in `notes` verbatim. See examples.
 #'
 #' @section A note on generic functions:
-#' \code{n_steps} and the three time format functions are generic since they
+#' `n_steps()` and the three time format functions are generic since they
 #' apply clearly to and are useful for not only noteworthy strings, but also
 #' note info, music, and lyrics objects.
-#' If \code{x} is still a simple character string, these functions attempt to
+#' If `x` is still a simple character string, these functions attempt to
 #' guess if it is noteworthy, note info, or music. Lyrics content is arbitrary
 #' so is never considered for a simple character string. Best practice is to
 #' set the class before using these functions anyway.
@@ -50,9 +49,8 @@
 #' @return varies by function
 #' @export
 #' @name note-metadata
-#' @seealso \code{\link{tabr-methods}}, \code{\link{note-checks}},
-#' \code{\link{note-summaries}}, \code{\link{note-coerce}},
-#' \code{\link{valid-notes}}
+#' @seealso [tabr-methods()], [note-checks()], [note-summaries()],
+#' [note-coerce()], [valid-notes()]
 #'
 #' @examples
 #' x <- "e_2 a_, c#f#a#"
@@ -62,8 +60,8 @@
 #' n_octaves(x)
 #' chord_size(x)
 #'
-#' # Type is mixed in \code{x} but is inferred under default conversion rules.
-#' # These check \code{x} once validated and coerced to 'noteworthy' class.
+#' # Type is mixed in `x` but is inferred under default conversion rules.
+#' # These check `x` once validated and coerced to 'noteworthy' class.
 #' octave_type(x)
 #' accidental_type(x)
 #' # The default is tick octaves and flats
@@ -179,6 +177,12 @@ time_format.lyrics <- function(x){
   attr(x, "format")
 }
 
+#' @export
+time_format.double <- function(x){
+  time_format.noteinfo(x)
+}
+
+#' @export
 time_format.numeric <- function(x){
   time_format.noteinfo(x)
 }
@@ -285,26 +289,24 @@ is_vector_time.character <- function(x){
 #' logical, character. Results can be a vector of equal length of a single
 #' value summary.
 #'
-#' Use the \code{tally_*} and \code{distinct_*} functions specifically for
-#' summaries of unique elements.
+#' Use the `tally_*` and `distinct_*` functions specifically for summaries of
+#' unique elements.
 #'
-#' \code{distinct_notes} and \code{distinct_pitches} filter a noteworthy string
+#' `distinct_notes()` and `distinct_pitches()` filter a noteworthy string
 #' to its unique elements, respectively. These functions return another
 #' noteworthy string.
 #'
-#' \code{*_span} functions are just the size of a range, e.g.,
-#' \code{semitone_range} and \code{semitone_span}.
+#' `*_span` functions are just the size of a range, e.g., `semitone_range()` and
+#' `semitone_span()`.
 #'
 #' @param notes character, a noteworthy string, space-delimited or vector of
 #' individual entries.
-#' @param rests logical, include rests \code{r} and silent rests \code{s} in
-#' tally.
+#' @param rests logical, include rests `r` and silent rests `s` in tally.
 #'
 #' @return varies by function
 #' @export
 #' @name note-summaries
-#' @seealso \code{\link{note-checks}}, \code{\link{note-metadata}},
-#' \code{\link{note-coerce}}, \code{\link{valid-notes}}
+#' @seealso [note-checks()], [note-metadata()], [note-coerce()], [valid-notes()]
 #'
 #' @examples
 #' x <- "r s e_2 a_, c#f#a#"
@@ -325,8 +327,8 @@ tally_notes <- function(notes, rests = FALSE){
   .check_noteworthy(notes)
   x <- .pitch_to_note(.split_chords(.uncollapse(notes)))
   x <- x[x != " "]
-  x <- as.data.frame(table(x), stringsAsFactors = FALSE) %>%
-    tibble::as_tibble() %>%
+  x <- as.data.frame(table(x), stringsAsFactors = FALSE) |>
+    tibble::as_tibble() |>
     stats::setNames(c("note", "n"))
   if(!rests) x <- x[!x$note %in% c("r", "s"), ]
   x[.pitch_order(x$note), ]
@@ -338,8 +340,8 @@ tally_pitches <- function(notes, rests = FALSE){
   .check_noteworthy(notes)
   x <- .split_chords(.uncollapse(notes))
   x <- x[x != " "]
-  x <- as.data.frame(table(x), stringsAsFactors = FALSE) %>%
-    tibble::as_tibble() %>%
+  x <- as.data.frame(table(x), stringsAsFactors = FALSE) |>
+    tibble::as_tibble() |>
     stats::setNames(c("pitch", "n"))
   if(!rests) x <- x[!x$pitch %in% c("r", "s"), ]
   x$pitch <- gsub("~", "", x$pitch)
@@ -365,9 +367,9 @@ octaves <- function(notes){
 #' @rdname note-summaries
 tally_octaves <- function(notes){
   x <- unlist(octaves(notes))
-  as.data.frame(table(x), stringsAsFactors = FALSE) %>%
-    tibble::as_tibble() %>%
-    stats::setNames(c("octave", "n")) %>%
+  as.data.frame(table(x), stringsAsFactors = FALSE) |>
+    tibble::as_tibble() |>
+    stats::setNames(c("octave", "n")) |>
     dplyr::mutate(octave = as.integer(.data[["octave"]]))
 }
 
@@ -436,17 +438,17 @@ octave_span <- function(notes){
 #' package for user convenience. Their results will only make sense on strings
 #' that you define in accordance with noteworthy string rules.
 #'
-#' The \code{note_is_*} functions return a logical vector with length equal to
-#' the number of timesteps in \code{notes}.
-#' The \code{note_has_*} functions summarize these to a single logical value.
+#' The `note_is_*` functions return a logical vector with length equal to the
+#' number of timesteps in `notes`. The `note_has_*` functions summarize these to
+#' a single logical value.
 #'
 #' @param notes character, a noteworthy string.
 #'
 #' @return logical
 #' @export
 #' @name note-checks
-#' @seealso \code{\link{note-metadata}}, \code{\link{note-summaries}},
-#' \code{\link{note-coerce}}, \code{\link{valid-notes}}
+#' @seealso [note-metadata()], [note-summaries()], [note-coerce()],
+#' [valid-notes()]
 #'
 #' @examples
 #' x <- "r a_2 a a#' s"
@@ -553,26 +555,25 @@ note_has_rest <- function(notes){
 #' accidentals.
 #'
 #' @details
-#' For \code{sharpen_flat} and \code{flatten_sharp}, sharpening flats and
-#' flattening sharps refer to inverting their respective notation,
-#' not to raising or lowering a flatted or sharped note by one semitone.
-#' For the latter, use \code{naturalize}, which removes flat and/or sharp
-#' notation from a string.
-#' \code{note_set_key} is used for coercing a noteworthy string to a specific
+#' For `sharpen_flat()` and `flatten_sharp()`, sharpening flats and flattening
+#' sharps refer to inverting their respective notation, not to raising or
+#' lowering a flatted or sharped note by one semitone. For the latter, use
+#' `naturalize()`, which removes flat and/or sharp notation from a string.
+#' `note_set_key()` is used for coercing a noteworthy string to a specific
 #' and consistent notation for accidentals based on a key signature.
-#' This is a wrapper around \code{sharpen_flat} and \code{flatten_sharp}.
-#' \code{as_tick_octaves}, \code{as_integer_octaves}, \code{as_space_time} and
-#' \code{as_vector_time} similarly affect octave and timestep format.
+#' This is a wrapper around `sharpen_flat()` and `flatten_sharp()`.
+#' `as_tick_octaves()`, `as_integer_octaves()`, `as_space_time()` and
+#' `as_vector_time()` similarly affect octave and timestep format.
 #' For simultaneous control over the representation of timesteps, octave
 #' numbering and accidentals, all three are available as arguments to
-#' \code{\link{as_noteworthy}}.
+#' [as_noteworthy()].
 #'
 #' @section A note on generic functions:
-#' \code{as_space_time} and \code{as_vector_time} are generic since they
-#' apply clearly to and are useful for not only noteworthy strings, but also
-#' note info and music objects. If \code{x} is still a simple character string,
-#' these functions attempt to guess which of the three it is. It is recommended
-#' to set the class before using these functions.
+#' `as_space_time()` and `as_vector_time()` are generic since they apply clearly
+#' to and are useful for not only noteworthy strings, but also note info and
+#' music objects. If `x` is still a simple character string, these functions
+#' attempt to guess which of the three it is. It is recommended to set the class
+#' before using these functions.
 #'
 #' There are many package functions that operate on noteworthy strings that
 #' could in concept work on music objects, but the expectation is that sound
@@ -591,15 +592,14 @@ note_has_rest <- function(notes){
 #' @param ignore_octave logical, strip any octave notation that may be present,
 #' returning only the basic notes without explicit pitch.
 #' @param key character, key signature to coerce any accidentals to the
-#' appropriate form for the key. May also specify \code{"sharp"} or
-#' \code{"flat"}.
+#' appropriate form for the key. May also specify `"sharp"` or `"flat"`.
 #' @param x for generic functions: notes, info or music string.
 #'
 #' @return character
 #' @export
 #' @name note-coerce
-#' @seealso \code{\link{note-checks}}, \code{\link{note-metadata}},
-#' \code{\link{note-summaries}}, \code{\link{valid-notes}}
+#' @seealso [note-checks()], [note-metadata()], [note-summaries()],
+#' [valid-notes()]
 #'
 #' @examples
 #' x <- "e_2 a_, b_, c#f#a# c#'f#'a#''"
@@ -630,7 +630,7 @@ naturalize <- function(notes, type = c("both", "flat", "sharp")){
 #' @rdname note-coerce
 sharpen_flat <- function(notes){
   .check_noteworthy(notes)
-  x <- .uncollapse(notes) %>% .flat_to_sharp()
+  x <- .uncollapse(notes) |> .flat_to_sharp()
   if(length(notes) == 1) x <- paste(x, collapse = " ")
   .asnw(x)
 }
@@ -639,7 +639,7 @@ sharpen_flat <- function(notes){
 #' @rdname note-coerce
 flatten_sharp <- function(notes){
   .check_noteworthy(notes)
-  x <- .uncollapse(notes) %>% .sharp_to_flat()
+  x <- .uncollapse(notes) |> .sharp_to_flat()
   if(length(notes) == 1) x <- paste(x, collapse = " ")
   .asnw(x)
 }
@@ -764,27 +764,26 @@ pretty_notes <- function(notes, ignore_octave = TRUE){
 #'
 #' Helper functions for indexing and moving notes within noteworthy strings.
 #'
-#' \code{note_slice} subsets the timesteps of a noteworthy string by integer
-#' index or logical vector of length equal to the number of timesteps.
+#' `note_slice()` subsets the timesteps of a noteworthy string by integer index
+#' or logical vector of length equal to the number of timesteps.
 #'
-#' \code{note_sort} sorts the timesteps of a noteworthy string by pitch. When a
-#' tie exists by root note, the next note in chords are compared, if they exist.
-#' For example, \code{a,} sorts lower than \code{a,ce}.
+#' `note_sort()` sorts the timesteps of a noteworthy string by pitch. When a tie
+#' exists by root note, the next note in chords are compared, if they exist.
+#' For example, `a,` sorts lower than `a,ce`.
 #'
-#' \code{note_rotate} simply rotates anything space-delimited or vectorized in
+#' `note_rotate()` simply rotates anything space-delimited or vectorized in
 #' place. It allows chords. Octave numbering is ignored if present.
 #'
-#' For \code{note_shift} the entire sequence is shifted up or down in pitch, as
-#' if inverting a broken chord.
-#' If \code{notes} contains chords, they are broken into successive notes. Then
-#' all notes are ordered by pitch. Finally shifting occurs.
+#' For `note_shift()` the entire sequence is shifted up or down in pitch, as if
+#' inverting a broken chord. If `notes` contains chords, they are broken into
+#' successive notes. Then all notes are ordered by pitch. Finally shifting
+#' occurs.
 #'
-#' Instead of a moving window, \code{note_arpeggiate} grows its sequence from
-#' the original set of timesteps by repeating the entire sequence \code{n}
-#' times (\code{n} must be positive). Each repeated sequence contributing to
-#' the arpeggio is offset by \code{step} semitones from the original.
-#' \code{step} can be negative. It defaults to 12, increasing all \code{notes}
-#' by one octave.
+#' Instead of a moving window, `note_arpeggiate()` grows its sequence from the
+#' original set of timesteps by repeating the entire sequence `n` times (`n`
+#' must be positive). Each repeated sequence contributing to the arpeggio is
+#' offset by `step` semitones from the original. `step` can be negative. It
+#' defaults to 12, increasing all `notes` by one octave.
 #'
 #' @param notes character, a noteworthy string, space-delimited or vector of
 #' individual entries.
@@ -792,10 +791,9 @@ pretty_notes <- function(notes, ignore_octave = TRUE){
 #' @param n integer, number of rotations or extensions of note sequence. See
 #' details.
 #' @param step integer, number of semitone steps from the first (or last) note
-#' in \code{notes} at which to begin repeating the shifted \code{notes}
-#' sequence as an arpeggio. See examples.
-#' arpeggio.
-#' @param ... For \code{note_slice}, an integer or logical vector.
+#' in `notes` at which to begin repeating the shifted `notes` sequence as an
+#' arpeggio. See examples.
+#' @param ... For `note_slice()`, an integer or logical vector.
 #'
 #' @return character
 #' @export
@@ -851,7 +849,7 @@ note_sort <- function(notes, decreasing = FALSE){
     x
   })
   d <- as.data.frame(t(as.data.frame(s)))
-  d <- tibble::as_tibble(d) %>% dplyr::mutate(x = x)
+  d <- tibble::as_tibble(d) |> dplyr::mutate(x = x)
   x <- dplyr::arrange_at(d, seq_len(ncol(d))[-c(n + 1)])$x
   if(decreasing) x <- rev(x)
   if(length(notes) == 1) x <- paste0(x, collapse = " ")
@@ -875,7 +873,7 @@ note_rotate <- function(notes, n = 0){
 note_shift <- function(notes, n = 0){
   .check_noteworthy(notes)
   z <- .infer_types(notes)
-  x <- .uncollapse(notes) %>% .split_chords() %>%
+  x <- .uncollapse(notes) |> .split_chords() |>
     .pitch_semitones(z$o, z$a)
   x <- sort(x[!is.na(x)])
   len <- length(x)
@@ -916,7 +914,7 @@ note_arpeggiate <- function(notes, n = 0, step = 12){
   .check_noteworthy(notes)
   format <- if(length(notes) == 1) "space" else "vector"
   z <- .infer_types(notes)
-  x <- .uncollapse(notes) %>% .split_chords() %>%
+  x <- .uncollapse(notes) |> .split_chords() |>
     .pitch_semitones()
   if(n == 0){
     x <- semitone_pitch(x)
@@ -929,7 +927,7 @@ note_arpeggiate <- function(notes, n = 0, step = 12){
       x <- semitone_pitch(.x)
       x[is.na(x)] <- " "
       paste(x, collapse = "")
-    }) %>% unlist() %>% paste(collapse = " ")
+    }) |> unlist() |> paste(collapse = " ")
   }
   .asnw(x, z$o, z$a, format)
 }
@@ -940,7 +938,7 @@ note_arpeggiate <- function(notes, n = 0, step = 12){
 #'
 #' @param notes a noteworthy string.
 #' @param n Number of grams. Must be >= 1 and <= number of timesteps in
-#' \code{notes}.
+#' `notes`.
 #' @param tally logical, tally n-grams in a data frame. Otherwise a list.
 #' @param rests logical, exclude rests. Affects the number of timesteps.
 #'
@@ -980,45 +978,43 @@ note_ngram <- function(notes, n = 2, tally = FALSE, rests = FALSE){
 
 #' Check note and chord validity
 #'
-#' Check whether a string is comprised exclusively of valid note and/or chord
-#' syntax.
-#' \code{is_note} and \code{is_chord} are vectorized and their positive results
-#' are mutually exclusive.
-#' \code{noteworthy} is also vectorized and performs both checks, but it
-#' returns a scalar logical result indicating whether the entire set contains
-#' exclusively valid entries.
+#' Check if a string is comprised exclusively of valid note and/or chord syntax.
 #'
-#' \code{as_noteworthy} can be used to coerce to the \code{noteworthy} class.
-#' Coercion will fail if the string is not noteworthy.
+#' `is_note()` and `is_chord()` are vectorized and their positive results
+#' are mutually exclusive. `noteworthy()` is also vectorized and performs both
+#' checks, but it returns a scalar logical result indicating whether the entire
+#' set contains exclusively valid entries.
+#'
+#' `as_noteworthy()` can be used to coerce to the `noteworthy` class. Coercion
+#' will fail if the string is not noteworthy.
 #' While many functions will work on simple character strings and, if their
 #' syntax is valid, coerce them to the 'noteworthy' class, it is recommended to
 #' use this class. Not all functions are so aggressive, and several generic
-#' methods are implemented for the class. It also offers its own \code{print}
-#' and \code{summary} methods for noteworthy strings.
-#' An added benefit to using \code{as_noteworthy} is to conform all
-#' notes in a noteworthy string to specific formatting for accidentals and
-#' octave numbering.
-#' Functions that output a noteworthy string attach the \code{noteworthy} class.
+#' methods are implemented for the class. It also offers its own `print()`
+#' and `summary()` methods for noteworthy strings.
+#' An added benefit to using `as_noteworthy()` is to conform all notes in a
+#' noteworthy string to specific formatting for accidentals and octave numbering.
+#' Functions that output a noteworthy string attach the `noteworthy` class.
 #'
-#' When \code{octaves}, \code{accidentals}, and \code{format} are \code{NULL},
-#' formatting is inferred from the noteworthy string input. When mixed formats
-#' are present, tick format is the default for octave numbering and flats are
-#' the default for accidentals.
+#' When `octaves`, `accidentals`, and `format` are `NULL`, formatting is
+#' inferred from the noteworthy string input. When mixed formats are present,
+#' tick format is the default for octave numbering and flats are the default for
+#' accidentals.
 #'
 #' @param x character, a noteworthy string.
-#' @param octaves \code{NULL} or character, \code{"tick"} or \code{"integer"}
-#' octave numbering in result.
-#' @param accidentals \code{NULL} or character, represent accidentals,
-#' \code{"flat"} or \code{"sharp"}.
-#' @param format \code{NULL} or character, the timestep delimiter format,
-#' \code{"space"} or \code{"vector"}.
-#' @param na.rm remove \code{NA}s.
+#' @param octaves `NULL` or character, `"tick"` or `"integer"` octave numbering
+#' in result.
+#' @param accidentals `NULL` or character, represent accidentals, `"flat"` or
+#' `"sharp"`.
+#' @param format `NULL` or character, the timestep delimiter format, `"space"`
+#' or `"vector"`.
+#' @param na.rm remove `NA`s.
 #'
 #' @return depends on the function
 #' @export
 #' @name valid-notes
-#' @seealso \code{\link{note-checks}}, \code{\link{note-metadata}},
-#' \code{\link{note-summaries}}, \code{\link{note-coerce}}
+#' @seealso [note-checks()], [note-metadata()], [note-summaries()],
+#' [note-coerce()]
 #'
 #' @examples
 #' x <- "a# b_ c, d'' e3 g_4 A m c2e_2g2 cegh" # includes invalid syntax
@@ -1204,51 +1200,48 @@ summary.noteworthy <- function(object, ...){
 #'
 #' Noteworthy strings may contain notes, pitches and chords. Noteworthy strings
 #' are equal if they sound the same.
-#' This means that if one string contains Eb (\code{e_}) and the other contains
-#' D# (\code{d#}) then the two strings may be equal, but they are not identical.
+#' This means that if one string contains Eb (`e_`) and the other contains
+#' D# (`d#`) then the two strings may be equal, but they are not identical.
 #'
-#' \code{pitch_is_equal} and \code{pitch_is_identical} perform these respective
+#' `pitch_is_equal()` and `pitch_is_identical()` perform these respective
 #' tests of equivalence on both notes and chords.
 #' These are the strictest functions in terms of equivalent sound because pitch
 #' includes the octave number.
 #'
-#' \code{note_is_equal} and \code{note_is_identical} are similar but include a
-#' default argument \code{ignore_octave = TRUE}, focusing only on the notes and
-#' chords.
+#' `note_is_equal()` and `note_is_identical()` are similar but include a default
+#' argument `ignore_octave = TRUE`, focusing only on the notes and chords.
 #' This allows an even more relaxed definition of equivalence. Setting this
-#' argument to \code{FALSE} is the same as calling the \code{pitch_is_*}
-#' variant.
+#' argument to `FALSE` is the same as calling the `pitch_is_*` variant.
 #'
 #' Chords can be checked the same as notes. Every timestep in the sequence is
-#' checked pairwise between \code{note1} and \code{note2}.
+#' checked pairwise between `note1` and `note2`.
 #'
-#' These functions will return \code{TRUE} or \code{FALSE} for every timestep
+#' These functions will return `TRUE` or `FALSE` for every timestep
 #' in a sequence.
 #' If the two noteworthy strings do not contain the same number of notes at a
 #' specific step, such as a single note compared to a chord, this yields a
-#' \code{FALSE} value,
+#' `FALSE` value,
 #' even in a case of an octave dyad with octave number ignored.
-#' If the two sequences have unequal length \code{NA} is returned.
+#' If the two sequences have unequal length `NA` is returned.
 #' These are bare minimum requirements for equivalence. See examples.
 #'
-#' \code{octave_is_equal} and \code{octave_is_identical} allow much weaker
-#' forms of equivalence in that they ignore notes completely.
-#' These functions are only concerned with comparing the octave numbers spanned
-#' by any pitches present at each timestep.
-#' When checking for equality, \code{octave_is_equal} only looks at the octave
-#' number associated with the first note at each step, e.g., only the root note
-#' of a chord.
-#' \code{octave_is_identical} compares all octaves spanned at a given timestep.
+#' `octave_is_equal()` and `octave_is_identical()` allow much weaker forms of
+#' equivalence in that they ignore notes completely. These functions are only
+#' concerned with comparing the octave numbers spanned by any pitches present at
+#' each timestep. When checking for equality, `octave_is_equal()` only looks at
+#' the octave number associated with the first note at each step, e.g., only the
+#' root note of a chord. `octave_is_identical()` compares all octaves spanned at
+#' a given timestep.
 #'
 #' It does not matter when comparing two chords that they may be comprised of a
 #' different numbers of notes.
 #' If the set of unique octaves spanned by one chord is identical to the set
 #' spanned by the other, they are considered to have identical octave coverage.
-#' For example, \code{a1b2c3} is identical to \code{d1e1f2g3}. To be equal, it
-#' only matters that the two chords begin with \code{x1}, where \code{x} is any
+#' For example, `a1b2c3` is identical to `d1e1f2g3`. To be equal, it
+#' only matters that the two chords begin with `x1`, where `x` is any
 #' note.
-#' Alternatively, for \code{octave_is_identical} only, setting
-#' \code{single_octave = TRUE} additionally requires that all notes from both
+#' Alternatively, for `octave_is_identical()` only, setting
+#' `single_octave = TRUE` additionally requires that all notes from both
 #' chords being compared at a given timestep share a single octave.
 #'
 #' @param notes1 character, noteworthy string, space-delimited or vector of

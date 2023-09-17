@@ -18,9 +18,9 @@ chord_arpeggiate(
 \item{n}{integer, number of steps, negative indicates reverse direction
 (decreasing pitch).}
 
-\item{by}{whether each of the \code{n} steps refers to individual notes in
-the chord (an inversion) or raising the entire chord in its given position
-by one octave.}
+\item{by}{whether each of the \code{n} steps refers to individual notes in the
+chord (an inversion) or raising the entire chord in its given position by one
+octave.}
 
 \item{broken}{logical, return result as an arpeggio of broken chords.}
 
@@ -34,8 +34,8 @@ character
 Create an arpeggio from a chord.
 }
 \details{
-This function is based on \code{chord_invert}. If \code{n = 0} then
-\code{chord} is returned immediately; other arguments are ignored.
+This function is based on \code{chord_invert}. If \code{n = 0} then \code{chord} is returned
+immediately; other arguments are ignored.
 }
 \examples{
 chord_arpeggiate("ce_gb_", 2)

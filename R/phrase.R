@@ -7,40 +7,39 @@
 #' A phrase object combines a valid string of notes with a corresponding valid
 #' string of note info. The only required note info is time, but other
 #' information can be included as well. You do not need to input an existing
-#' \code{noteworthy} class object and \code{noteinfo} class object, but both
+#' `noteworthy` class object and `noteinfo` class object, but both
 #' inputs must be valid and thus coercible to these classes. This is similar to
-#' how the \code{music} class works. The difference with phrase objects is that
+#' how the `music` class works. The difference with phrase objects is that
 #' they are used to create LilyPond syntax analogous to what a music object
 #' contains.
 #'
 #' Note that if you convert a music object to a phrase object, you are changing
 #' contexts. The phrase object is the simplest LilyPond-format music structure.
-#' Coercion with \code{phrase} strips all attributes of a music object and
+#' Coercion with `phrase()` strips all attributes of a music object and
 #' retains only notes, note info and string numbers.
 #'
-#' See the help documentation on \code{noteworthy}, \code{noteinfo}, and
-#' \code{music} classes for an understanding of the input data structures.
-#' The function \code{p} is a convenient shorthand wrapper for \code{phrase}.
+#' See the help documentation on `noteworthy`, `noteinfo`, and
+#' `music` classes for an understanding of the input data structures.
+#' The function `p()` is a convenient shorthand wrapper for `phrase()`.
 #'
-#' If a string is provided to \code{bar}, it is interpreted as LilyPond bar
-#' notation. E.g., \code{bar = "|"} adds the LilyPond syntax \code{\\bar "|"}
+#' If a string is provided to `bar`, it is interpreted as LilyPond bar
+#' notation. E.g., `bar = "|"` adds the LilyPond syntax `\bar "|"`
 #' to the end of a phrase. If only a bar check is desired, use
-#' \code{bar = TRUE}. \code{FALSE} is treated as {NULL} for completeness.
+#' `bar = TRUE`. `FALSE` is treated as `NULL` for completeness.
 #'
-#' @param notes,info noteworthy and note info strings. When \code{info = NULL},
-#' it is assumed that \code{notes} refers to a music object or string formatted
+#' @param notes,info noteworthy and note info strings. When `info = NULL`,
+#' it is assumed that `notes` refers to a music object or string formatted
 #' as such.
 #' @param string space-delimited character string or vector (or integer vector
 #' if simple string numbers). This is an optional argument that specifies which
-#' instrument strings to play for each specific timestep. Otherwise \code{NULL}.
-#' @param bar character or \code{NULL} (default). Terminates the phrase with a
+#' instrument strings to play for each specific timestep. Otherwise `NULL`.
+#' @param bar character or `NULL` (default). Terminates the phrase with a
 #' bar or bar check. See details. Also see the LilyPond help documentation
 #' on bar notation for all the valid options.
 #'
 #' @return a phrase.
 #' @export
-#' @seealso \code{\link{valid-notes}}, \code{\link{valid-noteinfo}},
-#' \code{\link{music}}
+#' @seealso [valid-notes()], [valid-noteinfo()], [music()]
 #'
 #' @examples
 #' phrase("c ec'g' ec'g'", "4- 4 2") # no string arg (not recommended for tabs)
@@ -211,41 +210,36 @@ print.phrase <- function(x, ...){
 #' phrase objects.
 #'
 #' Use these functions with some caution. They are not intended for strictness
-#' and perfection.
-#' \code{phrasey} checks whether an object is weakly phrase-like and returns
-#' \code{TRUE} or \code{FALSE}.
-#' It can be used to safeguard against the most obvious cases of \code{phrase}
-#' not containing valid phrase syntax when programming.
-#' However, it may also be limiting. Use wear sensible.
+#' and perfection. `phrasey()` checks whether an object is weakly phrase-like
+#' and returns `TRUE` or `FALSE`. It can be used to safeguard against the most
+#' obvious cases of `phrase()` not containing valid phrase syntax when
+#' programming. However, it may also be limiting. Use wear sensible.
 #'
-#' \code{as_phrase} coerces an object to a phrase object if possible.
-#' This function performs an internal \code{phrasey} check.
+#' `as_phrase()` coerces an object to a phrase object if possible. This function
+#' performs an internal `phrasey()` check.
 #'
-#' \code{notify} attempts to decompose a phrase object back to its original
-#' input vectors consisting of notes, note info, and optionally, instrument
-#' string numbering.
-#' If successful, it returns a tibble data frame with columns: \code{notes},
-#' \code{info}, \code{string}.
+#' `notify()` attempts to decompose a phrase object back to its original input
+#' vectors consisting of notes, note info, and optionally, instrument string
+#' numbering. If successful, it returns a tibble data frame with columns:
+#' `notes`, `info`, `string`.
 #'
 #' Unless decomposing very simple phrases, this function is likely to reveal
-#' limitations.
-#' Complex phrase objects constructed originally with \code{phrase} can be
-#' challenging to deconstruct in a one to one manner.
-#' Information may be lost, garbled, or the function may fail.
-#' For example, this function is not advanced enough to unravel repeat notation
-#' or tuplets.
+#' limitations. Complex phrase objects constructed originally with `phrase()`
+#' can be challenging to deconstruct in a one to one manner. Information may be
+#' lost, garbled, or the function may fail. For example, this function is not
+#' advanced enough to unravel repeat notation or tuplets.
 #'
-#'  \code{notable} returns \code{TRUE} or \code{FALSE} regarding whether a
-#'  phrase can be converted back to character string inputs,
-#'  not necessarily with complete correctness, but without simple failure.
-#'  It checks for phrasiness. Then it tries to call \code{notify} and returns
-#'  \code{FALSE} gracefully if that call throws an exception.
+#' `notable()` returns `TRUE` or `FALSE` regarding whether a phrase can be
+#' converted back to character string inputs, not necessarily with complete
+#' correctness, but without simple failure.It checks for phrasiness. Then it
+#' tries to call `notify()` and returns `FALSE` gracefully if that call throws
+#' an exception.
 #'
 #' @param phrase phrase object or character string (candidate phrase).
 #' @param collapse logical, collapse result into a single string ready for
 #' phrase construction.
 #' @param annotations logical, strip any text annotations from the note info
-#' converted from \code{phrase}.
+#' converted from `phrase()`.
 #'
 #' @return see details for each function's purpose and return value.
 #' @export
@@ -429,16 +423,15 @@ notable <- function(phrase){
 #' This function not intended to be used directly, but is available so that you
 #' can see how LilyPond syntax for phrases will be transformed by default in
 #' the process of creating a LilyPond file. This function is used by the
-#' \code{lilypond} function and associated \code{render_*} functions. When
-#' using \code{lilypond} directly, this can be controlled by the
-#' \code{simplify} argument.
+#' `lilypond()` function and associated `render_*` functions. When using
+#' `lilypond()` directly, this can be controlled by the `simplify` argument.
 #'
 #' The result of this function is a character string containing simpler, more
 #' efficient LilyPond syntax. It can be coerced back to a phrase with
-#' \code{as_phrase}, but its print method colors will no longer display
-#' properly. More importantly, this simplification removes any possibility of
-#' transforming the phrase back to its original inputs. The more complex but
-#' nicely structured original representation does a better job at maintaining
+#' `as_phrase()`, but its print method colors will no longer display properly.
+#' More importantly, this simplification removes any possibility of transforming
+#' the phrase back to its original inputs. The more complex but nicely
+#' structured original representation does a better job at maintaining
 #' reasonable possibility of one to one transformation between a phrase object
 #' and the inputs that it was built from.
 #'

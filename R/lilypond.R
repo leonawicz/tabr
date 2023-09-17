@@ -1,6 +1,6 @@
 #' Save score to LilyPond file
 #'
-#' Write a score to a LilyPond format (\code{.ly}) text file for later use by
+#' Write a score to a LilyPond format (`.ly`) text file for later use by
 #' LilyPond or subsequent editing outside of R.
 #'
 #' @details
@@ -8,128 +8,119 @@
 #' LilyPond installation. It checks for the version number of an installation,
 #' but LilyPond is not required to be found.
 #'
-#' This function can be used directly but is commonly used by \code{render_*}
+#' This function can be used directly but is commonly used by `render_*`
 #' functions, which call this function internally to create the LilyPond file
 #' and then call LilyPond to render that file to sheet music.
 #'
 #' @section Header options:
-#' All \code{header} list elements are character strings. The options for
-#' \code{header} include:
-#' \itemize{
-#'   \item \code{title}
-#'   \item \code{subtitle}
-#'   \item \code{composer}
-#'   \item \code{album}
-#'   \item \code{arranger}
-#'   \item \code{instrument}
-#'   \item \code{meter}
-#'   \item \code{opus}
-#'   \item \code{piece}
-#'   \item \code{poet}
-#'   \item \code{copyright}
-#'   \item \code{tagline}
-#' }
+#' All `header` list elements are character strings. The options for `header`
+#' include the following.
+#'
+#' * `title`
+#' * `subtitle`
+#' * `composer`
+#' * `album`
+#' * `arranger`
+#' * `instrument`
+#' * `meter`
+#' * `opus`
+#' * `piece`
+#' * `poet`
+#' * `copyright`
+#' * `tagline`
 #'
 #' @section Paper options:
-#' All \code{paper} list elements are numeric except \code{page_numbers} and
-#' \code{print_first_page_number},
-#' which are logical. \code{page_numbers = FALSE} suppresses all page numbering.
-#' When \code{page_numbers = TRUE}, you can set
-#' \code{print_first_page_number = FALSE} to suppress printing of only the
-#' first page number. \code{first_page_number} is the number of the first page,
-#' defaulting to 1, and determines all subsequent page numbers. These arguments
-#' correspond to LilyPond paper block variables.
+#' All `paper` list elements are numeric except `page_numbers` and
+#' `print_first_page_number`,
+#' which are logical. `page_numbers = FALSE` suppresses all page numbering.
+#' When `page_numbers = TRUE`, you can set `print_first_page_number = FALSE` to
+#' suppress printing of only the first page number. `first_page_number` is the
+#' number of the first page, defaulting to 1, and determines all subsequent page
+#' numbers. These arguments correspond to LilyPond paper block variables.
 #'
-#' The options for \code{paper} include the following and have the following
-#' default values if not provided:
-#' \itemize{
-#'   \item \code{textheight = 220}
-#'   \item \code{linewidth = 150}
-#'   \item \code{indent = 0}
-#'   \item \code{fontsize = 10}
-#'   \item \code{page_numbers = TRUE}
-#'   \item \code{print_first_page_number = TRUE}
-#'   \item \code{first_page_number = 1}
-#' }
+#' The options for `paper` include the following and have the following default
+#' values if not provided.
+#'
+#' * `textheight = 220`
+#' * `linewidth = 150`
+#' * `indent = 0`
+#' * `fontsize = 10`
+#' * `page_numbers = TRUE`
+#' * `print_first_page_number = TRUE`
+#' * `first_page_number = 1`
 #'
 #' @section PNG-related options:
-#' By default \code{crop_png = TRUE}. This alters the template so that when
+#' By default crop_png = TRUE`. This alters the template so that when
 #' the LilyPond output file is created, it contains specifications for cropping
 #' the image to the content when that file is rendered by LilyPond to png.
-#' The image will have its width and height automatically cropped
-#' rather than retain the standard page dimensions.
-#' This only applies to png outputs made from the LilyPond file, not pdf.
-#' The argument is also ignored if explicitly providing \code{textheight} to
-#' \code{paper}. You may still provide \code{linewidth} to \code{paper} if you
-#' find you need to increase it beyond the default 150mm, generally as a result
-#' of using a large \code{fontsize}.
-#' Various \code{render_*} functions that wrap \code{lilypond} make use of this
-#' argument as well.
+#' The image will have its width and height automatically cropped rather than
+#' retain the standard page dimensions. This only applies to png outputs made
+#' from the LilyPond file, not pdf. The argument is also ignored if explicitly
+#' providing `textheight` to `paper`. You may still provide `linewidth` to
+#' `paper` if you find you need to increase it beyond the default 150mm,
+#' generally as a result of using a large `fontsize`. Various `render_*`
+#' functions that wrap `lilypond` make use of this argument as well.
 #'
 #' @section Color options:
 #' You can provide a named list of global color overrides for various sheet
-#' music elements with the \code{colors} argument of \code{lilypond} or one of
-#' the associated rendering functions.
+#' music elements with the `colors` argument of `lilypond` or one of the
+#' associated rendering functions.
 #'
 #' By default, everything is black. Overrides are only inserted into the
 #' generated LilyPond file if given. Values are character; either the hex color
-#' or a named R color. The named list options include:
-#' \itemize{
-#'   \item \code{color}
-#'   \item \code{background}
-#'   \item \code{staff}
-#'   \item \code{time}
-#'   \item \code{clef}
-#'   \item \code{bar}
-#'   \item \code{beam}
-#'   \item \code{head}
-#'   \item \code{stem}
-#'   \item \code{accidental}
-#'   \item \code{slur}
-#'   \item \code{tabhead}
-#'   \item \code{lyrics}
-#' }
+#' or a named R color. The named list options include the following.
 #'
-#' \code{color} is a global font color for the entire score. It affects staff
-#' elements and \code{header} elements. It does not affect everything, e.g.,
-#' page numbers.
-#' \code{background} controls the background color of the entire page. Do not
-#' use this if making a transparent background png with the \code{transparent}
-#' argument available in the various \code{render_*} functions.
-#' The other options are also global but override \code{color}. You can change
-#' the color of elements broadly with \code{color} and then change the color of
-#' specific elements using the other options.
+#' * `color`
+#' * `background`
+#' * `staff`
+#' * `time`
+#' * `clef`
+#' * `bar`
+#' * `beam`
+#' * `head`
+#' * `stem`
+#' * `accidental`
+#' * `slur`
+#' * `tabhead`
+#' * `lyrics`
+#'
+#' `color` is a global font color for the entire score. It affects staff
+#' elements and `header` elements. It does not affect everything, e.g., page
+#' numbers. `background` controls the background color of the entire page. Do
+#' not use this if making a transparent background png with the `transparent`
+#' argument available in the various `render_*` functions. The other options are
+#' also global but override `color`. You can change the color of elements
+#' broadly with `color` and then change the color of specific elements using the
+#' other options.
 #'
 #' There are currently some limitations. Specifically, if you provide any
-#' \code{background} color override, most \code{header} elements will not
-#' display.
+#' `background` color override, most `header` elements will not display.
 #'
 #' @param score a score object.
-#' @param file character, LilyPond output file ending in \code{.ly}. May
-#' include an absolute or relative path.
-#' @param key character, key signature, e.g., \code{c}, \code{b_}, \code{f#m},
-#' etc.
-#' @param time character, defaults to \code{"4/4"}.
-#' @param tempo character, defaults to \code{"2 = 60"}.
-#' @param header a named list of arguments passed to the header of the
-#' LilyPond file. See details.
+#' @param file character, LilyPond output file ending in `.ly`. May include an
+#' absolute or relative path.
+#' @param key character, key signature, e.g., `c`, `b_`, `f#m`, etc.
+#' @param time character, defaults to `"4/4"`.
+#' @param tempo character, defaults to `"2 = 60"`.
+#' @param header a named list of arguments passed to the header of the LilyPond
+#' file. See details.
 #' @param paper a named list of arguments for the LilyPond file page layout.
 #' See details.
-#' @param string_names label strings at beginning of tab staff. \code{NULL}
-#' (default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for
-#' force on or off completely.
+#' @param string_names label strings at beginning of tab staff. `NULL` (default)
+#' for non-standard tunings only, `TRUE` or `FALSE` for force on or off
+#' completely.
 #' @param endbar character, the global end bar.
 #' @param midi logical, add midi inclusion specification to LilyPond file.
 #' @param colors a named list of LilyPond element color overrides. See details.
 #' @param crop_png logical, alter template for cropped height. See
 #' details.
-#' @param simplify logical, uses \code{simplify_phrase} to convert to simpler,
+#' @param simplify logical, uses `simplify_phrase()` to convert to simpler,
 #' more efficient LilyPond syntax.
 #'
 #' @return nothing returned; a file is written.
 #' @export
-#' @seealso \code{\link{tab}}, \code{\link{render_chordchart}},
-#' \code{\link{midily}}
+#' @seealso [tab()], [render_chordchart()],
+#' [midily()]
 #'
 #' @examples
 #' x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
@@ -203,8 +194,9 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
     }
     score <- paste0(c(score, score2), collapse = "\n")
   }
+  global_crop <- if(crop_png_w) "#(ly:set-option 'crop #t)" else NULL
   output <- paste(
-    c(.lp_version(), paper, top, global, cd, melody, score), collapse = "")
+    c(.lp_version(), global_crop, paper, top, global, cd, melody, score), collapse = "")
   write(file = .adjust_file_path(file)$lp, output)
 }
 
@@ -281,10 +273,10 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
     v <- c("One", "Two")
     x <- purrr::map2(x, seq_along(x), ~{
       paste0("\\voice", v[.y], " ", paste(.x, collapse = " "), "\n")
-    }) %>%
+    }) |>
       unlist()
     if(midi) x <- paste("\\unfoldRepeats {", x, "}")
-    x <- paste0(x0, "\\override StringNumber #'transparent = ##t\n  ",
+    x <- paste0(x0, "\\override StringNumber.transparent = ##t\n  ",
                 gsub("\n\n", "\n", x), "}\n\n",
                 collapse = "\n")
 
@@ -299,7 +291,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
       x <- gsub("\\.", "\\\\skip 1", x)
       paste0(gsub("melody", "lyrics", id), LETTERS[.x], " = \\lyricmode {\n  ",
              x, "\n}\n")
-    }) %>%
+    }) |>
       unlist()
     lyrics <- lyrics[!is.na(lyrics)]
     if(length(lyrics) > 1) lyrics <- paste(lyrics, collapse = "\n")
@@ -312,7 +304,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
       bg <- paste0("\n", bg, "\n}\n")
     }
     x <- paste0(x, bg)
-    x <- paste0(x0, "\\override StringNumber #'transparent = ##t\n  ",
+    x <- paste0(x0, "\\override StringNumber.transparent = ##t\n  ",
                 gsub("\n\n", "\n", x), "}\n\n")
     if(!is.na(d$lyrics)){
       lyrics <- strsplit(d$lyrics, " ")[[1]]
@@ -362,8 +354,8 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
     if(!crop) set_paper,
     if(crop) "\\paper{\n" else "\\paper{\n  #(set-paper-size \"papersize\")\n",
     if(crop) paste0("  line-width=", x$linewidth, "\\mm\n"),
-    if(cropw) "  oddFooterMarkup=##f\n",
-    if(cropw) "  oddHeaderMarkup=##f\n",
+    if(cropw) "  oddFooterMarkup = ##f\n",
+    if(cropw) "  oddHeaderMarkup = ##f\n",
     if(cropw) "  bookTitleMarkup = ##f\n",
     if(cropw) "  scoreTitleMarkup = ##f\n",
     paste0("  indent = ", x$indent, ".\\mm\n"),
@@ -402,7 +394,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
         paste0("#(define fb", .x, " (make-fretboard-table))\n",
                "\\storePredefinedDiagram #fb", .x, " \\chordmode{",
                names(chords)[.x], "} #guitar-tuning \"", chords[[.x]], "\"\n")
-      }) %>%
+      }) |>
         paste(collapse = ""), "\n", collapse = "")
   }
   x
@@ -502,8 +494,8 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
                              "{ \\hspace #7 \\override #'(baseline-skip . 1.5)",
                              " \\column \\fontsize #-4.5 \\sans {",
                              str_lab[.x], "} }\n    "),
-                   "\\override Stem #'transparent = ##t\n    ",
-                   "\\override Beam #'transparent = ##t\n    ",
+                   "\\override Stem.transparent = ##t\n    ",
+                   "\\override Beam.transparent = ##t\n    ",
                    x2, "\n  >>\n  ", collapse = "")
           }
         )
@@ -639,7 +631,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
         "#(rgb-color ",
         paste(round(grDevices::col2rgb(.x) / 255, 4), collapse = " "), ")")
       paste("  \\override", .y, "=", x)
-    }) %>%
+    }) |>
       paste(collapse = "\n")
     x <- paste0(x, "\n")
   } else {
@@ -707,11 +699,11 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 .strsub <- function(x){
   if(any(is.na(x))) x[is.na(x)] <- "x"
   f <- function(x){
-    strsplit(gsub("\\(", " \\(", gsub("\\)", " ", x)), " ")[[1]] %>%
+    strsplit(gsub("\\(", " \\(", gsub("\\)", " ", x)), " ")[[1]] |>
       purrr::map(~({
         if(substr(.x, 1, 1) == "(") substring(.x, 2) else strsplit(.x, "")[[1]]
-      })) %>%
-      unlist() %>%
+      })) |>
+      unlist() |>
       paste0(collapse = "_")
   }
   purrr::map_chr(x, f)
@@ -727,7 +719,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
     x <- gsub("^ees|^es", "e_", x)
     x <- gsub("es", "_", x)
     paste(x, collapse = "")
-  })) %>%
+  })) |>
     paste(collapse = " ")
 }
 

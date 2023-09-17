@@ -14,14 +14,14 @@ tp(notes, n = 0, octaves = NULL, accidentals = NULL, key = NULL)
 
 \item{n}{integer, positive or negative number of semitones to transpose.}
 
-\item{octaves}{\code{NULL} or character, \code{"tick"} or \code{"integer"}
-octave numbering in result.}
+\item{octaves}{\code{NULL} or character, \code{"tick"} or \code{"integer"} octave numbering
+in result.}
 
-\item{accidentals}{\code{NULL} or character, represent accidentals,
-\code{"flat"} or \code{"sharp"}.}
+\item{accidentals}{\code{NULL} or character, represent accidentals, \code{"flat"} or
+\code{"sharp"}.}
 
-\item{key}{\code{NULL} or character, use a key signature to specify and
-override \code{accidentals}. Ignored if \code{c} or \code{am}.}
+\item{key}{\code{NULL} or character, use a key signature to specify and override
+\code{accidentals}. Ignored if \code{c} or \code{am}.}
 }
 \value{
 character
@@ -32,20 +32,18 @@ Transpose pitch by a number of semitones.
 \details{
 This function transposes the pitch of notes in a noteworthy string.
 
-Transposing is not currently supported on a phrase object.
-The notes in a phrase object have already been transformed to LilyPond
-syntax and mixed with other potentially complex information.
-Transposing is intended to be done on a string of notes prior to passing it
-to \code{phrase}. It will work on strings that use either integer or tick
-mark octave numbering formats and flats or sharps, in any combination.
-The transposed result conforms according to the function arguments.
-When integer octaves are returned, all \code{3}s are dropped
+Transposing is not currently supported on a phrase object. The notes in a
+phrase object have already been transformed to LilyPond syntax and mixed with
+other potentially complex information. Transposing is intended to be done on
+a string of notes prior to passing it to \code{phrase()}. It will work on strings
+that use either integer or tick mark octave numbering formats and flats or
+sharps, in any combination. The transposed result conforms according to the
+function arguments. When integer octaves are returned, all \code{3}s are dropped
 since the third octave is implicit in LilyPond.
 
-When \code{octaves}, \code{accidentals} and \code{key} are \code{NULL},
-formatting is inferred from \code{notes}. When mixed formats are present,
-tick format is the default for octave numbering and flats are the default
-for accidentals.
+When \code{octaves}, \code{accidentals} and \code{key} are \code{NULL}, formatting is inferred
+from \code{notes}. When mixed formats are present, tick format is the default for
+octave numbering and flats are the default for accidentals.
 }
 \examples{
 transpose("a_3 b_4 c5", 0)

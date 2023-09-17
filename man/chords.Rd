@@ -183,7 +183,7 @@ xM13(notes, key = "c", octaves = "tick")
 
 \item{key}{key signature. See details.}
 
-\item{octaves}{character, passed to \code{transpose}.}
+\item{octaves}{character, passed to \code{transpose()}.}
 }
 \value{
 character
@@ -194,9 +194,9 @@ These functions construct basic chord string notation from root \code{notes}.
 \details{
 Providing a \code{key} signature is used only to ensure flats or sharps for
 accidentals.
-An additional set of aliases with efficient names, of the
-form \code{x*} where \code{*} is a chord modifier abbreviation, is provided
-to complement the set of \code{chord_*} functions.
+An additional set of aliases with efficient names, of the form \verb{x*} where \code{*}
+is a chord modifier abbreviation, is provided to complement the set of
+\verb{chord_*} functions.
 
 These functions create standard chords, not the multi-octave spanning types
 of chords commonly played on guitar.
@@ -209,5 +209,5 @@ xm("c f g")
 xm("c, f, g,", key = "e_")
 }
 \seealso{
-\code{\link{transpose}}
+\code{\link[=transpose]{transpose()}}
 }

@@ -46,9 +46,9 @@ overhead on performing input validity checks, but they are exported from the
 package for user convenience. Their results will only make sense on strings
 that you define in accordance with noteworthy string rules.
 
-The \code{note_is_*} functions return a logical vector with length equal to
-the number of timesteps in \code{notes}.
-The \code{note_has_*} functions summarize these to a single logical value.
+The \verb{note_is_*} functions return a logical vector with length equal to the
+number of timesteps in \code{notes}. The \verb{note_has_*} functions summarize these to
+a single logical value.
 }
 \examples{
 x <- "r a_2 a a#' s"
@@ -68,6 +68,6 @@ note_has_rest(x)
 note_is_rest(x)
 }
 \seealso{
-\code{\link{note-metadata}}, \code{\link{note-summaries}},
-\code{\link{note-coerce}}, \code{\link{valid-notes}}
+\code{\link[=note-metadata]{note-metadata()}}, \code{\link[=note-summaries]{note-summaries()}}, \code{\link[=note-coerce]{note-coerce()}},
+\code{\link[=valid-notes]{valid-notes()}}
 }

@@ -103,39 +103,38 @@ render_music_bass(
 
 \item{file}{character, output file ending in .pdf or .png.}
 
-\item{clef}{character, include a music staff with the given clef.
-\code{NA} to suppress. See \code{track} for details.}
+\item{clef}{character, include a music staff with the given clef. \code{NA} to
+suppress. See \code{track()} for details.}
 
-\item{tab}{logical, include tablature staff. \code{NA} to suppress. See
-\code{track}.}
+\item{tab}{logical, include tablature staff. \code{NA} to suppress. See \code{track()}.}
 
 \item{tuning}{character, string tuning, only applies to tablature. See
-\code{track}.}
+\code{track()}.}
 
-\item{string_names}{label strings at beginning of tab staff. \code{NULL}
-(default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for
-force on or off completely.}
+\item{string_names}{label strings at beginning of tab staff. \code{NULL} (default)
+for non-standard tunings only, \code{TRUE} or \code{FALSE} for force on or off
+completely.}
 
-\item{header}{a named list of arguments passed to the header of the
-LilyPond file. See \code{lilypond} details.}
+\item{header}{a named list of arguments passed to the header of the LilyPond
+file. See \code{lilypond()} details.}
 
-\item{paper}{a named list of arguments for the LilyPond file page layout.
-See \code{lilypond} details.}
+\item{paper}{a named list of arguments for the LilyPond file page layout. See
+\code{lilypond()} details.}
 
 \item{midi}{logical, also output an corresponding MIDI file.}
 
 \item{colors}{a named list of LilyPond element color global overrides. See
-\code{lilypond} for details.}
+\code{lilypond()} for details.}
 
 \item{transparent}{logical, transparent background, png only.}
 
-\item{res}{numeric, resolution, png only. \code{transparent = TRUE} may fail
-when \code{res} exceeds ~150.}
+\item{res}{numeric, resolution, png only. \code{transparent = TRUE} may fail when
+\code{res} exceeds ~150.}
 
 \item{keep_ly}{logical, keep the intermediary LilyPond file.}
 
-\item{simplify}{logical, uses \code{simplify_phrase} to convert to simpler,
-more efficient LilyPond syntax.}
+\item{simplify}{logical, uses \code{simplify_phrase()} to convert to simpler, more
+efficient LilyPond syntax.}
 }
 \value{
 nothing returned; a file is written.
@@ -146,72 +145,69 @@ Render a sheet music/tablature snippet from a music object with LilyPond.
 \details{
 These functions allow you to render short, simple snippets of sheet music
 directly from a \code{music} object. This is useful when you do not need to
-build up from phrases to tracks to a full score. They treat \code{music} as
-a single voice for a single track. This simplifies the possible output but
+build up from phrases to tracks to a full score. They treat \code{music} objects
+as a single voice for a single track. This simplifies the possible output but
 is very convenient when this is all you need.
 
 These functions abstract the following pipeline,
 
-\code{music \%>\% phrase() \%>\% track() \%>\% score() \%>\% render_*()}
+\verb{music |> phrase() |> track() |> score() |> render_*()}
 
 for this simple edge case and directly expose the most relevant arguments.
 
 All \code{header} list elements are character strings. The options for
-\code{header} include:
+\code{header} include the following.
 \itemize{
-  \item \code{title}
-  \item \code{subtitle}
-  \item \code{composer}
-  \item \code{album}
-  \item \code{arranger}
-  \item \code{instrument}
-  \item \code{meter}
-  \item \code{opus}
-  \item \code{piece}
-  \item \code{poet}
-  \item \code{copyright}
-  \item \code{tagline}
+\item \code{title}
+\item \code{subtitle}
+\item \code{composer}
+\item \code{album}
+\item \code{arranger}
+\item \code{instrument}
+\item \code{meter}
+\item \code{opus}
+\item \code{piece}
+\item \code{poet}
+\item \code{copyright}
+\item \code{tagline}
 }
 
 All \code{paper} list elements are numeric except \code{page_numbers} and
-\code{print_first_page_number},
-which are logical. \code{page_numbers = FALSE} suppresses all page numbering.
-When \code{page_numbers = TRUE}, you can set
-\code{print_first_page_number = FALSE} to suppress printing of only the
-first page number. \code{first_page_number} is the number of the first page,
+\code{print_first_page_number}, which are logical. \code{page_numbers = FALSE}
+suppresses all page numbering. When \code{page_numbers = TRUE}, you can set
+\code{print_first_page_number = FALSE} to suppress printing of only the first
+page number. \code{first_page_number} is the number of the first page,
 defaulting to 1, and determines all subsequent page numbers. These arguments
 correspond to LilyPond paper block variables.
 
 The options for \code{paper} include the following and have the following
-default values if not provided:
+default values if not provided.
 \itemize{
-  \item \code{textheight = 220}
-  \item \code{linewidth = 150}
-  \item \code{indent = 0}
-  \item \code{fontsize = 20}
-  \item \code{page_numbers = FALSE}
-  \item \code{print_first_page_number = TRUE}
-  \item \code{first_page_number = 1}
+\item \code{textheight = 220}
+\item \code{linewidth = 150}
+\item \code{indent = 0}
+\item \code{fontsize = 20}
+\item \code{page_numbers = FALSE}
+\item \code{print_first_page_number = TRUE}
+\item \code{first_page_number = 1}
 }
 
-\code{textheight = 150} is the default, but for music snippet rendering,
-a value must be provided explicitly via \code{paper} when rendering to png.
-Otherwise for png outputs the height is cropped automatically rather than
-remaining a full page. See \code{lilypond} for details.
+\code{textheight = 150} is the default, but for music snippet rendering, a value
+must be provided explicitly via \code{paper} when rendering to png. Otherwise for
+png outputs the height is cropped automatically rather than remaining a full
+page. See \code{lilypond()} for details.
 
-Passing arguments to \code{header} can completely or partially prevent
-cropping in both direction, which must then be done manually with
-\code{linewidth} and \code{textheight}. This is all based on underlying
-LilyPond behavior.
+Passing arguments to \code{header} can completely or partially prevent cropping in
+both direction, which must then be done manually with \code{linewidth} and
+\code{textheight}. This is all based on underlying LilyPond behavior.
 
 If \code{music} contains lyrics and there are rests in the note sequence,
 note-lyric alignment is maintained automatically when these functions
 remove the lyric timesteps corresponding to the rests prior to sending to
 LilyPond. LilyPond skips rests when engraving lyrics and expects a shortened
-lyrics sequence in comparison to how \code{tabr} matches by timestep
-including rests. This is in contrast to \code{track}, for which you have to
-shorten the lyrics object yourself prior to combining with a phrase object
-that has rests.
+lyrics sequence in comparison to how \code{tabr} matches by timestep including
+rests. This is in contrast to \code{track()}, for which you have to shorten the
+lyrics object yourself prior to combining with a phrase object that has rests.
 }
 \examples{
 x <- "a,4;5*5 b,- c cgc'e'~ cgc'e'1 e'4;2 c';3 g;4 c;5 ce'1;51"
@@ -243,6 +239,6 @@ if(tabr_options()$lilypond != ""){ # requires LilyPond installation
 }
 }
 \seealso{
-\code{\link{plot_music}}, \code{\link{phrase}}, \code{\link{track}},
-\code{\link{score}}, \code{\link{lilypond}}, \code{\link{tab}}
+\code{\link[=plot_music]{plot_music()}}, \code{\link[=phrase]{phrase()}}, \code{\link[=track]{track()}}, \code{\link[=score]{score()}}, \code{\link[=lilypond]{lilypond()}},
+\code{\link[=tab]{tab()}}
 }

@@ -2,25 +2,24 @@
 #'
 #' These functions assist with summarizing temporal data for music objects.
 #'
-#' These functions also work with the simpler \code{noteinfo} class, though
-#' some functions require you to provide additional arguments.
+#' These functions also work with the simpler `noteinfo` class, though some
+#' functions require you to provide additional arguments.
 #'
 #' Functions that deal with real time require a known tempo, which music
 #' objects have. The simpler note info object does not contain this information.
-#' You can provide a value to the \code{tempo} argument of such functions. This
-#' overrides the tempo of \code{x} if a music object. But the reason to use
-#' \code{tempo} is to provide one when \code{x} is a note info object.
-#' By default \code{tempo = NULL}, in which case it will derive the value from
+#' You can provide a value to the `tempo` argument of such functions. This
+#' overrides the tempo of `x` if a music object. But the reason to use
+#' `tempo` is to provide one when `x` is a note info object.
+#' By default `tempo = NULL`, in which case it will derive the value from
 #' the music object or return an error for note info objects.
 #'
-#' \code{n_measures} gives the total number of measures covered by all
-#' timesteps. Functions providing the number of beats and beats per minute both
-#' take a \code{unit}, defaulting to 4 for quarter note beats. The unit can be
-#' any even beat, triplet beat, dotted, or double dotted beat, from
-#' \code{"t32"} up to 1.
+#' `n_measures()` gives the total number of measures covered by all timesteps.
+#' Functions providing the number of beats and beats per minute both take a
+#' `unit`, defaulting to 4 for quarter note beats. The unit can be any even
+#' beat, triplet beat, dotted, or double dotted beat, from `"t32"` up to 1.
 #'
 #' The number of timesteps starting in each measure is obtained with
-#' \code{steps_per_measure}.
+#' `steps_per_measure()`.
 #'
 #' @param x note info or music object.
 #' @param unit character, or an equivalent integer. A beat unit. See details.

@@ -10,11 +10,10 @@ ratio_to_cents(x, y = NULL)
 cents_to_ratio(x)
 }
 \arguments{
-\item{x}{a vector of ratios if \code{y = NULL}, otherwise frequencies.
-Cents for \code{cents_to_ratio}.}
+\item{x}{a vector of ratios if \code{y = NULL}, otherwise frequencies. Cents for
+\code{cents_to_ratio()}.}
 
-\item{y}{if not \code{NULL}, frequencies and the ratios are given by
-\code{y / x}.}
+\item{y}{if not \code{NULL}, frequencies and the ratios are given by \code{y / x}.}
 }
 \value{
 numeric

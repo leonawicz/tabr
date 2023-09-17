@@ -2,14 +2,13 @@
 #'
 #' Helper functions for working with musical modes.
 #'
-#' For valid key signatures, see \code{\link{keys}}.
+#' For valid key signatures, see [keys()].
 #'
 #' Modern modes based on major scales are available by key signature using the
-#' \code{mode_*} functions. The seven modes can be listed with \code{modes}.
+#' `mode_*` functions. The seven modes can be listed with `modes`.
 #' Noteworthy strings of proper length can be checked to match against a mode
-#' with \code{is_mode}.
-#' Modes can be rotated with \code{mode_rotate}, a wrapper around
-#' \code{note_rotate}.
+#' with `is_mode()`.
+#' Modes can be rotated with `mode_rotate()`, a wrapper around `note_rotate()`.
 #'
 #' @param key character, key signature.
 #' @param collapse logical, collapse result into a single string ready for
@@ -23,7 +22,7 @@
 #'
 #' @return character
 #' @export
-#' @seealso \code{\link{keys}}, \code{\link{scale-helpers}}
+#' @seealso [keys()], [scale-helpers()]
 #' @name mode-helpers
 #'
 #' @examples
@@ -92,7 +91,7 @@ mode_ionian <- function(key = "c", collapse = FALSE, ignore_octave = FALSE){
 mode_dorian <- function(key = "c", collapse = FALSE, ignore_octave = FALSE){
   x <- scale_major(key, ignore_octave = ignore_octave)
   idx <- c(3, 7)
-  x[idx] <- sapply(x[idx], transpose, n = -1, key = key) %>%
+  x[idx] <- sapply(x[idx], transpose, n = -1, key = key) |>
     .pitch_to_note()
   if(collapse) x <- paste0(x, collapse = " ")
   note_set_key(x, key)
@@ -103,7 +102,7 @@ mode_dorian <- function(key = "c", collapse = FALSE, ignore_octave = FALSE){
 mode_phrygian <- function(key = "c", collapse = FALSE, ignore_octave = FALSE){
   x <- scale_major(key, ignore_octave = ignore_octave)
   idx <- c(2, 3, 6, 7)
-  x[idx] <- sapply(x[idx], transpose, n = -1, key = key) %>%
+  x[idx] <- sapply(x[idx], transpose, n = -1, key = key) |>
     .pitch_to_note()
   if(collapse) x <- paste0(x, collapse = " ")
   note_set_key(x, key)
@@ -114,7 +113,7 @@ mode_phrygian <- function(key = "c", collapse = FALSE, ignore_octave = FALSE){
 mode_lydian <- function(key = "c", collapse = FALSE, ignore_octave = FALSE){
   x <- scale_major(key, ignore_octave = ignore_octave)
   idx <- 4
-  x[idx] <- sapply(x[idx], transpose, n = 1, key = key) %>%
+  x[idx] <- sapply(x[idx], transpose, n = 1, key = key) |>
     .pitch_to_note()
   if(collapse) x <- paste0(x, collapse = " ")
   note_set_key(x, key)
@@ -125,7 +124,7 @@ mode_lydian <- function(key = "c", collapse = FALSE, ignore_octave = FALSE){
 mode_mixolydian <- function(key = "c", collapse = FALSE, ignore_octave = FALSE){
   x <- scale_major(key, ignore_octave = ignore_octave)
   idx <- 7
-  x[idx] <- sapply(x[idx], transpose, n = -1, key = key) %>%
+  x[idx] <- sapply(x[idx], transpose, n = -1, key = key) |>
     .pitch_to_note()
   if(collapse) x <- paste0(x, collapse = " ")
   note_set_key(x, key)
@@ -136,7 +135,7 @@ mode_mixolydian <- function(key = "c", collapse = FALSE, ignore_octave = FALSE){
 mode_aeolian <- function(key = "c", collapse = FALSE, ignore_octave = FALSE){
   x <- scale_major(key, ignore_octave = ignore_octave)
   idx <- c(3, 6, 7)
-  x[idx] <- sapply(x[idx], transpose, n = -1, key = key) %>%
+  x[idx] <- sapply(x[idx], transpose, n = -1, key = key) |>
     .pitch_to_note()
   if(collapse) x <- paste0(x, collapse = " ")
   note_set_key(x, key)
@@ -147,7 +146,7 @@ mode_aeolian <- function(key = "c", collapse = FALSE, ignore_octave = FALSE){
 mode_locrian <- function(key = "c", collapse = FALSE, ignore_octave = FALSE){
   x <- scale_major(key, ignore_octave = ignore_octave)
   idx <- c(2, 3, 5, 6, 7)
-  x[idx] <- sapply(x[idx], transpose, n = -1, key = key) %>%
+  x[idx] <- sapply(x[idx], transpose, n = -1, key = key) |>
     .pitch_to_note()
   if(collapse) x <- paste0(x, collapse = " ")
   note_set_key(x, key)

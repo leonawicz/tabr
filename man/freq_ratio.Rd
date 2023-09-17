@@ -29,8 +29,8 @@ Octave numbering and accidentals are inferred from noteworthy and music
 objects, but can be specified for frequency. See examples.
 
 By default ratios are returned for all combinations of intervals in each
-chord (\code{ratios = "all"}). \code{ratios = "root"} filters the result to
-only include chord ratios with respect to the root note of each chord.
+chord (\code{ratios = "all"}). \code{ratios = "root"} filters the result to only
+include chord ratios with respect to the root note of each chord.
 \code{ratios = "range"} filters to only the chord ratio between the root and
 highest note.
 }

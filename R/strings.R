@@ -3,8 +3,8 @@
 #' Fold or unfold a string on the expansion operator.
 #'
 #' These function work on arbitrary stings. They do not perform a noteworthy
-#' check. This allows them to work for \code{info} strings as well. Make sure
-#' your strings are properly formatted. \code{string_fold} always collapses the
+#' check. This allows them to work for `info` strings as well. Make sure
+#' your strings are properly formatted. `string_fold()` always collapses the
 #' output string as space-delimited.
 #'
 #' @param x character string, should be valid notes or note info such as beats.
@@ -37,5 +37,5 @@ string_fold <- function(x, n = 3){
   purrr::map2_chr(y$values, y$lengths, ~{
     if(.y == 1) return(.x)
     if(.y < n) paste(rep(.x, .y), collapse = " ") else paste0(.x, "*", .y)
-  }) %>% paste(collapse = " ")
+  }) |> paste(collapse = " ")
 }

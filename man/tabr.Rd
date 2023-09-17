@@ -3,6 +3,7 @@
 \docType{package}
 \name{tabr}
 \alias{tabr}
+\alias{tabr-package}
 \title{tabr: Music notation syntax, manipulation, analysis and transcription in R.}
 \description{
 The \code{tabr} package provides a music notation syntax and a collection of
@@ -11,7 +12,7 @@ analyzing musical information in R.
 }
 \details{
 The music notation framework facilitates creating and analyzing music data in
- notation form.
+notation form.
 Music data can be viewed, manipulated and analyzed while in different
 forms of representation based around different data structures: strings and
 data frames.
@@ -30,7 +31,7 @@ Functions are available for mapping seamlessly between these data structures
 and their representations of musical information.
 The package also provides API wrapper functions for transcribing musical
 representations in R into guitar tablature ("tabs") and basic sheet music
-using the LilyPond backend <http://lilypond.org>.
+using the LilyPond backend \url{http://lilypond.org}.
 
 LilyPond is an open source music engraving program for generating high
 quality sheet music based on markup syntax.

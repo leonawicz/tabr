@@ -38,8 +38,7 @@ individual entries.}
 \item{type}{character, type of note to naturalize.}
 
 \item{key}{character, key signature to coerce any accidentals to the
-appropriate form for the key. May also specify \code{"sharp"} or
-\code{"flat"}.}
+appropriate form for the key. May also specify \code{"sharp"} or \code{"flat"}.}
 
 \item{x}{for generic functions: notes, info or music string.}
 
@@ -55,27 +54,26 @@ noteworthy strings including representation of timesteps, octaves and
 accidentals.
 }
 \details{
-For \code{sharpen_flat} and \code{flatten_sharp}, sharpening flats and
-flattening sharps refer to inverting their respective notation,
-not to raising or lowering a flatted or sharped note by one semitone.
-For the latter, use \code{naturalize}, which removes flat and/or sharp
-notation from a string.
-\code{note_set_key} is used for coercing a noteworthy string to a specific
+For \code{sharpen_flat()} and \code{flatten_sharp()}, sharpening flats and flattening
+sharps refer to inverting their respective notation, not to raising or
+lowering a flatted or sharped note by one semitone. For the latter, use
+\code{naturalize()}, which removes flat and/or sharp notation from a string.
+\code{note_set_key()} is used for coercing a noteworthy string to a specific
 and consistent notation for accidentals based on a key signature.
-This is a wrapper around \code{sharpen_flat} and \code{flatten_sharp}.
-\code{as_tick_octaves}, \code{as_integer_octaves}, \code{as_space_time} and
-\code{as_vector_time} similarly affect octave and timestep format.
+This is a wrapper around \code{sharpen_flat()} and \code{flatten_sharp()}.
+\code{as_tick_octaves()}, \code{as_integer_octaves()}, \code{as_space_time()} and
+\code{as_vector_time()} similarly affect octave and timestep format.
 For simultaneous control over the representation of timesteps, octave
 numbering and accidentals, all three are available as arguments to
-\code{\link{as_noteworthy}}.
+\code{\link[=as_noteworthy]{as_noteworthy()}}.
 }
 \section{A note on generic functions}{
 
-\code{as_space_time} and \code{as_vector_time} are generic since they
-apply clearly to and are useful for not only noteworthy strings, but also
-note info and music objects. If \code{x} is still a simple character string,
-these functions attempt to guess which of the three it is. It is recommended
-to set the class before using these functions.
+\code{as_space_time()} and \code{as_vector_time()} are generic since they apply clearly
+to and are useful for not only noteworthy strings, but also note info and
+music objects. If \code{x} is still a simple character string, these functions
+attempt to guess which of the three it is. It is recommended to set the class
+before using these functions.
 
 There are many package functions that operate on noteworthy strings that
 could in concept work on music objects, but the expectation is that sound
@@ -106,6 +104,6 @@ flatten_sharp(x)
 pretty_notes(x)
 }
 \seealso{
-\code{\link{note-checks}}, \code{\link{note-metadata}},
-\code{\link{note-summaries}}, \code{\link{valid-notes}}
+\code{\link[=note-checks]{note-checks()}}, \code{\link[=note-metadata]{note-metadata()}}, \code{\link[=note-summaries]{note-summaries()}},
+\code{\link[=valid-notes]{valid-notes()}}
 }

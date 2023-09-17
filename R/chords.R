@@ -1,11 +1,11 @@
 #' Chord inversion
 #'
-#' This function inverts a single chord given as a character string.
-#' If \code{n = 0}, \code{chord} is returned immediately.
-#' Otherwise, the notes of the chord are inverted. If \code{abs(n)} is greater
-#' than the number of inversions (excluding root position), an error is thrown.
+#' This function inverts a single chord given as a character string. If `n = 0`,
+#' `chord` is returned immediately. Otherwise, the notes of the chord are
+#' inverted. If `abs(n)` is greater than the number of inversions (excluding
+#' root position), an error is thrown.
 #'
-#' Note that \code{chord_invert} has no knowledge of whether a chord might be
+#' Note that `chord_invert()` has no knowledge of whether a chord might be
 #' considered as in root position or some inversion already, as informed by a
 #' key signature, chord name or user's intent.
 #' This function simply inverts what it receives, treating any defined chord
@@ -20,7 +20,7 @@
 #' having the highest pitch.
 #' The second lowest note becomes the lowest. It's octave does not change.
 #' This pattern is repeated for higher order inversions. The opposite happens
-#' if \code{n} is negative.
+#' if `n` is negative.
 #'
 #' The procedure ensures that the resulting inverted chord is still defined by
 #' notes of increasing pitch.
@@ -76,15 +76,15 @@ chord_invert <- function(chord, n = 0, limit = FALSE){
 #'
 #' Create an arpeggio from a chord.
 #'
-#' This function is based on \code{chord_invert}. If \code{n = 0} then
-#' \code{chord} is returned immediately; other arguments are ignored.
+#' This function is based on `chord_invert`. If `n = 0` then `chord` is returned
+#' immediately; other arguments are ignored.
 #'
 #' @param chord character, a single chord.
 #' @param n integer, number of steps, negative indicates reverse direction
 #' (decreasing pitch).
-#' @param by whether each of the \code{n} steps refers to individual notes in
-#' the chord (an inversion) or raising the entire chord in its given position
-#' by one octave.
+#' @param by whether each of the `n` steps refers to individual notes in the
+#' chord (an inversion) or raising the entire chord in its given position by one
+#' octave.
 #' @param broken logical, return result as an arpeggio of broken chords.
 #' @param collapse logical, collapse result into a single string ready for
 #' phrase construction.
@@ -141,26 +141,26 @@ chord_break <- function(notes){
 #'
 #' Construct a dyad given one note, an interval, and a direction.
 #'
-#' The \code{interval} may be specified by semitones of by common interval name
+#' The `interval` may be specified by semitones of by common interval name
 #' or abbreviation. See examples.
 #' For a complete list of valid interval names and abbreviations see
-#' \code{\link{mainIntervals}}.
-#' \code{key} enforces the use of sharps or flats. This function is based on
-#' \code{transpose}.
-#' \code{notes} and \code{interval} may be vectors, but must be equal length.
+#' [mainIntervals()].
+#' `key` enforces the use of sharps or flats. This function is based on
+#' `transpose()`.
+#' `notes` and `interval` may be vectors, but must be equal length.
 #' Recycling occurs only if one argument is scalar.
 #'
 #' @param notes character, a noteworthy string, single notes only, no chords.
-#' Number of timesteps must equal the length of \code{interval}.
+#' Number of timesteps must equal the length of `interval`.
 #' @param interval integer or character vector; semitones or interval ID,
 #' respectively. See details.
 #' @param reverse logical, reverse the transposition direction. Useful when
-#' \code{interval} is character.
-#' @param octaves,accidentals,key See \code{\link{transpose}}.
+#' `interval` is character.
+#' @param octaves,accidentals,key See [transpose()].
 #'
 #' @return character
 #' @export
-#' @seealso \code{\link{mainIntervals}}
+#' @seealso [mainIntervals()]
 #'
 #' @examples
 #' dyad("a", 4)
@@ -218,7 +218,7 @@ dyad <- function(notes, interval, reverse = FALSE,
 #' @param pitch character, how ranking of chords is determined; lowest pitch,
 #' mean pitch, or highest pitch.
 #' @param decreasing logical, sort in decreasing order.
-#' @param ... additional arguments passed to \code{rank} or \code{order}.
+#' @param ... additional arguments passed to `rank()` or `order()`.
 #'
 #' @return integer for rank and order, character for sort
 #' @export
@@ -273,9 +273,8 @@ chord_sort <- function(notes, pitch = c("min", "mean", "max"),
 #' simplify them.
 #' They operate based only on ordered pitches.
 #'
-#' For \code{chord_slice}, any entry that is empty after slicing is dropped.
-#' An error is thrown is \code{index} is completely out of bounds for all
-#' chords.
+#' For `chord_slice()`, any entry that is empty after slicing is dropped. An
+#' error is thrown is `index` is completely out of bounds for all chords.
 #'
 #' @param notes character, a noteworthy string.
 #' @param index integer, the order of a note in a chord by pitch (not scale
@@ -349,8 +348,8 @@ chord_slice <- function(notes, index){
 #' are sorted by pitch.
 #'
 #' In several cases including single notes or no major or minor third interval
-#' present, \code{NA} is returned.
-#' \code{TRUE} or \code{FALSE} is only returned if such an interval is present.
+#' present, `NA` is returned.
+#' `TRUE` or `FALSE` is only returned if such an interval is present.
 #' If more than one is present, it is based on the lowest in pitch.
 #' It prioritizes major/minor and minor/major adjacent intervals (recognizing a
 #' common triad). If these do not occur adjacent, the lowest third is selected.
@@ -413,25 +412,25 @@ chord_is_minor <- function(notes){
 
 #' Chord constructors
 #'
-#' These functions construct basic chord string notation from root \code{notes}.
+#' These functions construct basic chord string notation from root `notes`.
 #'
-#' Providing a \code{key} signature is used only to ensure flats or sharps for
+#' Providing a `key` signature is used only to ensure flats or sharps for
 #' accidentals.
-#' An additional set of aliases with efficient names, of the
-#' form \code{x*} where \code{*} is a chord modifier abbreviation, is provided
-#' to complement the set of \code{chord_*} functions.
+#' An additional set of aliases with efficient names, of the form `x*` where `*`
+#' is a chord modifier abbreviation, is provided to complement the set of
+#' `chord_*` functions.
 #'
 #' These functions create standard chords, not the multi-octave spanning types
 #' of chords commonly played on guitar.
 #'
 #' @param notes character, a noteworthy string of chord root notes.
 #' @param key key signature. See details.
-#' @param octaves character, passed to \code{transpose}.
+#' @param octaves character, passed to `transpose()`.
 #'
 #' @return character
 #' @export
 #' @name chords
-#' @seealso \code{\link{transpose}}
+#' @seealso [transpose()]
 #'
 #' @examples
 #' chord_min("d")
@@ -653,8 +652,6 @@ chord_maj13 <- function(notes, key = "c", octaves = "tick"){
   .asnw(x)
 }
 
-# lintr will catch function name casing violation # nolint start
-
 #' @export
 #' @rdname chords
 xm <- chord_min
@@ -770,5 +767,3 @@ xm13 <- chord_min13
 #' @export
 #' @rdname chords
 xM13 <- chord_maj13
-
-# nolint end

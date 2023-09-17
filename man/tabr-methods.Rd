@@ -13,59 +13,56 @@
 \item{...}{additional arguments.}
 }
 \description{
-Several methods are implemented for the classes \code{noteworthy},
-\code{noteinfo}, \code{music} and \code{lyrics}.
-See further below for details on limited implementations for the
-\code{phrase} class.
+Several methods are implemented for the classes \code{noteworthy}, \code{noteinfo},
+\code{music} and \code{lyrics}. See further below for details on limited
+implementations for the \code{phrase} class.
 }
 \details{
 In addition to custom print and summary methods, the following methods have
-been implemented for all four classes: \code{[}, \code{[<-}, \code{[[},
-\code{[[<-}, \code{length}, \code{c}, \code{rep}, \code{rev}, \code{head}
-and \code{tail}. Logical operators are also implemented for noteworthy
-strings.
+been implemented for all four classes: \code{[}, \verb{[<-}, \code{[[}, \verb{[[<-}, \code{length()},
+\code{c()}, \code{rep()}, \code{rev()}, \code{head()} and \code{tail()}. Logical operators are also
+implemented for noteworthy strings.
 }
-\section{Methods \code{length} and \code{c}}{
+\section{Methods \code{length()} and \code{c()}}{
 
-The implementation of \code{length} is equivalent to \code{n_steps}. They
+The implementation of \code{length()} is equivalent to \code{n_steps()}. They
 access the same attribute, returning the number of timesteps in the object.
 This gives the same result even when the underlying string is in
 space-delimited format. To obtain the character string length, coerce with
-\code{as.character} or any other function that would have the same effect.
+\code{as.character()} or any other function that would have the same effect.
 
-The implementation of \code{c} for these classes is strict and favors the
-object class in question. This is different from how \code{c} might normally
+The implementation of \code{c()} for these classes is strict and favors the
+object class in question. This is different from how \code{c()} might normally
 behave, coercing objects of different types such as numeric and character to
 character.
 
-For these four classes, \code{c} is strict in that it will return
+For these four classes, \code{c()} is strict in that it will return
 an error if attempting to concatenate one of these classes with any other
 class besides character. This includes each other. While it would be
 possible to coerce a music object down to a \code{noteworthy} object or a
 \code{noteinfo} object, this is the opposite of the aggressive coercion
-these classes are intended to have with \code{c} so this is not done.
+these classes are intended to have with \code{c()} so this is not done.
 
 While other classes such as numeric immediately return an error, any
 concatenation with character strings attempts to coerce each character
 string present to the given class. If coercion fails for any character class
 object, the usual error is returned concerning invalid notes or note info
 present. If coercion succeeds for all character strings, the result of
-\code{c} is to concatenate the timesteps of all objects passed to it. The
+\code{c()} is to concatenate the timesteps of all objects passed to it. The
 output is a new \code{noteworthy}, \code{noteinfo} or\code{music} object.
 }
 
-\section{Methods \code{rep} \code{rev} \code{head} and \code{tail}}{
+\section{Methods \code{rep()} \code{rev()} \code{head()} and \code{tail()}}{
 
-The \code{rep} function is similar to \code{c} except that it never has to
-consider other classes. You could pass a vector of objects to \code{rep},
-but doing so with \code{c} will already have resolved all objects to the
-single class. Again, what matters is not the underlying length or elements in
-the character vector the class is built upon, but the timesteps.
-\code{rep} will extend \code{x} in terms of timesteps. You can also provide
-the \code{each} or \code{times} arguments.
+The \code{rep()} function is similar to \code{c()} except that it never has to consider
+other classes. You could pass a vector of objects to \code{rep()}, but doing so
+with \code{c()} will already have resolved all objects to the single class. Again,
+what matters is not the underlying length or elements in the character vector
+the class is built upon, but the timesteps. \code{rep()} will extend \code{x} in terms
+of timesteps. You can also provide the \code{each} or \code{times} arguments.
 
-\code{rev}, \code{head} and \code{tail} work similarly, based on the
-sequence of timesteps, not the character vector length.
+\code{rev()}, \code{head()} and \code{tail()} work similarly, based on the sequence of
+timesteps, not the character vector length.
 
 Remember that this accounts not only for vectors of length one that contain
 multiple timesteps in space-delimited time format, but also that multiple
@@ -78,10 +75,10 @@ method implementations work in this manner.
 
 \section{Square brackets}{
 
-Single and double bracket subsetting by index work similarly to what
-occurs with lists. Single bracket subsetting returns the same object,
-but only containing the indexed timesteps. Double bracket subsetting only
-operates on a single timestep and extracts the character string value.
+Single and double bracket subsetting by index work similarly to what occurs
+with lists. Single bracket subsetting returns the same object, but only
+containing the indexed timesteps. Double bracket subsetting only operates on
+a single timestep and extracts the character string value.
 
 For assignment, single and double brackets change the value at timesteps and
 return the same object, but again double brackets only allow indexing a
@@ -92,20 +89,20 @@ command.
 
 \section{Limited phrase implementations}{
 
-Methods implemented for the \code{phrase} are limited to \code{c} and
-\code{rep}. Due to the complex LilyPond syntax, applying most of the
-functions above directly to phrases is problematic. \code{c} is implemented
-like it is for the other classes. \code{rep} is restricted in that it can
-only repeat the entire phrase sequence, not the timesteps within. However,
-you can convert a phrase class back to \code{noteworthy} and \code{noteinfo}
-objects (under reasonable conditions). See \code{\link{notify}}.
+Methods implemented for the \code{phrase} class are limited to \code{c()} and \code{rep()}.
+Due to the complex LilyPond syntax, applying most of the functions above
+directly to phrases is problematic. \code{c()} is implemented like it is for the
+other classes. \code{rep()} is restricted in that it can only repeat the entire
+phrase sequence, not the timesteps within. However, you can convert a phrase
+class back to \code{noteworthy} and \code{noteinfo} objects (under reasonable
+conditions). See \code{\link[=notify]{notify()}}.
 
-One exception made for \code{phrase} with respect to concatenation is that
+One exception made for \code{phrase} objects with respect to concatenation is that
 an attempt to concatenate any combination of phrase and music objects, in
 any order, results in coercion to a new phrase. This happens even in a case
 where the first object in the sequence is a music object (thus calling
-\code{c.music} rather than \code{c.phrase}). It will subsequently fall back
-to \code{c.phrase} in that case.
+\code{c.music()} rather than \code{c.phrase()}). It will subsequently fall back
+to \code{c.phrase()} in that case.
 }
 
 \examples{
@@ -146,5 +143,5 @@ x[[3]] <- "b_t8"
 x
 }
 \seealso{
-\code{\link{note-logic}}, \code{\link{note-metadata}}
+\code{\link[=note-logic]{note-logic()}}, \code{\link[=note-metadata]{note-metadata()}}
 }

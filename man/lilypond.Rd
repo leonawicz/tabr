@@ -23,25 +23,24 @@ lilypond(
 \arguments{
 \item{score}{a score object.}
 
-\item{file}{character, LilyPond output file ending in \code{.ly}. May
-include an absolute or relative path.}
+\item{file}{character, LilyPond output file ending in \code{.ly}. May include an
+absolute or relative path.}
 
-\item{key}{character, key signature, e.g., \code{c}, \code{b_}, \code{f#m},
-etc.}
+\item{key}{character, key signature, e.g., \code{c}, \code{b_}, \code{f#m}, etc.}
 
 \item{time}{character, defaults to \code{"4/4"}.}
 
 \item{tempo}{character, defaults to \code{"2 = 60"}.}
 
-\item{header}{a named list of arguments passed to the header of the
-LilyPond file. See details.}
+\item{header}{a named list of arguments passed to the header of the LilyPond
+file. See details.}
 
 \item{paper}{a named list of arguments for the LilyPond file page layout.
 See details.}
 
-\item{string_names}{label strings at beginning of tab staff. \code{NULL}
-(default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for
-force on or off completely.}
+\item{string_names}{label strings at beginning of tab staff. \code{NULL} (default)
+for non-standard tunings only, \code{TRUE} or \code{FALSE} for force on or off
+completely.}
 
 \item{endbar}{character, the global end bar.}
 
@@ -52,7 +51,7 @@ force on or off completely.}
 \item{crop_png}{logical, alter template for cropped height. See
 details.}
 
-\item{simplify}{logical, uses \code{simplify_phrase} to convert to simpler,
+\item{simplify}{logical, uses \code{simplify_phrase()} to convert to simpler,
 more efficient LilyPond syntax.}
 }
 \value{
@@ -67,27 +66,27 @@ This function only writes a LilyPond file to disk. It does not require a
 LilyPond installation. It checks for the version number of an installation,
 but LilyPond is not required to be found.
 
-This function can be used directly but is commonly used by \code{render_*}
+This function can be used directly but is commonly used by \verb{render_*}
 functions, which call this function internally to create the LilyPond file
 and then call LilyPond to render that file to sheet music.
 }
 \section{Header options}{
 
-All \code{header} list elements are character strings. The options for
-\code{header} include:
+All \code{header} list elements are character strings. The options for \code{header}
+include the following.
 \itemize{
-  \item \code{title}
-  \item \code{subtitle}
-  \item \code{composer}
-  \item \code{album}
-  \item \code{arranger}
-  \item \code{instrument}
-  \item \code{meter}
-  \item \code{opus}
-  \item \code{piece}
-  \item \code{poet}
-  \item \code{copyright}
-  \item \code{tagline}
+\item \code{title}
+\item \code{subtitle}
+\item \code{composer}
+\item \code{album}
+\item \code{arranger}
+\item \code{instrument}
+\item \code{meter}
+\item \code{opus}
+\item \code{piece}
+\item \code{poet}
+\item \code{copyright}
+\item \code{tagline}
 }
 }
 
@@ -96,79 +95,65 @@ All \code{header} list elements are character strings. The options for
 All \code{paper} list elements are numeric except \code{page_numbers} and
 \code{print_first_page_number},
 which are logical. \code{page_numbers = FALSE} suppresses all page numbering.
-When \code{page_numbers = TRUE}, you can set
-\code{print_first_page_number = FALSE} to suppress printing of only the
-first page number. \code{first_page_number} is the number of the first page,
-defaulting to 1, and determines all subsequent page numbers. These arguments
-correspond to LilyPond paper block variables.
+When \code{page_numbers = TRUE}, you can set \code{print_first_page_number = FALSE} to
+suppress printing of only the first page number. \code{first_page_number} is the
+number of the first page, defaulting to 1, and determines all subsequent page
+numbers. These arguments correspond to LilyPond paper block variables.
 
-The options for \code{paper} include the following and have the following
-default values if not provided:
+The options for \code{paper} include the following and have the following default
+values if not provided.
 \itemize{
-  \item \code{textheight = 220}
-  \item \code{linewidth = 150}
-  \item \code{indent = 0}
-  \item \code{fontsize = 10}
-  \item \code{page_numbers = TRUE}
-  \item \code{print_first_page_number = TRUE}
-  \item \code{first_page_number = 1}
+\item \code{textheight = 220}
+\item \code{linewidth = 150}
+\item \code{indent = 0}
+\item \code{fontsize = 10}
+\item \code{page_numbers = TRUE}
+\item \code{print_first_page_number = TRUE}
+\item \code{first_page_number = 1}
 }
 }
 
 \section{PNG-related options}{
 
-By default \code{crop_png = TRUE}. This alters the template so that when
-the LilyPond output file is created, it contains specifications for cropping
-the image to the content when that file is rendered by LilyPond to png.
-The image will have its width and height automatically cropped
-rather than retain the standard page dimensions.
-This only applies to png outputs made from the LilyPond file, not pdf.
-The argument is also ignored if explicitly providing \code{textheight} to
-\code{paper}. You may still provide \code{linewidth} to \code{paper} if you
-find you need to increase it beyond the default 150mm, generally as a result
-of using a large \code{fontsize}.
-Various \code{render_*} functions that wrap \code{lilypond} make use of this
-argument as well.
+By default crop_png = TRUE\verb{. This alters the template so that when the LilyPond output file is created, it contains specifications for cropping the image to the content when that file is rendered by LilyPond to png. The image will have its width and height automatically cropped rather than retain the standard page dimensions. This only applies to png outputs made from the LilyPond file, not pdf. The argument is also ignored if explicitly providing }textheight\code{to}paper\verb{. You may still provide }linewidth\code{to}paper\verb{if you find you need to increase it beyond the default 150mm, generally as a result of using a large}fontsize\verb{. Various }render_*\verb{functions that wrap}lilypond` make use of this argument as well.
 }
 
 \section{Color options}{
 
 You can provide a named list of global color overrides for various sheet
-music elements with the \code{colors} argument of \code{lilypond} or one of
-the associated rendering functions.
+music elements with the \code{colors} argument of \code{lilypond} or one of the
+associated rendering functions.
 
 By default, everything is black. Overrides are only inserted into the
 generated LilyPond file if given. Values are character; either the hex color
-or a named R color. The named list options include:
+or a named R color. The named list options include the following.
 \itemize{
-  \item \code{color}
-  \item \code{background}
-  \item \code{staff}
-  \item \code{time}
-  \item \code{clef}
-  \item \code{bar}
-  \item \code{beam}
-  \item \code{head}
-  \item \code{stem}
-  \item \code{accidental}
-  \item \code{slur}
-  \item \code{tabhead}
-  \item \code{lyrics}
+\item \code{color}
+\item \code{background}
+\item \code{staff}
+\item \code{time}
+\item \code{clef}
+\item \code{bar}
+\item \code{beam}
+\item \code{head}
+\item \code{stem}
+\item \code{accidental}
+\item \code{slur}
+\item \code{tabhead}
+\item \code{lyrics}
 }
 
 \code{color} is a global font color for the entire score. It affects staff
-elements and \code{header} elements. It does not affect everything, e.g.,
-page numbers.
-\code{background} controls the background color of the entire page. Do not
-use this if making a transparent background png with the \code{transparent}
-argument available in the various \code{render_*} functions.
-The other options are also global but override \code{color}. You can change
-the color of elements broadly with \code{color} and then change the color of
-specific elements using the other options.
+elements and \code{header} elements. It does not affect everything, e.g., page
+numbers. \code{background} controls the background color of the entire page. Do
+not use this if making a transparent background png with the \code{transparent}
+argument available in the various \verb{render_*} functions. The other options are
+also global but override \code{color}. You can change the color of elements
+broadly with \code{color} and then change the color of specific elements using the
+other options.
 
 There are currently some limitations. Specifically, if you provide any
-\code{background} color override, most \code{header} elements will not
-display.
+\code{background} color override, most \code{header} elements will not display.
 }
 
 \examples{
@@ -179,6 +164,6 @@ outfile <- file.path(tempdir(), "out.ly")
 lilypond(x, outfile)
 }
 \seealso{
-\code{\link{tab}}, \code{\link{render_chordchart}},
-\code{\link{midily}}
+\code{\link[=tab]{tab()}}, \code{\link[=render_chordchart]{render_chordchart()}},
+\code{\link[=midily]{midily()}}
 }

@@ -56,19 +56,18 @@ a musical interval, integer or character depending on the function.
 Helper functions for musical intervals defined by two notes.
 }
 \details{
-Numeric intervals are directional. \code{pitch_interval} returns the signed
+Numeric intervals are directional. \code{pitch_interval()} returns the signed
 number of semitones defining the distance between two notes.
 Named scale intervals are names only. Use pitch for direction.
 
-\code{scale_interval} returns a character string that provides the named
-main interval, simple or compound, defined by  the two notes.
-This function will return \code{NA} for any uncommon out of range large
-interval not listed as a named interval in \code{\link{mainIntervals}}.
+\code{scale_interval()} returns a character string that provides the named main
+interval, simple or compound, defined by  the two notes. This function
+returns \code{NA} for any uncommon out of range large interval not listed as a
+named interval in \code{\link[=mainIntervals]{mainIntervals()}}.
 
-\code{pitch_interval} and \code{scale_interval} compute intervals
-element-wise between two noteworthy strings. \code{pitch_diff} and
-\code{scale_diff} work similarly but compute lagged intervals on the
-elements in \code{notes}.
+\code{pitch_interval()} and \code{scale_interval()} compute intervals element-wise
+between two noteworthy strings. \code{pitch_diff()} and \code{scale_diff()} work
+similarly but compute lagged intervals on the elements in \code{notes}.
 }
 \examples{
 pitch_interval("b", "c4")
@@ -96,5 +95,5 @@ pitch_diff(x, n = 2, trim = TRUE)
 scale_diff(x, n = 2, trim = TRUE)
 }
 \seealso{
-\code{\link{mainIntervals}}
+\code{\link[=mainIntervals]{mainIntervals()}}
 }

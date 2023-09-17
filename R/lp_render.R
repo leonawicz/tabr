@@ -4,72 +4,69 @@
 #'
 #' Generate a pdf or png of a music score using the LilyPond music engraving
 #' program.
-#' Output format is inferred from \code{file} extension. This function is a
-#' wrapper around \code{\link{lilypond}}, the function that creates the
-#' LilyPond (\code{.ly}) file.
+#' Output format is inferred from `file` extension. This function is a wrapper
+#' around [lilypond()], the function that creates the LilyPond (`.ly`) file.
 #'
-#' \code{render_score} renders \code{score} to pdf or png. \code{render_midi}
-#' renders a MIDI file based on \code{score}. This is still done via LilyPond.
-#' The sheet music is created automatically in the process behind the scenes
-#' but is deleted and only the MIDI output is retained.
+#' `render_score()` renders `score()` to pdf or png. `render_midi()` renders a
+#' MIDI file based on `score()`. This is still done via LilyPond. The sheet
+#' music is created automatically in the process behind the scenes but is
+#' deleted and only the MIDI output is retained.
 #'
-#' The original \code{tab} or \code{render_tab} (equivalent) produces both the
-#' sheet music and the MIDI file output by default and includes other arguments
-#' such as the tablature-relevant argument \code{string_names}.
-#' This is the all-purpose function. Also use this when you intend to create
-#' both a sheet music document and a MIDI file.
+#' `tab()` or `render_tab()` (equivalent) produces both the sheet music and the
+#' MIDI file output by default and includes other arguments such as the
+#' tablature-relevant argument `string_names`. This is the all-purpose function.
+#' Also use this when you intend to create both a sheet music document and a
+#' MIDI file.
 #'
 #' Remember that whether a track contains a tablature staff, standard music
 #' staff, or both, is defined in each individual track object contained in
-#' \code{score}. It is the contents you have assembled in
-#' \code{score} that dictate what render function you should use.
-#' \code{render_tab} is general and always works, but \code{render_score} would
-#' not be the best choice when a tablature staff is present unless you accept
-#' the default string naming convention.
+#' `score()`. It is the contents you have assembled in`score()` that dictate
+#' what render function you should use. `render_tab()` is general and always
+#' works, but `render_score()` would not be the best choice when a tablature
+#' staff is present unless you accept the default string naming convention.
 #'
-#' \code{render_midi} is different from \code{midily} and \code{miditab}, whose
-#' purpose is to create sheet music from an existing MIDI file using a LilyPond
-#' command line utility.
+#' `render_midi()` is different from `midily()` and `miditab()`, whose purpose
+#' is to create sheet music from an existing MIDI file using a LilyPond command
+#' line utility.
 #'
 #' For Windows users, add the path to the LilyPond executable to the system
 #' path variable. For example, if the file is at
-#' \code{C:/Program Files (x86)/LilyPond/usr/bin/lilypond.exe},
-#' then add \code{C:/Program Files (x86)/LilyPond/usr/bin} to the system path.
+#'  `C:/lilypond-2.24.2/bin/lilypond.exe`, then add `C:/lilypond-2.24.2/bin` to
+#'  the system path.
 #'
 #' @param score a score object.
 #' @param file character, output file ending in .pdf or .png for sheet music or
-#' tablature for \code{score}. May include an absolute or relative path.
-#' For \code{render_midi}, a file ending in .mid.
-#' @param key character, key signature, e.g., \code{c}, \code{b_}, \code{f#m},
-#' etc.
-#' @param time character, defaults to \code{"4/4"}.
-#' @param tempo character, defaults to \code{"2 = 60"}. Set to \code{NULL} to
-#' suppress display of the time signature in the output.
-#' @param header a named list of arguments passed to the header of the
-#' LilyPond file. See \code{lilypond} for details.
-#' @param paper a named list of arguments for the LilyPond file page layout.
-#' See \code{lilypond} for details.
-#' @param string_names label strings at beginning of tab staff. \code{NULL}
-#' (default) for non-standard tunings only, \code{TRUE} or \code{FALSE} for
-#' force on or off completely.
+#' tablature for `score()`. May include an absolute or relative path. For
+#' `render_midi()`, a file ending in `.mid`.
+#' @param key character, key signature, e.g., `c`, `b_`, `f#m`, etc.
+#' @param time character, defaults to `"4/4"`.
+#' @param tempo character, defaults to `"2 = 60"`. Set to `NULL` to suppress
+#' display of the time signature in the output.
+#' @param header a named list of arguments passed to the header of the LilyPond
+#' file. See `lilypond()` for details.
+#' @param paper a named list of arguments for the LilyPond file page layout. See
+#' `lilypond()` for details.
+#' @param string_names label strings at beginning of tab staff. `NULL` (default)
+#' for non-standard tunings only, `TRUE` or `FALSE` for force on or off
+#' completely.
 #' @param endbar character, the global end bar.
 #' @param midi logical, output midi file in addition to sheet music.
 #' @param colors a named list of LilyPond element color overrides. See
-#' \code{lilypond} for details.
-#' @param crop_png logical, see \code{lilypond} for details.
+#' `lilypond()` for details.
+#' @param crop_png logical, see `lilypond()` for details.
 #' @param transparent logical, transparent background, png only.
-#' @param res numeric, resolution, png only. \code{transparent = TRUE} may fail
-#' when \code{res} exceeds ~150.
+#' @param res numeric, resolution, png only. `transparent = TRUE` may fail when
+#' `res` exceeds ~150.
 #' @param keep_ly logical, keep the intermediary LilyPond file.
-#' @param simplify logical, uses \code{simplify_phrase} to convert to simpler,
+#' @param simplify logical, uses `simplify_phrase()` to convert to simpler,
 #' more efficient LilyPond syntax for the LilyPond file before rendering it.
-#' @param details logical, set to \code{TRUE} to print LilyPond log output to
+#' @param details logical, set to `TRUE` to print LilyPond log output to
 #' console. Windows only.
 #'
 #' @return nothing returned; a file is written.
 #' @export
-#' @seealso \code{\link{lilypond}}, \code{\link{render_chordchart}},
-#' \code{\link{miditab}}
+#' @seealso [lilypond()], [render_chordchart()],
+#' [miditab()]
 #'
 #' @examples
 #' if(tabr_options()$lilypond != ""){
@@ -98,6 +95,7 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   if(details) cat("#### Engraving score to", fp$tp, "####\n")
   lilypond(score, fp$lp, key, time, tempo, header, paper,
            string_names, endbar, midi, colors, crop_png, simplify)
+
   lp_path <- tabr_options()$lilypond
   is_windows <- Sys.info()[["sysname"]] == "Windows"
   if(lp_path == ""){
@@ -111,6 +109,17 @@ tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
     system(call_string)
   }
   if(!keep_ly) unlink(fp$lp)
+
+  if(crop_png){
+    file_cropped <- gsub(".ly$", ".cropped.png", .adjust_file_path(file)$lp)
+    if(file.exists(file_cropped)){
+      file_keep <- gsub(".cropped.png$", ".png", file_cropped)
+      unlink(file_keep, recursive = TRUE, force = TRUE)
+      file.copy(file_cropped, file_keep, overwrite = TRUE)
+      unlink(file_cropped, recursive = TRUE, force = TRUE)
+    }
+  }
+
   .eps_cleanup(fp$tp)
 }
 
@@ -146,28 +155,26 @@ render_midi <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60"){
 #' This function uses a generates a LilyPond template for displaying only a
 #' fretboard diagram chart. It then passes the file to LilyPond for rendering.
 #' To plot specific fretboard diagrams in R using ggplot and with greater
-#' control, use \code{plot_fretboard}.
+#' control, use `plot_fretboard()`.
 #'
-#' The options for \code{paper} include the following and have the following
+#' The options for `paper` include the following and have the following
 #' default values if not provided.
 #'
-#' \itemize{
-#'   \item \code{textheight = 220}
-#'   \item \code{linewidth = 150}
-#'   \item \code{indent = 0}
-#'   \item \code{fontsize = 10}
-#'   \item \code{page_numbers = FALSE}
-#'   \item \code{print_first_page_number = TRUE}
-#'   \item \code{first_page_number = 1}
-#' }
+#' * `textheight = 220`
+#' * `linewidth = 150`
+#' * `indent = 0`
+#' * `fontsize = 10`
+#' * `page_numbers = FALSE`
+#' * `print_first_page_number = TRUE`
+#' * `first_page_number = 1`
 #'
-#' \code{fontsize} only controls the global font size. If you want to scale the
-#' size of the fretboard diagrams up or down use the the \code{size} argument
-#' rather than this \code{paper} value.
+#' `fontsize` only controls the global font size. If you want to scale the
+#' size of the fretboard diagrams up or down use the the `size` argument
+#' rather than this `paper` value.
 #'
 #' Note that chord chart output must fit on a single page. If the full set of
 #' chord diagrams does not fit on one page then diagrams will be clipped in the
-#' rendered output. Use \code{size} to keep the output to one page or make
+#' rendered output. Use `size` to keep the output to one page or make
 #' multiple sheets separately.
 #'
 #' @param chords named character vector of valid formatting for LilyPond chord
@@ -180,25 +187,25 @@ render_midi <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60"){
 #' @param paper a named list of arguments for the LilyPond file page layout.
 #' See details.
 #' @param colors reserved; not yet implemented for this function.
-#' @param crop_png logical, see \code{lilypond} for details.
+#' @param crop_png logical, see `lilypond()` for details.
 #' @param transparent logical, transparent background, png only.
-#' @param res numeric, resolution, png only. \code{transparent = TRUE} may fail
-#' when \code{res} exceeds ~150.
+#' @param res numeric, resolution, png only. `transparent = TRUE` may fail when
+#' `res` exceeds ~150.
 #' @param keep_ly logical, keep intermediate LilyPond file.
-#' @param details logical, set to \code{TRUE} to print LilyPond log output to
+#' @param details logical, set to `TRUE` to print LilyPond log output to
 #' console. Windows only.
 #'
 #' @return writes files to disk
 #' @export
-#' @seealso \code{\link{plot_fretboard}}, \code{\link{lilypond}},
-#' \code{\link{tab}}
+#' @seealso [plot_fretboard()], [lilypond()],
+#' [tab()]
 #'
 #' @examples
 #' suppressPackageStartupMessages(library(dplyr))
 #'
 #' chords <- filter(
 #'   guitarChords, root %in% c("c", "f") & id %in% c("7", "M7", "m7") &
-#'   !grepl("#", notes) & root_fret <= 12) %>%
+#'   !grepl("#", notes) & root_fret <= 12) |>
 #'   arrange(root, id)
 #' chords <- setNames(chords$fretboard, chords$lp_name)
 #' head(chords)
@@ -244,10 +251,10 @@ render_chordchart <- function(chords, file, size = 1.2, header = NULL,
     ")\n", do.call(.lp_header, if(is.null(header)) list() else header), "\n",
     global, "\\include \"predefined-guitar-fretboards.ly\"\n"
   )
-  def <- purrr::map_chr(i, ~.define_chord(.x, id[.x], chords[.x])) %>%
+  def <- purrr::map_chr(i, ~.define_chord(.x, id[.x], chords[.x])) |>
     paste(collapse = "")
   x <- paste0(x, "\n", def, "\nmychorddiagrams = \\chordmode {\n")
-  set <- purrr::map_chr(i, ~.set_chord(.x, id[.x])) %>% paste(collapse = "")
+  set <- purrr::map_chr(i, ~.set_chord(.x, id[.x])) |> paste(collapse = "")
   x <- paste0(x, set, "}\n\nchordNames = \\chordmode {\n",
               "  \\override ChordName.font-size = #2\n  ",
               paste(names(chords), collapse = " "), "\n}\n\n")
@@ -258,7 +265,7 @@ render_chordchart <- function(chords, file, size = 1.2, header = NULL,
     "        \\override FretBoards.FretBoard.size = #", size, "\n",
     "        \\mychorddiagrams\n", "      }\n", "    >>\n", "  \\layout {}\n",
     "  }\n}\n\\markup\\vspace #3\n")
-  x <- paste0(paper, x, markup)
+  x <- paste0(.lp_version(), paper, x, markup)
   write(file = fp$lp, x)
 
   lp_path <- tabr_options()$lilypond

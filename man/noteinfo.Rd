@@ -45,8 +45,8 @@ character
 Functions for working with note info strings.
 }
 \details{
-If \code{x} is a phrase object, there are some parsing limitations such as
-tuplets and repeats.
+If \code{x} is a phrase object, there are some parsing limitations such as tuplets
+and repeats.
 }
 \examples{
 a <- notate("t8x", "Start here")
@@ -68,5 +68,5 @@ data.frame(
 )
 }
 \seealso{
-\code{\link{valid-noteinfo}}
+\code{\link[=valid-noteinfo]{valid-noteinfo()}}
 }

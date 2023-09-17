@@ -35,12 +35,12 @@ See details.}
 
 \item{colors}{reserved; not yet implemented for this function.}
 
-\item{crop_png}{logical, see \code{lilypond} for details.}
+\item{crop_png}{logical, see \code{lilypond()} for details.}
 
 \item{transparent}{logical, transparent background, png only.}
 
-\item{res}{numeric, resolution, png only. \code{transparent = TRUE} may fail
-when \code{res} exceeds ~150.}
+\item{res}{numeric, resolution, png only. \code{transparent = TRUE} may fail when
+\code{res} exceeds ~150.}
 
 \item{keep_ly}{logical, keep intermediate LilyPond file.}
 
@@ -58,19 +58,18 @@ for a set of chords.
 This function uses a generates a LilyPond template for displaying only a
 fretboard diagram chart. It then passes the file to LilyPond for rendering.
 To plot specific fretboard diagrams in R using ggplot and with greater
-control, use \code{plot_fretboard}.
+control, use \code{plot_fretboard()}.
 
 The options for \code{paper} include the following and have the following
 default values if not provided.
-
 \itemize{
-  \item \code{textheight = 220}
-  \item \code{linewidth = 150}
-  \item \code{indent = 0}
-  \item \code{fontsize = 10}
-  \item \code{page_numbers = FALSE}
-  \item \code{print_first_page_number = TRUE}
-  \item \code{first_page_number = 1}
+\item \code{textheight = 220}
+\item \code{linewidth = 150}
+\item \code{indent = 0}
+\item \code{fontsize = 10}
+\item \code{page_numbers = FALSE}
+\item \code{print_first_page_number = TRUE}
+\item \code{first_page_number = 1}
 }
 
 \code{fontsize} only controls the global font size. If you want to scale the
@@ -87,7 +86,7 @@ suppressPackageStartupMessages(library(dplyr))
 
 chords <- filter(
   guitarChords, root \%in\% c("c", "f") & id \%in\% c("7", "M7", "m7") &
-  !grepl("#", notes) & root_fret <= 12) \%>\%
+  !grepl("#", notes) & root_fret <= 12) |>
   arrange(root, id)
 chords <- setNames(chords$fretboard, chords$lp_name)
 head(chords)
@@ -103,6 +102,6 @@ if(tabr_options()$lilypond != ""){
 }
 }
 \seealso{
-\code{\link{plot_fretboard}}, \code{\link{lilypond}},
-\code{\link{tab}}
+\code{\link[=plot_fretboard]{plot_fretboard()}}, \code{\link[=lilypond]{lilypond()}},
+\code{\link[=tab]{tab()}}
 }

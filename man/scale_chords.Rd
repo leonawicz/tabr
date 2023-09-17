@@ -15,7 +15,7 @@ scale_chords(
 \item{root}{character, root note or starting position of scale.}
 
 \item{scale}{character, a valid named scale, referring to one of the
-existing \code{scale_*} functions.}
+existing \verb{scale_*} functions.}
 
 \item{type}{character, type of chord, triad or seventh.}
 

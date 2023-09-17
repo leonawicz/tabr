@@ -30,8 +30,8 @@ untie <- function(x){
 
 #' Create rests
 #'
-#' Create multiple rests efficiently with a simple wrapper around \code{rep}
-#' using the \code{times} argument.
+#' Create multiple rests efficiently with a simple wrapper around `rep()` using
+#' the `times` argument.
 #'
 #' @param x integer, duration.
 #' @param n integer, number of repetitions.
@@ -51,10 +51,10 @@ rest <- function(x, n = 1){
 #' a specific note/time.
 #'
 #' This function binds text annotation in LilyPond syntax to a note's
-#' associated \code{info} entry.
+#' associated `info` entry.
 #' Technically, the syntax is a hybrid form, but is later updated safely and
 #' unambiguously to LilyPond syntax with respect to the rest of the note info
-#' substring when it is fed to \code{phrase} for musical phrase assembly.
+#' substring when it is fed to `phrase()` for musical phrase assembly.
 #'
 #' @param x character.
 #' @param text character.
@@ -73,11 +73,19 @@ notate <- function(x, text, position = "top"){
 
 #' Concatenate and repeat
 #'
-#' Helper functions for concatenating musical phrases and other strings
+#' Helper functions for concatenating musical phrases and raw strings
 #' together as well as repetition.
-#' The functions \code{pc} and \code{pn} are based on base functions
-#' \code{paste} and\code{rep}, respectively, but are tailored for efficiency in
-#' creating musical phrases.
+#'
+#' Note: When working with special `tabr` classes, you can simply use generics
+#' like `c()` and `rep()` as many custom methods exist for these classes. The
+#' additional respective helper functions, `pc()` and `pn()`, are more
+#' specifically for phrase objects and when you are still working with character
+#' strings, yet to be converted to a phrase object (numbers not yet in string
+#' form are allowed). See examples.
+#'
+#' The functions `pc()` and `pn()` are based on base functions `paste()` and
+#' `rep()`, respectively, but are tailored for efficiency in creating musical
+#' phrases.
 #'
 #' These functions respect and retain the phrase class when applied to phrases.
 #' They are aggressive for phrases and secondarily for noteworthy strings.
@@ -122,6 +130,9 @@ NULL
 pc <- function(...){
   x <- list(...)
   classes <- unlist(lapply(x, class))
+  if(any(!classes %in% c("phrase", "noteworthy", "character", "numeric", "integer")))
+    stop("pc() is only for phrase objects, noteworthy and simple character strings.",
+         call. = FALSE)
   any_phrase <- any(classes == "phrase")
   nw <- any(sapply(unlist(x), noteworthy))
   x <- trimws(gsub("\\s\\s+", " ", paste(unlist(x), collapse = " ")))
@@ -137,9 +148,13 @@ pc <- function(...){
 #' @export
 #' @rdname append_phrases
 pn <- function(x, n = 1){
+  classes <- class(x)
+  if(any(!classes %in% c("phrase", "noteworthy", "character", "numeric", "integer")))
+    stop("pn() is only for phrase objects, noteworthy and simple character strings.",
+         call. = FALSE)
   if(n == 0) n <- 1
   y <- trimws(gsub("\\s\\s+", " ", paste(rep(x, n), collapse = " ")))
-  if("phrase" %in% class(x)){
+  if("phrase" %in% classes){
     class(y) <- unique(c("phrase", class(y)))
   } else if(is.character(x) && noteworthy(x)){
     y <- .asnw(y)
@@ -183,15 +198,15 @@ hp <- function(...){
 #' Helper function for generating tuplet syntax.
 #'
 #' This function gives control over tuplet construction. The default arguments
-#' \code{a = 3} and \code{b = 2} generates a triplet where three triplet notes,
+#' `a = 3` and `b = 2` generates a triplet where three triplet notes,
 #' each lasting for two thirds of a beat, take up two beats.
-#' \code{n} is used to describe the beat duration with the same
-#' fraction-of-measure denominator notation used for notes in \code{tabr}
-#' phrases, e.g., 16th note triplet, 8th note triplet, etc.
+#' `n} is used to describe the beat duration with the same
+#' fraction-of-measure denominator notation used for notes in `tabr` phrases,
+#' e.g., 16th note triplet, 8th note triplet, etc.
 #'
 #' If you provide a note sequence for multiple tuplets in a row of the same
 #' type, they will be connected automatically. It is not necessary to call
-#' \code{tuplet} each time when the pattern is constant.
+#' `tuplet()` each time when the pattern is constant.
 #' If you provide a complete phrase object, it will simply be wrapped in the
 #' tuplet tag, so take care to ensure the phrase contents make sense as part of
 #' a tuplet.
@@ -199,8 +214,8 @@ hp <- function(...){
 #' @param x noteworthy string or phrase object.
 #' @param n integer, duration of each tuplet note, e.g., 8 for 8th note tuplet.
 #' @param string, character, optional string or vector with same number of
-#' timesteps as \code{x} that specifies which strings to play for each specific
-#' note. Only applies when \code{x} is a noteworthy string.
+#' timesteps as `x` that specifies which strings to play for each specific
+#' note. Only applies when `x` is a noteworthy string.
 #' @param a integer, notes per tuplet.
 #' @param b integer, beats per tuplet.
 #'
