@@ -31,7 +31,12 @@ lilypond_version <- function(){
 tabr_lilypond_api <- function(){
   os <- Sys.info()[["sysname"]]
   if(grepl("Darwin", os, ignore.case = TRUE)) os <- "MacOS"
-  x <- switch(os, Windows = "2.23.6", Linux = "2.22.1-2", MacOS = "2.22.1-2")
+  x <- switch(
+    os,
+    Windows = .tabr_api_lp_versions$Windows,
+    Linux = .tabr_api_lp_versions$Linux,
+    MacOS = .tabr_api_lp_versions$MacOS
+  )
   x <- paste("LilyPond", x)
 
   msg <- paste0(
@@ -40,3 +45,9 @@ tabr_lilypond_api <- function(){
   )
   message(msg)
 }
+
+.tabr_api_lp_versions <- list(
+  Windows = "2.23.6",
+  Linux   = "2.22.1-2",
+  MacOS   = "2.24.2"
+)
