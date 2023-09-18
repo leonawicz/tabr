@@ -43,7 +43,7 @@ to \code{"c"}. See details.}
 \item{time}{character, store the time signature as a music attribute.
 Defaults to \code{"4/4"}. See details.}
 
-\item{tempo}{character, defaults to \code{"2 = 60"}. See details.}
+\item{tempo}{character or \code{NA}, defaults to \code{"2 = 60"}. See details.}
 
 \item{accidentals}{\code{NULL} or character, represent accidentals, \code{"flat"} or
 \code{"sharp"}.}

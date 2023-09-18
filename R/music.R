@@ -58,7 +58,7 @@
 #' to `"c"`. See details.
 #' @param time character, store the time signature as a music attribute.
 #' Defaults to `"4/4"`. See details.
-#' @param tempo character, defaults to `"2 = 60"`. See details.
+#' @param tempo character or `NA`, defaults to `"2 = 60"`. See details.
 #' @param accidentals `NULL` or character, represent accidentals, `"flat"` or
 #' `"sharp"`.
 #' @param format `NULL` or character, the timestep delimiter format, `"space"`
@@ -105,8 +105,11 @@ as_music <- function(notes, info = NULL, lyrics = NA, key = "c", time = "4/4",
                      tempo = "2 = 60", accidentals = NULL, format = NULL,
                      labels = NULL, at = seq_along(labels)){
   null_args <- is.null(accidentals) & is.null(format)
+  if(is.null(lyrics)) lyrics <- NA
+  if(is.null(tempo)) tempo <- NA
   if(inherits(notes, "music") && null_args && music_key(notes) == key &&
-     music_time(notes) == time && music_tempo(notes) == tempo &&
+     music_time(notes) == time &&
+     identical(music_tempo(notes), tempo) &&
      identical(music_lyrics(notes), lyrics)) return(notes)
   if(is.null(format)) format <- .infer_time_format(notes)
   if(is.null(info)){

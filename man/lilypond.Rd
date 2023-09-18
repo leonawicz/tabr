@@ -30,7 +30,9 @@ absolute or relative path.}
 
 \item{time}{character, defaults to \code{"4/4"}.}
 
-\item{tempo}{character, defaults to \code{"2 = 60"}.}
+\item{tempo}{character, defaults to \code{"2 = 60"}. Set to \code{NA} or \code{NULL} to
+suppress metronome mark in output. If suppressed and \code{midi = TRUE}, an error
+is thrown.}
 
 \item{header}{a named list of arguments passed to the header of the LilyPond
 file. See details.}
@@ -93,12 +95,12 @@ include the following.
 \section{Paper options}{
 
 All \code{paper} list elements are numeric except \code{page_numbers} and
-\code{print_first_page_number},
-which are logical. \code{page_numbers = FALSE} suppresses all page numbering.
-When \code{page_numbers = TRUE}, you can set \code{print_first_page_number = FALSE} to
-suppress printing of only the first page number. \code{first_page_number} is the
-number of the first page, defaulting to 1, and determines all subsequent page
-numbers. These arguments correspond to LilyPond paper block variables.
+\code{print_first_page_number}, which are logical. \code{page_numbers = FALSE}
+suppresses all page numbering. When \code{page_numbers = TRUE}, you can set
+\code{print_first_page_number = FALSE} to suppress printing of only the first page
+number. \code{first_page_number} is the number of the first page, defaulting to 1,
+and determines all subsequent page numbers. These arguments correspond to
+LilyPond paper block variables.
 
 The options for \code{paper} include the following and have the following default
 values if not provided.
@@ -115,7 +117,16 @@ values if not provided.
 
 \section{PNG-related options}{
 
-By default crop_png = TRUE\verb{. This alters the template so that when the LilyPond output file is created, it contains specifications for cropping the image to the content when that file is rendered by LilyPond to png. The image will have its width and height automatically cropped rather than retain the standard page dimensions. This only applies to png outputs made from the LilyPond file, not pdf. The argument is also ignored if explicitly providing }textheight\code{to}paper\verb{. You may still provide }linewidth\code{to}paper\verb{if you find you need to increase it beyond the default 150mm, generally as a result of using a large}fontsize\verb{. Various }render_*\verb{functions that wrap}lilypond` make use of this argument as well.
+By default \code{crop_png = TRUE}. This alters the template so that when
+the LilyPond output file is created, it contains specifications for cropping
+the image to the content when that file is rendered by LilyPond to png.
+The image will have its width and height automatically cropped rather than
+retain the standard page dimensions. This only applies to png outputs made
+from the LilyPond file, not pdf. The argument is also ignored if explicitly
+providing \code{textheight} to \code{paper}. You may still provide \code{linewidth} to
+\code{paper} if you find you need to increase it beyond the default 150mm,
+generally as a result of using a large \code{fontsize}. Various \verb{render_*}
+functions that wrap \code{lilypond} make use of this argument as well.
 }
 
 \section{Color options}{
@@ -132,6 +143,7 @@ or a named R color. The named list options include the following.
 \item \code{background}
 \item \code{staff}
 \item \code{time}
+\item \code{key}
 \item \code{clef}
 \item \code{bar}
 \item \code{beam}

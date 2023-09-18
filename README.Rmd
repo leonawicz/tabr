@@ -14,6 +14,10 @@ library(tabr)
 
 # tabr <img src="man/figures/logo.png" style="margin-left:10px;margin-bottom:5px;" width="120" align="right">
 
+```{r banner, echo=FALSE, fig.height=1.5, fig.width=10, out.width="85%", out.extra='id="tabr-readme-banner"'}
+as_music("d2.;5 c8 d~ d a, c d g-;4 a- g f~ f2- d'8;3 f'4;2 c''8;1 a'2 a4;3 f;4", tempo = NULL) |>
+  plot_music("treble_8")
+```
 
 <!-- badges: start -->
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
@@ -23,10 +27,6 @@ library(tabr)
 [![CRAN downloads](http://cranlogs.r-pkg.org/badges/grand-total/tabr)](https://cran.r-project.org/package=tabr) 
 [![Github Stars](https://img.shields.io/github/stars/leonawicz/tabr.svg?style=social&label=Github)](https://github.com/leonawicz/tabr)
 <!-- badges: end -->
-
-<br>
-
-<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/tabr_logo.png?raw=true" width=320 style="float:right;margin-left:10px;width:320px;">
 
 ## Overview
 

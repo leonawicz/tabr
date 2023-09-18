@@ -20,6 +20,7 @@
 ^vignettes/Gin.*
 ^vignettes/.*\.ly$
 ^vignettes/.*\.html$
+^vignettes/.*\.mid$
 ^vignettes/.*\.pdf$
 ^vignettes/tabr-basics\.Rmd$
 ^vignettes/tabr-chordchart\.Rmd$

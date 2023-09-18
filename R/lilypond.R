@@ -31,12 +31,12 @@
 #'
 #' @section Paper options:
 #' All `paper` list elements are numeric except `page_numbers` and
-#' `print_first_page_number`,
-#' which are logical. `page_numbers = FALSE` suppresses all page numbering.
-#' When `page_numbers = TRUE`, you can set `print_first_page_number = FALSE` to
-#' suppress printing of only the first page number. `first_page_number` is the
-#' number of the first page, defaulting to 1, and determines all subsequent page
-#' numbers. These arguments correspond to LilyPond paper block variables.
+#' `print_first_page_number`, which are logical. `page_numbers = FALSE`
+#' suppresses all page numbering. When `page_numbers = TRUE`, you can set
+#' `print_first_page_number = FALSE` to suppress printing of only the first page
+#' number. `first_page_number` is the number of the first page, defaulting to 1,
+#' and determines all subsequent page numbers. These arguments correspond to
+#' LilyPond paper block variables.
 #'
 #' The options for `paper` include the following and have the following default
 #' values if not provided.
@@ -50,7 +50,7 @@
 #' * `first_page_number = 1`
 #'
 #' @section PNG-related options:
-#' By default crop_png = TRUE`. This alters the template so that when
+#' By default `crop_png = TRUE`. This alters the template so that when
 #' the LilyPond output file is created, it contains specifications for cropping
 #' the image to the content when that file is rendered by LilyPond to png.
 #' The image will have its width and height automatically cropped rather than
@@ -74,6 +74,7 @@
 #' * `background`
 #' * `staff`
 #' * `time`
+#' * `key`
 #' * `clef`
 #' * `bar`
 #' * `beam`
@@ -101,7 +102,9 @@
 #' absolute or relative path.
 #' @param key character, key signature, e.g., `c`, `b_`, `f#m`, etc.
 #' @param time character, defaults to `"4/4"`.
-#' @param tempo character, defaults to `"2 = 60"`.
+#' @param tempo character, defaults to `"2 = 60"`. Set to `NA` or `NULL` to
+#' suppress metronome mark in output. If suppressed and `midi = TRUE`, an error
+#' is thrown.
 #' @param header a named list of arguments passed to the header of the LilyPond
 #' file. See details.
 #' @param paper a named list of arguments for the LilyPond file page layout.
@@ -134,7 +137,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
                      crop_png = TRUE, simplify = TRUE){
   if(!is.null(paper$textheight)) crop_png <- FALSE
   crop_png_w <- if(crop_png & !length(header)) TRUE else FALSE
-  if(is.null(tempo)){
+  if(is.null(tempo) || is.na(tempo)){
     if(midi) stop("Set an explicit `tempo` if `midi = TRUE`.", call. = FALSE)
     tempo <- '" "'
   }
@@ -174,7 +177,10 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
   score <- .set_score(d, melody_id, TRUE, NULL, NULL, tempo, has_chord_seq,
                       string_names, key, colors$score)
 
-  midi_tag <- paste0("  \\midi{\n    \\tempo ", tempo, "\n  }\n", collapse = "")
+  midi_tag <- paste0(
+    "  \\midi{\n    \\tempo ", tempo, "\n  }\n", collapse = ""
+  )
+
   midi_melody <- NULL
   if(midi){
     if(any(grepl("\\\\repeat", melody))){
@@ -377,9 +383,12 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 
 .lp_global <- function(time, key, tempo, endbar, colors){
   x <- if(colors$score != "") .lp_override_all_colors else ""
-  paste0(x, "global = {\n  \\time ", time, "\n  \\tempo ", tempo,
-         "\n  \\bar \"", endbar, "\"\n", colors$overrides, "}\n\n",
-         "global_key = {\n ", key, "\n}\n\n")
+  paste0(
+    x, "global = {\n  \\time ", time,
+    if(tempo != '" "') paste0("\n  \\tempo ", tempo),
+    "\n  \\bar \"", endbar, "\"\n", colors$overrides, "}\n\n",
+    "global_key = {\n ", key, "\n}\n\n"
+  )
 }
 
 .lp_top <- function(fontsize, header, colors, chords){
@@ -578,7 +587,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
 }
 
 
-.lp_color_elements <- c("color", "background", "staff", "time", "clef", "bar",
+.lp_color_elements <- c("color", "background", "staff", "time", "key", "clef", "bar",
                         "beam", "head", "stem", "accidental", "slur", "tabhead",
                         "lyrics")
 
@@ -615,6 +624,7 @@ lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
         .x,
         staff = "Staff.StaffSymbol.color",
         time = "Staff.TimeSignature.color",
+        key = "Staff.KeySignature.color",
         clef = "Staff.Clef.color",
         bar = "Staff.BarLine.color",
         beam = "Staff.Beam.color",

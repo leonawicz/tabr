@@ -113,3 +113,8 @@ code a:hover{
 .ref-index tbody tr td p code a:hover{
   color: #cd2626;
 }
+
+#tabr-readme-banner {
+  margin-top:-20px;
+  margin-left:-24px;
+}

@@ -14,5 +14,6 @@ vignettes/jesper*
 vignettes/Gin*
 vignettes/*.ly
 vignettes/*.html
+vignettes/*.mid
 vignettes/*.pdf
 README.html

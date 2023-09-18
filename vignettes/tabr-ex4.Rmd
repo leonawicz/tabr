@@ -23,10 +23,6 @@ library(tabr)
 
 This coding example demonstrates the creation of a complete arrangement of [Devil in me](https://www.youtube.com/watch?v=cC04hkIVrYs) by [Gin Wigmore](https://en.wikipedia.org/wiki/Gin_Wigmore), whose music was one of the original inspirations for writing the sheet music transcription code in `tabr`. This custom arrangement written in R code is for educational purposes.
 
-<div style="text-align:center">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/cC04hkIVrYs" frameborder="0" allowfullscreen></iframe>
-</div>
-
 While I enjoy playing Gin Wigmore's music on guitar, it was frustrating to not be able to find quality guitar tablature for reference. Of course, this is the case for the vast majority of music. Having tabs would have helped me figure out guitar parts that I found challenging to hear clearly when layered with other instruments and vocals. In the end, I had no recourse but to do my best at figuring out each guitar track by ear. It's not perfect, nor does this custom arrangement need to be exactly like the recording, but it's pretty close. And now I can reproduce the arrangement with code.
 
 This tutorial shows use of both the `phrase` class and the `music` class for entering the notes and chords and building up the score.

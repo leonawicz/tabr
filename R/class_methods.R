@@ -493,7 +493,9 @@ c.music <- function(...){
   if(any(time != time[1])){
     warning("Time signature is inconsistent. Only the first is used.")
   }
-  if(any(tempo != tempo[1])){
+  if(any(is.na(tempo))){
+    tempo <- rep(NA, length(tempo))
+  } else if(any(tempo != tempo[1])){
     warning("Tempo is inconsistent. Only the first is used.")
   }
   a <- if(!any(a == "flat")) "sharp" else "flat"

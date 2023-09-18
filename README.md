@@ -3,6 +3,8 @@
 
 # tabr <img src="man/figures/logo.png" style="margin-left:10px;margin-bottom:5px;" width="120" align="right">
 
+<img src="man/figures/README-banner-1.png" width="85%" id="tabr-readme-banner" />
+
 <!-- badges: start -->
 
 [![Project Status: Active – The project has reached a stable, usable
@@ -18,10 +20,6 @@ downloads](http://cranlogs.r-pkg.org/badges/grand-total/tabr)](https://cran.r-pr
 [![Github
 Stars](https://img.shields.io/github/stars/leonawicz/tabr.svg?style=social&label=Github)](https://github.com/leonawicz/tabr)
 <!-- badges: end -->
-
-<br>
-
-<img src="https://github.com/leonawicz/tabr/blob/master/data-raw/tabr_logo.png?raw=true" width=320 style="float:right;margin-left:10px;width:320px;">
 
 ## Overview
 
