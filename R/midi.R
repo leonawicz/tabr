@@ -249,7 +249,7 @@ midi_metadata <- function(x){
 #' @rdname read_midi
 midi_notes <- function(x, channel = NULL, track = NULL, noteworthy = TRUE){
   x <- dplyr::filter(x, .data[["event"]] == "Note On") |>
-    dplyr::rename(semitone = .data[["parameter1"]]) |>
+    dplyr::rename(semitone = dplyr::all_of("parameter1")) |>
     dplyr::select(dplyr::all_of(
       c("time", "length", "duration", "pitch", "semitone","velocity", "channel", "track")
     ))
