@@ -182,7 +182,9 @@ absolute or relative path.</p></dd>
 
 
 <dt>tempo</dt>
-<dd><p>character, defaults to <code>"2 = 60"</code>.</p></dd>
+<dd><p>character, defaults to <code>"2 = 60"</code>. Set to <code>NA</code> or <code>NULL</code> to
+suppress metronome mark in output. If suppressed and <code>midi = TRUE</code>, an error
+is thrown.</p></dd>
 
 
 <dt>header</dt>
@@ -280,7 +282,16 @@ values if not provided.</p><ul><li><p><code>textheight = 220</code></p></li>
     <h2>PNG-related options</h2>
     
 
-<p>By default crop_png = TRUE<code>. This alters the template so that when the LilyPond output file is created, it contains specifications for cropping the image to the content when that file is rendered by LilyPond to png. The image will have its width and height automatically cropped rather than retain the standard page dimensions. This only applies to png outputs made from the LilyPond file, not pdf. The argument is also ignored if explicitly providing </code>textheight<code>to</code>paper<code>. You may still provide </code>linewidth<code>to</code>paper<code>if you find you need to increase it beyond the default 150mm, generally as a result of using a large</code>fontsize<code>. Various </code>render_*<code>functions that wrap</code>lilypond` make use of this argument as well.</p>
+<p>By default <code>crop_png = TRUE</code>. This alters the template so that when
+the LilyPond output file is created, it contains specifications for cropping
+the image to the content when that file is rendered by LilyPond to png.
+The image will have its width and height automatically cropped rather than
+retain the standard page dimensions. This only applies to png outputs made
+from the LilyPond file, not pdf. The argument is also ignored if explicitly
+providing <code>textheight</code> to <code>paper</code>. You may still provide <code>linewidth</code> to
+<code>paper</code> if you find you need to increase it beyond the default 150mm,
+generally as a result of using a large <code>fontsize</code>. Various <code>render_*</code>
+functions that wrap <code>lilypond</code> make use of this argument as well.</p>
     </div>
     <div id="color-options">
     <h2>Color options</h2>

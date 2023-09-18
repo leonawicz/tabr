@@ -19,19 +19,27 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
 <meta property="og:title" content="Music Notation Syntax, Manipulation, Analysis and Transcription in R">
-<meta property="og:description" content='Provides a music notation syntax and a collection of music programming functions for generating, manipulating, organizing and analyzing musical information in R. 
-    The music notation framework facilitates creating and analyzing music data in notation form.
-    Music data can be viewed, manipulated and analyzed while in different forms of representation based around different data structures: strings and data frames.
-    Each representation offers advantages over the other for different use cases.
-    Music syntax can be entered directly and represented in character strings to minimize the formatting overhead of data entry by using simple data structures, for example when wanting to quickly enter and transcribe short pieces of music to sheet music or tablature.
-    The package contains functions for directly performing various mathematical, logical and organizational operations and musical transformations on special object classes that facilitate working with music data and notation.
-    The same music data can also be organized in tidy data frames, allowing for a more familiar and powerful approach to the analysis of large amounts of structured music data.
-    Functions are available for mapping seamlessly between these data structures and their representations of musical information.
-    The package also provides API wrapper functions for transcribing musical representations in R into guitar tablature ("tabs") and basic sheet music using the LilyPond backend (&lt;http://lilypond.org&gt;).
-    LilyPond is open source music engraving software for generating high quality sheet music based on markup syntax. 
-    The package generates LilyPond files from R code and can pass them to LilyPond to be rendered into sheet music pdf files.
-    The package offers nominal MIDI file output support in conjunction with rendering sheet music. 
-    The package can read MIDI files and attempts to structure the MIDI data to integrate as best as possible with the data structures and functionality found throughout the package.'>
+<meta property="og:description" content='Provides a music notation syntax and a collection of music 
+    programming functions for generating, manipulating, organizing, and analyzing 
+    musical information in R. Music syntax can be entered directly in character 
+    strings, for example to quickly transcribe short pieces of music. The 
+    package contains functions for directly performing various mathematical, 
+    logical and organizational operations and musical transformations on special 
+    object classes that facilitate working with music data and notation. The 
+    same music data can be organized in tidy data frames for a familiar and 
+    powerful approach to the analysis of large amounts of structured music data. 
+    Functions are available for mapping seamlessly between these formats and 
+    their representations of musical information. The package also provides an 
+    API to LilyPond (&lt;https://lilypond.org/&gt;) for transcribing musical 
+    representations in R into tablature ("tabs") and sheet music. LilyPond is 
+    open source music engraving software for generating high quality sheet music 
+    based on markup syntax. The package generates LilyPond files from R code 
+    and can pass them to the LilyPond command line interface to be rendered 
+    into sheet music PDF files or inserted into R markdown documents. The 
+    package offers nominal MIDI file output support in conjunction with
+    rendering sheet music. The package can read MIDI files and attempts to
+    structure the MIDI data to integrate as best as possible with the data
+    structures and functionality found throughout the package.'>
 <meta property="og:image" content="https://leonawicz.github.io/tabr/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -183,9 +191,9 @@
 <div class="section level1">
 <div class="page-header"><h1 id="tabr-">tabr <img src="reference/figures/logo.png" style="margin-left:10px;margin-bottom:5px;" width="120" align="right"><a class="anchor" aria-label="anchor" href="#tabr-"></a>
 </h1></div>
-<p><a href="https://www.repostatus.org/" class="external-link"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active – The project has reached a stable, usable state and is being actively developed."></a> <a href="https://cran.r-project.org/package=tabr" class="external-link"><img src="http://www.r-pkg.org/badges/version/tabr" alt="CRAN status"></a> <a href="https://cran.r-project.org/package=tabr" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/grand-total/tabr" alt="CRAN downloads"></a> <a href="https://github.com/leonawicz/tabr" class="external-link"><img src="https://img.shields.io/github/stars/leonawicz/tabr.svg?style=social&amp;label=Github" alt="Github Stars"></a></p>
-<p><br></p>
-<p><img src="https://github.com/leonawicz/tabr/blob/master/data-raw/tabr_logo.png?raw=true" width="320" style="float:right;margin-left:10px;width:320px;"></p>
+<p><img src="reference/figures/README-banner-1.png" width="85%" id="tabr-readme-banner"></p>
+<!-- badges: start -->
+
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
@@ -313,8 +321,8 @@
 <h3 id="a-bit-about-basic-syntax">A bit about basic syntax<a class="anchor" aria-label="anchor" href="#a-bit-about-basic-syntax"></a>
 </h3>
 <p>A simple character string like <code>"c e g"</code>, or alternatively as a vector, <code>c("c", "e", "g")</code>, is a noteworthy string. The single lowercase letter <code>"a"</code> is noteworthy. So are <code>"a_"</code> and <code>"a#"</code> (flat and sharp). However, <code>"A"</code> is not (case sensitivity), nor is <code>"z"</code>. Of course, as seen above, there is more valid syntax than just the lowercase musical note letters <code>a</code> through <code>g</code> and sharp and flat notation.</p>
-<p>An important piece of syntax is the octave. In conjunction with a note, specifying a unique pitch requires the octave number, either in tick format (recommended; comma and single quote, e.g., <code>c, c c'</code>) or integer format (not recommended due to more restrictive utility, e.g., <code>c2 c c4</code>). Octave 3 is the implicit default; there is no tick in tick format nd explicitly adding the <code>3</code> in integer format is unnecessary. The pitches <code>c d e f g a b</code> (default octave) are the notes in the octave below middle C (<code>c'</code>).</p>
-<p>You’ve already seen above with the example using a music object that a noteworthy string can be one part of a more complete piece of musical information. Tick format is necessary to avoid ambiguity with respect to temporal information once two such pieces of information are merged together. For this reason, tick format is preferred in general. Tick format also matches that used by the Lilypond music engraving software (see below), which is used by <code>tabr</code> for anything transcription related such as to render sheet music to PDF or in R markdown documents.</p>
+<p>An important piece of syntax is the octave. In conjunction with a note, specifying a unique pitch requires the octave number, either in tick format (comma and single quote, <code>c, c c'</code>) or integer format (<code>c2 c c4</code>). Octave 3 is the implicit default; there is no tick in tick format and explicitly adding the <code>3</code> in integer format is unnecessary. The pitches <code>c d e f g a b</code> (default octave) are the notes in the octave below middle C (<code>c'</code>).</p>
+<p>You’ve already seen above with the example using a music object that a noteworthy string can be one part of a more complete piece of musical information. Tick format is necessary to avoid ambiguity with respect to temporal information once two such pieces of information are merged together. For this reason, tick format is preferred in general. Tick format also matches that used by the LilyPond music engraving software, which is used by the <code>tabr</code> LilyPond API for anything transcription related like rendering sheet music to PDF or in R markdown documents.</p>
 <p>For all available syntax specifications and related details see the package vignettes.</p>
 </div>
 <div class="section level3">
@@ -409,7 +417,7 @@
 <div class="section level2">
 <h2 id="transcription">Transcription<a class="anchor" aria-label="anchor" href="#transcription"></a>
 </h2>
-<p>Music programming in the notation syntax provided by <code>tabr</code> can be used for a variety of purposes, but it also integrates cohesively with the package’s transcription functions. The package also provides API wrapper functions for transcribing music notation in R into basic sheet music and guitar tablature (“tabs”) using <a href="http://lilypond.org/" class="external-link">LilyPond</a>.</p>
+<p>Music programming in the notation syntax provided by <code>tabr</code> can be used for a variety of purposes, but it also integrates cohesively with the package’s transcription functions. The package also provides API wrapper functions for transcribing music notation in R into basic sheet music and guitar tablature (“tabs”) using <a href="https://lilypond.org/" class="external-link">LilyPond</a>.</p>
 <p>LilyPond is an open source music engraving program for generating high quality sheet music based on markup syntax. <code>tabr</code> generates LilyPond files from R code and can pass them to LilyPond to be rendered into sheet music pdf files. While LilyPond caters to sheet music in general and <code>tabr</code> can be used to create basic sheet music, the transcription functions focus on leveraging LilyPond specifically for creating quality guitar tablature. You do not need to use it for guitar tablature, but for vocal or other instrument tracks, you can change settings, such as suppressing a tab staff from your sheet music.</p>
 <p>While LilyPond is listed as a system requirement for <code>tabr</code>, you can use the package for music analysis without installing LilyPond if you do not intend to render tabs. You can even use the <code><a href="reference/lilypond.html">lilypond()</a></code> function to write LilyPond files to disk without the software installed, since this is only a case of R writing plain text files in the proper format. The only functions in the package that require a LilyPond installation are <code><a href="reference/tab.html">tab()</a></code>, <code><a href="reference/midily.html">midily()</a></code>, <code><a href="reference/miditab.html">miditab()</a></code> and any <code>render_*</code> functions.</p>
 <div class="section level3">
@@ -477,7 +485,7 @@
 </h3>
 <p>The term phrase here simply means any arbitrary piece of musical structure you string together. <code><a href="reference/phrase.html">phrase()</a></code> takes three main arguments when building a phrase from its component parts. The first gives pitches (or rests) separated in time by spaces. For chords, remove spaces to indicate simultaneous notes. For example, a rest followed by a sequence of pitches might be <code>notes = "r a, c f d a f"</code>.</p>
 <p><code>info</code> is note metadata such as duration. Whole notes are given by 1, half notes by 2, quarter notes 4, and so on, e.g., <code>info = "4 8 8 8 8 8 8"</code> (or shorten to <code>info = "4 8*6"</code>). This example does not require additional information such as dotted notes, staccato notes, ties/slurs, slides, bends, hammer ons and pull offs, etc.</p>
-<p>The third argument, <code>string</code> only applies to fretted string instruments and is always optional. Providing this information in conjunction with the pitch fixes the frets so that LilyPond does not have to guess them. This only applies for tablature output. Explicit string numbers are not needed for this example since lowest fret numbers (Lilypond default) are intended.</p>
+<p>The third argument, <code>string</code> only applies to fretted string instruments and is always optional. Providing this information in conjunction with the pitch fixes the frets so that LilyPond does not have to guess them. This only applies for tablature output. Explicit string numbers are not needed for this example since lowest fret numbers (LilyPond default) are intended.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/phrase.html">p</a></span><span class="op">(</span><span class="st">"r a, c f d a f"</span>, <span class="st">"4 8*6"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;Musical phrase&gt;</span></span>
@@ -605,7 +613,17 @@ R for music data extraction and analysis
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://www.repostatus.org/" class="external-link"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active – The project has reached a stable, usable state and is being actively developed."></a></li>
+<li><a href="https://github.com/leonawicz/tabr/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/leonawicz/tabr/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://app.codecov.io/gh/leonawicz/tabr?branch=master" class="external-link"><img src="https://codecov.io/gh/leonawicz/tabr/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://cran.r-project.org/package=tabr" class="external-link"><img src="http://www.r-pkg.org/badges/version/tabr" alt="CRAN status"></a></li>
+<li><a href="https://cran.r-project.org/package=tabr" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/grand-total/tabr" alt="CRAN downloads"></a></li>
+<li><a href="https://github.com/leonawicz/tabr" class="external-link"><img src="https://img.shields.io/github/stars/leonawicz/tabr.svg?style=social&amp;label=Github" alt="Github Stars"></a></li>
+</ul>
+</div>
 
   </div>
 </div>
