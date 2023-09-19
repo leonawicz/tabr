@@ -35,5 +35,5 @@
     }
   }
 
-  #packageStartupMessage(msg)
+  packageStartupMessage(msg)
 }
