@@ -29,6 +29,10 @@ lilypond_version <- function(){
 #' @rdname lilypond_root
 #' @export
 tabr_lilypond_api <- function(){
+  message(.tabr_lilypond_api())
+}
+
+.tabr_lilypond_api <- function(){
   os <- Sys.info()[["sysname"]]
   if(grepl("Darwin", os, ignore.case = TRUE)) os <- "MacOS"
   x <- switch(
@@ -39,11 +43,10 @@ tabr_lilypond_api <- function(){
   )
   x <- paste("LilyPond", x)
 
-  msg <- paste0(
+  paste0(
     "The tabr ", getNamespaceVersion("tabr"),
     " LilyPond API was built and tested against ", x, " on ", os, "."
   )
-  message(msg)
 }
 
 .tabr_api_lp_versions <- list(

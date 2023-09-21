@@ -1,4 +1,4 @@
-.onAttach <- function(lib, pkg){
+.onLoad <- function(lib, pkg){
   x <- c("lilypond", "midi2ly", "python")
   lp_path <- as.character(Sys.which(x[1]))
   ml_path <- as.character(Sys.which(x[2]))
@@ -15,10 +15,13 @@
   }
 
   tabr_options(lilypond = lp_path, midi2ly = ml_path, python = py_path)
+}
 
-  msg <- paste0(utils::capture.output(tabr_lilypond_api(), type = "message"), "\n")
-
+.onAttach <- function(lib, pkg){
+  lp_path <- tabr_options()$lilypond
+  msg <- paste0(.tabr_lilypond_api(), "\n")
   no_lp <- gsub("\\.$", " (only required for transcription).", .lp_not_found)
+
   if(lp_path == ""){
     msg <- paste0(msg, no_lp)
   } else {
