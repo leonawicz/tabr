@@ -9,7 +9,7 @@ assignees: ''
 
 <!--
 
-Before filing a feature request, please consider if it fits the scope of the package, conforms to package syntax rules, and is of general utility to other users. A couple common reasons feature requests may be decline:
+Before filing a feature request, please consider if it fits the scope of the package, conforms to package syntax rules, and is of general utility to other users. A couple common reasons feature requests may be declined:
 
 1. Do you want to alter `tabr` music notation syntax?
 
