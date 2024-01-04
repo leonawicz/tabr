@@ -24,7 +24,7 @@ Description: Provides a music notation syntax and a collection of music
     structure the MIDI data to integrate as best as possible with the data
     structures and functionality found throughout the package.
 License: MIT + file LICENSE
-URL: https://github.com/leonawicz/tabr
+URL: https://github.com/leonawicz/tabr, https://leonawicz.github.io/tabr/
 BugReports: https://github.com/leonawicz/tabr/issues
 Depends: R (>= 2.10)
 Imports:
