@@ -18,7 +18,7 @@ LilyPond or subsequent editing outside of R."><meta property="og:image" content=
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0</span>
       </span>
     </div>
 
@@ -263,12 +263,12 @@ include the following.</p><ul><li><p><code>title</code></p></li>
     
 
 <p>All <code>paper</code> list elements are numeric except <code>page_numbers</code> and
-<code>print_first_page_number</code>,
-which are logical. <code>page_numbers = FALSE</code> suppresses all page numbering.
-When <code>page_numbers = TRUE</code>, you can set <code>print_first_page_number = FALSE</code> to
-suppress printing of only the first page number. <code>first_page_number</code> is the
-number of the first page, defaulting to 1, and determines all subsequent page
-numbers. These arguments correspond to LilyPond paper block variables.</p>
+<code>print_first_page_number</code>, which are logical. <code>page_numbers = FALSE</code>
+suppresses all page numbering. When <code>page_numbers = TRUE</code>, you can set
+<code>print_first_page_number = FALSE</code> to suppress printing of only the first page
+number. <code>first_page_number</code> is the number of the first page, defaulting to 1,
+and determines all subsequent page numbers. These arguments correspond to
+LilyPond paper block variables.</p>
 <p>The options for <code>paper</code> include the following and have the following default
 values if not provided.</p><ul><li><p><code>textheight = 220</code></p></li>
 <li><p><code>linewidth = 150</code></p></li>
@@ -306,6 +306,7 @@ or a named R color. The named list options include the following.</p><ul><li><p>
 <li><p><code>background</code></p></li>
 <li><p><code>staff</code></p></li>
 <li><p><code>time</code></p></li>
+<li><p><code>key</code></p></li>
 <li><p><code>clef</code></p></li>
 <li><p><code>bar</code></p></li>
 <li><p><code>beam</code></p></li>

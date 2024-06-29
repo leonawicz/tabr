@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0</span>
       </span>
     </div>
 
@@ -157,6 +157,8 @@
 <span>  horizontal <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  left_handed <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  fret_range <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fret_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fret_offset <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  accidentals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"flat"</span>, <span class="st">"sharp"</span><span class="op">)</span>,</span>
 <span>  tuning <span class="op">=</span> <span class="st">"standard"</span>,</span>
 <span>  show_tuning <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -176,6 +178,8 @@
 <span>  horizontal <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  left_handed <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  fret_range <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fret_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fret_offset <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  accidentals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"flat"</span>, <span class="st">"sharp"</span><span class="op">)</span>,</span>
 <span>  tuning <span class="op">=</span> <span class="st">"standard"</span>,</span>
 <span>  show_tuning <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -196,11 +200,13 @@ string numbers.</p></dd>
 
 
 <dt>labels</dt>
-<dd><p>character, optional text labels, must be one for every point.</p></dd>
+<dd><p><code>NULL</code> or character, optional vector of text labels, must be
+one for every point; or just the special value <code>"notes"</code>.</p></dd>
 
 
 <dt>mute</dt>
-<dd><p>logical vector or specific integer indices, which notes to mute.</p></dd>
+<dd><p>logical vector or specific integer indices, which notes to mute.
+See details.</p></dd>
 
 
 <dt>label_size</dt>
@@ -240,6 +246,17 @@ string numbers.</p></dd>
 from <code>fret</code>.</p></dd>
 
 
+<dt>fret_labels</dt>
+<dd><p>integer, vector of fret number labels for fret axis. See
+details.</p></dd>
+
+
+<dt>fret_offset</dt>
+<dd><p>logical set to <code>TRUE</code> to shift the fret axis number labels
+(if present) from being directly next to the fret to being aligned with the
+circles behind the fret.</p></dd>
+
+
 <dt>accidentals</dt>
 <dd><p>character, when <code>labels = "notes"</code> represent accidentals:
 <code>"flat"</code> or <code>"sharp"</code>.</p></dd>
@@ -251,7 +268,7 @@ tuning. See details.</p></dd>
 
 
 <dt>show_tuning</dt>
-<dd><p>logical, show tuning of each string.</p></dd>
+<dd><p>logical, show tuning of each string on string axis.</p></dd>
 
 
 <dt>asp</dt>
@@ -275,28 +292,33 @@ from number of strings and frets.</p></dd>
     </div>
     <div id="details">
     <h2>Details</h2>
-    <p>These functions are under development and subject to change. They each
-return a ggplot object.</p>
+    <p>These functions are under development and subject to change. They each return
+a ggplot object.</p>
 <p>Use <code>plot_chord()</code> to create a fretboard diagram of a specific chord.
-<code>plot_chord()</code> accepts a character string in simple fretboard format,
-e.g., <code>chord = "xo221o"</code>.
-Zero is allowed in place of <code>"o"</code>. This only works when no spaces or
-semicolons are detected. The function checks for spaces first, then
-semicolons, to split fret numbers.
-Do not mix formats. For example, you can use <code>chord = "xo221o"</code>,
-<code>chord = "x 8 10 10 9 8"</code> or <code>chord = "x;8;10;10;9;8"</code>.
-Trailing delimiters are ignored (LilyPond format: <code>"x;8;10;10;9;8;"</code>).
-If there are fewer fret values than there are strings on the instrument, as
-inferred from <code>tuning</code>, then muted strings, <code>x</code>, are inferred for
-the remaining lower-pitch strings.</p>
+<code>plot_chord()</code> accepts a character string in simple fretboard format, e.g.,
+<code>chord = "xo221o"</code>. Zero is allowed in place of <code>"o"</code>. This only works when
+no spaces or semicolons are detected. The function checks for spaces first,
+then semicolons, to split fret numbers. Do not mix formats. For example, you
+can use <code>chord = "xo221o"</code>, <code>chord = "x 8 10 10 9 8"</code> or
+<code>chord = "x;8;10;10;9;8"</code>. Trailing delimiters are ignored (LilyPond format:
+<code>"x;8;10;10;9;8;"</code>). If there are fewer fret values than there are strings on
+the instrument, as inferred from <code>tuning</code>, then muted strings, <code>x</code>, are
+inferred for the remaining lower-pitch strings.</p>
 <p><code>plot_fretboard()</code> produces a more general fretboard diagram plot. It is
 intended for scales, arpeggios and other patterns along the fretboard. For
 this function, provide vectors of string and fret numbers. <code>mute</code> is
-available but not as applicable for this function. For single chord diagrams,
-use <code>plot_chord()</code>.</p>
-<p>Number of strings is derived from <code>tuning</code>. See <code><a href="tunings.html">tunings()</a></code>
-for pre-defined tunings and examples of explicit tunings.
-<code>tuning</code> affects point labels when <code>labels = "notes"</code>.</p>
+available but not as applicable for this function; it is a pass-through from
+<code>plot_chord()</code>. For single chord diagrams, use <code>plot_chord()</code>. The letter
+<code>"o"</code> is also allowed in <code>fret</code> for open strings and will display below the
+lowest fret plotted. The number <code>0</code> is treated with the intent of displaying
+the corresponding position on the instrument neck.</p>
+<p>Number of strings is derived from <code>tuning</code>. See <code><a href="tunings.html">tunings()</a></code> for pre-defined
+tunings and examples of explicit tunings. <code>tuning</code> affects point labels when
+<code>labels = "notes"</code>.</p>
+<p>Providing <code>fret_labels</code> overrides the default (minimal) fret numbering
+behavior for the fret axis. These are only intended to be integers. The
+vector of integers given is sorted and subset if needed to the range of frets
+that appear in the plot. See example.</p>
     </div>
 
     <div id="ref-examples">
@@ -304,8 +326,15 @@ for pre-defined tunings and examples of explicit tunings.
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># General patterns: scale shifting exercise</span></span></span>
 <span class="r-in"><span><span class="va">string</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">6</span>, <span class="fl">6</span>, <span class="fl">5</span>, <span class="fl">5</span>, <span class="fl">5</span>, <span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">fret</span> <span class="op">&lt;-</span> <span class="st">"2 4 5 2 4 5 2 4 6 7 9 6 7 9 7 9 10 7 9 10"</span> <span class="co"># string input accepted</span></span></span>
-<span class="r-in"><span><span class="fu">plot_fretboard</span><span class="op">(</span><span class="va">string</span>, <span class="va">fret</span>, labels <span class="op">=</span> <span class="st">"notes"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">plot_fretboard</span><span class="op">(</span><span class="va">string</span>, <span class="va">fret</span>, labels <span class="op">=</span> <span class="st">"notes"</span>, fret_offset <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot_fretboard-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu">plot_fretboard</span><span class="op">(</span><span class="va">string</span>, <span class="va">fret</span>, fret_labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">7</span>, <span class="fl">9</span>, <span class="fl">12</span><span class="op">)</span>, show_tuning <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot_fretboard-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># open and muted strings on shifted general fretboard layout</span></span></span>
+<span class="r-in"><span><span class="co"># try to use plot_chord() if more suitable</span></span></span>
+<span class="r-in"><span><span class="fu">plot_fretboard</span><span class="op">(</span><span class="st">"6 5 4 3"</span>, <span class="st">"o 9 10 12"</span>, mute <span class="op">=</span> <span class="fl">2</span>, show_tuning <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot_fretboard-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Single chord diagrams</span></span></span>
 <span class="r-in"><span><span class="co"># open chord</span></span></span>
@@ -313,17 +342,19 @@ for pre-defined tunings and examples of explicit tunings.
 <span class="r-in"><span><span class="va">fill</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"black"</span><span class="op">)</span><span class="op">[</span><span class="va">idx</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="va">lab_col</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="st">"white"</span><span class="op">)</span><span class="op">[</span><span class="va">idx</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="fu">plot_chord</span><span class="op">(</span><span class="st">"xo221o"</span>, <span class="st">"notes"</span>, label_color <span class="op">=</span> <span class="va">lab_col</span>, point_fill <span class="op">=</span> <span class="va">fill</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="plot_fretboard-2.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="plot_fretboard-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># moveable chord</span></span></span>
 <span class="r-in"><span><span class="fu">plot_chord</span><span class="op">(</span><span class="st">"355433"</span>, horizontal <span class="op">=</span> <span class="cn">TRUE</span>, show_tuning <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="plot_fretboard-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">plot_chord</span><span class="op">(</span><span class="st">"0231"</span><span class="op">)</span> <span class="co"># leading x inferred; same as plot_chord("xxo321")</span></span></span>
-<span class="r-plt img"><img src="plot_fretboard-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">plot_chord</span><span class="op">(</span><span class="st">"10 12 13 11"</span>, fret_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">14</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot_fretboard-5.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># leading x inferred; same as plot_chord("xxo321")</span></span></span>
+<span class="r-in"><span><span class="fu">plot_chord</span><span class="op">(</span><span class="st">"o231"</span>, fret_labels <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot_fretboard-6.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu">plot_chord</span><span class="op">(</span><span class="st">"10 12 13 11"</span>, show_tuning <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot_fretboard-7.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu">plot_chord</span><span class="op">(</span><span class="st">"o x 10 12 13 11"</span>, fret_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">9</span>, <span class="fl">14</span><span class="op">)</span>, fret_labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">9</span>, <span class="fl">12</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot_fretboard-8.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>

@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0</span>
       </span>
     </div>
 
@@ -222,10 +222,24 @@ displays the tuning.</p>
 <span><span class="fu"><a href="../reference/plot_fretboard.html">plot_fretboard</a></span><span class="op">(</span><span class="va">string</span>, <span class="va">fret</span>, <span class="st">"notes"</span>, show_tuning <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tabr-fretboard_files/figure-html/fb3-1.png" width="100%"></p>
 <p>When <code>labels = "notes"</code>, accidentals are displayed as
-flats by default. Set <code>accidentals = "sharp"</code> to change.</p>
+flats by default. Set <code>accidentals = "sharp"</code> to change. You
+can also align any fret numbers with the corresponding fretted strings
+with <code>fret_offset = TRUE</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_fretboard.html">plot_fretboard</a></span><span class="op">(</span><span class="va">string</span>, <span class="va">fret</span>, <span class="st">"notes"</span>, show_tuning <span class="op">=</span> <span class="cn">TRUE</span>, accidentals <span class="op">=</span>  <span class="st">"sharp"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_fretboard.html">plot_fretboard</a></span><span class="op">(</span><span class="va">string</span>, <span class="va">fret</span>, <span class="st">"notes"</span>, show_tuning <span class="op">=</span> <span class="cn">TRUE</span>, fret_offset <span class="op">=</span> <span class="cn">TRUE</span>, accidentals <span class="op">=</span>  <span class="st">"sharp"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tabr-fretboard_files/figure-html/fb4-1.png" width="100%"></p>
+<p>Also notice above that when zero position is not displayed, the
+lowest fret number is automatically printed. The default behavior is to
+show no fret numbers or only the lowest when necessary for context. You
+can override this behavior by providing a vector of desired fret numbers
+to <code>fret_labels</code>. For example, you may want to print fret
+numbers 3, 5, 7, 9, and 12 for guitar.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_fretboard.html">plot_fretboard</a></span><span class="op">(</span><span class="va">string</span>, <span class="va">fret</span>, <span class="st">"notes"</span>, show_tuning <span class="op">=</span> <span class="cn">TRUE</span>, fret_labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">7</span>, <span class="fl">9</span>, <span class="fl">12</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="tabr-fretboard_files/figure-html/fb5-1.png" width="100%"></p>
+<p>Fret labels are displayed subject to the limits imposed by the data
+(<code>fret</code>) or by the override (<code>fret_range</code>,
+below).</p>
 </div>
 <div class="section level2">
 <h2 id="limits">Limits<a class="anchor" aria-label="anchor" href="#limits"></a>
@@ -233,18 +247,18 @@ flats by default. Set <code>accidentals = "sharp"</code> to change.</p>
 <p>X and Y limits are expressed in terms of the number of instrument
 strings and the span of frets. You can override the fret range that is
 derived from <code>fret</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_fretboard.html">plot_fretboard</a></span><span class="op">(</span><span class="va">string</span>, <span class="va">fret</span>, <span class="st">"notes"</span>, fret_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span>, show_tuning <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tabr-fretboard_files/figure-html/fb5-1.png" width="100%"></p>
+<p><img src="tabr-fretboard_files/figure-html/fb6-1.png" width="100%"></p>
 <p>The number of strings an instrument has is derived from
 <code>tuning</code> and this generalizes the fretboard diagram
 possibilities further. The tuning now specifies a seven-string guitar.
 One note has been added on string seven:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tuning</span> <span class="op">&lt;-</span> <span class="st">"b1 e2 a2 d3 g3 b3 e4"</span></span>
 <span><span class="fu"><a href="../reference/plot_fretboard.html">plot_fretboard</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">7</span>, <span class="va">string</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">fret</span><span class="op">)</span>, <span class="st">"notes"</span>, fret_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span>, </span>
 <span>               tuning <span class="op">=</span> <span class="va">tuning</span>, show_tuning <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tabr-fretboard_files/figure-html/fb6-1.png" width="100%"></p>
+<p><img src="tabr-fretboard_files/figure-html/fb7-1.png" width="100%"></p>
 </div>
 <div class="section level2">
 <h2 id="color-and-faceting">Color and faceting<a class="anchor" aria-label="anchor" href="#color-and-faceting"></a>
@@ -255,7 +269,7 @@ the open Am chord does not really have an open sixth string; it is
 muted. The zero is still given in order to specify where to notate, but
 the <code>mute</code> argument is given with a logical vector that
 indicates this entry is muted.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">am_frets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">7</span>, <span class="fl">7</span>, <span class="fl">5</span>, <span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">am_strings</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span><span class="op">:</span><span class="fl">1</span>, <span class="fl">6</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">mute</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="fl">11</span><span class="op">)</span><span class="op">)</span></span>
@@ -267,7 +281,7 @@ indicates this entry is muted.</p>
 <span></span>
 <span><span class="fu"><a href="../reference/plot_fretboard.html">plot_fretboard</a></span><span class="op">(</span><span class="va">am_strings</span>, <span class="va">am_frets</span>, <span class="st">"notes"</span>, <span class="va">mute</span>, </span>
 <span>               label_color <span class="op">=</span> <span class="va">lab_col</span>, point_fill <span class="op">=</span> <span class="va">pt_fill</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tabr-fretboard_files/figure-html/fb7-1.png" width="100%"></p>
+<p><img src="tabr-fretboard_files/figure-html/fb8-1.png" width="100%"></p>
 <p><code>group</code> can also be used for faceting. However, faceting
 is still a problematic feature. It may work well enough in cases where
 the different diagrams span similar frets. The presence of muted notes
@@ -276,8 +290,8 @@ best for single-panel plots. Since the function returns a ggplot object,
 you can always make them separate plots and arrange in a grid layout
 rather than rely on within-plot faceting.</p>
 <p>Note that <code><a href="../reference/plot_fretboard.html">plot_fretboard()</a></code> accepts character inputs like
-those used throughout <code>tabr</code>:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+those used throughout <code>tabr</code>.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="st">"0 2 2 1 0 0 0 2 2 0 0 0"</span></span>
 <span><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span><span class="op">:</span><span class="fl">1</span>, <span class="fl">6</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">grp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Open E"</span>, <span class="st">"Open Em"</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span>
@@ -289,7 +303,7 @@ those used throughout <code>tabr</code>:</p>
 <span></span>
 <span><span class="fu"><a href="../reference/plot_fretboard.html">plot_fretboard</a></span><span class="op">(</span><span class="va">s</span>, <span class="va">f</span>, <span class="st">"notes"</span>, group <span class="op">=</span> <span class="va">grp</span>, fret_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span><span class="op">)</span>,</span>
 <span>               label_color <span class="op">=</span> <span class="va">lab_col</span>, point_fill <span class="op">=</span> <span class="va">pt_fill</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tabr-fretboard_files/figure-html/fb7b-1.png" width="100%"></p>
+<p><img src="tabr-fretboard_files/figure-html/fb9-1.png" width="100%"></p>
 </div>
 <div class="section level2">
 <h2 id="orientation">Orientation<a class="anchor" aria-label="anchor" href="#orientation"></a>
@@ -301,18 +315,18 @@ vertical or horizontal as well as left- or right-handed.</p>
 by <code><a href="../reference/plot_fretboard.html">plot_fretboard()</a></code>, but you are limited in what you can
 add on and must be careful to avoid overriding properties of layers
 <code><a href="../reference/plot_fretboard.html">plot_fretboard()</a></code> has already specified.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/plot_fretboard.html">plot_fretboard</a></span><span class="op">(</span><span class="va">string</span>, <span class="va">fret</span>, <span class="st">"notes"</span>, label_color <span class="op">=</span> <span class="st">"white"</span>, point_fill <span class="op">=</span> <span class="st">"dodgerblue"</span>,</span>
 <span>               fret_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span>, show_tuning <span class="op">=</span> <span class="cn">TRUE</span>, horizontal <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Horizontal"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tabr-fretboard_files/figure-html/fb8-1.png" width="100%"></p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<p><img src="tabr-fretboard_files/figure-html/fb10-1.png" width="100%"></p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../reference/plot_fretboard.html">plot_fretboard</a></span><span class="op">(</span><span class="va">string</span>, <span class="va">fret</span>, <span class="st">"notes"</span>, label_color <span class="op">=</span> <span class="st">"white"</span>, point_fill <span class="op">=</span> <span class="st">"dodgerblue"</span>,</span>
 <span>               fret_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span>, show_tuning <span class="op">=</span> <span class="cn">TRUE</span>, horizontal <span class="op">=</span> <span class="cn">TRUE</span>, left_handed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Horizontal and left-handed"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tabr-fretboard_files/figure-html/fb8-2.png" width="100%"></p>
+<p><img src="tabr-fretboard_files/figure-html/fb10-2.png" width="100%"></p>
 </div>
 <div class="section level2">
 <h2 id="chord-diagrams">Chord diagrams<a class="anchor" aria-label="anchor" href="#chord-diagrams"></a>
@@ -324,7 +338,7 @@ diagrams of specific chords. It is easier to use
 <code><a href="../reference/plot_fretboard.html">plot_chord()</a></code> for the latter. It is a wrapper around
 <code><a href="../reference/plot_fretboard.html">plot_fretboard()</a></code> that takes a string representing a single
 chord in the simple fret format shown here.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">idx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">fill</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"black"</span><span class="op">)</span><span class="op">[</span><span class="va">idx</span><span class="op">]</span></span>
 <span><span class="va">lab_col</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="st">"white"</span><span class="op">)</span><span class="op">[</span><span class="va">idx</span><span class="op">]</span></span>
@@ -337,15 +351,15 @@ same arguments as <code><a href="../reference/plot_fretboard.html">plot_fretboar
 <code>chord</code> instead of <code>string</code> and <code>fret</code>
 and it does not use <code>mute</code> because muted notes are indicated
 with an <code>x</code> inside <code>chord</code>.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_fretboard.html">plot_chord</a></span><span class="op">(</span><span class="st">"0231"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tabr-fretboard_files/figure-html/plot_chord2-1.png" width="100%"></p>
 <p>Frets are assumed to be single-digit when provided as above. When any
 two-digit fret value occurs, you must provide the fret values as space-
 or semicolon-delimited. The latter is like LilyPond format, but a
 trailing semicolon is ignored if present.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_fretboard.html">plot_chord</a></span><span class="op">(</span><span class="st">"10 12 13 11"</span>, fret_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">14</span><span class="op">)</span><span class="op">)</span> <span class="co"># same as "10;12;13;11"</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_fretboard.html">plot_chord</a></span><span class="op">(</span><span class="st">"10 12 13 11"</span>, fret_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">9</span>, <span class="fl">14</span><span class="op">)</span><span class="op">)</span> <span class="co"># same as "10;12;13;11"</span></span></code></pre></div>
 <p><img src="tabr-fretboard_files/figure-html/plot_chord3-1.png" width="100%"></p>
 <p>In an effort to leave some flexibility to the user, and while these
 plotting functions remain under development, plotting multiple chords as
@@ -354,7 +368,7 @@ basis. Here is an example using a little extra <code>ggplot2</code>,
 <code>purrr</code> and <code>gridExtra</code>. It also shows how you can
 tweak some layout settings to size and arrange elements nicely for your
 <code>Rmd</code> file.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://purrr.tidyverse.org/" class="external-link">purrr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span></span>

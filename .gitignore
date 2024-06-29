@@ -17,3 +17,5 @@ vignettes/*.html
 vignettes/*.mid
 vignettes/*.pdf
 README.html
+*_snaps*
+*RPlot*
