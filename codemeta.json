@@ -7,13 +7,13 @@
   "codeRepository": "https://github.com/leonawicz/tabr",
   "issueTracker": "https://github.com/leonawicz/tabr/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.4.9",
+  "version": "0.5.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.3.1 (2023-06-16 ucrt)",
+  "runtimePlatform": "R version 4.4.0 (2024-04-24 ucrt)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -229,5 +229,11 @@
     },
     "SystemRequirements": "LilyPond v2.22.1-2+ (needed for rendering sheet music or writing MIDI files)"
   },
-  "fileSize": "862.446KB"
+  "fileSize": "866.321KB",
+  "releaseNotes": "https://github.com/leonawicz/tabr/blob/master/NEWS.md",
+  "readme": "https://github.com/leonawicz/tabr/blob/master/README.md",
+  "contIntegration": ["https://github.com/leonawicz/tabr/actions/workflows/R-CMD-check.yaml", "https://app.codecov.io/gh/leonawicz/tabr?branch=master"],
+  "developmentStatus": "https://www.repostatus.org/",
+  "keywords": ["r-package", "music-analysis", "music-notation", "music-data", "music-transcription", "sheet-music", "guitar-tablature", "lilypond", "lilypond-api", "music-syntax", "music-programming"],
+  "relatedLink": "https://CRAN.R-project.org/package=tabr"
 }
