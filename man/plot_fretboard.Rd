@@ -19,6 +19,8 @@ plot_fretboard(
   horizontal = FALSE,
   left_handed = FALSE,
   fret_range = NULL,
+  fret_labels = NULL,
+  fret_offset = FALSE,
   accidentals = c("flat", "sharp"),
   tuning = "standard",
   show_tuning = FALSE,
@@ -38,6 +40,8 @@ plot_chord(
   horizontal = FALSE,
   left_handed = FALSE,
   fret_range = NULL,
+  fret_labels = NULL,
+  fret_offset = FALSE,
   accidentals = c("flat", "sharp"),
   tuning = "standard",
   show_tuning = FALSE,
@@ -51,9 +55,11 @@ string numbers.}
 
 \item{fret}{integer or as a space-delimited character string; fret numbers.}
 
-\item{labels}{character, optional text labels, must be one for every point.}
+\item{labels}{\code{NULL} or character, optional vector of text labels, must be
+one for every point; or just the special value \code{"notes"}.}
 
-\item{mute}{logical vector or specific integer indices, which notes to mute.}
+\item{mute}{logical vector or specific integer indices, which notes to mute.
+See details.}
 
 \item{label_size}{numeric, size of fretted note labels.}
 
@@ -74,13 +80,20 @@ string numbers.}
 \item{fret_range}{fret limits, if not \code{NULL}, overrides limits derived
 from \code{fret}.}
 
+\item{fret_labels}{integer, vector of fret number labels for fret axis. See
+details.}
+
+\item{fret_offset}{logical set to \code{TRUE} to shift the fret axis number labels
+(if present) from being directly next to the fret to being aligned with the
+circles behind the fret.}
+
 \item{accidentals}{character, when \code{labels = "notes"} represent accidentals:
 \code{"flat"} or \code{"sharp"}.}
 
 \item{tuning}{explicit tuning, e.g., \code{"e, a, d g b e'"}, or a pre-defined
 tuning. See details.}
 
-\item{show_tuning}{logical, show tuning of each string.}
+\item{show_tuning}{logical, show tuning of each string on string axis.}
 
 \item{asp}{numeric, aspect ratio, overrides default aspect ratio derived
 from number of strings and frets.}
@@ -96,37 +109,48 @@ a ggplot object
 Create a fretboard diagram for a single chord or a general progression.
 }
 \details{
-These functions are under development and subject to change. They each
-return a ggplot object.
+These functions are under development and subject to change. They each return
+a ggplot object.
 
 Use \code{plot_chord()} to create a fretboard diagram of a specific chord.
-\code{plot_chord()} accepts a character string in simple fretboard format,
-e.g., \code{chord = "xo221o"}.
-Zero is allowed in place of \code{"o"}. This only works when no spaces or
-semicolons are detected. The function checks for spaces first, then
-semicolons, to split fret numbers.
-Do not mix formats. For example, you can use \code{chord = "xo221o"},
-\code{chord = "x 8 10 10 9 8"} or \code{chord = "x;8;10;10;9;8"}.
-Trailing delimiters are ignored (LilyPond format: \code{"x;8;10;10;9;8;"}).
-If there are fewer fret values than there are strings on the instrument, as
-inferred from \code{tuning}, then muted strings, \code{x}, are inferred for
-the remaining lower-pitch strings.
+\code{plot_chord()} accepts a character string in simple fretboard format, e.g.,
+\code{chord = "xo221o"}. Zero is allowed in place of \code{"o"}. This only works when
+no spaces or semicolons are detected. The function checks for spaces first,
+then semicolons, to split fret numbers. Do not mix formats. For example, you
+can use \code{chord = "xo221o"}, \code{chord = "x 8 10 10 9 8"} or
+\code{chord = "x;8;10;10;9;8"}. Trailing delimiters are ignored (LilyPond format:
+\code{"x;8;10;10;9;8;"}). If there are fewer fret values than there are strings on
+the instrument, as inferred from \code{tuning}, then muted strings, \code{x}, are
+inferred for the remaining lower-pitch strings.
 
 \code{plot_fretboard()} produces a more general fretboard diagram plot. It is
 intended for scales, arpeggios and other patterns along the fretboard. For
 this function, provide vectors of string and fret numbers. \code{mute} is
-available but not as applicable for this function. For single chord diagrams,
-use \code{plot_chord()}.
+available but not as applicable for this function; it is a pass-through from
+\code{plot_chord()}. For single chord diagrams, use \code{plot_chord()}. The letter
+\code{"o"} is also allowed in \code{fret} for open strings and will display below the
+lowest fret plotted. The number \code{0} is treated with the intent of displaying
+the corresponding position on the instrument neck.
 
-Number of strings is derived from \code{tuning}. See \code{\link[=tunings]{tunings()}}
-for pre-defined tunings and examples of explicit tunings.
-\code{tuning} affects point labels when \code{labels = "notes"}.
+Number of strings is derived from \code{tuning}. See \code{\link[=tunings]{tunings()}} for pre-defined
+tunings and examples of explicit tunings. \code{tuning} affects point labels when
+\code{labels = "notes"}.
+
+Providing \code{fret_labels} overrides the default (minimal) fret numbering
+behavior for the fret axis. These are only intended to be integers. The
+vector of integers given is sorted and subset if needed to the range of frets
+that appear in the plot. See example.
 }
 \examples{
 # General patterns: scale shifting exercise
 string <- c(6, 6, 6, 5, 5, 5, 4, 4, 4, 4, 4, 3, 3, 3, 2, 2, 2, 1, 1, 1)
 fret <- "2 4 5 2 4 5 2 4 6 7 9 6 7 9 7 9 10 7 9 10" # string input accepted
-plot_fretboard(string, fret, labels = "notes")
+plot_fretboard(string, fret, labels = "notes", fret_offset = TRUE)
+plot_fretboard(string, fret, fret_labels = c(3, 5, 7, 9, 12), show_tuning = TRUE)
+
+# open and muted strings on shifted general fretboard layout
+# try to use plot_chord() if more suitable
+plot_fretboard("6 5 4 3", "o 9 10 12", mute = 2, show_tuning = TRUE)
 
 # Single chord diagrams
 # open chord
@@ -138,7 +162,8 @@ plot_chord("xo221o", "notes", label_color = lab_col, point_fill = fill)
 # moveable chord
 plot_chord("355433", horizontal = TRUE, show_tuning = TRUE)
 
-plot_chord("0231") # leading x inferred; same as plot_chord("xxo321")
-
-plot_chord("10 12 13 11", fret_range = c(10, 14))
+# leading x inferred; same as plot_chord("xxo321")
+plot_chord("o231", fret_labels = 3)
+plot_chord("10 12 13 11", show_tuning = TRUE)
+plot_chord("o x 10 12 13 11", fret_range = c(9, 14), fret_labels = c(9, 12))
 }
