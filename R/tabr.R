@@ -1,6 +1,9 @@
 globalVariables(c(".data", ":="))
 
-#' tabr: Music notation syntax, manipulation, analysis and transcription in R.
+#' @name tabr
+"_PACKAGE"
+
+#' tabr: Additional Detals
 #'
 #' The `tabr` package provides a music notation syntax and a collection of music
 #' programming functions for generating, manipulating, organizing and analyzing
@@ -46,9 +49,7 @@ globalVariables(c(".data", ":="))
 #' use the package for music analysis without installing LilyPond if you do not
 #' intend to render tabs.
 #'
-#' @docType package
-#' @name tabr
-#' @aliases tabr-package
+#' @name tabr-details
 NULL
 
 #' @importFrom tibble tibble

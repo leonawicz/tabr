@@ -2,52 +2,23 @@
 % Please edit documentation in R/tabr.R
 \docType{package}
 \name{tabr}
-\alias{tabr}
 \alias{tabr-package}
-\title{tabr: Music notation syntax, manipulation, analysis and transcription in R.}
+\alias{tabr}
+\title{tabr: Music Notation Syntax, Manipulation, Analysis and Transcription in R}
 \description{
-The \code{tabr} package provides a music notation syntax and a collection of music
-programming functions for generating, manipulating, organizing and analyzing
-musical information in R. The music notation framework facilitates creating
-and analyzing music data in notation form.
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
+Provides a music notation syntax and a collection of music programming functions for generating, manipulating, organizing, and analyzing musical information in R. Music syntax can be entered directly in character strings, for example to quickly transcribe short pieces of music. The package contains functions for directly performing various mathematical, logical and organizational operations and musical transformations on special object classes that facilitate working with music data and notation. The same music data can be organized in tidy data frames for a familiar and powerful approach to the analysis of large amounts of structured music data. Functions are available for mapping seamlessly between these formats and their representations of musical information. The package also provides an API to 'LilyPond' (\url{https://lilypond.org/}) for transcribing musical representations in R into tablature ("tabs") and sheet music. 'LilyPond' is open source music engraving software for generating high quality sheet music based on markup syntax. The package generates 'LilyPond' files from R code and can pass them to the 'LilyPond' command line interface to be rendered into sheet music PDF files or inserted into R markdown documents. The package offers nominal MIDI file output support in conjunction with rendering sheet music. The package can read MIDI files and attempts to structure the MIDI data to integrate as best as possible with the data structures and functionality found throughout the package.
 }
-\details{
-Music syntax can be entered directly in character strings, for example to
-quickly transcribe short pieces of music. The package contains functions for
-directly performing various mathematical, logical and organizational
-operations and musical transformations on special object classes that
-facilitate working with music data and notation. The same music data can be
-organized in tidy data frames for a familiar and powerful approach to the
-analysis of large amounts of structured music data. Functions are available
-for mapping seamlessly between these formats and their representations of
-musical information.
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/leonawicz/tabr}
+  \item Report bugs at \url{https://github.com/leonawicz/tabr/issues}
+}
 
-The package also provides an API to 'LilyPond' (\url{https://lilypond.org/}) for
-transcribing musical representations in R into tablature ("tabs") and sheet
-music. 'LilyPond' is open source music engraving software for generating high
-quality sheet music based on markup syntax. The package generates 'LilyPond'
-files from R code and can pass them to the 'LilyPond' command line interface
-to be rendered into sheet music PDF files or inserted into R markdown
-documents.
+}
+\author{
+\strong{Maintainer}: Matthew Leonawicz \email{rpkgs@pm.me} (\href{https://orcid.org/0000-0001-9452-2771}{ORCID})
 
-The package offers nominal MIDI file output support in conjunction with
-rendering sheet music. The package can read MIDI files and attempts to
-structure the MIDI data to integrate as best as possible with the data
-structures and functionality found throughout the package.
-
-\code{tabr} offers a useful but limited LilyPond API and is not intended to
-access all LilyPond functionality from R,
-nor is transcription via the API the entire scope of \code{tabr}.
-If you are only creating sheet music on a case by case basis, write your own
-LilyPond files manually.
-There is no need to use \code{tabr} or limit yourself to its existing
-LilyPond API.
-If you are generating music notation programmatically,
-\code{tabr} provides the ability to do so in R and has the added benefit of
-converting what you write in R code to the LilyPond file format to be
-rendered as printable guitar tablature.
-
-While LilyPond is listed as a system requirement for \code{tabr}, you can
-use the package for music analysis without installing LilyPond if you do not
-intend to render tabs.
 }

@@ -12,6 +12,7 @@ reference:
 - title: Package
   contents:
   - tabr
+  - tabr-details
 - title: Class methods
   desc: "S3 methods implemented for tabr classes"
   contents:

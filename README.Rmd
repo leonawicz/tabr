@@ -22,9 +22,9 @@ as_music("d2.;5 c8 d~ d a, c d g-;4 a- g f~ f2- d'8;3 f'4;2 c''8;1 a'2 a4;3 f;4"
 <!-- badges: start -->
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
 [![R-CMD-check](https://github.com/leonawicz/tabr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/leonawicz/tabr/actions/workflows/R-CMD-check.yaml)
-[![Codecov test coverage](https://codecov.io/gh/leonawicz/tabr/branch/master/graph/badge.svg)](https://app.codecov.io/gh/leonawicz/tabr?branch=master)
-[![CRAN status](http://www.r-pkg.org/badges/version/tabr)](https://cran.r-project.org/package=tabr)
-[![CRAN downloads](http://cranlogs.r-pkg.org/badges/grand-total/tabr)](https://cran.r-project.org/package=tabr) 
+[![Codecov test coverage](https://codecov.io/gh/leonawicz/tabr/graph/badge.svg)](https://app.codecov.io/gh/leonawicz/tabr)
+[![CRAN status](https://www.r-pkg.org/badges/version/tabr)](https://CRAN.R-project.org/package=tabr)
+[![CRAN downloads](https://cranlogs.r-pkg.org/badges/grand-total/tabr)](https://cran.r-project.org/package=tabr) 
 [![Github Stars](https://img.shields.io/github/stars/leonawicz/tabr.svg?style=social&label=Github)](https://github.com/leonawicz/tabr)
 <!-- badges: end -->
 
@@ -36,7 +36,7 @@ The music notation framework facilitates creating and analyzing music data in no
 
 ## Citation
 
-Matthew Leonawicz (`r substr(Sys.Date(), 1, 4)`). tabr: Music Notation Syntax, Manipulation, Analysis and Transcription in R. R package version 0.5.0. https://CRAN.R-project.org/package=tabr
+Matthew Leonawicz (`r substr(Sys.Date(), 1, 4)`). tabr: Music Notation Syntax, Manipulation, Analysis and Transcription in R. R package version 0.5.1. https://CRAN.R-project.org/package=tabr
 
 ## Contribute
 

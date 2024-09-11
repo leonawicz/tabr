@@ -12,11 +12,11 @@ state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
 [![R-CMD-check](https://github.com/leonawicz/tabr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/leonawicz/tabr/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
-coverage](https://codecov.io/gh/leonawicz/tabr/branch/master/graph/badge.svg)](https://app.codecov.io/gh/leonawicz/tabr?branch=master)
+coverage](https://codecov.io/gh/leonawicz/tabr/graph/badge.svg)](https://app.codecov.io/gh/leonawicz/tabr)
 [![CRAN
-status](http://www.r-pkg.org/badges/version/tabr)](https://cran.r-project.org/package=tabr)
+status](https://www.r-pkg.org/badges/version/tabr)](https://CRAN.R-project.org/package=tabr)
 [![CRAN
-downloads](http://cranlogs.r-pkg.org/badges/grand-total/tabr)](https://cran.r-project.org/package=tabr)
+downloads](https://cranlogs.r-pkg.org/badges/grand-total/tabr)](https://cran.r-project.org/package=tabr)
 [![Github
 Stars](https://img.shields.io/github/stars/leonawicz/tabr.svg?style=social&label=Github)](https://github.com/leonawicz/tabr)
 <!-- badges: end -->
@@ -34,7 +34,7 @@ language of a musician than, say, an audio engineer.
 ## Citation
 
 Matthew Leonawicz (2024). tabr: Music Notation Syntax, Manipulation,
-Analysis and Transcription in R. R package version 0.5.0.
+Analysis and Transcription in R. R package version 0.5.1.
 <https://CRAN.R-project.org/package=tabr>
 
 ## Contribute

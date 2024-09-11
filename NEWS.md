@@ -1,3 +1,7 @@
+# tabr 0.5.1
+
+* Minor updates.
+
 # tabr 0.5.0
 
 * Refactored and made improvements to `plot_fretboard()` and `plot_chord()` including the addition of `fret_labels` and `fret_offset` arguments.

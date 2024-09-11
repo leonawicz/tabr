@@ -1,342 +1,117 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://leonawicz.github.io/tabr/404.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/articles/tabr-basics.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/articles/tabr-chordchart.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/articles/tabr-chords.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/articles/tabr-engraving.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/articles/tabr-ex1.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/articles/tabr-ex2.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/articles/tabr-ex3.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/articles/tabr-ex4.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/articles/tabr-fretboard.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/articles/tabr-helpers.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/articles/tabr-phrases.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/articles/tabr-prog-chords.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/articles/tabr-prog-converters.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/articles/tabr-prog-music.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/articles/tabr-prog-noteinfo.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/articles/tabr-prog-notes.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/articles/tabr-prog-nw.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/articles/tabr-prog-scales.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/articles/tabr-repeats.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/articles/tabr-snippets.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/articles/tabr-tracks-scores.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/articles/tabr-tunings.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/index.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/append_phrases.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/articulations.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/as_music_df.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/chord-compare.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/chord-filter.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/chord-mapping.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/chords.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/chord_arpeggiate.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/chord_break.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/chord_def.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/chord_invert.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/chord_is_major.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/chord_set.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/double-bracket.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/dyad.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/freq_ratio.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/guitarChords.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/hp.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/intervals.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/interval_semitones.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/is_diatonic.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/keys.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/lilypond.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/lilypond_root.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/lp_chord_id.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/lyrics.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/mainIntervals.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/midily.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/miditab.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/mode-helpers.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/music-helpers.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/music.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/notate.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/note-checks.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/note-coerce.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/note-equivalence.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/note-logic.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/note-metadata.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/note-summaries.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/noteinfo.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/note_ngram.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/note_slice.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/n_measures.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/phrase-checks.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/phrase.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/pitch_freq.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/pitch_seq.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/plot_fretboard.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/plot_music.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/ratio_to_cents.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/read_midi.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/render_chordchart.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/render_music.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/repeats.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/rest.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/scale-deg.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/scale-helpers.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/scale_chords.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/score.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/sf_phrase.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/simplify_phrase.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/single-bracket.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/string_unfold.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/tab.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/tabr-c.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/tabr-head.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/tabr-length.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/tabr-methods.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/tabr-rep.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/tabr-rev.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/tabr.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/tabrSyntax.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/tabr_options.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/tie.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/to_tabr.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/track.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/trackbind.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/transpose.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/tunings.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/tuplet.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/valid-noteinfo.html</loc>
-  </url>
-  <url>
-    <loc>https://leonawicz.github.io/tabr/reference/valid-notes.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://leonawicz.github.io/tabr/404.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/articles/index.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/articles/tabr-basics.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/articles/tabr-chordchart.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/articles/tabr-chords.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/articles/tabr-engraving.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/articles/tabr-ex1.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/articles/tabr-ex2.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/articles/tabr-ex3.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/articles/tabr-ex4.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/articles/tabr-fretboard.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/articles/tabr-helpers.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/articles/tabr-phrases.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/articles/tabr-prog-chords.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/articles/tabr-prog-converters.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/articles/tabr-prog-music.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/articles/tabr-prog-noteinfo.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/articles/tabr-prog-notes.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/articles/tabr-prog-nw.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/articles/tabr-prog-scales.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/articles/tabr-repeats.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/articles/tabr-snippets.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/articles/tabr-tracks-scores.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/articles/tabr-tunings.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/authors.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/index.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/LICENSE-text.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/LICENSE.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/news/index.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/append_phrases.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/articulations.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/as_music_df.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/chord-compare.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/chord-filter.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/chord-mapping.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/chords.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/chord_arpeggiate.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/chord_break.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/chord_def.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/chord_invert.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/chord_is_major.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/chord_set.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/double-bracket.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/dyad.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/freq_ratio.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/guitarChords.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/hp.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/index.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/intervals.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/interval_semitones.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/is_diatonic.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/keys.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/lilypond.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/lilypond_root.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/lp_chord_id.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/lyrics.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/mainIntervals.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/midily.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/miditab.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/mode-helpers.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/music-helpers.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/music.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/notate.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/note-checks.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/note-coerce.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/note-equivalence.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/note-logic.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/note-metadata.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/note-summaries.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/noteinfo.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/note_ngram.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/note_slice.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/n_measures.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/phrase-checks.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/phrase.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/pitch_freq.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/pitch_seq.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/plot_fretboard.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/plot_music.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/ratio_to_cents.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/read_midi.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/render_chordchart.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/render_music.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/repeats.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/rest.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/scale-deg.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/scale-helpers.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/scale_chords.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/score.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/sf_phrase.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/simplify_phrase.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/single-bracket.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/string_unfold.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/tab.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/tabr-c.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/tabr-details.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/tabr-head.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/tabr-length.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/tabr-methods.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/tabr-rep.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/tabr-rev.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/tabr.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/tabrSyntax.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/tabr_options.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/tie.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/to_tabr.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/track.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/trackbind.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/transpose.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/tunings.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/tuplet.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/valid-noteinfo.html</loc></url>
+<url><loc>https://leonawicz.github.io/tabr/reference/valid-notes.html</loc></url>
 </urlset>
+
