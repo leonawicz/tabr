@@ -1,13 +1,13 @@
 ## Test environments
 
-* Local Windows 10 install: R 4.4.0
+* Local Windows 10 install: R 4.4.1
 * Win Builder: R-devel, R-release
 * Ubuntu latest: R-devel, R-release, R-oldrel
 * MacOS latest: R-release
 
 ## Update release
 
-* Improved functionality; updated tests and documentation.
+* Maintainer email address update.
 
 ## R CMD check results
 
