@@ -1,6 +1,6 @@
 Package: tabr
 Title: Music Notation Syntax, Manipulation, Analysis and Transcription in R
-Version: 0.5.1
+Version: 0.5.2
 Authors@R: person("Matthew", "Leonawicz", email = "rpkgs@pm.me", role = c("aut", "cre"), comment = c(ORCID = "0000-0001-9452-2771"))
 Description: Provides a music notation syntax and a collection of music
     programming functions for generating, manipulating, organizing, and analyzing
@@ -24,9 +24,9 @@ Description: Provides a music notation syntax and a collection of music
     structure the MIDI data to integrate as best as possible with the data
     structures and functionality found throughout the package.
 License: MIT + file LICENSE
-URL: https://github.com/leonawicz/tabr
+URL: https://github.com/leonawicz/tabr, https://leonawicz.github.io/tabr
 BugReports: https://github.com/leonawicz/tabr/issues
-Depends: R (>= 2.10)
+Depends: R (>= 4.1)
 Imports:
     crayon,
     dplyr,

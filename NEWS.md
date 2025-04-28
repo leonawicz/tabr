@@ -1,3 +1,8 @@
+# tabr 0.5.2
+
+* CRAN-required updates.
+* Update documentation.
+
 # tabr 0.5.1
 
 * Minor updates.

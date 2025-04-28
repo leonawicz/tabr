@@ -1,9 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# tabr <img src="man/figures/logo.png" style="margin-left:10px;margin-bottom:5px;" width="120" align="right">
-
-<img src="man/figures/README-banner-1.png" width="85%" id="tabr-readme-banner" />
+# tabr <img src="man/figures/logo.png" align="right" alt="" width="120" />
 
 <!-- badges: start -->
 
@@ -21,6 +19,8 @@ downloads](https://cranlogs.r-pkg.org/badges/grand-total/tabr)](https://cran.r-p
 Stars](https://img.shields.io/github/stars/leonawicz/tabr.svg?style=social&label=Github)](https://github.com/leonawicz/tabr)
 <!-- badges: end -->
 
+<img src="man/figures/README-banner-1.png" width="85%" id="tabr-readme-banner" />
+
 ## Overview
 
 The `tabr` package provides a music notation syntax and a collection of
@@ -33,8 +33,8 @@ language of a musician than, say, an audio engineer.
 
 ## Citation
 
-Matthew Leonawicz (2024). tabr: Music Notation Syntax, Manipulation,
-Analysis and Transcription in R. R package version 0.5.1.
+Matthew Leonawicz (2025). tabr: Music Notation Syntax, Manipulation,
+Analysis and Transcription in R. R package version 0.5.2.
 <https://CRAN.R-project.org/package=tabr>
 
 ## Contribute
@@ -624,7 +624,7 @@ There are several vignette tutorials and examples at the `tabr`
 
 <div>
 
-<h3 style="padding-top:50px;">
+<h3 style="padding-top:0px;">
 R-Music
 </h3>
 <h4 style="padding:0px;margin-top:5px;margin-bottom:5px;">

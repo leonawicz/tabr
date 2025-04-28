@@ -1,8 +1,10 @@
 url: https://leonawicz.github.io/tabr
 
 template:
-  params:
-    bootswatch: cosmo
+  bootstrap: 5
+  bslib:
+    bg: "#ffffff"
+    fg: "#000000"
 
 authors:
   Matthew Leonawicz:

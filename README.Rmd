@@ -12,12 +12,7 @@ knitr::opts_chunk$set(
 library(tabr)
 ```
 
-# tabr <img src="man/figures/logo.png" style="margin-left:10px;margin-bottom:5px;" width="120" align="right">
-
-```{r banner, echo=FALSE, fig.height=1.5, fig.width=10, out.width="85%", out.extra='id="tabr-readme-banner"'}
-as_music("d2.;5 c8 d~ d a, c d g-;4 a- g f~ f2- d'8;3 f'4;2 c''8;1 a'2 a4;3 f;4", tempo = NULL) |>
-  plot_music("treble_8")
-```
+# tabr <img src="man/figures/logo.png" align="right" alt="" width="120" />
 
 <!-- badges: start -->
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
@@ -28,6 +23,11 @@ as_music("d2.;5 c8 d~ d a, c d g-;4 a- g f~ f2- d'8;3 f'4;2 c''8;1 a'2 a4;3 f;4"
 [![Github Stars](https://img.shields.io/github/stars/leonawicz/tabr.svg?style=social&label=Github)](https://github.com/leonawicz/tabr)
 <!-- badges: end -->
 
+```{r banner, echo=FALSE, fig.height=1.5, fig.width=10, out.width="85%", out.extra='id="tabr-readme-banner"'}
+as_music("d2.;5 c8 d~ d a, c d g-;4 a- g f~ f2- d'8;3 f'4;2 c''8;1 a'2 a4;3 f;4", tempo = NULL) |>
+  plot_music("treble_8")
+```
+
 ## Overview
 
 The `tabr` package provides a music notation syntax and a collection of music programming functions for generating, manipulating, organizing and analyzing musical information in R. 
@@ -36,7 +36,7 @@ The music notation framework facilitates creating and analyzing music data in no
 
 ## Citation
 
-Matthew Leonawicz (`r substr(Sys.Date(), 1, 4)`). tabr: Music Notation Syntax, Manipulation, Analysis and Transcription in R. R package version 0.5.1. https://CRAN.R-project.org/package=tabr
+Matthew Leonawicz (`r substr(Sys.Date(), 1, 4)`). tabr: Music Notation Syntax, Manipulation, Analysis and Transcription in R. R package version 0.5.2. https://CRAN.R-project.org/package=tabr
 
 ## Contribute
 
@@ -325,7 +325,7 @@ There are several vignette tutorials and examples at the `tabr` [website](https:
 
 <img src="https://raw.githubusercontent.com/r-music/site/master/img/logo.png" style="float:left;margin-right:20px;" width="120">
 <div>
-<h3 style="padding-top:50px;">R-Music</h3>
+<h3 style="padding-top:0px;">R-Music</h3>
 <h4 style="padding:0px;margin-top:5px;margin-bottom:5px;">R for music data extraction and analysis</h4>
 See the <a href="https://github.com/r-music">R-Music</a> organization on GitHub for more R packages related to music data extraction and analysis.<br/>
 The R-Music <a href="https://r-music.rbind.io/">blog</a> provides package introductions and examples.
