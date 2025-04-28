@@ -1,6 +1,6 @@
 ## Test environments
 
-* Local Windows 10 install: R 4.4.5
+* Local Windows 11 install: R 4.5.0
 * Win Builder: R-devel, R-release
 * Ubuntu latest: R-devel, R-release, R-oldrel
 * MacOS latest: R-release
