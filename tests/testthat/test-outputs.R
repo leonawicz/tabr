@@ -236,3 +236,6 @@ test_that("render_chordchart runs without error", {
                               colors = list(color = "blue")), cl)
   unlink(cleanup)
 })
+
+cleanup <- list.files(tempdir(), "^(file|foo|lilypond|temp|tmp)", full.names = TRUE)
+unlink(cleanup, recursive = TRUE, force = TRUE)

@@ -7,7 +7,8 @@
 
 ## Update release
 
-* Maintainer email address update.
+* Fixed issues requested by CRAN.
+* Made best attempt to prevent "Found the following files/directories" NOTE that occurs on two Linux flavors during CRAN submission only. I cannot reproduce this elsewhere or reconfirm without CRAN re-submission. Please advise if still an issue.
 
 ## R CMD check results
 

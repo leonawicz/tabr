@@ -14,6 +14,7 @@ Provides a music notation syntax and a collection of music programming functions
 Useful links:
 \itemize{
   \item \url{https://github.com/leonawicz/tabr}
+  \item \url{https://leonawicz.github.io/tabr}
   \item Report bugs at \url{https://github.com/leonawicz/tabr/issues}
 }
 
