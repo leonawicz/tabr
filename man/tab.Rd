@@ -153,12 +153,14 @@ path variable. For example, if the file is at
 the system path.
 }
 \examples{
+\dontrun{
 if(tabr_options()$lilypond != ""){
   x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
   x <- track(x)
   x <- score(x)
   outfile <- file.path(tempdir(), "out.pdf")
   tab(x, outfile) # requires LilyPond installation
+}
 }
 }
 \seealso{

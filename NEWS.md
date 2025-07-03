@@ -1,3 +1,7 @@
+# tabr 0.5.3
+
+* Another attempt to fix opaque cruft that only occurs on a couple Linux flavors strictly on CRAN post-release that I cannot detect in any other environment.
+
 # tabr 0.5.2
 
 * CRAN-required updates.

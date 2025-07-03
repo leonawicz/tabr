@@ -69,12 +69,14 @@
 #' [miditab()]
 #'
 #' @examples
+#' \dontrun{
 #' if(tabr_options()$lilypond != ""){
 #'   x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
 #'   x <- track(x)
 #'   x <- score(x)
 #'   outfile <- file.path(tempdir(), "out.pdf")
 #'   tab(x, outfile) # requires LilyPond installation
+#' }
 #' }
 tab <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
                 header = NULL, paper = NULL, string_names = NULL, endbar = "|.",
@@ -201,6 +203,7 @@ render_midi <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60"){
 #' [tab()]
 #'
 #' @examples
+#' \dontrun{
 #' suppressPackageStartupMessages(library(dplyr))
 #'
 #' chords <- filter(
@@ -218,6 +221,7 @@ render_midi <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60"){
 #'     subtitle = "C and F root"
 #'   )
 #'   render_chordchart(chords, outfile, 2, hdr, list(textheight = 175))
+#' }
 #' }
 render_chordchart <- function(chords, file, size = 1.2, header = NULL,
                               paper = NULL, colors = NULL, crop_png = TRUE,

@@ -126,11 +126,13 @@
 #' [midily()]
 #'
 #' @examples
+#' \dontrun{
 #' x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
 #' x <- track(x)
 #' x <- score(x)
 #' outfile <- file.path(tempdir(), "out.ly")
-#' lilypond(x, outfile)
+#' lilypond(x, outfile, midi = FALSE)
+#' }
 lilypond <- function(score, file, key = "c", time = "4/4", tempo = "2 = 60",
                      header = NULL, paper = NULL, string_names = NULL,
                      endbar = "|.", midi = TRUE, colors = NULL,

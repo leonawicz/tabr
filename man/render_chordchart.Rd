@@ -82,6 +82,7 @@ rendered output. Use \code{size} to keep the output to one page or make
 multiple sheets separately.
 }
 \examples{
+\dontrun{
 suppressPackageStartupMessages(library(dplyr))
 
 chords <- filter(
@@ -99,6 +100,7 @@ if(tabr_options()$lilypond != ""){
     subtitle = "C and F root"
   )
   render_chordchart(chords, outfile, 2, hdr, list(textheight = 175))
+}
 }
 }
 \seealso{

@@ -188,6 +188,7 @@ miditab <- function(midi_file, file, keep_ly = FALSE, details = FALSE, ...){
 #' duration_to_ticks(c("t8", "8", "8.", "8.."))
 #' duration_to_ticks(c("t8 8 8. 8.."), ticks_per_qtr = 384)
 #'
+#' \dontrun{
 #' file <- system.file("example2.mid", package = "tabr")
 #' if(require("tuneR")){
 #'   x <- read_midi(file, ticks_per_qtr = 384)
@@ -204,6 +205,7 @@ miditab <- function(midi_file, file, keep_ly = FALSE, details = FALSE, ...){
 #'     out <- file.path(tempdir(), "out.pdf")
 #'     phrase(x) |> track_bc() |> score() |> tab(out, details = FALSE)
 #'   }
+#' }
 #' }
 read_midi <- function(file, ticks_per_qtr = 480){
   if(!requireNamespace("tuneR")){

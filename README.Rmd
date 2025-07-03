@@ -36,7 +36,7 @@ The music notation framework facilitates creating and analyzing music data in no
 
 ## Citation
 
-Matthew Leonawicz (`r substr(Sys.Date(), 1, 4)`). tabr: Music Notation Syntax, Manipulation, Analysis and Transcription in R. R package version 0.5.2. https://CRAN.R-project.org/package=tabr
+Matthew Leonawicz (`r substr(Sys.Date(), 1, 4)`). tabr: Music Notation Syntax, Manipulation, Analysis and Transcription in R. R package version 0.5.3. https://CRAN.R-project.org/package=tabr
 
 ## Contribute
 

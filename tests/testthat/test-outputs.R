@@ -83,6 +83,7 @@ test_that("track wrappers return as expected", {
 })
 
 test_that("lilypond wrapper runs without error", {
+  skip_on_cran()
   expect_is(lilypond(x1, out[1]), cl)
   expect_is(lilypond(x2, out[1]), cl)
   purrr::walk(x, ~expect_is(lilypond(.x, out[1]), cl))

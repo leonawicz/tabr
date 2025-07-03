@@ -34,7 +34,7 @@ language of a musician than, say, an audio engineer.
 ## Citation
 
 Matthew Leonawicz (2025). tabr: Music Notation Syntax, Manipulation,
-Analysis and Transcription in R. R package version 0.5.2.
+Analysis and Transcription in R. R package version 0.5.3.
 <https://CRAN.R-project.org/package=tabr>
 
 ## Contribute
@@ -595,6 +595,7 @@ p1 |> track() |> score() |>
 The pdf output looks like this:
 
 <p>
+
 <img src="https://github.com/leonawicz/tabr/blob/master/data-raw/vignette-pngs/ex00.png?raw=true" class="centerimg" width="50%">
 </p>
 
@@ -625,9 +626,12 @@ There are several vignette tutorials and examples at the `tabr`
 <div>
 
 <h3 style="padding-top:0px;">
+
 R-Music
 </h3>
+
 <h4 style="padding:0px;margin-top:5px;margin-bottom:5px;">
+
 R for music data extraction and analysis
 </h4>
 

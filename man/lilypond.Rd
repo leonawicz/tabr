@@ -169,11 +169,13 @@ There are currently some limitations. Specifically, if you provide any
 }
 
 \examples{
+\dontrun{
 x <- phrase("c ec'g' ec'g'", "4 4 2", "5 432 432")
 x <- track(x)
 x <- score(x)
 outfile <- file.path(tempdir(), "out.ly")
-lilypond(x, outfile)
+lilypond(x, outfile, midi = FALSE)
+}
 }
 \seealso{
 \code{\link[=tab]{tab()}}, \code{\link[=render_chordchart]{render_chordchart()}},
