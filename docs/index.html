@@ -29,7 +29,7 @@
 
     <a class="navbar-brand me-2" href="index.html">tabr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -103,7 +103,7 @@
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
-<p>Matthew Leonawicz (2025). tabr: Music Notation Syntax, Manipulation, Analysis and Transcription in R. R package version 0.5.3. <a href="https://CRAN.R-project.org/package=tabr" class="external-link uri">https://CRAN.R-project.org/package=tabr</a></p>
+<p>Matthew Leonawicz (2025). tabr: Music Notation Syntax, Manipulation, Analysis and Transcription in R. R package version 0.5.4. <a href="https://CRAN.R-project.org/package=tabr" class="external-link uri">https://CRAN.R-project.org/package=tabr</a></p>
 </div>
 <div class="section level2">
 <h2 id="contribute">Contribute<a class="anchor" aria-label="anchor" href="#contribute"></a>
@@ -372,7 +372,7 @@
 </h2>
 <p>Rendering sheet music is based on building up pieces of musical information culminating in a score. The fundamental object to consider in the transcription context is a phrase. A phrase is created from a noteworthy string and incorporates additional information, most importantly time and rhythm. It can also include positional information such as the instrument string on which a note is played. Outside of rendering tabs, there is no reason to construct phrase objects. Everything from the phrase object on up is about using the R to LilyPond pipeline to render some kind of sheet music document.</p>
 <p>If you are doing music analysis on noteworthy strings and are combining the note, pitch or chord information with time, that can be done with a corresponding variable; using a phrase object is not the way to do that because phrase objects are intended for the construction of LilyPond markup syntax.</p>
-<p>As a brief example, recreate the tablature shown in the image above (minus the R logo). Here are the steps.</p>
+<p>As a brief example, recreate the tablature shown in the image above. Here are the steps.</p>
 <ul>
 <li>Define a musical phrase with <code><a href="reference/phrase.html">phrase()</a></code> or the shorthand alias <code><a href="reference/phrase.html">p()</a></code>.</li>
 <li>Add the phrase to a <code><a href="reference/track.html">track()</a></code>.</li>
@@ -531,7 +531,7 @@ R for music data extraction and analysis
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer>
