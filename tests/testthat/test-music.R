@@ -21,8 +21,8 @@ test_that("music functions return as expected", {
   expect_equal(music_lyrics(x), NA)
   expect_equal(music_strings(x), NULL)
 
-  expect(n_steps(x), 11)
-  expect(n_steps(as.character(x)), 11)
+  expect_equal(n_steps(x), 11)
+  expect_equal(n_steps(as.character(x)), 11)
   expect_true(is_space_time(x))
   expect_false(is_vector_time(x))
   expect_equal(as_space_time(x), x)
