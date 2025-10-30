@@ -34,7 +34,7 @@ language of a musician than, say, an audio engineer.
 ## Citation
 
 Matthew Leonawicz (2025). tabr: Music Notation Syntax, Manipulation,
-Analysis and Transcription in R. R package version 0.5.3.
+Analysis and Transcription in R. R package version 0.5.4.
 <https://CRAN.R-project.org/package=tabr>
 
 ## Contribute
@@ -480,8 +480,8 @@ corresponding variable; using a phrase object is not the way to do that
 because phrase objects are intended for the construction of LilyPond
 markup syntax.
 
-As a brief example, recreate the tablature shown in the image above
-(minus the R logo). Here are the steps.
+As a brief example, recreate the tablature shown in the image above.
+Here are the steps.
 
 - Define a musical phrase with `phrase()` or the shorthand alias `p()`.
 - Add the phrase to a `track()`.

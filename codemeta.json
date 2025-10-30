@@ -8,13 +8,19 @@
   "codeRepository": "https://github.com/leonawicz/tabr",
   "issueTracker": "https://github.com/leonawicz/tabr/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.5.0 (2025-04-11 ucrt)",
+  "runtimePlatform": "R version 4.5.1 (2025-06-13 ucrt)",
+  "provider": {
+    "@id": "https://cran.r-project.org",
+    "@type": "Organization",
+    "name": "Comprehensive R Archive Network (CRAN)",
+    "url": "https://cran.r-project.org"
+  },
   "author": [
     {
       "@type": "Person",
@@ -224,5 +230,5 @@
     },
     "SystemRequirements": "LilyPond v2.22.1-2+ (needed for rendering sheet music or writing MIDI files)"
   },
-  "fileSize": "869.159KB"
+  "fileSize": "869.291KB"
 }

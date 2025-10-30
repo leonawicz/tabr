@@ -36,7 +36,7 @@ The music notation framework facilitates creating and analyzing music data in no
 
 ## Citation
 
-Matthew Leonawicz (`r substr(Sys.Date(), 1, 4)`). tabr: Music Notation Syntax, Manipulation, Analysis and Transcription in R. R package version 0.5.3. https://CRAN.R-project.org/package=tabr
+Matthew Leonawicz (`r substr(Sys.Date(), 1, 4)`). tabr: Music Notation Syntax, Manipulation, Analysis and Transcription in R. R package version 0.5.4. https://CRAN.R-project.org/package=tabr
 
 ## Contribute
 
@@ -235,7 +235,7 @@ Rendering sheet music is based on building up pieces of musical information culm
 
 If you are doing music analysis on noteworthy strings and are combining the note, pitch or chord information with time, that can be done with a corresponding variable; using a phrase object is not the way to do that because phrase objects are intended for the construction of LilyPond markup syntax.
 
-As a brief example, recreate the tablature shown in the image above (minus the R logo). Here are the steps.
+As a brief example, recreate the tablature shown in the image above. Here are the steps.
 
 *    Define a musical phrase with `phrase()` or the shorthand alias `p()`. 
 *    Add the phrase to a `track()`.

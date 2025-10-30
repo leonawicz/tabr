@@ -1,6 +1,6 @@
 Package: tabr
 Title: Music Notation Syntax, Manipulation, Analysis and Transcription in R
-Version: 0.5.3
+Version: 0.5.4
 Authors@R: person("Matthew", "Leonawicz", email = "rpkgs@pm.me", role = c("aut", "cre"), comment = c(ORCID = "0000-0001-9452-2771"))
 Description: Provides a music notation syntax and a collection of music
     programming functions for generating, manipulating, organizing, and analyzing
