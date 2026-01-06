@@ -33,8 +33,8 @@ language of a musician than, say, an audio engineer.
 
 ## Citation
 
-Matthew Leonawicz (2025). tabr: Music Notation Syntax, Manipulation,
-Analysis and Transcription in R. R package version 0.5.4.
+Matthew Leonawicz (2026). tabr: Music Notation Syntax, Manipulation,
+Analysis and Transcription in R. R package version 0.5.5.
 <https://CRAN.R-project.org/package=tabr>
 
 ## Contribute

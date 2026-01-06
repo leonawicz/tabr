@@ -7,7 +7,7 @@
 
 ## Re-released of archived package
 
-Updated unit tests to avoid upcoming breaking change in `testthat` package.
+Updated to avoid upcoming breaking change in `dplyr` package.
 
 ## R CMD check results
 

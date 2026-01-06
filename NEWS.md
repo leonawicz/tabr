@@ -1,3 +1,7 @@
+# tabr 0.5.5
+
+* Updated to avoid upcoming breaking change in latest `dplyr` package release.
+
 # tabr 0.5.4
 
 * Updated unit tests to avoid upcoming breaking change in latest `testthat` package release.

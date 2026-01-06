@@ -8,7 +8,7 @@
   "codeRepository": "https://github.com/leonawicz/tabr",
   "issueTracker": "https://github.com/leonawicz/tabr/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -230,5 +230,5 @@
     },
     "SystemRequirements": "LilyPond v2.22.1-2+ (needed for rendering sheet music or writing MIDI files)"
   },
-  "fileSize": "869.291KB"
+  "fileSize": "869.385KB"
 }
