@@ -112,7 +112,7 @@ test_that("notable returns as expected", {
 
 test_that("notification works as expected", {
   d <- do.call(rbind, lapply(x, notify))
-  expect_is(d, "tbl_df")
+  expect_s3_class(d, "tbl_df")
   expect_equal(dim(d), c(21, 3))
   expect_true(all(is.na(d$string[1:6])))
 

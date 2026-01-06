@@ -5,7 +5,7 @@ test_that("chord mapping returns as expected", {
   expect_equal(gc_name_mod("a aM b_,m7#5"), c("M", "M", "m7#5"))
 
   d <- gc_info("a", ignore_octave = FALSE)
-  expect_is(d, "tbl_df")
+  expect_s3_class(d, "tbl_df")
   expect_equal(dim(d), c(3, 12))
   d <- gc_info("ceg a#m7_5", key = "g")
   expect_true(all(d$lp_name %in% c("a#:m7_5", "a#,:m7_5")))
