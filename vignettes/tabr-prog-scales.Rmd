@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 )
 library(tabr)
 library(dplyr)
-mainIntervals <- tbl_df(mainIntervals)
+mainIntervals <- as_tibble(mainIntervals)
 ```
 
 Programming with musical scales can be assisted by a collection of functions in `tabr` that check and manipulate musical scales, modes and key signatures.
